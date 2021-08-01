@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.kayleh.top/"/>
-  <updated>2021-07-12T16:16:11.181Z</updated>
+  <updated>2021-08-01T15:21:45.688Z</updated>
   <id>https://blog.kayleh.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Head first Spring</title>
+    <link href="https://blog.kayleh.top/null/"/>
+    <id>https://blog.kayleh.top/null/</id>
+    <published>2021-08-01T15:18:53.000Z</published>
+    <updated>2021-08-01T15:21:45.688Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Spring&quot;&gt;&lt;a href=&quot;#Spring&quot; class=&quot;headerlink&quot; title=&quot;Spring&quot;&gt;&lt;/a&gt;Spring&lt;/h1&gt;&lt;h2 id=&quot;BeanDefinition&quot;&gt;&lt;a href=&quot;#BeanDefinition&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>head first JVM(4)</title>
@@ -482,32 +505,6 @@
     
     
       <category term="middleware" scheme="https://blog.kayleh.top/tags/middleware/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Web Test Combat</title>
-    <link href="https://blog.kayleh.top/undefined/"/>
-    <id>https://blog.kayleh.top/undefined/</id>
-    <published>2021-04-13T08:50:01.000Z</published>
-    <updated>2021-04-14T11:05:35.806Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;Web测试要点&quot;&gt;&lt;a href=&quot;#Web测试要点&quot; class=&quot;headerlink&quot; title=&quot;Web测试要点&quot;&gt;&lt;/a&gt;Web测试要点&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;功能测试 
-        
-      
-    
-    </summary>
-    
-    
-    
-      <category term="test" scheme="https://blog.kayleh.top/tags/test/"/>
     
   </entry>
   
