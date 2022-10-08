@@ -1,0 +1,956 @@
+<!DOCTYPE html><html lang="zh-CN"><head hexo-theme="https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.3"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin=""><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>布隆过滤器的理论基础及Redisson实现 - Kayleh</title><meta name="keywords" content="sql"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-config" content="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/browserconfig.xml"><meta name="theme-color" content="#ffffff"><meta name="google-site-verification" content="LQn0xwjfEU_V6CXCA0qAdwM4qRXtblIbfy5KuzEKaRg"><link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon-16x16.png"><link rel="manifest" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/site.webmanifest"><link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/safari-pinned-tab.svg" color="#5bbad5"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon.ico"><noscript></noscript><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><header id="l_header" class="l_header always shadow blur"><div class="container"><div id="wrapper"><div class="nav-sub"><p class="title"></p><ul class="switcher nav-list-h m-phone" id="pjax-header-nav-list"><li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href="javascript:void(0)"></a></li><li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href="javascript:void(0)"></a></li></ul></div><div class="nav-main"><a class="title flat-box" target="_self" href="/"><i class="https://fastly.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"></i> Kayleh</a><div class="menu navigation"><ul class="nav-list-h m-pc"><li><a class="menuitem flat-box faa-parent animated-hover" href="/" id="home"><i class="fas fa-rss fa-fw"></i>首页</a></li><li><a class="menuitem flat-box faa-parent animated-hover" href="/archives/" id="archives"><i class="fas fa-archive fa-fw"></i>归档</a></li><li><a class="menuitem flat-box faa-parent animated-hover"><i class="fa-solid fa-ellipsis-v fa-fw"></i>电子书</a><ul class="list-v"><li><a class="menuitem flat-box faa-parent animated-hover" href="https://c.kayleh.top/" id="https:ckaylehtop">C语言</a></li><li><a class="menuitem flat-box faa-parent animated-hover" href="https://c.kayleh.top/" id="https:ckaylehtop">数据结构与算法(ing)</a></li></ul></li></ul></div><div class="m_search"><form name="searchform" class="form u-search-form"><i class="icon fas fa-search fa-fw"></i> <input type="text" class="input u-search-input" placeholder="Search..."></form></div><ul class="switcher nav-list-h m-phone"><li><a class="s-search fas fa-search fa-fw" target="_self" href="javascript:void(0)"></a></li><li><a class="s-menu fas fa-bars fa-fw" target="_self" href="javascript:void(0)"></a><ul class="menu-phone list-v navigation white-box"><li><a class="menuitem flat-box faa-parent animated-hover" href="/" id="home"><i class="fas fa-rss fa-fw"></i>首页</a></li><li><a class="menuitem flat-box faa-parent animated-hover" href="/archives/" id="archives"><i class="fas fa-archive fa-fw"></i>归档</a></li><li><a class="menuitem flat-box faa-parent animated-hover"><i class="fa-solid fa-ellipsis-v fa-fw"></i>电子书</a><ul class="list-v"><li><a class="menuitem flat-box faa-parent animated-hover" href="https://c.kayleh.top/" id="https:ckaylehtop">C语言</a></li><li><a class="menuitem flat-box faa-parent animated-hover" href="https://c.kayleh.top/" id="https:ckaylehtop">数据结构与算法(ing)</a></li></ul></li></ul></li></ul></div></div></div></header><div id="l_body"><div id="l_cover"><div id="half" class="cover-wrapper post search"><div id="cover-backstretch"></div><div class="cover-body"><div class="top"><img no-lazy="" class="logo" src="https://fastly.jsdelivr.net/gh/kayleh/cdn/logo/logo4.png"><p class="subtitle">"最怕一生碌碌无为,还安慰自己平凡可贵"</p></div><div class="bottom"><div class="m_search"><form name="searchform" class="form u-search-form"><input type="text" class="input u-search-input" placeholder="搜索文章..."> <i class="icon fas fa-search fa-fw"></i></form></div><div class="menu navigation"><div class="list-h"><a href="/" id="home"><p>博客</p></a><a href="/archives/" id="archives"><p>所有</p></a><a href="/friends/" id="friends"><p>友人帐</p></a><a href="mailto:kayleh@foxmail.com" id="mailto:kayleh@foxmailcom"><p>联系</p></a></div></div></div></div><div id="scroll-down" style="display:none"><i class="fa fa-chevron-down scroll-down-effects"></i></div></div></div><div id="safearea"><div class="body-wrapper" id="pjax-container"><div class="l_main"><article class="article post white-box reveal md shadow article-type-post" id="post" itemscope="" itemprop="blogPost"><div class="article-meta" id="top"><h1 class="title">布隆过滤器的理论基础及Redisson实现</h1><div class="new-meta-box"><div class="new-meta-item author"><a class="author" href="/" rel="nofollow"><img no-lazy="" src="https://fastly.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><p>Kayleh</p></a></div><div class="new-meta-item date"><a class="notlink"><i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i><p>发布于：2021年9月26日</p></a></div></div></div><p>如果想要判断一个元素是不是在一个集合里，一般想到的是将所有元素保存起来，然后通过比较确定。<code>链表</code>，树等等数据结构都是这种思路. 但是随着集合中元素的增加，我们需要的存储空间越来越大，检索速度也越来越慢(O(n),O(logn))。不过世界上还有一种叫作散列表（又叫<code>哈希表</code>，Hash table）的数据结构。它可以通过一个<code>Hash函数</code>将一个元素映射成一个位阵列（Bit array）中的一个点。这样一来，我们只要看看这个点是不是1就可以知道集合中有没有它了。这就是布隆过滤器的基本思想。</p><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Hash/390310">Hash</a>面临的问题就是冲突。假设Hash函数是良好的，如果我们的位阵列长度为m个点，那么如果我们想将冲突率降低到例如 1%, 这个散列表就只能容纳m / 100个元素。显然这就不叫空间效率了（Space-efficient）了。解决方法也简单，就是使用多个Hash，如果它们有一个说元素不在集合中，那肯定就不在。如果它们都说在，虽然也有一定可能性它们在说谎，不过直觉上判断这种事情的<code>概率</code>是比较低的。</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/布隆过滤器的理论基础/1217384-20190612174853403-1591242748.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/布隆过滤器的理论基础/1217384-20190612174853403-1591242748.png" srcset="data:image/png;base64,666" alt="img"></div><span class="image-caption">img</span></div><pre><code class="lang-java">import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+
+public class BloomFilter {
+    private static final int DEFAULT_SIZE = 2 &lt;&lt; 24;
+    private static final int[] seeds = new int[] { 5, 7, 11, 13, 31, 37, 61 };
+    private BitSet bits = new BitSet(DEFAULT_SIZE);
+    private SimpleHash[] func = new SimpleHash[seeds.length];
+
+    public BloomFilter() {
+        for (int i = 0; i &lt; seeds.length; i++) {
+            func[i] = new SimpleHash(DEFAULT_SIZE, seeds[i]);
+        }
+    }
+
+    public void add(String value) {
+        for (SimpleHash f : func) {
+            bits.set(f.hash(value), true);
+        }
+    }
+
+    public boolean contains(String value) {
+        if (value == null) {
+            return false;
+        }
+        boolean ret = true;
+        for (SimpleHash f : func) {
+            ret = ret &amp;&amp; bits.get(f.hash(value));
+        }
+        return ret;
+    }
+
+    // 内部类，simpleHash
+    public static class SimpleHash {
+        private int cap;
+        private int seed;
+
+        public SimpleHash(int cap, int seed) {
+            this.cap = cap;
+            this.seed = seed;
+        }
+
+        public int hash(String value) {
+            int result = 0;
+            int len = value.length();
+            for (int i = 0; i &lt; len; i++) {
+                result = seed * result + value.charAt(i);
+            }
+            return (cap - 1) &amp; result;
+        }
+    }
+
+    public static void main(String[] args) {
+        BloomFilter bf = new BloomFilter();
+        List&lt;String&gt; strs = new ArrayList&lt;String&gt;();
+        strs.add("123456");
+        strs.add("hello word");
+        strs.add("transDocId");
+        strs.add("123456");
+        strs.add("transDocId");
+        strs.add("hello word");
+        strs.add("test");
+        for (int i=0;i&lt;strs.size();i++) {
+            String s = strs.get(i);
+            boolean bl = bf.contains(s);
+            if(bl){
+                System.out.println(i+","+s);
+            }else{
+                bf.add(s);
+            }
+        }
+    }
+
+}
+</code></pre><h4 id="布隆过滤器的应用"><a href="#布隆过滤器的应用" class="headerlink" title="布隆过滤器的应用"></a>布隆过滤器的应用</h4><h5 id="黑名单校验"><a href="#黑名单校验" class="headerlink" title="黑名单校验"></a>黑名单校验</h5><p>发现存在黑名单中的，就执行特定操作。比如：识别垃圾邮件，只要是邮箱在黑名单中的邮件，就识别为垃圾邮件。假设黑名单的数量是数以亿计的，存放起来就是非常耗费存储空间的，布隆过滤器则是一个较好的解决方案。把所有黑名单都放在布隆过滤器中，再收到邮件时，判断邮件地址是否在布隆过滤器中即可。</p><h5 id="解决缓存穿透的问题"><a href="#解决缓存穿透的问题" class="headerlink" title="解决缓存穿透的问题"></a>解决缓存穿透的问题</h5><p>一般情况下，先查询缓存是否有该条数据，缓存中没有时，再查询数据库。当数据库也不存在该条数据时，每次查询都要访问数据库，这就是缓存穿透。缓存穿透带来的问题是，当有大量请求查询数据库不存在的数据时，就会给数据库带来压力，甚至会拖垮数据库。</p><p>可以使用布隆过滤器解决缓存穿透的问题，把已存在数据的key存在布隆过滤器中。当有新的请求时，先到布隆过滤器中查询是否存在，如果不存在该条数据直接返回；如果存在该条数据再查询缓存查询数据库。</p><h4 id="Redisson实现布隆过滤器在亿级流量系统的应用"><a href="#Redisson实现布隆过滤器在亿级流量系统的应用" class="headerlink" title="Redisson实现布隆过滤器在亿级流量系统的应用"></a>Redisson实现布隆过滤器在亿级流量系统的应用</h4><p><strong>场景：</strong>正常redis有1000条缓存数据，忽然遭到爬虫/流量攻击攻击，大量不存在的于redis的数据批量查询，<br>由于redis不存在这些数据，会到数据库进行查询。由于数据库对于瞬时高并发访问的承载能力弱，所以可能<br>对数据库造成影响，甚至崩溃。<br>绕过redis服务器进入数据库查询的方式叫做缓存穿透。</p><h5 id="缓存穿透攻击："><a href="#缓存穿透攻击：" class="headerlink" title="缓存穿透攻击："></a>缓存穿透攻击：</h5><p>指恶意用户在短时间内大量查询不存在的数据，导致大量请求在被送达数据库进行查询，<br>当请求数量超过数据库负载上限时，使系统响应出现高延迟甚至瘫痪的行为。</p><h5 id="如何预防缓存穿透？布隆过滤器。"><a href="#如何预防缓存穿透？布隆过滤器。" class="headerlink" title="如何预防缓存穿透？布隆过滤器。"></a>如何预防缓存穿透？布隆过滤器。</h5><p>布隆过滤器：由一个很长的二进制向量和一系列随机映射函数组成，可以用于检索一个元素是否在一个集合中。<br>特点：<br>1.一定的误识别率（即某一元素存在于某集合中，但是实际上该元素并不在集合中）<br>2.但是没有识别错误的情形（即如果某个元素确实没有在该集合中，那么Bloom Filter 是不会报告该元素存在于集合中的，所以不会漏报）。<br>也就是：我说你不在你就一定不在，我说在，可能不在。<br>3.删除困难</p><p>了解hash:<br>Hash （散列函数）：是把任意长度的输入通过散列算法变换成固定长度的输出，该输出就是散列值。<br>由于这种转换，可能存在 不同的输入可能会散列成相同的输出。<br>Hash算法可以将一个数据转换为一个标志，这个标志，就是视频说的hash，hash后若不存在，就由0变为1。存在，不变。</p><p>视频hash1（858），hash2（858），hash3（858）的原理是：<br>Hash面临的问题就是冲突。假设 Hash 函数是良好的，如果我们的位阵列长度为 m 个点，那么如果我们想将冲突率降低到例如 1%, 这个散列表就只能容纳 m/100 个元素。显然这就不叫空间有效了（Space-efficient）。<br>解决方法也简单，就是使用多个 Hash，如果它们有一个说元素不在集合中，那肯定就不在。如果它们都说在，虽然也有一定可能性它们在说谎，不过直觉上判断这种事情的概率是比较低的。<br>（我搬运的，前半句我看不懂，只看懂后半句，理解就是：hash有冲突的可能，多个hash减少冲突率。原来1个说在，但可能不在。若2个，1个说在，另一个说不在，就肯定不在）</p><h5 id="减少误判的措施："><a href="#减少误判的措施：" class="headerlink" title="减少误判的措施："></a>减少误判的措施：</h5><p>1.增加二进制数组位数。<br>2.增加Hash次数。</p><p>开发中如何使用？<br>redisson组件内置布隆过滤器，导入直接使用。</p><p>项目中如何使用：<br>应用启动时初始化布隆过滤器（将商品在布隆过滤器中先从0转换成1）<br>用户请求时判断布隆过滤器是否有编号，若布隆过滤器有，读取redis，若redis没有，则读取数据库，载入redis缓存。<br>若布隆过滤器没有，返回数据不存在消息。</p><p>假如布隆过滤器初始化后，有商品被删除了， 怎么办？<br>布隆过滤器某一位二进制可能被多个编号hash引用（看hash的特点：不同的输入可能会散列成相同的输出）<br>所以，不能直接处理删除布隆过滤器的数据。<br>解决方案：<br>1.定时异步重建布隆过滤器<br>2.计数BloomFilter（可以知道该位被几个引用）</p><p>我一开始觉得，删就删了呗，管他干嘛，但是不管他，冲突率会高，处理后，这个数据就不会再引起冲突。<br>即：A商品被删后，当你查询A商品时，布隆过滤器说他在（布隆过滤器特点：我说你不在你就一定不在，我说在，可能不在），那我就要去redis查，但实际数据库查不到这个A商品，redis也没有。<br>这就存在冲突了。如果处理之后，布隆过滤器说不在就不在。</p><h4 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h4><p>1.引入maven依赖</p><pre><code class="lang-xml">        &lt;dependency&gt;
+            &lt;groupId&gt;org.redisson&lt;/groupId&gt;
+            &lt;artifactId&gt;redisson&lt;/artifactId&gt;
+            &lt;version&gt;3.13.1&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre><p>2、关于redis的配置</p><p>redis配置：</p><pre><code class="lang-properties">
+#客户端超时时间单位是毫秒 默认是2000
+redis.timeout=10000
+#最大空闲数
+redis.maxIdle=300
+#连接池的最大数据库连接数。设为0表示无限制,如果是jedis 2.4以后用redis.maxTotal
+#redis.maxActive=600
+#控制一个pool可分配多少个jedis实例,用来替换上面的redis.maxActive,如果是jedis 2.4以后用该属性
+redis.maxTotal=2000
+#最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+redis.maxWaitMillis=1000
+
+redis.nodes=192.168.25.128:7000,192.168.25.128:7001,192.168.25.128:7002,192.168.25.128:7003,192.168.25.128:7004,192.168.25.128:7005,192.168.25.128:7006,192.168.25.128:7007
+</code></pre><p>3、配置文件的书写</p><pre><code class="lang-java">@Configuration
+@PropertySource("classpath:conf/redis.properties")
+public class RedisConfig {
+
+    @Value("${redis.nodes}")
+    private String clusterNodes;
+
+    @Bean
+    public RedissonClient getBloomFilter(){
+        Config config = new Config();
+        ClusterServersConfig clusterServersConfig = config.useClusterServers();
+        String[] cNodes = clusterNodes.split(",");
+        //分割出集群节点
+        for (String node : cNodes) {
+            clusterServersConfig.addNodeAddress("redis://" + node);
+
+        }
+        return Redisson.create(config);
+    }
+}
+</code></pre><p>4、service的的代码</p><pre><code class="lang-java">public interface RedissonBloomFilterService {
+    /**
+     * 初始化一个布隆过滤器
+     *
+     * @param key        key
+     * @param expireDate 过期时间长度
+     * @param timeUnit   过期时间单位
+     * @return 是否创建成功
+     */
+    boolean initNewFilter(String key, Long expireDate, TimeUnit timeUnit, long expectedInsertions, double falseProbability);
+
+    /**
+     * 添加value到今天布隆过滤器
+     * @param key  key
+     * @param value  需要添加到过滤器的值
+     * @return  是否添加成功
+     */
+    boolean add(final String key, final String value);
+
+    /**
+     * 添加value到今天布隆过滤器
+     * @param key  key
+     * @param list  需要添加到过滤器的值
+     * @return  是否添加成功
+     */
+    boolean add(final String key, final List&lt;String&gt; list);
+
+    /**
+     * 判断对应key是否有value值
+     * @param key  key
+     * @param value 对应key的value值
+     * @return 应key是否有value值
+     */
+    boolean containsValue(final String key, final String value);
+
+    /**
+     * 查看是否存在key值
+     * @param key  key
+     * @return 是否有key值
+     */
+    boolean containKey(final String key);
+}
+</code></pre><p>实现类：</p><pre><code class="lang-java">@Slf4j
+@Service
+public class RedissonBloomServiceImpl implements RedissonBloomFilterService {
+
+    public static String prefix = "redission_bf_";
+
+
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private static final int TIME_FORMAT_LENGTH = 8;
+
+    @Resource
+    private RedissonClient redissonClient;
+    /**
+     * 1、第一层的key为传入key值
+     * 2、第二次key为  prefix + key+20200718
+     */
+    private Map&lt;String, ConcurrentHashMap&lt;String, RBloomFilter&gt;&gt; bloomFilterMap = new ConcurrentHashMap&lt;&gt;();
+
+    @Override
+    public synchronized boolean initNewFilter(String key, Long expireDate, TimeUnit timeUnit, long expectedInsertions, double falseProbability) {
+
+        String timeFormatter = formatter.format(LocalDateTime.now());
+        RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(prefix + timeFormatter + key);
+        //初始化布隆过滤器
+        boolean isSuccess = bloomFilter.tryInit(expectedInsertions, falseProbability);
+
+        if (isSuccess) {
+            //设置过期时间
+            bloomFilter.expire(expireDate, timeUnit);
+
+            //设置过期监听器
+            bloomFilter.addListener(new ExpiredObjectListener() {
+                @Override
+                public void onExpired(String key) {
+                    log.info("onExpired callback running key is {}", key);
+                    if (key.startsWith(prefix)) {
+                        String firstKey = key.substring(prefix.length() + TIME_FORMAT_LENGTH);
+                        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(firstKey);
+                        if (Objects.isNull(map)) {
+                            log.warn("listener callback key is empty key is {}", key);
+                            return;
+                        }
+                        map.remove(key);
+                    }
+                }
+            });
+            ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.computeIfAbsent(key, (k) -&gt; {
+                return new ConcurrentHashMap&lt;String, RBloomFilter&gt;(4);
+            });
+            map.put(prefix + timeFormatter + key, bloomFilter);
+            isSuccess = true;
+        }else {
+            log.error("initNewFilter fail key is {}", key);
+        }
+        return isSuccess;
+    }
+
+    @Override
+    public boolean add(String key, String value) {
+        String timeFormatter = formatter.format(LocalDateTime.now());
+        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);
+        if (Objects.isNull(map)) {
+            log.error("add name key one value is null, name is {},value is {}", key, value);
+            return false;
+        }
+        RBloomFilter rBloomFilter = map.get(prefix + timeFormatter + key);
+        if (Objects.isNull(rBloomFilter)) {
+            log.error("add name key one value is null, name is {},redis key is {},value is {}", key, prefix + timeFormatter + key, value);
+            return false;
+        }
+        return rBloomFilter.add(value);
+    }
+
+    @Override
+    public boolean add(String key, List&lt;String&gt; list) {
+        String timeFormatter = formatter.format(LocalDateTime.now());
+        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);
+        if (Objects.isNull(map)) {
+            log.error("add name key list value is null, name is {}", key);
+            return false;
+        }
+        RBloomFilter rBloomFilter = map.get(prefix + timeFormatter + key);
+        if (Objects.isNull(rBloomFilter)) {
+            log.error("add name key list value is null, name is {},redis key is {}", key,prefix + timeFormatter + key);
+            return false;
+        }
+        list.forEach(value -&gt; rBloomFilter.add(value));
+        return true;
+    }
+
+    @Override
+    public boolean containsValue(String key, String value) {
+        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);
+        if (Objects.isNull(map)) {
+            log.error("containsValue key is exist, key is {}", key);
+            return false;
+        }
+        for (Map.Entry&lt;String, RBloomFilter&gt; entry : map.entrySet()) {
+            if (entry.getValue().contains(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean containKey(String key) {
+        return bloomFilterMap.containsKey(key);
+    }
+}
+</code></pre><p>测试类：</p><pre><code class="lang-java"> @Test
+    public void testRedissonBloom() throws InterruptedException {
+        //创建过滤器
+        redissonBloomFilterService.initNewFilter("bloomkey1", 60L, SECONDS, 50, 0.1);
+        redissonBloomFilterService.initNewFilter("bloomkey2", 60L, SECONDS, 50, 0.1);
+
+        for (int i = 0; i &lt; 50; i++) {
+            redissonBloomFilterService.add("bloomkey1", "" + i);
+            if (i &gt; 30) {
+                redissonBloomFilterService.add("bloomkey2", "" + i);
+            }
+        }
+        int j1 = 0;
+        int j2 = 0;
+        for (int i = 0; i &lt; 100; i++) {
+            boolean exists = redissonBloomFilterService.containsValue("bloomkey1", "" + i);
+            if (exists) {
+                System.out.println("bloomkey1有误判" + (++j1) + "i是" + i);
+            }
+            boolean exists2 = redissonBloomFilterService.containsValue("bloomkey2", "" + i);
+            if (exists2) {
+                System.out.println("bloomkey2" +
+                        "有误判" + (++j2) + "i是" + i);
+            }
+        }
+
+        CountDownLatch beginCount = new CountDownLatch(1);
+        beginCount.await();
+    }
+</code></pre><div class="footer"><div class="copyright"><blockquote><p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p><p>本文永久链接是：<a href="https://blog.kayleh.top/Bloom-Filter/">https://blog.kayleh.top/Bloom-Filter/</a></p></blockquote></div></div><div class="article-meta" id="bottom"><div class="new-meta-box"><div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-09-29T13:49:52+08:00"><a class="notlink"><i class="fas fa-edit fa-fw" aria-hidden="true"></i><p>更新于：2021年9月29日</p></a></div><div class="new-meta-item meta-tags"><a class="tag" href="/tags/sql/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>sql</p></a></div><div class="new-meta-item share -mob-share-list"><div class="-mob-share-list share-body"><a class="-mob-share-qq" rel="external nofollow noopener noreferrer noopener" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.kayleh.top/Bloom-Filter/&amp;title=布隆过滤器的理论基础及Redisson实现 - Kayleh&amp;summary="><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666"> </a><a class="-mob-share-qzone" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://blog.kayleh.top/Bloom-Filter/&amp;title=布隆过滤器的理论基础及Redisson实现 - Kayleh&amp;summary="><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666"> </a><a class="-mob-share-weibo" rel="external nofollow noopener noreferrer noopener" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.kayleh.top/Bloom-Filter/&amp;title=布隆过滤器的理论基础及Redisson实现 - Kayleh&amp;summary="><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666"></a><div class="hoverbox"><a class="share"><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" srcset="data:image/png;base64,666"></a><div class="target"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAAAAACi5bZQAAADC0lEQVR42u3aUXIiMQwEUO5/6eQAu9SoJZMaDc9/IWA8j5+ull8/1n/XCwEYMGDAgAGzBubVXP9sGL7/7cGK+3TPcbkvGDBgwIABA2YdTHrwqwOlAN39q5+vPg8YMGDAgAEDZi9MGqymIFef6wK2nwcMGDBgwIAB83UwaSDsvr9amIEBAwYMGDBgwKQBr/r/dJDXfR0MGDBgwIAB8z0w8YBqWCRNB2e3nUSCAQMGDBgwYP4MphvE7vp3+3nAgAEDBgwYMGtgpqt7Eaga+NIfZvw8YMCAAQMGDJg1MN2A9OkCKx3gTc8PBgwYMGDAgNkLM71wM329CtP93LjBAwMGDBgwYMDcDqZaQHUv6nQHX9XzdM/7dh8wYMCAAQMGzBqY7oFOB7/phZ+0eIsbPDBgwIABAwbMbWFOHSgNhJ8KbOlgDgwYMGDAgAGzF+Yq4FWDVHWf6cDudJAEAwYMGDBgwOyD6Q60usXR8QHZ6cEdGDBgwIABA+YxMNPXPwV5+nvBgAEDBgwYMHthTgW9afGUBrT0h7s8BxgwYMCAAQNmHUx68WYa9E4VU6eCKhgwYMCAAQNmH0wKchWY0n2r+6dBshv8wIABAwYMGDB7YNJCqfvg6f7V7+sWWmDAgAEDBgyY58CcDkzdgNgttKZFGxgwYMCAAQNmH0w3YJ2+2NMNmNOiCwwYMGDAgAHzHJhqAJsGw7SI6hZd7aIKDBgwYMCAAfMYmGpwmg7uukHx1CAQDBgwYMCAAbMfJr0wlBZY3WLsNVyXxRUYMGDAgAEDZg3MdMVF0DCAnSrOLgduYMCAAQMGDJjbw0yDUhrouhd+qsVYWlxdDtzAgAEDBgwYMLeHSQNdWmylwS4trNIAWg54YMCAAQMGDJg1MJ+6qDMtmrrAMTgYMGDAgAED5utgpg84DZxp0fVnAQ8MGDBgwIABc3uYU4Oz7vvSH+otNBgwYMCAAQNmLUw6cJsGvXT/Uz8IGDBgwIABA+Y5MNPB1al90mKqu1954AYGDBgwYMCAuS2MBQYMGDBgwIBZtn4BvQRoYVAQMVwAAAAASUVORK5CYII="></div></div><a class="-mob-share-telegram" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://t.me/share/url?url=https://blog.kayleh.top/Bloom-Filter/&amp;text=布隆过滤器的理论基础及Redisson实现 - Kayleh"><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/telegram.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/telegram.png" srcset="data:image/png;base64,666"></a></div></div></div></div><div class="prev-next"><a class="prev" href="/mysql-index-wrong/"><p class="title"><i class="fas fa-chevron-left" aria-hidden="true"></i>MYSQL 索引选择性陷阱</p><p class="content">MYSQL 索引选择性陷阱场景： 用户表有1000个用户，其中有一个sex（性别）字段。sex字段上有一个sex索引。 但用户表有超过60%的用户sex为1（男性） 此时，执行语句 expla...</p></a><a class="next" href="/cache/"><p class="title">缓存一致性方案<i class="fas fa-chevron-right" aria-hidden="true"></i></p><p class="content">1.延时双删 删除缓存 更新数据库 sleep 500ms 删除缓存 2.读取mysql的binlog，订阅数据库更新日志。</p></a></div></article><article class="post white-box reveal shadow" id="comments"><p ct=""><i class="fas fa-comments"></i> 评论</p><div id="minivaline_container"><i class="fas fa-cog fa-spin fa-fw fa-2x"></i></div></article></div><aside class="l_side"><section class="widget toc-wrapper shadow desktop mobile" id="toc-div"><header><i class="fas fa-list fa-fw" aria-hidden="true"></i><span class="name">本文目录</span></header><div class="content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">布隆过滤器的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%BB%91%E5%90%8D%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="toc-text">黑名单校验</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">解决缓存穿透的问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redisson%E5%AE%9E%E7%8E%B0%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%9C%A8%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">Redisson实现布隆过滤器在亿级流量系统的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E6%94%BB%E5%87%BB%EF%BC%9A"><span class="toc-text">缓存穿透攻击：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%A2%84%E9%98%B2%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%EF%BC%9F%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E3%80%82"><span class="toc-text">如何预防缓存穿透？布隆过滤器。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%87%8F%E5%B0%91%E8%AF%AF%E5%88%A4%E7%9A%84%E6%8E%AA%E6%96%BD%EF%BC%9A"><span class="toc-text">减少误判的措施：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redisson"><span class="toc-text">Redisson</span></a></li></ol></div></section></aside><script>window.pdata={},pdata.ispage=!0,pdata.postTitle="布隆过滤器的理论基础及Redisson实现",pdata.commentPath="",pdata.commentPlaceholder="";var l_header=document.getElementById("l_header");l_header.classList.remove("show")</script></div><footer class="footer clearfix"><br><br><div class="aplayer-container"></div><br><div class="social-wrapper"><a href="https://github.com/Kayleh" class="social fas fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer"></a></div><div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p></div><div></div><div class="copyright"><p><a href="/">Copyright © 2019-2022 Kayleh</a></p></div></footer><a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a></div></div><div><script>function loadScript(e,t){var n=document.getElementsByTagName("head")[0]||document.documentElement,o=document.createElement("script");o.setAttribute("type","text/javascript"),t&&(o.onload=t),o.setAttribute("src",e),n.appendChild(o)}window.volantis={},window.volantis.loadcss=document.getElementById("loadcss");var loadCSS=function(e,t,n,o){var i,r,d=window.document,a=d.createElement("link");r=t||(i=(d.body||d.getElementsByTagName("head")[0]).childNodes)[i.length-1];var s=d.styleSheets;if(o)for(var l in o)o.hasOwnProperty(l)&&a.setAttribute(l,o[l]);a.rel="stylesheet",a.href=e,a.media="only x",function e(t){if(d.body)return t();setTimeout(function(){e(t)})}(function(){r.parentNode.insertBefore(a,t?r:r.nextSibling)});var c=function(e){for(var t=a.href,n=s.length;n--;)if(s[n].href===t)return e();setTimeout(function(){c(e)})};function u(){a.addEventListener&&a.removeEventListener("load",u),a.media=n||"all"}return a.addEventListener&&a.addEventListener("load",u),(a.onloadcssdefined=c)(u),a}</script><script>loadCSS("https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css",window.volantis.loadcss),loadCSS("https://fastly.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css",window.volantis.loadcss),loadCSS("https://fastly.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css",window.volantis.loadcss),loadCSS("https://fastly.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css",window.volantis.loadcss)</script><script src="https://fastly.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script><script>function pjax_fancybox(){$(".md .gallery").find("img").each(function(){var a=document.createElement("a");$(a).attr("class","fancybox"),$(a).attr("pjax-fancybox",""),$(a).attr("href",$(this).attr("src")),$(this).attr("data-original")&&$(a).attr("href",$(this).attr("data-original")),$(a).attr("data-fancybox","images");var t="";$(this).attr("alt")&&($(a).attr("data-caption",$(this).attr("alt")),t=$(this).attr("alt"));var n=document.createElement("div");$(n).addClass("fancybox"),$(this).wrap(n);var e=document.createElement("span");$(e).addClass("image-caption"),$(e).text(t),$(this).after(e),$(this).wrap(a)}),$(".md .gallery").find("img").fancybox({selector:'[data-fancybox="images"]',hash:!1,loop:!1,closeClick:!0,helpers:{overlay:{closeClick:!0}},buttons:["zoom","close"]})}function SCload_fancybox(){0!=$(".md .gallery").find("img").length&&(loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css",document.getElementById("loadcss")),setTimeout(function(){loadScript("https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js",pjax_fancybox)},1))}$(function(){SCload_fancybox()})</script><script src="https://fastly.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script><script type="text/javascript">var imgs=["https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg","https://fastly.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];function shuffle(t){for(var l=t.length;l--;){var a=Math.floor(Math.random()*l),s=t[a];t[a]=t[l],t[l]=s}}function Pjax_backstretch(){$.backstretch(imgs,{duration:"20000",fade:"1500"})}shuffle(imgs),loadScript("https://fastly.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)</script><div id="rightmenu-wrapper"><ul class="list-v rightmenu" id="rightmenu-content"><li class="option"><a class="vlts-menu opt fix-cursor-default" id="menu-copy-text" onclick="document.execCommand(&quot;copy&quot;)"><i class="fa fa-copy fa-fw"></i>复制文本</a><hr id="hr-text"><a class="vlts-menu opt fix-cursor-default" id="menu-copy-href"><i class="fa fa-link fa-fw"></i>复制链接</a> <a class="vlts-menu opt fix-cursor-default" id="menu-open-href"><i class="fa fa-external-link-square-alt fa-fw"></i>在新标签页打开</a><hr id="hr-href"><a class="vlts-menu opt fix-cursor-default" id="menu-copy-src"><i class="fa fa-image fa-fw"></i>复制图片地址</a><hr id="hr-src"></li><li class="navigation"><a class="nav icon-only fix-cursor-default" onclick="history.back()"><i class="fa fa-arrow-left fa-fw"></i></a> <a class="nav icon-only fix-cursor-default" onclick="history.forward()"><i class="fa fa-arrow-right fa-fw"></i></a> <a class="nav icon-only fix-cursor-default" onclick="window.location.reload()"><i class="fa fa-redo fa-fw"></i></a> <a class="nav icon-only fix-cursor-default" href="/"><i class="fa fa-home fa-fw"></i></a></li><hr><li><a class="vlts-menu fix-cursor-default" href="/about" id="about"><i class="fa fa-question fa-fw"></i> 我</a></li><hr><li><a class="vlts-menu fix-cursor-default" onclick="document.execCommand(&quot;print&quot;)"><i class="fa fa-print fa-fw"></i> 打印页面</a></li><hr><li><a class="vlts-menu fix-cursor-default" href="mailto:kaylehisdied@gmail.com" id="mailto:kaylehisdied@gmailcom"><i class="fa fa-fan fa-spin fa-fw"></i> 联系</a></li></ul></div><script>window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+
+      // 有音乐播放器
+      if ('' == true && ('help,hr,print,hr,contributors'||[]).includes('music')) {
+        // 如果有aplayer，初始化一下
+      	try {
+      		checkAPlayer();
+          updateTitle();
+      	} catch (error) {
+      		console.log(error);
+      	}
+      }
+
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');</script><script defer="" src="https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script><script>window.lazyLoadOptions={elements_selector:".lazyload",threshold:0},window.addEventListener("LazyLoad::Initialized",function(n){window.lazyLoadInstance=n.detail.instance},!1),document.addEventListener("DOMContentLoaded",function(){lazyLoadInstance.update()}),document.addEventListener("pjax:complete",function(){lazyLoadInstance.update()})</script><script>window.FPConfig={delay:0,ignoreKeywords:[],maxRPS:5,hoverDelay:25}</script><script defer="" src="https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script><script src="https://fastly.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script><script type="text/javascript">function pjax_scrollrebeal(){ScrollReveal().reveal(".l_main .reveal",{distance:"32px",duration:"800",interval:"20",scale:"1",easing:"ease-out"})}$(function(){pjax_scrollrebeal()})</script><script>function load_minivaline() {
+	setTimeout(function() {
+	
+	  loadScript('https://fastly.jsdelivr.net/npm/minivaline@4/dist/MiniValine.min.js', pjax_minivaline)
+	
+	}, 1);
+  };
+  function pjax_minivaline() {
+  if(!document.querySelectorAll("#minivaline_container")[0])return;
+
+  let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+
+  let path = pdata.commentPath;
+  if (path.length == 0) {
+    let defaultPath = '';
+    path = defaultPath || decodeURI(window.location.pathname);
+  }
+
+  new MiniValine({
+    el: '#minivaline_container',
+    appId: 'FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz',
+    appKey: 'OBHyEdMVsi8FSFA0aqJNh4HE',
+    mode: 'xCss',
+    placeholder: pagePlaceholder,
+    path: path,
+    lang: '',
+    adminEmailMd5: 'de8a7aa53d07e6b6bceb45c64027763d',
+    tagMeta: ["管理员", "小伙伴", "访客"],
+    master: ["debda574b3b6617046ead06d245ed765", "9e547d05b6be799568cc2dacf8263179"],
+    friends: [""],
+    math: false,  /*布尔值 字符串无效 下同*/
+    md: true,
+    enableQQ: false,
+    NoRecordIP: true,
+    visitor: false,
+    maxNest: 6,
+    pageSize: 6,
+    barrager: 0,
+    role: 'admin',
+    closeFlag: false,
+    cloudflag: false,
+    closeUA: false,
+    emoticonUrl: ["https://fastly.jsdelivr.net/npm/alus@latest", "https://fastly.jsdelivr.net/gh/MiniValine/qq@latest", "https://fastly.jsdelivr.net/gh/MiniValine/Bilibilis@latest", "https://fastly.jsdelivr.net/gh/MiniValine/tieba@latest", "https://fastly.jsdelivr.net/gh/MiniValine/twemoji@latest", "https://fastly.jsdelivr.net/gh/MiniValine/weibo@latest"],
+    serverURLs: '',
+    region: 'false',
+    });
+  }
+  $(function () {
+    if(!document.querySelectorAll("#minivaline_container")[0])return;
+    load_minivaline();
+  });</script><script defer="" src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax=""></script><script src="https://fastly.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script><script src="https://fastly.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script><!-- more --><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7457165067653912" data-ad-slot="9837525717"></ins><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script></div><script src="/bundle.js"></script><script>const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+(function ($) {
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+})(jQuery);;$(function(){Waves.attach(".flat-btn",["waves-button"]),Waves.attach(".float-btn",["waves-button","waves-float"]),Waves.attach(".float-btn-light",["waves-button","waves-float","waves-light"]),Waves.attach(".flat-box",["waves-block"]),Waves.attach(".float-box",["waves-block","waves-float"]),Waves.attach(".waves-image"),Waves.init()});hljs.initHighlightingOnLoad();const LCCounter = {
+    app_id: 'FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz',
+    app_key: 'OBHyEdMVsi8FSFA0aqJNh4HE',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://blog.kayleh.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://blog.kayleh.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://blog.kayleh.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });;const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+  try {
+    localStorage.setItem(k, v);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+const removeLS = (k) => {
+  try {
+    localStorage.removeItem(k);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+const getLS = (k) => {
+  try {
+    return localStorage.getItem(k);
+  } catch (e) {
+    console.log(e.message);
+    return null;
+  }
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+
+function bindToggleButton() {
+	var btn=$("#wrapper .toggle-mode-btn");
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+document.addEventListener("pjax:success", bindToggleButton);
+var now = new Date();
+var hour = now.getHours();
+if (hour < 7 && hour >= 19) {
+	var mode = toggleCustomDarkMode();
+	if (mode === "dark") {
+	  applyCustomDarkModeSettings(mode);
+	}
+};function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);;(adsbygoogle=window.adsbygoogle||[]).push({});var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+		  Pjax_backstretch()
+        
+        
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+        
+        
+          pjax_scrollrebeal();
+        
+        
+        
+        
+        
+          if (typeof MiniValine == "undefined") {
+            load_minivaline();
+          } else {
+            pjax_minivaline();
+          }
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
