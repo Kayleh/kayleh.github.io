@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content=" Kayleh "><title>差分数组—前缀和思想 · Kayleh</title><meta name="description" content="前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。
+prefix[i]就代表着nums[0..i-1]所有元素的累加和，如果我们想求区间nums[i..j]的累加和，只要计算prefix[j+1] - prefix[i]即可，而不需要遍历整个区间求和。
+「差分数组」差分数组"><meta name="keywords" content="Blog,博客,Hexo,Kayleh"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async="" defer=""></script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/about">About</a></li><li><a href="/link">Links</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"></a></li><li><a class="fa fa-search" onclick="openWindow()"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/logo@.png" style="width:220px" alt="favicon"><h3><a href="/">Kayleh</a></h3><div class="description"><p>Dreamaker</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/kayleh"><i class="fa fa-github"></i></a></li><li><a href="mailto:yaojinqing@kayleh.top"><i class="fa fa-envelope"></i></a></li><li><a target="_blank" rel="noopener" href="http://sighttp.qq.com/authd?IDKEY=923434908"><i class="fa fa-qq"></i></a></li><li><a href="kayleh"><i class="fa fa-twitter"></i></a></li><li><a href="kayleh"><i class="fa fa-instagram"></i></a></li><li><a href="kayleh"><i class="fa fa-facebook"></i></a></li></ul></div></div><div class="footer"><div class="p"><span>Copyright © 2020 </span><i class="fa fa-star"></i><span> Kayleh</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span>&amp; </span><span>Anatolo</span></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>差分数组—前缀和思想</a></h3></div><div class="post-content"><p></p><p><strong>前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和</strong>。</p><p><code>prefix[i]</code>就代表着<code>nums[0..i-1]</code>所有元素的累加和，如果我们想求区间<code>nums[i..j]</code>的累加和，只要计算<code>prefix[j+1] - prefix[i]</code>即可，而不需要遍历整个区间求和。</p><h3 id="「差分数组」"><a href="#「差分数组」" class="headerlink" title="「差分数组」"></a>「差分数组」</h3><p>差分数组的主要适用场景是<strong>频繁对原始数组的某个区间的元素进行增减</strong></p><p>对<code>nums</code>数组构造一个<code>diff</code>差分数组，<strong><code>diff[i]</code>就是<code>nums[i]</code>和<code>nums[i-1]</code>之差</strong>：</p><pre><code class="lang-java">int[] diff = new int[nums.length];
+// 构造差分数组
+diff[0] = nums[0];
+for (int i = 1; i &lt; nums.length; i++) {
+    diff[i] = nums[i] - nums[i - 1];
+}
+</code></pre><p>通过这个<code>diff</code>差分数组是可以反推出原始数组<code>nums</code>的，代码逻辑如下：</p><pre><code>int[] res = new int[diff.length];
+// 根据差分数组构造结果数组
+res[0] = diff[0];
+for (int i = 1; i &lt; diff.length; i++) {
+    res[i] = res[i - 1] + diff[i];
+}
+</code></pre><p><strong>这样构造差分数组<code>diff</code>，就可以快速进行区间增减的操作</strong>，如果你想对区间<code>nums[i..j]</code>的元素全部加 3，那么只需要让<code>diff[i] += 3</code>，然后再让<code>diff[j+1] -= 3</code>即可</p><p><strong>原理很简单，回想<code>diff</code>数组反推<code>nums</code>数组的过程，<code>diff[i] += 3</code>意味着给<code>nums[i..]</code>所有的元素都加了 3，然后<code>diff[j+1] -= 3</code>又意味着对于<code>nums[j+1..]</code>所有元素再减 3，那综合起来，就是对<code>nums[i..j]</code>中的所有元素都加 3 了</strong></p><p>只要花费 O(1) 的时间修改<code>diff</code>数组，就相当于给<code>nums</code>的整个区间做了修改。多次修改<code>diff</code>，然后通过<code>diff</code>数组反推，即可得到<code>nums</code>修改后的结果。</p><p>现在我们把差分数组抽象成一个类，包含<code>increment</code>方法和<code>result</code>方法：</p><pre><code class="lang-java">class Difference {
+    // 差分数组
+    private int[] diff;
+
+    public Difference(int[] nums) {
+        assert nums.length &gt; 0;
+        diff = new int[nums.length];
+        // 构造差分数组
+        diff[0] = nums[0];
+        for (int i = 1; i &lt; nums.length; i++) {
+            diff[i] = nums[i] - nums[i - 1];
+        }
+    }
+
+    /* 给闭区间 [i,j] 增加 val（可以是负数）*/
+    public void increment(int i, int j, int val) {
+        diff[i] += val;
+        if (j + 1 &lt; diff.length) {
+            diff[j + 1] -= val;
+        }
+    }
+
+    public int[] result() {
+        int[] res = new int[diff.length];
+        // 根据差分数组构造结果数组
+        res[0] = diff[0];
+        for (int i = 1; i &lt; diff.length; i++) {
+            res[i] = res[i - 1] + diff[i];
+        }
+        return res;
+    }
+}
+</code></pre><p>这里注意一下<code>increment</code>方法中的 if 语句：</p><pre><code class="lang-java">public void increment(int i, int j, int val) {
+    diff[i] += val;
+    if (j + 1 &lt; diff.length) {
+        diff[j + 1] -= val;
+    }
+}
+</code></pre><p>当<code>j+1 &gt;= diff.length</code>时，说明是对<code>nums[i]</code>及以后的整个数组都进行修改，那么就不需要再给<code>diff</code>数组减<code>val</code>了。</p><p></p><div class="tip">本文采用CC-BY-SA-3.0协议，转载请注明出处<br>Author: Kayleh</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2022-01-01</span><i class="fa fa-tag"></i><a class="tag" href="/tags/algorithm/" title="algorithm">algorithm </a><span class="leancloud_visitors"></span><span>About 665 words, 2 min 13 sec read</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=I%20have%20found%20a%20great%20blog.%0A%0AKayleh%20%C2%B7%20%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84%E2%80%94%E5%89%8D%E7%BC%80%E5%92%8C%E6%80%9D%E6%83%B3%0Ahttps://blog.kayleh.top/Differential-array/%0A"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/slidingWindow/" title="滑动窗口">Previous</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/adjacency-table/" title="「图论」4：邻接表">Next</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@latest/dist/Valine.min.js"></script></div></div></div></div><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="Search..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow()"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/bundle.js"></script><script>var valine=new Valine({el:"#vcomments",notify:!1,verify:!1,app_id:"FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz",app_key:"OBHyEdMVsi8FSFA0aqJNh4HE",placeholder:"hello, world",path:window.location.pathname,serverURLs:"",visitor:!0,recordIP:!0,avatar:"mm"});window.INSIGHT_CONFIG={TRANSLATION:{POSTS:"Posts",PAGES:"Pages",CATEGORIES:"Categories",TAGS:"Tags",UNTITLED:"(Untitled)"},CONTENT_URL:"/content.json"}</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

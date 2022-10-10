@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content=" Kayleh "><title>装饰器模式 · Kayleh</title><meta name="description" content="装饰器模式
+动态地给一个对象添加一些额外的职责。就增加功能来说，相比生成子类更为灵活。
+
+
+装饰器（Decorator）模式，是一种在运行期动态给某个对象的实例增加功能的方法。
+我们在IO的Filter模式一节中其实已经讲过装饰器模式了。在Java标准库中，InputStream是抽象类，FileI"><meta name="keywords" content="Blog,博客,Hexo,Kayleh"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async="" defer=""></script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/about">About</a></li><li><a href="/link">Links</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"></a></li><li><a class="fa fa-search" onclick="openWindow()"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/logo@.png" style="width:220px" alt="favicon"><h3><a href="/">Kayleh</a></h3><div class="description"><p>Dreamaker</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/kayleh"><i class="fa fa-github"></i></a></li><li><a href="mailto:yaojinqing@kayleh.top"><i class="fa fa-envelope"></i></a></li><li><a target="_blank" rel="noopener" href="http://sighttp.qq.com/authd?IDKEY=923434908"><i class="fa fa-qq"></i></a></li><li><a href="kayleh"><i class="fa fa-twitter"></i></a></li><li><a href="kayleh"><i class="fa fa-instagram"></i></a></li><li><a href="kayleh"><i class="fa fa-facebook"></i></a></li></ul></div></div><div class="footer"><div class="p"><span>Copyright © 2020 </span><i class="fa fa-star"></i><span> Kayleh</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span>&amp; </span><span>Anatolo</span></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>装饰器模式</a></h3></div><div class="post-content"><p></p><h3 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h3><blockquote><p>动态地给一个对象添加一些额外的职责。就增加功能来说，相比生成子类更为灵活。</p><span id="more"></span></blockquote><p><strong>装饰器（Decorator）</strong>模式，是一种在运行期动态给某个对象的实例增加功能的方法。</p><p>我们在IO的Filter模式一节中其实已经讲过装饰器模式了。在Java标准库中，<code>InputStream</code>是抽象类，<code>FileInputStream</code>、<code>ServletInputStream</code>、<code>Socket.getInputStream()</code>这些<code>InputStream</code>都是最终数据源。</p><p>现在，如果要给不同的最终数据源增加缓冲功能、计算签名功能、加密解密功能，那么，3个最终数据源、3种功能一共需要9个子类。如果继续增加最终数据源，或者增加新功能，子类会爆炸式增长，这种设计方式显然是不可取的。</p><p>Decorator模式的目的就是把一个一个的附加功能，用Decorator的方式给一层一层地累加到原始数据源上，最终，通过组合获得我们想要的功能。</p><p>例如：给<code>FileInputStream</code>增加缓冲和解压缩功能，用Decorator模式写出来如下：</p><pre><code class="lang-java">// 创建原始的数据源:
+InputStream fis = new FileInputStream("test.gz");
+// 增加缓冲功能:
+InputStream bis = new BufferedInputStream(fis);
+// 增加解压缩功能:
+InputStream gis = new GZIPInputStream(bis);
+</code></pre><p>或者一次性写成这样：</p><pre><code class="lang-java">InputStream input = new GZIPInputStream( // 第二层装饰
+                        new BufferedInputStream( // 第一层装饰
+                            new FileInputStream("test.gz") // 核心功能
+                        ));
+</code></pre><p>观察<code>BufferedInputStream</code>和<code>GZIPInputStream</code>，它们实际上都是从<code>FilterInputStream</code>继承的，这个<code>FilterInputStream</code>就是一个抽象的Decorator。我们用图把Decorator模式画出来如下：</p><pre><code class="lang-ascii">             ┌───────────┐
+             │ Component │
+             └───────────┘
+                   ▲
+      ┌────────────┼─────────────────┐
+      │            │                 │
+┌───────────┐┌───────────┐     ┌───────────┐
+│ComponentA ││ComponentB │...  │ Decorator │
+└───────────┘└───────────┘     └───────────┘
+                                     ▲
+                              ┌──────┴──────┐
+                              │             │
+                        ┌───────────┐ ┌───────────┐
+                        │DecoratorA │ │DecoratorB │...
+                        └───────────┘ └───────────┘
+</code></pre><p>最顶层的Component是接口，对应到IO的就是<code>InputStream</code>这个抽象类。ComponentA、ComponentB是实际的子类，对应到IO的就是<code>FileInputStream</code>、<code>ServletInputStream</code>这些数据源。Decorator是用于实现各个附加功能的抽象装饰器，对应到IO的就是<code>FilterInputStream</code>。而从Decorator派生的就是一个一个的装饰器，它们每个都有独立的功能，对应到IO的就是<code>BufferedInputStream</code>、<code>GZIPInputStream</code>等。</p><p>Decorator模式有什么好处？它实际上把核心功能和附加功能给分开了。核心功能指<code>FileInputStream</code>这些真正读数据的源头，附加功能指加缓冲、压缩、解密这些功能。如果我们要新增核心功能，就增加Component的子类，例如<code>ByteInputStream</code>。如果我们要增加附加功能，就增加Decorator的子类，例如<code>CipherInputStream</code>。两部分都可以独立地扩展，而具体如何附加功能，由调用方自由组合，从而极大地增强了灵活性。</p><p>如果我们要自己设计完整的Decorator模式，应该如何设计？</p><p>我们还是举个栗子：假设我们需要渲染一个HTML的文本，但是文本还可以附加一些效果，比如加粗、变斜体、加下划线等。为了实现动态附加效果，可以采用Decorator模式。</p><p>首先，仍然需要定义顶层接口<code>TextNode</code>：</p><pre><code class="lang-java">public interface TextNode {
+    // 设置text:
+    void setText(String text);
+    // 获取text:
+    String getText();
+}
+</code></pre><p>对于核心节点，例如<code>`，它需要从</code>TextNode`直接继承：</p><pre><code class="lang-java">public class SpanNode implements TextNode {
+    private String text;
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return "&lt;span&gt;" + text + "&lt;/span&gt;";
+    }
+}
+</code></pre><p>紧接着，为了实现Decorator模式，需要有一个抽象的Decorator类：</p><pre><code class="lang-java">public abstract class NodeDecorator implements TextNode {
+    protected final TextNode target;
+
+    protected NodeDecorator(TextNode target) {
+        this.target = target;
+    }
+
+    public void setText(String text) {
+        this.target.setText(text);
+    }
+}
+</code></pre><p>这个<code>NodeDecorator</code>类的核心是持有一个<code>TextNode</code>，即将要把功能附加到的<code>TextNode</code>实例。接下来就可以写一个加粗功能：</p><pre><code class="lang-java">public class BoldDecorator extends NodeDecorator {
+    public BoldDecorator(TextNode target) {
+        super(target);
+    }
+
+    public String getText() {
+        return "&lt;b&gt;" + target.getText() + "&lt;/b&gt;";
+    }
+}
+</code></pre><p>类似的，可以继续加<code>ItalicDecorator</code>、<code>UnderlineDecorator</code>等。客户端可以自由组合这些Decorator：</p><pre><code class="lang-java">TextNode n1 = new SpanNode();
+TextNode n2 = new BoldDecorator(new UnderlineDecorator(new SpanNode()));
+TextNode n3 = new ItalicDecorator(new BoldDecorator(new SpanNode()));
+n1.setText("Hello");
+n2.setText("Decorated");
+n3.setText("World");
+System.out.println(n1.getText());
+// 输出&lt;span&gt;Hello&lt;/span&gt;
+
+System.out.println(n2.getText());
+// 输出&lt;b&gt;&lt;u&gt;&lt;span&gt;Decorated&lt;/span&gt;&lt;/u&gt;&lt;/b&gt;
+
+System.out.println(n3.getText());
+// 输出&lt;i&gt;&lt;b&gt;&lt;span&gt;World&lt;/span&gt;&lt;/b&gt;&lt;/i&gt;
+</code></pre><p></p><div class="tip">本文采用CC-BY-SA-3.0协议，转载请注明出处<br>Author: Kayleh</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-06-09</span><a class="tag" href="/categories/设计模式/" title="设计模式">设计模式 </a><i class="fa fa-tag"></i><a class="tag" href="/tags/DesignPatterns/" title="DesignPatterns">DesignPatterns </a><span class="leancloud_visitors"></span><span>About 1356 words, 4 min 31 sec read</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=I%20have%20found%20a%20great%20blog.%0A%0AKayleh%20%C2%B7%20%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%0Ahttps://blog.kayleh.top/decorator-mode/%0A"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/appearance-mode/" title="外观模式">Previous</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/combination-mode/" title="组合模式">Next</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@latest/dist/Valine.min.js"></script></div></div></div></div><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="Search..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow()"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/bundle.js"></script><script>var valine=new Valine({el:"#vcomments",notify:!1,verify:!1,app_id:"FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz",app_key:"OBHyEdMVsi8FSFA0aqJNh4HE",placeholder:"hello, world",path:window.location.pathname,serverURLs:"",visitor:!0,recordIP:!0,avatar:"mm"});window.INSIGHT_CONFIG={TRANSLATION:{POSTS:"Posts",PAGES:"Pages",CATEGORIES:"Categories",TAGS:"Tags",UNTITLED:"(Untitled)"},CONTENT_URL:"/content.json"}</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

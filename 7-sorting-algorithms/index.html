@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content=" Kayleh "><title>7 sorting algorithms · Kayleh</title><meta name="description" content="7种排序算法冒泡排序
+
+冒泡排序（BubbleSorting)的基本思想是：通过对待排序序列从前向后（从下标较小的元素开始）,依次比较相邻元素的值，若发现逆序则交换，使值较大的元素逐渐从前移向后部。
+
+
+代码实现
+// 将前面的冒泡排序算法，封装成一个方法
+    public static voi"><meta name="keywords" content="Blog,博客,Hexo,Kayleh"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async="" defer=""></script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/about">About</a></li><li><a href="/link">Links</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"></a></li><li><a class="fa fa-search" onclick="openWindow()"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/logo@.png" style="width:220px" alt="favicon"><h3><a href="/">Kayleh</a></h3><div class="description"><p>Dreamaker</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/kayleh"><i class="fa fa-github"></i></a></li><li><a href="mailto:yaojinqing@kayleh.top"><i class="fa fa-envelope"></i></a></li><li><a target="_blank" rel="noopener" href="http://sighttp.qq.com/authd?IDKEY=923434908"><i class="fa fa-qq"></i></a></li><li><a href="kayleh"><i class="fa fa-twitter"></i></a></li><li><a href="kayleh"><i class="fa fa-instagram"></i></a></li><li><a href="kayleh"><i class="fa fa-facebook"></i></a></li></ul></div></div><div class="footer"><div class="p"><span>Copyright © 2020 </span><i class="fa fa-star"></i><span> Kayleh</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span>&amp; </span><span>Anatolo</span></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>7 sorting algorithms</a></h3></div><div class="post-content"><p></p><h1 id="7种排序算法"><a href="#7种排序算法" class="headerlink" title="7种排序算法"></a>7种排序算法</h1><h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><span id="more"></span><ul><li><code>冒泡排序（BubbleSorting)</code>的基本思想是：通过对待排序序列从前向后（从下标较小的元素开始）,依次比较相邻元素的值，若发现逆序则交换，使值较大的元素逐渐从前移向后部。</li></ul><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/1.png" alt="img"></p><p>代码实现</p><pre><code class="lang-java">// 将前面的冒泡排序算法，封装成一个方法
+    public static void bubbleSort(int[] arr) {
+        // 冒泡排序 的时间复杂度 O(n^2), 自己写出
+        int temp = 0; // 临时变量
+        boolean flag = false; // 标识变量，表示是否进行过交换
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                // 如果前面的数比后面的数大，则交换
+                if (arr[j] &gt; arr[j + 1]) {
+                    flag = true;
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+            //System.out.println("第" + (i + 1) + "趟排序后的数组");
+            //System.out.println(Arrays.toString(arr));
+
+            if (!flag) {
+                // 在一趟排序中，一次交换都没有发生过
+                break;
+            } else {
+                flag = false;
+                // 重置flag!!!, 进行下次判断
+            }
+        }
+</code></pre><hr><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><ul><li><code>插入排序（insertSorting)</code></li><li>基本思想是：把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表中只包含一个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，把它的排序码依次与有序表元素的排序码进行比较，将它插入到有序表中的适当位置，使之成为新的有序表。</li><li></li></ul><p>代码实现</p><pre><code class="lang-java"> public static void insertSort(int attr[]) {
+        //从第2个数开始遍历 【1】
+        for (int i = 1; i &lt; attr.length - 1; i++) {
+            // 等待插入的数的前一个数下标
+            int insertIndex = i - 1;
+            //等待插入的数的值
+            int insertValue = attr[i];
+            // insertIndex不能越界
+            // insertValue待插入到前面有序列表的数
+            // insertValue待插入的数 小于 前1个数
+            while (insertIndex &gt;= 0 &amp;&amp; attr[insertIndex] &gt; insertValue) {
+                // 交换
+                //  attr[insertIndex]后移
+                attr[insertIndex + 1] = attr[insertIndex];
+                insertIndex--;
+            }
+            //当退出while循环时，说明插入的位置找到, insertIndex + 1
+            if (insertIndex + 1 != i) {
+                attr[insertIndex + 1] = insertValue;
+            }
+        }
+
+    }
+</code></pre><h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><ul><li><p><code>选择排序（selectSorting)</code>的基本思想是：</p></li><li><p>第一次从arr[0]~arr[n-1]中选取最小值，与arr[0]交换，第二次从arr[1]~arr[n-1]中选取最小值，与arr[1]交换，第三次从arr[2]~arr[n-1]中选取最小值，与arr[2]交换，…，第i次从arr[i-1]~arr[n-1]中选取最小值，与arr[i-1]交换，…,第n-1次从arr[n-2]~arr[n-1]中选取最小值，与arr[n-2]交换，总共通过n-1次，得到一个按排序码从小到大排列的有序序列。</p></li></ul><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/2.png" alt="img"></p><p>代码实现</p><pre><code class="lang-java">public class selectSort {
+    public static void selectSort(int attr[]) {
+        for (int i = 0; i &lt; attr.length - 1; i++) {
+            //假设第一个数就是最小值
+            int minindex = 0;
+            int min = attr[0];
+            //从1开始遍历
+            for (int j = 1; j &lt; attr.length - 1; j++) {
+                //如果第0个数（最小值）比第1个数 大
+                //说明假设的第0个并不是最小值
+                if (min &gt; attr[j]) {
+                    min = attr[j];//重置最小值
+                    minindex = j;//重置最小值索引
+                }
+            }
+            //如果最小值的索引不是0，就发生交换
+            if (minindex != i) {
+                //把第0个数（不是最小值）赋值到 第1个数（较小值）的位置
+                attr[minindex] = attr[i];
+                //把较小值赋值给第1个数
+                attr[i] = min;
+            }
+        }
+    }
+</code></pre><h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><ul><li><p><code>冒泡排序（BubbleSorting)</code>的基本思想是：</p><p>把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止</p></li></ul><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/3.png" alt="img"></p><p>代码实现</p><pre><code class="lang-java">        //移动法
+        //增量gap，并逐步的缩小增量
+        for (int gap = attr.length/2;gap&gt;0;gap/=2){
+            //从第gap个元素开始，逐个对其所在的组进行直接插入排序
+            for (int i =gap;i&lt;attr.length;i++){
+                // 当前位置
+                int j = i;
+
+                //当前位置的值赋值给temp
+                int temp = attr[j];
+                // 如果 当前组的gap个步长前面的数大于当前位置的数
+                if(attr[j]&lt;attr[j-gap]){
+                    while (j-gap &gt;= 0 &amp;&amp; temp &lt; attr[j-gap]){
+                        //移动
+                        attr[j] = attr[j-gap];
+                        j -= gap;
+                    }
+                    //当退出while循环后，就给temp找到插入的位置
+                    attr[j] = temp;
+                }
+            }
+        }
+</code></pre><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><ul><li><p><code>快速排序（QuickSorting)</code></p><p>是对冒泡排序的一种改进。基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列</p></li></ul><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/4.png" alt="img"></p><p>代码实现</p><pre><code class="lang-java">public static void quickSort(int[] arr,int left, int right) {
+        int l = left; //左下标
+        int r = right; //右下标
+        //pivot 中轴值
+        int pivot = arr[(left + right) / 2];
+        int temp = 0; //临时变量，作为交换时使用
+        //while循环的目的是让比pivot 值小放到左边
+        //比pivot 值大放到右边
+        while( l &lt; r) {
+            //在pivot的左边一直找,找到大于等于pivot值,才退出
+            while( arr[l] &lt; pivot) {
+                l += 1;
+            }
+            //在pivot的右边一直找,找到小于等于pivot值,才退出
+            while(arr[r] &gt; pivot) {
+                r -= 1;
+            }
+            //如果l &gt;= r说明pivot 的左右两的值，已经按照左边全部是
+            //小于等于pivot值，右边全部是大于等于pivot值
+            if( l &gt;= r) {
+                break;
+            }
+            //交换
+            temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+
+            //如果交换完后，发现这个arr[l] == pivot值 相等 r--， 前移
+            if(arr[l] == pivot) {
+                r -= 1;
+            }
+            //如果交换完后，发现这个arr[r] == pivot值 相等 l++， 后移
+            if(arr[r] == pivot) {
+                l += 1;
+            }
+        }
+
+        // 如果 l == r, 必须l++, r--, 否则为出现栈溢出
+        if (l == r) {
+            l += 1;
+            r -= 1;
+        }
+        //向左递归
+        if(left &lt; r) {
+            quickSort(arr, left, r);
+        }
+        //向右递归
+        if(right &gt; l) {
+            quickSort(arr, l, right);
+        }
+    }
+</code></pre><h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><ul><li><p><code>归并排序（mergeSorting)</code>的基本思想是：</p><p>是利用归并的思想实现的排序方法，该算法采用经典的分治（divide-and-conquer）策略（分治法将问题分(divide)成一些小的问题然后递归求解，而治(conquer)的阶段则将分的阶段得到的各答案”修补”在一起，即分而治之)。</p></li></ul><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/5.png" alt="img"></p><p>代码实现</p><pre><code class="lang-java"> //分+合方法
+    public static void mergeSort(int[] arr, int left, int right, int[] temp) {
+        if(left &lt; right) {
+            int mid = (left + right) / 2; //中间索引
+            //向左递归进行分解
+            mergeSort(arr, left, mid, temp);
+            //向右递归进行分解
+            mergeSort(arr, mid + 1, right, temp);
+            //合并
+            merge(arr, left, mid, right, temp);
+        }
+    }
+
+    //合并的方法
+    /**
+     *
+     * @param arr 排序的原始数组
+     * @param left 左边有序序列的初始索引
+     * @param mid 中间索引
+     * @param right 右边索引
+     * @param temp 做中转的数组
+     */
+    public static void merge(int[] arr, int left, int mid, int right, int[] temp) {
+        int i = left; // 初始化i, 左边有序序列的初始索引
+        int j = mid + 1; //初始化j, 右边有序序列的初始索引
+        int t = 0; // 指向temp数组的当前索引
+        //(一)
+        //先把左右两边(有序)的数据按照规则填充到temp数组
+        //直到左右两边的有序序列，有一边处理完毕为止
+        while (i &lt;= mid &amp;&amp; j &lt;= right) {//继续
+            //如果左边的有序序列的当前元素，小于等于右边有序序列的当前元素
+            //即将左边的当前元素，填充到 temp数组
+            //然后 t++, i++
+            if(arr[i] &lt;= arr[j]) {
+                temp[t] = arr[i];
+                t += 1;
+                i += 1;
+            } else { //反之,将右边有序序列的当前元素，填充到temp数组
+                temp[t] = arr[j];
+                t += 1;
+                j += 1;
+            }
+        }
+        //(二)
+        //把有剩余数据的一边的数据依次全部填充到temp
+        while( i &lt;= mid) { //左边的有序序列还有剩余的元素，就全部填充到temp
+            temp[t] = arr[i];
+            t += 1;
+            i += 1;
+        }
+        while( j &lt;= right) { //右边的有序序列还有剩余的元素，就全部填充到temp
+            temp[t] = arr[j];
+            t += 1;
+            j += 1;
+        }
+        //(三)
+        //将temp数组的元素拷贝到arr
+        //注意，并不是每次都拷贝所有
+        t = 0;
+        int tempLeft = left; //
+        //第一次合并 tempLeft = 0 , right = 1 //  tempLeft = 2  right = 3 // tL=0 ri=3
+        //最后一次 tempLeft = 0  right = 7
+        while(tempLeft &lt;= right) {
+            arr[tempLeft] = temp[t];
+            t += 1;
+            tempLeft += 1;
+        }
+
+    }
+</code></pre><h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><ul><li><p><code>基数排序（mergeSorting)</code>的基本思想是：</p><p>将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列。</p></li></ul><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/6.png" alt="img"></p><p>代码实现</p><pre><code class="lang-java">
+    //基数排序方法
+    public static void radixSort(int[] arr) {
+
+        //根据前面的推导过程，我们可以得到最终的基数排序代码
+
+        //1. 得到数组中最大的数的位数
+        int max = arr[0]; //假设第一数就是最大数
+        for(int i = 1; i &lt; arr.length; i++) {
+            if (arr[i] &gt; max) {
+                max = arr[i];
+            }
+        }
+        //得到最大数是几位数
+        int maxLength = (max + "").length();
+
+        //定义一个二维数组，表示10个桶, 每个桶就是一个一维数组
+        //说明
+        //1. 二维数组包含10个一维数组
+        //2. 为了防止在放入数的时候，数据溢出，则每个一维数组(桶)，大小定为arr.length
+        //3. 名明确，基数排序是使用空间换时间的经典算法
+        int[][] bucket = new int[10][arr.length];
+
+        //为了记录每个桶中，实际存放了多少个数据,我们定义一个一维数组来记录各个桶的每次放入的数据个数
+        //可以这里理解
+        //比如：bucketElementCounts[0] , 记录的就是  bucket[0] 桶的放入数据个数
+        int[] bucketElementCounts = new int[10];
+
+        //这里使用循环将代码处理
+
+        for(int i = 0 , n = 1; i &lt; maxLength; i++, n *= 10) {
+            //(针对每个元素的对应位进行排序处理)， 第一次是个位，第二次是十位，第三次是百位..
+            for(int j = 0; j &lt; arr.length; j++) {
+                //取出每个元素的对应位的值
+                int digitOfElement = arr[j] / n % 10;
+                //放入到对应的桶中
+                bucket[digitOfElement][bucketElementCounts[digitOfElement]] = arr[j];
+                bucketElementCounts[digitOfElement]++;
+            }
+            //按照这个桶的顺序(一维数组的下标依次取出数据，放入原来数组)
+            int index = 0;
+            //遍历每一桶，并将桶中是数据，放入到原数组
+            for(int k = 0; k &lt; bucketElementCounts.length; k++) {
+                //如果桶中，有数据，我们才放入到原数组
+                if(bucketElementCounts[k] != 0) {
+                    //循环该桶即第k个桶(即第k个一维数组), 放入
+                    for(int l = 0; l &lt; bucketElementCounts[k]; l++) {
+                        //取出元素放入到arr
+                        arr[index++] = bucket[k][l];
+                    }
+                }
+                //第i+1轮处理后，需要将每个 bucketElementCounts[k] = 0 ！！！！
+                bucketElementCounts[k] = 0;
+            }
+
+        }
+
+    }
+</code></pre><p>各个算法的复杂度</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/7.png" alt="img"></p><p></p><div class="tip">本文采用CC-BY-SA-3.0协议，转载请注明出处<br>Author: Kayleh</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-05-17</span><i class="fa fa-tag"></i><a class="tag" href="/tags/algorithm/" title="algorithm">algorithm </a><span class="leancloud_visitors"></span><span>About 2653 words, 8 min 50 sec read</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=I%20have%20found%20a%20great%20blog.%0A%0AKayleh%20%C2%B7%207%20sorting%20algorithms%0Ahttps://blog.kayleh.top/7-sorting-algorithms/%0A"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/heap-sort/" title="heap-sort">Previous</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/principles-of-computer-organization/" title="计算机组成原理">Next</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@latest/dist/Valine.min.js"></script></div></div></div></div><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="Search..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow()"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/bundle.js"></script><script>var valine=new Valine({el:"#vcomments",notify:!1,verify:!1,app_id:"FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz",app_key:"OBHyEdMVsi8FSFA0aqJNh4HE",placeholder:"hello, world",path:window.location.pathname,serverURLs:"",visitor:!0,recordIP:!0,avatar:"mm"});window.INSIGHT_CONFIG={TRANSLATION:{POSTS:"Posts",PAGES:"Pages",CATEGORIES:"Categories",TAGS:"Tags",UNTITLED:"(Untitled)"},CONTENT_URL:"/content.json"}</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

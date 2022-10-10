@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content=" Kayleh "><title>SpringMVC环境搭建 · Kayleh</title><meta name="description" content="SpringMVC
+Spring MVC是Spring Framework的一部分，是基于Java实现MVC的轻量级Web框架，实现MVC模块，简化了Web开发。
+
+MVC提倡每一层只写自己的东西，不写其他任何代码。为了解耦，为了维护方便和分工合作。
+
+SpringMVC为展现层提供的基于MVC设计"><meta name="keywords" content="Blog,博客,Hexo,Kayleh"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async="" defer=""></script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/about">About</a></li><li><a href="/link">Links</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"></a></li><li><a class="fa fa-search" onclick="openWindow()"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/logo@.png" style="width:220px" alt="favicon"><h3><a href="/">Kayleh</a></h3><div class="description"><p>Dreamaker</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/kayleh"><i class="fa fa-github"></i></a></li><li><a href="mailto:yaojinqing@kayleh.top"><i class="fa fa-envelope"></i></a></li><li><a target="_blank" rel="noopener" href="http://sighttp.qq.com/authd?IDKEY=923434908"><i class="fa fa-qq"></i></a></li><li><a href="kayleh"><i class="fa fa-twitter"></i></a></li><li><a href="kayleh"><i class="fa fa-instagram"></i></a></li><li><a href="kayleh"><i class="fa fa-facebook"></i></a></li></ul></div></div><div class="footer"><div class="p"><span>Copyright © 2020 </span><i class="fa fa-star"></i><span> Kayleh</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span>&amp; </span><span>Anatolo</span></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>SpringMVC环境搭建</a></h3></div><div class="post-content"><p></p><h2 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h2><span id="more"></span><pre><code class="lang-bash">Spring MVC是Spring Framework的一部分，是基于Java实现MVC的轻量级Web框架，实现MVC模块，简化了Web开发。
+
+MVC提倡每一层只写自己的东西，不写其他任何代码。为了解耦，为了维护方便和分工合作。
+
+SpringMVC为展现层提供的基于MVC设计理念的优秀Web框架，是目前最主流的框架之一。
+</code></pre><!-- more --><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="1-导包-Maven工程忽略"><a href="#1-导包-Maven工程忽略" class="headerlink" title="1.导包(Maven工程忽略)"></a>1.导包(Maven工程忽略)</h3><p>需要导入log包，spring核心包，SpringMVC包</p><pre><code class="lang-bash">1.junit-x.x.x.jar 
+2.spring-webmvc-x.x.x.RELEASE.jar
+3.spring-aop-x.x.x.RELEASE.jar
+4.spring-beans-x.x.x.RELEASE.jar
+5.spring-context-x.x.x.RELEASE.jar
+6.spring-core-x.x.x.RELEASE.jar
+7.spring-expression-x.x.x.RELEASE.jar
+8.spring-web-x.x.x.RELEASE.jar
+9.commons-log-.x.x.x.RELEASE.jar
+</code></pre><h3 id="写配置"><a href="#写配置" class="headerlink" title="写配置"></a>写配置</h3><pre><code class="lang-bash">
+/**
+ * web.xml
+ */
+&lt;servlet&gt;
+    &lt;servlet-name&gt;springDispatcherServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+     &lt;init-param&gt;
+      &lt;!-- contextConfigLocation：指定SpringMVC配置文件位置 --&gt;
+       &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+      &lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;
+     &lt;/init-param&gt;  
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+ &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;springDispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  ===========================================================
+ /**
+ * springmvc.xml
+ */
+ &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"&gt;
+
+  &lt;!-- 这里是扫描所有组件 --&gt;
+  &lt;context:component-scan base-package="com.wizard"&gt;&lt;/context:component-scan&gt;
+
+  &lt;!-- 配置一个视图解析器 作用是拼接页面的地址，方便调用--&gt;
+  &lt;bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;
+    &lt;!--前缀--&gt;
+    &lt;property name="prefix" value="/WEB-INF/page/"&gt;&lt;/property&gt;
+    &lt;!--后缀--&gt;
+    &lt;property name="suffix" value=".jsp"&gt;&lt;/property&gt;
+  &lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre><pre><code class="lang-bash">
+/*
+*view层
+*/
+&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;来了!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><pre><code class="lang-bash">
+控制器层
+/**
+ * @author Kayleh
+ * @Controller:标识哪个组件是控制器
+ *@RequestMapping
+ *  告诉SpringMVC，这个方法用来处理什么请求;
+ */
+
+@Controller
+public class firstController {//这是一次转发操作
+  @RequestMapping("/hello")
+  public String firstRequest(){
+    System.out.println("收到请求");
+    return "success";
+  }
+
+}
+</code></pre><pre><code class="lang-bash">index.jsp
+&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;a href="hello"&gt;Hello bug&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><pre><code class="lang-bash">Hello bug
+</code></pre><h2 id="其他细节"><a href="#其他细节" class="headerlink" title="其他细节"></a>其他细节</h2><p>细节：<br>@RequestMapping注解不仅可以写在方法前,还可以写在类前,如果写在类前,意思为当前类所有的方法的请求地址指定一个基准路径,访问firstRequest方法的路径为/类前的注解/方法的注解(/hello).</p><p>@RequestMapping注解的参数(“/hello”)的/可以不写,但习惯为了方便维护应该写上.</p><p>控制器处理的请求 firstController 是请求转发操作,Tomcat访问地址栏不变</p><p>如果前端控制器没有指定配置文件位置,Spring也会在/WEB-INF/xxx-servlet.xml路径下查找文件.xxx为web.xml配置的前端控制器</p><h2 id="详细流程"><a href="#详细流程" class="headerlink" title="详细流程"></a>详细流程</h2><p>1.客户端点击链接会发送<a target="_blank" rel="noopener" href="http://localhost:8080/springmvc/hello请求">http://localhost:8080/springmvc/hello请求</a></p><p>2.来到Tomcat服务器</p><p>3.springMVC的前端控制器收到所有请求</p><p>4.看请求地址和@RequestMapping标注的哪个匹配,来找到使用什么类的什么方法</p><p>5.前端控制器找到了目标处理器类和目标方法,直接利用反射执行目标方法</p><p>6.方法执行完成之后会有一个返回值;SpringMVC认为这个返回值就是要去的页面</p><p>7.拿到方法返回值后,用视图解析器进行拼串得到完整的页面地址</p><p>8.拿到页面地址,前端控制器转发到页面</p><h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题?"></a>其他问题?</h3><p>1为什么web.xml中配置的拦截为</p><pre><code class="lang-bash"> &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;springDispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+</code></pre><p>为什么没有拦截index.jsp??</p><p>因为Tomcat的底层本来就能拦截jsp页面,配置的”/“的子类web.xml相当于覆盖了Webapp的父类web.xml中的DefaultServlet,DefaultServlet的作用是处理静态资源,覆盖了DefaultServlet,也就拦截了除jsp和servlet外的静态资源,而JspServlet的配置并没有覆盖.</p><h2 id="而”-”的作用是拦截所有请求-包括jsp页面"><a href="#而”-”的作用是拦截所有请求-包括jsp页面" class="headerlink" title="而”/*”的作用是拦截所有请求,包括jsp页面."></a>而”/*”的作用是拦截所有请求,包括jsp页面.</h2><p></p><div class="tip">本文采用CC-BY-SA-3.0协议，转载请注明出处<br>Author: Kayleh</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-07-14</span><a class="tag" href="/categories/SpringMVC/" title="SpringMVC">SpringMVC </a><i class="fa fa-tag"></i><a class="tag" href="/tags/frame/" title="frame">frame </a><span class="leancloud_visitors"></span><span>About 1250 words, 4 min 10 sec read</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=I%20have%20found%20a%20great%20blog.%0A%0AKayleh%20%C2%B7%20SpringMVC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%0Ahttps://blog.kayleh.top/springmvc-environment-construction/%0A"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/null/" title="如数家珍">Previous</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/concurrency-principle/" title="concurrency-principle">Next</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@latest/dist/Valine.min.js"></script></div></div></div></div><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="Search..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow()"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/bundle.js"></script><script>var valine=new Valine({el:"#vcomments",notify:!1,verify:!1,app_id:"FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz",app_key:"OBHyEdMVsi8FSFA0aqJNh4HE",placeholder:"hello, world",path:window.location.pathname,serverURLs:"",visitor:!0,recordIP:!0,avatar:"mm"});window.INSIGHT_CONFIG={TRANSLATION:{POSTS:"Posts",PAGES:"Pages",CATEGORIES:"Categories",TAGS:"Tags",UNTITLED:"(Untitled)"},CONTENT_URL:"/content.json"}</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

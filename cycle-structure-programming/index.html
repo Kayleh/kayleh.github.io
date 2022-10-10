@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content=" Kayleh "><title>cycle structure programming · Kayleh</title><meta name="description" content="循环结构体程序设计用while语句实现循环
+while (表达式) 语句
+
+求1+2+3+….+100;#include&amp;lt;stdio.h&amp;gt;
+
+int main()
+&amp;#123;
+    int i = 1;
+    int sum = 0;
+    while (i &amp;lt;= 100)"><meta name="keywords" content="Blog,博客,Hexo,Kayleh"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async="" defer=""></script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/about">About</a></li><li><a href="/link">Links</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"></a></li><li><a class="fa fa-search" onclick="openWindow()"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/logo@.png" style="width:220px" alt="favicon"><h3><a href="/">Kayleh</a></h3><div class="description"><p>Dreamaker</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/kayleh"><i class="fa fa-github"></i></a></li><li><a href="mailto:yaojinqing@kayleh.top"><i class="fa fa-envelope"></i></a></li><li><a target="_blank" rel="noopener" href="http://sighttp.qq.com/authd?IDKEY=923434908"><i class="fa fa-qq"></i></a></li><li><a href="kayleh"><i class="fa fa-twitter"></i></a></li><li><a href="kayleh"><i class="fa fa-instagram"></i></a></li><li><a href="kayleh"><i class="fa fa-facebook"></i></a></li></ul></div></div><div class="footer"><div class="p"><span>Copyright © 2020 </span><i class="fa fa-star"></i><span> Kayleh</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span>&amp; </span><span>Anatolo</span></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>cycle structure programming</a></h3></div><div class="post-content"><p></p><h1 id="循环结构体程序设计"><a href="#循环结构体程序设计" class="headerlink" title="循环结构体程序设计"></a>循环结构体程序设计</h1><h3 id="用while语句实现循环"><a href="#用while语句实现循环" class="headerlink" title="用while语句实现循环"></a>用while语句实现循环</h3><blockquote><p>while (表达式) 语句</p></blockquote><h5 id="求1-2-3-…-100"><a href="#求1-2-3-…-100" class="headerlink" title="求1+2+3+….+100;"></a>求1+2+3+….+100;</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int i = 1;
+    int sum = 0;
+    while (i &lt;= 100)
+    {
+        sum += i;
+        i++;
+    }
+    printf("%d", sum);
+    return 0;
+}
+</code></pre><h3 id="用do…while语句实现循环"><a href="#用do…while语句实现循环" class="headerlink" title="用do…while语句实现循环"></a>用do…while语句实现循环</h3><blockquote><p>do</p><p>​ 语句</p><p>while (表达式);</p></blockquote><p>如:</p><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int i = 1;
+    do
+    {
+        printf("%d\n", i++);
+    } while (i &lt;= 100);
+    return 0;
+}
+</code></pre><h5 id="求1-2-3-…-100-1"><a href="#求1-2-3-…-100-1" class="headerlink" title="求1+2+3+….+100;"></a>求1+2+3+….+100;</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int i = 1,sum = 0;
+    do
+    {
+        sum += i;
+        i++;
+    } while (i &lt;= 100);
+    printf("%d", sum);
+    return 0;
+}
+</code></pre><h4 id="while和do…while的区别"><a href="#while和do…while的区别" class="headerlink" title="while和do…while的区别"></a>while和do…while的区别</h4><p>do…while无论如何都会至少执行一次循环体</p><p>while只要不满足就不会执行循环体</p><h3 id="用for语句实现循环"><a href="#用for语句实现循环" class="headerlink" title="用for语句实现循环"></a>用for语句实现循环</h3><blockquote><p>for(循环变量赋初值;循环条件;循环变量增值)</p><p>​ 语句</p></blockquote><p>如:</p><p>for(i=1;i&lt;=100;i++)</p><p>​ sum+=i;</p><h3 id="循环的嵌套"><a href="#循环的嵌套" class="headerlink" title="循环的嵌套"></a>循环的嵌套</h3><h3 id="改变循环的执行状态"><a href="#改变循环的执行状态" class="headerlink" title="改变循环的执行状态"></a>改变循环的执行状态</h3><h4 id="用break语句提前终止循环"><a href="#用break语句提前终止循环" class="headerlink" title="用break语句提前终止循环"></a>用break语句提前终止循环</h4><p>在全系1000名学生中举行慈善募捐,当总数达到10万时就结束,统计此时捐款的人数以及平均每人捐款的数目.</p><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+#define SUM 100000
+
+int main()
+{
+    float amount, aver, total;
+    int i;
+    for (i = 1; i &lt; 1000; i++)
+    {
+        printf("please enter amount:");
+        scanf("%f", &amp;amount);
+        total += amount;
+        if (total &gt;= SUM)break;
+    }
+    aver = total / i;
+    printf("num=%d\naver=%10.2f\n", i, aver);
+    return 0;
+
+}
+</code></pre><p>break的作用就是使流程跳到循环体之外,接着执行循环体下面的语句.</p><h4 id="用continue语句提前结束本次循环"><a href="#用continue语句提前结束本次循环" class="headerlink" title="用continue语句提前结束本次循环"></a>用continue语句提前结束本次循环</h4><p>有时不希望终止整个循环的操作,而只希望提前结束本次循环,而接着执行下次循环.这时可以用continue语句</p><p>要求输出100~200的不能被3整除的数</p><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int n;
+    for (n = 100; n &lt;= 200; n++)
+    {
+        if (n % 3 == 0)
+            continue;
+        printf("%d\t", n);
+    }
+    printf("\n");
+    return 0;
+}
+</code></pre><p></p><div class="tip">本文采用CC-BY-SA-3.0协议，转载请注明出处<br>Author: Kayleh</div></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-10-25</span><i class="fa fa-tag"></i><a class="tag" href="/tags/C/" title="C">C </a><span class="leancloud_visitors"></span><span>About 433 words, 1 min 26 sec read</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=I%20have%20found%20a%20great%20blog.%0A%0AKayleh%20%C2%B7%20cycle%20structure%20programming%0Ahttps://blog.kayleh.top/cycle-structure-programming/%0A"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/use-arrays-to-process-batch-data/" title="use-arrays-to-process-batch-data">Previous</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/select-structure-programming/" title="select structure programming">Next</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@latest/dist/Valine.min.js"></script></div></div></div></div><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="Search..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow()"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/bundle.js"></script><script>var valine=new Valine({el:"#vcomments",notify:!1,verify:!1,app_id:"FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz",app_key:"OBHyEdMVsi8FSFA0aqJNh4HE",placeholder:"hello, world",path:window.location.pathname,serverURLs:"",visitor:!0,recordIP:!0,avatar:"mm"});window.INSIGHT_CONFIG={TRANSLATION:{POSTS:"Posts",PAGES:"Pages",CATEGORIES:"Categories",TAGS:"Tags",UNTITLED:"(Untitled)"},CONTENT_URL:"/content.json"}</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
