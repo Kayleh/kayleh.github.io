@@ -10,7 +10,7 @@
 
 'use strict';
 
-var precacheConfig = [["/js/aplayer.js","f4d6fd12b69098d117f65cc0f1371a3d"],["/js/app.js","a362aa73726a74b62ade3edf7a5dde65"],["/js/issues.js","4868732e560db0465715cf9b221646bd"],["/js/search.js","4d3655faf8f9033e9faf5fda842a16a5"],["/js/tagcanvas.js","222f58419252597da4e4b17828824a8f"],["/js/tagcloud.js","4d5b86e9e3c1180eeb33394c7a0937f0"],["/js/valine.js","9207fdb8d013c87dbe26fc906b40f68f"]];
+var precacheConfig = [];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 var firstRegister = 1; // 默认1是首次安装SW， 0是SW更新
 
