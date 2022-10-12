@@ -56,17 +56,17 @@
   </entry>
   
   <entry>
-    <title>Double精度丢失问题</title>
-    <link href="https://blog.kayleh.top/Bug-Slope-and-Precision-Loss/"/>
-    <id>https://blog.kayleh.top/Bug-Slope-and-Precision-Loss/</id>
+    <title>大数运算</title>
+    <link href="https://blog.kayleh.top/Large-number-operations/"/>
+    <id>https://blog.kayleh.top/Large-number-operations/</id>
     <published>2022-05-29T07:12:23.000Z</published>
-    <updated>2022-08-14T14:58:40.277Z</updated>
+    <updated>2022-10-11T16:46:11.483Z</updated>
     
     
     
     
     
-    <category term="Bug" scheme="https://blog.kayleh.top/tags/Bug/"/>
+    <category term="algorithm" scheme="https://blog.kayleh.top/tags/algorithm/"/>
     
   </entry>
   
