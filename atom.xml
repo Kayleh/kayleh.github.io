@@ -6,7 +6,7 @@
   <link href="https://blog.kayleh.top/atom.xml" rel="self"/>
   
   <link href="https://blog.kayleh.top/"/>
-  <updated>2022-11-07T14:47:57.800Z</updated>
+  <updated>2022-11-10T16:57:54.399Z</updated>
   <id>https://blog.kayleh.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一次应用程序窃取焦点问题排查经历</title>
+    <link href="https://blog.kayleh.top/steal-focus/"/>
+    <id>https://blog.kayleh.top/steal-focus/</id>
+    <published>2022-11-10T15:31:11.000Z</published>
+    <updated>2022-11-10T16:57:54.399Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、问题背景&quot;&gt;&lt;a href=&quot;#一、问题背景&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="bug" scheme="https://blog.kayleh.top/tags/bug/"/>
+    
+  </entry>
   
   <entry>
     <title>超高精度计算</title>
@@ -446,29 +469,6 @@ num 不会包含任何前导零。
     
     
     <category term="algorithm" scheme="https://blog.kayleh.top/tags/algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java.lang.Integer</title>
-    <link href="https://blog.kayleh.top/Integer/"/>
-    <id>https://blog.kayleh.top/Integer/</id>
-    <published>2021-12-24T05:13:16.000Z</published>
-    <updated>2021-12-24T06:05:11.791Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;Integer&quot;&gt;&lt;a href=&quot;#Integer&quot; class=&quot;headerlink&quot; title=&quot;Integer&quot;&gt;&lt;/a&gt;Integer&lt;/h3&gt;&lt;h5 id=&quot;缓存&quot;&gt;&lt;a href=&quot;#缓存&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="jdk" scheme="https://blog.kayleh.top/tags/jdk/"/>
     
   </entry>
   
