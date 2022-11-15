@@ -6,7 +6,7 @@
   <link href="https://blog.kayleh.top/atom.xml" rel="self"/>
   
   <link href="https://blog.kayleh.top/"/>
-  <updated>2022-11-10T18:52:52.813Z</updated>
+  <updated>2022-11-15T06:52:36.109Z</updated>
   <id>https://blog.kayleh.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>⌈贪心算法⌋田忌赛马策略</title>
+    <link href="https://blog.kayleh.top/tj-horse-racing/"/>
+    <id>https://blog.kayleh.top/tj-horse-racing/</id>
+    <published>2022-11-14T14:43:18.000Z</published>
+    <updated>2022-11-15T06:52:36.109Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;田忌赛马&quot;&gt;&lt;a href=&quot;#田忌赛马&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="algorithm" scheme="https://blog.kayleh.top/tags/algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>一次应用程序窃取焦点问题排查经历</title>
@@ -72,6 +95,29 @@
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>⌈JVM⌋方法内联优化</title>
+    <link href="https://blog.kayleh.top/jvm-method-inline/"/>
+    <id>https://blog.kayleh.top/jvm-method-inline/</id>
+    <published>2022-10-14T14:24:15.000Z</published>
+    <updated>2022-11-14T14:36:47.361Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;内联优化&quot;&gt;&lt;a href=&quot;#内联优化&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="jvm" scheme="https://blog.kayleh.top/tags/jvm/"/>
     
   </entry>
   
@@ -419,49 +465,6 @@ num 不会包含任何前导零。
     <summary type="html">&lt;p&gt;&lt;img src=&quot;/.top//Blog/source/_posts/离散图论4：邻接表/9738807-2c15062503d7aa64.jpeg&quot; alt=&quot;图片&quot; style=&quot;zoom:50%;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;根据邻接表建图：&lt;/p&gt;
 &lt;pre&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    
-    <category term="algorithm" scheme="https://blog.kayleh.top/tags/algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>回溯算法</title>
-    <link href="https://blog.kayleh.top/huisu-algorithm/"/>
-    <id>https://blog.kayleh.top/huisu-algorithm/</id>
-    <published>2021-12-27T05:26:11.000Z</published>
-    <updated>2022-04-10T16:50:44.283Z</updated>
-    
-    
-    
-    
-    
-    <category term="algorithm" scheme="https://blog.kayleh.top/tags/algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>贪心算法的基础理论及实践</title>
-    <link href="https://blog.kayleh.top/Greedy-Algorithm/"/>
-    <id>https://blog.kayleh.top/Greedy-Algorithm/</id>
-    <published>2021-12-24T10:56:07.000Z</published>
-    <updated>2022-01-01T14:23:50.478Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;pre&gt;&lt;code class=&quot;lang-java&quot;&gt;class Solution
-&amp;#123;
-    // 面积
-    //矩形的长度：两条垂直线的距离
-    //矩形的宽度：两条垂直线其中较短一条的长度
-    public int maxArea(int[]</summary>
         
       
     
