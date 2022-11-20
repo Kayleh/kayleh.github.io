@@ -24,13 +24,11 @@
     <updated>2022-11-15T06:52:36.109Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;田忌赛马&quot;&gt;&lt;a href=&quot;#田忌赛马&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h2 id=&quot;田忌赛马&quot;&gt;&lt;a href=&quot;#田忌赛马&quot; class=&quot;headerlink&quot; title=&quot;田忌赛马&quot;&gt;&lt;/a&gt;田忌赛马&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;齐使者如梁，孙膑以刑徒阴见，说齐使。齐使以为奇，窃载与之齐。齐将田忌善而客待之。忌数与齐诸公子驰逐重射。孙子见其马足不甚相远，马有上、中、下、辈。于是孙子谓田忌曰：“君弟重射，臣能令君胜。”田忌信然之，与王及诸公子逐射千金。及临质，“&lt;a href=&quot;https://baike.baidu.com/item/%E5%AD%99%E5%AD%90/1681?fromModule=lemma_inlink&quot;&gt;孙子&lt;/a&gt;曰：‘今以君之下驷与彼上驷，取君上驷与彼中驷，取君中驷与彼下驷。’既驰三辈毕，而田忌一不胜而再胜，卒得王千金。”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;思考一个问题： 田忌和齐威王有相同数量的马，他们要在一场比赛中决出胜负，规则是：每匹马只能和对手比赛一次，胜者得一分，负者得零分，最后得分高的一方获胜。田忌和齐威王都是聪明的人，他们都会采用最优策略，田忌想要赢得齐威王的千金，那么田忌应该怎么安排马匹的顺序呢？&lt;/p&gt;
+&lt;h3 id=&quot;贪心算法&quot;&gt;&lt;a href=&quot;#贪心算法&quot; class=&quot;headerlink&quot; title=&quot;贪心算法&quot;&gt;&lt;/a&gt;贪心算法&lt;/h3&gt;&lt;p&gt;贪心算法是一种在每一步选择中都采取在当前状态下最好或最优的选择，从而希望导致结果是全局最好或最优的算法。贪心算法与动态规划的不同在于它对每个子问题的解决方案都做出选择，不能回退。动态规划则会保存以前的运算结果，并根据以前的结果对当前进行选择，有回退功能。&lt;/p&gt;</summary>
     
     
     
@@ -47,13 +45,10 @@
     <updated>2022-11-10T18:52:52.813Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、问题背景&quot;&gt;&lt;a href=&quot;#一、问题背景&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h2 id=&quot;一、问题背景&quot;&gt;&lt;a href=&quot;#一、问题背景&quot; class=&quot;headerlink&quot; title=&quot;一、问题背景&quot;&gt;&lt;/a&gt;一、问题背景&lt;/h2&gt;&lt;p&gt;忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。&lt;/p&gt;
+&lt;p&gt;此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口…..&lt;/p&gt;
+&lt;p&gt;周而复始几次后，我终于忍不住了。。&lt;/p&gt;
+&lt;h2 id=&quot;二、问题确认&quot;&gt;&lt;a href=&quot;#二、问题确认&quot; class=&quot;headerlink&quot; title=&quot;二、问题确认&quot;&gt;&lt;/a&gt;二、问题确认&lt;/h2&gt;</summary>
     
     
     
@@ -70,13 +65,12 @@
     <updated>2022-11-07T14:47:57.800Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;高精算法解决了什么问题？&quot;&gt;&lt;a href=&quot;#高精算法解决了什么问题？&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;高精算法解决了什么问题？&quot;&gt;&lt;a href=&quot;#高精算法解决了什么问题？&quot; class=&quot;headerlink&quot; title=&quot;高精算法解决了什么问题？&quot;&gt;&lt;/a&gt;高精算法解决了什么问题？&lt;/h1&gt;&lt;p&gt;在利用计算机作数值计算的时候，有时候会遇到这样的问题：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;希望计算的数的位数可达几十位甚至几百位，虽然计算机的计算精度也算较高了，但因受到硬件的限制，往往达不到实际问题所要求的精度。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以，往往在处理对超大精度计算时，都会通过巧妙的算法设计实现。&lt;/p&gt;
+&lt;p&gt;本算法使用字符串实现，防止数据溢出。&lt;/p&gt;</summary>
     
     
     
@@ -106,13 +100,14 @@
     <updated>2022-11-14T14:36:47.361Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;内联优化&quot;&gt;&lt;a href=&quot;#内联优化&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h2 id=&quot;内联优化&quot;&gt;&lt;a href=&quot;#内联优化&quot; class=&quot;headerlink&quot; title=&quot;内联优化&quot;&gt;&lt;/a&gt;内联优化&lt;/h2&gt;&lt;p&gt;在内部编译方法的时候，JVM根据内部逻辑分析是否热点代码，如果代码足够热，JVM会对方法内联优化，节省额外的方法调用开销（方法栈帧的生成、参数字段的压入、栈帧的弹出、指令执行地址跳转）。&lt;/p&gt;
+&lt;p&gt;方法内联是由JIT编译器在运行时完成的。既然涉及到编译，方法内联也是有一定的开销的，包括cpu时间和内存，所以这又是一个trade-off的老问题了。JIT根据以下信息决定是否进行内联：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;被调用方法是否足够hot&lt;/strong&gt;。这个取决于该方法被调用的次数，次数阈值默认值为10,000。即运行时被调用次数超过10,000的方法，可以被认为是hot。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;被调用方法大小是否合适&lt;/strong&gt;。对于过大的方法，JIT认为它是不适合做内联的。这个方法大小阈值由-XX:FreqInlineSize指定，不建议修改。即大于这个阈值size的方法，不考虑进行内联&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;被调用方法运行时其实现是否可以唯一确定&lt;/strong&gt;。显然，对于类方法、私有方法和final方法，JIT是可以唯一确定它们的具体实现代码的(这里对应字节码中的invokestatic和invokespecial)；另一方面，对于public方法调用，它所指向的具体实现可能是自身、父类、子类的方法实现代码（多态），只有当JIT能唯一确定方法的具体实现时，才有可能完成内联（对应字节码中的invokevirtual和invokeinterface）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;另外内联优化不仅仅消除了调用开销，被内联优化的方法会编译成native code(机器码)放在JVM Code Cache nmethod中，使多次调用方法时性能提升。&lt;/p&gt;</summary>
     
     
     
@@ -168,13 +163,14 @@
     <updated>2022-06-17T05:26:57.536Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;一、权限认证-SpringSecurity&quot;&gt;&lt;a href=&quot;#一、权限认证-SpringSecurity&quot; class=&quot;headerlink&quot; title=&quot;一、权限认证 SpringSecurity&quot;&gt;&lt;/a&gt;一、权限认证</summary>
-        
-      
+    <summary type="html">&lt;h3 id=&quot;一、权限认证-SpringSecurity&quot;&gt;&lt;a href=&quot;#一、权限认证-SpringSecurity&quot; class=&quot;headerlink&quot; title=&quot;一、权限认证 SpringSecurity&quot;&gt;&lt;/a&gt;一、权限认证 SpringSecurity&lt;/h3&gt;&lt;p&gt;1.引入安全框架SpringSecurity&lt;/p&gt;
+&lt;p&gt;Spring Security是一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方案的安全框架。它提供了一组可以在Spring应用上下文中配置的Bean，充分利用了Spring IoC，DI（控制反转Inversion&lt;br&gt;of Control ,DI:Dependency Injection 依赖注入）和AOP（面向切面编程）功能，为应用系统提供声明式的安全访问控制功能，减少了为企业系统安全控制编写大量重复代码的工作。&lt;/p&gt;
+&lt;p&gt;2.Maven&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-boot-starter-security&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</summary>
     
     
     
@@ -191,13 +187,10 @@
     <updated>2022-06-17T05:26:06.592Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;Docker&quot;&gt;&lt;a href=&quot;#Docker&quot; class=&quot;headerlink&quot; title=&quot;Docker&quot;&gt;&lt;/a&gt;Docker&lt;/h3&gt;&lt;p&gt;Docker 是一个开源的应用容器引擎，基于Go 语言并遵从 Apache2.0</summary>
-        
-      
+    <summary type="html">&lt;h3 id=&quot;Docker&quot;&gt;&lt;a href=&quot;#Docker&quot; class=&quot;headerlink&quot; title=&quot;Docker&quot;&gt;&lt;/a&gt;Docker&lt;/h3&gt;&lt;p&gt;Docker 是一个开源的应用容器引擎，基于Go 语言并遵从 Apache2.0 协议开源。&lt;/p&gt;
+&lt;p&gt;Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。&lt;/p&gt;
+&lt;p&gt;容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。&lt;/p&gt;
+&lt;h4 id=&quot;Docker的应用场景&quot;&gt;&lt;a href=&quot;#Docker的应用场景&quot; class=&quot;headerlink&quot; title=&quot;Docker的应用场景&quot;&gt;&lt;/a&gt;Docker的应用场景&lt;/h4&gt;</summary>
     
     
     
@@ -214,10 +207,6 @@
     <updated>2022-08-14T14:45:07.268Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;p&gt;问题：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;
 给定一个以字符串表示的非负整数  num，移除这个数中的 k 位数字，使得剩下的数字最小。
@@ -229,9 +218,22 @@ num 不会包含任何前导零。
 
 示例 1 :
 
-输入: num =</summary>
-        
-      
+输入: num = &amp;quot;1432219&amp;quot;, k = 3
+输出: &amp;quot;1219&amp;quot;
+解释: 移除掉三个数字 4, 3, 和 2 形成一个新的最小的数字 1219。
+示例 2 :
+
+输入: num = &amp;quot;10200&amp;quot;, k = 1
+输出: &amp;quot;200&amp;quot;
+解释: 移掉首位的 1 剩下的数字为 200. 注意输出不能有任何前导零。
+示例 3 :
+
+输入: num = &amp;quot;10&amp;quot;, k = 2
+输出: &amp;quot;0&amp;quot;
+解释: 从原数字移除所有的数字，剩余为空就是 0。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;一个思路是：&lt;/p&gt;
+&lt;p&gt;从左到右遍历&lt;br&gt;对于每一个遍历到的元素，我们决定是丢弃还是保留&lt;br&gt;问题的关键是：我们怎么知道，一个元素是应该保留还是丢弃呢？&lt;/p&gt;
+&lt;p&gt;这里有一个前置知识：对于两个数 123a456 和 123b456，如果 a &amp;gt; b， 那么数字 123a456 大于 数字 123b456，否则数字 123a456 小于等于数字 123b456。也就说，两个相同位数的数字大小关系取决于第一个不同的数的大小。&lt;/p&gt;</summary>
     
     
     
@@ -275,18 +277,29 @@ num 不会包含任何前导零。
     <updated>2022-03-12T18:52:52.383Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;p&gt;模拟系统执行「递归」的过程&lt;/p&gt;
 &lt;p&gt;具体应用：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;lang-java&quot;&gt;给定一个 n 叉树的根节点 root ，返回 其节点值的 前序遍历 。
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;递归做法:&lt;/p&gt;
-&lt;pre&gt;&lt;code</summary>
-        
-      
+&lt;pre&gt;&lt;code class=&quot;lang-java&quot;&gt;class DFS&amp;#123;
+    public List&amp;lt;Integer&amp;gt; preorder(Node root)&amp;#123;
+        List&amp;lt;Integer&amp;gt; res = new ArrayList&amp;lt;&amp;gt;();
+        dfs(root,res);
+        return res;
+    &amp;#125;
+
+    public void dfs(Node root,List&amp;lt;Integer&amp;gt; res)&amp;#123;
+        if(null == root) return;
+        //前序遍历位置
+        res.add(root.val);
+        List&amp;lt;Node&amp;gt; children = root.children;
+        for(Node child: children)&amp;#123;
+            dfs(child,res);
+        &amp;#125;
+    &amp;#125;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;</summary>
     
     
     
@@ -303,14 +316,13 @@ num 不会包含任何前导零。
     <updated>2022-03-26T16:24:42.914Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;p&gt;&lt;strong&gt;直观地说就是，让你把一幅图「拉平」，而且这个「拉平」的图里面，所有箭头方向都是一致的&lt;/strong&gt;，比如上图所有箭头都是朝右的。&lt;/p&gt;
-&lt;p&gt;&lt;img</summary>
-        
-      
+&lt;p&gt;&lt;img src=&quot;/.top//Blog/source/_posts/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/640&quot; alt=&quot;图片&quot; style=&quot;zoom:50%;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;对于任何有向图而言，其拓扑排序为其所有结点的一个线性排序（对于同一个有向图而言可能存在多个这样的结点排序）。该排序满足这样的条件——对于图中的任意两个结点&lt;em&gt;u&lt;/em&gt;和&lt;em&gt;v&lt;/em&gt;，若存在一条有向边从&lt;em&gt;u&lt;/em&gt;指向&lt;em&gt;v&lt;/em&gt;，则在拓扑排序中&lt;em&gt;u&lt;/em&gt;一定出现在&lt;em&gt;v&lt;/em&gt;前面。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;拓扑排序可以用来判断图中是否有环， 还可以用来判断图是否是一条链。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;算法思路&quot;&gt;&lt;a href=&quot;#算法思路&quot; class=&quot;headerlink&quot; title=&quot;算法思路&quot;&gt;&lt;/a&gt;算法思路&lt;/h4&gt;</summary>
     
     
     
@@ -327,13 +339,10 @@ num 不会包含任何前导零。
     <updated>2022-06-17T05:27:24.654Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;688-骑士在棋盘上的概率&quot;&gt;&lt;a href=&quot;#688-骑士在棋盘上的概率&quot; class=&quot;headerlink&quot; title=&quot;688. 骑士在棋盘上的概率&quot;&gt;&lt;/a&gt;&lt;a</summary>
-        
-      
+    <summary type="html">&lt;h3 id=&quot;688-骑士在棋盘上的概率&quot;&gt;&lt;a href=&quot;#688-骑士在棋盘上的概率&quot; class=&quot;headerlink&quot; title=&quot;688. 骑士在棋盘上的概率&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/knight-probability-in-chessboard/&quot;&gt;688. 骑士在棋盘上的概率&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;象棋骑士有8种可能的走法，如下图所示。每次移动在基本方向上是两个单元格，然后在正交方向上是一个单元格。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Kayleh/cdn4/main/knight.png&quot; alt&gt;&lt;/p&gt;
+&lt;p&gt;每次骑士要移动时，它都会随机从8种可能的移动中选择一种(即使棋子会离开棋盘)，然后移动到那里。&lt;/p&gt;
+&lt;p&gt;骑士继续移动，直到它走了 &lt;code&gt;k&lt;/code&gt; 步或离开了棋盘。&lt;/p&gt;</summary>
     
     
     
@@ -350,13 +359,21 @@ num 不会包含任何前导零。
     <updated>2022-01-17T09:59:12.773Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;「蓄水池抽样算法」&quot;&gt;&lt;a href=&quot;#「蓄水池抽样算法」&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h3 id=&quot;「蓄水池抽样算法」&quot;&gt;&lt;a href=&quot;#「蓄水池抽样算法」&quot; class=&quot;headerlink&quot; title=&quot;「蓄水池抽样算法」&quot;&gt;&lt;/a&gt;「蓄水池抽样算法」&lt;/h3&gt;&lt;p&gt;优势：只需一次遍历，适用总量未知的情况&lt;/p&gt;
+&lt;p&gt;蓄水池抽样算法可以扩展很多应用范围，比如游戏的签到抽奖系统，在抽奖之前，你不知道参与的总人数。&lt;/p&gt;
+&lt;p&gt;对于一个池内，获取每个数字的概率都是一样的&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;如果我们池子中只有一个数字，那么拿到第一个数字的概率就是100%毋庸置疑。&lt;/li&gt;
+&lt;li&gt;两个数字50% 三个数字每个数字的几率都是33% 以此类推。。。。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当我们不知道池子里有多少个数字的时候，就需要用蓄水池的算法思想去计算。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当链表前行到第一个数字，此时取第一个数字的几率为100%，那result自然等于这个数字。&lt;/li&gt;
+&lt;li&gt;前进到第二个数字，那么此时取这个数字的几率自然就为50%（池子里只有两个数字），那么就是50%的几率取新数字，50%的几率保留原本的数字。&lt;/li&gt;
+&lt;li&gt;第三个数字的时候，33%的几率取当前最新的这个数字，66%的几率保留原本的数字。这66%中：原本的数字有50%的几率是1，有50%的几率是2。也就是此时三个数字的概率都为33%。 通过这个算法，就能达到取数的概率均摊，从而实现随机。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;</summary>
     
     
     
@@ -388,13 +405,10 @@ num 不会包含任何前导零。
     <updated>2022-01-10T08:19:17.831Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;「优先队列」&quot;&gt;&lt;a href=&quot;#「优先队列」&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+    <summary type="html">&lt;h2 id=&quot;「优先队列」&quot;&gt;&lt;a href=&quot;#「优先队列」&quot; class=&quot;headerlink&quot; title=&quot;「优先队列」&quot;&gt;&lt;/a&gt;「优先队列」&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;应用场景&lt;/strong&gt;：从序列中找一个最值（最大值或最小值），如果顺序寻找最值需要O(n)的时间，而使用优先队列则只需要O(logn)的时间。&lt;/p&gt;
+&lt;p&gt;普通的队列是一种先进先出的数据结构，元素在队尾入，在队头出。&lt;/p&gt;
+&lt;p&gt;在优先队列中。元素被赋予了优先级，具有最高优先级的元素先出。&lt;/p&gt;
+&lt;p&gt;优先队列是利用堆来实现的，堆可以看作是一棵完全二叉树的循序存储结构，具有n个节点的完全二叉树的深度为（logn）+1&lt;/p&gt;</summary>
     
     
     
@@ -434,14 +448,10 @@ num 不会包含任何前导零。
     <updated>2022-01-01T15:27:44.350Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;p&gt;&lt;strong&gt;前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;prefix[i]&lt;/code&gt;就代表着&lt;code&gt;nums[0..i-1]&lt;/code&gt;所有元素的累加和，如果我们想求区间&lt;code&gt;</summary>
-        
-      
+&lt;p&gt;&lt;code&gt;prefix[i]&lt;/code&gt;就代表着&lt;code&gt;nums[0..i-1]&lt;/code&gt;所有元素的累加和，如果我们想求区间&lt;code&gt;nums[i..j]&lt;/code&gt;的累加和，只要计算&lt;code&gt;prefix[j+1] - prefix[i]&lt;/code&gt;即可，而不需要遍历整个区间求和。&lt;/p&gt;
+&lt;h3 id=&quot;「差分数组」&quot;&gt;&lt;a href=&quot;#「差分数组」&quot; class=&quot;headerlink&quot; title=&quot;「差分数组」&quot;&gt;&lt;/a&gt;「差分数组」&lt;/h3&gt;&lt;p&gt;差分数组的主要适用场景是&lt;strong&gt;频繁对原始数组的某个区间的元素进行增减&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;对&lt;code&gt;nums&lt;/code&gt;数组构造一个&lt;code&gt;diff&lt;/code&gt;差分数组，&lt;strong&gt;&lt;code&gt;diff[i]&lt;/code&gt;就是&lt;code&gt;nums[i]&lt;/code&gt;和&lt;code&gt;nums[i-1]&lt;/code&gt;之差&lt;/strong&gt;：&lt;/p&gt;</summary>
     
     
     
