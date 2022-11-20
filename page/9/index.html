@@ -1,1 +1,1423 @@
-<!DOCTYPE html><html lang="zh-CN" id="theme-dark-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content=" Kayleh "><title>Kayleh</title><meta name="description" content="Polyphony of the spirit"><meta name="keywords" content="Blog,博客,Hexo,Kayleh"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async="" defer=""></script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/about">About</a></li><li><a href="/link">Links</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)" style="display:none"></a></li><li><a class="fa fa-search" onclick="openWindow()"></a></li></div><div class="avatar"><img src="/images/logo.webp"></div></div></div><div class="sidebar animated fadeInDown"><div class="sidebar-top"><div class="logo-title"><div class="title"><img src="/images/chtholly@.png" style="width:220px" alt="favicon"><h3><a href="/">Kayleh</a></h3><div class="description"><p>Polyphony of the spirit</p></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/kayleh"><i class="fa fa-github"></i></a></li><li><a href="mailto:yaojinqing@kayleh.top"><i class="fa fa-envelope"></i></a></li><li><a target="_blank" rel="noopener" href="http://sighttp.qq.com/authd?IDKEY=923434908"><i class="fa fa-qq"></i></a></li><li><a href="kayleh"><i class="fa fa-twitter"></i></a></li><li><a href="kayleh"><i class="fa fa-instagram"></i></a></li><li><a href="kayleh"><i class="fa fa-facebook"></i></a></li></ul></div></div><div class="footer"><div class="p"><span>Copyright © 2019 </span><i class="fa fa-star"></i><span> Kayleh</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span>&amp; </span><span>Anatolo</span></div><div class="beian"></div></div></div><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/jvm-gc/">JVM垃圾回收机制</a></h3></div><div class="post-content"><p>GC是什么分代收集算法 次数上频繁收集Young区 Minor GC 次数上较少收集Old区 Full GC 基本不动Perm永久区 GC是发生在哪个部分 GC是发生在堆(heap)里面的 GC分几种?:one:引用计数法(被淘汰)缺点: 每次对对象赋值时均要维护引用计数器,且计数器本身也有一定...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-16</span><i class="fa fa-tag"></i><a class="tag" href="/tags/jvm/" title="jvm">jvm </a><span class="leancloud_visitors"></span><span>About 483 words, 1 min 36 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/springmvc-work-stream/">SpringMVC work stream</a></h3></div><div class="post-content"><p>SpringMVC工作流程 处理模型数据方式一:将方法的返回值设置为ModelAndView 处理模型数据方式二:方法的返回值仍是String类型,在方法的入参中传入Map,Model或者ModelMap, 不管将处理器方法的返回值设置为ModelAndView还是在方法的入参传入Map,Model或者Mod...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-16</span><i class="fa fa-tag"></i><a class="tag" href="/tags/frame/" title="frame">frame </a><span class="leancloud_visitors"></span><span>About 101 words, 20 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/Transaction-isolation-level/">Transaction isolation level</a></h3></div><div class="post-content"><p>事务的隔离级别事务是必须满足4个条件（ACID）：：原子性（Atomicity，或称不可分割性）、一致性（Consistency）、隔离性（Isolation，又称独立性）、持久性（Durability）。 原子性：一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-16</span><i class="fa fa-tag"></i><a class="tag" href="/tags/sql/" title="sql">sql </a><span class="leancloud_visitors"></span><span>About 776 words, 2 min 35 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/spring-relate/">Spring Related</a></h3></div><div class="post-content"><p>Spring相关什么是IOCIOC： Inversion of control 反转控制。 比如以前创建一个对象，需要自己主动new 一个对象，通过IOC，对象的创建交由Spring框架 创建，开发人员直接使用已经创建好的对象。 什么是DIDI： Dependency Injection 依赖注入。 通过IOC创...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-16</span><i class="fa fa-tag"></i><a class="tag" href="/tags/frame/" title="frame">frame </a><span class="leancloud_visitors"></span><span>About 615 words, 2 min 2 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/Native-method/">Native method?</a></h3></div><div class="post-content"><p>Native 方法?翻看Thread.start()源码,竟然出现了无方法体的方法?? private native void start0(); 这里其实用到了关键字native native关键字 说明java的作用范围达不到了,回去调用底层C语言的库. 使用native关键字会进入本地方法栈,调...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-15</span><i class="fa fa-tag"></i><a class="tag" href="/tags/jvm/" title="jvm">jvm </a><span class="leancloud_visitors"></span><span>About 182 words, 36 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/Sandbox-security-mechanism/">沙箱安全机制</a></h3></div><div class="post-content"><p>什么是沙箱？ Java安全模型的核心就是Java沙箱（sandbox），什么是沙箱？沙箱是一个限制程序运行的环境。沙箱机制就是将 Java 代码限定在虚拟机(JVM)特定的运行范围中，并且严格限制代码对本地系统资源访问，通过这样的措施来保证对代码的有效隔离，防止对本地系统造成破坏。沙箱主要限制系统资源访问，那...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-15</span><i class="fa fa-tag"></i><a class="tag" href="/tags/jvm/" title="jvm">jvm </a><span class="leancloud_visitors"></span><span>About 1485 words, 4 min 57 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/JVM-classloader-and-parent-delegation-mechanism/">JVM classloader and parent delegation-mechanism</a></h3></div><div class="post-content"><p>JVM-类加载器和双亲委派机制JVMjava的六种存储地址及解释1） 寄存器(register)：这是最快的存储区，因为它位于不同于其他存储区的地方——处理器内部。但是寄存器的数量极其有限，所以寄存器由编译器根据需求进行分配。你不能直接控制，也不能在程序中感觉到寄存器存在的任何迹象。 2） 堆栈(stack)：位...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-14</span><i class="fa fa-tag"></i><a class="tag" href="/tags/jvm/" title="jvm">jvm </a><span class="leancloud_visitors"></span><span>About 2095 words, 6 min 59 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/AIO-blocking-model/">AIO blocking model</a></h3></div><div class="post-content"><p>AIO模型1. 在系统层面分析IO模型当我们从网络中或者其他进程中接收到数据时，这个数据会先被拷贝到系统内核的缓冲区，然后从内核的缓冲区中再复制到我们应用程序对应的缓冲区中，这样我们才能实现从应用程序中取得这个数据。 1.1 BIO模型 我们的应用程序会首先调用特定的函数，这样才能去访问我们的操作系统。拿我们的...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-05</span><i class="fa fa-tag"></i><a class="tag" href="/tags/network/" title="network">network </a><span class="leancloud_visitors"></span><span>About 4187 words, 13 min 57 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/NIO-blocking-model/">NIO blocking model</a></h3></div><div class="post-content"><p>NIO模型1. 概述1.1 翻译翻译？什么叫NIO？NIO：我认为翻译成Non-Blocking，更加的通俗直白，相比于BIO，也有一个对比，叫他非阻塞IO最好不过了 它和BIO有以下的区别 Channel是双向的，即可以读又可以写，相比于Stream，它并不区分出输入流和输出流，而且Channel可以完成非阻...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-05</span><i class="fa fa-tag"></i><a class="tag" href="/tags/network/" title="network">network </a><span class="leancloud_visitors"></span><span>About 3210 words, 10 min 42 sec read</span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/BIO-blocking-model/">BIO blocking model</a></h3></div><div class="post-content"><p>BIO阻塞模型1. BIO阻塞模型简述BIO模型中服务端与客户端的响应过程 服务器serverSocket先要和端口进行绑定 绑定完成后，执行accept方法，等待客户端的连接，这个方法是阻塞式调用，也就是说，要一直等待客户端的连接响应，不做其他事情，一直等，（被阻塞的还有InputStream.read()、...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-12-03</span><i class="fa fa-tag"></i><a class="tag" href="/tags/network/" title="network">network </a><span class="leancloud_visitors"></span><span>About 1906 words, 6 min 21 sec read</span></div></div></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/page/8/">Previous</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/page/10/">Next</a></li></ul></div></div></div></div><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="Search..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow()"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div><script src="/bundle.js"></script><script>window.INSIGHT_CONFIG={TRANSLATION:{POSTS:"Posts",PAGES:"Pages",CATEGORIES:"Categories",TAGS:"Tags",UNTITLED:"(Untitled)"},CONTENT_URL:"/content.json"}</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="theme-color" content="#222" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2"><link rel="apple-touch-icon" sizes="180x180" href="/images/chtholly@.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/chtholly@.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/chtholly@.png"><link rel="mask-icon" href="/images/@logo.svg" color="#222"><script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><meta name="description" content="Dreamaker"><meta property="og:type" content="website"><meta property="og:title" content="Kayleh"><meta property="og:url" content="https://blog.kayleh.top/page/9/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="Dreamaker"><meta property="og:locale" content="zh_CN"><meta property="article:author" content="Kayleh"><meta name="twitter:card" content="summary"><link rel="canonical" href="https://blog.kayleh.top/page/9/"><script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/9/index.html","title":""}</script><script class="next-config" data-name="calendar" type="application/json">""</script><title>Kayleh</title><script async="" src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684"></script><script async="" defer="" data-website-id="" src=""></script><script defer="" data-domain="" src=""></script><noscript></noscript><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css"></noscript></head><body itemscope="" itemtype="http://schema.org/WebPage" class="use-motion"><div class="headband"></div><main class="main"><div class="column"><header class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="site-brand-container"><div class="site-nav-toggle"><div class="toggle" aria-label="切换导航栏" role="button"><span class="toggle-line"></span> <span class="toggle-line"></span> <span class="toggle-line"></span></div></div><div class="site-meta"><a href="/" class="brand" rel="start"><i class="logo-line"></i><h1 class="site-title">Kayleh</h1><i class="logo-line"></i> </a><img class="custom-logo-image" src="/images/@logo.svg" alt="Kayleh"></div><div class="site-nav-right"><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class="site-nav"><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-links"><a href="/link" rel="section"><i class="fa fa-sitemap fa-fw"></i>links</a></li><li class="menu-item menu-item-search"><a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索</a></li></ul></nav><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-icon"><i class="fa fa-search"></i></span><div class="search-input-container"><input autocomplete="off" autocapitalize="off" maxlength="80" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close" role="button"><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class="search-result-icon"><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></header><aside class="sidebar"><div class="sidebar-inner sidebar-overview-active"><ul class="sidebar-nav"><li class="sidebar-nav-toc">文章目录</li><li class="sidebar-nav-overview">站点概览</li></ul><div class="sidebar-panel-container"><div class="post-toc-wrap sidebar-panel"></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" alt="Kayleh" src="/images/chtholly@.png"><p class="site-author-name" itemprop="name">Kayleh</p><div class="site-description" itemprop="description">Dreamaker</div></div><div class="site-state-wrap site-overview-item animated"><nav class="site-state"><div class="site-state-item site-state-posts"><a href="/archives"><span class="site-state-item-count">235</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><span class="site-state-item-count">6</span> <span class="site-state-item-name">分类</span></div><div class="site-state-item site-state-tags"><a href="/tags"><span class="site-state-item-count">33</span> <span class="site-state-item-name">标签</span></a></div></nav></div><div class="links-of-author site-overview-item animated"><span class="links-of-author-item"><a href="https://github.com/kayleh" title="GitHub → https://github.com/kayleh" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a> </span><span class="links-of-author-item"><a href="mailto:yaojinqing@kayleh.top" title="E-Mail → mailto:yaojinqing@kayleh.top" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a> </span><span class="links-of-author-item"><a href="https://instagram.com/kayleh" title="Instagram → https://instagram.com/kayleh" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a> </span><span class="links-of-author-item"><a href="https://twitter.com/kayleh" title="Twitter → https://twitter.com/kayleh" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a></span></div><div class="cc-license site-overview-item animated" itemprop="license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a></div></div></div></div></aside></div><div class="main-inner index posts-expand"><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/jvm-gc/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/jvm-gc/" class="post-title-link" itemprop="url">JVM垃圾回收机制</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-16 17:46:57" itemprop="dateCreated datePublished" datetime="2020-12-16T17:46:57+08:00">2020-12-16</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-09-23 14:13:37" itemprop="dateModified" datetime="2021-09-23T14:13:37+08:00">2021-09-23</time> </span><span id="/jvm-gc/" class="post-meta-item leancloud_visitors" data-flag-title="JVM垃圾回收机制" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>868</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>1 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h3 id="GC是什么"><a href="#GC是什么" class="headerlink" title="GC是什么"></a>GC是什么</h3><p><strong>分代收集算法</strong></p><blockquote><p>次数上频繁收集Young区 Minor GC</p><p>次数上较少收集Old区 Full GC</p><p>基本不动Perm永久区</p></blockquote><h3 id="GC是发生在哪个部分"><a href="#GC是发生在哪个部分" class="headerlink" title="GC是发生在哪个部分"></a>GC是发生在哪个部分</h3><blockquote><p>GC是发生在堆(heap)里面的</p></blockquote><h3 id="GC分几种"><a href="#GC分几种" class="headerlink" title="GC分几种?"></a>GC分几种?</h3><h4 id="one-引用计数法-被淘汰"><a href="#one-引用计数法-被淘汰" class="headerlink" title=":one:引用计数法(被淘汰)"></a>:one:引用计数法(被淘汰)</h4><p>缺点:</p><ul><li>每次对对象赋值时均要维护引用计数器,且计数器本身也有一定的消耗</li><li>较难处理循环引用</li></ul><blockquote><p>JVM的实现一般不采用这种方式</p></blockquote><h4 id="two-复制算法-Copying"><a href="#two-复制算法-Copying" class="headerlink" title=":two:复制算法(Copying)"></a>:two:复制算法(Copying)</h4><p>年轻代中使用的是Minor GC,这种GC算法采用的是复制算法(Copying)</p><p><strong>原理:</strong></p><ul><li>从根集合(GC Root)开始,通过Tracing从From中找到存活对象,拷贝到To中;</li><li>From丶To交换身份,下次内存分配从To开始</li></ul><p><strong>优势:heavy_check_mark:</strong></p><ul><li><p>没有标记和清除的过程,效率高</p></li><li><p>没有内存碎片,可以利用bump-the-pointrt实现快速内存分配</p></li></ul><p><strong>劣势:heavy_multiplication_x:</strong></p><ul><li>需要双倍空间</li></ul><h4 id="three-标记清除-Mark-Sweep"><a href="#three-标记清除-Mark-Sweep" class="headerlink" title=":three:标记清除(Mark-Sweep)"></a>:three:标记清除(Mark-Sweep)</h4><p>老年代一般是由标记清除或者是标记清除与标记整理的混合实现</p><p><strong>原理</strong></p><ul><li><p>1.标记(Mark)</p><p>从根集合开始扫描,对存活的对象进行标记</p></li><li><p>2.清除(Sweep)</p><p>扫描整个内存空间,回收未被标记的对象,使用free-list记录可以区域.</p></li></ul><p><strong>优势:heavy_check_mark:</strong></p><ul><li>不需要额外空间</li></ul><p><strong>劣势:heavy_multiplication_x:</strong></p><ul><li>两次扫描,耗时严重</li><li>会产生内存碎片</li></ul><h4 id="four-标记压缩-Mark-Compact"><a href="#four-标记压缩-Mark-Compact" class="headerlink" title=":four:标记压缩(Mark-Compact)"></a>:four:标记压缩(Mark-Compact)</h4><p><strong>原理:</strong></p><ul><li><p>1.标记(Mark)</p><p>与标记-清除一样</p></li><li><p>2.压缩(Compact)</p><p>再次扫描,并往一段滑动存活对象.</p></li></ul><p><strong>优势:heavy_check_mark:</strong></p><ul><li>没有内存碎片,可以利用bump-the-pointrt</li></ul><p><strong>劣势:heavy_multiplication_x:</strong></p><ul><li>需要移动对象的成本</li></ul><h4 id="five-标记清除压缩-Mark-Sweep-Compact"><a href="#five-标记清除压缩-Mark-Sweep-Compact" class="headerlink" title=":five:标记清除压缩(Mark-Sweep-Compact)"></a>:five:标记清除压缩(Mark-Sweep-Compact)</h4><p><strong>原理:</strong></p><ul><li>1.Mark-Sweep和Mark-Compact的结合</li><li>2.和Mark-Sweep一致,当进行多次GC后才Compact</li></ul><p>:heavy_check_mark:减少移动对象的成本</p></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/springmvc-work-stream/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/springmvc-work-stream/" class="post-title-link" itemprop="url">SpringMVC work stream</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-16 15:13:22" itemprop="dateCreated datePublished" datetime="2020-12-16T15:13:22+08:00">2020-12-16</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-04-12 01:11:28" itemprop="dateModified" datetime="2021-04-12T01:11:28+08:00">2021-04-12</time> </span><span id="/springmvc-work-stream/" class="post-meta-item leancloud_visitors" data-flag-title="SpringMVC work stream" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>189</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>1 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="SpringMVC工作流程"><a href="#SpringMVC工作流程" class="headerlink" title="SpringMVC工作流程"></a>SpringMVC工作流程</h2><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/springmvc工作流程/springmvc工作流程.png" alt="springmvc工作流程"></p><ul><li><p>处理模型数据方式一:将方法的返回值设置为ModelAndView</p></li><li><p>处理模型数据方式二:方法的返回值仍是String类型,在方法的入参中传入Map,Model或者ModelMap,</p><p>不管将处理器方法的返回值设置为ModelAndView还是在方法的入参传入Map,Model或者ModelMap,SpringMVC都会转换为一个ModelAndView对象.</p></li></ul></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/Transaction-isolation-level/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/Transaction-isolation-level/" class="post-title-link" itemprop="url">Transaction isolation level</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-16 14:14:51" itemprop="dateCreated datePublished" datetime="2020-12-16T14:14:51+08:00">2020-12-16</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-04-12 01:11:28" itemprop="dateModified" datetime="2021-04-12T01:11:28+08:00">2021-04-12</time> </span><span id="/Transaction-isolation-level/" class="post-meta-item leancloud_visitors" data-flag-title="Transaction isolation level" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>1.3k</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>1 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h3 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h3><p>事务是必须满足4个条件（ACID）：：原子性（<strong>A</strong>tomicity，或称不可分割性）、一致性（<strong>C</strong>onsistency）、隔离性（<strong>I</strong>solation，又称独立性）、持久性（<strong>D</strong>urability）。</p><ul><li><strong>原子性：</strong>一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</li><li><strong>一致性：</strong>在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。</li><li><strong>隔离性：</strong>数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。</li><li><strong>持久性：</strong>事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</li></ul><h3 id="数据库事务并发问题"><a href="#数据库事务并发问题" class="headerlink" title="数据库事务并发问题"></a>数据库事务并发问题</h3><p>假设选择有两个事务:Transaction01和Transaction02并发执行.</p><p><strong>1)脏读</strong></p><p>①Transaction01将某条记录的AGE值从20修改为30.</p><p>②Transaction02读取了Transaction01更新后的值:30.</p><p>③Transaction01回滚.AGE值恢复到了20.</p><p>④Transaction02读取到的30就是一个无效的值.</p><p>2)不可重复读</p><p>①Transaction01读取了AGE值为20.</p><p>②Transaction02将AGE值修改为30.</p><p>③Transaction01再次读取AGE值为30,和第一次读取不一致.</p><p><strong>3)幻读</strong></p><p>①Transaction01读取了STUDENT表中的一部分数据</p><p>②Transaction02向STUDENT表中插入了新的行</p><p>③Transaction01读取的时候,多了一些新的行,感觉出现了幻觉</p><h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><blockquote><p>一个事务与其他事务隔离的程度称为隔离级别</p></blockquote><p><strong>1)读未提交:READ UNCOMMITTED</strong></p><p>允许Transaction01读取Transaction02未提交的修改</p><p><strong>2)读已提交:READ COMMITTED</strong></p><p>要求Transaction01只能提取Transaction02已提交的修改</p><p><strong>3)可重复读: REPEATABLE READ</strong></p><p>确保Transaction01可以多次从一个字段中读取到相同的值,即Transaction01执行期间禁止其他事务对这个字段更新</p><p><strong>4)串行化: SERIALIZABLE</strong></p><p>确保Transaction01可以多次从一个表中读取到相同的行.在Transaction01执行期间,禁止其他事务对这个表进行添加,更新,删除操作.可以避免任何并发问题,但性能十分低下.</p><div class="table-container"><table><thead><tr><th>隔离级别</th><th>脏读</th><th>不可重复读</th><th>幻读.虚拟读取</th></tr></thead><tbody><tr><td>未提交读</td><td>是</td><td>是</td><td>是</td></tr><tr><td>已提交读</td><td>否</td><td>是</td><td>是</td></tr><tr><td>可重复读</td><td>否</td><td>否</td><td>是</td></tr><tr><td>快照</td><td>否</td><td>否</td><td>否</td></tr><tr><td>可序列化</td><td>否</td><td>否</td><td>否</td></tr></tbody></table></div></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/spring-relate/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/spring-relate/" class="post-title-link" itemprop="url">Spring Related</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-16 13:44:11" itemprop="dateCreated datePublished" datetime="2020-12-16T13:44:11+08:00">2020-12-16</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-04-12 01:11:28" itemprop="dateModified" datetime="2021-04-12T01:11:28+08:00">2021-04-12</time> </span><span id="/spring-relate/" class="post-meta-item leancloud_visitors" data-flag-title="Spring Related" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>903</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>1 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="Spring相关"><a href="#Spring相关" class="headerlink" title="Spring相关"></a>Spring相关</h1><h2 id="什么是IOC"><a href="#什么是IOC" class="headerlink" title="什么是IOC"></a>什么是IOC</h2><p>IOC： Inversion of control 反转控制。 比如以前创建一个对象，需要自己主动new 一个对象，通过IOC，对象的创建交由Spring框架 创建，开发人员直接使用已经创建好的对象。</p><h2 id="什么是DI"><a href="#什么是DI" class="headerlink" title="什么是DI"></a>什么是DI</h2><p>DI： Dependency Injection 依赖注入。 通过IOC创建对象的时候，可以注入字符串甚至其他对象。 比如DAO就会注入session factory.</p><p>通常IOC和DI是紧密结合，一起使用的</p><h2 id="什么是AOP"><a href="#什么是AOP" class="headerlink" title="什么是AOP"></a>什么是AOP</h2><p>把功能划分为核心业务功能和其他的周边辅助功能，比如日志，性能统计，事务等等。 其他的周边辅助功能可以都看作切面功能。核心功能和切面功能分别独立开发，通过面向切面编程，可以有机的把核心业务功能和切面功能根据需求结合在一起。 比如增加操作可以和事务切面结合在一起，查询操作可以和性能统计切面结合在一起。<br>在配置方面，要配置切面，切点，并且通过aspect:config 把切面和切点结合起来。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/Spring的作用域/2025.png" alt="什么是AOP"></p><h4 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h4><blockquote><p>可以通过配置文件的scope属性来指定bean的作用域</p></blockquote><ul><li>singleton:默认值.当IOC容器一创建就会创建bean的实例.而且是单例的,每次得到的都是同一个.</li><li>prototype:原型的.当IOC容器一创建不再实例化该bean,每次调用getBean方法时再实例化该bean,而且每次得到的不是同一个</li><li>request:每次请求实例化一个bean</li><li>session:在一次会话中共享一个bean</li></ul><h4 id="Spring支持的常用数据库事务传播属性和事务隔离级别"><a href="#Spring支持的常用数据库事务传播属性和事务隔离级别" class="headerlink" title="Spring支持的常用数据库事务传播属性和事务隔离级别"></a>Spring支持的常用数据库事务传播属性和事务隔离级别</h4><ul><li><p>propagation:用来设置事务的传播行为</p><p>事务的传播行为:一个事务方法运行在了一个开启了事务的方法中时,当前方法时使用原来的事务还是开启一个新的事务</p><ul><li>Propagation.REQUIRED:默认值,使用原来的事务</li><li>Propagation.REQUIRED_NEW:将原来的事务挂起,开启一个新的事务</li></ul></li><li><p>isolation:用来设置事务的隔离级别</p><ul><li>Isolation.REPEATABLE_READ:可重复读,MySQL默认的隔离级别</li><li>Isolation.READ_COMMITTED:读已提交,Oracle默认的隔离级别,开发时通常使用的隔离级别</li></ul></li></ul></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/Native-method/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/Native-method/" class="post-title-link" itemprop="url">Native method?</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-15 16:58:42" itemprop="dateCreated datePublished" datetime="2020-12-15T16:58:42+08:00">2020-12-15</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-09-23 14:13:46" itemprop="dateModified" datetime="2021-09-23T14:13:46+08:00">2021-09-23</time> </span><span id="/Native-method/" class="post-meta-item leancloud_visitors" data-flag-title="Native method?" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>330</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>1 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h4 id="Native-方法"><a href="#Native-方法" class="headerlink" title="Native 方法?"></a>Native 方法?</h4><p>翻看Thread.start()源码,竟然出现了无方法体的方法??</p><pre><code class="lang-java">    private native void start0();
+</code></pre><p>这里其实用到了关键字native</p><h4 id="native关键字"><a href="#native关键字" class="headerlink" title="native关键字"></a>native关键字</h4><blockquote><p>说明java的作用范围达不到了,回去调用底层C语言的库.</p></blockquote><p>使用native关键字会进入本地方法栈,调用本地方法接口JNI(Java Native Interface)</p><p>JNI的作用: 扩展Java的使用,融合不同的编程语言为Java所用</p><p>它在内存区域中专门开辟了一块标记区域: Native Method Stack,登记Native方法.</p><p>在最终执行的时候,加载本地方法库中的方法通过JNI</p><h4 id="本地方法的使用"><a href="#本地方法的使用" class="headerlink" title="本地方法的使用"></a>本地方法的使用</h4><p>少见.</p><blockquote><p>Java使用打印机,currentTimeMills( ),做外挂的Robot( )…</p></blockquote></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/Sandbox-security-mechanism/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/Sandbox-security-mechanism/" class="post-title-link" itemprop="url">沙箱安全机制</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-15 16:58:23" itemprop="dateCreated datePublished" datetime="2020-12-15T16:58:23+08:00">2020-12-15</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-09-27 14:09:37" itemprop="dateModified" datetime="2021-09-27T14:09:37+08:00">2021-09-27</time> </span><span id="/Sandbox-security-mechanism/" class="post-meta-item leancloud_visitors" data-flag-title="沙箱安全机制" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>2.1k</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>2 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><ol><li><ul><li><h3 id="什么是沙箱？"><a href="#什么是沙箱？" class="headerlink" title="什么是沙箱？"></a>什么是沙箱？</h3><p> Java安全模型的核心就是Java沙箱（sandbox），什么是沙箱？沙箱是一个限制程序运行的环境。沙箱机制就是将 Java 代码限定在虚拟机(JVM)特定的运行范围中，并且严格限制代码对本地系统资源访问，通过这样的措施来保证对代码的有效隔离，防止对本地系统造成破坏。沙箱主要限制系统资源访问，那系统资源包括什么？——CPU、内存、文件系统、网络。不同级别的沙箱对这些资源访问的限制也可以不一样。</p><p> 所有的Java程序运行都可以指定沙箱，可以定制安全策略。</p></li></ul></li></ol><pre><code> ### java中的安全模型：
+
+  在Java中将执行程序分成本地代码和远程代码两种，本地代码默认视为可信任的，而远程代码则被看作是不受信的。对于授信的本地代码，可以访问一切本地资源。而对于非授信的远程代码在早期的Java实现中，安全依赖于沙箱 (Sandbox) 机制。如下图所示
+
+ ![JDK1.0安全模型](https://cdn.jsdelivr.net/gh/kayleh/cdn4/沙箱安全机制/1095776-20180111144130504-757642373.gif)
+
+ 但如此严格的安全机制也给程序的功能扩展带来障碍，比如当用户希望远程代码访问本地系统的文件时候，就无法实现。因此在后续的 Java1.1 版本中，针对安全机制做了改进，增加了安全策略，允许用户指定代码对本地资源的访问权限。如下图所示
+
+ ![JDK1.1安全模型](D:\Blog\source\_posts\沙箱安全机制\1095776-20180111144207051-1274870859.gif)
+
+ 在 Java1.2 版本中，再次改进了安全机制，增加了代码签名。不论本地代码或是远程代码，都会按照用户的安全策略设定，由类加载器加载到虚拟机中权限不同的运行空间，来实现差异化的代码执行权限控制。如下图所示
+
+ ![JDK1.2安全模型](D:\Blog\source\_posts\沙箱安全机制\1095776-20180111144239051-1741250711.gif)
+
+ 当前最新的安全机制实现，则引入了域 (Domain) 的概念。虚拟机会把所有代码加载到不同的系统域和应用域，系统域部分专门负责与关键资源进行交互，而各个应用域部分则通过系统域的部分代理来对各种需要的资源进行访问。虚拟机中不同的受保护域 (Protected Domain)，对应不一样的权限 (Permission)。存在于不同域中的类文件就具有了当前域的全部权限，如下图所示
+
+ ![最新的安全模型](D:\Blog\source\_posts\沙箱安全机制\1095776-20180111144309176-1047557575.gif)
+
+ 以上提到的都是基本的 Java 安全模型概念，在应用开发中还有一些关于安全的复杂用法，其中最常用到的 API 就是 doPrivileged。doPrivileged 方法能够使一段受信任代码获得更大的权限，甚至比调用它的应用程序还要多，可做到临时访问更多的资源。有时候这是非常必要的，可以应付一些特殊的应用场景。例如，应用程序可能无法直接访问某些系统资源，但这样的应用程序必须得到这些资源才能够完成功能。
+
+
+
+ ### 组成沙箱的基本组件：
+
+ - 字节码校验器（bytecode verifier）：确保Java类文件遵循Java语言规范。这样可以帮助Java程序实现内存保护。但并不是所有的类文件都会经过字节码校验，比如核心类。
+ - 类装载器（class loader）：其中类装载器在3个方面对Java沙箱起作用
+
+ 1. 它防止恶意代码去干涉善意的代码；
+ 2. 它守护了被信任的类库边界；
+ 3. 它将代码归入保护域，确定了代码可以进行哪些操作。
+
+      虚拟机为不同的类加载器载入的类提供不同的命名空间，命名空间由一系列唯一的名称组成，每一个被装载的类将有一个名字，这个命名空间是由Java虚拟机为每一个类装载器维护的，它们互相之间甚至不可见。
+
+      类装载器采用的机制是双亲委派模式。1. 从最内层JVM自带类加载器开始加载，外层恶意同名类得不到加载从而无法使用；
+
+ 2. 由于严格通过包来区分了访问域，外层恶意的类通过内置代码也无法获得权限访问到内层类，破坏代码就自然无法生效。
+
+ - 存取控制器（access controller）：存取控制器可以控制核心API对操作系统的存取权限，而这个控制的策略设定，可以由用户指定。
+ - 安全管理器（security manager）：是核心API和操作系统之间的主要接口。实现权限控制，比存取控制器优先级高。
+ - 安全软件包（security package）：java.security下的类和扩展包下的类，允许用户为自己的应用增加新的安全特性，包括：
+   1. 安全提供者
+   2. 消息摘要
+   3. 数字签名
+   4. 加密
+   5. 鉴别
+</code></pre><blockquote><p>说白了就是限制远程代码权限</p></blockquote><p>假如一段代码：</p><pre><code class="lang-java">    public void a()
+    { b(); }
+
+    public void b()
+    { a(); }
+</code></pre><p>调用肯定会栈溢出,但是如果远程恶意修改栈空间就会导致内存溢出.</p></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/JVM-classloader-and-parent-delegation-mechanism/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/JVM-classloader-and-parent-delegation-mechanism/" class="post-title-link" itemprop="url">JVM classloader and parent delegation-mechanism</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-14 13:28:57" itemprop="dateCreated datePublished" datetime="2020-12-14T13:28:57+08:00">2020-12-14</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-09-23 14:13:27" itemprop="dateModified" datetime="2021-09-23T14:13:27+08:00">2021-09-23</time> </span><span id="/JVM-classloader-and-parent-delegation-mechanism/" class="post-meta-item leancloud_visitors" data-flag-title="JVM classloader and parent delegation-mechanism" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>2.4k</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>2 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="JVM-类加载器和双亲委派机制"><a href="#JVM-类加载器和双亲委派机制" class="headerlink" title="JVM-类加载器和双亲委派机制"></a>JVM-类加载器和双亲委派机制</h1><h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h4 id="java的六种存储地址及解释"><a href="#java的六种存储地址及解释" class="headerlink" title="java的六种存储地址及解释"></a>java的六种存储地址及解释</h4><p>1） 寄存器(register)：这是最快的存储区，因为它位于不同于其他存储区的地方——处理器内部。但是寄存器的数量极其有限，所以寄存器由编译器根据需求进行分配。你不能直接控制，也不能在程序中感觉到寄存器存在的任何迹象。</p><p>2） 堆栈(stack)：位于通用RAM中，但通过它的“堆栈指针”可以从处理器哪里获得支持。堆栈指针若向下移动，则分配新的内存；若向上移动，则释放那些内存。这是一种快速有效的分配存储方法，仅次于寄存器。创建程序时候，JAVA编译器必须知道存储在堆栈内所有数据的确切大小和生命周期，因为它必须生成相应的代码，以便上下移动堆栈指针。这一约束限制了程序的灵活性，所以虽然某些JAVA数据存储在堆栈中——特别是对象引用，但是JAVA对象不存储其中。<br>3）堆(heap)：一种通用性的内存池（也存在于RAM中），用于存放所有的JAVA对象。堆不同于堆栈的好处是：编译器不需要知道要从堆里分配多少存储区域，也不必知道存储的数据在堆里存活多长时间。因此，在堆里分配存储有很大的灵活性。当你需要创建一个对象的时候，只需要new写一行简单的代码，当执行这行代码时，会自动在堆里进行存储分配。当然，为这种灵活性必须要付出相应的代码。用堆进行存储分配比用堆栈进行存储存储需要更多的时间。<br>4）静态存储(static storage)：这里的“静态”是指“在固定的位置”。静态存储里存放程序运行时一直存在的数据。你可用关键字static来标识一个对象的特定元素是静态的，但JAVA对象本身从来不会存放在静态存储空间里。<br>5） 常量存储(constant storage)：常量值通常直接存放在程序代码内部，这样做是安全的，因为它们永远不会被改变。有时，在嵌入式系统中，常量本身会和其他部分分割离开，所以在这种情况下，可以选择将其放在ROM中。<br>6） 非RAM存储：如果数据完全存活于程序之外，那么它可以不受程序的任何控制，在程序没有运行时也可以存在。</p><p>栈、堆、方法区存储的内容</p><h4 id="堆区"><a href="#堆区" class="headerlink" title="堆区:"></a>堆区:</h4><p>1.存储的全部是对象，每个对象都包含一个与之对应的class的信息。(class的目的是得到操作指令)<br>2.jvm只有一个堆区(heap)被所有线程共享，堆中不存放基本类型和对象引用，只存放对象本身 。</p><h4 id="栈区"><a href="#栈区" class="headerlink" title="栈区:"></a>栈区:</h4><p>1.每个线程包含一个栈区，栈中只保存基础数据类型的值和对象以及基础数据的引用<br>2.每个栈中的数据(基础数据类型和对象引用)都是私有的，其他栈不能访问。<br>3.栈分为3个部分：基本类型变量区、执行环境上下文、操作指令区(存放操作指令)。</p><h4 id="方法区"><a href="#方法区" class="headerlink" title="方法区:"></a>方法区:</h4><p>1.又叫静态区，跟堆一样，被所有的线程共享。方法区包含所有的class和static变量。<br>2.方法区中包含的都是在整个程序中永远唯一的元素，如class，static变量。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20161101164523853" alt="img"></p><h4 id="JVM在什么位置？"><a href="#JVM在什么位置？" class="headerlink" title="JVM在什么位置？"></a>JVM在什么位置？</h4><p>在操作系统之上。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JRE--JVM.png" alt="JRE--JVM" style="zoom:33%"></p><h4 id="JVM的体系结构"><a href="#JVM的体系结构" class="headerlink" title="JVM的体系结构"></a>JVM的体系结构</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JVM体系结构.png" alt="JVM体系结构"></p><p>*栈用完系统会自动释放，不会有垃圾</p><ul><li><p><strong>栈、本地方法栈、程序计数器</strong>：百之百没有垃圾，不会有垃圾回收</p></li><li><p>JVM调优百分之99都是在调方法区和堆，而百分之99都是再调堆</p></li></ul><h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><h4 id="类加载器的作用？"><a href="#类加载器的作用？" class="headerlink" title="类加载器的作用？"></a>类加载器的作用？</h4><blockquote><p>加载Class文件</p></blockquote><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/1607958651140.png" alt="1607958651140" style="zoom:80%"></p><h4 id="加载器分为"><a href="#加载器分为" class="headerlink" title="加载器分为"></a>加载器分为</h4><ul><li>虚拟机自带的加载器</li><li>启动类（根）加载器</li><li>扩展类加载器</li><li>应用程序加载器</li></ul><h4 id="类的加载过程"><a href="#类的加载过程" class="headerlink" title="类的加载过程"></a>类的加载过程</h4><p>java中类的加载有5个过程，加载、验证、准备、解析、初始化；</p><p>这便是类加载的5个过程，而类加载器的任务是根据一个类的全限定名来读取此类的二进制字节流到JVM中，然后转换为一个与目标类对应的java.lang.Class对象实例，在虚拟机提供了3种类加载器，引导（Bootstrap）类加载器、扩展（Extension）类加载器、系统（System）类加载器（也称应用类加载器）。</p><p>Class文件中的“类”从加载到JVM内存中，到卸载出内存过程有七个生命周期阶段。类加载机制包括了前五个阶段。</p><p>如下图所示：</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20160504235346278.png" alt="img"></p><p>其中，加载、验证、准备、初始化、卸载的<strong><em>\</em>开始顺序**</strong>是确定的，注意，只是按顺序开始，进行与结束的顺序并不一定。解析阶段可能在初始化之后开始。</p><p>另外，类加载无需等到程序中“首次使用”的时候才开始，JVM预先加载某些类也是被允许的。（<strong><em>\</em>类加载的时机**</strong>）</p><p>1、通过一个类的全限定名（包名与类名）来获取定义此类的二进制字节流（Class文件）。而获取的方式，可以通过jar包、war包、网络中获取、JSP文件生成等方式。</p><p>2、将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。这里只是转化了数据结构，并未合并数据。（方法区就是用来存放已被加载的类信息，常量，静态变量，编译后的代码的运行时内存区域）</p><p>3、在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口。这个Class对象并没有规定是在Java堆内存中，它比较特殊，虽为对象，但存放在方法区中。</p><h4 id="双亲委派模式"><a href="#双亲委派模式" class="headerlink" title="双亲委派模式"></a>双亲委派模式</h4><blockquote><p>升级处理交由最顶级处理 最顶级说我这没你们随便 在降级处理</p></blockquote><p><strong>双亲委派模式</strong>是在Java 1.2后引入的，其工作原理的是，如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式，即每个儿子都很懒，每次有活就丢给父亲去干，直到父亲说这件事我也干不了时，儿子自己想办法去完成，所以默认是父装载</p><blockquote><p>1.类加载器收到类加载的请求</p><p>2.将这个请求向上委托给父类加载器去完成,一直向上委托,直到启动类加载器</p><p>3.启动加载器检查是否能够加载当前这个类,能加载就结束,使用当前的加载器,否则,抛出异常,通知子加载器进行加载</p><p>4.重复步骤 3</p><p>Class Not Found</p></blockquote></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/AIO-blocking-model/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/AIO-blocking-model/" class="post-title-link" itemprop="url">AIO blocking model</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-05 03:57:07" itemprop="dateCreated datePublished" datetime="2020-12-05T03:57:07+08:00">2020-12-05</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-04-12 01:11:28" itemprop="dateModified" datetime="2021-04-12T01:11:28+08:00">2021-04-12</time> </span><span id="/AIO-blocking-model/" class="post-meta-item leancloud_visitors" data-flag-title="AIO blocking model" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>15k</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>14 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="AIO模型"><a href="#AIO模型" class="headerlink" title="AIO模型"></a>AIO模型</h1><h2 id="1-在系统层面分析IO模型"><a href="#1-在系统层面分析IO模型" class="headerlink" title="1. 在系统层面分析IO模型"></a>1. 在系统层面分析IO模型</h2><p>当我们从网络中或者其他进程中接收到数据时，这个数据会<code>先</code>被拷贝到<code>系统内核的缓冲区</code>，然后从内核的缓冲区中再复制到我们<code>应用程序对应的缓冲区</code>中，这样我们才能实现从应用程序中取得这个数据。</p><h3 id="1-1-BIO模型"><a href="#1-1-BIO模型" class="headerlink" title="1.1 BIO模型"></a>1.1 BIO模型</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723190512937.png" alt="在这里插入图片描述"></p><ul><li>我们的应用程序会首先<code>调用特定的函数</code>，这样才能去访问我们的操作系统。拿我们的BIO聊天室来说，我们在服务器上，想看一下客户端从网络上传递过来的数据有没有准备好，那么它会去询问操作系统有没有收到新的数据，如果没有收到，它会<code>一直阻塞</code>在这里，直到收到消息，并且已经<code>从系统内核缓冲区中拷贝到应用程序的缓冲区</code>中，这样这个调用才能够成功返回。这就是阻塞式IO，我们在等待的过程中，什么都做不了。</li></ul><h3 id="1-2-NIO模型"><a href="#1-2-NIO模型" class="headerlink" title="1.2 NIO模型"></a>1.2 NIO模型</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723191219755.png" alt="在这里插入图片描述"></p><ul><li>当我们的应用程序进行系统调用，询问数据有没有准备好，没有准备好的话，因为它是<code>非阻塞的</code>，所以<code>直接返回</code>；直到系统已经将内核缓冲区中的数据复制到应用程序的缓冲区中，这时我们再去询问数据有没有准备好的话，就能够获取到我们想要的数据了。但是它并不包括Selector监听模式，仅仅是NIO中的非阻塞式模型。</li></ul><h4 id="1-2-1-IO多路复用"><a href="#1-2-1-IO多路复用" class="headerlink" title="1.2.1 IO多路复用"></a>1.2.1 IO多路复用</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/202007231924362.png" alt="在这里插入图片描述"></p><ul><li>这个模式对应的就是我们NIO聊天室中采用的模式，使用了Selector监听</li><li>首先我们的应用程序发起新的询问，是不是有可用的数据进行操作了，如果数据这时没有准备好，<code>并不会如上NIO直接返回</code>，而是说，我们要求内核<code>监听</code>我们这个IO通道，直到它有了数据可以供我们的程序进行操作了，再来通知我们，这个监听的过程，就像我们聊天室中的<code>select()方法</code>，它是<code>阻塞</code>的。直到数据已经在系统内核缓存区中准备好了，它会通知你一下，告诉你可以执行系统调用，将缓存区中的数据复制到应用程序缓存区中，这时我们才真正获取到了我们想要的数据</li><li>在这个时候，系统内核能够监听多个IO通道，跟我们的聊天室一样，它也监听了多个通道，只要其中任何一个IO通道有了新的状态更新，那么这个监听都会返回给我们应用程序说，其中的IO通道有一个或者多个出现了状态的变化，你要不要对其进行处理一下，我们便可以根据它返回的条件，进行特定的处理。（Selector可以翻译成为IO多路复用器）</li></ul><h3 id="1-3-AIO模型（异步IO）"><a href="#1-3-AIO模型（异步IO）" class="headerlink" title="1.3 AIO模型（异步IO）"></a>1.3 AIO模型（异步IO）</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723194710403.png" alt="在这里插入图片描述"></p><ul><li>BIO和NIO都是同步IO模型，这里我们说说AIO（异步）模型</li><li>同步IO模型是当我们访问的这个数据无论有没有准备好，都会返回给你结果；当数据没有准备好的时候，我们没有能够获取数据，<code>如果我们再也不发起获取数据的请求，那么我们永远都不会再获取到这个数据</code>。异步IO就不同了，当你请求这个数据没有请求到，而<code>之后这个数据准备好了，它就会回去通知你</code>，可以来取这个数据了</li><li>我们来看一下这个流程：我们去请求数据，数据没有准备好，我们没有被阻塞，而是<code>直接返回</code>了。在应用程序层面，虽然我们没有再发起新的请求，但是在系统后台，会监听这个我们请求数据的状态，当我们需要的数据已经准备好了，并且已经存在于系统内核缓存区中了，系统后台还会将这个数据拷贝到我们的应用程序缓存区中，到这里，系统内核会<code>递交给我们一个信号</code>，告诉你，你之前想要的这个数据，已经准备好给你了，你可以进行使用了。</li><li>它的<code>异步</code>体现在：我们程序只对数据发起了一次请求，没有请求到，就直接返回了，而之后，当这个数据已经准备好的时候，系统回来通知我们，而不需要我们再次发起请求，就能获取到这个数据，这就体现了异步的特点。A就是asynchronous，也就是异步的意思</li></ul><hr><h2 id="2-异步调用机制"><a href="#2-异步调用机制" class="headerlink" title="2. 异步调用机制"></a>2. 异步调用机制</h2><h3 id="2-1-AIO中的异步操作"><a href="#2-1-AIO中的异步操作" class="headerlink" title="2.1 AIO中的异步操作"></a>2.1 AIO中的异步操作</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723205527982.png" alt="在这里插入图片描述"></p><ul><li>客户端对应AsynchronousSocketChannel</li><li>服务端对应AsynchronousServerSocketChannel</li><li>建立连接为connect/accept</li><li>读操作为read</li><li>写操作为write</li></ul><h3 id="2-2-通过Future进行异步调用"><a href="#2-2-通过Future进行异步调用" class="headerlink" title="2.2 通过Future进行异步调用"></a>2.2 通过Future进行异步调用</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723210814302.png" alt="在这里插入图片描述"></p><ul><li>注意其中Future的get()方法是阻塞式的</li></ul><h3 id="2-3-通过CompletionHandler（多用）"><a href="#2-3-通过CompletionHandler（多用）" class="headerlink" title="2.3 通过CompletionHandler（多用）"></a>2.3 通过CompletionHandler（多用）</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723210919682.png" alt="在这里插入图片描述"></p><ul><li>在执行操作的时候，传入CompletionHandler参数</li></ul><hr><h2 id="3-实战（回音服务器）"><a href="#3-实战（回音服务器）" class="headerlink" title="3. 实战（回音服务器）"></a>3. 实战（回音服务器）</h2><h3 id="3-1-服务器端"><a href="#3-1-服务器端" class="headerlink" title="3.1 服务器端"></a>3.1 服务器端</h3><h4 id="3-1-1-字段"><a href="#3-1-1-字段" class="headerlink" title="3.1.1 字段"></a>3.1.1 字段</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723211230958.png" alt="在这里插入图片描述"></p><h4 id="3-1-2-主方法"><a href="#3-1-2-主方法" class="headerlink" title="3.1.2 主方法"></a>3.1.2 主方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723211619641.png" alt="在这里插入图片描述"></p><h4 id="3-1-3-AcceptHandler的实现"><a href="#3-1-3-AcceptHandler的实现" class="headerlink" title="3.1.3 AcceptHandler的实现"></a>3.1.3 AcceptHandler的实现</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723211813626.png" alt="在这里插入图片描述"></p><h4 id="3-1-4-ClientHandler的实现"><a href="#3-1-4-ClientHandler的实现" class="headerlink" title="3.1.4 ClientHandler的实现"></a>3.1.4 ClientHandler的实现</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723213343220.png" alt="在这里插入图片描述"></p><h3 id="3-2-客户端"><a href="#3-2-客户端" class="headerlink" title="3.2 客户端"></a>3.2 客户端</h3><h4 id="3-2-1-字段"><a href="#3-2-1-字段" class="headerlink" title="3.2.1 字段"></a>3.2.1 字段</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/2020072321343625.png" alt="在这里插入图片描述"></p><h4 id="3-2-2-主方法"><a href="#3-2-2-主方法" class="headerlink" title="3.2.2 主方法"></a>3.2.2 主方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723213746283.png" alt="在这里插入图片描述"></p><hr><h2 id="4-代码"><a href="#4-代码" class="headerlink" title="4. 代码"></a>4. 代码</h2><h3 id="4-1-服务器端"><a href="#4-1-服务器端" class="headerlink" title="4.1 服务器端"></a>4.1 服务器端</h3><pre><code class="lang-java">import java.io.Closeable;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousServerSocketChannel;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.CompletionHandler;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Server {
+    private static final String LOCALHOST = "localhost";
+    private static final int DEFAULT_PORT = 8888;
+
+    private AsynchronousServerSocketChannel serverChannel;
+
+    private void close(Closeable closeable){
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void start(){
+        try {
+            //绑定端口号,调用的open方法（无参），这个参数类型为AsynchronousChannelGroup，其中包含共享的系统资源，如线程池，
+            //因为我们没有传入参数，会从默认的ProviderHolder中，提供一个我们需要的AsynchronousServerSocketChannel对象
+            //Handler会在不同的线程中进行处理，如我们的AcceptHandler和ClientHandler，它就是动用的共享资源：线程，来执行
+            serverChannel = AsynchronousServerSocketChannel.open();
+            serverChannel.bind(new InetSocketAddress(LOCALHOST,DEFAULT_PORT));
+            System.out.println("服务器启动成功，监听端口号：" + DEFAULT_PORT);
+
+            while (true){
+                //该accept方法为异步调用，没有需要返回的结果也会返回，即没有收到客户连接的请求时
+                //就会返回结果了；但是我们要保证在有客户连接的时候，主线程还在运行，否则主线程返回
+                //服务器就直接宕机了，我们采用下面的小技巧来避免这种情况
+
+                //accept在系统层面完成的时候（系统帮助我们完成了这个IO处理），返回的结果会被AcceptHandler来处理，
+                //成功时执行的completed方法，失败执行的是failed方法
+                //附带对象无；AcceptHandler为实现接口CompletionHandler的类，处理accept请求
+                serverChannel.accept(null,new AcceptHandler());
+
+                //用这个来避免while过于频繁，相当于将主线程阻塞，以保证建立连接时与客户端的响应
+                System.in.read();
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close(serverChannel);
+        }
+    }
+
+    /**
+     * 程序处理accept请求的时候，并不是在主线程中执行的，
+     * 而是从AsynchronousChannelGroup中取出另一个线程来执行
+     * CompletionHandler泛型为，第一个为返回的结果类型；第二个为附带的对象类型
+      */
+    private class AcceptHandler implements CompletionHandler&lt;AsynchronousSocketChannel,Object&gt; {
+        /**
+         * completed 该方法对应的是，我们之前上方调用accept方法，正常返回了，那么会执行该方法
+         * @param result 方法执行成功的返回值
+         * @param attachment 附带信息
+         */
+        @Override
+        public void completed(AsynchronousSocketChannel result, Object attachment) {
+            if(serverChannel.isOpen()){
+                //确保服务器还在运行
+                //服务器继续等待下一个客户端来请求，但是这里并不是产生过多的accept方法压栈
+                //而造成的栈溢出问题，这在底层已经进行保护了
+                serverChannel.accept(null,this);
+            }
+
+            //处理已连接客户端的读写操作
+            AsynchronousSocketChannel clientChannel = result;
+            if(clientChannel != null &amp;&amp; clientChannel.isOpen()){
+                ClientHandler handler = new ClientHandler(clientChannel);
+                ByteBuffer buffer = ByteBuffer.allocate(1024);
+
+                Map&lt;String,Object&gt; attachmentInfo = new HashMap&lt;&gt;();
+                attachmentInfo.put("type","read");
+                attachmentInfo.put("buffer",buffer);
+
+                //依靠ClientHandler异步处理，读写操作，将其回传给客户端
+                clientChannel.read(buffer,attachmentInfo,handler);
+            }
+
+        }
+
+        @Override
+        public void failed(Throwable exc, Object attachment) {
+            //失败时的调用
+        }
+    }
+
+    private class ClientHandler implements CompletionHandler&lt;Integer,Map&lt;String,Object&gt;&gt; {
+        private AsynchronousSocketChannel clientChannel;
+
+        public ClientHandler(AsynchronousSocketChannel clientChannel) {
+            this.clientChannel = clientChannel;
+        }
+
+        @Override
+        public void completed(Integer result, Map&lt;String, Object&gt; attachment) {
+            String type = (String) attachment.get("type");
+            ByteBuffer buffer = (ByteBuffer) attachment.get("buffer");
+            if("read".equals(type)){
+                //已经读取到了客户端传过来的消息，将其回音给客户端
+                buffer.flip();//回音要读缓冲区
+                attachment.put("type","write");
+                clientChannel.write(buffer,attachment,this);
+            }else if ("write".equals(type)){
+                //将其回传给客户端后，等待客户端的新的信息
+                //将这里将再次进行异步调用，读取客户端发来的信息存储在缓冲区中
+                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                attachment.put("type","read");
+                attachment.put("buffer",byteBuffer);
+                clientChannel.read(byteBuffer,attachment,this);
+            }
+        }
+
+        @Override
+        public void failed(Throwable exc, Map&lt;String, Object&gt; attachment) {
+
+        }
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server();
+        server.start();
+    }
+}
+</code></pre><h3 id="4-2-客户端"><a href="#4-2-客户端" class="headerlink" title="4.2 客户端"></a>4.2 客户端</h3><pre><code class="lang-java">import java.io.*;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+public class Client {
+
+    private final String LOCALHOST = "localhost";
+    private final int DEFAULT_PORT = 8888;
+
+    AsynchronousSocketChannel clientChannel;
+
+    private void close(Closeable closeable){
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void start(){
+        try {
+            clientChannel = AsynchronousSocketChannel.open();
+
+            Future&lt;Void&gt; connect = clientChannel.connect(new InetSocketAddress(LOCALHOST, DEFAULT_PORT));
+            connect.get();//阻塞式调用，直到有结果才返回
+
+            //读取用户的输入
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+            while (true){
+                String input = in.readLine();
+                byte[] inputBytes = input.getBytes();
+                ByteBuffer buffer = ByteBuffer.wrap(inputBytes);
+
+                //向服务器发送消息
+                Future&lt;Integer&gt; write = clientChannel.write(buffer);
+                write.get();
+
+                //接收服务器传来的消息
+                buffer.flip();
+                Future&lt;Integer&gt; read = clientChannel.read(buffer);
+                read.get();
+
+                String s = new String(buffer.array());
+                System.out.println(s);
+
+                buffer.clear();
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }finally {
+            close(clientChannel);
+        }
+    }
+
+    public static void main(String[] args) {
+        Client client = new Client();
+        client.start();
+    }
+}
+</code></pre><h2 id="5-测试结果"><a href="#5-测试结果" class="headerlink" title="5. 测试结果"></a>5. 测试结果</h2><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200723214442368.png" alt="在这里插入图片描述"></p><h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><h2 id="1-AIO模型分析"><a href="#1-AIO模型分析" class="headerlink" title="1. AIO模型分析"></a>1. AIO模型分析</h2><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724200020715.png" alt="在这里插入图片描述"></p><ul><li>AsynchronousServerSocket：它属于一个<code>AsynchronousChannelGroup</code>，这个通道组，其实是被多个异步通道共享的资源群组，这里边我们之前提到过，有一个非常重要的资源：<code>线程池</code>，系统会利用线程池中的线程，来处理一些handler请求。系统利用这个资源组还为我们做了很多的事情，包括它能在数据准备好的时候通知我们和利用handler做一些异步的操作。当我们在创建AsynchronousServerSocket时(open())，我们可以自定义一个通道组，当然我们不传参的时候，系统会默认给我们一个群组。</li></ul><hr><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724195923945.png" alt="在这里插入图片描述"></p><ul><li>当客户端请求与服务器建立连接时，系统会异步的调用AcceptHandler来处理连接请求，成功建立连接后，会返回一个AsynchronousSocketChannel对象，<code>每个对象</code>还会有一个<code>ClientHandler</code>来处理读写请求，在请求处理的过程中，并不是在主线程中完成的，而是通道组利用线程池资源，在不同的线程中完成异步处理。</li></ul><hr><h2 id="2-聊天室分析"><a href="#2-聊天室分析" class="headerlink" title="2. 聊天室分析"></a>2. 聊天室分析</h2><h3 id="2-1-服务器端"><a href="#2-1-服务器端" class="headerlink" title="2.1 服务器端"></a>2.1 服务器端</h3><h4 id="2-1-1-字段"><a href="#2-1-1-字段" class="headerlink" title="2.1.1 字段"></a>2.1.1 字段</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/2020072420461170.png" alt="在这里插入图片描述"></p><h4 id="2-1-2-主方法"><a href="#2-1-2-主方法" class="headerlink" title="2.1.2 主方法"></a>2.1.2 主方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724204906660.png" alt="在这里插入图片描述"></p><h4 id="2-1-3-AcceptHandler"><a href="#2-1-3-AcceptHandler" class="headerlink" title="2.1.3 AcceptHandler"></a>2.1.3 AcceptHandler</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724205358130.png" alt="在这里插入图片描述"></p><h4 id="2-1-4-ClientHandler（处理读写请求）"><a href="#2-1-4-ClientHandler（处理读写请求）" class="headerlink" title="2.1.4 ClientHandler（处理读写请求）"></a>2.1.4 ClientHandler（处理读写请求）</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724205908451.png" alt="在这里插入图片描述"></p><h4 id="2-1-5-添加和删除用户"><a href="#2-1-5-添加和删除用户" class="headerlink" title="2.1.5 添加和删除用户"></a>2.1.5 添加和删除用户</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/2020072421010985.png" alt="在这里插入图片描述"></p><h4 id="2-1-6-接收和转发方法"><a href="#2-1-6-接收和转发方法" class="headerlink" title="2.1.6 接收和转发方法"></a>2.1.6 接收和转发方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724210243585.png" alt="在这里插入图片描述"></p><h3 id="2-2-客户端"><a href="#2-2-客户端" class="headerlink" title="2.2 客户端"></a>2.2 客户端</h3><p>客户端中使用的Future来处理异步请求，非常简单</p><h4 id="2-2-1-主方法"><a href="#2-2-1-主方法" class="headerlink" title="2.2.1 主方法"></a>2.2.1 主方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724210613293.png" alt="在这里插入图片描述"></p><h4 id="2-2-2-发送消息"><a href="#2-2-2-发送消息" class="headerlink" title="2.2.2 发送消息"></a>2.2.2 发送消息</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724210719163.png" alt="在这里插入图片描述"></p><h4 id="2-2-3-用户的输入线程"><a href="#2-2-3-用户的输入线程" class="headerlink" title="2.2.3 用户的输入线程"></a>2.2.3 用户的输入线程</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724210827857.png" alt="在这里插入图片描述"></p><hr><h2 id="3-测试结果"><a href="#3-测试结果" class="headerlink" title="3. 测试结果"></a>3. 测试结果</h2><ul><li>服务器端显示<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200724210901364.png" alt="在这里插入图片描述"></li></ul><hr><h2 id="4-完整代码"><a href="#4-完整代码" class="headerlink" title="4. 完整代码"></a>4. 完整代码</h2><h3 id="4-1-服务器端-1"><a href="#4-1-服务器端-1" class="headerlink" title="4.1 服务器端"></a>4.1 服务器端</h3><pre><code class="lang-java">package server;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousChannelGroup;
+import java.nio.channels.AsynchronousServerSocketChannel;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.CompletionHandler;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ChatServer {
+
+    private static final String LOCALHOST = "localhost";
+    private static final int DEFAULT_PORT = 8888;
+    private static final String QUIT = "quit";
+    private static final int BUFFER = 1024;
+
+    private AsynchronousServerSocketChannel serverChannel;
+    private AsynchronousChannelGroup asynchronousChannelGroup;
+    private List&lt;ClientHandler&gt; connectedClients;
+    private Charset charset = StandardCharsets.UTF_8;
+    private int port;
+
+    public ChatServer(int port) {
+        this.port = port;
+        connectedClients = new ArrayList&lt;&gt;();
+    }
+
+    public ChatServer() {
+        this(DEFAULT_PORT);
+    }
+
+    public void start(){
+        try {
+            //自定义ChannelGroup
+            ExecutorService executorService = Executors.newFixedThreadPool(10);
+            asynchronousChannelGroup = AsynchronousChannelGroup.withThreadPool(executorService);
+
+            serverChannel = AsynchronousServerSocketChannel.open(asynchronousChannelGroup);
+            serverChannel.bind(new InetSocketAddress(LOCALHOST,port));
+            System.out.println("服务器已经启动成功，随时等待客户端连接...");
+
+            while (true){
+                serverChannel.accept(null,new AcceptHandler());
+
+                System.in.read();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close(serverChannel);
+        }
+    }
+
+    private class AcceptHandler implements CompletionHandler&lt;AsynchronousSocketChannel,Object&gt; {
+        @Override
+        public void completed(AsynchronousSocketChannel clientChannel, Object attachment) {
+            if(serverChannel.isOpen())
+                serverChannel.accept(null,this);
+
+            if(clientChannel != null &amp;&amp; clientChannel.isOpen()){
+                ClientHandler clientHandler = new ClientHandler(clientChannel);
+
+                ByteBuffer buffer = ByteBuffer.allocate(BUFFER);
+                addClient(clientHandler);
+                clientChannel.read(buffer,buffer,clientHandler);
+            }
+
+        }
+
+        @Override
+        public void failed(Throwable exc, Object attachment) {
+            System.out.println("连接失败：" + exc.getMessage());
+        }
+    }
+
+    private class ClientHandler implements CompletionHandler&lt;Integer,ByteBuffer&gt;{
+
+        private AsynchronousSocketChannel clientChannel;
+
+        public ClientHandler(AsynchronousSocketChannel clientChannel) {
+            this.clientChannel = clientChannel;
+        }
+
+        public AsynchronousSocketChannel getClientChannel() {
+            return clientChannel;
+        }
+
+        @Override
+        public void completed(Integer result, ByteBuffer buffer) {
+            if(buffer != null){
+                //buffer不为空的时候，这要执行的是read之后的回调方法
+                if(result &lt;= 0){
+                    //客户端异常，将客户端从连接列表中移除
+                    removeClient(this);
+                }else{
+                    buffer.flip();
+                    String fwdMsg = receive(buffer);
+                    System.out.println(getClientName(clientChannel) + fwdMsg);
+                    forwardMsg(clientChannel,fwdMsg);
+                    buffer.clear();
+
+                    if(readyToQuit(fwdMsg)){
+                        removeClient(this);
+                    }else {
+                        clientChannel.read(buffer,buffer,this);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void failed(Throwable exc, ByteBuffer attachment) {
+            System.out.println("读写操作失败：" + exc.getMessage());
+        }
+    }
+
+    private synchronized void addClient(ClientHandler clientHandler) {
+        connectedClients.add(clientHandler);
+        System.out.println(getClientName(clientHandler.getClientChannel()) + "已经连接");
+    }
+
+    private synchronized void removeClient(ClientHandler clientHandler) {
+        AsynchronousSocketChannel clientChannel = clientHandler.getClientChannel();
+        connectedClients.remove(clientHandler);
+        System.out.println(getClientName(clientChannel) + "已经断开连接");
+        close(clientChannel);
+    }
+
+    private void close(Closeable closeable){
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    private synchronized String receive(ByteBuffer buffer) {
+        return String.valueOf(charset.decode(buffer));
+    }
+
+    private synchronized void forwardMsg(AsynchronousSocketChannel clientChannel,String fwdMsg) {
+        for (ClientHandler connectedHandler : connectedClients) {
+            AsynchronousSocketChannel client = connectedHandler.getClientChannel();
+            if(!client.equals(clientChannel)){
+                //注意这个try，catch是自己加的
+                try {
+                    //将消息存入缓存区中
+                    ByteBuffer buffer = charset.encode(getClientName(client) + fwdMsg);
+                    //写给每个客户端
+                    client.write(buffer,null,connectedHandler);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    private String getClientName(AsynchronousSocketChannel clientChannel) {
+        int port = -1;
+        try {
+            InetSocketAddress remoteAddress = (InetSocketAddress) clientChannel.getRemoteAddress();
+            port = remoteAddress.getPort();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "客户端[" + port + "]:";
+    }
+
+    public static void main(String[] args) {
+        ChatServer chatServer = new ChatServer();
+        chatServer.start();
+    }
+}
+</code></pre><h3 id="4-2-客户端-1"><a href="#4-2-客户端-1" class="headerlink" title="4.2 客户端"></a>4.2 客户端</h3><pre><code class="lang-java">package client;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+public class ChatClient {
+
+    private static final String LOCALHOST = "localhost";
+    private static final int DEFAULT_PORT = 8888;
+    private final String QUIT = "quit";
+    private final int BUFFER = 1024;
+
+    private String host;
+    private int port;
+    private AsynchronousSocketChannel clientChannel;
+    private Charset charset = StandardCharsets.UTF_8;
+
+    public ChatClient() {
+        this(LOCALHOST,DEFAULT_PORT);
+    }
+
+    public ChatClient(String host,int port){
+        this.host = host;
+        this.port = port;
+    }
+
+    public void start(){
+        try {
+            clientChannel = AsynchronousSocketChannel.open();
+            Future&lt;Void&gt; connect = clientChannel.connect(new InetSocketAddress(host, port));
+            connect.get();
+            System.out.println("与服务已成功建立连接");
+            new Thread(new UserInputHandler(this)).start();
+
+            ByteBuffer buffer = ByteBuffer.allocate(BUFFER);
+            while (clientChannel.isOpen()){
+                Future&lt;Integer&gt; read = clientChannel.read(buffer);
+                int result = read.get();
+                if(result &lt;= 0){
+                    //这里是，当我们输入quit时，在服务器端会自动将我们移除
+                    //所以这里关闭就好了
+                    close(clientChannel);
+                }else {
+                    buffer.flip();
+                    String msg = String.valueOf(charset.decode(buffer));
+                    System.out.println(msg);
+                    buffer.clear();
+                }
+            }
+        } catch (IOException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }finally {
+            close(clientChannel);
+        }
+    }
+
+    public void sendMsg(String msg){
+        if(msg.isEmpty()){
+            return;
+        }else {
+            ByteBuffer buffer = charset.encode(msg);
+            Future&lt;Integer&gt; write = clientChannel.write(buffer);
+            try {
+                write.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void close(Closeable closeable){
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    public static void main(String[] args) {
+        ChatClient chatClient = new ChatClient();
+        chatClient.start();
+    }
+}
+</code></pre><pre><code class="lang-java">package client;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class UserInputHandler implements Runnable{
+    private ChatClient client;
+
+    public UserInputHandler(ChatClient client) {
+        this.client = client;
+    }
+
+    @Override
+    public void run() {
+        BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+
+        while (true){
+            try {
+                String msg = consoleReader.readLine();
+                client.sendMsg(msg);
+
+                if(client.readyToQuit(msg)){
+                    System.out.println("成功退出聊天室");
+                    break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1-三种模型的适用场景"><a href="#1-三种模型的适用场景" class="headerlink" title="1. 三种模型的适用场景"></a>1. 三种模型的适用场景</h2><ol><li>BIO：适用于连接数目少，而且服务器资源对于我们已知的连接来说，比较充足，开发简单</li><li>NIO：相对BIO来说，开发难度较高，但是客户连接数目比较高。值得我们注意的是，由于NIO是单一的线程轮询来处理数据，需要避免每个任务执行的时间过长，防止其他线程出现过长的等待</li><li>AIO：接受的连接数目多，相对于NIO来说，是异步出来，可以接受某个任务花费过长的时间，但是开发难度比较高，维护起来也不简单。</li></ol><ul><li>附：可以使用JDK文件夹下面的VisualVM来监控程序的使用情况<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/AIO%E6%A8%A1%E5%9E%8B/20200725151809156.png" alt="在这里插入图片描述"></li></ul><hr></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/NIO-blocking-model/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/NIO-blocking-model/" class="post-title-link" itemprop="url">NIO blocking model</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-05 03:33:46" itemprop="dateCreated datePublished" datetime="2020-12-05T03:33:46+08:00">2020-12-05</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-04-12 01:11:28" itemprop="dateModified" datetime="2021-04-12T01:11:28+08:00">2021-04-12</time> </span><span id="/NIO-blocking-model/" class="post-meta-item leancloud_visitors" data-flag-title="NIO blocking model" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>13k</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>12 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="NIO模型"><a href="#NIO模型" class="headerlink" title="NIO模型"></a>NIO模型</h1><h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><h3 id="1-1-翻译翻译？什么叫NIO？"><a href="#1-1-翻译翻译？什么叫NIO？" class="headerlink" title="1.1 翻译翻译？什么叫NIO？"></a>1.1 翻译翻译？什么叫NIO？</h3><p>NIO：我认为翻译成<code>Non-Blocking</code>，更加的通俗直白，相比于BIO，也有一个对比，叫他非阻塞IO最好不过了</p><ul><li>它和BIO有以下的区别<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721215841190.png" alt="在这里插入图片描述"></li><li>Channel是<code>双向</code>的，即可以读又可以写，相比于Stream，它并不区分出输入流和输出流，而且Channel可以完成非阻塞的读写，也可以完成阻塞的读写</li></ul><h3 id="1-2-Buffer简介"><a href="#1-2-Buffer简介" class="headerlink" title="1.2 Buffer简介"></a>1.2 Buffer简介</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220142379.png" alt="在这里插入图片描述"></p><ul><li>Channel的读写是离不开Buffer的，Buffer实际上内存上一块用来读写的区域。</li></ul><h4 id="1-2-1-写模式"><a href="#1-2-1-写模式" class="headerlink" title="1.2.1 写模式"></a>1.2.1 写模式</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220305715.png" alt="在这里插入图片描述"></p><ul><li>其中三个指针我们要了解一下，<code>position</code>为当前指针位置，<code>limit</code>用于读模式，用它来标记可读的最大范围，<code>capacity</code>是最大的可写范围阈值</li></ul><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220837981.png" alt="在这里插入图片描述"></p><p>当我们写数据写了四个格子时，我们执行<code>flip()</code>方法，即可转变为<code>读模式</code>，limit指针就直接变到了我们刚刚写数据的极限位置，position指针回到初始位置，这样我们就可以将数据读出来了<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220618271.png" alt="在这里插入图片描述"></p><h4 id="1-2-2-读模式到写模式的两种切换"><a href="#1-2-2-读模式到写模式的两种切换" class="headerlink" title="1.2.2 读模式到写模式的两种切换"></a>1.2.2 读模式到写模式的两种切换</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221126713.png" alt="在这里插入图片描述"></p><ol><li>当我们将数据全部读完时，切换到写模式<br>调用<code>clear()</code>方法，它会使position指针回到初始位置，limit回到最远端，这样就可以重新开始数据了，虽然clear意为清除，但是其实它只是将指针的位置移动了，并没有将数据清除，而是会覆盖原来的位置<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221133628.png" alt="在这里插入图片描述"></li><li>只读了部分数据，我想将未读的部分保留，而现在我又要开始先进行写模式的操作了，这样可以执行<code>compact()</code>方法<br>这个方法会<code>将没有读到的数据保存到初始位置</code>，而<code>position指针的位置将会移动到这些数据的后面位置</code>，从未读的数据后开始进行写数据<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221448757.png" alt="在这里插入图片描述"><br>之后再读数据的时候，我们就能将上次没有读到的数据读出来了</li></ol><h3 id="1-3-Channel简介"><a href="#1-3-Channel简介" class="headerlink" title="1.3 Channel简介"></a>1.3 Channel简介</h3><p>Channel间的数据交换，都需要依赖Buffer<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221615368.png" alt="在这里插入图片描述"></p><h4 id="1-3-1-几个重要的Channel"><a href="#1-3-1-几个重要的Channel" class="headerlink" title="1.3.1 几个重要的Channel"></a>1.3.1 几个重要的Channel</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221704507.png" alt="在这里插入图片描述"></p><ul><li>FileChannel：用于文件传输</li><li>ServerSocketChannel和SocketChannel：用于网络编程的传输</li></ul><h2 id="2-文件拷贝实战"><a href="#2-文件拷贝实战" class="headerlink" title="2. 文件拷贝实战"></a>2. 文件拷贝实战</h2><ul><li>一个字节一个字节的拷贝实在是慢的不行。</li></ul><pre><code class="lang-java">import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+
+interface FileCopyRunner{
+    void copyFile(File source,File target);
+}
+
+public class FileCopyDemo {
+
+    private static void close(Closeable closeable){
+        if(closeable != null) {
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //不使用任何缓冲的留的拷贝
+    private static FileCopyRunner noBufferStreamCopy = new FileCopyRunner() {
+        @Override
+        public void copyFile(File source, File target) {
+            InputStream fin = null;
+            OutputStream fout = null;
+            try {
+                fin = new FileInputStream(source);
+                fout = new FileOutputStream(target);
+                int result;
+                while((result = fin.read()) != - 1){
+                    fout.write(result);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                close(fin);
+                close(fout);
+            }
+        }
+    };
+
+    //使用缓冲区的流的拷贝
+    private static FileCopyRunner bufferStreamCopy = new FileCopyRunner() {
+        @Override
+        public void copyFile(File source, File target) {
+            InputStream fin = null;
+            OutputStream fout = null;
+            try {
+                fin = new FileInputStream(source);
+                fout = new FileOutputStream(target);
+                //创建缓冲区
+                byte[] buffer = new byte[1024];
+                int result;
+                while((result = fin.read(buffer)) != -1){
+                    //result这里表示从中读出来的具体字节数
+                    //虽然缓冲区中能缓存1024，但是我们读取的时候不一定就有这么多字节
+                    //所以我们使用result做下面的参数
+                    fout.write(buffer,0,result);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                close(fin);
+                close(fout);
+            }
+        }
+    };
+
+    //使用带有缓冲区的channel复制 nio
+    private static FileCopyRunner nioBufferCopy = new FileCopyRunner() {
+        @Override
+        public void copyFile(File source, File target) {
+            FileChannel fin = null;
+            FileChannel fout = null;
+
+            try {
+                fin = new FileInputStream(source).getChannel();
+                fout = new FileOutputStream(target).getChannel();
+                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+
+                while(fin.read(byteBuffer) != -1){
+                    byteBuffer.flip();//转变为读模式
+                    while (byteBuffer.hasRemaining()){
+                        fout.write(byteBuffer);
+                    }
+                    byteBuffer.clear();//转变为写模式
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                close(fin);
+                close(fout);
+            }
+        }
+    };
+
+    //使用没有缓冲区的channel复制文件
+    private static FileCopyRunner nioTransferCopy = ((source, target) -&gt; {
+        FileChannel fin = null;
+        FileChannel fout = null;
+
+        try {
+            fin = new FileInputStream(source).getChannel();
+            fout = new FileOutputStream(target).getChannel();
+
+            long transferred = 0L;
+            long size = fin.size();
+            while(transferred != size){
+                //如果拷贝的大小没有达到源文件的大小就要一直拷贝
+                transferred += fin.transferTo(0,size,fout);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close(fin);
+            close(fout);
+        }
+    });
+
+    public static void main(String[] args) {
+        File source = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\project.zip");
+        File target = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\p1.zip");
+        File target2 = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\p2.zip");
+        File target3 = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\p3.zip");
+        File target4 = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\p4.zip");
+
+        new Thread(() -&gt; noBufferStreamCopy.copyFile(source,target)).start();
+        new Thread(() -&gt; bufferStreamCopy.copyFile(source,target2)).start();
+        new Thread(() -&gt; nioBufferCopy.copyFile(source,target3)).start();
+        new Thread(() -&gt; nioTransferCopy.copyFile(source,target4)).start();
+    }
+}
+</code></pre><h2 id="3-Selector概述"><a href="#3-Selector概述" class="headerlink" title="3. Selector概述"></a>3. Selector概述</h2><ul><li>Channel需要在Selector上注册<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722145734223.png" alt="在这里插入图片描述"></li><li>注册的同时，要告诉Selector监听的状态<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722145833687.png" alt="在这里插入图片描述"></li><li>Channel对应的状态有：<code>CONNECT</code>：socketChannel已经与服务器建立连接的状态；<code>ACCEPT</code>：serverSocketChannel已经与客户端建立连接的状态；<code>READ</code>：可读状态；<code>WRITE</code>：可写状态<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150046897.png" alt="在这里插入图片描述"></li><li>Channel在Selector上注册完成后，会返回一个SelectKey对象，其中有几个重要的方法：<code>interestOps</code>：查看注册的Channel绑定的状态；<code>readyOps</code>：查看哪些是可操作的状态；<code>channel</code>：返回channel对象；<code>selector</code>：返回selector对象；<code>attachment</code>：附加其他对象<img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150611349.png" alt="在这里插入图片描述"></li><li>调用Selector的select方法，返回它监听的事件的数量，可同时响应多个事件。不过它是阻塞式的调用，当监听的事件中没有可以用来响应请求的，则会被阻塞，直到有可用的channel能够响应该请求，才会返回<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150651862.png" alt="在这里插入图片描述"></li></ul><h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><h2 id="1-NIO模型分析"><a href="#1-NIO模型分析" class="headerlink" title="1. NIO模型分析"></a>1. NIO模型分析</h2><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/202007222229375.png" alt="在这里插入图片描述"></p><ul><li>在服务器端创建一个<code>Selector</code>，将<code>ServerSocketChannel注册到Selector上</code>，被Selector监听的事件为<code>Accept</code></li></ul><hr><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722222907340.png" alt="在这里插入图片描述"></p><ul><li>Client1请求与服务器建立连接，Selector接收到Accept事件，服务器端对其进行处理（handles），服务器与客户端连接成功</li></ul><hr><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722223243146.png" alt="在这里插入图片描述"></p><ul><li>建立连接过程中，服务器通道（ServerSocketChannel）调用<code>accept方法</code>，获取到与客户端进行连接的通道（<code>SocketChannel</code>），也将其<code>注册到Selector</code>上，<code>监听READ事件</code>，这样，客户端向服务器发送消息，就能触发该READ事件进行响应，读取该消息。</li></ul><blockquote><p>Tips: 我们处理这个建立连接并接收从客户端传过来的消息，都是在<code>一个线程</code>内完成的。在bio中，则会为单个客户端单独开辟一个线程，用于处理消息，并且客户端在不发送消息的过程中，该线程一直是阻塞的。</p></blockquote><hr><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722223923471.png" alt="在这里插入图片描述"></p><ul><li>同样，两个客户连接过来也是一个线程在起作用，将客户端2的SocketChannel注册到服务器的Selector，并监听READ事件，随时响应随时处理。即一个客户端有一个SocketChannel，两个客户端就有两个SocketChannel，这个就是我们使用nio编程模型来用一个selector对象在一个线程里边监听以及处理多个通道的io的操作</li></ul><hr><p>各个Channel是被配置为<code>非阻塞式</code>的（configureBlocking(false)），但是Selector本身调用的<code>select()方法</code>，它是<code>阻塞式</code>的，当监听在Selector上的事件都没有触发时，那么它就会被阻塞，直到有事件对其进行响应</p><h2 id="2-聊天室项目代码重点知识"><a href="#2-聊天室项目代码重点知识" class="headerlink" title="2. 聊天室项目代码重点知识"></a>2. 聊天室项目代码重点知识</h2><h3 id="2-1-服务器端"><a href="#2-1-服务器端" class="headerlink" title="2.1 服务器端"></a>2.1 服务器端</h3><h4 id="2-1-1-字段"><a href="#2-1-1-字段" class="headerlink" title="2.1.1 字段"></a>2.1.1 字段</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/2020072222584984.png" alt="在这里插入图片描述"></p><h4 id="2-1-2-主方法"><a href="#2-1-2-主方法" class="headerlink" title="2.1.2 主方法"></a>2.1.2 主方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722230412178.png" alt="在这里插入图片描述"></p><h4 id="2-1-3-处理方法"><a href="#2-1-3-处理方法" class="headerlink" title="2.1.3 处理方法"></a>2.1.3 处理方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722230845441.png" alt="在这里插入图片描述"></p><h4 id="2-1-4-转发消息方法"><a href="#2-1-4-转发消息方法" class="headerlink" title="2.1.4 转发消息方法"></a>2.1.4 转发消息方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233104941.png" alt="在这里插入图片描述"></p><h4 id="2-1-5-接收消息方法"><a href="#2-1-5-接收消息方法" class="headerlink" title="2.1.5 接收消息方法"></a>2.1.5 接收消息方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231319234.png" alt="在这里插入图片描述"></p><h3 id="2-2-客户端"><a href="#2-2-客户端" class="headerlink" title="2.2 客户端"></a>2.2 客户端</h3><h4 id="2-2-1-字段"><a href="#2-2-1-字段" class="headerlink" title="2.2.1 字段"></a>2.2.1 字段</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231507769.png" alt="在这里插入图片描述"></p><h4 id="2-2-2-主方法"><a href="#2-2-2-主方法" class="headerlink" title="2.2.2 主方法"></a>2.2.2 主方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231820775.png" alt="在这里插入图片描述"></p><h4 id="2-2-3-处理方法"><a href="#2-2-3-处理方法" class="headerlink" title="2.2.3 处理方法"></a>2.2.3 处理方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/202007222330187.png" alt="在这里插入图片描述"></p><h4 id="2-2-4-接收方法"><a href="#2-2-4-接收方法" class="headerlink" title="2.2.4 接收方法"></a>2.2.4 接收方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233204365.png" alt="在这里插入图片描述"></p><h4 id="2-2-5-发送方法"><a href="#2-2-5-发送方法" class="headerlink" title="2.2.5 发送方法"></a>2.2.5 发送方法</h4><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233310845.png" alt="在这里插入图片描述"></p><hr><h2 id="3-测试结果"><a href="#3-测试结果" class="headerlink" title="3. 测试结果"></a>3. 测试结果</h2><ul><li>服务器端显示信息正确<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233342438.png" alt="在这里插入图片描述"></li></ul><h2 id="4-完整代码"><a href="#4-完整代码" class="headerlink" title="4. 完整代码"></a>4. 完整代码</h2><h3 id="4-1-服务器端"><a href="#4-1-服务器端" class="headerlink" title="4.1 服务器端"></a>4.1 服务器端</h3><pre><code class="lang-java">package server;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Set;
+
+public class ChatServer {
+    private static final int DEFAULT_PORT = 8888;
+    private static final String QUIT = "quit";
+    private static final int BUFFER = 1024;
+    private int port;
+
+    private ServerSocketChannel serverSocketChannel;
+    private Selector selector;
+    private ByteBuffer rBuffer = ByteBuffer.allocate(BUFFER);
+    private ByteBuffer wBuffer = ByteBuffer.allocate(BUFFER);
+    private Charset charset = Charset.forName(String.valueOf(StandardCharsets.UTF_8));
+
+    public ChatServer(){
+        this(DEFAULT_PORT);
+    }
+
+    public ChatServer(int port) {
+        this.port = port;
+    }
+
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    public void close(Closeable closeable){
+        if(closeable != null) {
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void start(){
+        try {
+            //创建ServerSocketChannel通道
+            serverSocketChannel = ServerSocketChannel.open();
+            //设置非阻塞模式，默认情况也是阻塞调用的
+            serverSocketChannel.configureBlocking(false);
+            //绑定端口号
+            serverSocketChannel.bind(new InetSocketAddress(port));
+            //创建selector
+            selector = Selector.open();
+            //将accept事件注册到selector上
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+            System.out.println("服务器启动成功，监听端口号：" + port + "...");
+
+            //开始进入监听模式
+            while(true){
+                //阻塞式调用
+                selector.select();
+
+                //获取所有的监听事件，
+                Set&lt;SelectionKey&gt; selectionKeys = selector.selectedKeys();
+                for (SelectionKey selectionKey : selectionKeys) {
+                    //处理事件
+                    handles(selectionKey);
+                }
+                //将已经处理完成的事件进行清空
+                selectionKeys.clear();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close(selector);
+        }
+    }
+
+    /**
+     * 处理事件 处理accept事件 和 read事件
+     * @param selectionKey 与selector绑定的channel的key
+     */
+    private void handles(SelectionKey selectionKey) throws IOException {
+        if(selectionKey.isAcceptable()){
+            //处理accept事件
+            //先要获取ServerSocketChannel
+            ServerSocketChannel server =(ServerSocketChannel) selectionKey.channel();
+            // 我觉得这样写也行 直接调用全局变量 SocketChannel socketChannel = serverSocketChannel.accept();
+            //获取对应的客户端的通道
+            SocketChannel socketChannel = server.accept();
+            socketChannel.configureBlocking(false);
+            //将客户端通道绑定到selector上，监听read事件
+            socketChannel.register(selector,SelectionKey.OP_READ);
+            System.out.println("客户端" + socketChannel.socket().getPort() + ":已经连接");
+        }else if(selectionKey.isReadable()){
+            //处理read事件
+            SocketChannel clientChannel = (SocketChannel) selectionKey.channel();
+            String fwdMsg = receive(clientChannel);
+
+            if(fwdMsg.isEmpty()){
+                //接不到消息了，那么就把这个通道给他移除了
+                selectionKey.cancel();
+                //通知selector有注册的通道被移除了，更新状态
+                selector.wakeup();
+            }else {
+                //转发消息
+                forwardMessage(clientChannel,fwdMsg);
+                if(readyToQuit(fwdMsg)){
+                    selectionKey.cancel();
+                    selector.wakeup();
+                }
+            }
+        }
+    }
+
+    /**
+     * 转发消息
+     * @param clientChannel 客户端通道
+     * @param fwdMsg 转发的消息
+     */
+    private void forwardMessage(SocketChannel clientChannel, String fwdMsg) throws IOException {
+        //keys方法区别于selectedKeys,这个方法返回的是接下来需要被处理的通道key
+        //而keys则返回与selector绑定的所有通道key
+        //跳过ServerSocketChannel和本身
+        for (SelectionKey selectionKey : selector.keys()) {
+            SelectableChannel channel = selectionKey.channel();
+            if(channel instanceof ServerSocketChannel)
+                System.out.println("客户端" + clientChannel.socket().getPort() + "：" + fwdMsg);
+            else if(selectionKey.isValid() &amp;&amp; !channel.equals(clientChannel)){
+                wBuffer.clear();
+                //写入消息
+                wBuffer.put(charset.encode("客户端" + clientChannel.socket().getPort() + "：" + fwdMsg));
+                //转换为读模式
+                wBuffer.flip();
+                //有数据就一直读
+                while(wBuffer.hasRemaining())
+                    ((SocketChannel)channel).write(wBuffer);
+            }
+        }
+    }
+
+    /**
+     * 从客户通道上读取消息
+     * @param clientChannel 客户通道
+     * @return 消息
+     */
+    private String receive(SocketChannel clientChannel) throws IOException {
+        //将当前指针置于初始位置，覆盖已有的消息（清空消息）
+        rBuffer.clear();
+        //不停的向缓存中写
+        while(clientChannel.read(rBuffer) &gt; 0);
+        //由写模式到读模式
+        rBuffer.flip();
+        return String.valueOf(charset.decode(rBuffer));
+    }
+
+    public static void main(String[] args) {
+        ChatServer chatServer = new ChatServer();
+        chatServer.start();
+    }
+}
+</code></pre><h3 id="4-2-客户端"><a href="#4-2-客户端" class="headerlink" title="4.2 客户端"></a>4.2 客户端</h3><pre><code class="lang-java">package client;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Set;
+
+public class ChatClient {
+
+    private static final String DEFAULT_SERVER_HOST = "127.0.0.1";
+    private static final int DEFAULT_SERVER_PORT = 8888;
+    private static final String QUIT = "quit";
+
+    private static final int BUFFER = 1024;
+    private String host;
+    private int port;
+    private SocketChannel clientChannel;
+    private Selector selector;
+    private ByteBuffer rBuffer = ByteBuffer.allocate(BUFFER);
+    private ByteBuffer wBuffer = ByteBuffer.allocate(BUFFER);
+    private Charset charset = Charset.forName(String.valueOf(StandardCharsets.UTF_8));
+
+    public ChatClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
+
+    public ChatClient() {
+        this(DEFAULT_SERVER_HOST,DEFAULT_SERVER_PORT);
+    }
+
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    public void close(Closeable closeable){
+        if(closeable != null){
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void start(){
+        try {
+            //创建用户通道
+            clientChannel = SocketChannel.open();
+            clientChannel.configureBlocking(false);//这一步千万不能忘了
+            //创建selector，并且将用户通道的connect请求注册上去
+            selector = Selector.open();
+            clientChannel.register(selector, SelectionKey.OP_CONNECT);
+            //尝试与服务器创建连接
+            clientChannel.connect(new InetSocketAddress(host,port));
+
+            while (selector.isOpen()){
+                //一直监听selector上注册的channel请求
+                selector.select();
+
+                Set&lt;SelectionKey&gt; selectionKeys = selector.selectedKeys();
+                for (SelectionKey selectionKey : selectionKeys) {
+                    //响应请求
+                    handles(selectionKey);
+                }
+                selectionKeys.clear();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (ClosedSelectorException e){
+
+        } finally {
+            close(selector);
+        }
+    }
+
+    private void handles(SelectionKey selectionKey) throws IOException {
+        //处理connect事件
+        if(selectionKey.isConnectable()){
+            //如果能够与服务器响应了
+            SocketChannel channel = (SocketChannel) selectionKey.channel();
+            if(channel.isConnectionPending()){
+                channel.finishConnect(); //正式建立连接
+                new Thread(new UserInputHandler(this)).start();
+            }
+            channel.register(selector,SelectionKey.OP_READ);
+        }else if(selectionKey.isReadable()){
+            String msg = receive(clientChannel);
+            SocketChannel channel = (SocketChannel) selectionKey.channel();
+            if(msg.isEmpty()){
+                //服务端异常
+                close(selector);
+            }else {
+                //TODO 看看这里信息对不对
+                System.out.println(msg);
+            }
+
+        }
+    }
+
+    private String receive(SocketChannel clientChannel) throws IOException {
+        rBuffer.clear();
+        //一直读数据
+        while (clientChannel.read(rBuffer) &gt; 0);
+        rBuffer.flip();
+        return String.valueOf(charset.decode(rBuffer));
+    }
+
+    public void send(String msg) throws IOException {
+        if(msg.isEmpty())
+            return;
+
+        wBuffer.clear();
+        wBuffer.put(charset.encode(msg));
+        wBuffer.flip();
+        while(wBuffer.hasRemaining()){
+            clientChannel.write(wBuffer);
+        }
+
+        if(QUIT.equals(msg))
+            close(selector);
+    }
+
+    public static void main(String[] args) {
+        ChatClient chatClient = new ChatClient();
+        chatClient.start();
+    }
+}
+</code></pre><h3 id="4-3-客户端监听用户输入进程"><a href="#4-3-客户端监听用户输入进程" class="headerlink" title="4.3 客户端监听用户输入进程"></a>4.3 客户端监听用户输入进程</h3><pre><code class="lang-java">package client;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class UserInputHandler implements Runnable{
+
+    private ChatClient chatClient;
+
+    public UserInputHandler(ChatClient chatClient) {
+        this.chatClient = chatClient;
+    }
+
+    @Override
+    public void run() {
+        //等待用户输入信息
+        BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+
+        while(true){
+            try {
+                String msg = consoleReader.readLine();
+                chatClient.send(msg);
+                if(chatClient.readyToQuit(msg)) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/BIO-blocking-model/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="undefined | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h2 class="post-title" itemprop="name headline"><a href="/BIO-blocking-model/" class="post-title-link" itemprop="url">BIO blocking model</a></h2><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2020-12-03 17:46:43" itemprop="dateCreated datePublished" datetime="2020-12-03T17:46:43+08:00">2020-12-03</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2021-04-12 01:11:28" itemprop="dateModified" datetime="2021-04-12T01:11:28+08:00">2021-04-12</time> </span><span id="/BIO-blocking-model/" class="post-meta-item leancloud_visitors" data-flag-title="BIO blocking model" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>8.7k</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>8 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="BIO阻塞模型"><a href="#BIO阻塞模型" class="headerlink" title="BIO阻塞模型"></a>BIO阻塞模型</h1><h2 id="1-BIO阻塞模型"><a href="#1-BIO阻塞模型" class="headerlink" title="1. BIO阻塞模型"></a>1. BIO阻塞模型</h2><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200720183138508.png" alt="在这里插入图片描述"><br>简述BIO模型中服务端与客户端的响应过程</p><ol><li>服务器<code>serverSocket</code>先要和<code>端口</code>进行<code>绑定</code></li><li>绑定完成后，执行<code>accept方法</code>，等待客户端的连接，这个方法是<code>阻塞式调用</code>，也就是说，要一直等待客户端的连接响应，不做其他事情，一直等，（被阻塞的还有InputStream.read()、OutputStream.write()，这两个也会一直等待客户端的响应）</li><li>客户端创建<code>Socket</code>对象，<code>绑定</code>服务器的<code>ip地址</code>与<code>端口号</code>，与服务器进行连接</li><li>服务器接收到客户端的连接请求，accept方法获取到<code>客户端的socket信息</code>，连接成功</li><li>服务器与客户端创建各自的<code>io流</code>，实现<code>全双工通信</code></li><li>之后便可以随时<code>结束连接</code></li></ol><hr><h2 id="2-简单实战演示"><a href="#2-简单实战演示" class="headerlink" title="2. 简单实战演示"></a>2. 简单实战演示</h2><h3 id="2-1-服务器"><a href="#2-1-服务器" class="headerlink" title="2.1 服务器"></a>2.1 服务器</h3><pre><code class="lang-java">import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+
+public class Server {
+    public static void main(String[] args) {
+        final int DEFAULT_PORT = 8888;
+        final String QUIT = "quit";
+        ServerSocket serverSocket = null;
+
+        try {
+            //绑定端口号
+            serverSocket = new ServerSocket(DEFAULT_PORT);
+            System.out.println("服务器已经启动，绑定端口号：" + DEFAULT_PORT);
+
+            while (true){
+                //等待客户端的连接
+                Socket socket = serverSocket.accept();
+                System.out.println("客户端" + socket.getPort() + ":" + "已经连接");
+
+                //获取io流
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(socket.getInputStream())
+                );
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(socket.getOutputStream())
+                );
+
+                //读取客户发送的信息
+                String msg = null;
+                while ((msg = reader.readLine()) != null) {
+                    System.out.println("客户端" + socket.getPort() + ":" + msg);
+                    //回复消息
+                    writer.write( msg + " ok" +"\n");
+                    writer.flush();
+                    System.out.println("服务器：" + msg + " ok");
+
+                    if(msg.equals(QUIT)){
+                        System.out.println("客户端" + socket.getPort() + ":断开连接" );
+                        break;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(serverSocket != null){
+                try {
+                    serverSocket.close();
+                    System.out.println("服务器Socket关闭");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+</code></pre><h3 id="2-2-客户端"><a href="#2-2-客户端" class="headerlink" title="2.2 客户端"></a>2.2 客户端</h3><pre><code class="lang-java">
+
+import java.io.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class Client {
+    public static void main(String[] args) {
+        final int DEFAULT_SERVER_PORT = 8888;
+        final String DEFAULT_ADDRESS = "127.0.0.1";
+        final String QUIT = "quit";
+
+        Socket socket = null;
+        BufferedWriter writer = null;
+
+        try {
+            //创建Socket
+            socket = new Socket(DEFAULT_ADDRESS,DEFAULT_SERVER_PORT);
+
+            //创建io流
+            writer = new BufferedWriter(
+                    new OutputStreamWriter(socket.getOutputStream())
+            );
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream())
+            );
+
+            //等待用户输入信息
+            while (true) {
+                BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+                String msg = consoleReader.readLine();
+                //向服务器发送消息
+                writer.write(msg + "\n");
+                writer.flush();
+                System.out.println("客户端"+ ":" + msg);
+                String line = reader.readLine();
+                System.out.println("服务器：" + line);
+                //退出判断
+                if(msg.equals(QUIT)){
+                    break;
+                }
+            }
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(writer != null){
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+}
+</code></pre><h3 id="2-3-响应结果"><a href="#2-3-响应结果" class="headerlink" title="2.3 响应结果"></a>2.3 响应结果</h3><ul><li><strong>客户端</strong><br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200720183847235.png" alt="在这里插入图片描述"></li><li><strong>服务器</strong><br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200720183859453.png" alt="在这里插入图片描述"></li></ul><h2 id="3-加深理解"><a href="#3-加深理解" class="headerlink" title="3. 加深理解"></a>3. 加深理解</h2><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721182800674.png" alt="在这里插入图片描述"></p><h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><h2 id="1-概念图解"><a href="#1-概念图解" class="headerlink" title="1. 概念图解"></a>1. 概念图解</h2><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721171646426.png" alt="在这里插入图片描述"></p><ul><li>BIO模型：客户端每有一个请求，服务端都要有一个线程来单独处理这个请求，典型的<code>一请求一应答</code>，java 1.4版本之前</li><li>对于聊天室服务器，它有多个线程，其中一个为图上的<code>Acceptor线程</code>（ChatServer），它实现的就是对来自客户端的请求不断响应，创建分配处理线程；对应客户端的每一个请求，都有一个单独的处理线程</li><li>对于客户端来说，它有两个线程，其中一个线程与服务器<code>建立连接，并接收来自服务器的消息</code>；另一个线程则用来<code>处理用户的输入，并将消息发送到服务器</code></li></ul><h3 id="1-1-伪异步的优化"><a href="#1-1-伪异步的优化" class="headerlink" title="1.1 伪异步的优化"></a>1.1 伪异步的优化</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721172110567.png" alt="在这里插入图片描述"></p><ul><li>使用线程池的原因是因为防止一大批用户的响应，造成服务器过载，实现线程的复用，减少不停的创建删除线程造成的资源郎芬，这样也实现了BIO的伪异步IO通信</li></ul><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/haimishasha/p/10625026.html#autoid-1-0-0">I/O模型系列之三：IO通信模型BIO NIO AIO</a></p><hr><h2 id="2-聊天服务器中的要点"><a href="#2-聊天服务器中的要点" class="headerlink" title="2. 聊天服务器中的要点"></a>2. 聊天服务器中的要点</h2><h3 id="2-1-字段"><a href="#2-1-字段" class="headerlink" title="2.1 字段"></a>2.1 字段</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721183219259.png" alt="在这里插入图片描述"></p><h3 id="2-2-转发消息方法"><a href="#2-2-转发消息方法" class="headerlink" title="2.2 转发消息方法"></a>2.2 转发消息方法</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721184044934.png" alt="在这里插入图片描述"></p><h3 id="2-3-添加客户方法"><a href="#2-3-添加客户方法" class="headerlink" title="2.3 添加客户方法"></a>2.3 添加客户方法</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/2020072118380045.png" alt="在这里插入图片描述"></p><h3 id="2-4-移除客户方法"><a href="#2-4-移除客户方法" class="headerlink" title="2.4 移除客户方法"></a>2.4 移除客户方法</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721183932390.png" alt="在这里插入图片描述"></p><h3 id="2-5-服务器主线程任务"><a href="#2-5-服务器主线程任务" class="headerlink" title="2.5 服务器主线程任务"></a>2.5 服务器主线程任务</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721184510239.png" alt="在这里插入图片描述"></p><h3 id="2-6-服务器处理线程任务"><a href="#2-6-服务器处理线程任务" class="headerlink" title="2.6 服务器处理线程任务"></a>2.6 服务器处理线程任务</h3><ul><li>实现Runnable接口，之后执行的时候将其传入到线程池中执行。<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/2020072118470527.png" alt="在这里插入图片描述"></li></ul><hr><h2 id="3-聊天室客户端要点"><a href="#3-聊天室客户端要点" class="headerlink" title="3. 聊天室客户端要点"></a>3. 聊天室客户端要点</h2><h3 id="3-1-向服务端发送消息，让服务器转发给其他人"><a href="#3-1-向服务端发送消息，让服务器转发给其他人" class="headerlink" title="3.1 向服务端发送消息，让服务器转发给其他人"></a>3.1 向服务端发送消息，让服务器转发给其他人</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721185036367.png" alt="在这里插入图片描述"></p><h3 id="3-2-接收服务端的消息"><a href="#3-2-接收服务端的消息" class="headerlink" title="3.2 接收服务端的消息"></a>3.2 接收服务端的消息</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721185104298.png" alt="在这里插入图片描述"></p><h3 id="3-3-主线程任务"><a href="#3-3-主线程任务" class="headerlink" title="3.3 主线程任务"></a>3.3 主线程任务</h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721185243618.png" alt="在这里插入图片描述"></p><h3 id="3-4-处理线程任务"><a href="#3-4-处理线程任务" class="headerlink" title="3.4 处理线程任务"></a>3.4 处理线程任务</h3><ul><li>实现Runnable接口，创建线程时启动<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/20200721185400861.png" alt="在这里插入图片描述"></li></ul><hr><h2 id="4-测试结果"><a href="#4-测试结果" class="headerlink" title="4. 测试结果"></a>4. 测试结果</h2><p><strong>服务器端信息</strong><br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/BIO阻塞模型/2020072118562745.png" alt="在这里插入图片描述"></p><hr><h2 id="5-完整代码"><a href="#5-完整代码" class="headerlink" title="5. 完整代码"></a>5. 完整代码</h2><h3 id="5-1-服务器"><a href="#5-1-服务器" class="headerlink" title="5.1 服务器"></a>5.1 服务器</h3><pre><code class="lang-java">package Server;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ChatServer {
+    private int DEFAULT_PORT = 8888;
+    private final String QUIT = "quit";
+
+    private ServerSocket serverSocket;
+    //存储已经连接的客户们
+    private Map&lt;Integer, Writer&gt; connectedClients;
+    private ExecutorService executorService;
+
+    public ChatServer() {
+        this.connectedClients = new HashMap&lt;&gt;();
+        this.executorService = Executors.newFixedThreadPool(10);
+    }
+
+    //添加客户端
+    public synchronized void addClient(Socket socket) throws IOException {
+        if(socket != null){
+            int key = socket.getPort();
+            Writer value = new BufferedWriter(
+                    new OutputStreamWriter(socket.getOutputStream())
+            );
+            connectedClients.put(key,value);
+            System.out.println("客户" + key + "：已经连接");
+        }
+    }
+
+    //移除客户端
+    public synchronized void removeClient(Socket socket) throws IOException {
+        if(socket != null){
+            int port = socket.getPort();
+            if(connectedClients.containsKey(port)){
+                //移除用户的时候要进行关闭
+                connectedClients.get(port).close();
+                connectedClients.remove(port);
+                System.out.println("客户端" + port + "：已经断开连接");
+            }
+        }
+    }
+
+    //将消息转发给其他用户
+    public synchronized void forwardMessage(Socket socket,String fwdMsg) throws IOException {
+        for(Integer port : connectedClients.keySet()){
+            //不转发给自己
+            if(!port.equals(socket.getPort())){
+                Writer writer = connectedClients.get(port);
+                writer.write(fwdMsg);
+                writer.flush();
+            }
+        }
+    }
+
+    //检查是否退出
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    public void close(){
+        if(serverSocket != null){
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //启动
+    public void start(){
+        try {
+            //绑定监听端口
+            serverSocket = new ServerSocket(DEFAULT_PORT);
+            System.out.println("聊天室服务器已经成功启动！");
+
+            while (true){
+                Socket socket = serverSocket.accept();
+
+                //为每个socket创建一条单独的线程进行处理
+                //new Thread(new ChatHandler(socket,this)).start();
+                executorService.execute(new ChatHandler(socket,this));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close();
+        }
+    }
+
+    public static void main(String[] args) {
+        ChatServer chatServer = new ChatServer();
+        chatServer.start();
+    }
+}
+</code></pre><pre><code class="lang-java">package Server;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+public class ChatHandler implements Runnable {
+
+    private Socket socket;
+    private ChatServer chatServer;
+
+    public ChatHandler(Socket socket, ChatServer chatServer) {
+        this.socket = socket;
+        this.chatServer = chatServer;
+    }
+
+    @Override
+    public void run() {
+        try {
+            //添加对象
+            chatServer.addClient(socket);
+
+            //读取用户发送的信息
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream())
+            );
+            String msg = null;
+            //必须要读取到换行符
+            while ((msg = reader.readLine()) != null){
+                String fwdMsg ="客户端" + socket.getPort() + "：" + msg + "\n";
+                chatServer.forwardMessage(socket,fwdMsg);
+                System.out.print(fwdMsg);
+
+                //检查是否退出
+                if(chatServer.readyToQuit(msg)){
+                    break;
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                chatServer.removeClient(socket);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre><h3 id="5-2-客户端"><a href="#5-2-客户端" class="headerlink" title="5.2 客户端"></a>5.2 客户端</h3><pre><code class="lang-java">package Client;
+
+import Server.ChatServer;
+
+import java.io.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ChatClient {
+    private String DEFAULT_SERVER_HOST = "127.0.0.1";
+    private int DEFAULT_PORT = 8888;
+    private final String QUIT = "quit";
+
+    private Socket socket;
+    private BufferedReader reader;
+    private BufferedWriter writer;
+
+    //发送消息给服务器
+    public void sendMsg(String msg) throws IOException {
+        //输出流没有关闭的情况
+        if(!socket.isOutputShutdown()){
+            writer.write(msg + "\n");
+            writer.flush();
+        }
+    }
+
+    //接受消息从服务器
+    public String receiveMsg() throws IOException {
+        if(!socket.isInputShutdown()){
+            return reader.readLine();
+        }
+        return null;
+    }
+
+    //检查是否退出
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    //关闭
+    public void close(){
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //启动开关
+    public void start(){
+        try {
+            //创建socket
+            socket = new Socket(DEFAULT_SERVER_HOST,DEFAULT_PORT);
+            //创建io流
+            writer = new BufferedWriter(
+                    new OutputStreamWriter(socket.getOutputStream())
+            );
+            reader = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream())
+            );
+
+            //处理用户的输入的线程
+            new Thread(new UserInputHandler(this)).start();
+
+            //监听从服务器来的消息
+            String msg = null;
+            while ((msg = receiveMsg()) != null){
+                System.out.println(msg);
+            }
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close();
+        }
+    }
+
+
+    public static void main(String[] args) {
+        ChatClient chatClient = new ChatClient();
+        chatClient.start();
+    }
+}
+</code></pre><pre><code class="lang-java">package Client;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class UserInputHandler implements Runnable{
+    private ChatClient chatClient;
+
+    public UserInputHandler(ChatClient chatClient) {
+        this.chatClient = chatClient;
+    }
+
+
+    @Override
+    public void run() {
+        //等待用户输入信息
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in)
+        );
+
+        while (true){
+            try {
+                String msg = reader.readLine();
+                //向服务器发送消息
+                chatClient.sendMsg(msg);
+                if(chatClient.readyToQuit(msg))
+                    break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><nav class="pagination"><a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">…</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">…</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a></nav></div></main><footer class="footer"><div class="footer-inner"><div class="copyright">© 2019 – <span itemprop="copyrightYear">2022</span> <span class="with-love"><i class="fa fa-heart"></i> </span><span class="author" itemprop="copyrightHolder">Kayleh</span></div><div class="wordcount"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-chart-line"></i> </span><span title="站点总字数">979k</span> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-coffee"></i> </span><span title="站点阅读时长">14:50</span></span></div><div class="busuanzi-count"><span class="post-meta-item" id="busuanzi_container_site_uv"><span class="post-meta-item-icon"><i class="fa fa-user"></i> </span><span class="site-uv" title="总访客量"><span id="busuanzi_value_site_uv"></span> </span></span><span class="post-meta-item" id="busuanzi_container_site_pv"><span class="post-meta-item-icon"><i class="fa fa-eye"></i> </span><span class="site-pv" title="总访问量"><span id="busuanzi_value_site_pv"></span></span></span></div></div></footer><div class="back-to-top" role="button" aria-label="返回顶部"><i class="fa fa-arrow-up fa-lg"></i> <span>0%</span></div><noscript><div class="noscript-warning">Theme NexT works best with JavaScript enabled</div></noscript><script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script><script async="" src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/bundle.js"></script><script>{"enable":true,"app_id":"FgNaybmwy1yu74JH4lXMgH5S","app_key":"OBHyEdMVsi8FSFA0aqJNh4HE","server_url":null,"security":true}</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

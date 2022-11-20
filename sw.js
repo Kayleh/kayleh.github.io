@@ -10,7 +10,7 @@
 
 'use strict';
 
-var precacheConfig = [["/js/add-bookmark.js","f6e463a8c0f3e5c2c2580650304434e9"],["/js/baidu-tongji.js","494f218794582131645cf501ac4914c7"],["/js/darkLightToggle.js","2bc216fb0c66770f39ce3571155e2df4"],["/js/insight.js","1019f6939719c3973dc1419ff9662137"],["/js/jquery-migrate-1.2.1.min.js","eb05d8d73b5b13d8d84308a4751ece96"],["/js/jquery.appear.js","2cb12aa916a28633bc45c690f3d49edf"],["/js/jquery.js","f3346149a7173e70d39e6f36bfb178a4"],["/js/tagcanvas.js","222f58419252597da4e4b17828824a8f"],["/js/tagcloud.js","bf32a5024071999c3fe74120ca620ce1"],["/js/visitors.js","60be8be7c536e69cc4549ccb2768934e"]];
+var precacheConfig = [["/js/comments.js","d6996a202a9ad8176a0e39343a974b26"],["/js/config.js","9c844f6ccdb39fdc03e2f53711e2b282"],["/js/motion.js","8df57c7b2cf70591327ccb4f5a33f1e0"],["/js/next-boot.js","d02c9571387fb46adc55599f549d999e"],["/js/tagcanvas.js","222f58419252597da4e4b17828824a8f"],["/js/tagcloud.js","4d5b86e9e3c1180eeb33394c7a0937f0"],["/js/utils.js","f20ea94db1c994ad28c8813341542787"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 var firstRegister = 1; // 默认1是首次安装SW， 0是SW更新
 
