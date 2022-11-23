@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.kayleh.top/Download/</loc>
+    <lastmod>2022-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/head-first-JVM(4)/</loc>
+    <lastmod>2022-11-23</lastmod>
+  </url>
+  <url>
     <loc>https://blog.kayleh.top/tj-horse-racing/</loc>
     <lastmod>2022-11-15</lastmod>
   </url>
@@ -193,10 +201,6 @@
     <lastmod>2021-09-27</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/head-first-JVM(4)/</loc>
-    <lastmod>2021-09-27</lastmod>
-  </url>
-  <url>
     <loc>https://blog.kayleh.top/Nacos%EF%BC%9AConfigure-MySQL-data-source/</loc>
     <lastmod>2021-09-26</lastmod>
   </url>
@@ -283,10 +287,6 @@
   <url>
     <loc>https://blog.kayleh.top/mybatis-cache/</loc>
     <lastmod>2021-06-20</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Download/</loc>
-    <lastmod>2021-04-15</lastmod>
   </url>
   <url>
     <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-3/</loc>

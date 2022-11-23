@@ -3636,8 +3636,25 @@ Content-Range: bytes 0-15316618/15316619
 <p>当主线程收到通知，所有部分都下载完成时，就需要对临时文件进行清理。</p>
 <p>如果是多线程下载的文件，那么需要对多个临时文件进行合并。</p>
 <p>如果是单线程下载的文件，则对临时文件进行重命名。</p>
-<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>这里给出程序的轮廓，进行整体上的介绍，完整的源码可查看 Github：<a href="https://github.com/wrayzheng/java-multithread-downloader">https://github.com/wrayzheng/java-multithread-downloader</a></p>
-<pre><code class="lang-java">public class HttpDownloader &#123;
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><pre><code class="lang-java">import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.concurrent.atomic.AtomicInteger;
+
+
+public class HttpDownloader &#123;
+
     private boolean resumable;
     private URL url;
     private File localFile;
@@ -3651,25 +3668,144 @@ Content-Range: bytes 0-15316618/15316619
     private int TIME_OUT = 5000;
     private final int MIN_SIZE = 2 &lt;&lt; 20;
 
-    public HttpDownloader(String Url, String localPath) throws MalformedURLException &#123;...&#125;
+    public static void main(String[] args) throws IOException &#123;
+        String url = &quot;http://mirrors.163.com/debian/ls-lR.gz&quot;;
+        new HttpDownloader(url, &quot;D:/ls-lR.gz&quot;, 5, 5000).get();
+    &#125;
+
+    public HttpDownloader(String Url, String localPath) throws MalformedURLException &#123;
+        this.url = new URL(Url);
+        this.localFile = new File(localPath);
+    &#125;
 
     public HttpDownloader(String Url, String localPath,
-            int threadNum, int timeout) throws MalformedURLException &#123;...&#125;
+            int threadNum, int timeout) throws MalformedURLException &#123;
+        this(Url, localPath);
+        this.THREAD_NUM = threadNum;
+        this.TIME_OUT = timeout;
+    &#125;
 
     //开始下载文件
-    public void get() throws IOException &#123;...&#125;
+    public void get() throws IOException &#123;
+        long startTime = System.currentTimeMillis();
+
+        resumable = supportResumeDownload();
+        if (!resumable || THREAD_NUM == 1|| fileSize &lt; MIN_SIZE) multithreaded = false;
+        if (!multithreaded) &#123;
+            new DownloadThread(0, 0, fileSize - 1).start();;
+        &#125;
+        else &#123;
+            endPoint = new int[THREAD_NUM + 1];
+            int block = fileSize / THREAD_NUM;
+            for (int i = 0; i &lt; THREAD_NUM; i++) &#123;
+                endPoint[i] = block * i;
+            &#125;
+            endPoint[THREAD_NUM] = fileSize;
+            for (int i = 0; i &lt; THREAD_NUM; i++) &#123;
+                new DownloadThread(i, endPoint[i], endPoint[i + 1] - 1).start();
+            &#125;
+        &#125;
+
+        startDownloadMonitor();
+
+        //等待 downloadMonitor 通知下载完成
+        try &#123;
+            synchronized(waiting) &#123;
+                waiting.wait();
+            &#125;
+        &#125; catch (InterruptedException e) &#123;
+            System.err.println(&quot;Download interrupted.&quot;);
+        &#125;
+
+        cleanTempFile();
+
+        long timeElapsed = System.currentTimeMillis() - startTime;
+        System.out.println(&quot;* File successfully downloaded.&quot;);
+        System.out.println(String.format(&quot;* Time used: %.3f s, Average speed: %d KB/s&quot;,
+                timeElapsed / 1000.0, downloadedBytes.get() / timeElapsed));
+    &#125;
 
     //检测目标文件是否支持断点续传，以决定是否开启多线程下载文件的不同部分
-    public boolean supportResumeDownload() throws IOException &#123;...&#125;
+    public boolean supportResumeDownload() throws IOException &#123;
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestProperty(&quot;Range&quot;, &quot;bytes=0-&quot;);
+        int resCode;
+        while (true) &#123;
+            try &#123;
+                con.connect();
+                fileSize = con.getContentLength();
+                resCode = con.getResponseCode();
+                con.disconnect();
+                break;
+            &#125; catch (ConnectException e) &#123;
+                System.out.println(&quot;Retry to connect due to connection problem.&quot;);
+            &#125;
+        &#125;
+        if (resCode == 206) &#123;
+            System.out.println(&quot;* Support resume download&quot;);
+            return true;
+        &#125; else &#123;
+            System.out.println(&quot;* Doesn&#39;t support resume download&quot;);
+            return false;
+        &#125;
+    &#125;
 
     //监测下载速度及下载状态，下载完成时通知主线程
-    public void startDownloadMonitor() &#123;...&#125;
+    public void startDownloadMonitor() &#123;
+        Thread downloadMonitor = new Thread(() -&gt; &#123;
+            int prev = 0;
+            int curr = 0;
+            while (true) &#123;
+                try &#123;
+                    Thread.sleep(1000);
+                &#125; catch (InterruptedException e) &#123;&#125;
+
+                curr = downloadedBytes.get();
+                System.out.println(String.format(&quot;Speed: %d KB/s, Downloaded: %d KB (%.2f%%), Threads: %d&quot;,
+                        (curr - prev) &gt;&gt; 10, curr &gt;&gt; 10, curr / (float) fileSize * 100, aliveThreads.get()));
+                prev = curr;
+
+                if (aliveThreads.get() == 0) &#123;
+                    synchronized (waiting) &#123;
+                        waiting.notifyAll();
+                    &#125;
+                &#125;
+            &#125;
+        &#125;);
+
+        downloadMonitor.setDaemon(true);
+        downloadMonitor.start();
+    &#125;
 
     //对临时文件进行合并或重命名
-    public void cleanTempFile() throws IOException &#123;...&#125;
+    public void cleanTempFile() throws IOException &#123;
+        if (multithreaded) &#123;
+            merge();
+            System.out.println(&quot;* Temp file merged.&quot;);
+        &#125; else &#123;
+            Files.move(Paths.get(localFile.getAbsolutePath() + &quot;.0.tmp&quot;),
+                    Paths.get(localFile.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+        &#125;
+    &#125;
 
     //合并多线程下载产生的多个临时文件
-    public void merge() &#123;...&#125;
+    public void merge() &#123;
+        try (OutputStream out = new FileOutputStream(localFile)) &#123;
+            byte[] buffer = new byte[1024];
+            int size;
+            for (int i = 0; i &lt; THREAD_NUM; i++) &#123;
+                String tmpFile = localFile.getAbsolutePath() + &quot;.&quot; + i + &quot;.tmp&quot;;
+                InputStream in = new FileInputStream(tmpFile);
+                while ((size = in.read(buffer)) != -1) &#123;
+                    out.write(buffer, 0, size);
+                &#125;
+                in.close();
+                Files.delete(Paths.get(tmpFile));
+            &#125;
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
 
     //一个下载线程负责下载文件的某一部分，如果失败则自动重试，直到下载完成
     class DownloadThread extends Thread &#123;
@@ -3678,16 +3814,67 @@ Content-Range: bytes 0-15316618/15316619
         private int end;
         private OutputStream out;
 
-        public DownloadThread(int id, int start, int end) &#123;...&#125;
+        public DownloadThread(int id, int start, int end) &#123;
+            this.id = id;
+            this.start = start;
+            this.end = end;
+            aliveThreads.incrementAndGet();
+        &#125;
 
         //保证文件的该部分数据下载完成
         @Override
-        public void run() &#123;...&#125;
+        public void run() &#123;
+            boolean success = false;
+            while (true) &#123;
+                success = download();
+                if (success) &#123;
+                    System.out.println(&quot;* Downloaded part &quot; + (id + 1));
+                    break;
+                &#125; else &#123;
+                    System.out.println(&quot;Retry to download part &quot; + (id + 1));
+                &#125;
+            &#125;
+            aliveThreads.decrementAndGet();
+        &#125;
 
         //下载文件指定范围的部分
-        public boolean download() &#123;...&#125;
+        public boolean download() &#123;
+            try &#123;
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestProperty(&quot;Range&quot;, String.format(&quot;bytes=%d-%d&quot;, start, end));
+                con.setConnectTimeout(TIME_OUT);
+                con.setReadTimeout(TIME_OUT);
+                con.connect();
+                int partSize = con.getHeaderFieldInt(&quot;Content-Length&quot;, -1);
+                if (partSize != end - start + 1) return false;
+                if (out == null) out = new FileOutputStream(localFile.getAbsolutePath() + &quot;.&quot; + id + &quot;.tmp&quot;);
+                try (InputStream in = con.getInputStream()) &#123;
+                    byte[] buffer = new byte[1024];
+                    int size;
+                    while (start &lt;= end &amp;&amp; (size = in.read(buffer)) &gt; 0) &#123;
+                        start += size;
+                        downloadedBytes.addAndGet(size);
+                        out.write(buffer, 0, size);
+                        out.flush();
+                    &#125;
+                    con.disconnect();
+                    if (start &lt;= end) return false;
+                    else out.close();
+                &#125;
+            &#125; catch(SocketTimeoutException e) &#123;
+                System.out.println(&quot;Part &quot; + (id + 1) + &quot; Reading timeout.&quot;);
+                return false;
+            &#125; catch (IOException e) &#123;
+                System.out.println(&quot;Part &quot; + (id + 1) + &quot; encountered error.&quot;);
+                return false;
+            &#125;
+
+            return true;
+        &#125;
     &#125;
+
 &#125;
+//https://github.com/wrayzheng/java-multithread-downloader
 </code></pre>
 <p>这里将 DownloadThread 定义为 HttpDownloader 的内部类，这是因为一个 HttpDownloader 实例对应一个文件下载任务，该实例中存放了该任务的各种数据，而下载线程是与该任务是关联的，需要用到这些数据，因此定义为内部类可以直接共享这些数据，从而避免过多的参数传递和存储。</p>
 <p>要下载一个文件，首先创建一个 HttpDownloader 实例，必须传入的参数是目标文件 URL 和本地的存储位置，可选参数是线程数和超时时间。</p>
