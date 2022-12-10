@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="theme-color" content="#222" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2"><link rel="apple-touch-icon" sizes="180x180" href="/images/chtholly@.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/chtholly@.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/chtholly@.png"><link rel="mask-icon" href="/images/@logo.svg" color="#222"><meta name="google-site-verification" content="LQn0xwjfEU_V6CXCA0qAdwM4qRXtblIbfy5KuzEKaRg"><script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><meta name="description" content="思维导图 前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。 一、Netty概述"><meta property="og:type" content="article"><meta property="og:title" content="Head First Netty"><meta property="og:url" content="https://blog.kayleh.top/Head-First-Netty/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="思维导图 前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。 一、Netty概述"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/15944ade0142471399997efd68e52948.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/cc27d56addd74e82b6b6b349c7f3769b.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/92908e107d6a487bb930ab6cd6be269f.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/419e8af300b24c9eaed71a76ddc2ddeb.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/23835a6ae2374897bf28a0b70fce9cc8.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/173194f21adfa111"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/40cf762660d9455eb6066119cf5eeb49.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/ae5c6ed3008d4323aaa817e9cb46437a.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951ae3c43228"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951f80b07785"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/5fa70ed04e234fad9e524b3766051c4a.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/e7bac501d86e4e75a897686d7bab40fe.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/4c6e9319213b489bbfcc2d7697cf03b0.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/c77ea0ea4e554d65b61ee0a2eae78a0c.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/7a95eeb933be4470acdc5f0f07afbc2a.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/17319554d4546047"><meta property="article:published_time" content="2021-05-25T22:26:52.000Z"><meta property="article:modified_time" content="2022-05-01T10:07:32.862Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="frame"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png"><link rel="canonical" href="https://blog.kayleh.top/Head-First-Netty/"><script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.kayleh.top/Head-First-Netty/","path":"Head-First-Netty/","title":"Head First Netty"}</script><script class="next-config" data-name="calendar" type="application/json">""</script><title>Head First Netty | Kayleh</title><script async="" src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684"></script><script async="" defer="" data-website-id="" src=""></script><script defer="" data-domain="" src=""></script><noscript></noscript><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css');loadCss('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css"></noscript></head><body itemscope="" itemtype="http://schema.org/WebPage" class="use-motion"><div class="headband"></div><main class="main"><div class="column"><header class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="site-brand-container"><div class="site-nav-toggle"><div class="toggle" aria-label="切换导航栏" role="button"><span class="toggle-line"></span> <span class="toggle-line"></span> <span class="toggle-line"></span></div></div><div class="site-meta"><a href="/" class="brand" rel="start"><i class="logo-line"></i><p class="site-title">Kayleh</p><i class="logo-line"></i> </a><img class="custom-logo-image" src="/images/@logo.svg" alt="Kayleh"></div><div class="site-nav-right"><div class="toggle popup-trigger"><i class="fa fa-search fa-fw fa-lg"></i></div></div></div><nav class="site-nav"><ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-创作"><a href="/create" rel="section"><i class="fa fa-pencil fa-fw"></i>创作</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-links"><a href="/link" rel="section"><i class="fa fa-sitemap fa-fw"></i>links</a></li><li class="menu-item menu-item-search"><a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索</a></li></ul></nav><div class="search-pop-overlay"><div class="popup search-popup"><div class="search-header"><span class="search-icon"><i class="fa fa-search"></i></span><div class="search-input-container"><input autocomplete="off" autocapitalize="off" maxlength="80" placeholder="搜索..." spellcheck="false" type="search" class="search-input"></div><span class="popup-btn-close" role="button"><i class="fa fa-times-circle"></i></span></div><div class="search-result-container no-result"><div class="search-result-icon"><i class="fa fa-spinner fa-pulse fa-5x"></i></div></div></div></div></header><aside class="sidebar"><div class="sidebar-inner sidebar-nav-active sidebar-toc-active"><ul class="sidebar-nav"><li class="sidebar-nav-toc">文章目录</li><li class="sidebar-nav-overview">站点概览</li></ul><div class="sidebar-panel-container"><div class="post-toc-wrap sidebar-panel"><div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">思维导图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81Netty%E6%A6%82%E8%BF%B0"><span class="nav-number">3.</span> <span class="nav-text">一、Netty概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8Netty"><span class="nav-number">4.</span> <span class="nav-text">二、为什么使用Netty</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-NIO%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 NIO的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Netty%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 Netty的优点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">三、架构图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%B0%B8%E8%BF%9C%E7%9A%84Hello-Word"><span class="nav-number">6.</span> <span class="nav-text">四、永远的Hello Word</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E5%BC%95%E5%85%A5Maven%E4%BE%9D%E8%B5%96"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 引入Maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 创建服务端启动类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 创建服务端处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 创建客户端启动类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">6.5.</span> <span class="nav-text">4.5 创建客户端处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-%E6%B5%8B%E8%AF%95"><span class="nav-number">6.6.</span> <span class="nav-text">4.6 测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81Netty%E7%9A%84%E7%89%B9%E6%80%A7%E4%B8%8E%E9%87%8D%E8%A6%81%E7%BB%84%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">五、Netty的特性与重要组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-taskQueue%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 taskQueue任务队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-scheduleTaskQueue%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 scheduleTaskQueue延时任务队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-Future%E5%BC%82%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 Future异步机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-Bootstrap%E4%B8%8EServerBootStrap"><span class="nav-number">7.4.</span> <span class="nav-text">5.4 Bootstrap与ServerBootStrap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-1-group"><span class="nav-number">7.4.1.</span> <span class="nav-text">5.4.1 group()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-2-channel"><span class="nav-number">7.4.2.</span> <span class="nav-text">5.4.2 channel()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-3-option-%E4%B8%8EchildOption"><span class="nav-number">7.4.3.</span> <span class="nav-text">5.4.3 option()与childOption()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-4-%E8%AE%BE%E7%BD%AE%E6%B5%81%E6%B0%B4%E7%BA%BF-%E9%87%8D%E7%82%B9"><span class="nav-number">7.4.4.</span> <span class="nav-text">5.4.4 设置流水线(重点)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-5-bind"><span class="nav-number">7.4.5.</span> <span class="nav-text">5.4.5 bind()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-6-%E4%BC%98%E9%9B%85%E5%9C%B0%E5%85%B3%E9%97%ADEventLoopGroup"><span class="nav-number">7.4.6.</span> <span class="nav-text">5.4.6 优雅地关闭EventLoopGroup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-Channel"><span class="nav-number">7.5.</span> <span class="nav-text">5.5 Channel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-1-%E8%8E%B7%E5%8F%96channel%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">7.5.1.</span> <span class="nav-text">5.5.1 获取channel的状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-2-%E8%8E%B7%E5%8F%96channel%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-number">7.5.2.</span> <span class="nav-text">5.5.2 获取channel的配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-3-channel%E6%94%AF%E6%8C%81%E7%9A%84IO%E6%93%8D%E4%BD%9C"><span class="nav-number">7.5.3.</span> <span class="nav-text">5.5.3 channel支持的IO操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-Selector"><span class="nav-number">7.6.</span> <span class="nav-text">5.6 Selector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-7-PiPeline%E4%B8%8EChannelPipeline"><span class="nav-number">7.7.</span> <span class="nav-text">5.7 PiPeline与ChannelPipeline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-8-ChannelHandlerContext"><span class="nav-number">7.8.</span> <span class="nav-text">5.8 ChannelHandlerContext</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-9-EventLoopGroup"><span class="nav-number">7.9.</span> <span class="nav-text">5.9 EventLoopGroup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-9-1-%E8%BD%AE%E8%AF%A2%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">7.9.1.</span> <span class="nav-text">5.9.1 轮询机制的实现原理</span></a></li></ol></li></ol></li></ol></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author site-overview-item animated" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" alt="Kayleh" src="/images/chtholly@.png"><p class="site-author-name" itemprop="name">Kayleh</p><div class="site-description" itemprop="description">Dreamaker</div></div><div class="site-state-wrap site-overview-item animated"><nav class="site-state"><div class="site-state-item site-state-posts"><a href="/archives"><span class="site-state-item-count">235</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><span class="site-state-item-count">6</span> <span class="site-state-item-name">分类</span></div><div class="site-state-item site-state-tags"><a href="/tags"><span class="site-state-item-count">33</span> <span class="site-state-item-name">标签</span></a></div></nav></div><div class="links-of-author site-overview-item animated"><span class="links-of-author-item"><a href="https://github.com/kayleh" title="GitHub → https://github.com/kayleh" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a> </span><span class="links-of-author-item"><a href="mailto:yaojinqing@kayleh.top" title="E-Mail → mailto:yaojinqing@kayleh.top" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a> </span><span class="links-of-author-item"><a href="https://instagram.com/kayleh" title="Instagram → https://instagram.com/kayleh" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a> </span><span class="links-of-author-item"><a href="https://twitter.com/kayleh" title="Twitter → https://twitter.com/kayleh" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a></span></div><div class="cc-license site-overview-item animated" itemprop="license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a></div></div></div></div></aside></div><div class="main-inner post posts-expand"><div class="post-block"><article itemscope="" itemtype="http://schema.org/Article" class="post-content" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/Head-First-Netty/"><span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/chtholly@.png"><meta itemprop="name" content="Kayleh"></span><span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization"><meta itemprop="name" content="Kayleh"><meta itemprop="description" content="Dreamaker"></span><span hidden="" itemprop="post" itemscope="" itemtype="http://schema.org/CreativeWork"><meta itemprop="name" content="Head First Netty | Kayleh"><meta itemprop="description" content=""></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Head First Netty</h1><div class="post-meta-container"><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建时间：2021-05-26 06:26:52" itemprop="dateCreated datePublished" datetime="2021-05-26T06:26:52+08:00">2021-05-26</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="far fa-calendar-check"></i> </span><span class="post-meta-item-text">更新于</span> <time title="修改时间：2022-05-01 18:07:32" itemprop="dateModified" datetime="2022-05-01T18:07:32+08:00">2022-05-01</time> </span><span id="/Head-First-Netty/" class="post-meta-item leancloud_visitors" data-flag-title="Head First Netty" title="阅读次数"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span class="leancloud-visitors-count"></span> </span><span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv"><span class="post-meta-item-icon"><i class="far fa-eye"></i> </span><span class="post-meta-item-text">阅读次数：</span> <span id="busuanzi_value_page_pv"></span> </span><span class="post-meta-break"></span> <span class="post-meta-item" title="本文字数"><span class="post-meta-item-icon"><i class="far fa-file-word"></i> </span><span class="post-meta-item-text">本文字数：</span> <span>14k</span> </span><span class="post-meta-item" title="阅读时长"><span class="post-meta-item-icon"><i class="far fa-clock"></i> </span><span class="post-meta-item-text">阅读时长 ≈</span> <span>13 分钟</span></span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png" alt="image.png"></p><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。</p><h1 id="一、Netty概述"><a href="#一、Netty概述" class="headerlink" title="一、Netty概述"></a>一、Netty概述</h1><p>官方的介绍：</p><blockquote><p>Netty is <em>an asynchronous event-driven network application framework</em><br>for rapid development of maintainable high performance protocol servers &amp; clients.</p></blockquote><p><strong>Netty</strong>是 一个<strong>异步事件驱动</strong>的网络应用程序框架，用于<strong>快速开发可维护的高性能协议服务器和客户端</strong>。</p><h1 id="二、为什么使用Netty"><a href="#二、为什么使用Netty" class="headerlink" title="二、为什么使用Netty"></a>二、为什么使用Netty</h1><p>从官网上介绍，Netty是一个网络应用程序框架，开发服务器和客户端。也就是用于网络编程的一个框架。既然是网络编程，Socket就不谈了，为什么不用NIO呢？</p><h2 id="2-1-NIO的缺点"><a href="#2-1-NIO的缺点" class="headerlink" title="2.1 NIO的缺点"></a>2.1 NIO的缺点</h2><p>对于这个问题，之前我写了一篇文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GfV9w2B0mbT7PmeBS45xLw">《NIO入门》</a>对NIO有比较详细的介绍，NIO的主要问题是：</p><ul><li>NIO的类库和API繁杂，学习成本高，你需要熟练掌握Selector、ServerSocketChannel、SocketChannel、ByteBuffer等。</li><li>需要熟悉Java多线程编程。这是因为NIO编程涉及到Reactor模式，你必须对多线程和网络编程非常熟悉，才能写出高质量的NIO程序。</li><li>臭名昭著的epoll bug。它会导致Selector空轮询，最终导致CPU 100%。直到JDK1.7版本依然没得到根本性的解决。</li></ul><h2 id="2-2-Netty的优点"><a href="#2-2-Netty的优点" class="headerlink" title="2.2 Netty的优点"></a>2.2 Netty的优点</h2><p>相对地，Netty的优点有很多：</p><ul><li>API使用简单，学习成本低。</li><li>功能强大，内置了多种解码编码器，支持多种协议。</li><li>性能高，对比其他主流的NIO框架，Netty的性能最优。</li><li>社区活跃，发现BUG会及时修复，迭代版本周期短，不断加入新的功能。</li><li>Dubbo、Elasticsearch都采用了Netty，质量得到验证。</li></ul><h1 id="三、架构图"><a href="#三、架构图" class="headerlink" title="三、架构图"></a>三、架构图</h1><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/15944ade0142471399997efd68e52948.png" alt="image.png"></p><p>上面这张图就是在官网首页的架构图，我们从上到下分析一下。</p><blockquote><p>绿色的部分<strong>Core</strong>核心模块，包括零拷贝、API库、可扩展的事件模型。</p><p>橙色部分<strong>Protocol Support</strong>协议支持，包括Http协议、webSocket、SSL(安全套接字协议)、谷歌Protobuf协议、zlib/gzip压缩与解压缩、Large File Transfer大文件传输等等。</p><p>红色的部分<strong>Transport Services</strong>传输服务，包括Socket、Datagram、Http Tunnel等等。</p></blockquote><p>以上可看出Netty的功能、协议、传输方式都比较全，比较强大。</p><h1 id="四、永远的Hello-Word"><a href="#四、永远的Hello-Word" class="headerlink" title="四、永远的Hello Word"></a>四、永远的Hello Word</h1><p>首先搭建一个HelloWord工程，先熟悉一下API，还有为后面的学习做铺垫。以下面这张图为依据：</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/cc27d56addd74e82b6b6b349c7f3769b.png" alt="image.png"></p><h2 id="4-1-引入Maven依赖"><a href="#4-1-引入Maven依赖" class="headerlink" title="4.1 引入Maven依赖"></a>4.1 引入Maven依赖</h2><p>使用的版本是4.1.20，相对比较稳定的一个版本。</p><pre><code>&lt;dependency&gt;
+<!DOCTYPE html><html lang="zh-CN,en,default"><head hexo-theme="https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.3"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin=""><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>Head First Netty - Kayleh</title><meta name="keywords" content="frame"><meta name="description" content="思维导图image.png
+前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。
+一、Netty概述"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-config" content="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/browserconfig.xml"><meta name="theme-color" content="#ffffff"><meta name="google-site-verification" content="LQn0xwjfEU_V6CXCA0qAdwM4qRXtblIbfy5KuzEKaRg"><link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon-16x16.png"><link rel="manifest" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/site.webmanifest"><link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/safari-pinned-tab.svg" color="#5bbad5"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/favicon/favicon.ico"><noscript></noscript><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><header id="l_header" class="l_header always shadow blur"><div class="container"><div id="wrapper"><div class="nav-sub"><p class="title"></p><ul class="switcher nav-list-h m-phone" id="pjax-header-nav-list"><li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href="javascript:void(0)"></a></li><li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href="javascript:void(0)"></a></li></ul></div><div class="nav-main"><a class="title flat-box" target="_self" href="/"><i class="https://fastly.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"></i> Kayleh</a><div class="menu navigation"><ul class="nav-list-h m-pc"><li><a class="menuitem flat-box faa-parent animated-hover" href="/" id="home"><i class="fas fa-rss fa-fw"></i>首页</a></li><li><a class="menuitem flat-box faa-parent animated-hover" href="/archives/" id="archives"><i class="fas fa-archive fa-fw"></i>归档</a></li><li><a class="menuitem flat-box faa-parent animated-hover"><i class="fa-solid fa-ellipsis-v fa-fw"></i>电子书</a><ul class="list-v"><li><a class="menuitem flat-box faa-parent animated-hover" href="https://c.kayleh.top/" id="https:ckaylehtop">C语言</a></li><li><a class="menuitem flat-box faa-parent animated-hover" href="https://c.kayleh.top/" id="https:ckaylehtop">数据结构与算法(ing)</a></li></ul></li></ul></div><div class="m_search"><form name="searchform" class="form u-search-form"><i class="icon fas fa-search fa-fw"></i> <input type="text" class="input u-search-input" placeholder="Search..."></form></div><ul class="switcher nav-list-h m-phone"><li><a class="s-search fas fa-search fa-fw" target="_self" href="javascript:void(0)"></a></li><li><a class="s-menu fas fa-bars fa-fw" target="_self" href="javascript:void(0)"></a><ul class="menu-phone list-v navigation white-box"><li><a class="menuitem flat-box faa-parent animated-hover" href="/" id="home"><i class="fas fa-rss fa-fw"></i>首页</a></li><li><a class="menuitem flat-box faa-parent animated-hover" href="/archives/" id="archives"><i class="fas fa-archive fa-fw"></i>归档</a></li><li><a class="menuitem flat-box faa-parent animated-hover"><i class="fa-solid fa-ellipsis-v fa-fw"></i>电子书</a><ul class="list-v"><li><a class="menuitem flat-box faa-parent animated-hover" href="https://c.kayleh.top/" id="https:ckaylehtop">C语言</a></li><li><a class="menuitem flat-box faa-parent animated-hover" href="https://c.kayleh.top/" id="https:ckaylehtop">数据结构与算法(ing)</a></li></ul></li></ul></li></ul></div></div></div></header><div id="l_body"><div id="l_cover"><div id="half" class="cover-wrapper post search"><div id="cover-backstretch"></div><div class="cover-body"><div class="top"><img no-lazy="" class="logo" src="https://fastly.jsdelivr.net/gh/kayleh/cdn/logo/logo4.png"><p class="subtitle">"最怕一生碌碌无为,还安慰自己平凡可贵"</p></div><div class="bottom"><div class="m_search"><form name="searchform" class="form u-search-form"><input type="text" class="input u-search-input" placeholder="搜索文章..."> <i class="icon fas fa-search fa-fw"></i></form></div><div class="menu navigation"><div class="list-h"><a href="/" id="home"><p>博客</p></a><a href="/archives/" id="archives"><p>所有</p></a><a href="/friends/" id="friends"><p>友人帐</p></a><a href="mailto:kayleh@foxmail.com" id="mailto:kayleh@foxmailcom"><p>联系</p></a></div></div></div></div><div id="scroll-down" style="display:none"><i class="fa fa-chevron-down scroll-down-effects"></i></div></div></div><div id="safearea"><div class="body-wrapper" id="pjax-container"><div class="l_main"><article class="article post white-box reveal md shadow article-type-post" id="post" itemscope="" itemprop="blogPost"><div class="article-meta" id="top"><h1 class="title">Head First Netty</h1><div class="new-meta-box"><div class="new-meta-item author"><a class="author" href="/" rel="nofollow"><img no-lazy="" src="https://fastly.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><p>Kayleh</p></a></div><div class="new-meta-item date"><a class="notlink"><i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i><p>发布于：2021年5月26日</p></a></div></div></div><h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。</p><h1 id="一、Netty概述"><a href="#一、Netty概述" class="headerlink" title="一、Netty概述"></a>一、Netty概述</h1><p>官方的介绍：</p><blockquote><p>Netty is <em>an asynchronous event-driven network application framework</em><br>for rapid development of maintainable high performance protocol servers &amp; clients.</p></blockquote><p><strong>Netty</strong>是 一个<strong>异步事件驱动</strong>的网络应用程序框架，用于<strong>快速开发可维护的高性能协议服务器和客户端</strong>。</p><h1 id="二、为什么使用Netty"><a href="#二、为什么使用Netty" class="headerlink" title="二、为什么使用Netty"></a>二、为什么使用Netty</h1><p>从官网上介绍，Netty是一个网络应用程序框架，开发服务器和客户端。也就是用于网络编程的一个框架。既然是网络编程，Socket就不谈了，为什么不用NIO呢？</p><h2 id="2-1-NIO的缺点"><a href="#2-1-NIO的缺点" class="headerlink" title="2.1 NIO的缺点"></a>2.1 NIO的缺点</h2><p>对于这个问题，之前我写了一篇文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GfV9w2B0mbT7PmeBS45xLw">《NIO入门》</a>对NIO有比较详细的介绍，NIO的主要问题是：</p><ul><li>NIO的类库和API繁杂，学习成本高，你需要熟练掌握Selector、ServerSocketChannel、SocketChannel、ByteBuffer等。</li><li>需要熟悉Java多线程编程。这是因为NIO编程涉及到Reactor模式，你必须对多线程和网络编程非常熟悉，才能写出高质量的NIO程序。</li><li>臭名昭著的epoll bug。它会导致Selector空轮询，最终导致CPU 100%。直到JDK1.7版本依然没得到根本性的解决。</li></ul><h2 id="2-2-Netty的优点"><a href="#2-2-Netty的优点" class="headerlink" title="2.2 Netty的优点"></a>2.2 Netty的优点</h2><p>相对地，Netty的优点有很多：</p><ul><li>API使用简单，学习成本低。</li><li>功能强大，内置了多种解码编码器，支持多种协议。</li><li>性能高，对比其他主流的NIO框架，Netty的性能最优。</li><li>社区活跃，发现BUG会及时修复，迭代版本周期短，不断加入新的功能。</li><li>Dubbo、Elasticsearch都采用了Netty，质量得到验证。</li></ul><h1 id="三、架构图"><a href="#三、架构图" class="headerlink" title="三、架构图"></a>三、架构图</h1><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/15944ade0142471399997efd68e52948.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/15944ade0142471399997efd68e52948.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><p>上面这张图就是在官网首页的架构图，我们从上到下分析一下。</p><blockquote><p>绿色的部分<strong>Core</strong>核心模块，包括零拷贝、API库、可扩展的事件模型。</p><p>橙色部分<strong>Protocol Support</strong>协议支持，包括Http协议、webSocket、SSL(安全套接字协议)、谷歌Protobuf协议、zlib/gzip压缩与解压缩、Large File Transfer大文件传输等等。</p><p>红色的部分<strong>Transport Services</strong>传输服务，包括Socket、Datagram、Http Tunnel等等。</p></blockquote><p>以上可看出Netty的功能、协议、传输方式都比较全，比较强大。</p><h1 id="四、永远的Hello-Word"><a href="#四、永远的Hello-Word" class="headerlink" title="四、永远的Hello Word"></a>四、永远的Hello Word</h1><p>首先搭建一个HelloWord工程，先熟悉一下API，还有为后面的学习做铺垫。以下面这张图为依据：</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/cc27d56addd74e82b6b6b349c7f3769b.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/cc27d56addd74e82b6b6b349c7f3769b.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><h2 id="4-1-引入Maven依赖"><a href="#4-1-引入Maven依赖" class="headerlink" title="4.1 引入Maven依赖"></a>4.1 引入Maven依赖</h2><p>使用的版本是4.1.20，相对比较稳定的一个版本。</p><pre><code>&lt;dependency&gt;
     &lt;groupId&gt;io.netty&lt;/groupId&gt;
     &lt;artifactId&gt;netty-all&lt;/artifactId&gt;
     &lt;version&gt;4.1.20.Final&lt;/version&gt;
@@ -108,7 +110,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("收到服务端" + ctx.channel().remoteAddress() + "的消息：" + byteBuf.toString(CharsetUtil.UTF_8));
     }
 }
-</code></pre><h2 id="4-6-测试"><a href="#4-6-测试" class="headerlink" title="4.6 测试"></a>4.6 测试</h2><p>先启动服务端，再启动客户端，就可以看到结果：</p><p>MyServer打印结果:</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/92908e107d6a487bb930ab6cd6be269f.png" alt="image.png"></p><p>MyClient打印结果：<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/419e8af300b24c9eaed71a76ddc2ddeb.png" alt="image.png"></p><h1 id="五、Netty的特性与重要组件"><a href="#五、Netty的特性与重要组件" class="headerlink" title="五、Netty的特性与重要组件"></a>五、Netty的特性与重要组件</h1><h2 id="5-1-taskQueue任务队列"><a href="#5-1-taskQueue任务队列" class="headerlink" title="5.1 taskQueue任务队列"></a>5.1 taskQueue任务队列</h2><p>如果Handler处理器有一些长时间的业务处理，可以交给<strong>taskQueue异步处理</strong>。怎么用呢，请看代码演示：</p><pre><code>public class MyServerHandler extends ChannelInboundHandlerAdapter {
+</code></pre><h2 id="4-6-测试"><a href="#4-6-测试" class="headerlink" title="4.6 测试"></a>4.6 测试</h2><p>先启动服务端，再启动客户端，就可以看到结果：</p><p>MyServer打印结果:</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/92908e107d6a487bb930ab6cd6be269f.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/92908e107d6a487bb930ab6cd6be269f.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><p>MyClient打印结果：<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/419e8af300b24c9eaed71a76ddc2ddeb.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/419e8af300b24c9eaed71a76ddc2ddeb.png" srcset="data:image/png;base64,666" alt="image.png"></p><h1 id="五、Netty的特性与重要组件"><a href="#五、Netty的特性与重要组件" class="headerlink" title="五、Netty的特性与重要组件"></a>五、Netty的特性与重要组件</h1><h2 id="5-1-taskQueue任务队列"><a href="#5-1-taskQueue任务队列" class="headerlink" title="5.1 taskQueue任务队列"></a>5.1 taskQueue任务队列</h2><p>如果Handler处理器有一些长时间的业务处理，可以交给<strong>taskQueue异步处理</strong>。怎么用呢，请看代码演示：</p><pre><code>public class MyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -127,7 +129,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
         });
     }
 }
-</code></pre><p>我们打一个debug调试，是可以看到添加进去的taskQueue有一个任务。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/23835a6ae2374897bf28a0b70fce9cc8.png" alt="image.png"></p><h2 id="5-2-scheduleTaskQueue延时任务队列"><a href="#5-2-scheduleTaskQueue延时任务队列" class="headerlink" title="5.2 scheduleTaskQueue延时任务队列"></a>5.2 scheduleTaskQueue延时任务队列</h2><p>延时任务队列和上面介绍的任务队列非常相似，只是多了一个可延迟一定时间再执行的设置，请看代码演示：</p><pre><code>ctx.channel().eventLoop().schedule(new Runnable() {
+</code></pre><p>我们打一个debug调试，是可以看到添加进去的taskQueue有一个任务。</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/23835a6ae2374897bf28a0b70fce9cc8.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/23835a6ae2374897bf28a0b70fce9cc8.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><h2 id="5-2-scheduleTaskQueue延时任务队列"><a href="#5-2-scheduleTaskQueue延时任务队列" class="headerlink" title="5.2 scheduleTaskQueue延时任务队列"></a>5.2 scheduleTaskQueue延时任务队列</h2><p>延时任务队列和上面介绍的任务队列非常相似，只是多了一个可延迟一定时间再执行的设置，请看代码演示：</p><pre><code>ctx.channel().eventLoop().schedule(new Runnable() {
     @Override
     public void run() {
         try {
@@ -139,7 +141,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
         }
     }
 },5, TimeUnit.SECONDS);//5秒后执行
-</code></pre><p>依然打开debug进行调试查看，我们可以有一个scheduleTaskQueue任务待执行中</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/173194f21adfa111" alt="img"></p><h2 id="5-3-Future异步机制"><a href="#5-3-Future异步机制" class="headerlink" title="5.3 Future异步机制"></a>5.3 Future异步机制</h2><p>在搭建HelloWord工程的时候，我们看到有一行这样的代码：</p><pre><code>ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 6666);
+</code></pre><p>依然打开debug进行调试查看，我们可以有一个scheduleTaskQueue任务待执行中</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/173194f21adfa111" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/173194f21adfa111" srcset="data:image/png;base64,666" alt="img"></div><span class="image-caption">img</span></div><h2 id="5-3-Future异步机制"><a href="#5-3-Future异步机制" class="headerlink" title="5.3 Future异步机制"></a>5.3 Future异步机制</h2><p>在搭建HelloWord工程的时候，我们看到有一行这样的代码：</p><pre><code>ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 6666);
 </code></pre><p>很多操作都返回这个ChannelFuture对象，究竟这个ChannelFuture对象是用来做什么的呢？</p><p>ChannelFuture提供操作完成时一种异步通知的方式。一般在Socket编程中，等待响应结果都是同步阻塞的，而Netty则不会造成阻塞，因为ChannelFuture是采取类似观察者模式的形式进行获取结果。请看一段代码演示：</p><pre><code>//添加监听器
 channelFuture.addListener(new ChannelFutureListener() {
     //使用匿名内部类，ChannelFutureListener接口
@@ -154,7 +156,7 @@ channelFuture.addListener(new ChannelFutureListener() {
         }
     }
 });
-</code></pre><h2 id="5-4-Bootstrap与ServerBootStrap"><a href="#5-4-Bootstrap与ServerBootStrap" class="headerlink" title="5.4 Bootstrap与ServerBootStrap"></a>5.4 Bootstrap与ServerBootStrap</h2><p>Bootstrap和ServerBootStrap是Netty提供的一个创建客户端和服务端启动器的工厂类，使用这个工厂类非常便利地创建启动类，根据上面的一些例子，其实也看得出来能大大地减少了开发的难度。首先看一个类图：</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/40cf762660d9455eb6066119cf5eeb49.png" alt="image.png"></p><p>可以看出都是继承于AbstractBootStrap抽象类，所以大致上的配置方法都相同。</p><p>一般来说，使用Bootstrap创建启动器的步骤可分为以下几步：</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/ae5c6ed3008d4323aaa817e9cb46437a.png" alt="image.png"></p><h3 id="5-4-1-group"><a href="#5-4-1-group" class="headerlink" title="5.4.1 group()"></a>5.4.1 group()</h3><p>在上一篇文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vWbbn1qXRFVva8Y9yET18Q">《Reactor模式》</a>中，我们就讲过服务端要使用两个线程组：</p><ul><li>bossGroup 用于监听客户端连接，专门负责与客户端创建连接，并把连接注册到workerGroup的Selector中。</li><li>workerGroup用于处理每一个连接发生的读写事件。</li></ul><p>一般创建线程组直接使用以下new就完事了：</p><pre><code>EventLoopGroup bossGroup = new NioEventLoopGroup();
+</code></pre><h2 id="5-4-Bootstrap与ServerBootStrap"><a href="#5-4-Bootstrap与ServerBootStrap" class="headerlink" title="5.4 Bootstrap与ServerBootStrap"></a>5.4 Bootstrap与ServerBootStrap</h2><p>Bootstrap和ServerBootStrap是Netty提供的一个创建客户端和服务端启动器的工厂类，使用这个工厂类非常便利地创建启动类，根据上面的一些例子，其实也看得出来能大大地减少了开发的难度。首先看一个类图：</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/40cf762660d9455eb6066119cf5eeb49.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/40cf762660d9455eb6066119cf5eeb49.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><p>可以看出都是继承于AbstractBootStrap抽象类，所以大致上的配置方法都相同。</p><p>一般来说，使用Bootstrap创建启动器的步骤可分为以下几步：</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/ae5c6ed3008d4323aaa817e9cb46437a.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/ae5c6ed3008d4323aaa817e9cb46437a.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><h3 id="5-4-1-group"><a href="#5-4-1-group" class="headerlink" title="5.4.1 group()"></a>5.4.1 group()</h3><p>在上一篇文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vWbbn1qXRFVva8Y9yET18Q">《Reactor模式》</a>中，我们就讲过服务端要使用两个线程组：</p><ul><li>bossGroup 用于监听客户端连接，专门负责与客户端创建连接，并把连接注册到workerGroup的Selector中。</li><li>workerGroup用于处理每一个连接发生的读写事件。</li></ul><p>一般创建线程组直接使用以下new就完事了：</p><pre><code>EventLoopGroup bossGroup = new NioEventLoopGroup();
 EventLoopGroup workerGroup = new NioEventLoopGroup();
 </code></pre><p>有点好奇的是，既然是线程组，那线程数默认是多少呢？深入源码：</p><pre><code>    //使用一个常量保存
     private static final int DEFAULT_EVENT_LOOP_THREADS;
@@ -177,7 +179,7 @@ EventLoopGroup workerGroup = new NioEventLoopGroup();
 EventLoopGroup bossGroup = new NioEventLoopGroup(1);
 //设置workerGroup线程数为16
 EventLoopGroup workerGroup = new NioEventLoopGroup(16);
-</code></pre><h3 id="5-4-2-channel"><a href="#5-4-2-channel" class="headerlink" title="5.4.2 channel()"></a>5.4.2 channel()</h3><p>这个方法用于设置通道类型，当建立连接后，会根据这个设置创建对应的Channel实例。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951ae3c43228" alt="img"></p><p>使用debug模式可以看到</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951f80b07785" alt="img"></p><p>通道类型有以下：</p><p><strong>NioSocketChannel</strong>： 异步非阻塞的客户端 TCP Socket 连接。</p><p><strong>NioServerSocketChannel</strong>： 异步非阻塞的服务器端 TCP Socket 连接。</p><blockquote><p>常用的就是这两个通道类型，因为是异步非阻塞的。所以是首选。</p></blockquote><p>OioSocketChannel： 同步阻塞的客户端 TCP Socket 连接。</p><p>OioServerSocketChannel： 同步阻塞的服务器端 TCP Socket 连接。</p><blockquote><p>稍微在本地调试过，用起来和Nio有一些不同，是阻塞的，所以API调用也不一样。因为是阻塞的IO，几乎没什么人会选择使用Oio，所以也很难找到例子。我稍微琢磨了一下，经过几次报错之后，总算调通了。代码如下：</p></blockquote><pre><code>//server端代码，跟上面几乎一样，只需改三个地方
+</code></pre><h3 id="5-4-2-channel"><a href="#5-4-2-channel" class="headerlink" title="5.4.2 channel()"></a>5.4.2 channel()</h3><p>这个方法用于设置通道类型，当建立连接后，会根据这个设置创建对应的Channel实例。</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951ae3c43228" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951ae3c43228" srcset="data:image/png;base64,666" alt="img"></div><span class="image-caption">img</span></div><p>使用debug模式可以看到</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951f80b07785" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951f80b07785" srcset="data:image/png;base64,666" alt="img"></div><span class="image-caption">img</span></div><p>通道类型有以下：</p><p><strong>NioSocketChannel</strong>： 异步非阻塞的客户端 TCP Socket 连接。</p><p><strong>NioServerSocketChannel</strong>： 异步非阻塞的服务器端 TCP Socket 连接。</p><blockquote><p>常用的就是这两个通道类型，因为是异步非阻塞的。所以是首选。</p></blockquote><p>OioSocketChannel： 同步阻塞的客户端 TCP Socket 连接。</p><p>OioServerSocketChannel： 同步阻塞的服务器端 TCP Socket 连接。</p><blockquote><p>稍微在本地调试过，用起来和Nio有一些不同，是阻塞的，所以API调用也不一样。因为是阻塞的IO，几乎没什么人会选择使用Oio，所以也很难找到例子。我稍微琢磨了一下，经过几次报错之后，总算调通了。代码如下：</p></blockquote><pre><code>//server端代码，跟上面几乎一样，只需改三个地方
 //这个地方使用的是OioEventLoopGroup
 EventLoopGroup bossGroup = new OioEventLoopGroup();
 ServerBootstrap bootstrap = new ServerBootstrap();
@@ -231,7 +233,7 @@ public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception 
 ChannelPipeline pipeline = ctx.channel().pipeline();
 //往pipeline中添加ChannelHandler处理器，装配流水线
 pipeline.addLast(new MyServerHandler());
-</code></pre><h2 id="5-6-Selector"><a href="#5-6-Selector" class="headerlink" title="5.6 Selector"></a>5.6 Selector</h2><p>在NioEventLoop中，有一个成员变量selector，这是nio包的Selector，在之前<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GfV9w2B0mbT7PmeBS45xLw">《NIO入门》</a>中，我已经讲过Selector了。</p><p>Netty中的Selector也和NIO的Selector是一样的，就是用于监听事件，管理注册到Selector中的channel，实现多路复用器。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/5fa70ed04e234fad9e524b3766051c4a.png" alt="image.png"></p><h2 id="5-7-PiPeline与ChannelPipeline"><a href="#5-7-PiPeline与ChannelPipeline" class="headerlink" title="5.7 PiPeline与ChannelPipeline"></a>5.7 PiPeline与ChannelPipeline</h2><p>在前面介绍Channel时，我们知道可以在channel中装配ChannelHandler流水线处理器，那一个channel不可能只有一个channelHandler处理器，肯定是有很多的，既然是很多channelHandler在一个流水线工作，肯定是有顺序的。</p><p>于是pipeline就出现了，pipeline相当于处理器的容器。初始化channel时，把channelHandler按顺序装在pipeline中，就可以实现按序执行channelHandler了。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/e7bac501d86e4e75a897686d7bab40fe.png" alt="image.png"></p><p>在一个Channel中，只有一个ChannelPipeline。该pipeline在Channel被创建的时候创建。ChannelPipeline包含了一个ChannelHander形成的列表，且所有ChannelHandler都会注册到ChannelPipeline中。</p><h2 id="5-8-ChannelHandlerContext"><a href="#5-8-ChannelHandlerContext" class="headerlink" title="5.8 ChannelHandlerContext"></a>5.8 ChannelHandlerContext</h2><p>在Netty中，Handler处理器是有我们定义的，上面讲过通过集成入站处理器或者出站处理器实现。这时如果我们想在Handler中获取pipeline对象，或者channel对象，怎么获取呢。</p><p>于是Netty设计了这个ChannelHandlerContext上下文对象，就可以拿到channel、pipeline等对象，就可以进行读写等操作。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/4c6e9319213b489bbfcc2d7697cf03b0.png" alt="image.png"></p><p>通过类图，ChannelHandlerContext是一个接口，下面有三个实现类。</p><p>实际上ChannelHandlerContext在pipeline中是一个链表的形式。看一段源码就明白了：</p><pre><code>//ChannelPipeline实现类DefaultChannelPipeline的构造器方法
+</code></pre><h2 id="5-6-Selector"><a href="#5-6-Selector" class="headerlink" title="5.6 Selector"></a>5.6 Selector</h2><p>在NioEventLoop中，有一个成员变量selector，这是nio包的Selector，在之前<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GfV9w2B0mbT7PmeBS45xLw">《NIO入门》</a>中，我已经讲过Selector了。</p><p>Netty中的Selector也和NIO的Selector是一样的，就是用于监听事件，管理注册到Selector中的channel，实现多路复用器。</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/5fa70ed04e234fad9e524b3766051c4a.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/5fa70ed04e234fad9e524b3766051c4a.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><h2 id="5-7-PiPeline与ChannelPipeline"><a href="#5-7-PiPeline与ChannelPipeline" class="headerlink" title="5.7 PiPeline与ChannelPipeline"></a>5.7 PiPeline与ChannelPipeline</h2><p>在前面介绍Channel时，我们知道可以在channel中装配ChannelHandler流水线处理器，那一个channel不可能只有一个channelHandler处理器，肯定是有很多的，既然是很多channelHandler在一个流水线工作，肯定是有顺序的。</p><p>于是pipeline就出现了，pipeline相当于处理器的容器。初始化channel时，把channelHandler按顺序装在pipeline中，就可以实现按序执行channelHandler了。</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/e7bac501d86e4e75a897686d7bab40fe.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/e7bac501d86e4e75a897686d7bab40fe.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><p>在一个Channel中，只有一个ChannelPipeline。该pipeline在Channel被创建的时候创建。ChannelPipeline包含了一个ChannelHander形成的列表，且所有ChannelHandler都会注册到ChannelPipeline中。</p><h2 id="5-8-ChannelHandlerContext"><a href="#5-8-ChannelHandlerContext" class="headerlink" title="5.8 ChannelHandlerContext"></a>5.8 ChannelHandlerContext</h2><p>在Netty中，Handler处理器是有我们定义的，上面讲过通过集成入站处理器或者出站处理器实现。这时如果我们想在Handler中获取pipeline对象，或者channel对象，怎么获取呢。</p><p>于是Netty设计了这个ChannelHandlerContext上下文对象，就可以拿到channel、pipeline等对象，就可以进行读写等操作。</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/4c6e9319213b489bbfcc2d7697cf03b0.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/4c6e9319213b489bbfcc2d7697cf03b0.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><p>通过类图，ChannelHandlerContext是一个接口，下面有三个实现类。</p><p>实际上ChannelHandlerContext在pipeline中是一个链表的形式。看一段源码就明白了：</p><pre><code>//ChannelPipeline实现类DefaultChannelPipeline的构造器方法
 protected DefaultChannelPipeline(Channel channel) {
     this.channel = ObjectUtil.checkNotNull(channel, "channel");
     succeededFuture = new SucceededChannelFuture(channel, null);
@@ -243,7 +245,7 @@ protected DefaultChannelPipeline(Channel channel) {
     head.next = tail;
     tail.prev = head;
 }
-</code></pre><p>下面我用一张图来表示，会更加清晰一点：<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/c77ea0ea4e554d65b61ee0a2eae78a0c.png" alt="image.png"></p><h2 id="5-9-EventLoopGroup"><a href="#5-9-EventLoopGroup" class="headerlink" title="5.9 EventLoopGroup"></a>5.9 EventLoopGroup</h2><p>我们先看一下EventLoopGroup的类图：</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/7a95eeb933be4470acdc5f0f07afbc2a.png" alt="image.png"></p><p>其中包括了常用的实现类NioEventLoopGroup。OioEventLoopGroup在前面的例子中也有使用过。</p><p>从Netty的架构图中，可以知道服务器是需要两个线程组进行配合工作的，而这个线程组的接口就是EventLoopGroup。</p><p>每个EventLoopGroup里包括一个或多个EventLoop，每个EventLoop中维护一个Selector实例。</p><h3 id="5-9-1-轮询机制的实现原理"><a href="#5-9-1-轮询机制的实现原理" class="headerlink" title="5.9.1 轮询机制的实现原理"></a>5.9.1 轮询机制的实现原理</h3><p>我们不妨看一段DefaultEventExecutorChooserFactory的源码：</p><pre><code>private final AtomicInteger idx = new AtomicInteger();
+</code></pre><p>下面我用一张图来表示，会更加清晰一点：<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/c77ea0ea4e554d65b61ee0a2eae78a0c.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/c77ea0ea4e554d65b61ee0a2eae78a0c.png" srcset="data:image/png;base64,666" alt="image.png"></p><h2 id="5-9-EventLoopGroup"><a href="#5-9-EventLoopGroup" class="headerlink" title="5.9 EventLoopGroup"></a>5.9 EventLoopGroup</h2><p>我们先看一下EventLoopGroup的类图：</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/7a95eeb933be4470acdc5f0f07afbc2a.png" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/7a95eeb933be4470acdc5f0f07afbc2a.png" srcset="data:image/png;base64,666" alt="image.png"></div><span class="image-caption">image.png</span></div><p>其中包括了常用的实现类NioEventLoopGroup。OioEventLoopGroup在前面的例子中也有使用过。</p><p>从Netty的架构图中，可以知道服务器是需要两个线程组进行配合工作的，而这个线程组的接口就是EventLoopGroup。</p><p>每个EventLoopGroup里包括一个或多个EventLoop，每个EventLoop中维护一个Selector实例。</p><h3 id="5-9-1-轮询机制的实现原理"><a href="#5-9-1-轮询机制的实现原理" class="headerlink" title="5.9.1 轮询机制的实现原理"></a>5.9.1 轮询机制的实现原理</h3><p>我们不妨看一段DefaultEventExecutorChooserFactory的源码：</p><pre><code>private final AtomicInteger idx = new AtomicInteger();
 private final EventExecutor[] executors;
 
 @Override
@@ -251,8 +253,579 @@ public EventExecutor next() {
     //idx.getAndIncrement()相当于idx++，然后对任务长度取模
     return executors[idx.getAndIncrement() &amp; executors.length - 1];
 }
-</code></pre><p>这段代码可以确定执行的方式是轮询机制，接下来debug调试一下：</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/17319554d4546047" alt="img"></p><p>它这里还有一个判断，如果线程数不是2的N次方，则采用取模算法实现。</p><pre><code>@Override
+</code></pre><p>这段代码可以确定执行的方式是轮询机制，接下来debug调试一下：</p><div class="img-wrap"><div class="img-bg"><img class="img lazyload" src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/17319554d4546047" data-srcset="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/17319554d4546047" srcset="data:image/png;base64,666" alt="img"></div><span class="image-caption">img</span></div><p>它这里还有一个判断，如果线程数不是2的N次方，则采用取模算法实现。</p><pre><code>@Override
 public EventExecutor next() {
     return executors[Math.abs(idx.getAndIncrement() % executors.length)];
 }
-</code></pre></div><footer class="post-footer"><div class="post-copyright"><ul><li class="post-copyright-author"><strong>本文作者： </strong>Kayleh</li><li class="post-copyright-link"><strong>本文链接：</strong> <a href="https://blog.kayleh.top/Head-First-Netty/" title="Head First Netty">https://blog.kayleh.top/Head-First-Netty/</a></li><li class="post-copyright-license"><strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div><div class="post-tags"><a href="/tags/frame/" rel="tag"># frame</a></div><div class="post-nav"><div class="post-nav-item"><a href="/spring-and-jwt/" rel="prev" title="Spring and Jwt"><i class="fa fa-chevron-left"></i> Spring and Jwt</a></div><div class="post-nav-item"><a href="/mybatis-cache/" rel="next" title="mybatis-cache">mybatis-cache <i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div></main><footer class="footer"><div class="footer-inner"><div class="languages"><label class="lang-select-label"><i class="fa fa-language"></i> <span>简体中文</span> <i class="fa fa-angle-up" aria-hidden="true"></i></label> <select class="lang-select" data-canonical="" aria-label="选择语言"><option value="zh-CN" data-href="/Head-First-Netty/" selected="">简体中文</option><option value="en" data-href="/en/Head-First-Netty/" selected="">English</option></select></div><div class="copyright">© 2019 – <span itemprop="copyrightYear">2022</span> <span class="with-love"><i class="fa fa-heart"></i> </span><span class="author" itemprop="copyrightHolder">Kayleh</span></div><div class="wordcount"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-chart-line"></i> </span><span title="站点总字数">986k</span> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-coffee"></i> </span><span title="站点阅读时长">14:56</span></span></div><div class="busuanzi-count"><span class="post-meta-item" id="busuanzi_container_site_uv"><span class="post-meta-item-icon"><i class="fa fa-user"></i> </span><span class="site-uv" title="总访客量"><span id="busuanzi_value_site_uv"></span> </span></span><span class="post-meta-item" id="busuanzi_container_site_pv"><span class="post-meta-item-icon"><i class="fa fa-eye"></i> </span><span class="site-pv" title="总访问量"><span id="busuanzi_value_site_pv"></span></span></span></div></div></footer><div class="back-to-top" role="button" aria-label="返回顶部"><i class="fa fa-arrow-up fa-lg"></i> <span>0%</span></div><noscript><div class="noscript-warning">Theme NexT works best with JavaScript enabled</div></noscript><script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script><script async="" src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/bundle.js"></script><script>{"enable":true,"app_id":"FgNaybmwy1yu74JH4lXMgH5S","app_key":"OBHyEdMVsi8FSFA0aqJNh4HE","server_url":null,"security":true}</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+</code></pre><div class="footer"><div class="copyright"><blockquote><p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p><p>本文永久链接是：<a href="https://blog.kayleh.top/Head-First-Netty/">https://blog.kayleh.top/Head-First-Netty/</a></p></blockquote></div></div><div class="article-meta" id="bottom"><div class="new-meta-box"><div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-01T18:07:32+08:00"><a class="notlink"><i class="fas fa-edit fa-fw" aria-hidden="true"></i><p>更新于：2022年5月1日</p></a></div><div class="new-meta-item meta-tags"><a class="tag" href="/tags/frame/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>frame</p></a></div><div class="new-meta-item share -mob-share-list"><div class="-mob-share-list share-body"><a class="-mob-share-qq" rel="external nofollow noopener noreferrer noopener" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.kayleh.top/Head-First-Netty/&amp;title=Head First Netty - Kayleh&amp;summary=思维导图image.png
+前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。
+一、Netty概述"><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666"> </a><a class="-mob-share-qzone" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://blog.kayleh.top/Head-First-Netty/&amp;title=Head First Netty - Kayleh&amp;summary=思维导图image.png
+前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。
+一、Netty概述"><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666"> </a><a class="-mob-share-weibo" rel="external nofollow noopener noreferrer noopener" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.kayleh.top/Head-First-Netty/&amp;title=Head First Netty - Kayleh&amp;summary=思维导图image.png
+前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。
+一、Netty概述"><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666"></a><div class="hoverbox"><a class="share"><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/wechat.png" srcset="data:image/png;base64,666"></a><div class="target"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAAAAACi5bZQAAAC+klEQVR42u3aSZLDIAwF0Nz/0t37HgpNTqzksUvKBvPY/JJ4fBl/jgcCMGDAgAEDZg3Mozh+vn9cMPh+dr7TOun9gAEDBgwYMGDWwYQD0OGDTr+zz2Uhu/sBAwYMGDBgwOyFmQp01aAX/b96IMfnwYABAwYMGDAfA3NVAasLDwYMGDBgwIABUw1QUaipAhYYMGDAgAEDBkw3QE016KYKVS/rRIIBAwYMGDBgngaTHdmG17N/l/cDBgwYMGDAgFkDM9Xgmm68ReedatSBAQMGDBgwYPbBnCbuNr6mCkxRoChsu4IHBgwYMGDAgLkdzPQFnWgwu+qAsoEQDBgwYMCAAbMPpttg6zbCsheIqjDHdcCAAQMGDBgw62BOE3UDV7cw1W3ohQtfYMCAAQMGDJh1MNng1i1MdRttlxXMwIABAwYMGDBrYJ49qsFuOoAeG25gwIABAwYMmNvDRD/g6gZZF2xqPTBgwIABAwbMXphsoMpe4Kmu2z248HeBAQMGDBgwYNbAdAtA2WCXbax1g1v6oMGAAQMGDBgwa2GmA1gVIgvdvYAEBgwYMGDAgNkLkw1Y3Y1nNzY9fzjggQEDBgwYMGBuC5MtJGULSN3C09XQv94DAwYMGDBgwKyBuTrotT90eBz3CQYMGDBgwIBZA1MNeNX3ox8YBZv6DQYMGDBgwIDZB5MNYt2gV91wtrAVPVAwYMCAAQMGzPvCZCeuFqymGmrZ59IVPDBgwIABAwbMbWCqF3iyga97seeqRhsYMGDAgAEDZi9Md3QbaFXYbGEt/DwYMGDAgAEDZg3MVGCqBrVugMw27MINNzBgwIABAwbMGphuwyy7kSnQyy4OgQEDBgwYMGDWwVQDVTZ4Rf+vNtCqoGDAgAEDBgyYz4GpNtqy71cPKh0owYABAwYMGDAfC/PqglM26IEBAwYMGDBg3gdmquGWBaoWrKpBDgwYMGDAgAHzPjBTjavqhaGpRloa4ue6YMCAAQMGDJg1MMY/Ac8AAwYMGDBg7jq+ASguIgpFa5+5AAAAAElFTkSuQmCC"></div></div><a class="-mob-share-telegram" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://t.me/share/url?url=https://blog.kayleh.top/Head-First-Netty/&amp;text=Head First Netty - Kayleh"><img src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/telegram.png" class="lazyload" data-srcset="https://fastly.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/telegram.png" srcset="data:image/png;base64,666"></a></div></div></div></div><div class="prev-next"><a class="prev" href="/mybatis-cache/"><p class="title"><i class="fas fa-chevron-left" aria-hidden="true"></i>mybatis-cache</p><p class="content">mybatis-缓存什么是缓存？缓存就是存储数据的一个地方（称作：Cache），当程序要读取数据时，会首先从缓存中获取，有则直接返回，否则从其他存储设备中获取，缓存最重要的一点就是从其内部获取数...</p></a><a class="next" href="/spring-and-jwt/"><p class="title">Spring and Jwt<i class="fas fa-chevron-right" aria-hidden="true"></i></p><p class="content">使用JWT1.引入依赖&lt;dependency&gt; &lt;groupId&gt;com.auth0&lt;/groupId&gt; &amp;l...</p></a></div></article><article class="post white-box reveal shadow" id="comments"><p ct=""><i class="fas fa-comments"></i> 评论</p><div id="minivaline_container"><i class="fas fa-cog fa-spin fa-fw fa-2x"></i></div></article></div><aside class="l_side"><section class="widget toc-wrapper shadow desktop mobile" id="toc-div"><header><i class="fas fa-list fa-fw" aria-hidden="true"></i><span class="name">本文目录</span></header><div class="content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-NIO%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">2.1 NIO的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Netty%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">2.2 Netty的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%BC%95%E5%85%A5Maven%E4%BE%9D%E8%B5%96"><span class="toc-text">4.1 引入Maven依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-text">4.2 创建服务端启动类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">4.3 创建服务端处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-text">4.4 创建客户端启动类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">4.5 创建客户端处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-%E6%B5%8B%E8%AF%95"><span class="toc-text">4.6 测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-taskQueue%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="toc-text">5.1 taskQueue任务队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-scheduleTaskQueue%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="toc-text">5.2 scheduleTaskQueue延时任务队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-Future%E5%BC%82%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-text">5.3 Future异步机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-Bootstrap%E4%B8%8EServerBootStrap"><span class="toc-text">5.4 Bootstrap与ServerBootStrap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-1-group"><span class="toc-text">5.4.1 group()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-2-channel"><span class="toc-text">5.4.2 channel()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-3-option-%E4%B8%8EchildOption"><span class="toc-text">5.4.3 option()与childOption()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-4-%E8%AE%BE%E7%BD%AE%E6%B5%81%E6%B0%B4%E7%BA%BF-%E9%87%8D%E7%82%B9"><span class="toc-text">5.4.4 设置流水线(重点)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-5-bind"><span class="toc-text">5.4.5 bind()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-6-%E4%BC%98%E9%9B%85%E5%9C%B0%E5%85%B3%E9%97%ADEventLoopGroup"><span class="toc-text">5.4.6 优雅地关闭EventLoopGroup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-Channel"><span class="toc-text">5.5 Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-1-%E8%8E%B7%E5%8F%96channel%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-text">5.5.1 获取channel的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-2-%E8%8E%B7%E5%8F%96channel%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-text">5.5.2 获取channel的配置参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-3-channel%E6%94%AF%E6%8C%81%E7%9A%84IO%E6%93%8D%E4%BD%9C"><span class="toc-text">5.5.3 channel支持的IO操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-Selector"><span class="toc-text">5.6 Selector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-7-PiPeline%E4%B8%8EChannelPipeline"><span class="toc-text">5.7 PiPeline与ChannelPipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-8-ChannelHandlerContext"><span class="toc-text">5.8 ChannelHandlerContext</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-9-EventLoopGroup"><span class="toc-text">5.9 EventLoopGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-9-1-%E8%BD%AE%E8%AF%A2%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">5.9.1 轮询机制的实现原理</span></a></li></ol></li></ol></div></section></aside><script>window.pdata={},pdata.ispage=!0,pdata.postTitle="Head First Netty",pdata.commentPath="",pdata.commentPlaceholder="";var l_header=document.getElementById("l_header");l_header.classList.remove("show")</script></div><footer class="footer clearfix"><br><br><div class="aplayer-container"></div><br><div class="social-wrapper"><a href="https://github.com/Kayleh" class="social fas fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer"></a></div><div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p></div><div></div><div class="copyright"><p><a href="/">Copyright © 2019-2022 Kayleh</a></p></div></footer><a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a></div></div><div><script>function loadScript(e,t){var n=document.getElementsByTagName("head")[0]||document.documentElement,o=document.createElement("script");o.setAttribute("type","text/javascript"),t&&(o.onload=t),o.setAttribute("src",e),n.appendChild(o)}window.volantis={},window.volantis.loadcss=document.getElementById("loadcss");var loadCSS=function(e,t,n,o){var i,r,d=window.document,a=d.createElement("link");r=t||(i=(d.body||d.getElementsByTagName("head")[0]).childNodes)[i.length-1];var s=d.styleSheets;if(o)for(var l in o)o.hasOwnProperty(l)&&a.setAttribute(l,o[l]);a.rel="stylesheet",a.href=e,a.media="only x",function e(t){if(d.body)return t();setTimeout(function(){e(t)})}(function(){r.parentNode.insertBefore(a,t?r:r.nextSibling)});var c=function(e){for(var t=a.href,n=s.length;n--;)if(s[n].href===t)return e();setTimeout(function(){c(e)})};function u(){a.addEventListener&&a.removeEventListener("load",u),a.media=n||"all"}return a.addEventListener&&a.addEventListener("load",u),(a.onloadcssdefined=c)(u),a}</script><script>loadCSS("https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css",window.volantis.loadcss),loadCSS("https://fastly.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css",window.volantis.loadcss),loadCSS("https://fastly.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css",window.volantis.loadcss),loadCSS("https://fastly.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css",window.volantis.loadcss)</script><script src="https://fastly.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script><script>function pjax_fancybox(){$(".md .gallery").find("img").each(function(){var a=document.createElement("a");$(a).attr("class","fancybox"),$(a).attr("pjax-fancybox",""),$(a).attr("href",$(this).attr("src")),$(this).attr("data-original")&&$(a).attr("href",$(this).attr("data-original")),$(a).attr("data-fancybox","images");var t="";$(this).attr("alt")&&($(a).attr("data-caption",$(this).attr("alt")),t=$(this).attr("alt"));var n=document.createElement("div");$(n).addClass("fancybox"),$(this).wrap(n);var e=document.createElement("span");$(e).addClass("image-caption"),$(e).text(t),$(this).after(e),$(this).wrap(a)}),$(".md .gallery").find("img").fancybox({selector:'[data-fancybox="images"]',hash:!1,loop:!1,closeClick:!0,helpers:{overlay:{closeClick:!0}},buttons:["zoom","close"]})}function SCload_fancybox(){0!=$(".md .gallery").find("img").length&&(loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css",document.getElementById("loadcss")),setTimeout(function(){loadScript("https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js",pjax_fancybox)},1))}$(function(){SCload_fancybox()})</script><script src="https://fastly.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script><script type="text/javascript">var imgs=["https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg","https://gcore.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg"];function shuffle(t){for(var i=t.length;i--;){var l=Math.floor(Math.random()*i),a=t[l];t[l]=t[i],t[i]=a}}function Pjax_backstretch(){$.backstretch(imgs,{duration:"20000",fade:"1500"})}shuffle(imgs),loadScript("https://fastly.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)</script><div id="rightmenu-wrapper"><ul class="list-v rightmenu" id="rightmenu-content"><li class="option"><a class="vlts-menu opt fix-cursor-default" id="menu-copy-text" onclick="document.execCommand(&quot;copy&quot;)"><i class="fa fa-copy fa-fw"></i>复制文本</a><hr id="hr-text"><a class="vlts-menu opt fix-cursor-default" id="menu-copy-href"><i class="fa fa-link fa-fw"></i>复制链接</a> <a class="vlts-menu opt fix-cursor-default" id="menu-open-href"><i class="fa fa-external-link-square-alt fa-fw"></i>在新标签页打开</a><hr id="hr-href"><a class="vlts-menu opt fix-cursor-default" id="menu-copy-src"><i class="fa fa-image fa-fw"></i>复制图片地址</a><hr id="hr-src"></li><li class="navigation"><a class="nav icon-only fix-cursor-default" onclick="history.back()"><i class="fa fa-arrow-left fa-fw"></i></a> <a class="nav icon-only fix-cursor-default" onclick="history.forward()"><i class="fa fa-arrow-right fa-fw"></i></a> <a class="nav icon-only fix-cursor-default" onclick="window.location.reload()"><i class="fa fa-redo fa-fw"></i></a> <a class="nav icon-only fix-cursor-default" href="/"><i class="fa fa-home fa-fw"></i></a></li><hr><li><a class="vlts-menu fix-cursor-default" href="/about" id="about"><i class="fa fa-question fa-fw"></i> 我</a></li><hr><li><a class="vlts-menu fix-cursor-default" onclick="document.execCommand(&quot;print&quot;)"><i class="fa fa-print fa-fw"></i> 打印页面</a></li><hr><li><a class="vlts-menu fix-cursor-default" href="mailto:kaylehisdied@gmail.com" id="mailto:kaylehisdied@gmailcom"><i class="fa fa-fan fa-spin fa-fw"></i> 联系</a></li></ul></div><script>window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+
+      // 有音乐播放器
+      if ('' == true && ('help,hr,print,hr,contributors'||[]).includes('music')) {
+        // 如果有aplayer，初始化一下
+      	try {
+      		checkAPlayer();
+          updateTitle();
+      	} catch (error) {
+      		console.log(error);
+      	}
+      }
+
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');</script><script defer="" src="https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script><script>window.lazyLoadOptions={elements_selector:".lazyload",threshold:0},window.addEventListener("LazyLoad::Initialized",function(n){window.lazyLoadInstance=n.detail.instance},!1),document.addEventListener("DOMContentLoaded",function(){lazyLoadInstance.update()}),document.addEventListener("pjax:complete",function(){lazyLoadInstance.update()})</script><script>window.FPConfig={delay:0,ignoreKeywords:[],maxRPS:5,hoverDelay:25}</script><script defer="" src="https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script><script src="https://fastly.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script><script type="text/javascript">function pjax_scrollrebeal(){ScrollReveal().reveal(".l_main .reveal",{distance:"32px",duration:"800",interval:"20",scale:"1",easing:"ease-out"})}$(function(){pjax_scrollrebeal()})</script><script>function load_minivaline() {
+	setTimeout(function() {
+	
+	  loadScript('https://fastly.jsdelivr.net/npm/minivaline@4/dist/MiniValine.min.js', pjax_minivaline)
+	
+	}, 1);
+  };
+  function pjax_minivaline() {
+  if(!document.querySelectorAll("#minivaline_container")[0])return;
+
+  let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+
+  let path = pdata.commentPath;
+  if (path.length == 0) {
+    let defaultPath = '';
+    path = defaultPath || decodeURI(window.location.pathname);
+  }
+
+  new MiniValine({
+    el: '#minivaline_container',
+    appId: 'FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz',
+    appKey: 'OBHyEdMVsi8FSFA0aqJNh4HE',
+    mode: 'xCss',
+    placeholder: pagePlaceholder,
+    path: path,
+    lang: '',
+    adminEmailMd5: 'de8a7aa53d07e6b6bceb45c64027763d',
+    tagMeta: ["管理员", "小伙伴", "访客"],
+    master: ["debda574b3b6617046ead06d245ed765", "9e547d05b6be799568cc2dacf8263179"],
+    friends: [""],
+    math: false,  /*布尔值 字符串无效 下同*/
+    md: true,
+    enableQQ: false,
+    NoRecordIP: true,
+    visitor: false,
+    maxNest: 6,
+    pageSize: 6,
+    barrager: 0,
+    role: 'admin',
+    closeFlag: false,
+    cloudflag: false,
+    closeUA: false,
+    emoticonUrl: ["https://fastly.jsdelivr.net/npm/alus@latest", "https://fastly.jsdelivr.net/gh/MiniValine/qq@latest", "https://fastly.jsdelivr.net/gh/MiniValine/Bilibilis@latest", "https://fastly.jsdelivr.net/gh/MiniValine/tieba@latest", "https://fastly.jsdelivr.net/gh/MiniValine/twemoji@latest", "https://fastly.jsdelivr.net/gh/MiniValine/weibo@latest"],
+    serverURLs: '',
+    region: 'false',
+    });
+  }
+  $(function () {
+    if(!document.querySelectorAll("#minivaline_container")[0])return;
+    load_minivaline();
+  });</script><script defer="" src="https://fastly.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax=""></script><script src="https://fastly.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script><script src="https://fastly.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script><!-- more --><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7457165067653912" data-ad-slot="9837525717"></ins><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script></div><script src="/bundle.js"></script><script>const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+(function ($) {
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+})(jQuery);;$(function(){Waves.attach(".flat-btn",["waves-button"]),Waves.attach(".float-btn",["waves-button","waves-float"]),Waves.attach(".float-btn-light",["waves-button","waves-float","waves-light"]),Waves.attach(".flat-box",["waves-block"]),Waves.attach(".float-box",["waves-block","waves-float"]),Waves.attach(".waves-image"),Waves.init()});hljs.initHighlightingOnLoad();const LCCounter = {
+    app_id: 'FgNaybmwy1yu74JH4lXMgH5S-gzGzoHsz',
+    app_key: 'OBHyEdMVsi8FSFA0aqJNh4HE',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://blog.kayleh.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://blog.kayleh.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://blog.kayleh.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });;function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);;(adsbygoogle=window.adsbygoogle||[]).push({});var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+		  Pjax_backstretch()
+        
+        
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+        
+        
+          pjax_scrollrebeal();
+        
+        
+        
+        
+        
+          if (typeof MiniValine == "undefined") {
+            load_minivaline();
+          } else {
+            pjax_minivaline();
+          }
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
