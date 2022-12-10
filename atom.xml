@@ -81,14 +81,26 @@
   
   <entry>
     <title>最小生成树</title>
-    <link href="https://blog.kayleh.top/null/"/>
-    <id>https://blog.kayleh.top/null/</id>
+    <link href="https://blog.kayleh.top/Minimum-Spanning-Tree/"/>
+    <id>https://blog.kayleh.top/Minimum-Spanning-Tree/</id>
     <published>2022-11-03T04:18:38.000Z</published>
-    <updated>2022-11-03T04:18:38.338Z</updated>
+    <updated>2022-12-10T11:42:06.460Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;最小生成树&quot;&gt;&lt;a href=&quot;#最小生成树&quot; class=&quot;headerlink&quot; title=&quot;最小生成树&quot;&gt;&lt;/a&gt;最小生成树&lt;/h1&gt;&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;最小生成树&lt;/strong&gt;（Minimum Spanning Tree，MST）是一个连通图的极小连通子图，它包含图中所有顶点，且所有边的权值之和最小。 &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;即用最小的边连接所有的顶点，使得图连通。&lt;br&gt;符合一下两个条件：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;覆盖所有的顶点&lt;/li&gt;
+&lt;li&gt;边的权值之和最小&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Kruskal-算法&quot;&gt;&lt;a href=&quot;#Kruskal-算法&quot; class=&quot;headerlink&quot; title=&quot;Kruskal 算法&quot;&gt;&lt;/a&gt;Kruskal 算法&lt;/h2&gt;</summary>
     
     
     
     
+    <category term="algorithm" scheme="https://blog.kayleh.top/tags/algorithm/"/>
     
   </entry>
   
