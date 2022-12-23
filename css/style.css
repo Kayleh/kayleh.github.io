@@ -17,14 +17,14 @@
   box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
 }
 @font-face {
-  font-family: 'UbuntuMono';
-  src: url("https://gcore.jsdelivr.net/gh/volantis-x/cdn-fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-family: '仓耳渔阳体 W02';
+  src: url("//at.alicdn.com/wf/webfont/F3W3qLnpXxCM/1fpmKhhBLoFnFsLEsJgPf.woff");
   font-weight: 'normal';
   font-style: 'normal';
 }
 @font-face {
-  font-family: 'Varela Round';
-  src: url("https://gcore.jsdelivr.net/gh/volantis-x/cdn-fonts/VarelaRound/VarelaRound-Regular.ttf");
+  font-family: '仓耳渔阳体 W02';
+  src: url("//at.alicdn.com/wf/webfont/F3W3qLnpXxCM/H4p2ce1agbYGZ_9v5Y4lK.woff2");
   font-weight: 'normal';
   font-style: 'normal';
 }
@@ -1307,7 +1307,7 @@ p.p.subtitle:first-child {
 }
 span.p.logo,
 p.p.logo {
-  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-family: "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
 }
 span.p.code,
 p.p.code {
@@ -3310,7 +3310,7 @@ footer.footer .copyright p {
 .l_main.no_sidebar {
   width: 100%;
   padding-right: 0;
-  max-width: 840px;
+  max-width: 1260px;
   margin: auto;
 }
 @media screen and (min-width: 2048px) {
@@ -3607,7 +3607,7 @@ footer.footer .copyright p {
   position: relative;
   display: flex;
   width: 100%;
-  max-width: 1080px;
+  max-width: 1500px;
   margin: 0 auto;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -4478,10 +4478,10 @@ img.lazyload:not(.placeholder).loaded {
   z-index: 2;
 }
 .snackbar-content {
-  max-width: 1080px;
+  max-width: 1500px;
   margin: 16px auto;
 }
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1500px) {
   .snackbar-content {
     max-width: 100%;
   }

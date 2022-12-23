@@ -329,7 +329,7 @@ num 不会包含任何前导零。
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;直观地说就是，让你把一幅图「拉平」，而且这个「拉平」的图里面，所有箭头方向都是一致的&lt;/strong&gt;，比如上图所有箭头都是朝右的。&lt;/p&gt;
-&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src=&quot;/.top//Blog/source/_posts/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/640&quot; data-srcset=&quot;/.top//Blog/source/_posts/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/640&quot; srcset=&quot;data:image/png;base64,666&quot; alt=&quot;图片&quot; style=&quot;zoom:50%;&quot;&gt;&lt;/div&gt;&lt;span class=&quot;image-caption&quot;&gt;图片&quot; style=&quot;zoom:50%;&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img lazyload&quot; src=&quot;/.top//Blog/source/_posts/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/640&quot; data-srcset=&quot;/.top//Blog/source/_posts/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/640&quot; srcset=&quot;data:image/png;base64,666&quot; alt=&quot;图片&quot; style=&quot;zoom:50%;&quot;&gt;&lt;/div&gt;&lt;span class=&quot;image-caption&quot;&gt;图片&quot; style=&quot;zoom:50%;&lt;/span&gt;&lt;/div&gt;
 &lt;p&gt;对于任何有向图而言，其拓扑排序为其所有结点的一个线性排序（对于同一个有向图而言可能存在多个这样的结点排序）。该排序满足这样的条件——对于图中的任意两个结点&lt;em&gt;u&lt;/em&gt;和&lt;em&gt;v&lt;/em&gt;，若存在一条有向边从&lt;em&gt;u&lt;/em&gt;指向&lt;em&gt;v&lt;/em&gt;，则在拓扑排序中&lt;em&gt;u&lt;/em&gt;一定出现在&lt;em&gt;v&lt;/em&gt;前面。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;拓扑排序可以用来判断图中是否有环， 还可以用来判断图是否是一条链。&lt;/p&gt;
@@ -484,7 +484,7 @@ num 不会包含任何前导零。
       
         
         
-    <summary type="html">&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img&quot; src=&quot;/.top//Blog/source/_posts/离散图论4：邻接表/9738807-2c15062503d7aa64.jpeg&quot;</summary>
+    <summary type="html">&lt;div class=&quot;img-wrap&quot;&gt;&lt;div class=&quot;img-bg&quot;&gt;&lt;img class=&quot;img lazyload&quot; src=&quot;/.top//Blog/source/_posts/离散图论4：邻接表/9738807-2c15062503d7aa64.jpeg&quot;</summary>
         
       
     
