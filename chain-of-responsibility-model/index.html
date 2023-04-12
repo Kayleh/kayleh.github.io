@@ -1,0 +1,92 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>责任链模式</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/chain-of-responsibility-model/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">责任链模式</h1><p class="meta"><time datetime="2020-06-11T03:48:35.000Z" data-updated="true">Thu Jun 11 2020</time></p></header><div class="entry-content"><h3 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h3><blockquote><p><strong>责任链模式（Chain of Responsibility Pattern）</strong>为请求创建了一个接收者对象的链。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。</p></blockquote><span id="more"></span><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>意图：</strong>避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。</p><p><strong>主要解决：</strong>职责链上的处理者负责处理请求，客户只需要将请求发送到职责链上即可，无须关心请求的处理细节和请求的传递，所以职责链将请求的发送者和请求的处理者解耦了。</p><p><strong>何时使用：</strong>在处理消息的时候以过滤很多道。</p><p><strong>如何解决：</strong>拦截的类都实现统一接口。</p><p><strong>关键代码：</strong>Handler 里面聚合它自己，在 HandlerRequest 里判断是否合适，如果没达到条件则向下传递，向谁传递之前 set 进去。</p><p><strong>应用实例：</strong> 1、红楼梦中的”击鼓传花”。 2、JS 中的事件冒泡。 3、JAVA WEB 中 Apache Tomcat 对 Encoding 的处理，Struts2 的拦截器，jsp servlet 的 Filter。</p><p><strong>优点：</strong> 1、降低耦合度。它将请求的发送者和接收者解耦。 2、简化了对象。使得对象不需要知道链的结构。 3、增强给对象指派职责的灵活性。通过改变链内的成员或者调动它们的次序，允许动态地新增或者删除责任。 4、增加新的请求处理类很方便。</p><p><strong>缺点：</strong> 1、不能保证请求一定被接收。 2、系统性能将受到一定影响，而且在进行代码调试时不太方便，可能会造成循环调用。 3、可能不容易观察运行时的特征，有碍于除错。</p><p><strong>使用场景：</strong> 1、有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定。 2、在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。 3、可动态指定一组对象处理请求。</p><p><strong>注意事项：</strong>在 JAVA WEB 中遇到很多应用。</p><hr><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>我们创建抽象类 <em>AbstractLogger</em>，带有详细的日志记录级别。然后我们创建三种类型的记录器，都扩展了 <em>AbstractLogger</em>。每个记录器消息的级别是否属于自己的级别，如果是则相应地打印出来，否则将不打印并把消息传给下一个记录器。</p><p><img src="/.top//1.jpg" alt="责任链模式的 UML 图"></p><h3 id="步骤1"><a href="#步骤1" class="headerlink" title="步骤1"></a>步骤1</h3><p>创建抽象的记录器类。</p><h5 id="AbstractLogger-java"><a href="#AbstractLogger-java" class="headerlink" title="AbstractLogger.java"></a>AbstractLogger.java</h5><pre><code class="lang-java">public abstract class AbstractLogger {
+   public static int INFO = 1;
+   public static int DEBUG = 2;
+   public static int ERROR = 3;
+
+   protected int level;
+
+   //责任链中的下一个元素
+   protected AbstractLogger nextLogger;
+
+   public void setNextLogger(AbstractLogger nextLogger){
+      this.nextLogger = nextLogger;
+   }
+
+   public void logMessage(int level, String message){
+      if(this.level &lt;= level){
+         write(message);
+      }
+      if(nextLogger !=null){
+         nextLogger.logMessage(level, message);
+      }
+   }
+
+   abstract protected void write(String message);
+
+}
+</code></pre><h3 id="步骤-2"><a href="#步骤-2" class="headerlink" title="步骤 2"></a>步骤 2</h3><p>创建扩展了该记录器类的实体类。</p><h5 id="ConsoleLogger-java"><a href="#ConsoleLogger-java" class="headerlink" title="ConsoleLogger.java"></a>ConsoleLogger.java</h5><pre><code class="lang-java">public class ConsoleLogger extends AbstractLogger {
+
+   public ConsoleLogger(int level){
+      this.level = level;
+   }
+
+   @Override
+   protected void write(String message) {    
+      System.out.println("Standard Console::Logger: " + message);
+   }
+}
+</code></pre><h5 id="ErrorLogger-java"><a href="#ErrorLogger-java" class="headerlink" title="ErrorLogger.java"></a>ErrorLogger.java</h5><pre><code class="lang-java">public class ErrorLogger extends AbstractLogger {
+
+   public ErrorLogger(int level){
+      this.level = level;
+   }
+
+   @Override
+   protected void write(String message) {    
+      System.out.println("Error Console::Logger: " + message);
+   }
+}
+</code></pre><h5 id="FileLogger-java"><a href="#FileLogger-java" class="headerlink" title="FileLogger.java"></a>FileLogger.java</h5><pre><code class="lang-java">public class FileLogger extends AbstractLogger {
+
+   public FileLogger(int level){
+      this.level = level;
+   }
+
+   @Override
+   protected void write(String message) {    
+      System.out.println("File::Logger: " + message);
+   }
+}
+</code></pre><h3 id="步骤-3"><a href="#步骤-3" class="headerlink" title="步骤 3"></a>步骤 3</h3><p>创建不同类型的记录器。赋予它们不同的错误级别，并在每个记录器中设置下一个记录器。每个记录器中的下一个记录器代表的是链的一部分。</p><h5 id="ChainPatternDemo-java"><a href="#ChainPatternDemo-java" class="headerlink" title="ChainPatternDemo.java"></a>ChainPatternDemo.java</h5><pre><code class="lang-java">public class ChainPatternDemo {
+
+   private static AbstractLogger getChainOfLoggers(){
+
+      AbstractLogger errorLogger = new ErrorLogger(AbstractLogger.ERROR);
+      AbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
+      AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.INFO);
+
+      errorLogger.setNextLogger(fileLogger);
+      fileLogger.setNextLogger(consoleLogger);
+
+      return errorLogger;  
+   }
+
+   public static void main(String[] args) {
+      AbstractLogger loggerChain = getChainOfLoggers();
+
+      loggerChain.logMessage(AbstractLogger.INFO, "This is an information.");
+
+      loggerChain.logMessage(AbstractLogger.DEBUG, 
+         "This is a debug level information.");
+
+      loggerChain.logMessage(AbstractLogger.ERROR, 
+         "This is an error information.");
+   }
+}
+</code></pre><h3 id="步骤-4"><a href="#步骤-4" class="headerlink" title="步骤 4"></a>步骤 4</h3><p>执行程序，输出结果：</p><pre><code class="lang-java">Standard Console::Logger: This is an information.
+File::Logger: This is a debug level information.
+Standard Console::Logger: This is a debug level information.
+Error Console::Logger: This is an error information.
+File::Logger: This is an error information.
+Standard Console::Logger: This is an error information.
+</code></pre></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2020-06-11T03:48:35.000Z" data-updated="true">Thu Jun 11 2020</time> <span class="categories"><a class="category" href="/tags/DesignPatterns/">DesignPatterns</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: 命令模式">« 命令模式</a> <a class="basic-alignment right" href="/" title="Previous Post: 代理模式">代理模式 »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/chain-of-responsibility-model/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,e=t.createElement("script");e.src="https://kayleh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

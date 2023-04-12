@@ -1,0 +1,75 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>滑动窗口</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/slidingWindow/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">滑动窗口</h1><p class="meta"><time datetime="2022-01-02T10:18:16.000Z" data-updated="true">Sun Jan 02 2022</time></p></header><div class="entry-content"><h3 id="「滑动窗口」"><a href="#「滑动窗口」" class="headerlink" title="「滑动窗口」"></a>「滑动窗口」</h3><pre><code class="lang-java">//给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
+//
+// 注意：
+// 对于 t 中重复字符，我们寻找的子字符串中该字符数量必须不少于 t 中该字符数量。
+// 如果 s 中存在这样的子串，我们保证它是唯一的答案。
+//
+// 示例 1：
+//输入：s = "ADOBECODEBANC", t = "ABC"
+//输出："BANC"
+//
+//
+// 示例 2：
+//输入：s = "a", t = "a"
+//输出："a"
+//
+//
+// 示例 3:
+//输入: s = "a", t = "aa"
+//输出: ""
+//解释: t 中两个字符 'a' 均应包含在 s 的子串中，
+//因此没有符合条件的子字符串，返回空字符串。
+//
+//
+// 提示：
+// 1 &lt;= s.length, t.length &lt;= 10⁵
+// s 和 t 由英文字母组成
+//进阶：你能设计一个在 o(n) 时间内解决此问题的算法吗？ Related Topics 哈希表 字符串 滑动窗口 👍 1527 👎 0
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution
+{
+    public String minWindow(String s, String t) {
+        // 存放t字符的数量，方便进行比对
+        Map&lt;Character, Integer&gt; need = new HashMap&lt;&gt;();
+        // 存放由截取的s字符数量
+        Map&lt;Character, Integer&gt; window = new HashMap&lt;&gt;();
+        for (char charArray : t.toCharArray()) {
+            need.put(charArray, need.getOrDefault(charArray, 0) + 1);
+        }
+        int left = 0, start = 0, valid = 0, len = Integer.MAX_VALUE;
+        for (int right = 0; right &lt; s.length(); right++) {
+            char RChar = s.charAt(right);
+            // need如果存在右指针所指字符，window将添加所指字符数量
+            if (need.containsKey(RChar)) {
+                window.put(RChar, window.getOrDefault(RChar, 0) + 1);
+                // 当need的右指针所指字符数量与window的右指针所指字符数量相等时，对total数量加一
+                if (window.get(RChar).equals(need.get(RChar))) {
+                    valid++;
+                }
+            }
+            // 当valid达到need字符种类数时寻找最小值
+            while (valid == need.size()) {
+                if (right - left + 1 &lt; len) {
+                    len = right - left + 1;
+                    // 记录最小值一开始的位置
+                    start = left;
+                }
+                // 获取左指针当前字符，并将左指针左移
+                char LChar = s.charAt(left++);
+                if (window.containsKey(LChar)) {
+                    // 当LChar的个数相等时，说明左指针左移一位后肯定不相等，所以total减一
+                    if (window.get(LChar).equals(need.get(LChar))) {
+                        valid--;
+                    }
+                    window.put(LChar, window.get(LChar) - 1);
+                }
+            }
+        }
+        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+    }
+}
+</code></pre></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2022-01-02T10:18:16.000Z" data-updated="true">Sun Jan 02 2022</time> <span class="categories"><a class="category" href="/tags/algorithm/">algorithm</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: 堆—优先队列">« 堆—优先队列</a> <a class="basic-alignment right" href="/" title="Previous Post: 差分数组—前缀和思想">差分数组—前缀和思想 »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/slidingWindow/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,e=t.createElement("script");e.src="https://kayleh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>GateWay服务限流</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/gateway-service-current-limit/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">GateWay服务限流</h1><p class="meta"><time datetime="2020-08-14T07:21:47.000Z" data-updated="true">Fri Aug 14 2020</time></p></header><div class="entry-content"><p>GateWay服务限流</p><span id="more"></span><blockquote><p>秒杀高并发等操作,严禁一窝蜂的过来拥挤,大家排队,一秒钟N个,有序进行.flowlimit</p></blockquote><h1 id="Gateway"><a href="#Gateway" class="headerlink" title="Gateway"></a>Gateway</h1><p>Gateway是在Spring生态系统之上构建的API网关服务，基于Spring 5，Spring Boot 2和 Project Reactor等技术。</p><p>Gateway旨在提供一种简单而有效的方式来对API进行路由，以及提供一些强大的过滤器功能，例如：熔断、限流、重试等。</p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1596980807123.png" alt="1596980807123"></p><p>SpringCloud Gateway 使用的是Webflux中的reactor-netty响应式编程组件，底层使用了Netty通讯框架。</p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1596981084802.png" alt="1596981084802"></p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1596981218641.png" alt="1596981218641"></p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1596982261551.png" alt="1596982261551"></p><p>Gateway：</p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1596982457962.png" alt="1596982457962"></p><h3 id="Gateway的三大核心概念"><a href="#Gateway的三大核心概念" class="headerlink" title="Gateway的三大核心概念"></a>Gateway的三大核心概念</h3><h4 id="Route-路由"><a href="#Route-路由" class="headerlink" title="Route(路由)"></a>Route(路由)</h4><p>路由是构建网关的基本模块，它由ID，目标URI，一系列的断言和过滤器组成，如果断言为true则匹配该路由。</p><h4 id="Predicate（断言）"><a href="#Predicate（断言）" class="headerlink" title="Predicate（断言）"></a>Predicate（断言）</h4><p>参考的是java8的java.util.function.Predicate开发人员可以匹配HTTP请求中的所有内容（例如请求头或请求参数），如果请求与断言相匹配则进行路由</p><h4 id="Filter-过滤"><a href="#Filter-过滤" class="headerlink" title="Filter(过滤)"></a>Filter(过滤)</h4><p>指的是Spring框架中GatewayFilter的实例，使用过滤器，可以在请求被路由前或者之后对请求进行修改。</p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597041510243.png" alt="1597041510243"></p><h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597041530900.png" alt="1597041530900"></p><p>核心逻辑</p><p><strong>路由转发+执行过滤器链</strong></p><p>新建cloud-gateway-gateway9527</p><p>pom(移除了web依赖)</p><pre><code class="lang-xml">    &lt;dependencies&gt;
+        &lt;!--新增gateway--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-gateway&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+          &lt;dependency&gt;
+            &lt;groupId&gt;com.kayleh.springcloud&lt;/groupId&gt;
+            &lt;artifactId&gt;cloud-api-commons&lt;/artifactId&gt;
+            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+            &lt;scope&gt;runtime&lt;/scope&gt;
+            &lt;optional&gt;true&lt;/optional&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+            &lt;optional&gt;true&lt;/optional&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre><p>yml</p><pre><code class="lang-yaml">server:
+  port: 9527
+spring:
+  application:
+    name: cloud-gateway
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+  client:
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://eureka7001.com:7001/eureka
+</code></pre><p>无业务类</p><p>主启动类</p><pre><code class="lang-java">package com.kayleh.springcloud;
+@SpringBootApplication
+@EnableEurekaClient
+public class GateWayMain9527 {
+    public static void main(String[] args) {
+        SpringApplication.run(GateWayMain9527.class, args);
+    }
+}
+</code></pre><p>观察cloud-provider-payment8001的controller的get/lb访问路径</p><p>目前不想暴露8001端口，希望在8001外面套一层9527</p><p>修改pom.xml</p><pre><code class="lang-yaml">server:
+  port: 9527
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: payment_routh #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          uri: http://localhost:8001   #匹配后提供服务的路由地址
+          predicates:
+            - Path=/payment/get/**   #断言,路径相匹配的进行路由
+
+        - id: payment_routh2
+          uri: http://localhost:8001
+          predicates:
+            - Path=/payment/lb/**   #断言,路径相匹配的进行路由
+
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+  client:
+      #服务提供者注册进eureka服务列表内
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://eureka7001.com:7001/eureka
+</code></pre><p>测试</p><p>添加网关前</p><pre><code>http://localhost:8001/payment/get/31
+</code></pre><p>添加网关后</p><pre><code>http://localhost:9527/payment/get/31
+</code></pre><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597043412245.png" alt="1597043412245"></p><p>除了使用yaml的方法配置还可以使用代码配置：9527</p><pre><code class="lang-java">package com.kayleh.springcloud.config;
+
+@Configuration
+public class GateWayConfig {
+    @Bean
+    public RouteLocator customRouteLocator(RouteLocatorBuilder routeLocatorBuilder) {
+        RouteLocatorBuilder.Builder routes = routeLocatorBuilder.routes();
+        routes.route("path_rote_kayleh",
+                r -&gt; r.path("/guonei")
+                        .uri("http://news.baidu.com/guonei")).build();
+        return routes.build();
+    }
+}
+</code></pre><p>测试</p><pre><code>http://localhost:9527/guonei
+</code></pre><h3 id="通过微服务名实现动态路由"><a href="#通过微服务名实现动态路由" class="headerlink" title="通过微服务名实现动态路由"></a>通过微服务名实现动态路由</h3><p>默认情况下Gateway会根据注册中心的服务列表，以注册中心上微服务名为路径创建动态路由进行转发，从而实现动态路由的功能</p><p>修改yaml</p><pre><code class="lang-yaml">server:
+  port: 9527
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        - id: payment_routh #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          #uri: http://localhost:8001   #匹配后提供服务的路由地址
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/payment/get/**   #断言,路径相匹配的进行路由
+
+        - id: payment_routh2
+          #uri: http://localhost:8001   #匹配后提供服务的路由地址
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/payment/lb/**   #断言,路径相匹配的进行路由
+
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+  client:
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://eureka7001.com:7001/eureka
+</code></pre><p>需要注意的是uri的协议为lb，表示启用Gateway的负载均衡功能。</p><p>lb://serviceName是spring cloud gateway在微服务中自动为我们创建的负载均衡uri</p><p>测试</p><pre><code>http://localhost:9527/payment/lb
+</code></pre><p>8001/8002两个端口切换</p><h2 id="Predicate的使用"><a href="#Predicate的使用" class="headerlink" title="Predicate的使用"></a>Predicate的使用</h2><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597054276153.png" alt="1597054276153"></p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597054330113.png" alt="1597054330113"></p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597054313552.png" alt="1597054313552"></p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597054346178.png" alt="1597054346178"></p><h3 id="常用的Route-Predicate"><a href="#常用的Route-Predicate" class="headerlink" title="常用的Route Predicate"></a>常用的Route Predicate</h3><h4 id="After-Route-Predicate"><a href="#After-Route-Predicate" class="headerlink" title="After Route Predicate"></a>After Route Predicate</h4><pre><code class="lang-yml">   - After=2020-03-08T10:59:34.102+08:00[Asia/Shanghai]
+   # 在？？？时间后生效
+</code></pre><p>时间可以这样获取：</p><pre><code class="lang-java"> ZonedDateTime zbj = ZonedDateTime.now();
+ System.out.println(zbj);
+</code></pre><h4 id="Before-Route-Predicate"><a href="#Before-Route-Predicate" class="headerlink" title="Before Route Predicate"></a>Before Route Predicate</h4><pre><code class="lang-yaml">   - After=2020-03-08T10:59:34.102+08:00[Asia/Shanghai]
+   - Before=2020-03-08T10:59:34.102+08:00[Asia/Shanghai]
+</code></pre><h4 id="Between-Route-Predicate"><a href="#Between-Route-Predicate" class="headerlink" title="Between Route Predicate"></a>Between Route Predicate</h4><pre><code>   - Between=2020-03-08T10:59:34.102+08:00[Asia/Shanghai] ,  2020-03-08T10:59:34.102+08:00[Asia/Shanghai]
+</code></pre><h4 id="Cookie-Route-Predicate"><a href="#Cookie-Route-Predicate" class="headerlink" title="Cookie Route Predicate"></a>Cookie Route Predicate</h4><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597054584109.png" alt="1597054584109"></p><pre><code class="lang-yaml">  - Cookie=username,kayleh    #并且Cookie是username=kayleh才能访问
+</code></pre><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597054626731.png" alt="1597054626731"></p><p>不带cookies访问</p><pre><code>-&gt; cmd
+curl http://localhost:9527/payment/lb
+
+curl http://localhost:9527/payment/lb --cookie "username,kayleh" 
+#返回端口号表示访问成功
+</code></pre><p>带上cookies访问</p><blockquote><p>加入curl返回中文乱码</p><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/leedee/article/details/82685636">https://blog.csdn.net/leedee/article/details/82685636</a></p></blockquote><h4 id="Header-Route-Predicate"><a href="#Header-Route-Predicate" class="headerlink" title="Header Route Predicate"></a>Header Route Predicate</h4><pre><code class="lang-yaml">- Header=X-Request-Id, \d+   #请求头中要有X-Request-Id属性并且值为整数的正则表达式
+</code></pre><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597054747638.png" alt="1597054747638"></p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597054756074.png" alt="1597054756074"></p><h4 id="Host-Route-Predicate"><a href="#Host-Route-Predicate" class="headerlink" title="Host Route Predicate"></a>Host Route Predicate</h4><pre><code>  - Host=**.atguigu.com
+</code></pre><h4 id="Method-Route-Predicate"><a href="#Method-Route-Predicate" class="headerlink" title="Method Route Predicate"></a>Method Route Predicate</h4><pre><code>    - Method=GET
+</code></pre><h4 id="Path-Route-Predicate"><a href="#Path-Route-Predicate" class="headerlink" title="Path Route Predicate"></a>Path Route Predicate</h4><h4 id="Query-Route-Predicate"><a href="#Query-Route-Predicate" class="headerlink" title="Query Route Predicate"></a>Query Route Predicate</h4><pre><code>  - Query=username, \d+ #要有参数名称并且是正整数才能路由
+</code></pre><p>测试</p><pre><code>curl http://localhost:9527/payment/lb?username=1
+curl http://localhost:9527/payment/lb?username=-1
+</code></pre><p>ALL</p><pre><code class="lang-yaml">server:
+  port: 9527
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        - id: payment_routh #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          #uri: http://localhost:8001   #匹配后提供服务的路由地址
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/payment/get/**   #断言,路径相匹配的进行路由
+
+        - id: payment_routh2
+          #uri: http://localhost:8001   #匹配后提供服务的路由地址
+          uri: lb://cloud-payment-service
+          predicates:
+            - Path=/payment/lb/**   #断言,路径相匹配的进行路由
+            #- After=2020-03-08T10:59:34.102+08:00[Asia/Shanghai]
+            #- Cookie=username,zhangshuai #并且Cookie是username=zhangshuai才能访问
+            #- Header=X-Request-Id, \d+ #请求头中要有X-Request-Id属性并且值为整数的正则表达式
+            #- Host=**.atguigu.com
+            #- Method=GET
+            #- Query=username, \d+ #要有参数名称并且是正整数才能路由
+
+
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+  client:
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://eureka7001.com:7001/eureka
+</code></pre><blockquote><p>说白了，Predicate就是为了实现一组匹配规则，</p><p>让请求过来找到对应的Route进行处理</p></blockquote><h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><p>是什么？</p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597068671697.png" alt="1597068671697"></p><h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>pre 在业务逻辑之前</p><p>post 在业务逻辑之后</p><h3 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h3><p>GatewayFilter 单一</p><p>GlobalFilter 全局</p><h3 id="常用的GatewayFilter"><a href="#常用的GatewayFilter" class="headerlink" title="常用的GatewayFilter"></a>常用的GatewayFilter</h3><p>AddRequestParameter</p><p>yml：</p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597068815115.png" alt="1597068815115"></p><h3 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h3><h4 id="自定义全局GlobalFilter"><a href="#自定义全局GlobalFilter" class="headerlink" title="自定义全局GlobalFilter"></a>自定义全局GlobalFilter</h4><h5 id="两个主要接口介绍"><a href="#两个主要接口介绍" class="headerlink" title="两个主要接口介绍"></a>两个主要接口介绍</h5><p>impiemerts GlobalFilter ，Ordered</p><h5 id="能干嘛"><a href="#能干嘛" class="headerlink" title="能干嘛"></a>能干嘛</h5><p>全局日志记录</p><p>统一网关鉴权</p><p>。。。</p><p>案例：</p><pre><code class="lang-java">package com.kayleh.springcloud.filter;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
+
+import java.util.Date;
+
+@Component
+@Slf4j
+public class MyLogGateWayFilter implements GlobalFilter,Ordered {
+    @Override
+    public Mono&lt;Void&gt; filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
+        log.info("*********come in MyLogGateWayFilter: "+new Date());
+        String uname = exchange.getRequest().getQueryParams().getFirst("username");
+        if(StringUtils.isEmpty(username)){
+            log.info("*****用户名为Null 非法用户,(┬＿┬)");
+            exchange.getResponse().setStatusCode(HttpStatus.NOT_ACCEPTABLE);//给人家一个回应
+            return exchange.getResponse().setComplete();
+        }
+        return chain.filter(exchange);
+    }
+
+    @Override
+    public int getOrder() {
+        return 0;
+    }
+}
+</code></pre><p>启动：</p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/分布式的微服务架构4/1597068959493.png" alt="1597068959493"></p><p>测试：</p><pre><code>正确：http://localhost:9527/payment/lb?uname=z3
+错误 http://localhost:9527/payment/lb
+</code></pre></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2020-08-14T07:21:47.000Z" data-updated="true">Fri Aug 14 2020</time> <span class="categories"><a class="category" href="/tags/DistributedMicroservices/">DistributedMicroservices</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=GateWay%E6%9C%8D%E5%8A%A1%E9%99%90%E6%B5%81">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: SpringCloud config分布式配置中心">« SpringCloud config分布式配置中心</a> <a class="basic-alignment right" href="/" title="Previous Post: Ribbon负载均衡服务调用、服务降级">Ribbon负载均衡服务调用、服务降级 »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/gateway-service-current-limit/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,e=t.createElement("script");e.src="https://kayleh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

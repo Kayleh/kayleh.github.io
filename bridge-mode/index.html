@@ -1,0 +1,80 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>桥接模式</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/bridge-mode/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">桥接模式</h1><p class="meta"><time datetime="2020-06-08T22:04:02.000Z" data-updated="true">Tue Jun 09 2020</time></p></header><div class="entry-content"><h3 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h3><blockquote><p><em>将抽象部分与它的实现部分分离，使它们都可以独立地变化。</em></p><span id="more"></span></blockquote><p>假设某个汽车厂商生产三种品牌的汽车：Big、Tiny和Boss，每种品牌又可以选择燃油、纯电和混合动力。如果用传统的继承来表示各个最终车型，一共有3个抽象类加9个最终子类：</p><pre><code class="lang-ascii">                   ┌───────┐
+                   │  Car  │
+                   └───────┘
+                       ▲
+    ┌──────────────────┼───────────────────┐
+    │                  │                   │
+┌───────┐          ┌───────┐          ┌───────┐
+│BigCar │          │TinyCar│          │BossCar│
+└───────┘          └───────┘          └───────┘
+    ▲                  ▲                  ▲
+    │                  │                  │
+    │ ┌───────────────┐│ ┌───────────────┐│ ┌───────────────┐
+    ├─│  BigFuelCar   │├─│  TinyFuelCar  │├─│  BossFuelCar  │
+    │ └───────────────┘│ └───────────────┘│ └───────────────┘
+    │ ┌───────────────┐│ ┌───────────────┐│ ┌───────────────┐
+    ├─│BigElectricCar │├─│TinyElectricCar│├─│BossElectricCar│
+    │ └───────────────┘│ └───────────────┘│ └───────────────┘
+    │ ┌───────────────┐│ ┌───────────────┐│ ┌───────────────┐
+    └─│ BigHybridCar  │└─│ TinyHybridCar │└─│ BossHybridCar │
+      └───────────────┘  └───────────────┘  └───────────────┘
+</code></pre><p>如果要新增一个品牌，或者加一个新的引擎（比如核动力），那么子类的数量增长更快。</p><p>所以，桥接模式就是为了避免直接继承带来的<strong>子类爆炸</strong>。</p><p>我们来看看<strong>桥接模式</strong>如何解决上述问题。</p><p>在桥接模式中，首先把<code>Car</code>按品牌进行子类化，但是，每个品牌选择什么发动机，不再使用子类扩充，而是通过一个抽象的“修正”类，以组合的形式引入。我们来看看具体的实现。</p><p>首先定义抽象类<code>Car</code>，它引用一个<code>Engine</code>：</p><pre><code class="lang-java">public abstract class Car {
+    // 引用Engine:
+    protected Engine engine;
+
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+
+    public abstract void drive();
+}
+</code></pre><p><code>Engine</code>的定义如下：</p><pre><code class="lang-java">public interface Engine {
+    void start();
+}
+</code></pre><p>紧接着，在一个“修正”的抽象类<code>RefinedCar</code>中定义一些额外操作：</p><pre><code class="lang-java">public abstract class RefinedCar extends Car {
+    public RefinedCar(Engine engine) {
+        super(engine);
+    }
+
+    public void drive() {
+        this.engine.start();
+        System.out.println("Drive " + getBrand() + " car...");
+    }
+
+    public abstract String getBrand();
+}
+</code></pre><p>这样一来，最终的不同品牌继承自<code>RefinedCar</code>，例如<code>BossCar</code>：</p><pre><code class="lang-java">public class BossCar extends RefinedCar {
+    public BossCar(Engine engine) {
+        super(engine);
+    }
+
+    public String getBrand() {
+        return "Boss";
+    }
+}
+</code></pre><p>而针对每一种引擎，继承自<code>Engine</code>，例如<code>HybridEngine</code>：</p><pre><code class="lang-java">public class HybridEngine implements Engine {
+    public void start() {
+        System.out.println("Start Hybrid Engine...");
+    }
+}
+</code></pre><p>客户端通过自己选择一个品牌，再配合一种引擎，得到最终的Car：</p><pre><code class="lang-java">RefinedCar car = new BossCar(new HybridEngine());
+car.drive();
+</code></pre><p>使用桥接模式的好处在于，如果要增加一种引擎，只需要针对<code>Engine</code>派生一个新的子类，如果要增加一个品牌，只需要针对<code>RefinedCar</code>派生一个子类，任何<code>RefinedCar</code>的子类都可以和任何一种<code>Engine</code>自由组合，即一辆汽车的两个维度：品牌和引擎都可以独立地变化。</p><pre><code class="lang-ascii">       ┌───────────┐
+       │    Car    │
+       └───────────┘
+             ▲
+             │
+       ┌───────────┐       ┌─────────┐
+       │RefinedCar │ ─ ─ ─&gt;│ Engine  │
+       └───────────┘       └─────────┘
+             ▲                  ▲
+    ┌────────┼────────┐         │ ┌──────────────┐
+    │        │        │         ├─│  FuelEngine  │
+┌───────┐┌───────┐┌───────┐     │ └──────────────┘
+│BigCar ││TinyCar││BossCar│     │ ┌──────────────┐
+└───────┘└───────┘└───────┘     ├─│ElectricEngine│
+                                │ └──────────────┘
+                                │ ┌──────────────┐
+                                └─│ HybridEngine │
+                                  └──────────────┘
+</code></pre><p>桥接模式实现比较复杂，实际应用也非常少，但它提供的设计思想值得借鉴，即不要过度使用继承，而是优先拆分某些部件，使用组合的方式来扩展功能。</p></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2020-06-08T22:04:02.000Z" data-updated="true">Tue Jun 09 2020</time> <span class="categories"><a class="category" href="/tags/DesignPatterns/">DesignPatterns</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: 组合模式">« 组合模式</a> <a class="basic-alignment right" href="/" title="Previous Post: 适配器模式">适配器模式 »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/bridge-mode/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var e=document,t=e.createElement("script");t.src="https://kayleh.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

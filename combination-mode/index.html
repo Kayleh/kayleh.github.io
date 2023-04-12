@@ -1,0 +1,103 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>组合模式</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/combination-mode/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">组合模式</h1><p class="meta"><time datetime="2020-06-08T22:39:48.000Z" data-updated="true">Tue Jun 09 2020</time></p></header><div class="entry-content"><h3 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h3><blockquote><p>将对象组合成树形结构以表示“部分-整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性。</p><span id="more"></span></blockquote><p>组合模式（Composite）经常用于树形结构，为了简化代码，使用Composite可以把一个叶子节点与一个父节点统一起来处理。</p><p>我们来看一个具体的例子。在XML或HTML中，从根节点开始，每个节点都可能包含任意个其他节点，这些层层嵌套的节点就构成了一颗树。</p><p>要以树的结构表示XML，我们可以先抽象出节点类型<code>Node</code>：</p><pre><code class="lang-java">public interface Node {
+    // 添加一个节点为子节点:
+    Node add(Node node);
+    // 获取子节点:
+    List&lt;Node&gt; children();
+    // 输出为XML:
+    String toXml();
+}
+</code></pre><p>对于一个<code>这样的节点，我们称之为</code> <strong><code>ElementNode</code></strong>，它可以作为容器包含多个子节点：</p><pre><code class="lang-java">public class ElementNode implements Node {
+    private String name;
+    private List&lt;Node&gt; list = new ArrayList&lt;&gt;();
+
+    public ElementNode(String name) {
+        this.name = name;
+    }
+
+    public Node add(Node node) {
+        list.add(node);
+        return this;
+    }
+
+    public List&lt;Node&gt; children() {
+        return list;
+    }
+
+    public String toXml() {
+        String start = "&lt;" + name + "&gt;\n";
+        String end = "&lt;/" + name + "&gt;\n";
+        StringJoiner sj = new StringJoiner("", start, end);
+        list.forEach(node -&gt; {
+            sj.add(node.toXml() + "\n");
+        });
+        return sj.toString();
+    }
+}
+</code></pre><p>对于普通文本，我们把它看作<code>TextNode</code>，它没有子节点：</p><pre><code class="lang-java">public class TextNode implements Node {
+    private String text;
+
+    public TextNode(String text) {
+        this.text = text;
+    }
+
+    public Node add(Node node) {
+        throw new UnsupportedOperationException();
+    }
+
+    public List&lt;Node&gt; children() {
+        return List.of();
+    }
+
+    public String toXml() {
+        return text;
+    }
+}
+</code></pre><p>此外，还可以有注释节点：</p><pre><code class="lang-java">public class CommentNode implements Node {
+    private String text;
+
+    public CommentNode(String text) {
+        this.text = text;
+    }
+
+    public Node add(Node node) {
+        throw new UnsupportedOperationException();
+    }
+
+    public List&lt;Node&gt; children() {
+        return List.of();
+    }
+
+    public String toXml() {
+        return "&lt;!-- " + text + " --&gt;";
+    }
+}
+</code></pre><p>通过<code>ElementNode</code>、<code>TextNode</code>和<code>CommentNode</code>，我们就可以构造出一颗树：</p><pre><code class="lang-java">Node root = new ElementNode("school");
+root.add(new ElementNode("classA")
+        .add(new TextNode("Tom"))
+        .add(new TextNode("Alice")));
+root.add(new ElementNode("classB")
+        .add(new TextNode("Bob"))
+        .add(new TextNode("Grace"))
+        .add(new CommentNode("comment...")));
+System.out.println(root.toXml());
+</code></pre><p>最后通过<code>root</code>节点输出的XML如下：</p><pre><code class="lang-xml">&lt;school&gt;
+&lt;classA&gt;
+Tom
+Alice
+&lt;/classA&gt;
+&lt;classB&gt;
+Bob
+Grace
+&lt;!-- comment... --&gt;
+&lt;/classB&gt;
+&lt;/school&gt;
+</code></pre><p>可见，使用Composite模式时，需要先统一单个节点以及“容器”节点的接口：</p><pre><code class="lang-ascii">             ┌───────────┐
+             │   Node    │
+             └───────────┘
+                   ▲
+      ┌────────────┼────────────┐
+      │            │            │
+┌───────────┐┌───────────┐┌───────────┐
+│ElementNode││ TextNode  ││CommentNode│
+└───────────┘└───────────┘└───────────┘
+</code></pre><p>作为容器节点的<code>ElementNode</code>又可以添加任意个<code>Node</code>，这样就可以构成层级结构。</p><p>类似的，像文件夹和文件、GUI窗口的各种组件，都符合Composite模式的定义，因为它们的结构天生就是层级结构。</p></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2020-06-08T22:39:48.000Z" data-updated="true">Tue Jun 09 2020</time> <span class="categories"><a class="category" href="/tags/DesignPatterns/">DesignPatterns</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: 装饰器模式">« 装饰器模式</a> <a class="basic-alignment right" href="/" title="Previous Post: 桥接模式">桥接模式 »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/combination-mode/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,e=t.createElement("script");e.src="https://kayleh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>策略模式</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/strategy-mode/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">策略模式</h1><p class="meta"><time datetime="2020-06-13T01:17:47.000Z" data-updated="true">Sat Jun 13 2020</time></p></header><div class="entry-content"><h4 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h4><hr><blockquote><p>定义一系列的算法，把它们一个个封装起来，并且使它们可相互替换。本模式使得算法可独立于使用它的客户而变化。</p><span id="more"></span></blockquote><p><strong>策略模式：Strategy</strong>，是指，定义一组算法，并把其封装到一个对象中。然后在运行时，可以灵活的使用其中的一个算法。</p><p>策略模式在Java标准库中应用非常广泛，我们以排序为例，看看如何通过<code>Arrays.sort()</code>实现忽略大小写排序：</p><pre><code class="lang-java">import java.util.Arrays; `
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        String[] array = { "apple", "Pear", "Banana", "orange" };
+        Arrays.sort(array, String::compareToIgnoreCase);
+        System.out.println(Arrays.toString(array));
+    }
+}
+</code></pre><p>如果我们想忽略大小写排序，就传入<code>String::compareToIgnoreCase</code>，如果我们想倒序排序，就传入<code>(s1, s2) -&gt; -s1.compareTo(s2)</code>，这个比较两个元素大小的算法就是策略。</p><p>我们观察<code>Arrays.sort(T[] a, Comparator c)</code>这个排序方法，它在内部实现了TimSort排序，但是，排序算法在比较两个元素大小的时候，需要借助我们传入的<code>Comparator</code>对象，才能完成比较。因此，这里的策略是指比较两个元素大小的策略，可以是忽略大小写比较，可以是倒序比较，也可以根据字符串长度比较。</p><p>因此，上述排序使用到了策略模式，它实际上指，在一个方法中，流程是确定的，但是，某些关键步骤的算法依赖调用方传入的策略，这样，传入不同的策略，即可获得不同的结果，大大增强了系统的灵活性。</p><p>如果我们自己实现策略模式的排序，用冒泡法编写如下：</p><pre><code class="lang-java">public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        String[] array = { "apple", "Pear", "Banana", "orange" };
+        sort(array, String::compareToIgnoreCase);
+        System.out.println(Arrays.toString(array));
+    }
+
+    static &lt;T&gt; void sort(T[] a, Comparator&lt;? super T&gt; c) {
+        for (int i = 0; i &lt; a.length - 1; i++) {
+            for (int j = 0; j &lt; a.length - 1 - i; j++) {
+                if (c.compare(a[j], a[j + 1]) &gt; 0) { // 注意这里比较两个元素的大小依赖传入的策略
+                    T temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+    }
+}
+</code></pre><p>一个完整的策略模式要定义策略以及使用策略的上下文。我们以购物车结算为例，假设网站针对普通会员、Prime会员有不同的折扣，同时活动期间还有一个满100减20的活动，这些就可以作为策略实现。先定义打折策略接口：</p><pre><code class="lang-java">public interface DiscountStrategy {
+    // 计算折扣额度:
+    BigDecimal getDiscount(BigDecimal total);
+}
+</code></pre><p>接下来，就是实现各种策略。普通用户策略如下：</p><pre><code class="lang-java">public class UserDiscountStrategy implements DiscountStrategy {
+    public BigDecimal getDiscount(BigDecimal total) {
+        // 普通会员打九折:
+        return total.multiply(new BigDecimal("0.1")).setScale(2, RoundingMode.DOWN);
+    }
+}
+</code></pre><p>满减策略如下：</p><pre><code class="lang-java">public class OverDiscountStrategy implements DiscountStrategy {
+    public BigDecimal getDiscount(BigDecimal total) {
+        // 满100减20优惠:
+        return total.compareTo(BigDecimal.valueOf(100)) &gt;= 0 ? BigDecimal.valueOf(20) : BigDecimal.ZERO;
+    }
+}
+</code></pre><p>最后，要应用策略，我们需要一个<code>DiscountContext</code>：</p><pre><code class="lang-java">public class DiscountContext {
+    // 持有某个策略:
+    private DiscountStrategy strategy = new UserDiscountStrategy();
+
+    // 允许客户端设置新策略:
+    public void setStrategy(DiscountStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public BigDecimal calculatePrice(BigDecimal total) {
+        return total.subtract(this.strategy.getDiscount(total)).setScale(2);
+    }
+}
+</code></pre><p>调用方必须首先创建一个DiscountContext，并指定一个策略（或者使用默认策略），即可获得折扣后的价格：</p><pre><code class="lang-java">DiscountContext ctx = new DiscountContext();
+
+// 默认使用普通会员折扣:
+BigDecimal pay1 = ctx.calculatePrice(BigDecimal.valueOf(105));
+System.out.println(pay1);
+
+// 使用满减折扣:
+ctx.setStrategy(new OverDiscountStrategy());
+BigDecimal pay2 = ctx.calculatePrice(BigDecimal.valueOf(105));
+System.out.println(pay2);
+
+// 使用Prime会员折扣:
+ctx.setStrategy(new PrimeDiscountStrategy());
+BigDecimal pay3 = ctx.calculatePrice(BigDecimal.valueOf(105));
+System.out.println(pay3);
+</code></pre><p>上述完整的策略模式如下图所示：</p><pre><code class="lang-ascii">┌───────────────┐      ┌─────────────────┐
+│DiscountContext│─ ─ ─&gt;│DiscountStrategy │
+└───────────────┘      └─────────────────┘
+                                ▲
+                                │ ┌─────────────────────┐
+                                ├─│UserDiscountStrategy │
+                                │ └─────────────────────┘
+                                │ ┌─────────────────────┐
+                                ├─│PrimeDiscountStrategy│
+                                │ └─────────────────────┘
+                                │ ┌─────────────────────┐
+                                └─│OverDiscountStrategy │
+                                  └─────────────────────┘
+</code></pre><p>策略模式的核心思想是在一个计算方法中把容易变化的算法抽出来作为“策略”参数传进去，从而使得新增策略不必修改原有逻辑。</p></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2020-06-13T01:17:47.000Z" data-updated="true">Sat Jun 13 2020</time> <span class="categories"><a class="category" href="/tags/DesignPatterns/">DesignPatterns</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: 访问者模式">« 访问者模式</a> <a class="basic-alignment right" href="/" title="Previous Post: 状态模式">状态模式 »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/strategy-mode/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,e=t.createElement("script");e.src="https://kayleh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

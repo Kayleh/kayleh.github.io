@@ -1,0 +1,88 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>heap-sort</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/heap-sort/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">heap-sort</h1><p class="meta"><time datetime="2020-05-18T04:40:11.000Z" data-updated="true">Mon May 18 2020</time></p></header><div class="entry-content"><h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><span id="more"></span><p>1.堆排序是利用堆这种数据结构而设计的一种算法，堆排序是一种选择排序，它的最坏，最好，平均复杂度均为O(nlogn)，它也是不稳定的排序。</p><p>2.堆是具有以下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆。没有要求结点的左孩子的值和右孩子的值大小关系。</p><p>3.每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/堆排序/1.gif" alt=""></p><pre><code class="lang-java">package sort;
+
+import java.util.Arrays;
+
+/**
+ * @Author: Wizard
+ * @Date: 2020/5/18 21:16
+ */
+public class heapSort {
+    public static void main(String[] args) {
+        //要求将数组进行升序排列
+    }
+
+    //编写一个堆排序的方法
+    public static void heapSort(int arr[]) {
+        int temp = 0;
+        System.out.println("堆排序！");
+
+
+        //  i  第一个非叶子结点
+        //  这里的目的是把最大的数交换到堆顶，成为一个大顶堆结构
+        for (int i = arr.length / 2 - 1; i &gt;= 0; i--) {
+            adjustHeap(arr, i, arr.length);
+            System.out.println(Arrays.toString(arr));
+        }
+
+
+        /*
+        将堆顶元素于末尾元素交换，将最大元素“沉”到数组末端
+        重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序
+         */
+        //一共5个数，调整4个数就可以了
+        for (int j = arr.length - 1; j &gt; 0; j--) {
+            temp = arr[j];
+            arr[j] = arr[0];//arr[0] 是上面调整后的最大值
+            arr[0] = temp;
+            adjustHeap(arr, 0, j);
+            System.out.println("第"+(arr.length-j)+"次沉"+Arrays.toString(arr));
+        }
+        System.out.println(Arrays.toString(arr));
+
+
+        //每次遍历把最大的数（在调整之后的父节点，第一位）沉到数组的末端
+        //然后 再调整 把最大的数交换到堆顶（adjustHeap），再沉到数组的末端的位置-1，随着j的递减，末尾的前几个数字逐渐确定（调整的范围减少）
+
+    }
+
+
+    //将一个数组(二叉树),调整为一个大顶堆
+
+    /**
+     * 功能：完成将以 i 对应的非叶子结点的树调整为大顶堆
+     * int arr[] = {4,6,8,5,9};   → i = 1 → adjustHeap → 得到{4,9,8,5,6}
+     * 再次调用adjustHeap 传入的是 i= 0 → 得到{9,6,8,5,4}
+     *
+     * @param arr    待调整的数组
+     * @param i      表示非叶子结点在数组中的索引
+     * @param lenght 表示归多少个元素继续调整，length 是在逐渐的减少
+     */
+    public static void adjustHeap(int arr[], int i, int lenght) {
+        int temp = arr[i];//取出当前元素的值，保存在临时变量，   以 i 作为父节点（局部）
+        //开始调整
+        //k = i对应的左子节点
+        for (int k = 2 * i + 1; k &lt; lenght; k = 2 * i + 1) {
+            if (k + 1 &lt; lenght &amp;&amp; arr[k] &lt; arr[k + 1]) {
+                //说明左子节点的值小于右子节点
+                k++;//让 k 指向右子节点
+            }
+            if (arr[k] &gt; temp) {
+                //如果子节点大于父节点
+                //就把较大的值赋值给当前节点
+                arr[i] = arr[k];
+                // ! i指向k 继续循环比较
+                i = k; //把i（父节点）指向 k（子节点）。作为父节点继续循环
+            } else {
+                //如果子节点小于父节点
+                //堆排序是从左至右，从下至上
+                break;
+            }
+        }
+        //当for循环结束后，已经将以i为父节点的树的最大值，放在了最顶（局部）
+        arr[i] = temp;//将temp值放到调整后的位置
+
+        //adjustHeap()方法中依然要循环, 是因为最后在堆排序的时候是从下到上的, 排序中向上调用这个方法时 , i也会往上走, 这时再次调用adjustHeapt
+        //这时再次调用adjustHeap方法时, i就不是最后一个非叶子节点了, 会破坏原先已经排序好的大顶堆, 所以需要循环往下将被破坏的大顶堆重新建立起来
+    }
+}
+</code></pre></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2020-05-18T04:40:11.000Z" data-updated="true">Mon May 18 2020</time> <span class="categories"><a class="category" href="/tags/algorithm/">algorithm</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=heap-sort">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: binary sort tree">« binary sort tree</a> <a class="basic-alignment right" href="/" title="Previous Post: 7 sorting algorithms">7 sorting algorithms »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/heap-sort/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,e=t.createElement("script");e.src="https://kayleh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

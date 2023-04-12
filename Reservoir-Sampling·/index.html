@@ -1,0 +1,46 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>蓄水池抽样算法</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/Reservoir-Sampling·/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">蓄水池抽样算法</h1><p class="meta"><time datetime="2022-01-17T08:01:30.000Z" data-updated="true">Mon Jan 17 2022</time></p></header><div class="entry-content"><h3 id="「蓄水池抽样算法」"><a href="#「蓄水池抽样算法」" class="headerlink" title="「蓄水池抽样算法」"></a>「蓄水池抽样算法」</h3><p>优势：只需一次遍历，适用总量未知的情况</p><p>蓄水池抽样算法可以扩展很多应用范围，比如游戏的签到抽奖系统，在抽奖之前，你不知道参与的总人数。</p><p>对于一个池内，获取每个数字的概率都是一样的</p><blockquote><ul><li>如果我们池子中只有一个数字，那么拿到第一个数字的概率就是100%毋庸置疑。</li><li>两个数字50% 三个数字每个数字的几率都是33% 以此类推。。。。</li></ul><p>当我们不知道池子里有多少个数字的时候，就需要用蓄水池的算法思想去计算。</p><ul><li>当链表前行到第一个数字，此时取第一个数字的几率为100%，那result自然等于这个数字。</li><li>前进到第二个数字，那么此时取这个数字的几率自然就为50%（池子里只有两个数字），那么就是50%的几率取新数字，50%的几率保留原本的数字。</li><li>第三个数字的时候，33%的几率取当前最新的这个数字，66%的几率保留原本的数字。这66%中：原本的数字有50%的几率是1，有50%的几率是2。也就是此时三个数字的概率都为33%。 通过这个算法，就能达到取数的概率均摊，从而实现随机。</li></ul></blockquote><pre><code class="lang-java">//给你一个单链表，随机选择链表的一个节点，并返回相应的节点值。每个节点 被选中的概率一样 。
+//
+// 实现 Solution 类：
+//
+//
+// Solution(ListNode head) 使用整数数组初始化对象。
+// int getRandom() 从链表中随机选择一个节点并返回该节点的值。链表中所有节点被选中的概率相等。
+</code></pre><pre><code class="lang-java">class Solution {
+    ListNode head;
+    Random random = new Random();
+    public Solution(ListNode _head) {
+        random = new Random();
+        head = _head;
+    }
+    public int getRandom() {
+        int ans = 0, idx = 0;
+        ListNode t = head;
+        while (t != null &amp;&amp; ++idx &gt;= 0) {
+            if (random.nextInt(idx) == 0) ans = t.val;
+            t = t.next;
+        }
+        return ans;
+    }
+}
+</code></pre><p>为什么算法是正确可靠的？</p><pre><code class="lang-java">蓄水池算法思想：
+假设现在有一个容量为N的袋子，一个机器每次发出一个球，问你如何使得最终发了任意颗球后，所有球在袋子中的几率相等？
+实现方法：
+1.如果发出来的球的序号(count)小于等于N，那么袋子还没装满直接丢进去就可以了。
+2.如果发出来的球的序号(count)大于N，那么就以N/count的概率判断这个球是否入袋，如果入袋就以1/N的概率随机淘汰掉袋子中的某个位置的球。这里的袋子在代码实现中就是数组，所以就是随机淘汰掉0~N-1下标位置的球。
+证明：
+为什么这样所有球在袋子的概率是相同的呢？
+1.机器发出的球数如果小于等于N，那么很明显所有的球在袋子中的概率都是相等的，为1,毋庸置疑。
+2.机器发出的球数如果大于N，比如此时count=N+1，问3号球在袋子中的概率？
+2.1此时N+1号球以N/(N+1)的概率入袋，所以N+1号球在袋子中的概率就是N/(N+1)，不管你淘汰哪个，反正我是进去了
+2.2此时3号球被淘汰的概率是N/(N+1)*1/N=1/(N+1)，这个也好理解，被淘汰这个事件由N+1能够进入袋子和1/N的概率正好
+淘汰掉3号两个事件组成。那么3号球存在袋子中的概率就是1-1/(N+1) = N/(N+1)，这和N+1号球是相同的。
+
+我们选择的3号位置是随机的，同理选择其他位置采用同样的计算方法也能得到1~N+1号球的概率都是相同的，而且是N/(N+1)。所以蓄水池算法正确。
+
+对于这道题目来说，需要我们返回随机一个位置节点的值，那么好嘛，可以定义一个袋子，假如这个袋子容量就是1，那么每次从袋子中淘汰的概率都是1，因为就一个元素，所以必定淘汰它。只要将所有节点都判断一遍，最后袋子里剩下的不就是随机节点的值吗。
+
+作者：vigilant-hermannoht
+链接：https://leetcode-cn.com/problems/linked-list-random-node/solution/xu-shui-chi-suan-fa-zheng-ming-wei-shi-y-xwzn/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+</code></pre></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2022-01-17T08:01:30.000Z" data-updated="true">Mon Jan 17 2022</time> <span class="categories"><a class="category" href="/tags/algorithm/">algorithm</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E8%93%84%E6%B0%B4%E6%B1%A0%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: 区间dp算法">« 区间dp算法</a> <a class="basic-alignment right" href="/" title="Previous Post: 比较器Comparator使用">比较器Comparator使用 »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/Reservoir-Sampling·/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var e=document,t=e.createElement("script");t.src="https://kayleh.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

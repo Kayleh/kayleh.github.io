@@ -1,0 +1,232 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>head-first-SpringSecurity</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/head-first-SpringSecurity/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">head-first-SpringSecurity</h1><p class="meta"><time datetime="2022-05-01T10:05:47.000Z" data-updated="true">Sun May 01 2022</time></p></header><div class="entry-content"><h3 id="一、权限认证-SpringSecurity"><a href="#一、权限认证-SpringSecurity" class="headerlink" title="一、权限认证 SpringSecurity"></a>一、权限认证 SpringSecurity</h3><p>1.引入安全框架SpringSecurity</p><p>Spring Security是一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方案的安全框架。它提供了一组可以在Spring应用上下文中配置的Bean，充分利用了Spring IoC，DI（控制反转Inversion<br>of Control ,DI:Dependency Injection 依赖注入）和AOP（面向切面编程）功能，为应用系统提供声明式的安全访问控制功能，减少了为企业系统安全控制编写大量重复代码的工作。</p><p>2.Maven</p><pre><code class="lang-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre><p>3.请求api</p><pre><code class="lang-java">@RestController
+@RequestMapping("user")
+public class AuthController {
+    @GetMapping("login")
+    public String login() {
+        return "Hello SpringSecurity";
+    }
+}
+</code></pre><p>4.此时访问接口，发现</p><p><img src="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211031203812140.png" alt="image-20211031203812140"></p><p>默认的Spring Security就是生效了的，此时的接口都是被保护的，需要通过验证才能正常的访问。 Spring Security提供了一个默认的用户，用户名是user，而密码则是启动项目的时候自动生成的。</p><p>我们查看项目启动的日志，会发现如下的一段Log</p><p><img src="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211031203905683.png" alt="image-20211031203905683"></p><p>如果不想使用默认的安全机制，可在配置文件中配置参数：</p><pre><code class="lang-properties"># security 使能
+security.basic.enabled=false
+</code></pre><h5 id="自定义的权限认证逻辑"><a href="#自定义的权限认证逻辑" class="headerlink" title="自定义的权限认证逻辑"></a>自定义的权限认证逻辑</h5><p>1.配置SpringSecurity</p><pre><code class="lang-java">
+@Configuration
+public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin()          // 定义当需要用户登录时候，转到的登录页面。
+                .and()
+                .authorizeRequests()    // 定义哪些URL需要被保护、哪些不需要被保护
+                .anyRequest()        // 任何请求,登录后可以访问
+                .authenticated();
+    }
+}
+</code></pre><p>2.配置用户认证逻辑，因为我们是有自己的一套用户体系的</p><pre><code class="lang-java">
+@Component
+public class MyUserDetailsService implements UserDetailsService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("用户的用户名: {}", username);
+        // TODO 根据用户名，查找到对应的密码，与权限
+        // 封装用户信息，并返回。参数分别是：用户名，密码，用户权限
+        User user = new User(userame, "123456",
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return user;
+    }
+}
+</code></pre><p>3.<strong>UserDetails</strong></p><p>在写<code>MyUserDetailsService</code>的时候，里面实现了一个方法，并返回了一个<code>UserDetails</code>。这个UserDetails 就是封装了用户信息的对象，里面包含了七个方法</p><pre><code class="lang-java">public interface UserDetails extends Serializable {
+    // 封装了权限信息
+    Collection&lt;? extends GrantedAuthority&gt; getAuthorities();
+
+    // 密码信息
+    String getPassword();
+
+    // 登录用户名
+    String getUsername();
+
+    // 帐户是否过期
+    boolean isAccountNonExpired();
+
+    // 帐户是否被冻结
+    boolean isAccountNonLocked();
+
+    // 帐户密码是否过期，一般有的密码要求性高的系统会使用到，比较每隔一段时间就要求用户重置密码
+    boolean isCredentialsNonExpired();
+
+    // 帐号是否可用
+    boolean isEnabled();
+}
+</code></pre><p>在返回UserDetails的实现类User的时候，可以通过User的构造方法，设置对应的参数</p><p>4.密码的加密和解密</p><p>SpringSecurity中有一个PasswordEncoder接口</p><pre><code class="lang-java">public interface PasswordEncoder {
+    // 对密码进行加密
+    String encode(CharSequence var1);
+
+    // 对密码进行判断匹配
+    boolean matches(CharSequence var1, String var2);
+}
+</code></pre><p>我们只需要自己实现这个接口，并在配置文件中配置一下就可以了。</p><p>这里我暂时以默认提供的一个实现类进行测试</p><pre><code class="lang-java">// BrowerSecurityConfig 
+@Bean
+public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+}
+</code></pre><pre><code class="lang-java">
+@Component
+public class MyUserDetailsService implements UserDetailsService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("用户的用户名: {}", username);
+
+        String password = passwordEncoder.encode("123456");
+        logger.info("password: {}", password);
+
+        // 参数分别是：用户名，密码，用户权限
+        User user = new User(username, password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return user;
+    }
+}
+</code></pre><p>加密使用：</p><pre><code class="lang-java">
+@Component
+public class MyUserDetailsService implements UserDetailsService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("用户的用户名: {}", username);
+
+        String password = passwordEncoder.encode("123456");
+        logger.info("password: {}", password);
+
+        // 参数分别是：用户名，密码，用户权限
+        User user = new User(username, password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return user;
+    }
+}
+</code></pre><p>这里简单的对123456进行了加密的处理。我们可以进行测试，发现每次打印出来的password都是不一样的，这就是配置的BCryptPasswordEncoder所起到的作用。</p><p><strong>个性化用户认证逻辑</strong></p><p><strong>自定义登录页面</strong></p><p>在之前的测试中，一直都是使用的默认的登录界面，我相信每个产品都是有自己的登录界面设计的，所以我们这一节了解一下如何自定义登录页面。</p><p>我们先写一个简单的登录页面</p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;登录页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;自定义登录页面&lt;/h2&gt;
+  &lt;form action="/user/login" method="post"&gt;
+    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;td&gt;用户名：&lt;/td&gt;
+        &lt;td&gt;&lt;input type="text" name="username"&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;密码：&lt;/td&gt;
+        &lt;td&gt;&lt;input type="password" name="password"&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td colspan="2"&gt;&lt;button type="submit"&gt;登录&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>完成了登录页面之后，就需要将它配置进行SpringSecurity</p><pre><code>// BrowerSecurityConfig.java
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+  http.formLogin()          // 定义当需要用户登录时候，转到的登录页面。
+      .loginPage("/login.html")      // 设置登录页面
+      .loginProcessingUrl("/user/login") // 自定义的登录接口
+      .and()
+      .authorizeRequests()    // 定义哪些URL需要被保护、哪些不需要被保护
+      .antMatchers("/login.html").permitAll()   // 设置所有人都可以访问登录页面
+      .anyRequest()        // 任何请求,登录后可以访问
+      .authenticated()
+      .and()
+      .csrf().disable();     // 关闭csrf防护
+}
+</code></pre><p>这样，每当我们访问被保护的接口的时候，就会调转到login.html页面</p><p><strong>处理不同类型的请求</strong></p><p>因为现在一般都前后端分离了，后端提供接口供前端调用，返回JSON格式的数据给前端。刚才那样，调用了被保护的接口，直接进行了页面的跳转，在web端还可以接受，但是在App端就不行了， 所以我们还需要做进一步的处理。</p><p>这里做一下简单的思路整理</p><p><img src="https://raw.githubusercontent.com/Kayleh/cdn4/main/2018518151529411.jpg" alt="img"></p><p>首先来写自定义的Controller，当需要身份认证的时候就跳转过来</p><pre><code class="lang-java">
+@RestController
+public class BrowserSecurityController {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    // 原请求信息的缓存及恢复
+    private RequestCache requestCache = new HttpSessionRequestCache();
+
+    // 用于重定向
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+    /**
+     * 当需要身份认证的时候，跳转过来
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/authentication/require")
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    public BaseResponse requireAuthenication(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SavedRequest savedRequest = requestCache.getRequest(request, response);
+
+        if (savedRequest != null) {
+            String targetUrl = savedRequest.getRedirectUrl();
+            logger.info("引发跳转的请求是:" + targetUrl);
+            if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
+                redirectStrategy.sendRedirect(request, response, "/login.html");
+            }
+        }
+
+        return new BaseResponse("访问的服务需要身份认证，请引导用户到登录页");
+    }
+}
+</code></pre><p>当然还需要将配置文件进行相应的修改， 这里我就不贴代码了。 就是将该接口开放出来 。</p><p><strong>扩展：</strong></p><p>这里我们是写死了如果是从网页访问的接口，那么就跳转到”/login.html”页面，其实我们可以扩展一下，将该跳转地址配置到配置文件中，这样会更方便的。</p><p><strong>自定义处理登录成功/失败</strong></p><p>在之前的测试中，登录成功了都是进行了页面的跳转。</p><p>在前后端分离的情况下，我们登录成功了可能需要向前端返回用户的个人信息，而不是直接进行跳转。登录失败也是同样的道理。</p><p>这里涉及到了Spring Security中的两个接口<code>AuthenticationSuccessHandler</code>和<code>AuthenticationFailureHandler</code>。我们可以实现这个接口，并进行相应的配置就可以了。<br>当然框架是有默认的实现类的，我们可以继承这个实现类再来自定义自己的业务</p><pre><code>@Component("myAuthenctiationSuccessHandler")
+public class MyAuthenctiationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+  private Logger logger = LoggerFactory.getLogger(getClass());
+
+  @Autowired
+  private ObjectMapper objectMapper;
+
+  @Override
+  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                    Authentication authentication) throws IOException, ServletException {
+
+    logger.info("登录成功");
+
+    response.setContentType("application/json;charset=UTF-8");
+    response.getWriter().write(objectMapper.writeValueAsString(authentication));
+  }
+}
+</code></pre><p>这里我们通过response返回一个JSON字符串回去。</p><p>这个方法中的第三个参数<code>Authentication</code>，它里面包含了登录后的用户信息（UserDetails），Session的信息，登录信息等。</p><pre><code class="lang-java">
+@Component("myAuthenctiationFailureHandler")
+public class MyAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
+
+        logger.info("登录失败");
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(objectMapper.writeValueAsString(new BaseResponse(exception.getMessage())));
+    }
+}
+</code></pre><p>这个方法中的第三个参数<code>AuthenticationException</code>，包括了登录失败的信息。<br>同样的，还是需要在配置文件中进行配置，这里就不贴出全部的代码了，只贴出相应的语句</p><pre><code>.successHandler(myAuthenticationSuccessHandler) // 自定义登录成功处理 
+.failureHandler(myAuthenticationFailureHandler) // 自定义登录失败处理
+</code></pre></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2022-05-01T10:05:47.000Z" data-updated="true">Sun May 01 2022</time> <span class="categories"><a class="category" href="/tags/frame/">frame</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=head-first-SpringSecurity">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: 关于「雪糕刺客」和「消费降级」">« 关于「雪糕刺客」和「消费降级」</a> <a class="basic-alignment right" href="/" title="Previous Post: head-first-docker">head-first-docker »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/head-first-SpringSecurity/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,e=t.createElement("script");e.src="https://kayleh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

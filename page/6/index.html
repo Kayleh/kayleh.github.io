@@ -1,0 +1,92 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>Kayleh</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/page/6/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div class="blog-index"><article><header><h1 class="entry-title"><a href="/Improve-Robustness-(2)/">Improve Robustness (2)</a></h1><p class="meta"><time datetime="2021-05-12T18:49:03.000Z" data-updated="true">Thu May 13 2021</time></p></header><div class="entry-content"><h1 id="TDD测试驱动开发"><a href="#TDD测试驱动开发" class="headerlink" title="TDD测试驱动开发"></a>TDD测试驱动开发</h1><p>用户提供的信息：</p><ul><li><p>用户昵称(长度最长为20个字节，即最长20个英文单词，10个汉字)(必须传入)</p></li><li><p>用户性别(1代表男，2代表女)(必须传入)</p></li><li><p>用户出生日期(格式为YYYY-MM-DD)(必须传入)</p></li><li><p>用户简介(长度最长为40个字节，即最长40个英文单词，20个汉字)(必须传入)</p></li></ul><p>异常情况：</p><ul><li>用户没有传入表明用户身份的uuid</li><li>用户传入了一个错误的uuid,即不存在的用户</li><li>用户没有传入必要的参数，比如缺少用户昵称，用户性别等</li><li>用户传了不合法的参数，比如传入了用户的密码</li><li>传入的用户昵称为null</li><li>传入的用户昵称为””(即空字符串)</li><li>传入的用户昵称长度大于20字节</li><li>传入的用户昵称为不支持的字符编码</li><li>传入的用户性别格式不正确，比如传入’woman’</li><li>传入的用户性别的取值不正确，比如传入了’3’</li><li>传入的用户出生日期格式不正确，比如传入的格式为’YYYY-MM-DD hh:mm:ss’</li><li>传入的用户出生日期取值不正确，比如现在是2017年，他传入的用户年份是2018或者1800，传入的月份是13,等</li><li>传入的用户简介为null</li><li>传入的用户简介为””(即空字符串)</li><li>传入的用户简介长度大于40字节</li><li>传入的用户简介为不支持的字符编码</li><li>用户传入了正确的数据但是返回的结果不正确</li></ul></div><footer><a rel="full-article" href="/Improve-Robustness-(2)/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/Improve-Robustness-(1)/">Improve Robustness (1)</a></h1><p class="meta"><time datetime="2021-05-12T07:44:09.000Z" data-updated="true">Wed May 12 2021</time></p></header><div class="entry-content"><h1 id="提高代码鲁棒性——（1）"><a href="#提高代码鲁棒性——（1）" class="headerlink" title="提高代码鲁棒性——（1）"></a>提高代码鲁棒性——（1）</h1><ul><li>需要 Map 的主键和取值时，应该迭代 entrySet()</li></ul><p>当循环中只需要 Map 的主键时，迭代 keySet() 是正确的。但是，当需要主键和取值时，迭代 entrySet() 才是更高效的做法，比先迭代 keySet() 后再去 get 取值性能更佳。</p><p>反例：</p><pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
+for(String key : map.keySet())
+{
+    String value = map.get(key);
+}
+</code></pre></div><footer><a rel="full-article" href="/Improve-Robustness-(1)/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/Proxy/">Proxy</a></h1><p class="meta"><time datetime="2021-04-25T05:37:43.000Z" data-updated="true">Sun Apr 25 2021</time></p></header><div class="entry-content"><p>代理模式是一种经典的设计模式，代理的意义在于生成代理对象，在服务提供方和使用方之间充当一个媒介，控制真实对象的访问。</p><p>代理分为静态代理和动态代理两种。</p><p>静态代理需要通过手动或工具生成代理类并编译，代理类和委托类的关系在编译期就已经确定。动态代理允许开发人员在运行时动态的创建出代理类及其对象。</p><p>Spring AOP 的主要技术基础就是 Java 的动态代理机制。</p><h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3></div><footer><a rel="full-article" href="/Proxy/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/Thread_Pool/">Thread Pool</a></h1><p class="meta"><time datetime="2021-04-20T08:37:35.000Z" data-updated="true">Tue Apr 20 2021</time></p></header><div class="entry-content"><p>异步执行的代码</p><pre><code class="lang-java">new Thread(r).start();
+</code></pre><p>统一的工具类，定一个接口来实现。</p><pre><code class="lang-java">public interface Executor {
+    public void execute(Runnable r);
+}
+</code></pre><pre><code class="lang-java">// 新线程：直接创建一个新线程运行
+class FlashExecutor implements Executor {
+    public void execute(Runnable r) {
+        new Thread(r).start();
+    }
+}
+</code></pre></div><footer><a rel="full-article" href="/Thread_Pool/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/Implement-a-lock-based-on-ReentrantLock/">a Lock Based on ReentrantLock</a></h1><p class="meta"><time datetime="2021-04-19T08:59:25.000Z" data-updated="true">Mon Apr 19 2021</time></p></header><div class="entry-content"><h2 id="基于-ReentrantLock实现一个锁"><a href="#基于-ReentrantLock实现一个锁" class="headerlink" title="基于 ReentrantLock实现一个锁"></a>基于 ReentrantLock实现一个锁</h2><pre><code class="lang-java">package aqsLock;
+
+import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+
+
+/**
+ * @Author: Kayleh
+ * @Date: 2021/4/20 0:57
+ */
+public class aqsLock
+{
+    public void lock()
+    {
+        sync.acquire(1);
+    }
+
+    public void unlock()
+    {
+        sync.release(1);
+    }
+
+    private final Sync sync = new Sync();
+
+    public static class Sync extends AbstractQueuedSynchronizer
+    {
+        @Override
+        protected boolean tryAcquire(int arg)
+        {
+            // CAS 方式尝试获取锁，成功返回true，失败返回false
+            if (compareAndSetState(0, 1))
+                return true;
+            return false;
+        }
+
+        @Override
+        protected boolean tryRelease(int arg)
+        {
+            // 释放锁
+            setState(0);
+            return true;
+        }
+    }
+}
+</code></pre><p>基本功能实现，测试：</p><pre><code class="lang-java">// 可能发生线程安全问题的共享变量
+private static long count = 0;
+
+// 两个线程并发对 count++
+public static void main(String[] args) throws Exception {
+    // 创建两个线程，执行add()操作
+    Thread th1 = new Thread(()-&gt; add());
+    Thread th2 = new Thread(()-&gt; add());
+    // 启动两个线程
+    th1.start();
+    th2.start();
+    // 等待两个线程执行结束
+    th1.join();
+    th2.join();
+    // 这里应该是 20000 就对了，说明锁生效了
+    System.out.println(count);
+}
+
+// 我画了一上午写出来的锁，哈哈
+private static ExampleLock exampleLock = new ExampleLock();
+
+// 循环 count++，进行 10000 次
+private static void add() {
+    exampleLock.lock();
+    for (int i = 0; i &lt; 10000; i++) {
+        count++;
+    }
+    add2();
+    // 没啥异常，我就直接释放锁了
+    exampleLock.unlock();
+}
+</code></pre><blockquote><p><strong>非公平锁</strong>，因为线程抢锁不排队，纯看脸。</p><p>实现的排队获取锁，叫<strong>公平锁</strong>，因为只要有线程在排队，新来的就得乖乖去排队，不能直接抢。</p></blockquote></div><footer><a rel="full-article" href="/Implement-a-lock-based-on-ReentrantLock/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/CAS-&amp;-AQS/">CAS &amp; AQS</a></h1><p class="meta"><time datetime="2021-04-18T09:43:22.000Z" data-updated="true">Sun Apr 18 2021</time></p></header><div class="entry-content"><h2 id="CAS（Compare-And-Swap）原理分析"><a href="#CAS（Compare-And-Swap）原理分析" class="headerlink" title="CAS（Compare And Swap）原理分析"></a>CAS（Compare And Swap）原理分析</h2><p>字面意思是<strong>比较和交换</strong>，先看看下面场景（A 和 B 线程同时执行下面的代码）：</p><pre><code class="lang-java">int i = 10;    //代码1
+i = 10;        //代码2
+</code></pre><p>场景 1：A 线程执行代码 1 和代码 2，然后 B 线程执行代码 1 和代码 2，CAS 成功。</p><p>场景 2：A 线程执行代码 1，此时 B 线程执行代码 1 和代码 2，A 线程执行代码 2，CAS 不成功，为什么呢？</p></div><footer><a rel="full-article" href="/CAS-&amp;-AQS/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/Head-First-Map/">Head First Map</a></h1><p class="meta"><time datetime="2021-04-17T09:31:12.000Z" data-updated="true">Sat Apr 17 2021</time></p></header><div class="entry-content"><h1 id="深入浅出Map"><a href="#深入浅出Map" class="headerlink" title="深入浅出Map"></a>深入浅出Map</h1><blockquote><p>Map是java里边是一个接口,常见的实现类有HashMap、LinkedHashMap、TreeMap和ConcurrentHashMap</p></blockquote><p>HashMap底层数据结构是<code>数组+链表/红黑树</code></p><p>LinkedHashMap底层数据结构是<code>数组+链表+双向链表</code></p><p>TreeMap底层数据结构是<code>红黑树</code></p></div><footer><a rel="full-article" href="/Head-First-Map/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/Spring-Cyclic-Ependencies/">Spring Cyclic Ependencies</a></h1><p class="meta"><time datetime="2021-04-16T07:36:37.000Z" data-updated="true">Fri Apr 16 2021</time></p></header><div class="entry-content"><h2 id="Spring是怎么解决循环依赖的？"><a href="#Spring是怎么解决循环依赖的？" class="headerlink" title="Spring是怎么解决循环依赖的？"></a>Spring是怎么解决循环依赖的？</h2><p>首先站在Spring整个Framework体系而言的话，Spring的Bean是由一个BeanDefinition来的，就是在Spring当中，有一个叫建模的类BeanDefinition，Spring的Bean有一系列比较复杂的生命周期：</p><ul><li><p>首先，Spring容器启动。</p></li><li><p>spring进行扫描</p></li><li>反射后封装成beanDefinition对象，放入beanDefinitionMap</li><li>遍历map</li><li>验证（是否单例、是否延迟加载、是否抽象）</li><li>推断构造方法（ 把当前这个Spring Bean所代表的类当中的构造方法得到一个最佳的一个构造方法 ）</li><li>准备开始进行实例</li><li>去单例池中查，没有——》去二级缓存中找，没有提前暴露——》生成一个objectFactory对象暴露到二级缓存中——》属性注入，发现依赖Y——》此时Y开始它的生命周期直到属性注入，发现依赖X-&gt;X又走一遍生命周期，当走到去二级缓存中找的时候找到了-&gt;往Y中注入X的objectFactory对象-&gt;完成循环依赖。</li></ul><p>1、为什么要使用X的objectFacory对象而不是直接使用X对象？</p><blockquote><p>利于拓展，程序员可以通过beanPostProcess接口操作objectFactory对象生成自己想要的对象</p></blockquote></div><footer><a rel="full-article" href="/Spring-Cyclic-Ependencies/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/Head-First-Nginx/">Head First Nginx</a></h1><p class="meta"><time datetime="2021-04-14T21:55:17.000Z" data-updated="true">Thu Apr 15 2021</time></p></header><div class="entry-content"><h2 id="公司产品出现瓶颈？"><a href="#公司产品出现瓶颈？" class="headerlink" title="公司产品出现瓶颈？"></a>公司产品出现瓶颈？</h2><p>我们公司项目刚刚上线的时候，并发量小，用户使用的少，所以在低并发的情况下，一个jar包启动应用就够了，然后内部tomcat返回内容给用户。<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/nginx/kuangstudy98b25257-71be-48f3-8afe-e1226ebc4589.png" alt="img"><br>但是慢慢的，使用我们平台的用户越来越多了，并发量慢慢增大了，这时候一台服务器满足不了我们的需求了。<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/nginx/kuangstudy1d77bc35-df30-46fb-8c41-61ff4468d0c9.png" alt="img"><br>于是我们横向扩展，又增加了服务器。这个时候几个项目启动在不同的服务器上，用户要访问，就需要增加一个代理服务器了，通过代理服务器来帮我们转发和处理请求。<br><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/nginx/kuangstudy33ee7313-9356-46e6-a0b2-fc1ed8ef9a62.png" alt="img"><br>我们希望这个代理服务器可以帮助我们接收用户的请求，然后将用户的请求按照规则帮我们转发到不同的服务器节点之上。这个过程用户是无感知的，用户并不知道是哪个服务器返回的结果，我们还希望他可以按照服务器的性能提供不同的权重选择。保证最佳体验！所以我们使用了Nginx。</p><h2 id="什么是Nginx？"><a href="#什么是Nginx？" class="headerlink" title="什么是Nginx？"></a>什么是Nginx？</h2><p>Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP/POP3/SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。2011年6月1日，nginx 1.0.4发布。</p><p>其特点是占有内存少，并发能力强，事实上nginx的并发能力在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。在全球活跃的网站中有12.18%的使用比率，大约为2220万个网站。</p></div><footer><a rel="full-article" href="/Head-First-Nginx/">Read on →</a></footer></article><article><header><h1 class="entry-title"><a href="/undefined/">Web Test Combat</a></h1><p class="meta"><time datetime="2021-04-13T08:50:01.000Z" data-updated="true">Tue Apr 13 2021</time></p></header><div class="entry-content"></div><footer><a rel="full-article" href="/undefined/">Read on →</a></footer></article><div class="pagination"><a href="/archives">Blog Archives</a> <a class="extend prev" rel="prev" href="/page/5/">Prev</a><a class="page-number" href="/">1</a><span class="space">…</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">…</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/7/">Next</a></div></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

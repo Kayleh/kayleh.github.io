@@ -1,0 +1,295 @@
+<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>布隆过滤器的理论基础及Redisson实现</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/Bloom-Filter/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">布隆过滤器的理论基础及Redisson实现</h1><p class="meta"><time datetime="2021-09-26T05:18:41.000Z" data-updated="true">Sun Sep 26 2021</time></p></header><div class="entry-content"><p>如果想要判断一个元素是不是在一个集合里，一般想到的是将所有元素保存起来，然后通过比较确定。<code>链表</code>，树等等数据结构都是这种思路. 但是随着集合中元素的增加，我们需要的存储空间越来越大，检索速度也越来越慢(O(n),O(logn))。不过世界上还有一种叫作散列表（又叫<code>哈希表</code>，Hash table）的数据结构。它可以通过一个<code>Hash函数</code>将一个元素映射成一个位阵列（Bit array）中的一个点。这样一来，我们只要看看这个点是不是1就可以知道集合中有没有它了。这就是布隆过滤器的基本思想。</p><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Hash/390310">Hash</a>面临的问题就是冲突。假设Hash函数是良好的，如果我们的位阵列长度为m个点，那么如果我们想将冲突率降低到例如 1%, 这个散列表就只能容纳m / 100个元素。显然这就不叫空间效率了（Space-efficient）了。解决方法也简单，就是使用多个Hash，如果它们有一个说元素不在集合中，那肯定就不在。如果它们都说在，虽然也有一定可能性它们在说谎，不过直觉上判断这种事情的<code>概率</code>是比较低的。</p><p><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn4/布隆过滤器的理论基础/1217384-20190612174853403-1591242748.png" alt="img"></p><pre><code class="lang-java">import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+
+public class BloomFilter {
+    private static final int DEFAULT_SIZE = 2 &lt;&lt; 24;
+    private static final int[] seeds = new int[] { 5, 7, 11, 13, 31, 37, 61 };
+    private BitSet bits = new BitSet(DEFAULT_SIZE);
+    private SimpleHash[] func = new SimpleHash[seeds.length];
+
+    public BloomFilter() {
+        for (int i = 0; i &lt; seeds.length; i++) {
+            func[i] = new SimpleHash(DEFAULT_SIZE, seeds[i]);
+        }
+    }
+
+    public void add(String value) {
+        for (SimpleHash f : func) {
+            bits.set(f.hash(value), true);
+        }
+    }
+
+    public boolean contains(String value) {
+        if (value == null) {
+            return false;
+        }
+        boolean ret = true;
+        for (SimpleHash f : func) {
+            ret = ret &amp;&amp; bits.get(f.hash(value));
+        }
+        return ret;
+    }
+
+    // 内部类，simpleHash
+    public static class SimpleHash {
+        private int cap;
+        private int seed;
+
+        public SimpleHash(int cap, int seed) {
+            this.cap = cap;
+            this.seed = seed;
+        }
+
+        public int hash(String value) {
+            int result = 0;
+            int len = value.length();
+            for (int i = 0; i &lt; len; i++) {
+                result = seed * result + value.charAt(i);
+            }
+            return (cap - 1) &amp; result;
+        }
+    }
+
+    public static void main(String[] args) {
+        BloomFilter bf = new BloomFilter();
+        List&lt;String&gt; strs = new ArrayList&lt;String&gt;();
+        strs.add("123456");
+        strs.add("hello word");
+        strs.add("transDocId");
+        strs.add("123456");
+        strs.add("transDocId");
+        strs.add("hello word");
+        strs.add("test");
+        for (int i=0;i&lt;strs.size();i++) {
+            String s = strs.get(i);
+            boolean bl = bf.contains(s);
+            if(bl){
+                System.out.println(i+","+s);
+            }else{
+                bf.add(s);
+            }
+        }
+    }
+
+}
+</code></pre><h4 id="布隆过滤器的应用"><a href="#布隆过滤器的应用" class="headerlink" title="布隆过滤器的应用"></a>布隆过滤器的应用</h4><h5 id="黑名单校验"><a href="#黑名单校验" class="headerlink" title="黑名单校验"></a>黑名单校验</h5><p>发现存在黑名单中的，就执行特定操作。比如：识别垃圾邮件，只要是邮箱在黑名单中的邮件，就识别为垃圾邮件。假设黑名单的数量是数以亿计的，存放起来就是非常耗费存储空间的，布隆过滤器则是一个较好的解决方案。把所有黑名单都放在布隆过滤器中，再收到邮件时，判断邮件地址是否在布隆过滤器中即可。</p><h5 id="解决缓存穿透的问题"><a href="#解决缓存穿透的问题" class="headerlink" title="解决缓存穿透的问题"></a>解决缓存穿透的问题</h5><p>一般情况下，先查询缓存是否有该条数据，缓存中没有时，再查询数据库。当数据库也不存在该条数据时，每次查询都要访问数据库，这就是缓存穿透。缓存穿透带来的问题是，当有大量请求查询数据库不存在的数据时，就会给数据库带来压力，甚至会拖垮数据库。</p><p>可以使用布隆过滤器解决缓存穿透的问题，把已存在数据的key存在布隆过滤器中。当有新的请求时，先到布隆过滤器中查询是否存在，如果不存在该条数据直接返回；如果存在该条数据再查询缓存查询数据库。</p><h4 id="Redisson实现布隆过滤器在亿级流量系统的应用"><a href="#Redisson实现布隆过滤器在亿级流量系统的应用" class="headerlink" title="Redisson实现布隆过滤器在亿级流量系统的应用"></a>Redisson实现布隆过滤器在亿级流量系统的应用</h4><p><strong>场景：</strong>正常redis有1000条缓存数据，忽然遭到爬虫/流量攻击攻击，大量不存在的于redis的数据批量查询，<br>由于redis不存在这些数据，会到数据库进行查询。由于数据库对于瞬时高并发访问的承载能力弱，所以可能<br>对数据库造成影响，甚至崩溃。<br>绕过redis服务器进入数据库查询的方式叫做缓存穿透。</p><h5 id="缓存穿透攻击："><a href="#缓存穿透攻击：" class="headerlink" title="缓存穿透攻击："></a>缓存穿透攻击：</h5><p>指恶意用户在短时间内大量查询不存在的数据，导致大量请求在被送达数据库进行查询，<br>当请求数量超过数据库负载上限时，使系统响应出现高延迟甚至瘫痪的行为。</p><h5 id="如何预防缓存穿透？布隆过滤器。"><a href="#如何预防缓存穿透？布隆过滤器。" class="headerlink" title="如何预防缓存穿透？布隆过滤器。"></a>如何预防缓存穿透？布隆过滤器。</h5><p>布隆过滤器：由一个很长的二进制向量和一系列随机映射函数组成，可以用于检索一个元素是否在一个集合中。<br>特点：<br>1.一定的误识别率（即某一元素存在于某集合中，但是实际上该元素并不在集合中）<br>2.但是没有识别错误的情形（即如果某个元素确实没有在该集合中，那么Bloom Filter 是不会报告该元素存在于集合中的，所以不会漏报）。<br>也就是：我说你不在你就一定不在，我说在，可能不在。<br>3.删除困难</p><p>了解hash:<br>Hash （散列函数）：是把任意长度的输入通过散列算法变换成固定长度的输出，该输出就是散列值。<br>由于这种转换，可能存在 不同的输入可能会散列成相同的输出。<br>Hash算法可以将一个数据转换为一个标志，这个标志，就是视频说的hash，hash后若不存在，就由0变为1。存在，不变。</p><p>视频hash1（858），hash2（858），hash3（858）的原理是：<br>Hash面临的问题就是冲突。假设 Hash 函数是良好的，如果我们的位阵列长度为 m 个点，那么如果我们想将冲突率降低到例如 1%, 这个散列表就只能容纳 m/100 个元素。显然这就不叫空间有效了（Space-efficient）。<br>解决方法也简单，就是使用多个 Hash，如果它们有一个说元素不在集合中，那肯定就不在。如果它们都说在，虽然也有一定可能性它们在说谎，不过直觉上判断这种事情的概率是比较低的。<br>（我搬运的，前半句我看不懂，只看懂后半句，理解就是：hash有冲突的可能，多个hash减少冲突率。原来1个说在，但可能不在。若2个，1个说在，另一个说不在，就肯定不在）</p><h5 id="减少误判的措施："><a href="#减少误判的措施：" class="headerlink" title="减少误判的措施："></a>减少误判的措施：</h5><p>1.增加二进制数组位数。<br>2.增加Hash次数。</p><p>开发中如何使用？<br>redisson组件内置布隆过滤器，导入直接使用。</p><p>项目中如何使用：<br>应用启动时初始化布隆过滤器（将商品在布隆过滤器中先从0转换成1）<br>用户请求时判断布隆过滤器是否有编号，若布隆过滤器有，读取redis，若redis没有，则读取数据库，载入redis缓存。<br>若布隆过滤器没有，返回数据不存在消息。</p><p>假如布隆过滤器初始化后，有商品被删除了， 怎么办？<br>布隆过滤器某一位二进制可能被多个编号hash引用（看hash的特点：不同的输入可能会散列成相同的输出）<br>所以，不能直接处理删除布隆过滤器的数据。<br>解决方案：<br>1.定时异步重建布隆过滤器<br>2.计数BloomFilter（可以知道该位被几个引用）</p><p>我一开始觉得，删就删了呗，管他干嘛，但是不管他，冲突率会高，处理后，这个数据就不会再引起冲突。<br>即：A商品被删后，当你查询A商品时，布隆过滤器说他在（布隆过滤器特点：我说你不在你就一定不在，我说在，可能不在），那我就要去redis查，但实际数据库查不到这个A商品，redis也没有。<br>这就存在冲突了。如果处理之后，布隆过滤器说不在就不在。</p><h4 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h4><p>1.引入maven依赖</p><pre><code class="lang-xml">        &lt;dependency&gt;
+            &lt;groupId&gt;org.redisson&lt;/groupId&gt;
+            &lt;artifactId&gt;redisson&lt;/artifactId&gt;
+            &lt;version&gt;3.13.1&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre><p>2、关于redis的配置</p><p>redis配置：</p><pre><code class="lang-properties">
+#客户端超时时间单位是毫秒 默认是2000
+redis.timeout=10000
+#最大空闲数
+redis.maxIdle=300
+#连接池的最大数据库连接数。设为0表示无限制,如果是jedis 2.4以后用redis.maxTotal
+#redis.maxActive=600
+#控制一个pool可分配多少个jedis实例,用来替换上面的redis.maxActive,如果是jedis 2.4以后用该属性
+redis.maxTotal=2000
+#最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+redis.maxWaitMillis=1000
+
+redis.nodes=192.168.25.128:7000,192.168.25.128:7001,192.168.25.128:7002,192.168.25.128:7003,192.168.25.128:7004,192.168.25.128:7005,192.168.25.128:7006,192.168.25.128:7007
+</code></pre><p>3、配置文件的书写</p><pre><code class="lang-java">@Configuration
+@PropertySource("classpath:conf/redis.properties")
+public class RedisConfig {
+
+    @Value("${redis.nodes}")
+    private String clusterNodes;
+
+    @Bean
+    public RedissonClient getBloomFilter(){
+        Config config = new Config();
+        ClusterServersConfig clusterServersConfig = config.useClusterServers();
+        String[] cNodes = clusterNodes.split(",");
+        //分割出集群节点
+        for (String node : cNodes) {
+            clusterServersConfig.addNodeAddress("redis://" + node);
+
+        }
+        return Redisson.create(config);
+    }
+}
+</code></pre><p>4、service的的代码</p><pre><code class="lang-java">public interface RedissonBloomFilterService {
+    /**
+     * 初始化一个布隆过滤器
+     *
+     * @param key        key
+     * @param expireDate 过期时间长度
+     * @param timeUnit   过期时间单位
+     * @return 是否创建成功
+     */
+    boolean initNewFilter(String key, Long expireDate, TimeUnit timeUnit, long expectedInsertions, double falseProbability);
+
+    /**
+     * 添加value到今天布隆过滤器
+     * @param key  key
+     * @param value  需要添加到过滤器的值
+     * @return  是否添加成功
+     */
+    boolean add(final String key, final String value);
+
+    /**
+     * 添加value到今天布隆过滤器
+     * @param key  key
+     * @param list  需要添加到过滤器的值
+     * @return  是否添加成功
+     */
+    boolean add(final String key, final List&lt;String&gt; list);
+
+    /**
+     * 判断对应key是否有value值
+     * @param key  key
+     * @param value 对应key的value值
+     * @return 应key是否有value值
+     */
+    boolean containsValue(final String key, final String value);
+
+    /**
+     * 查看是否存在key值
+     * @param key  key
+     * @return 是否有key值
+     */
+    boolean containKey(final String key);
+}
+</code></pre><p>实现类：</p><pre><code class="lang-java">@Slf4j
+@Service
+public class RedissonBloomServiceImpl implements RedissonBloomFilterService {
+
+    public static String prefix = "redission_bf_";
+
+
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private static final int TIME_FORMAT_LENGTH = 8;
+
+    @Resource
+    private RedissonClient redissonClient;
+    /**
+     * 1、第一层的key为传入key值
+     * 2、第二次key为  prefix + key+20200718
+     */
+    private Map&lt;String, ConcurrentHashMap&lt;String, RBloomFilter&gt;&gt; bloomFilterMap = new ConcurrentHashMap&lt;&gt;();
+
+    @Override
+    public synchronized boolean initNewFilter(String key, Long expireDate, TimeUnit timeUnit, long expectedInsertions, double falseProbability) {
+
+        String timeFormatter = formatter.format(LocalDateTime.now());
+        RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(prefix + timeFormatter + key);
+        //初始化布隆过滤器
+        boolean isSuccess = bloomFilter.tryInit(expectedInsertions, falseProbability);
+
+        if (isSuccess) {
+            //设置过期时间
+            bloomFilter.expire(expireDate, timeUnit);
+
+            //设置过期监听器
+            bloomFilter.addListener(new ExpiredObjectListener() {
+                @Override
+                public void onExpired(String key) {
+                    log.info("onExpired callback running key is {}", key);
+                    if (key.startsWith(prefix)) {
+                        String firstKey = key.substring(prefix.length() + TIME_FORMAT_LENGTH);
+                        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(firstKey);
+                        if (Objects.isNull(map)) {
+                            log.warn("listener callback key is empty key is {}", key);
+                            return;
+                        }
+                        map.remove(key);
+                    }
+                }
+            });
+            ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.computeIfAbsent(key, (k) -&gt; {
+                return new ConcurrentHashMap&lt;String, RBloomFilter&gt;(4);
+            });
+            map.put(prefix + timeFormatter + key, bloomFilter);
+            isSuccess = true;
+        }else {
+            log.error("initNewFilter fail key is {}", key);
+        }
+        return isSuccess;
+    }
+
+    @Override
+    public boolean add(String key, String value) {
+        String timeFormatter = formatter.format(LocalDateTime.now());
+        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);
+        if (Objects.isNull(map)) {
+            log.error("add name key one value is null, name is {},value is {}", key, value);
+            return false;
+        }
+        RBloomFilter rBloomFilter = map.get(prefix + timeFormatter + key);
+        if (Objects.isNull(rBloomFilter)) {
+            log.error("add name key one value is null, name is {},redis key is {},value is {}", key, prefix + timeFormatter + key, value);
+            return false;
+        }
+        return rBloomFilter.add(value);
+    }
+
+    @Override
+    public boolean add(String key, List&lt;String&gt; list) {
+        String timeFormatter = formatter.format(LocalDateTime.now());
+        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);
+        if (Objects.isNull(map)) {
+            log.error("add name key list value is null, name is {}", key);
+            return false;
+        }
+        RBloomFilter rBloomFilter = map.get(prefix + timeFormatter + key);
+        if (Objects.isNull(rBloomFilter)) {
+            log.error("add name key list value is null, name is {},redis key is {}", key,prefix + timeFormatter + key);
+            return false;
+        }
+        list.forEach(value -&gt; rBloomFilter.add(value));
+        return true;
+    }
+
+    @Override
+    public boolean containsValue(String key, String value) {
+        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);
+        if (Objects.isNull(map)) {
+            log.error("containsValue key is exist, key is {}", key);
+            return false;
+        }
+        for (Map.Entry&lt;String, RBloomFilter&gt; entry : map.entrySet()) {
+            if (entry.getValue().contains(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean containKey(String key) {
+        return bloomFilterMap.containsKey(key);
+    }
+}
+</code></pre><p>测试类：</p><pre><code class="lang-java"> @Test
+    public void testRedissonBloom() throws InterruptedException {
+        //创建过滤器
+        redissonBloomFilterService.initNewFilter("bloomkey1", 60L, SECONDS, 50, 0.1);
+        redissonBloomFilterService.initNewFilter("bloomkey2", 60L, SECONDS, 50, 0.1);
+
+        for (int i = 0; i &lt; 50; i++) {
+            redissonBloomFilterService.add("bloomkey1", "" + i);
+            if (i &gt; 30) {
+                redissonBloomFilterService.add("bloomkey2", "" + i);
+            }
+        }
+        int j1 = 0;
+        int j2 = 0;
+        for (int i = 0; i &lt; 100; i++) {
+            boolean exists = redissonBloomFilterService.containsValue("bloomkey1", "" + i);
+            if (exists) {
+                System.out.println("bloomkey1有误判" + (++j1) + "i是" + i);
+            }
+            boolean exists2 = redissonBloomFilterService.containsValue("bloomkey2", "" + i);
+            if (exists2) {
+                System.out.println("bloomkey2" +
+                        "有误判" + (++j2) + "i是" + i);
+            }
+        }
+
+        CountDownLatch beginCount = new CountDownLatch(1);
+        beginCount.await();
+    }
+</code></pre></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2021-09-26T05:18:41.000Z" data-updated="true">Sun Sep 26 2021</time> <span class="categories"><a class="category" href="/tags/sql/">sql</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80%E5%8F%8ARedisson%E5%AE%9E%E7%8E%B0">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: MYSQL 索引选择性陷阱">« MYSQL 索引选择性陷阱</a> <a class="basic-alignment right" href="/" title="Previous Post: 缓存一致性方案">缓存一致性方案 »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li><li class="post-list-item"><a class="post-list-link" href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/Bloom-Filter/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,e=t.createElement("script");e.src="https://kayleh.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
