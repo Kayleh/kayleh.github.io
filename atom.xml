@@ -6,7 +6,7 @@
   <link href="https://blog.kayleh.top/atom.xml" rel="self"/>
   
   <link href="https://blog.kayleh.top/"/>
-  <updated>2022-11-15T06:52:36.109Z</updated>
+  <updated>2023-04-28T19:04:48.127Z</updated>
   <id>https://blog.kayleh.top/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>链式前向星(linked-forward-star)实现</title>
+    <link href="https://blog.kayleh.top/null/"/>
+    <id>https://blog.kayleh.top/null/</id>
+    <published>2023-04-28T19:04:48.000Z</published>
+    <updated>2023-04-28T19:04:48.127Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>⌈贪心算法⌋田忌赛马策略</title>
@@ -464,31 +477,6 @@ num 不会包含任何前导零。
 &lt;p&gt;&lt;code&gt;prefix[i]&lt;/code&gt;就代表着&lt;code&gt;nums[0..i-1]&lt;/code&gt;所有元素的累加和，如果我们想求区间&lt;code&gt;nums[i..j]&lt;/code&gt;的累加和，只要计算&lt;code&gt;prefix[j+1] - prefix[i]&lt;/code&gt;即可，而不需要遍历整个区间求和。&lt;/p&gt;
 &lt;h3 id=&quot;「差分数组」&quot;&gt;&lt;a href=&quot;#「差分数组」&quot; class=&quot;headerlink&quot; title=&quot;「差分数组」&quot;&gt;&lt;/a&gt;「差分数组」&lt;/h3&gt;&lt;p&gt;差分数组的主要适用场景是&lt;strong&gt;频繁对原始数组的某个区间的元素进行增减&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;对&lt;code&gt;nums&lt;/code&gt;数组构造一个&lt;code&gt;diff&lt;/code&gt;差分数组，&lt;strong&gt;&lt;code&gt;diff[i]&lt;/code&gt;就是&lt;code&gt;nums[i]&lt;/code&gt;和&lt;code&gt;nums[i-1]&lt;/code&gt;之差&lt;/strong&gt;：&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="algorithm" scheme="https://blog.kayleh.top/tags/algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>「图论」4：邻接表</title>
-    <link href="https://blog.kayleh.top/adjacency-table/"/>
-    <id>https://blog.kayleh.top/adjacency-table/</id>
-    <published>2021-12-27T08:50:17.000Z</published>
-    <updated>2022-03-20T15:36:48.430Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;/.top//Blog/source/_posts/离散图论4：邻接表/9738807-2c15062503d7aa64.jpeg&quot; alt=&quot;图片&quot; style=&quot;zoom:50%;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;根据邻接表建图：&lt;/p&gt;
-&lt;pre&gt;&lt;code</summary>
-        
-      
     
     
     
