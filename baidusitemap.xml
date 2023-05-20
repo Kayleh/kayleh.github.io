@@ -5,15 +5,15 @@
     <lastmod>2023-04-28</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/distributed-lock/</loc>
-    <lastmod>2022-12-11</lastmod>
-  </url>
-  <url>
     <loc>https://blog.kayleh.top/springcloud-alibaba/</loc>
     <lastmod>2022-12-11</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/springcloud-config-distributed-configuration-center/</loc>
+    <loc>https://blog.kayleh.top/distributed-lock/</loc>
+    <lastmod>2022-12-11</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/gateway-service-current-limit/</loc>
     <lastmod>2022-12-11</lastmod>
   </url>
   <url>
@@ -21,7 +21,7 @@
     <lastmod>2022-12-11</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/gateway-service-current-limit/</loc>
+    <loc>https://blog.kayleh.top/springcloud-config-distributed-configuration-center/</loc>
     <lastmod>2022-12-11</lastmod>
   </url>
   <url>
