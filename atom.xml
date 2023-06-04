@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Kayleh</title>
   
-  
+  <subtitle>blog | Dreamaker</subtitle>
   <link href="https://blog.kayleh.top/atom.xml" rel="self"/>
   
   <link href="https://blog.kayleh.top/"/>
-  <updated>2023-04-28T19:04:48.127Z</updated>
+  <updated>2023-06-02T07:13:25.126Z</updated>
   <id>https://blog.kayleh.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.kayleh.top/null/"/>
     <id>https://blog.kayleh.top/null/</id>
     <published>2023-04-28T19:04:48.000Z</published>
-    <updated>2023-04-28T19:04:48.127Z</updated>
+    <updated>2023-06-02T07:13:25.126Z</updated>
     
     
     
@@ -34,7 +34,7 @@
     <link href="https://blog.kayleh.top/tj-horse-racing/"/>
     <id>https://blog.kayleh.top/tj-horse-racing/</id>
     <published>2022-11-14T14:43:18.000Z</published>
-    <updated>2022-11-15T06:52:36.109Z</updated>
+    <updated>2023-06-02T07:13:24.828Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;田忌赛马&quot;&gt;&lt;a href=&quot;#田忌赛马&quot; class=&quot;headerlink&quot; title=&quot;田忌赛马&quot;&gt;&lt;/a&gt;田忌赛马&lt;/h2&gt;&lt;blockquote&gt;
@@ -55,7 +55,7 @@
     <link href="https://blog.kayleh.top/steal-focus/"/>
     <id>https://blog.kayleh.top/steal-focus/</id>
     <published>2022-11-10T15:31:11.000Z</published>
-    <updated>2022-11-10T18:52:52.813Z</updated>
+    <updated>2023-06-02T07:13:24.830Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;一、问题背景&quot;&gt;&lt;a href=&quot;#一、问题背景&quot; class=&quot;headerlink&quot; title=&quot;一、问题背景&quot;&gt;&lt;/a&gt;一、问题背景&lt;/h2&gt;&lt;p&gt;忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。&lt;/p&gt;
@@ -75,7 +75,7 @@
     <link href="https://blog.kayleh.top/Large-number-operations/"/>
     <id>https://blog.kayleh.top/Large-number-operations/</id>
     <published>2022-11-09T07:12:23.000Z</published>
-    <updated>2022-11-07T14:47:57.800Z</updated>
+    <updated>2023-06-02T07:13:24.823Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;高精算法解决了什么问题？&quot;&gt;&lt;a href=&quot;#高精算法解决了什么问题？&quot; class=&quot;headerlink&quot; title=&quot;高精算法解决了什么问题？&quot;&gt;&lt;/a&gt;高精算法解决了什么问题？&lt;/h1&gt;&lt;p&gt;在利用计算机作数值计算的时候，有时候会遇到这样的问题：&lt;/p&gt;
@@ -97,7 +97,7 @@
     <link href="https://blog.kayleh.top/Minimum-Spanning-Tree/"/>
     <id>https://blog.kayleh.top/Minimum-Spanning-Tree/</id>
     <published>2022-11-03T04:18:38.000Z</published>
-    <updated>2022-12-10T11:42:06.460Z</updated>
+    <updated>2023-06-02T07:13:24.938Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;最小生成树&quot;&gt;&lt;a href=&quot;#最小生成树&quot; class=&quot;headerlink&quot; title=&quot;最小生成树&quot;&gt;&lt;/a&gt;最小生成树&lt;/h1&gt;&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;最小生成树&lt;/strong&gt;（Minimum Spanning Tree，MST）是一个连通图的极小连通子图，它包含图中所有顶点，且所有边的权值之和最小。 &lt;/p&gt;
@@ -122,7 +122,7 @@
     <link href="https://blog.kayleh.top/jvm-method-inline/"/>
     <id>https://blog.kayleh.top/jvm-method-inline/</id>
     <published>2022-10-14T14:24:15.000Z</published>
-    <updated>2022-11-14T14:36:47.361Z</updated>
+    <updated>2023-06-02T07:13:24.824Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;内联优化&quot;&gt;&lt;a href=&quot;#内联优化&quot; class=&quot;headerlink&quot; title=&quot;内联优化&quot;&gt;&lt;/a&gt;内联优化&lt;/h2&gt;&lt;p&gt;在内部编译方法的时候，JVM根据内部逻辑分析是否热点代码，如果代码足够热，JVM会对方法内联优化，节省额外的方法调用开销（方法栈帧的生成、参数字段的压入、栈帧的弹出、指令执行地址跳转）。&lt;/p&gt;
@@ -146,7 +146,7 @@
     <link href="https://blog.kayleh.top/what-is-milk-and-why-is-group-wise/"/>
     <id>https://blog.kayleh.top/what-is-milk-and-why-is-group-wise/</id>
     <published>2022-08-14T14:42:19.000Z</published>
-    <updated>2022-10-09T16:17:55.228Z</updated>
+    <updated>2023-06-02T07:13:24.878Z</updated>
     
     
       
@@ -170,7 +170,7 @@
     <link href="https://blog.kayleh.top/About-Snowflake-and-Consumption-Degradation/"/>
     <id>https://blog.kayleh.top/About-Snowflake-and-Consumption-Degradation/</id>
     <published>2022-08-14T14:35:27.000Z</published>
-    <updated>2022-08-14T14:57:40.547Z</updated>
+    <updated>2023-06-02T07:13:24.883Z</updated>
     
     
     
@@ -185,7 +185,7 @@
     <link href="https://blog.kayleh.top/head-first-SpringSecurity/"/>
     <id>https://blog.kayleh.top/head-first-SpringSecurity/</id>
     <published>2022-05-01T10:05:47.000Z</published>
-    <updated>2022-06-17T05:26:57.536Z</updated>
+    <updated>2023-06-02T07:13:24.797Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;一、权限认证-SpringSecurity&quot;&gt;&lt;a href=&quot;#一、权限认证-SpringSecurity&quot; class=&quot;headerlink&quot; title=&quot;一、权限认证 SpringSecurity&quot;&gt;&lt;/a&gt;一、权限认证 SpringSecurity&lt;/h3&gt;&lt;p&gt;1.引入安全框架SpringSecurity&lt;/p&gt;
@@ -209,7 +209,7 @@
     <link href="https://blog.kayleh.top/head-first-docker/"/>
     <id>https://blog.kayleh.top/head-first-docker/</id>
     <published>2022-04-23T13:23:00.000Z</published>
-    <updated>2022-06-17T05:26:06.592Z</updated>
+    <updated>2023-06-02T07:13:24.798Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;Docker&quot;&gt;&lt;a href=&quot;#Docker&quot; class=&quot;headerlink&quot; title=&quot;Docker&quot;&gt;&lt;/a&gt;Docker&lt;/h3&gt;&lt;p&gt;Docker 是一个开源的应用容器引擎，基于Go 语言并遵从 Apache2.0 协议开源。&lt;/p&gt;
@@ -229,7 +229,7 @@
     <link href="https://blog.kayleh.top/dic-algorithm/"/>
     <id>https://blog.kayleh.top/dic-algorithm/</id>
     <published>2022-03-26T16:02:10.000Z</published>
-    <updated>2022-08-14T14:45:07.268Z</updated>
+    <updated>2023-06-02T07:13:24.825Z</updated>
     
     
     <summary type="html">&lt;p&gt;问题：&lt;/p&gt;
@@ -272,7 +272,7 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/lru-cache/"/>
     <id>https://blog.kayleh.top/lru-cache/</id>
     <published>2022-03-16T05:18:22.000Z</published>
-    <updated>2022-03-16T06:14:54.894Z</updated>
+    <updated>2023-06-02T07:13:24.825Z</updated>
     
     
       
@@ -299,7 +299,7 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/stack-simulation-iteration/"/>
     <id>https://blog.kayleh.top/stack-simulation-iteration/</id>
     <published>2022-03-12T18:15:57.000Z</published>
-    <updated>2022-03-12T18:52:52.383Z</updated>
+    <updated>2023-06-02T07:13:24.826Z</updated>
     
     
     <summary type="html">&lt;p&gt;模拟系统执行「递归」的过程&lt;/p&gt;
@@ -338,7 +338,7 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/topoSorting/"/>
     <id>https://blog.kayleh.top/topoSorting/</id>
     <published>2022-03-07T05:49:52.000Z</published>
-    <updated>2022-03-26T16:24:42.914Z</updated>
+    <updated>2023-06-02T07:13:24.928Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;直观地说就是，让你把一幅图「拉平」，而且这个「拉平」的图里面，所有箭头方向都是一致的&lt;/strong&gt;，比如上图所有箭头都是朝右的。&lt;/p&gt;
@@ -361,11 +361,11 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/round-dp-algorithm/"/>
     <id>https://blog.kayleh.top/round-dp-algorithm/</id>
     <published>2022-02-17T06:06:18.000Z</published>
-    <updated>2022-06-17T05:27:24.654Z</updated>
+    <updated>2023-06-02T07:13:24.899Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;688-骑士在棋盘上的概率&quot;&gt;&lt;a href=&quot;#688-骑士在棋盘上的概率&quot; class=&quot;headerlink&quot; title=&quot;688. 骑士在棋盘上的概率&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/knight-probability-in-chessboard/&quot;&gt;688. 骑士在棋盘上的概率&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;象棋骑士有8种可能的走法，如下图所示。每次移动在基本方向上是两个单元格，然后在正交方向上是一个单元格。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Kayleh/cdn4/main/knight.png&quot; alt&gt;&lt;/p&gt;
+&lt;div class=&quot;tag-plugin image&quot;&gt;&lt;div class=&quot;image-bg&quot;&gt;&lt;img src=&quot;https://raw.githubusercontent.com/Kayleh/cdn4/main/knight.png&quot;&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;每次骑士要移动时，它都会随机从8种可能的移动中选择一种(即使棋子会离开棋盘)，然后移动到那里。&lt;/p&gt;
 &lt;p&gt;骑士继续移动，直到它走了 &lt;code&gt;k&lt;/code&gt; 步或离开了棋盘。&lt;/p&gt;</summary>
     
@@ -381,7 +381,7 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/Reservoir-Sampling%C2%B7/"/>
     <id>https://blog.kayleh.top/Reservoir-Sampling%C2%B7/</id>
     <published>2022-01-17T08:01:30.000Z</published>
-    <updated>2022-01-17T09:59:12.773Z</updated>
+    <updated>2023-06-02T07:13:24.956Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;「蓄水池抽样算法」&quot;&gt;&lt;a href=&quot;#「蓄水池抽样算法」&quot; class=&quot;headerlink&quot; title=&quot;「蓄水池抽样算法」&quot;&gt;&lt;/a&gt;「蓄水池抽样算法」&lt;/h3&gt;&lt;p&gt;优势：只需一次遍历，适用总量未知的情况&lt;/p&gt;
@@ -412,7 +412,7 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/Comparator/"/>
     <id>https://blog.kayleh.top/Comparator/</id>
     <published>2022-01-10T05:35:35.000Z</published>
-    <updated>2022-01-10T05:39:21.730Z</updated>
+    <updated>2023-06-02T07:13:24.942Z</updated>
     
     
     
@@ -427,7 +427,7 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/PriorityQueue/"/>
     <id>https://blog.kayleh.top/PriorityQueue/</id>
     <published>2022-01-03T16:02:09.000Z</published>
-    <updated>2022-01-10T08:19:17.831Z</updated>
+    <updated>2023-06-02T07:13:24.908Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;「优先队列」&quot;&gt;&lt;a href=&quot;#「优先队列」&quot; class=&quot;headerlink&quot; title=&quot;「优先队列」&quot;&gt;&lt;/a&gt;「优先队列」&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;应用场景&lt;/strong&gt;：从序列中找一个最值（最大值或最小值），如果顺序寻找最值需要O(n)的时间，而使用优先队列则只需要O(logn)的时间。&lt;/p&gt;
@@ -447,7 +447,7 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/slidingWindow/"/>
     <id>https://blog.kayleh.top/slidingWindow/</id>
     <published>2022-01-02T10:18:16.000Z</published>
-    <updated>2022-01-06T05:44:31.185Z</updated>
+    <updated>2023-06-02T07:13:24.946Z</updated>
     
     
       
@@ -470,7 +470,7 @@ num 不会包含任何前导零。
     <link href="https://blog.kayleh.top/Differential-array/"/>
     <id>https://blog.kayleh.top/Differential-array/</id>
     <published>2022-01-01T14:25:42.000Z</published>
-    <updated>2022-01-01T15:27:44.350Z</updated>
+    <updated>2023-06-02T07:13:24.921Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和&lt;/strong&gt;。&lt;/p&gt;

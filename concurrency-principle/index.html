@@ -1,4 +1,4 @@
-<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>concurrency-principle</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/concurrency-principle/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">concurrency-principle</h1><p class="meta"><time datetime="2018-12-31T21:30:23.000Z" data-updated="true">Tue Jan 01 2019</time></p></header><div class="entry-content"><h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="为什么要创建线程池"><a href="#为什么要创建线程池" class="headerlink" title="为什么要创建线程池"></a>为什么要创建线程池</h3><pre><code class="lang-bash">如果系统要运行多个线程,大量反复的启动创建和回收线程会非常占用系统资源,导致性能下降.
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>concurrency-principle - Kayleh</title><meta name="description" content="多线程为什么要创建线程池如果系统要运行多个线程,大量反复的启动创建和回收线程会非常占用系统资源,导致性能下降."><meta property="og:type" content="article"><meta property="og:title" content="concurrency-principle"><meta property="og:url" content="https://blog.kayleh.top/concurrency-principle/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="多线程为什么要创建线程池如果系统要运行多个线程,大量反复的启动创建和回收线程会非常占用系统资源,导致性能下降."><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201400425.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201434168.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201545835.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201711284.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201806178.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201835537.png"><meta property="article:published_time" content="2018-12-31T21:30:23.000Z"><meta property="article:modified_time" content="2023-06-02T07:13:24.923Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="kayleh,blog,algo,algorithm,cpp,java"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201400425.png"><meta name="keywords" content="kayleh,blog,algo,algorithm,cpp,java"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">concurrency-principle</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-text">为什么要创建线程池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86"><span class="toc-text">线程池原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">线程池的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E6%B3%95"><span class="toc-text">线程池的创建方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-text">关闭线程池</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadPoolExecutor%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="toc-text">ThreadPoolExecutor运行机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%90%88%E7%90%86%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%A7%E5%B0%8F"><span class="toc-text">设置合理的线程池大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Executor%E4%B8%A4%E7%BA%A7%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B"><span class="toc-text">Executor两级调度模型</span></a></li></ol></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2018-12-31T21:30:23.000Z">2019-01-01</time></div></div><article class="md-text content post"><h1 class="article-title"><span>concurrency-principle</span></h1><h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="为什么要创建线程池"><a href="#为什么要创建线程池" class="headerlink" title="为什么要创建线程池"></a>为什么要创建线程池</h3><pre><code class="lang-bash">如果系统要运行多个线程,大量反复的启动创建和回收线程会非常占用系统资源,导致性能下降.
 </code></pre><span id="more"></span><p>创建线程池,可以:<br>1.降低资源消耗<br>2.提升响应速度<br>3.提高</p><h3 id="线程池原理"><a href="#线程池原理" class="headerlink" title="线程池原理"></a>线程池原理</h3><blockquote><p>线程池一般由两种角色构成：多个工作线程 和 一个阻塞队列。</p><ul><li><p>工作线程 :<br>工作线程是一组已经处在运行中的线程，它们不断地向阻塞队列中领取任务执行。</p></li><li><p>阻塞队列 :<br>阻塞队列用于存储工作线程来不及处理的任务。当工作线程都在执行任务时，到来的新任务就只能暂时在阻塞队列中存储。</p></li></ul></blockquote><pre><code class="lang-bash">提交一个任务到线程池中,线程池的处理流程如下:
 1.判断线程池里的核心线程是否都在执行任务,如果不是(核心线程空闲或者核心线程没有被创建)则创建一个新的工作线程来执行任务.如果核心线程都在执行任务,则进入下个流程.
 2.线程池判断工作队列是否已满,如果工作路径没有满,则新提交的任务储存在这个工作队列里.如果工作队列满了,则进入下个流程.
@@ -138,15 +138,161 @@ public class Test111907 {
         }
     }
 }
-</code></pre><h4 id="关闭线程池"><a href="#关闭线程池" class="headerlink" title="关闭线程池"></a><strong>关闭线程池</strong></h4><p>关闭线程池有两种方式：shutdown和shutdownNow，关闭时，会遍历所有的线程，调用它们的interrupt函数中断线程。但这两种方式对于正在执行的线程处理方式不同。</p><ol><li><p>shutdown()<br>仅停止阻塞队列中等待的线程，那些正在执行的线程就会让他们执行结束。</p></li><li><p>shutdownNow()<br>不仅会停止阻塞队列中的线程，而且会停止正在执行的线程。</p></li></ol><h3 id="ThreadPoolExecutor运行机制"><a href="#ThreadPoolExecutor运行机制" class="headerlink" title="ThreadPoolExecutor运行机制"></a><strong>ThreadPoolExecutor运行机制</strong></h3><p>当有请求到来时：</p><ol><li>若当前实际线程数量 少于 corePoolSize，即使有空闲线程，也会创建一个新的工作线程；</li><li>若当前实际线程数量处于corePoolSize和maximumPoolSize之间，并且阻塞队列没满，则任务将被放入阻塞队列中等待执行；</li><li>若当前实际线程数量 小于 maximumPoolSize，但阻塞队列已满，则直接创建新线程处理任务；</li><li>若当前实际线程数量已经达到maximumPoolSize，并且阻塞队列已满，则使用饱和策略。</li></ol><h3 id="设置合理的线程池大小"><a href="#设置合理的线程池大小" class="headerlink" title="设置合理的线程池大小"></a>设置合理的线程池大小</h3><p>任务一般可分为：CPU密集型、IO密集型、混合型，对于不同类型的任务需要分配不同大小的线程池。</p><p>CPU密集型任务</p><ul><li>尽量使用较小的线程池，一般为CPU核心数+1。<br>因为CPU密集型任务使得CPU使用率很高，若开过多的线程数，只能增加上下文切换的次数，因此会带来额外的开销。</li><li>IO密集型任务<br>可以使用稍大的线程池，一般为2*CPU核心数。<br>IO密集型任务CPU使用率并不高，因此可以让CPU在等待IO的时候去处理别的任务，充分利用CPU时间。</li><li>混合型任务<br>可以将任务分成IO密集型和CPU密集型任务，然后分别用不同的线程池去处理。<br>只要分完之后两个任务的执行时间相差不大，那么就会比串行执行来的高效。<br>因为如果划分之后两个任务执行时间相差甚远，那么先执行完的任务就要等后执行完的任务，最终的时间仍然取决于后执行完的任务，而且还要加上任务拆分与合并的开销，得不偿失。</li></ul><h3 id="Executor两级调度模型"><a href="#Executor两级调度模型" class="headerlink" title="Executor两级调度模型"></a><strong>Executor两级调度模型</strong></h3><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201400425.png" alt="在这里插入图片描述"></p><p>在HotSpot虚拟机中，Java中的线程将会被一一映射为操作系统的线程。<br>在Java虚拟机层面，用户将多个任务提交给Executor框架，Executor负责分配线程执行它们；<br>在操作系统层面，操作系统再将这些线程分配给处理器执行。</p><p><strong>Executor结构</strong><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201434168.png" alt="在这里插入图片描述"></p><p>Executor框架中的所有类可以分成三类：</p><ol><li>任务<br>任务有两种类型：Runnable和Callable。</li><li>任务执行器<br>Executor框架最核心的接口是Executor，它表示任务的执行器。<br>Executor的子接口为ExecutorService。<br>ExecutorService有两大实现类：ThreadPoolExecutor和ScheduledThreadPoolExecutor。</li><li>执行结果<br>Future接口表示异步的执行结果，它的实现类为FutureTask。</li></ol><p><strong>线程池</strong><br>Executors工厂类可以创建四种类型的线程池，通过Executors.newXXX即可创建。</p><p><strong>1. FixedThreadPool</strong></p><pre><code>public static ExecutorService newFixedThreadPool(int nThreads){
+</code></pre><h4 id="关闭线程池"><a href="#关闭线程池" class="headerlink" title="关闭线程池"></a><strong>关闭线程池</strong></h4><p>关闭线程池有两种方式：shutdown和shutdownNow，关闭时，会遍历所有的线程，调用它们的interrupt函数中断线程。但这两种方式对于正在执行的线程处理方式不同。</p><ol><li><p>shutdown()<br>仅停止阻塞队列中等待的线程，那些正在执行的线程就会让他们执行结束。</p></li><li><p>shutdownNow()<br>不仅会停止阻塞队列中的线程，而且会停止正在执行的线程。</p></li></ol><h3 id="ThreadPoolExecutor运行机制"><a href="#ThreadPoolExecutor运行机制" class="headerlink" title="ThreadPoolExecutor运行机制"></a><strong>ThreadPoolExecutor运行机制</strong></h3><p>当有请求到来时：</p><ol><li>若当前实际线程数量 少于 corePoolSize，即使有空闲线程，也会创建一个新的工作线程；</li><li>若当前实际线程数量处于corePoolSize和maximumPoolSize之间，并且阻塞队列没满，则任务将被放入阻塞队列中等待执行；</li><li>若当前实际线程数量 小于 maximumPoolSize，但阻塞队列已满，则直接创建新线程处理任务；</li><li>若当前实际线程数量已经达到maximumPoolSize，并且阻塞队列已满，则使用饱和策略。</li></ol><h3 id="设置合理的线程池大小"><a href="#设置合理的线程池大小" class="headerlink" title="设置合理的线程池大小"></a>设置合理的线程池大小</h3><p>任务一般可分为：CPU密集型、IO密集型、混合型，对于不同类型的任务需要分配不同大小的线程池。</p><p>CPU密集型任务</p><ul><li>尽量使用较小的线程池，一般为CPU核心数+1。<br>因为CPU密集型任务使得CPU使用率很高，若开过多的线程数，只能增加上下文切换的次数，因此会带来额外的开销。</li><li>IO密集型任务<br>可以使用稍大的线程池，一般为2*CPU核心数。<br>IO密集型任务CPU使用率并不高，因此可以让CPU在等待IO的时候去处理别的任务，充分利用CPU时间。</li><li>混合型任务<br>可以将任务分成IO密集型和CPU密集型任务，然后分别用不同的线程池去处理。<br>只要分完之后两个任务的执行时间相差不大，那么就会比串行执行来的高效。<br>因为如果划分之后两个任务执行时间相差甚远，那么先执行完的任务就要等后执行完的任务，最终的时间仍然取决于后执行完的任务，而且还要加上任务拆分与合并的开销，得不偿失。</li></ul><h3 id="Executor两级调度模型"><a href="#Executor两级调度模型" class="headerlink" title="Executor两级调度模型"></a><strong>Executor两级调度模型</strong></h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201400425.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><p>在HotSpot虚拟机中，Java中的线程将会被一一映射为操作系统的线程。<br>在Java虚拟机层面，用户将多个任务提交给Executor框架，Executor负责分配线程执行它们；<br>在操作系统层面，操作系统再将这些线程分配给处理器执行。</p><p><strong>Executor结构</strong></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201434168.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><p></p><p>Executor框架中的所有类可以分成三类：</p><ol><li>任务<br>任务有两种类型：Runnable和Callable。</li><li>任务执行器<br>Executor框架最核心的接口是Executor，它表示任务的执行器。<br>Executor的子接口为ExecutorService。<br>ExecutorService有两大实现类：ThreadPoolExecutor和ScheduledThreadPoolExecutor。</li><li>执行结果<br>Future接口表示异步的执行结果，它的实现类为FutureTask。</li></ol><p><strong>线程池</strong><br>Executors工厂类可以创建四种类型的线程池，通过Executors.newXXX即可创建。</p><p><strong>1. FixedThreadPool</strong></p><pre><code>public static ExecutorService newFixedThreadPool(int nThreads){
     return new ThreadPoolExecutor(nThreads,nThreads,0L,TimeUnit.MILLISECONDS,new LinkedBlockingQueue&lt;Runnable&gt;());
 }
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201545835.png" alt="v2-984ba405f67249ab3cc043c75dbcbedd_hd.jpg"></p><ul><li>它是一种固定大小的线程池；</li><li>corePoolSize和maximunPoolSize都为用户设定的线程数量nThreads；</li><li>keepAliveTime为0，意味着一旦有多余的空闲线程，就会被立即停止掉；但这里keepAliveTime无效；</li><li>阻塞队列采用了LinkedBlockingQueue，它是一个无界队列；</li><li>由于阻塞队列是一个无界队列，因此永远不可能拒绝任务；</li><li>由于采用了无界队列，实际线程数量将永远维持在nThreads，因此maximumPoolSize和keepAliveTime将无效。</li></ul><p><strong>2. CachedThreadPool</strong></p><pre><code>    public static ExecutorService newCachedThreadPool(){
+</code></pre><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201545835.png" alt="v2-984ba405f67249ab3cc043c75dbcbedd_hd.jpg"></div><div class="image-meta"><span class="image-caption center">v2-984ba405f67249ab3cc043c75dbcbedd_hd.jpg</span></div></div><ul><li>它是一种固定大小的线程池；</li><li>corePoolSize和maximunPoolSize都为用户设定的线程数量nThreads；</li><li>keepAliveTime为0，意味着一旦有多余的空闲线程，就会被立即停止掉；但这里keepAliveTime无效；</li><li>阻塞队列采用了LinkedBlockingQueue，它是一个无界队列；</li><li>由于阻塞队列是一个无界队列，因此永远不可能拒绝任务；</li><li>由于采用了无界队列，实际线程数量将永远维持在nThreads，因此maximumPoolSize和keepAliveTime将无效。</li></ul><p><strong>2. CachedThreadPool</strong></p><pre><code>    public static ExecutorService newCachedThreadPool(){
         return new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.MILLISECONDS,new SynchronousQueue&lt;Runnable&gt;());
     }
 123
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201711284.png" alt="v2-f9cff0865c6143ace452274046322335_hd.jpg"></p><ul><li>它是一个可以无限扩大的线程池；</li><li>它比较适合处理执行时间比较小的任务；</li><li>corePoolSize为0，maximumPoolSize为无限大，意味着线程数量可以无限大；</li><li>keepAliveTime为60S，意味着线程空闲时间超过60S就会被杀死；</li><li>采用SynchronousQueue装等待的任务，这个阻塞队列没有存储空间，这意味着只要有请求到来，就必须要找到一条工作线程处理他，如果当前没有空闲的线程，那么就会再创建一条新的线程。</li></ul><p><strong>3. SingleThreadExecutor</strong></p><pre><code>public static ExecutorService newSingleThreadExecutor(){
+</code></pre><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201711284.png" alt="v2-f9cff0865c6143ace452274046322335_hd.jpg"></div><div class="image-meta"><span class="image-caption center">v2-f9cff0865c6143ace452274046322335_hd.jpg</span></div></div><ul><li>它是一个可以无限扩大的线程池；</li><li>它比较适合处理执行时间比较小的任务；</li><li>corePoolSize为0，maximumPoolSize为无限大，意味着线程数量可以无限大；</li><li>keepAliveTime为60S，意味着线程空闲时间超过60S就会被杀死；</li><li>采用SynchronousQueue装等待的任务，这个阻塞队列没有存储空间，这意味着只要有请求到来，就必须要找到一条工作线程处理他，如果当前没有空闲的线程，那么就会再创建一条新的线程。</li></ul><p><strong>3. SingleThreadExecutor</strong></p><pre><code>public static ExecutorService newSingleThreadExecutor(){
     return new ThreadPoolExecutor(1,1,0L,TimeUnit.MILLISECONDS,new LinkedBlockingQueue&lt;Runnable&gt;());
 }
 123
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201806178.png" alt="在这里插入图片描述"></p><ul><li>它只会创建一条工作线程处理任务；</li><li>采用的阻塞队列为LinkedBlockingQueue；</li></ul><p><strong>4. ScheduledThreadPool</strong></p><p>它用来处理延时任务或定时任务。</p><p><img src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201835537.png" alt="img"></p><ul><li>它接收SchduledFutureTask类型的任务，有两种提交任务的方式：</li><li>scheduledAtFixedRate</li><li>scheduledWithFixedDelay</li><li>SchduledFutureTask接收的参数：</li><li>time：任务开始的时间</li><li>sequenceNumber：任务的序号</li><li>period：任务执行的时间间隔</li><li>它采用DelayQueue存储等待的任务</li><li>DelayQueue内部封装了一个PriorityQueue，它会根据time的先后时间排序，若time相同则根据sequenceNumber排序；</li><li>DelayQueue也是一个无界队列；</li><li>工作线程的执行过程：</li><li>工作线程会从DelayQueue取已经到期的任务去执行；</li><li>执行结束后重新设置任务的到期时间，再次放回DelayQueue</li></ul><p>微信公众号:每日学习干货</p></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2018-12-31T21:30:23.000Z" data-updated="true">Tue Jan 01 2019</time></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=concurrency-principle">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: SpringMVC环境搭建">« SpringMVC环境搭建</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/null/">链式前向星(linked-forward-star)实现</a></li><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/concurrency-principle/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var e=document,t=e.createElement("script");t.src="https://kayleh.disqus.com/embed.js",t.setAttribute("data-timestamp",+new Date),(e.head||e.body).appendChild(t)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+</code></pre><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201806178.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ul><li>它只会创建一条工作线程处理任务；</li><li>采用的阻塞队列为LinkedBlockingQueue；</li></ul><p><strong>4. ScheduledThreadPool</strong></p><p>它用来处理延时任务或定时任务。</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/并发：原理/20200531201835537.png" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><ul><li>它接收SchduledFutureTask类型的任务，有两种提交任务的方式：</li><li>scheduledAtFixedRate</li><li>scheduledWithFixedDelay</li><li>SchduledFutureTask接收的参数：</li><li>time：任务开始的时间</li><li>sequenceNumber：任务的序号</li><li>period：任务执行的时间间隔</li><li>它采用DelayQueue存储等待的任务</li><li>DelayQueue内部封装了一个PriorityQueue，它会根据time的先后时间排序，若time相同则根据sequenceNumber排序；</li><li>DelayQueue也是一个无界队列；</li><li>工作线程的执行过程：</li><li>工作线程会从DelayQueue取已经到期的任务去执行；</li><li>执行结束后重新设置任务的到期时间，再次放回DelayQueue</li></ul><p>微信公众号:每日学习干货</p><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/springmvc-environment-construction/">SpringMVC环境搭建</a></div><div class="item" id="next"></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

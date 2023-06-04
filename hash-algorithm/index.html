@@ -1,4 +1,4 @@
-<!DOCTYPE html><!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh-CN,en,default"><![endif]--><!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh-CN,en,default"><![endif]--><!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh-CN,en,default"><!--<![endif]--><head><meta charset="UTF-8"><title>hash algorithm</title><meta name="author" content="Kayleh"><link rel="shortcut icon" href="/images/favicon.png"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1"><link rel="canonical" href="https://blog.kayleh.top/hash-algorithm/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><script>window.twttr=function(t,e,r){var n,i=t.getElementsByTagName(e)[0],w=window.twttr||{};return t.getElementById(r)||((n=t.createElement(e)).id=r,n.src="https://platform.twitter.com/widgets.js",i.parentNode.insertBefore(n,i),w._e=[],w.ready=function(t){w._e.push(t)}),w}(document,"script","twitter-wjs")</script><link rel="me" href="https://twitter.com/y40jinqing"><script data-ad-client="ca-pub-7457165067653912" async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><meta name="generator" content="Hexo 5.4.2"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');loadCss('https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic');loadCss('https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic');</script><noscript><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"></noscript></head><body><header role="banner"><hgroup><h1><a href="/">Kayleh</a></h1></hgroup><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script></header><nav role="navigation"><ul class="subscription" data-subscription="rss"><li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li></ul><form action="https://google.com/search" method="get"><fieldset role="search"><input type="hidden" name="q" value="site:https://blog.kayleh.top/"> <input class="search" type="text" name="q" results="0" placeholder="Search"></fieldset></form><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archives">Archives</a></li><li><a href="/about/">about me</a></li><li><a href="/tags/">tag</a></li><li><a href="/link/">friends</a></li></ul></nav><div id="main"><div id="content"><div><article class="hentry" role="article"><header><h1 class="entry-title">hash algorithm</h1><p class="meta"><time datetime="2020-06-17T02:03:58.000Z" data-updated="true">Wed Jun 17 2020</time></p></header><div class="entry-content"><h3 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h3><blockquote><p>哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。</p><span id="more"></span></blockquote><p>哈希算法最重要的特点就是：</p><ul><li>相同的输入一定得到相同的输出；</li><li>不同的输入大概率得到不同的输出。</li></ul><p>哈希算法的目的就是为了验证原始数据是否被篡改。</p><p>Java字符串的<code>hashCode()</code>就是一个哈希算法，它的输入是任意字符串，输出是固定的4字节<code>int</code>整数：</p><pre><code>"hello".hashCode(); // 0x5e918d2
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>hash algorithm - Kayleh</title><meta name="description" content="哈希算法 哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。"><meta property="og:type" content="article"><meta property="og:title" content="hash algorithm"><meta property="og:url" content="https://blog.kayleh.top/hash-algorithm/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="哈希算法 哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.liaoxuefeng.com/files/attachments/1305351978745921/l"><meta property="article:published_time" content="2020-06-17T02:03:58.000Z"><meta property="article:modified_time" content="2023-06-02T07:13:24.904Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="algorithm"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://www.liaoxuefeng.com/files/attachments/1305351978745921/l"><meta name="keywords" content="algorithm"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">hash algorithm</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95"><span class="toc-text">哈希算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%A2%B0%E6%92%9E"><span class="toc-text">哈希碰撞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E7%9A%84%E7%94%A8%E9%80%94"><span class="toc-text">哈希算法的用途</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHA-1"><span class="toc-text">SHA-1</span></a></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-06-17T02:03:58.000Z">2020-06-17</time></div></div><article class="md-text content post"><h1 class="article-title"><span>hash algorithm</span></h1><h3 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h3><blockquote><p>哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。</p><span id="more"></span></blockquote><p>哈希算法最重要的特点就是：</p><ul><li>相同的输入一定得到相同的输出；</li><li>不同的输入大概率得到不同的输出。</li></ul><p>哈希算法的目的就是为了验证原始数据是否被篡改。</p><p>Java字符串的<code>hashCode()</code>就是一个哈希算法，它的输入是任意字符串，输出是固定的4字节<code>int</code>整数：</p><pre><code>"hello".hashCode(); // 0x5e918d2
 "hello, java".hashCode(); // 0x7a9d88e8
 "hello, bob".hashCode(); // 0xa0dbae2f
 </code></pre><p>两个相同的字符串永远会计算出相同的<code>hashCode</code>，否则基于<code>hashCode</code>定位的<code>HashMap</code>就无法正常工作。这也是为什么当我们自定义一个class时，覆写<code>equals()</code>方法时我们必须正确覆写<code>hashCode()</code>方法。</p><h3 id="哈希碰撞"><a href="#哈希碰撞" class="headerlink" title="哈希碰撞"></a>哈希碰撞</h3><p>哈希碰撞是指，两个不同的输入得到了相同的输出：</p><pre><code>"AaAaAa".hashCode(); // 0x7460e8c0
@@ -20,7 +20,7 @@ hashB("java003") = ???
         System.out.println(new BigInteger(1, result).toString(16));
     }
 }
-</code></pre><p>使用<code>MessageDigest</code>时，我们首先根据哈希算法获取一个<code>MessageDigest</code>实例，然后，反复调用<code>update(byte[])</code>输入数据。当输入结束后，调用<code>digest()</code>方法获得byte[]数组表示的摘要，最后，把它转换为十六进制的字符串。</p><p>运行上述代码，可以得到输入<code>HelloWorld</code>的MD5是<code>68e109f0f40ca72a15e05cc22786f8e6</code>。</p><h3 id="哈希算法的用途"><a href="#哈希算法的用途" class="headerlink" title="哈希算法的用途"></a>哈希算法的用途</h3><p>因为相同的输入永远会得到相同的输出，因此，如果输入被修改了，得到的输出就会不同。</p><p>我们在网站上下载软件的时候，经常看到下载页显示的哈希：</p><p><img src="https://www.liaoxuefeng.com/files/attachments/1305351978745921/l" alt="file-md5"></p><p>如何判断下载到本地的软件是原始的、未经篡改的文件？我们只需要自己计算一下本地文件的哈希值，再与官网公开的哈希值对比，如果相同，说明文件下载正确，否则，说明文件已被篡改。</p><p>哈希算法的另一个重要用途是存储用户口令。如果直接将用户的原始口令存放到数据库中，会产生极大的安全风险：</p><ul><li>数据库管理员能够看到用户明文口令；</li><li>数据库数据一旦泄漏，黑客即可获取用户明文口令。</li></ul><p>不存储用户的原始口令，那么如何对用户进行认证？</p><p>方法是存储用户口令的哈希，例如，MD5。</p><p>在用户输入原始口令后，系统计算用户输入的原始口令的MD5并与数据库存储的MD5对比，如果一致，说明口令正确，否则，口令错误。</p><p>因此，数据库存储用户名和口令的表内容应该像下面这样：</p><div class="table-container"><table><thead><tr><th style="text-align:left">username</th><th style="text-align:left">password</th></tr></thead><tbody><tr><td style="text-align:left">bob</td><td style="text-align:left">f30aa7a662c728b7407c54ae6bfd27d1</td></tr><tr><td style="text-align:left">alice</td><td style="text-align:left">25d55ad283aa400af464c76d713c07ad</td></tr><tr><td style="text-align:left">tim</td><td style="text-align:left">bed128365216c019988915ed3add75fb</td></tr></tbody></table></div><p>这样一来，数据库管理员看不到用户的原始口令。即使数据库泄漏，黑客也无法拿到用户的原始口令。想要拿到用户的原始口令，必须用暴力穷举的方法，一个口令一个口令地试，直到某个口令计算的MD5恰好等于指定值。</p><p>使用哈希口令时，还要注意防止彩虹表攻击。</p><p>什么是彩虹表呢？上面讲到了，如果只拿到MD5，从MD5反推明文口令，只能使用暴力穷举的方法。</p><p>然而黑客并不笨，暴力穷举会消耗大量的算力和时间。但是，如果有一个预先计算好的常用口令和它们的MD5的对照表：</p><div class="table-container"><table><thead><tr><th style="text-align:left">常用口令</th><th style="text-align:left">MD5</th></tr></thead><tbody><tr><td style="text-align:left">hello123</td><td style="text-align:left">f30aa7a662c728b7407c54ae6bfd27d1</td></tr><tr><td style="text-align:left">12345678</td><td style="text-align:left">25d55ad283aa400af464c76d713c07ad</td></tr><tr><td style="text-align:left">passw0rd</td><td style="text-align:left">bed128365216c019988915ed3add75fb</td></tr><tr><td style="text-align:left">19700101</td><td style="text-align:left">570da6d5277a646f6552b8832012f5dc</td></tr><tr><td style="text-align:left">…</td><td style="text-align:left">…</td></tr><tr><td style="text-align:left">20201231</td><td style="text-align:left">6879c0ae9117b50074ce0a0d4c843060</td></tr></tbody></table></div><p>这个表就是彩虹表。如果用户使用了常用口令，黑客从MD5一下就能反查到原始口令：</p><p>bob的MD5：<code>f30aa7a662c728b7407c54ae6bfd27d1</code>，原始口令：<code>hello123</code>；</p><p>alice的MD5：<code>25d55ad283aa400af464c76d713c07ad</code>，原始口令：<code>12345678</code>；</p><p>tim的MD5：<code>bed128365216c019988915ed3add75fb</code>，原始口令：<code>passw0rd</code>。</p><p>这就是为什么不要使用常用密码，以及不要使用生日作为密码的原因。</p><p>即使用户使用了常用口令，我们也可以采取措施来抵御彩虹表攻击，方法是对每个口令额外添加随机数，这个方法称之为加盐（salt）：</p><pre><code>digest = md5(salt+inputPassword)
+</code></pre><p>使用<code>MessageDigest</code>时，我们首先根据哈希算法获取一个<code>MessageDigest</code>实例，然后，反复调用<code>update(byte[])</code>输入数据。当输入结束后，调用<code>digest()</code>方法获得byte[]数组表示的摘要，最后，把它转换为十六进制的字符串。</p><p>运行上述代码，可以得到输入<code>HelloWorld</code>的MD5是<code>68e109f0f40ca72a15e05cc22786f8e6</code>。</p><h3 id="哈希算法的用途"><a href="#哈希算法的用途" class="headerlink" title="哈希算法的用途"></a>哈希算法的用途</h3><p>因为相同的输入永远会得到相同的输出，因此，如果输入被修改了，得到的输出就会不同。</p><p>我们在网站上下载软件的时候，经常看到下载页显示的哈希：</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://www.liaoxuefeng.com/files/attachments/1305351978745921/l" alt="file-md5"></div><div class="image-meta"><span class="image-caption center">file-md5</span></div></div><p>如何判断下载到本地的软件是原始的、未经篡改的文件？我们只需要自己计算一下本地文件的哈希值，再与官网公开的哈希值对比，如果相同，说明文件下载正确，否则，说明文件已被篡改。</p><p>哈希算法的另一个重要用途是存储用户口令。如果直接将用户的原始口令存放到数据库中，会产生极大的安全风险：</p><ul><li>数据库管理员能够看到用户明文口令；</li><li>数据库数据一旦泄漏，黑客即可获取用户明文口令。</li></ul><p>不存储用户的原始口令，那么如何对用户进行认证？</p><p>方法是存储用户口令的哈希，例如，MD5。</p><p>在用户输入原始口令后，系统计算用户输入的原始口令的MD5并与数据库存储的MD5对比，如果一致，说明口令正确，否则，口令错误。</p><p>因此，数据库存储用户名和口令的表内容应该像下面这样：</p><div class="table-container"><table><thead><tr><th style="text-align:left">username</th><th style="text-align:left">password</th></tr></thead><tbody><tr><td style="text-align:left">bob</td><td style="text-align:left">f30aa7a662c728b7407c54ae6bfd27d1</td></tr><tr><td style="text-align:left">alice</td><td style="text-align:left">25d55ad283aa400af464c76d713c07ad</td></tr><tr><td style="text-align:left">tim</td><td style="text-align:left">bed128365216c019988915ed3add75fb</td></tr></tbody></table></div><p>这样一来，数据库管理员看不到用户的原始口令。即使数据库泄漏，黑客也无法拿到用户的原始口令。想要拿到用户的原始口令，必须用暴力穷举的方法，一个口令一个口令地试，直到某个口令计算的MD5恰好等于指定值。</p><p>使用哈希口令时，还要注意防止彩虹表攻击。</p><p>什么是彩虹表呢？上面讲到了，如果只拿到MD5，从MD5反推明文口令，只能使用暴力穷举的方法。</p><p>然而黑客并不笨，暴力穷举会消耗大量的算力和时间。但是，如果有一个预先计算好的常用口令和它们的MD5的对照表：</p><div class="table-container"><table><thead><tr><th style="text-align:left">常用口令</th><th style="text-align:left">MD5</th></tr></thead><tbody><tr><td style="text-align:left">hello123</td><td style="text-align:left">f30aa7a662c728b7407c54ae6bfd27d1</td></tr><tr><td style="text-align:left">12345678</td><td style="text-align:left">25d55ad283aa400af464c76d713c07ad</td></tr><tr><td style="text-align:left">passw0rd</td><td style="text-align:left">bed128365216c019988915ed3add75fb</td></tr><tr><td style="text-align:left">19700101</td><td style="text-align:left">570da6d5277a646f6552b8832012f5dc</td></tr><tr><td style="text-align:left">…</td><td style="text-align:left">…</td></tr><tr><td style="text-align:left">20201231</td><td style="text-align:left">6879c0ae9117b50074ce0a0d4c843060</td></tr></tbody></table></div><p>这个表就是彩虹表。如果用户使用了常用口令，黑客从MD5一下就能反查到原始口令：</p><p>bob的MD5：<code>f30aa7a662c728b7407c54ae6bfd27d1</code>，原始口令：<code>hello123</code>；</p><p>alice的MD5：<code>25d55ad283aa400af464c76d713c07ad</code>，原始口令：<code>12345678</code>；</p><p>tim的MD5：<code>bed128365216c019988915ed3add75fb</code>，原始口令：<code>passw0rd</code>。</p><p>这就是为什么不要使用常用密码，以及不要使用生日作为密码的原因。</p><p>即使用户使用了常用口令，我们也可以采取措施来抵御彩虹表攻击，方法是对每个口令额外添加随机数，这个方法称之为加盐（salt）：</p><pre><code>digest = md5(salt+inputPassword)
 </code></pre><p>经过加盐处理的数据库表，内容如下：</p><div class="table-container"><table><thead><tr><th style="text-align:left">username</th><th style="text-align:left">salt</th><th style="text-align:left">password</th></tr></thead><tbody><tr><td style="text-align:left">bob</td><td style="text-align:left">H1r0a</td><td style="text-align:left">a5022319ff4c56955e22a74abcc2c210</td></tr><tr><td style="text-align:left">alice</td><td style="text-align:left">7$p2w</td><td style="text-align:left">e5de688c99e961ed6e560b972dab8b6a</td></tr><tr><td style="text-align:left">tim</td><td style="text-align:left">z5Sk9</td><td style="text-align:left">1eee304b92dc0d105904e7ab58fd2f64</td></tr></tbody></table></div><p>加盐的目的在于使黑客的彩虹表失效，即使用户使用常用口令，也无法从MD5反推原始口令。</p><h3 id="SHA-1"><a href="#SHA-1" class="headerlink" title="SHA-1"></a>SHA-1</h3><p>SHA-1也是一种哈希算法，它的输出是160 bits，即20字节。SHA-1是由美国国家安全局开发的，SHA算法实际上是一个系列，包括SHA-0（已废弃）、SHA-1、SHA-256、SHA-512等。</p><p>在Java中使用SHA-1，和MD5完全一样，只需要把算法名称改为<code>"SHA-1"</code>：</p><pre><code class="lang-java">public class Main {
     public static void main(String[] args) throws Exception {
         // 创建一个MessageDigest实例:
@@ -32,4 +32,150 @@ hashB("java003") = ???
         System.out.println(new BigInteger(1, result).toString(16));
     }
 }
-</code></pre><p>类似的，计算SHA-256，我们需要传入名称<code>"SHA-256"</code>，计算SHA-512，我们需要传入名称<code>"SHA-512"</code>。Java标准库支持的所有哈希算法可以在<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/14/docs/specs/security/standard-names.html#messagedigest-algorithms">这里</a>查到。</p></div><footer><p class="meta"><span class="byline author vcard">Posted by <span class="fn">Kayleh</span></span> <time datetime="2020-06-17T02:03:58.000Z" data-updated="true">Wed Jun 17 2020</time> <span class="categories"><a class="category" href="/tags/algorithm/">algorithm</a></span></p><div class="sharing"><a class="twitter-share-button" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=hash%20algorithm">Tweet</a></div><p class="meta"><a class="basic-alignment left" href="/" title="Previous Post: encoding-algorithm">« encoding-algorithm</a> <a class="basic-alignment right" href="/" title="Previous Post: interpolation-search-algorithm">interpolation-search-algorithm »</a></p></footer></article><section><h1>Comments</h1><div id="disqus_thread"></div><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></div><aside class="sidebar"><section class="odd"><h1>Recent Posts</h1><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/null/">链式前向星(linked-forward-star)实现</a></li><li class="post-list-item"><a class="post-list-link" href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></li><li class="post-list-item"><a class="post-list-link" href="/steal-focus/">一次应用程序窃取焦点问题排查经历</a></li><li class="post-list-item"><a class="post-list-link" href="/Large-number-operations/">超高精度计算</a></li><li class="post-list-item"><a class="post-list-link" href="/Minimum-Spanning-Tree/">最小生成树</a></li><li class="post-list-item"><a class="post-list-link" href="/jvm-method-inline/">⌈JVM⌋方法内联优化</a></li><li class="post-list-item"><a class="post-list-link" href="/what-is-milk-and-why-is-group-wise/">什么是「奶头乐」和为什么是「群体弱智」</a></li><li class="post-list-item"><a class="post-list-link" href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></li><li class="post-list-item"><a class="post-list-link" href="/head-first-docker/">head-first-docker</a></li></ul></section></aside></div></div><footer role="contentinfo"><p>Copyright © 2023 - Kayleh -</p></footer><script src="<script data-ad-client=&quot;ca-pub-7457165067653912&quot; async src=&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot;></script>"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7457165067653912" data-ad-slot="7430854225" data-ad-format="auto" data-full-width-responsive="true"></ins><script src="/bundle.js"></script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?2cd1dc193190f18fed292accb735c684";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();var canonicalUrl="https://blog.kayleh.top/hash-algorithm/",disqus_config=function(){this.page.url=canonicalUrl,this.page.identifier=canonicalUrl};!function(){var t=document,a=t.createElement("script");a.src="https://kayleh.disqus.com/embed.js",a.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(a)}();(adsbygoogle=window.adsbygoogle||[]).push({})</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+</code></pre><p>类似的，计算SHA-256，我们需要传入名称<code>"SHA-256"</code>，计算SHA-512，我们需要传入名称<code>"SHA-512"</code>。Java标准库支持的所有哈希算法可以在<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/14/docs/specs/security/standard-names.html#messagedigest-algorithms">这里</a>查到。</p><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/encoding-algorithm/">encoding-algorithm</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/interpolation-search-algorithm/">interpolation-search-algorithm</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

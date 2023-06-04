@@ -10,7 +10,7 @@
 
 'use strict';
 
-var precacheConfig = [["/js/jquery-1.9.1.js","167200b8340df660584a2579765ed621"],["/js/modernizr-2.0.js","99f5f4d44f65c0e021b7d54312a348f1"],["/js/octo.js","07285165503c3d5e2d439fbd0940de5d"],["/js/tagcanvas.js","222f58419252597da4e4b17828824a8f"],["/js/tagcloud.js","4d5b86e9e3c1180eeb33394c7a0937f0"]];
+var precacheConfig = [["/js/main.js","f645413e90ee44fe9bf1c5663348dc6b"],["/js/tagcanvas.js","222f58419252597da4e4b17828824a8f"],["/js/tagcloud.js","4d5b86e9e3c1180eeb33394c7a0937f0"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 var firstRegister = 1; // 默认1是首次安装SW， 0是SW更新
 
