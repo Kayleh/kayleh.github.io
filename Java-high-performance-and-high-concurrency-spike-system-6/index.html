@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>Java高性能高并发秒杀系统(6) - Kayleh</title><meta name="description" content="页面缓存和对象缓存"><meta property="og:type" content="article"><meta property="og:title" content="Java高性能高并发秒杀系统(6)"><meta property="og:url" content="https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-6/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="页面缓存和对象缓存"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.kayleh.top/.top//Blog/source/_posts/Java高性能高并发秒杀系统/20200714171300573.png"><meta property="og:image" content="https://blog.kayleh.top/.top//Blog/source/_posts/Java高性能高并发秒杀系统/20200714222548967.png"><meta property="og:image" content="https://blog.kayleh.top/.top//Blog/source/_posts/Java高性能高并发秒杀系统/20200714222755538.png"><meta property="og:image" content="https://blog.kayleh.top/.top//Blog/source/_posts/Java高性能高并发秒杀系统/20200714223101420.png"><meta property="og:image" content="https://blog.kayleh.top/.top//Blog/source/_posts/Java高性能高并发秒杀系统/20200715211412343.png"><meta property="article:published_time" content="2020-11-08T12:14:45.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.641Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="project"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://blog.kayleh.top/.top//Blog/source/_posts/Java高性能高并发秒杀系统/20200714171300573.png"><meta name="keywords" content="project"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Java高性能高并发秒杀系统(6)</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96"><span class="toc-text">1. 页面缓存优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%9C%AA%E7%BB%8F%E4%BC%98%E5%8C%96%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">1.1 未经优化之前的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E4%BC%98%E5%8C%96%E4%BA%A7%E7%94%9F%E7%9A%84%E6%94%B9%E5%8F%98"><span class="toc-text">1.2 优化产生的改变</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AF%B9%E8%B1%A1%E7%BC%93%E5%AD%98%E4%B8%8E%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0"><span class="toc-text">2. 对象缓存与缓存更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AF%B9%E8%B1%A1%E7%BC%93%E5%AD%98"><span class="toc-text">2.1 对象缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0"><span class="toc-text">2.2 缓存更新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%A1%B5%E9%9D%A2%E9%9D%99%E6%80%81%E5%8C%96"><span class="toc-text">3. 页面静态化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%B0%86%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85%E9%A1%B5%E8%BF%9B%E8%A1%8C%E9%9D%99%E6%80%81%E5%8C%96%E5%A4%84%E7%90%86%EF%BC%88%E8%AE%A2%E5%8D%95%E8%AF%A6%E6%83%85%E4%B9%9F%E5%81%9A%E4%BA%86%E9%9D%99%E6%80%81%E5%8C%96%EF%BC%89"><span class="toc-text">3.1 将商品详情页进行静态化处理（订单详情也做了静态化）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-%E5%AF%B9%E5%90%8E%E7%AB%AF%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86"><span class="toc-text">3.1.1 对后端代码进行处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E5%AF%B9%E5%89%8D%E7%AB%AF%E8%B7%B3%E8%BD%AC%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="toc-text">3.1.2 对前端跳转的修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-%E5%9C%A8application-properties%E4%B8%AD%E9%85%8D%E7%BD%AE"><span class="toc-text">3.1.3 在application.properties中配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-POST%E8%AF%B7%E6%B1%82%E5%92%8CGET%E8%AF%B7%E6%B1%82%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">4. POST请求和GET请求的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%A7%A3%E5%86%B3%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98"><span class="toc-text">5. 解决超卖问题</span></a></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-11-08T12:14:45.000Z">2020-11-08</time></div></div><article class="md-text content post"><h1 class="article-title"><span>Java高性能高并发秒杀系统(6)</span></h1><h2 id="1-页面缓存优化"><a href="#1-页面缓存优化" class="headerlink" title="1. 页面缓存优化"></a>1. 页面缓存优化</h2><h3 id="1-1-未经优化之前的代码"><a href="#1-1-未经优化之前的代码" class="headerlink" title="1.1 未经优化之前的代码"></a>1.1 未经优化之前的代码</h3><pre><code class="lang-java">    @RequestMapping("/to_list")
+    public String toList(Model model,MiaoShaUser user){
+        model.addAttribute("user",user);
+        List&lt;GoodsVo&gt; goodsVos = goodsService.listGoodsVo();
+        model.addAttribute("goodsList",goodsVos);
+        return "goods_list";
+    }
+1234567
+</code></pre><h3 id="1-2-优化产生的改变"><a href="#1-2-优化产生的改变" class="headerlink" title="1.2 优化产生的改变"></a>1.2 优化产生的改变</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/.top//Blog\source\_posts\Java高性能高并发秒杀系统\20200714171300573.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><pre><code class="lang-java">    @RequestMapping(value = "/to_list",produces = "text/html")
+    @ResponseBody
+    public String toList(HttpServletRequest request, HttpServletResponse response, Model model, MiaoShaUser user){
+        model.addAttribute("user",user);
+        //在有缓存的情况下，取出缓存
+        String html = redisService.get(GoodsKey.goodsKeyPrefix, "", String.class);
+        if(! StringUtils.isEmpty(html)) return html;
+
+        //在没有缓存的时候，手动渲染，添加缓存
+        List&lt;GoodsVo&gt; goodsVos = goodsService.listGoodsVo();
+        model.addAttribute("goodsList",goodsVos);
+        IWebContext ctx = new WebContext(request,response,request.getServletContext(),request.getLocale(),model.asMap());
+        html = thymeleafViewResolver.getTemplateEngine().process("goods_list",ctx);//这里需要注入IContext
+        if(!StringUtils.isEmpty(html)){
+            redisService.set(GoodsKey.goodsKeyPrefix,"",html);
+        }
+
+        return html;
+        //return "goods_list";
+    }
+</code></pre><ul><li>首先，我们应用缓存，一定要引入RedisService</li></ul><ol><li>@RequestMapping(value = “/to_list”,<code>produces = "text/html"</code>)produces标注了返回值的类型，必须与@ResponseBody搭配使用</li><li>手动渲染过程中，我们要注入<code>ThymeleafViewResolver</code>，这个是框架给我们准备好的Bean，利用它来渲染页面，其中第二个参数，需要注入<code>IContext</code></li><li>在<code>Spring5</code>版本中，<code>SpringWebContext</code>已经没有了，我们需要使用<code>WebContext</code>来代替。它剔除了之前对ApplicationContext 过多的依赖，现在thymeleaf渲染不再过多依赖spring容器</li><li>再者，我们对Redis缓存的时间设置了<code>60秒</code>的限制，超过60秒过期，这个时间不宜过长。在60秒内我们看到的网页一直一样是暂且可以接受的</li></ol><hr><h2 id="2-对象缓存与缓存更新"><a href="#2-对象缓存与缓存更新" class="headerlink" title="2. 对象缓存与缓存更新"></a>2. 对象缓存与缓存更新</h2><h3 id="2-1-对象缓存"><a href="#2-1-对象缓存" class="headerlink" title="2.1 对象缓存"></a>2.1 对象缓存</h3><p>对象缓存，我们之前已经做过了一个，就是在MiaoshaService中的<code>getByToken</code>方法，通过token值，从Redis中获取对象信息。<br>这次，我们实现一个getById()方法，即通过Id值，从Redis中获取user对象。（对象缓存<code>没有设置过期时间</code>，而且对象缓存是<code>粒度最小</code>的缓存）</p><pre><code class="lang-java">    public MiaoShaUser getById(long id){
+        //先从缓存中取
+        MiaoShaUser user = redisService.get(MiaoShaUserKey.idPrefix, "" + id, MiaoShaUser.class);
+        if(user != null) return user;
+
+        //缓存中没有，从数据库中取，并且把它添加到缓存中
+        user = miaoShaUserDao.getById(id);
+        if(user != null) redisService.set(MiaoShaUserKey.idPrefix,"" + id,user);
+
+        return user;
+    }
+1234567891011
+</code></pre><h3 id="2-2-缓存更新"><a href="#2-2-缓存更新" class="headerlink" title="2.2 缓存更新"></a>2.2 缓存更新</h3><p>我们模拟一个场景，我们要对密码进行修改，那么缓存也需要修改，现在先列出视频中给的方法，通过Id值取出用户，修改数据库，之后，对token-user缓存进行修改，id-user缓存进行删除</p><pre><code class="lang-java">    public boolean updatePassword(long id,String formPass,String token){
+        //取出user
+        MiaoShaUser user = getById(id);
+        //没有这个用户
+        if(user == null) throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
+
+        //修改密码，更新数据库
+        user.setPassword(MD5Util.formPassToDBPass(formPass,user.getSalt()));
+        miaoShaUserDao.update(user);
+        //更新缓存,token-user缓存（登陆用的）这个不能删除，id-user缓存删除
+        redisService.set(MiaoShaUserKey.getTokenPrefix,token,user);
+        redisService.delete(MiaoShaUserKey.idPrefix,id);
+
+        return true;
+    }
+123456789101112131415
+</code></pre><ul><li><strong>个人理解</strong>：我们上网时的多数场景，修改完密码之后都要我们进行重新登录，而且在我们这个项目中，登录的过程中会对token-user缓存进行重新添加，那么我们在修改密码的时候，可以直接将token-user和id-user全部都删除，而不需要对其中的缓存进行值的修改。</li></ul><hr><h2 id="3-页面静态化"><a href="#3-页面静态化" class="headerlink" title="3. 页面静态化"></a>3. 页面静态化</h2><h3 id="3-1-将商品详情页进行静态化处理（订单详情也做了静态化）"><a href="#3-1-将商品详情页进行静态化处理（订单详情也做了静态化）" class="headerlink" title="3.1 将商品详情页进行静态化处理（订单详情也做了静态化）"></a>3.1 将商品详情页进行静态化处理（订单详情也做了静态化）</h3><p>通常情况下，页面不采用第一种缓存的方式实现优化，而是通过静态化处理，比较常用的技术有Vue。通过静态化处理，我们将页面缓存在客户端浏览器中，不需要与服务器交互就能访问到页面。</p><p>以下，我们用JQuery实现。</p><h4 id="3-1-1-对后端代码进行处理"><a href="#3-1-1-对后端代码进行处理" class="headerlink" title="3.1.1 对后端代码进行处理"></a>3.1.1 对后端代码进行处理</h4><pre><code class="lang-java">    @RequestMapping(value = "/detail/{goodsId}")
+    @ResponseBody
+    public Result&lt;GoodsDetailVo&gt; toDetail(HttpServletRequest request, HttpServletResponse response, Model model, MiaoShaUser user, @PathVariable("goodsId") long goodsId){
+
+        GoodsVo goodsVo = goodsService.getGoodsVoByGoodsId(goodsId);
+
+        //秒杀开始、结束时间，当前时间
+        long startDate = goodsVo.getStartDate().getTime();
+        long endDate = goodsVo.getEndDate().getTime();
+        long now = System.currentTimeMillis();
+
+        //秒杀状态，0为没开始，1为正在进行，2为秒杀已经结束
+        int miaoshaStatus = 0;
+        //距离秒杀剩余的时间
+        int remainSeconds = 0;
+
+        if(now &lt; startDate){
+            //秒杀没开始，进行倒计时
+            remainSeconds = (int) (startDate - now) / 1000;
+        }else if(now &gt; endDate){
+            //秒杀已经结束
+            miaoshaStatus = 2;
+            remainSeconds = -1;
+        }else {
+            //秒杀进行时
+            remainSeconds = 0;
+            miaoshaStatus = 1;
+        }
+        GoodsDetailVo goodsDetailVo = new GoodsDetailVo();
+        goodsDetailVo.setGoods(goodsVo);
+        goodsDetailVo.setUser(user);
+        goodsDetailVo.setMiaoshaStatus(miaoshaStatus);
+        goodsDetailVo.setRemainSeconds(remainSeconds);
+
+        return Result.success(goodsDetailVo);
+    }
+123456789101112131415161718192021222324252627282930313233343536
+</code></pre><ul><li>@RequestMapping中，去掉produces属性</li><li><code>去掉Model向前端传值的逻辑</code>，只留下业务处理过程，并将所需要的的值封装在<code>GoodsDetailVo</code>对象中</li><li><code>注意事项</code>在GoodsDetailVo中的属性字段要与前端所需要的字段名保持一致，如下所示，这样才能获取</li></ul><pre><code class="lang-java">@Data
+public class GoodsDetailVo {
+    private long miaoshaStatus;
+    private long remainSeconds;
+    private GoodsVo goods;
+    private MiaoShaUser user;
+}
+
+12345678
+</code></pre><p>对应前端<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/.top//Blog\source\_posts\Java高性能高并发秒杀系统\20200714222548967.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><p></p><h4 id="3-1-2-对前端跳转的修改"><a href="#3-1-2-对前端跳转的修改" class="headerlink" title="3.1.2 对前端跳转的修改"></a>3.1.2 对前端跳转的修改</h4><p>我们从商品列表页面跳转到商品详情页，修改为如下<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/.top//Blog\source\_posts\Java高性能高并发秒杀系统\20200714222755538.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><br>注意其中<code>/goods_detail.htm</code>，它是放在static目录下的静态资源，为了防止视图解析器的跳转，将<code>html写为htm</code><br><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/.top//Blog\source\_posts\Java高性能高并发秒杀系统\20200714223101420.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><p></p><h4 id="3-1-3-在application-properties中配置"><a href="#3-1-3-在application-properties中配置" class="headerlink" title="3.1.3 在application.properties中配置"></a>3.1.3 在application.properties中配置</h4><pre><code class="lang-java"># static
+spring.resources.add-mappings=true
+spring.resources.cache.period= 3600 #缓存时间
+spring.resources.chain.cache=true 
+spring.resources.chain.enabled=true
+#spring.resources.chain.gzipped=true
+spring.resources.chain.html-application-cache=true
+spring.resources.static-locations=classpath:/static/
+12345678
+</code></pre><h2 id="4-POST请求和GET请求的区别"><a href="#4-POST请求和GET请求的区别" class="headerlink" title="4. POST请求和GET请求的区别"></a>4. POST请求和GET请求的区别</h2><ul><li>GET：这个请求是幂等的，从服务端获取数据，反复获取不会对数据有影响。因为GET因为是读取，就可以对GET请求的数据做缓存。这个缓存可以做到浏览器本身上（彻底避免浏览器发请求），也可以做到代理上（如nginx），或者做到server端（用Etag，至少可以减少带宽消耗）</li><li>POST：该请求是不幂等的，它会在页面表单上提交数据，请求服务器的响应，往往会对数据进行修改</li></ul><h2 id="5-解决超卖问题"><a href="#5-解决超卖问题" class="headerlink" title="5. 解决超卖问题"></a>5. 解决超卖问题</h2><ol><li>当多个线程同时读取到同一个库存数量时，防止超卖，修改SQL语句</li></ol><pre><code class="lang-sql">#添加stock_count &gt; 0的条件
+update miaosha_goods set stock_count = stock_count - 1 where goods_id = #{goodsId} and stock_count &gt; 0
+12
+</code></pre><ol><li>防止同一个用户秒杀多个，添加唯一索引，绑定user_id和goods_id，这样同一个用户对同一个商品的秒杀订单是唯一的</li></ol><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/.top//Blog\source\_posts\Java高性能高并发秒杀系统\20200715211412343.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system-7/">Java高性能高并发秒杀系统(7)</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system-5/">Java高性能高并发秒杀系统(5)</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>Spring and Jwt - Kayleh</title><meta name="description" content="使用JWT1.引入依赖<dependency>             <groupId>com.auth0</groupId>             <artifactId>java-jwt</artifactId>             <version>3.4.0</version>         &amp;l"><meta property="og:type" content="article"><meta property="og:title" content="Spring and Jwt"><meta property="og:url" content="https://blog.kayleh.top/spring-and-jwt/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="使用JWT1.引入依赖<dependency>             <groupId>com.auth0</groupId>             <artifactId>java-jwt</artifactId>             <version>3.4.0</version>         &amp;l"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426122252495.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426122931619.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426122959260.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123015114.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123031980.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123106916.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123124603.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123635828.png"><meta property="article:published_time" content="2021-05-24T03:04:21.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.645Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="frame"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426122252495.png"><meta name="keywords" content="frame"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Spring and Jwt</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-text">1.引入依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90token"><span class="toc-text">2.生成token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%A0%B9%E6%8D%AE%E4%BB%A4%E7%89%8C%E5%92%8C%E7%AD%BE%E5%90%8D%E8%A7%A3%E6%9E%90%E6%95%B0%E6%8D%AE"><span class="toc-text">3.根据令牌和签名解析数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF"><span class="toc-text">4.常见异常信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%90%AD%E5%BB%BAspringboot-mybatis-jwt%E7%8E%AF%E5%A2%83"><span class="toc-text">0.搭建springboot+mybatis+jwt环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%80%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">1.开发数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%BC%80%E5%8F%91entity"><span class="toc-text">2.开发entity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BC%80%E5%8F%91DAO%E6%8E%A5%E5%8F%A3%E5%92%8Cmapper-xml"><span class="toc-text">3.开发DAO接口和mapper.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BC%80%E5%8F%91Service-%E6%8E%A5%E5%8F%A3%E4%BB%A5%E5%8F%8A%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">4.开发Service 接口以及实现类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%BC%80%E5%8F%91controller"><span class="toc-text">5.开发controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B7%BB%E5%8A%A0%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE"><span class="toc-text">6.数据库添加测试数据启动项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E9%80%9A%E8%BF%87postman%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E5%A4%B1%E8%B4%A5"><span class="toc-text">7.通过postman模拟登录失败</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E9%80%9A%E8%BF%87postman%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F"><span class="toc-text">8.通过postman模拟登录成功</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="toc-text">9.编写测试接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E9%80%9A%E8%BF%87postman%E8%AF%B7%E6%B1%82%E6%8E%A5%E5%8F%A3"><span class="toc-text">10.通过postman请求接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E9%97%AE%E9%A2%98"><span class="toc-text">11.问题?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E6%B7%BB%E5%8A%A0%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="toc-text">12. 添加拦截器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9Etoken%E5%90%8E%E9%9C%80%E8%A6%81%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">13. 登录成功返回token后需要的操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86token%E6%94%BE%E5%88%B0axios%E7%9A%84header%E4%B8%AD%EF%BC%8C%E6%AF%8F%E6%AC%A1%E8%AF%B7%E6%B1%82%E9%83%BD%E6%90%BA%E5%B8%A6token"><span class="toc-text">将token放到axios的header中，每次请求都携带token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E6%8E%A5%E6%94%B6token%E6%96%B9%E5%BC%8F"><span class="toc-text">后台接收token方式</span></a></li></ol></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-05-24T03:04:21.000Z">2021-05-24</time></div></div><article class="md-text content post"><h1 class="article-title"><span>Spring and Jwt</span></h1><h1 id="使用JWT"><a href="#使用JWT" class="headerlink" title="使用JWT"></a>使用JWT</h1><h2 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1.引入依赖"></a>1.引入依赖</h2><pre><code class="lang-xml">&lt;dependency&gt;
+            &lt;groupId&gt;com.auth0&lt;/groupId&gt;
+            &lt;artifactId&gt;java-jwt&lt;/artifactId&gt;
+            &lt;version&gt;3.4.0&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre><h2 id="2-生成token"><a href="#2-生成token" class="headerlink" title="2.生成token"></a>2.生成token</h2><pre><code class="lang-java">public class createToken {
+    public static void main(String[] args) {
+        Calendar instance = Calendar.getInstance();
+        instance.add(Calendar.SECOND, 90);
+        //生成令牌
+        String token = JWT.create()
+                .withClaim("username", "张三")//设置自定义用户名
+                .withExpiresAt(instance.getTime())//设置过期时间
+                .sign(Algorithm.HMAC256("token!Q2W#E$RW"));//设置签名保密复杂
+        //输出令牌
+        System.out.println("--------token:" + token);
+    }
+}
+-----
+- 生成结果
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOlsicGhvbmUiLCIxNDMyMzIzNDEzNCJdLCJleHAiOjE1OTU3Mzk0NDIsInVzZXJuYW1lIjoi5byg5LiJIn0.aHmE3RNqvAjFr_dvyn_sD2VJ46P7EGiS5OBMO_TI5jg
+</code></pre><h2 id="3-根据令牌和签名解析数据"><a href="#3-根据令牌和签名解析数据" class="headerlink" title="3.根据令牌和签名解析数据"></a>3.根据令牌和签名解析数据</h2><pre><code class="lang-java">JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("token!Q2W#E$RW")).build();
+DecodedJWT decodedJWT = jwtVerifier.verify(token);
+System.out.println("用户名: " + decodedJWT.getClaim("username").asString());
+System.out.println("过期时间: "+decodedJWT.getExpiresAt());
+</code></pre><h2 id="4-常见异常信息"><a href="#4-常见异常信息" class="headerlink" title="4.常见异常信息"></a>4.常见异常信息</h2><ul><li>SignatureVerificationException: 签名不一致异常</li><li>TokenExpiredException: 令牌过期异常</li><li>AlgorithmMismatchException: 算法不匹配异常</li><li>InvalidClaimException: 失效的payload异常<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426122252495.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li></ul><h1 id="封装工具类"><a href="#封装工具类" class="headerlink" title="封装工具类"></a>封装工具类</h1><pre><code class="lang-java">public class JWTUtils {
+    private static String TOKEN = "JokerDJToken";
+    /**
+     * 生成token
+     * @param map  //传入payload
+     * @return 返回token
+     */
+    public static String getToken(Map&lt;String,String&gt; map){
+        JWTCreator.Builder builder = JWT.create();
+        map.forEach((k,v)-&gt;{
+            builder.withClaim(k,v);
+        });
+        Calendar instance = Calendar.getInstance();
+        instance.add(Calendar.SECOND,7);
+        builder.withExpiresAt(instance.getTime());
+        return builder.sign(Algorithm.HMAC256(TOKEN)).toString();
+    }
+    /**
+     * 验证token
+     * @param token
+     * @return
+     */
+    public static void verify(String token){
+        JWT.require(Algorithm.HMAC256(TOKEN)).build().verify(token);
+    }
+    /**
+     * 获取token中payload
+     * @param token
+     * @return
+     */
+    public static DecodedJWT getToken(String token){
+        return JWT.require(Algorithm.HMAC256(TOKEN)).build().verify(token);
+    }
+}
+</code></pre><h1 id="整合springboot"><a href="#整合springboot" class="headerlink" title="整合springboot"></a>整合springboot</h1><h2 id="0-搭建springboot-mybatis-jwt环境"><a href="#0-搭建springboot-mybatis-jwt环境" class="headerlink" title="0.搭建springboot+mybatis+jwt环境"></a>0.搭建springboot+mybatis+jwt环境</h2><ul><li>引入依赖</li><li>编写配置</li></ul><pre><code class="lang-xml">&lt;!--引入jwt--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.auth0&lt;/groupId&gt;
+  &lt;artifactId&gt;java-jwt&lt;/artifactId&gt;
+  &lt;version&gt;3.4.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!--引入mybatis--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+  &lt;version&gt;2.1.3&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!--引入lombok--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+  &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+  &lt;version&gt;1.18.12&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!--引入druid--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+  &lt;artifactId&gt;druid&lt;/artifactId&gt;
+  &lt;version&gt;1.1.19&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!--引入mysql--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;mysql&lt;/groupId&gt;
+  &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+  &lt;version&gt;5.1.38&lt;/version&gt;
+&lt;/dependency&gt;
+------------------
+server.port=8989
+spring.application.name=jwt
+spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/jwt?characterEncoding=UTF-8
+spring.datasource.username=root
+spring.datasource.password=root
+mybatis.type-aliases-package=com.baizhi.entity
+mybatis.mapper-locations=classpath:com/baizhi/mapper/*.xml
+logging.level.com.baizhi.dao=debug
+</code></pre><h2 id="1-开发数据库"><a href="#1-开发数据库" class="headerlink" title="1.开发数据库"></a>1.开发数据库</h2><ul><li>这里采用最简单的表结构验证JWT使用</li></ul><pre><code class="lang-sql">DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(80) DEFAULT NULL COMMENT '用户名',
+  `password` varchar(40) DEFAULT NULL COMMENT '用户密码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+</code></pre><h2 id="2-开发entity"><a href="#2-开发entity" class="headerlink" title="2.开发entity"></a>2.开发entity</h2><pre><code class="lang-java">@Data
+@Accessors(chain=true)
+public class User {
+    private String id;
+    private String name;
+    private String password;
+}
+</code></pre><h2 id="3-开发DAO接口和mapper-xml"><a href="#3-开发DAO接口和mapper-xml" class="headerlink" title="3.开发DAO接口和mapper.xml"></a>3.开发DAO接口和mapper.xml</h2><pre><code>@Mapper
+public interface UserDAO {
+    User login(User user);
+}
+
+
+&lt;mapper namespace="com.baizhi.dao.UserDAO"&gt;
+    &lt;!--这里就写的简单点了毕竟不是重点--&gt;
+    &lt;select id="login" parameterType="User" resultType="User"&gt;
+        select * from user where name=#{name} and password = #{password}
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre><h2 id="4-开发Service-接口以及实现类"><a href="#4-开发Service-接口以及实现类" class="headerlink" title="4.开发Service 接口以及实现类"></a>4.开发Service 接口以及实现类</h2><pre><code class="lang-java">public interface UserService {
+    User login(User user);//登录接口
+}
+</code></pre><p>impl</p><pre><code class="lang-java">@Service
+@Transactional
+public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserDAO userDAO;
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public User login(User user) {
+        User userDB = userDAO.login(user);
+        if(userDB!=null){
+            return userDB;
+        }
+        throw  new RuntimeException("登录失败~~");
+    }
+}
+</code></pre><h2 id="5-开发controller"><a href="#5-开发controller" class="headerlink" title="5.开发controller"></a>5.开发controller</h2><pre><code class="lang-java">@RestController
+@Slf4j
+public class UserController {
+    @Autowired
+    private UserService userService;
+    @GetMapping("/user/login")
+    public Map&lt;String,Object&gt; login(User user) {
+        Map&lt;String,Object&gt; result = new HashMap&lt;&gt;();
+        log.info("用户名: [{}]", user.getName());
+        log.info("密码: [{}]", user.getPassword());
+        try {
+            User userDB = userService.login(user);
+            Map&lt;String, String&gt; map = new HashMap&lt;&gt;();//用来存放payload
+            map.put("id",userDB.getId());
+            map.put("username", userDB.getName());
+            String token = JWTUtils.getToken(map);
+            result.put("state",true);
+            result.put("msg","登录成功!!!");
+            result.put("token",token); //成功返回token信息
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("state","false");
+            result.put("msg",e.getMessage());
+        }
+        return result;
+    }
+}
+</code></pre><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426122931619.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h2 id="6-数据库添加测试数据启动项目"><a href="#6-数据库添加测试数据启动项目" class="headerlink" title="6.数据库添加测试数据启动项目"></a>6.数据库添加测试数据启动项目</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426122959260.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h2 id="7-通过postman模拟登录失败"><a href="#7-通过postman模拟登录失败" class="headerlink" title="7.通过postman模拟登录失败"></a>7.通过postman模拟登录失败</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123015114.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h2 id="8-通过postman模拟登录成功"><a href="#8-通过postman模拟登录成功" class="headerlink" title="8.通过postman模拟登录成功"></a>8.通过postman模拟登录成功</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123031980.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h2 id="9-编写测试接口"><a href="#9-编写测试接口" class="headerlink" title="9.编写测试接口"></a>9.编写测试接口</h2><pre><code class="lang-java">@PostMapping("/test/test")
+public Map&lt;String, Object&gt; test(String token) {
+  Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+  try {
+    JWTUtils.verify(token);
+    map.put("msg", "验证通过~~~");
+    map.put("state", true);
+  } catch (TokenExpiredException e) {
+    map.put("state", false);
+    map.put("msg", "Token已经过期!!!");
+  } catch (SignatureVerificationException e){
+    map.put("state", false);
+    map.put("msg", "签名错误!!!");
+  } catch (AlgorithmMismatchException e){
+    map.put("state", false);
+    map.put("msg", "加密算法不匹配!!!");
+  } catch (Exception e) {
+    e.printStackTrace();
+    map.put("state", false);
+    map.put("msg", "无效token~~");
+  }
+  return map;
+}
+</code></pre><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123106916.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h2 id="10-通过postman请求接口"><a href="#10-通过postman请求接口" class="headerlink" title="10.通过postman请求接口"></a>10.通过postman请求接口</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123124603.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h2 id="11-问题"><a href="#11-问题" class="headerlink" title="11.问题?"></a>11.问题?</h2><ul><li>使用上述方式每次都要传递token数据,每个方法都需要验证token代码冗余,不够灵活? 如何优化</li><li>使用拦截器进行优化</li></ul><h2 id="12-添加拦截器"><a href="#12-添加拦截器" class="headerlink" title="12. 添加拦截器"></a>12. 添加拦截器</h2><p>新建自定义拦截器MyInterceptor.java 实现HandlerInterceptor接口</p><pre><code class="lang-java">/**
+ * @Author Joker DJ
+ * @Date 2021/2/25 17:34
+ * @Version 1.0
+ */
+@Slf4j
+@Configuration
+public class MyInterceptor implements HandlerInterceptor {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
+            System.out.println("OPTIONS请求，放行");return true;
+        }
+        String token = request.getHeader("Authorization");
+        Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
+        try {
+            JWTUtils.verify(token);
+            return true;
+        } catch (TokenExpiredException e) {
+            map.put("state", false);
+            map.put("msg", "Token已经过期!!!");
+        } catch (SignatureVerificationException e){
+            map.put("state", false);
+            map.put("msg", "签名错误!!!");
+        } catch (AlgorithmMismatchException e){
+            map.put("state", false);
+            map.put("msg", "加密算法不匹配!!!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("state", false);
+            map.put("msg", "无效token~~");
+        }
+        String json = new ObjectMapper().writeValueAsString(map);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().println(json);
+        return false;
+    }
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    }
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    }
+}
+</code></pre><p>拦截器WebMvcConfig.java</p><pre><code class="lang-java">
+@Configuration
+public class WebMvcConfig implements WebMvcConfigurer {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new MyInterceptor()).
+                addPathPatterns("/**").//拦截所有请求
+                excludePathPatterns("/login").excludePathPatterns("/loginApp");//不拦截放行的请求地址
+    }
+}
+</code></pre><h2 id="13-登录成功返回token后需要的操作"><a href="#13-登录成功返回token后需要的操作" class="headerlink" title="13. 登录成功返回token后需要的操作"></a>13. 登录成功返回token后需要的操作</h2><h3 id="将token放到axios的header中，每次请求都携带token"><a href="#将token放到axios的header中，每次请求都携带token" class="headerlink" title="将token放到axios的header中，每次请求都携带token"></a>将token放到axios的header中，每次请求都携带token</h3><ol><li><p>返回的token写入localStorage<br>localStorage.setItem(‘authorization’,res.data.token);</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/spring-and-jwt/20210426123635828.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li><li><p>配置全局axios访问携带token</p><pre><code class="lang-java">//自动给同一个vue项目的所有请求添加请求头
+axios.interceptors.request.use(function (config) {
+let token = localStorage.getItem('authorization');
+if (token) {
+ config.headers['Authorization'] = token;
+}
+return config;
+})
+</code></pre><h3 id="后台接收token方式"><a href="#后台接收token方式" class="headerlink" title="后台接收token方式"></a>后台接收token方式</h3></li><li><p>获取request对象<br>```java<br>HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();</p></li></ol><pre><code>2. 通过request获取token```java String token = request.getHeader("Authorization");
+</code></pre><ol><li><p>解析token</p><pre><code>DecodedJWT jwt = JWTUtils.getToken(token);
+</code></pre></li><li><p>获取token信息</p><pre><code>String id = jwt.getClaim("id").asString();     String username = jwt.getClaim("username").asString();     String loginname = jwt.getClaim("loginname").asString();     User user = new User();     user.setId(id);     user.setLoginname(loginname);     user.setUsername(username);
+</code></pre></li></ol><p>全部代码</p><pre><code>        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();        String token = request.getHeader("Authorization");        DecodedJWT jwt = JWTUtils.getToken(token);        String id = jwt.getClaim("id").asString(); //注意类型asxxx        String username = jwt.getClaim("username").asString();        String loginname = jwt.getClaim("loginname").asString();        User user = new User();        user.setId(id);        user.setLoginname(loginname);        user.setUsername(username);
+</code></pre><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Head-First-Netty/">Head First Netty</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/SpringSecurity/">SpringSecurity</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

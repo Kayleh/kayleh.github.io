@@ -1,0 +1,746 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>Spring、SpringMVC、Mybatis整合 - Kayleh</title><meta name="description" content="SSM整合"><meta property="og:type" content="article"><meta property="og:title" content="Spring、SpringMVC、Mybatis整合"><meta property="og:url" content="https://blog.kayleh.top/spring-springmvc-mybatis-integration/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="SSM整合"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/start.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/new.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/3.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/data.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/root.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/deloy.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/1.png"><meta property="article:published_time" content="2020-04-20T13:05:31.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.641Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="frame"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/start.png"><meta name="keywords" content="frame"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Spring、SpringMVC、Mybatis整合</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88%E8%AF%B4%E6%98%8E"><span class="toc-text">整合说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E7%9B%AE%E6%A0%87"><span class="toc-text">最终目标</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%BF%87%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2%E5%92%8C%E6%8F%92%E5%85%A5-%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E7%9A%84%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C%E5%8A%9F%E8%83%BD"><span class="toc-text">最终实现通过前端页面对数据库进行查询和插入,实现用户的登录注册功能</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAMaven%E5%B7%A5%E7%A8%8B"><span class="toc-text">创建Maven工程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%89%E6%8B%A9webapp"><span class="toc-text">选择webapp</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%87%86%E5%A4%87"><span class="toc-text">数据库准备</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95"><span class="toc-text">创建目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-text">导入依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="toc-text">编写实体类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dao%E6%8E%A5%E5%8F%A3"><span class="toc-text">dao接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1service%E5%B1%82%E5%92%8C%E5%AE%9E%E7%8E%B0"><span class="toc-text">业务service层和实现</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E6%95%B4%E5%90%88"><span class="toc-text">Spring整合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F"><span class="toc-text">注解扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E5%92%8C%E6%B5%8B%E8%AF%95SpringMVC%E7%9A%84%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-text">搭建和测试SpringMVC的开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E6%95%B4%E5%90%88SpringMVC%E7%9A%84%E6%A1%86%E6%9E%B6"><span class="toc-text">Spring整合SpringMVC的框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E6%95%B4%E5%90%88MyBatis%E6%A1%86%E6%9E%B6"><span class="toc-text">Spring整合MyBatis框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E5%92%8C%E6%B5%8B%E8%AF%95MyBatis%E7%9A%84%E7%8E%AF%E5%A2%83"><span class="toc-text">搭建和测试MyBatis的环境</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8AccountDao%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%96%B9%E6%B3%95%E4%B8%8A%E6%B7%BB%E5%8A%A0%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BC%96%E5%86%99SQL%E8%AF%AD%E5%8F%A5"><span class="toc-text">在AccountDao接口的方法上添加注解，编写SQL语句</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">编写测试的方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring%E6%95%B4%E5%90%88MyBatis%E6%A1%86%E6%9E%B6-1"><span class="toc-text">Spring整合MyBatis框架</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84%EF%BC%9A%E6%8A%8ASqlMapConfig-xml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%86%85%E5%AE%B9%E9%85%8D%E7%BD%AE%E5%88%B0applicationContext-xml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="toc-text">目的：把SqlMapConfig.xml配置文件中的内容配置到applicationContext.xml配置文件中</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8AccountDao%E6%8E%A5%E5%8F%A3%E4%B8%AD%E6%B7%BB%E5%8A%A0-Repository%E6%B3%A8%E8%A7%A3"><span class="toc-text">在AccountDao接口中添加@Repository注解</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8service%E4%B8%AD%E6%B3%A8%E5%85%A5dao%E5%AF%B9%E8%B1%A1%EF%BC%8C%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="toc-text">在service中注入dao对象，进行测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AESpring%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">配置Spring的声明式事务管理</span></a></li></ol></li></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-04-20T13:05:31.000Z">2020-04-20</time></div></div><article class="md-text content post"><h1 class="article-title"><span>Spring、SpringMVC、Mybatis整合</span></h1><p>SSM整合</p><span id="more"></span><h3 id="整合说明"><a href="#整合说明" class="headerlink" title="整合说明"></a>整合说明</h3><p>服务器开发分为三层,表现层、业务层、持久层<br>表现层使用SpringMVC实现,业务程使用Spring实现,持久层使用Mybatis实现<br>使用Spring框架来整合 SpringMVC和Mybatis框架<br>这里使用xml配置文件+注解的方式进行搭建</p><h4 id="最终目标"><a href="#最终目标" class="headerlink" title="最终目标"></a>最终目标</h4><h5 id="最终实现通过前端页面对数据库进行查询和插入-实现用户的登录注册功能"><a href="#最终实现通过前端页面对数据库进行查询和插入-实现用户的登录注册功能" class="headerlink" title="最终实现通过前端页面对数据库进行查询和插入,实现用户的登录注册功能"></a>最终实现通过前端页面对数据库进行查询和插入,实现用户的登录注册功能</h5><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><h4 id="创建Maven工程"><a href="#创建Maven工程" class="headerlink" title="创建Maven工程"></a>创建Maven工程</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/start.png"></div></div><h5 id="选择webapp"><a href="#选择webapp" class="headerlink" title="选择webapp"></a>选择webapp</h5><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/new.png"></div></div><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/3.png"></div></div><h5 id="数据库准备"><a href="#数据库准备" class="headerlink" title="数据库准备"></a>数据库准备</h5><pre><code class="lang-sql">create database ssm;
+use ssm;
+create table account(
+id int primary key auto_increment,
+name varchar(20),
+money double
+);
+</code></pre><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/data.png"></div></div><h4 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/root.png"></div></div><h4 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/deloy.png"></div></div><pre><code class="lang-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.kayleh&lt;/groupId&gt;
+  &lt;artifactId&gt;SSM&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+  &lt;name&gt;SSM Maven Webapp&lt;/name&gt;
+  &lt;!-- FIXME change it to the project's website --&gt;
+  &lt;url&gt;http://www.example.com&lt;/url&gt;
+
+  &lt;!--版本锁定--&gt;
+  &lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;maven.compiler.source&gt;1.7&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;1.7&lt;/maven.compiler.target&gt;
+    &lt;spring.version&gt;5.0.2.RELEASE&lt;/spring.version&gt;
+    &lt;slf4j.version&gt;1.6.6&lt;/slf4j.version&gt;
+    &lt;log4j.version&gt;1.2.12&lt;/log4j.version&gt;
+    &lt;mysql.version&gt;5.1.6&lt;/mysql.version&gt;
+    &lt;mybatis.version&gt;3.4.5&lt;/mybatis.version&gt;
+  &lt;/properties&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;4.11&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- spring --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+      &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
+      &lt;version&gt;1.6.8&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-aop&lt;/artifactId&gt;
+      &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+      &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+      &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+      &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+      &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;
+      &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+      &lt;version&gt;${spring.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;4.12&lt;/version&gt;
+      &lt;scope&gt;compile&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;mysql&lt;/groupId&gt;
+      &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+      &lt;version&gt;${mysql.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+      &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+      &lt;version&gt;2.5&lt;/version&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+      &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+      &lt;version&gt;2.0&lt;/version&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;jstl&lt;/groupId&gt;
+      &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+      &lt;version&gt;1.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- log start --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;log4j&lt;/groupId&gt;
+      &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+      &lt;version&gt;${log4j.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+      &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+      &lt;version&gt;${slf4j.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+      &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+      &lt;version&gt;${slf4j.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- log end --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+      &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+      &lt;version&gt;${mybatis.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+      &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+      &lt;version&gt;1.3.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;c3p0&lt;/groupId&gt;
+      &lt;artifactId&gt;c3p0&lt;/artifactId&gt;
+      &lt;version&gt;0.9.1.2&lt;/version&gt;
+      &lt;type&gt;jar&lt;/type&gt;
+      &lt;scope&gt;compile&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;build&gt;
+    &lt;finalName&gt;SSM&lt;/finalName&gt;
+    &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
+      &lt;plugins&gt;
+        &lt;plugin&gt;
+          &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging --&gt;
+        &lt;plugin&gt;
+          &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.8.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+          &lt;version&gt;2.22.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.2.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+          &lt;version&gt;2.5.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+          &lt;version&gt;2.8.2&lt;/version&gt;
+        &lt;/plugin&gt;
+      &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre><h4 id="编写实体类"><a href="#编写实体类" class="headerlink" title="编写实体类"></a>编写实体类</h4><pre><code class="lang-java">package com.kayleh.domain;
+import java.io.Serializable;
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:06
+ *
+ * 账户
+ */
+public class Account implements Serializable {
+    private Integer id;
+    private String name;
+    private Double money;
+    public Integer getId() {
+        return id;
+    }
+    .........
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+}
+</code></pre><h4 id="dao接口"><a href="#dao接口" class="headerlink" title="dao接口"></a>dao接口</h4><pre><code class="lang-java">package com.kayleh.dao;
+import com.kayleh.domain.Account;
+import java.util.List;
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:11
+ * &lt;p&gt;
+ * 账户dao接口
+ */
+public interface AccountDao {
+    //查询所有账户
+    public List&lt;Account&gt; findAll();
+    //保存账户信息
+    public void saveAccount(Account account);
+}
+</code></pre><h4 id="业务service层和实现"><a href="#业务service层和实现" class="headerlink" title="业务service层和实现"></a>业务service层和实现</h4><pre><code class="lang-java">package com.kayleh.service;
+import com.kayleh.domain.Account;
+import java.util.List;
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:16
+ */
+public interface AccountService {
+    //查询所有账户
+    public List&lt;Account&gt; findAll();
+    //保存账户信息
+    public void saveAccount(Account account);
+}
+-----------------------------------------------------
+package com.kayleh.service.impl;
+import com.kayleh.domain.Account;
+import com.kayleh.service.AccountService;
+import org.springframework.stereotype.Service;
+import java.util.List;
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:18
+ */
+@Service("accountService")
+public class AccountServiceImpl implements AccountService {
+    public List&lt;Account&gt; findAll() {
+        System.out.println("业务层:查询所有账户...");
+        return null;
+    }
+    public void saveAccount(Account account) {
+        System.out.println("业务层:保存账户...");
+    }
+}
+</code></pre><h2 id="Spring整合"><a href="#Spring整合" class="headerlink" title="Spring整合"></a>Spring整合</h2><p>在resource下创建Spring配置文件<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Spring、SpringMVC、Mybatis整合/1.png"></div></div><p></p><h4 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h4><pre><code class="lang-xml">       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd"&gt;
+</code></pre><h4 id="注解扫描"><a href="#注解扫描" class="headerlink" title="注解扫描"></a>注解扫描</h4><pre><code class="lang-xml">&lt;!-- 开启注解的扫描,希望处理service和dao,controller不需要Spring框架去处理,controller注解由SpringMVC处理 --&gt;
+    &lt;context:component-scan base-package="com.kayleh"&gt;
+        &lt;!-- 配置哪些注解不扫描 --&gt;
+        &lt;context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/&gt;
+    &lt;/context:component-scan&gt;
+</code></pre><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><pre><code class="lang-java">package com.kayleh.test;
+import com.kayleh.service.AccountService;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:38
+ */
+public class TestSpring {
+    @Test
+    public void run1(){
+        //加载配置文件
+        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        //获取对象
+        AccountService as = (AccountService) ac.getBean("accountService");
+        //调用方法
+        as.findAll();
+    }
+}
+</code></pre><h6 id="运行测试-成功调用accountService"><a href="#运行测试-成功调用accountService" class="headerlink" title="运行测试,成功调用accountService"></a>运行测试,成功调用accountService</h6><hr><h2 id="搭建和测试SpringMVC的开发环境"><a href="#搭建和测试SpringMVC的开发环境" class="headerlink" title="搭建和测试SpringMVC的开发环境"></a>搭建和测试SpringMVC的开发环境</h2><p>1.在web.xml中配置DispatcherServlet前端控制器</p><pre><code class="lang-xml">&lt;!-- 配置前端控制器：服务器启动必须加载,需要加载springmvc.xml配置文件 --&gt;
+&lt;servlet&gt;
+&lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;
+&lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+&lt;!-- 配置初始化参数,创建完DispatcherServlet对象,加载springmvc.xml配置文件 --&gt;
+&lt;init-param&gt;
+&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+&lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;
+&lt;/init-param&gt;
+&lt;!-- 服务器启动的时候,让DispatcherServlet对象创建 --&gt;
+&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+&lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;
+&lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><p>2.在web.xml中配置DispatcherServlet过滤器解决中文乱码</p><pre><code class="lang-xml">&lt;!-- 配置解决中文乱码的过滤器 --&gt;
+&lt;filter&gt;
+&lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;
+&lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+&lt;init-param&gt;
+&lt;param-name&gt;encoding&lt;/param-name&gt;
+&lt;param-value&gt;UTF-8&lt;/param-value&gt;
+&lt;/init-param&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+&lt;filter-name&gt;characterEncodingFilter&lt;/filter-name&gt;
+&lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</code></pre><p>3.创建springmvc.xml的配置文件,编写配置文件</p><pre><code class="lang-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+
+    &lt;!-- 开启注解扫描 --&gt;
+    &lt;context:component-scan base-package="com.kayleh"&gt;
+        &lt;context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/&gt;
+    &lt;/context:component-scan&gt;
+
+    &lt;!--配置的视图解析器对象--&gt;
+    &lt;bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;
+        &lt;property name="prefix" value="/WEB-INF/pages/"/&gt;
+        &lt;property name="suffix" value=".jsp"/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--过滤静态资源--&gt;
+    &lt;mvc:resources mapping="/CSS/**" location="/CSS/"/&gt;
+    &lt;mvc:resources mapping="/images/**" location="/images/"/&gt;
+    &lt;mvc:resources mapping="/js/**" location="/js/"/&gt;
+    &lt;!--开启SpringMVC的注解支持--&gt;
+    &lt;mvc:annotation-driven/&gt;
+&lt;/beans&gt;
+</code></pre><ol><li>测试SpringMVC的框架搭建是否成功<br>1.编写index.jsp和list.jsp编写,超链接<br>自带的index.jsp没有头部信息，需要重新创建<pre><code class="lang-xml"> &lt;a href="account/findAll"&gt;查询所有&lt;/a&gt;
+</code></pre>2.创建AccountController类,编写方法,进行测试</li></ol><pre><code class="lang-java">    package cn.kayleh.controller;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    @Controller
+    @RequestMapping("/account")
+    public class AccountController {
+    /**
+    * 查询所有的数据
+    * @return
+    */
+    @RequestMapping("/findAll")
+    public String findAll() {
+    System.out.println("表现层：查询所有账户...");
+    return "list";
+    }
+    }
+</code></pre><h2 id="Spring整合SpringMVC的框架"><a href="#Spring整合SpringMVC的框架" class="headerlink" title="Spring整合SpringMVC的框架"></a>Spring整合SpringMVC的框架</h2><ol><li>目的：在controller中能成功的调用service对象中的方法.</li><li>在项目启动的时候,就去加载applicationContext.xml的配置文件,在web.xml中配置ContextLoaderListener监听器（该监听器只能加载WEB-INF目录下的applicationContext.xml的配置文<br>件）。<pre><code class="lang-xml">&lt;!-- 配置Spring的监听器 --&gt;
+&lt;listener&gt;
+&lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listenerclass&gt;
+&lt;/listener&gt;
+&lt;!-- 配置加载类路径的配置文件 --&gt;
+&lt;context-param&gt;
+&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+&lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;
+&lt;/context-param&gt;
+</code></pre></li></ol><ol><li>在controller中注入service对象,调用service对象的方法进行测试<br>```java<br>package cn.itcast.controller;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.stereotype.Controller;<br>import org.springframework.web.bind.annotation.RequestMapping;<br>import cn.kayleh.service.AccountService;<br>@Controller<br>@RequestMapping(“/account”)<br>public class AccountController {<pre><code> @Autowired
+ private AccountService accoutService;
+</code></pre>/**</li></ol><ul><li>查询所有的数据</li><li>@return<br>*/<br>@RequestMapping(“/findAll”)<br>public String findAll() {<br>System.out.println(“表现层：查询所有账户…”);<br>accoutService.findAll();<br>return “list”;<br>}<br>}<br>```</li></ul><h2 id="Spring整合MyBatis框架"><a href="#Spring整合MyBatis框架" class="headerlink" title="Spring整合MyBatis框架"></a>Spring整合MyBatis框架</h2><h3 id="搭建和测试MyBatis的环境"><a href="#搭建和测试MyBatis的环境" class="headerlink" title="搭建和测试MyBatis的环境"></a>搭建和测试MyBatis的环境</h3><h6 id="在web项目中编写SqlMapConfig-xml的配置文件，编写核心配置文件-在后面整合进applicationContext-xml后可以删除"><a href="#在web项目中编写SqlMapConfig-xml的配置文件，编写核心配置文件-在后面整合进applicationContext-xml后可以删除" class="headerlink" title="在web项目中编写SqlMapConfig.xml的配置文件，编写核心配置文件,在后面整合进applicationContext.xml后可以删除"></a>在web项目中编写SqlMapConfig.xml的配置文件，编写核心配置文件,在后面整合进applicationContext.xml后可以删除</h6><pre><code class="lang-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;
+&lt;configuration&gt;
+&lt;environments default="mysql"&gt;
+&lt;environment id="mysql"&gt;
+&lt;transactionManager type="JDBC"/&gt;
+&lt;dataSource type="POOLED"&gt;
+&lt;property name="driver" value="com.mysql.jdbc.Driver"/&gt;
+&lt;property name="url" value="jdbc:mysql:///ssm"/&gt;
+&lt;property name="username" value="root"/&gt;
+&lt;property name="password" value="admin"/&gt;
+&lt;/dataSource&gt;
+&lt;/environment&gt;
+&lt;/environments&gt;
+&lt;!-- 使用的是注解 --&gt;
+&lt;mappers&gt;
+&lt;!-- &lt;mapper class="cn.kayleh.dao.AccountDao"/&gt; --&gt;
+&lt;!-- 该包下所有的dao接口都可以使用 --&gt;
+&lt;package name="cn.kayleh.dao"/&gt;
+&lt;/mappers&gt;
+&lt;/configuration&gt;
+</code></pre><h5 id="在AccountDao接口的方法上添加注解，编写SQL语句"><a href="#在AccountDao接口的方法上添加注解，编写SQL语句" class="headerlink" title="在AccountDao接口的方法上添加注解，编写SQL语句"></a>在AccountDao接口的方法上添加注解，编写SQL语句</h5><pre><code class="lang-java">package com.kayleh.dao;
+
+import com.kayleh.domain.Account;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:11
+ * &lt;p&gt;
+ * 账户dao接口
+ */
+
+@Repository
+public interface AccountDao {
+
+    //查询所有账户
+    @Select("select * from account")
+    public List&lt;Account&gt; findAll();
+
+    //保存账户信息
+    @Insert("insert into account(name,money) values (#{name},#{money})")
+    public void saveAccount(Account account);
+}
+</code></pre><h5 id="编写测试的方法"><a href="#编写测试的方法" class="headerlink" title="编写测试的方法"></a>编写测试的方法</h5><pre><code class="lang-java">package com.kayleh.test;
+import com.kayleh.service.AccountService;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:38
+ */
+public class TestSpring {
+    @Test
+    public void run1(){
+        //加载配置文件
+        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        //获取对象
+        AccountService as = (AccountService) ac.getBean("accountService");
+        //调用方法
+        as.findAll();
+    }
+}
+</code></pre><h2 id="Spring整合MyBatis框架-1"><a href="#Spring整合MyBatis框架-1" class="headerlink" title="Spring整合MyBatis框架"></a>Spring整合MyBatis框架</h2><h5 id="目的：把SqlMapConfig-xml配置文件中的内容配置到applicationContext-xml配置文件中"><a href="#目的：把SqlMapConfig-xml配置文件中的内容配置到applicationContext-xml配置文件中" class="headerlink" title="目的：把SqlMapConfig.xml配置文件中的内容配置到applicationContext.xml配置文件中"></a>目的：把SqlMapConfig.xml配置文件中的内容配置到applicationContext.xml配置文件中</h5><pre><code class="lang-xml"> &lt;!--Srping整合MyBatis框架--&gt;
+    &lt;!--配置连接池--&gt;
+    &lt;!--引入外部配置文件--&gt;
+&lt;!-- &lt;context:property-placeholder location="classpath:jdbc.properties"/&gt;--&gt;
+    &lt;bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource"&gt;
+        &lt;property name="driverClass" value="com.mysql.jdbc.Driver"/&gt;
+        &lt;property name="jdbcUrl" value="jdbc:mysql:///ssm"/&gt;&lt;!--省略了localhost:3306--&gt;
+        &lt;property name="user" value="root"/&gt;
+        &lt;property name="password" value="admin"/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置SqlSessionFactory工厂--&gt;
+    &lt;bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"&gt;
+        &lt;property name="dataSource" ref="ds"/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置AccountDao接口所在包--&gt;
+    &lt;bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer"&gt;
+        &lt;property name="basePackage" value="com.kayleh.dao" /&gt;
+    &lt;/bean&gt;
+</code></pre><h5 id="在AccountDao接口中添加-Repository注解"><a href="#在AccountDao接口中添加-Repository注解" class="headerlink" title="在AccountDao接口中添加@Repository注解"></a>在AccountDao接口中添加@Repository注解</h5><h5 id="在service中注入dao对象，进行测试"><a href="#在service中注入dao对象，进行测试" class="headerlink" title="在service中注入dao对象，进行测试"></a>在service中注入dao对象，进行测试</h5><pre><code class="lang-java">package com.kayleh.dao;
+
+import com.kayleh.domain.Account;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:11
+ * &lt;p&gt;
+ * 账户dao接口
+ */
+
+@Repository
+public interface AccountDao {
+
+    //查询所有账户
+    @Select("select * from account")
+    public List&lt;Account&gt; findAll();
+
+    //保存账户信息
+    @Insert("insert into account(name,money) values (#{name},#{money})")
+    public void saveAccount(Account account);
+}
+
+-------------------------------------------------------------
+package com.kayleh.service.impl;
+
+import com.kayleh.dao.AccountDao;
+import com.kayleh.domain.Account;
+import com.kayleh.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:18
+ */
+
+@Service("accountService")
+public class AccountServiceImpl implements AccountService {
+
+    @Autowired
+    private AccountDao accountDao;
+
+    public List&lt;Account&gt; findAll() {
+        System.out.println("业务层:查询所有账户...");
+        return accountDao.findAll();
+    }
+
+    public void saveAccount(Account account) {
+        System.out.println("业务层:保存账户...");
+        accountDao.saveAccount(account);
+    }
+}
+
+-------------------------------------------------------------
+package com.kayleh.controller;
+
+import com.kayleh.domain.Account;
+import com.kayleh.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.RequestWrapper;
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/21 9:21
+ * &lt;p&gt;
+ * 用户web层
+ */
+
+@Controller
+@RequestMapping("/account")
+public class AccountController {
+
+    @Autowired
+    private AccountService accountService;
+
+    @RequestMapping("/findAll")
+    public String findAll(Model model) {
+        System.out.println("表现层:查询所有的账户...");
+
+        List&lt;Account&gt; list = accountService.findAll();
+
+        model.addAttribute("list", list);
+
+        return "list";
+    }
+</code></pre><h5 id="配置Spring的声明式事务管理"><a href="#配置Spring的声明式事务管理" class="headerlink" title="配置Spring的声明式事务管理"></a>配置Spring的声明式事务管理</h5><pre><code class="lang-xml">applicationContext.xml
+ &lt;!-- 配置Spring框架声明式事务管理 --&gt;
+    &lt;!-- 配置事务管理器 --&gt;
+    &lt;bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"&gt;
+        &lt;property name="dataSource" ref="ds"/&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- 配置事务通知 --&gt;
+    &lt;tx:advice id="txAdvice" transaction-manager="transactionManager"&gt;
+        &lt;tx:attributes&gt;
+            &lt;tx:method name="find*" read-only="true"/&gt;
+            &lt;tx:method name="*" isolation="DEFAULT"/&gt;
+        &lt;/tx:attributes&gt;
+    &lt;/tx:advice&gt;
+
+    &lt;!-- 配置AOP增强 --&gt;
+    &lt;aop:config&gt;
+        &lt;aop:advisor advice-ref="txAdvice" pointcut="execution(* com.kayleh.service.impl.*ServiceImpl.*(..))"/&gt;
+
+    &lt;/aop:config&gt;
+</code></pre><pre><code class="lang-java">/**
+     * 保存
+     *
+     * @param account
+     * @return
+     */
+    @RequestMapping("/save")
+    public void save(Account account, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("表现层:查询所有的账户...");
+
+        accountService.saveAccount(account);
+
+        response.sendRedirect(request.getContextPath() + "/account/findAll");
+        return;
+    }
+</code></pre><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/dynamic-array/">dynamic-array</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/palindrome/">palindrome</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

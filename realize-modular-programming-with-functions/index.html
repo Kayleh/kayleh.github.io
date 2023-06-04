@@ -1,0 +1,632 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>realize modular programming with functions - Kayleh</title><meta name="description" content="用函数实现模块化程序设计 Realize modular programming with functions  用函数输出以下结果： ***************** How do you do! *****************  #include<stdio.h>  int main() &amp;#123;     void print_star();//函数的声明     voi"><meta property="og:type" content="article"><meta property="og:title" content="realize modular programming with functions"><meta property="og:url" content="https://blog.kayleh.top/realize-modular-programming-with-functions/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="用函数实现模块化程序设计 Realize modular programming with functions  用函数输出以下结果： ***************** How do you do! *****************  #include<stdio.h>  int main() &amp;#123;     void print_star();//函数的声明     voi"><meta property="og:locale" content="zh_CN"><meta property="article:published_time" content="2020-10-25T17:17:42.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.645Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="C"><meta name="twitter:card" content="summary"><meta name="keywords" content="C"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">realize modular programming with functions</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-text">怎么定义函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%97%A0%E5%8F%82%E5%87%BD%E6%95%B0"><span class="toc-text">定义无参函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%9C%89%E5%8F%82%E5%87%BD%E6%95%B0"><span class="toc-text">定义有参函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E7%A9%BA%E5%87%BD%E6%95%B0"><span class="toc-text">定义空函数</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">调用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="toc-text">函数调用的形式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">函数调用方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%97%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="toc-text">函数调用时的数据传递</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%A2%E5%BC%8F%E5%8F%82%E6%95%B0%E5%92%8C%E5%AE%9E%E9%99%85%E5%8F%82%E6%95%B0"><span class="toc-text">形式参数和实际参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E5%8F%82%E5%92%8C%E5%BD%A2%E5%8F%82%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="toc-text">实参和形参间的数据传递</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%A4%E4%B8%AA%E6%95%B4%E6%95%B0-%E8%A6%81%E6%B1%82%E8%BE%93%E5%87%BA%E5%85%B6%E4%B8%AD%E5%80%BC%E8%BE%83%E5%A4%A7%E8%80%85-%E8%A6%81%E6%B1%82%E7%94%A8%E5%87%BD%E6%95%B0%E6%9D%A5%E6%89%BE%E5%88%B0%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="toc-text">输入两个整数,要求输出其中值较大者,要求用函数来找到最大值.</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-text">函数调用的执行过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">函数的返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%A2%AB%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="toc-text">对被调用函数的声明和函数原型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%BD%A2%E5%BC%8F"><span class="toc-text">函数声明的两种形式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%B5%8C%E5%A5%97%E8%B0%83%E7%94%A8"><span class="toc-text">函数的嵌套调用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A54%E4%B8%AA%E6%95%B4%E6%95%B0-%E6%89%BE%E5%87%BA%E5%85%B6%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E6%95%B0"><span class="toc-text">输入4个整数,找出其中最大的数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8"><span class="toc-text">函数的递归调用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E9%80%92%E5%BD%92%E7%9A%84%E6%96%B9%E6%B3%95%E6%B1%82n"><span class="toc-text">用递归的方法求n! .</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98"><span class="toc-text">汉诺塔问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E4%BD%9C%E4%B8%BA%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="toc-text">数组作为函数参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%85%A510%E4%B8%AA%E6%95%B0-%E8%A6%81%E6%B1%82%E8%BE%93%E5%87%BA%E5%85%B6%E4%B8%AD%E5%80%BC%E6%9C%80%E5%A4%A7%E7%9A%84%E5%85%83%E7%B4%A0%E5%92%8C%E8%AF%A5%E6%95%B0%E6%98%AF%E7%AC%AC%E5%87%A0%E4%B8%AA%E6%95%B0"><span class="toc-text">输入10个数,要求输出其中值最大的元素和该数是第几个数.</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%90%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="toc-text">一维数组名作函数参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84score-%E5%86%85%E6%94%BE10%E4%B8%AA%E5%AD%A6%E7%94%9F%E6%88%90%E7%BB%A9-%E6%B1%82%E5%B9%B3%E5%9D%87%E6%88%90%E7%BB%A9"><span class="toc-text">有一个一维数组score,内放10个学生成绩,求平均成绩.</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E4%B8%A4%E4%B8%AA%E7%8F%AD%E7%BA%A7-%E5%88%86%E5%88%AB%E6%9C%8935%E5%90%8D%E5%92%8C39%E5%90%8D%E5%AD%A6%E7%94%9F-%E8%B0%83%E7%94%A8%E4%B8%80%E4%B8%AAaverage%E5%87%BD%E6%95%B0-%E5%88%86%E5%88%AB%E6%B1%82%E4%B8%A4%E4%B8%AA%E7%8F%AD%E7%9A%84%E5%AD%A6%E7%94%9F%E7%9A%84%E5%B9%B3%E5%9D%87%E6%88%90%E7%BB%A9"><span class="toc-text">有两个班级,分别有35名和39名学生,调用一个average函数,分别求两个班的学生的平均成绩.</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%80%89%E6%8B%A9%E6%B3%95%E5%AF%B910%E4%B8%AA%E6%95%B4%E6%95%B0%E4%BB%8E%E5%B0%8F%E5%88%B0%E5%A4%A7%E6%8E%92%E5%BA%8F"><span class="toc-text">使用选择法对10个整数从小到大排序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84%E5%90%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="toc-text">多维数组名作函数参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA3%C3%974%E7%9A%84%E7%9F%A9%E9%98%B5-%E6%B1%82%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="toc-text">有一个3×4的矩阵,求所有元素的最大值.</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-text">局部变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-text">说明:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">全局变量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9D%9E%E5%BF%85%E8%A6%81%E4%B8%8D%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">非必要不建议使用全局变量:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%E5%92%8C%E9%9D%99%E6%80%81%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="toc-text">动态存储方式和静态存储方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%B1%BB%E5%88%AB"><span class="toc-text">局部变量的存储类别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8F%98%E9%87%8F-auto%E5%8F%98%E9%87%8F"><span class="toc-text">自动变量(auto变量)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F-static%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-text">静态局部变量(static局部变量)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%87%BA1%E5%88%B05%E7%9A%84%E9%98%B6%E4%B9%98%E5%80%BC-%E5%B1%80%E9%83%A8%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F"><span class="toc-text">输出1到5的阶乘值.(局部静态变量)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%8F%98%E9%87%8F-register%E5%8F%98%E9%87%8F"><span class="toc-text">寄存器变量(register变量)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text">全局变量的存储类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%86%85%E6%89%A9%E5%B1%95%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">在一个文件内扩展外部变量的作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%EF%BC%8C%E6%B1%823%E4%B8%AA%E6%95%B4%E6%95%B0%E4%B8%AD%E7%9A%84%E5%A4%A7%E8%80%85%E3%80%82"><span class="toc-text">调用函数，求3个整数中的大者。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%89%A9%E5%B1%95%E5%88%B0%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6"><span class="toc-text">将外部变量的作用域扩展到其他文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%99%E5%AE%9Ab%E7%9A%84%E5%80%BC%EF%BC%8C%E8%BE%93%E5%85%A5a%E5%92%8Cm%EF%BC%8C%E6%B1%82a-b%E5%92%8C-a-m-%E7%9A%84%E5%80%BC"><span class="toc-text">给定b的值，输入a和m，求a*b和$a^m$的值</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%99%90%E5%88%B6%E5%9C%A8%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="toc-text">将外部变量的作用域限制在本文件中</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-text">注意:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0"><span class="toc-text">内部函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%87%BD%E6%95%B0"><span class="toc-text">外部函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E5%86%85%E6%9C%89%E8%8B%A5%E5%B9%B2%E4%B8%AA%E5%AD%97%E7%AC%A6%EF%BC%8C%E7%8E%B0%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%EF%BC%8C%E8%A6%81%E6%B1%82%E7%A8%8B%E5%BA%8F%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E8%AF%A5%E5%AD%97%E7%AC%A6%E5%88%A0%E5%8E%BB%E3%80%82"><span class="toc-text">有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。</span></a></li></ol></li></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-10-25T17:17:42.000Z">2020-10-25</time></div></div><article class="md-text content post"><h1 class="article-title"><span>realize modular programming with functions</span></h1><h1 id="用函数实现模块化程序设计"><a href="#用函数实现模块化程序设计" class="headerlink" title="用函数实现模块化程序设计"></a>用函数实现模块化程序设计</h1><blockquote><p>Realize modular programming with functions</p></blockquote><p>用函数输出以下结果：</p><pre><code class="lang-c">*****************
+How do you do!
+*****************
+</code></pre><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    void print_star();//函数的声明
+    void print_message();//函数的声明
+    print_star();
+    print_message();
+    print_star();
+    return 0;
+}
+
+void print_star()
+{
+    printf("*****************\n");
+}
+
+void print_message()
+{
+    printf("How do you do!\n");
+}
+</code></pre><blockquote><p>函数声明的作用是把有关函数的信息(函数名,函数类型,函数参数的个数与类型)通知编译系统,以便在编译系统对程序进行编译时,在进行到main函数调用print_star()和print_message()时知道它们是函数而不是变量或其他对象,还对调用函数的正确性进行检查.</p><p>函数间可以互相调用,但不能调用main函数,main函数是被操作系统调用的.</p><p>函数从用户使用的角度看分为:</p><ul><li>库函数</li><li>用户自己定义的函数</li></ul><p>从函数形式分为:</p><ul><li>无参函数</li><li>有参函数</li></ul></blockquote><h2 id="怎么定义函数"><a href="#怎么定义函数" class="headerlink" title="怎么定义函数"></a>怎么定义函数</h2><p>定义函数应包括哪些内容:</p><ul><li>函数的名字,方便按名调用</li><li>函数的类型,即函数返回值的类型</li><li>函数的参数的名字和类型,调用函数时需要传递的数据</li><li>函数的功能,函数体</li></ul><h4 id="定义无参函数"><a href="#定义无参函数" class="headerlink" title="定义无参函数"></a>定义无参函数</h4><pre><code class="lang-c">类型名    函数名()
+{
+    函数体
+}
+或
+类型名    函数名(void)
+{
+    函数体
+}
+</code></pre><p>函数体包括声明部分(变量)和语句部分.</p><h4 id="定义有参函数"><a href="#定义有参函数" class="headerlink" title="定义有参函数"></a>定义有参函数</h4><pre><code class="lang-c">类型名    函数名(形式参数表列)
+{
+    函数体
+}
+</code></pre><h4 id="定义空函数"><a href="#定义空函数" class="headerlink" title="定义空函数"></a>定义空函数</h4><pre><code class="lang-c">类型名    函数名()
+{}
+</code></pre><h2 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h2><h4 id="函数调用的形式"><a href="#函数调用的形式" class="headerlink" title="函数调用的形式"></a>函数调用的形式</h4><blockquote><p>函数名(实参表列)</p></blockquote><h4 id="函数调用方式"><a href="#函数调用方式" class="headerlink" title="函数调用方式"></a>函数调用方式</h4><ul><li><p>调用语句</p></li><li><p>函数表达式</p><p>要求函数带回一个确定的值以参加表达式的运算</p><pre><code class="lang-c">c=2*max(a,b);
+</code></pre></li><li><p>函数参数</p><p>函数调用作为另一个函数调用时的实参,如:</p><pre><code class="lang-c">m=max(a,max(b,c));
+</code></pre></li></ul><h3 id="函数调用时的数据传递"><a href="#函数调用时的数据传递" class="headerlink" title="函数调用时的数据传递"></a>函数调用时的数据传递</h3><h4 id="形式参数和实际参数"><a href="#形式参数和实际参数" class="headerlink" title="形式参数和实际参数"></a>形式参数和实际参数</h4><blockquote><p><code>形式参数</code></p><p>在定义函数时函数名后面括号中的变量名称为<code>形式参数</code></p><p><code>实际参数</code></p><p>在主调函数调用一个函数时,函数名后面括号中的变量名称为<code>实际参数</code></p></blockquote><h4 id="实参和形参间的数据传递"><a href="#实参和形参间的数据传递" class="headerlink" title="实参和形参间的数据传递"></a>实参和形参间的数据传递</h4><blockquote><p>在调用函数过程中,系统会把实参中的值传递给被调函数的形参.</p></blockquote><h5 id="输入两个整数-要求输出其中值较大者-要求用函数来找到最大值"><a href="#输入两个整数-要求输出其中值较大者-要求用函数来找到最大值" class="headerlink" title="输入两个整数,要求输出其中值较大者,要求用函数来找到最大值."></a>输入两个整数,要求输出其中值较大者,要求用函数来找到最大值.</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int max(int x, int y);
+    int a, b, c;
+    printf("please enter 2 integer numbers:");
+    scanf("%d,%d", &amp;a, &amp;b);
+    c = max(a, b);
+    printf("max is %d", c);
+    return 0;
+}
+
+int max(int x, int y)
+{c
+    int z;
+    z = x &gt; y ? x : y;
+    return z;
+}
+</code></pre><h3 id="函数调用的执行过程"><a href="#函数调用的执行过程" class="headerlink" title="函数调用的执行过程"></a>函数调用的执行过程</h3><p>1)在定义函数中指定的形参,在未出现函数调用的时,它们并不占内存中的存储单元,在发生函数调用时,函数max的形参才被临时分配内存单元.</p><p>2)将实参的值传递给对应形参</p><p>3)在执行max函数期间,由于形参已经有值,就可以利用形参进行有关的运算</p><p>4)通过return语句将函数值带回到主调函数.</p><p>5)调用结束,形参单元被释放. 注意:实参单元仍保留并维持原值.没有改变.如果在执行一个被调函数时,形参的值发生改变,不会改变主调函数的实参的值.如:在执行max函数时,x和y的值变为10和15,但a和b仍为2和3,这是因为形参和实参是两个不同的存储单元.</p><h3 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h3><ul><li><p>函数的返回值是通过return语句中获得的.</p></li><li><p>函数返回值的类型是函数的类型.</p></li><li><p>在定义函数时指定的函数类型一般应该和return语句中的表达式类型一致.</p></li></ul><p>将在max函数中定义的变量z改为float型,函数返回值与指定的函数类型不同</p><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int max(float x, float y);
+    float a, b;
+    int c;
+    scanf("%f,%f", &amp;a, &amp;b);
+    c = max(a, b);
+    printf("max is %d", c);
+    return 0;
+}
+
+int max(float x, float y)
+{
+    float z;
+    z = x &gt; y ? x : y;
+    return (z);
+}
+---------
+1.5,2.6
+max is 2
+</code></pre><h3 id="对被调用函数的声明和函数原型"><a href="#对被调用函数的声明和函数原型" class="headerlink" title="对被调用函数的声明和函数原型"></a>对被调用函数的声明和函数原型</h3><p>输入两个实数,用一个函数求它们之和.</p><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    float add(float x, float y);
+    float a, b, c;
+    scanf("%f,%f", &amp;a, &amp;b);
+    c = add(a, b);
+    printf("sum is %d", c);
+    return 0;
+}
+
+float add(float x, float y)
+{
+    float z;
+    z = x + y;
+    return (z);
+}
+</code></pre><h4 id="函数声明的两种形式"><a href="#函数声明的两种形式" class="headerlink" title="函数声明的两种形式"></a>函数声明的两种形式</h4><p>1)函数类型 函数名(参数类型1 参数名1,参数类型2 参数名2,…参数类型n 参数名n)</p><p>2)函数类型 函数名(参数类型1,参数类型2,…,参数类型n)</p><p>编译系统只关心和检查参数个数和参数类型,而不检查参数名,因为在调用函数时只要求保证实参类型与形参类型一致,而不必考虑形参名是什么.因此在函数声明中</p><blockquote><p><code>函数原型</code>函数的首部称为函数原型</p></blockquote><h3 id="函数的嵌套调用"><a href="#函数的嵌套调用" class="headerlink" title="函数的嵌套调用"></a>函数的嵌套调用</h3><h5 id="输入4个整数-找出其中最大的数"><a href="#输入4个整数-找出其中最大的数" class="headerlink" title="输入4个整数,找出其中最大的数"></a>输入4个整数,找出其中最大的数</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int max4(int a, int b, int c, int d);
+    int a, b, c, d, max;
+    printf("please enter 4 integer numbers:");
+    scanf("%d %d %d %d", &amp;a, &amp;b, &amp;c, &amp;d);
+    max = max4(a, b, c, d);
+    printf("max:%d", max);
+    return 0;
+}
+
+int max2(int a, int b)
+{
+    if (a &gt;= b)
+        return a;
+    else
+        return b;
+}
+
+int max4(int a, int b, int c, int d)
+{
+    int max2(int, int);//函数声明
+    int m;
+    m = max2(a, b);
+    m = max2(m, c);
+    m = max2(m, d);
+    return m;
+}
+</code></pre><p>改进:</p><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int max4(int a, int b, int c, int d);
+    int a, b, c, d, max;
+    printf("please enter 4 integer numbers:");
+    scanf("%d %d %d %d", &amp;a, &amp;b, &amp;c, &amp;d);
+    max = max4(a, b, c, d);
+    printf("max:%d", max);
+    return 0;
+}
+
+int max2(int a, int b)
+{
+    return a &gt;= b ? a : b;
+}
+
+int max4(int a, int b, int c, int d)
+{
+    int max2(int, int);//函数声明
+    return max2(max2(max2(a, b), c), d);;
+}
+</code></pre><h2 id="函数的递归调用"><a href="#函数的递归调用" class="headerlink" title="函数的递归调用"></a>函数的递归调用</h2><blockquote><p>一个递归的问题可以分为”回溯”和”递推”两个阶段.</p></blockquote><h5 id="用递归的方法求n"><a href="#用递归的方法求n" class="headerlink" title="用递归的方法求n! ."></a>用递归的方法求n! .</h5><blockquote><p>n!=1 (n=0,1)</p><p>n!=n×(n-1) (n&gt;1)</p></blockquote><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int fac(int n);
+    int n, y;
+    printf("please enter an integer number:");
+    scanf("%d", &amp;n);
+    y = fac(n);
+    printf("%d!=%d", n,y);
+    return 0;
+}
+
+int fac(int n)
+{
+    int f;
+    if (n &lt; 0)
+        printf("n&lt;0.data error!");
+    else if (n == 0 || n == 1)
+        f = 1;
+    else f = fac(n - 1) * n;
+    return f;
+}
+</code></pre><h5 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    void hanoi(int n, char one, char two, char three);
+    int m;
+    printf("input the number of diskes:");
+    scanf("%d", &amp;m);
+    hanoi(m, 'A', 'B', 'C');
+    return 0;
+}
+
+void hanoi(int n, char one, char two, char three)
+{
+    //将n个盘从one座借助two座移动到three座
+    void move(char x, char y);
+    if (n == 1)
+        move(one, three);
+    else
+    {
+        hanoi(n - 1, one, three, two);
+        move(one, three);
+        hanoi(n - 1, two, one, three);
+    }
+}
+
+void move(char x, char y)
+{
+    printf("%c --&gt; %c\n", x, y);
+}
+</code></pre><h2 id="数组作为函数参数"><a href="#数组作为函数参数" class="headerlink" title="数组作为函数参数"></a>数组作为函数参数</h2><blockquote><p>在用数组元素作函数实参时,把实参的值传给形参,是<strong>“值传递”</strong>方式,数据的传递是由<strong>形参传到实参,单向传递.</strong></p></blockquote><h5 id="输入10个数-要求输出其中值最大的元素和该数是第几个数"><a href="#输入10个数-要求输出其中值最大的元素和该数是第几个数" class="headerlink" title="输入10个数,要求输出其中值最大的元素和该数是第几个数."></a>输入10个数,要求输出其中值最大的元素和该数是第几个数.</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int max(int x, int y);
+    int a[10], i, m, n;
+    printf("please enter 10 integer numbers:");
+    for (i = 0; i &lt; 10; i++)
+    {
+        scanf("%d", &amp;a[i]);
+    }
+    printf("\n");
+    for (i = 1, n = 0, m = a[0]; i &lt; 10; i++)
+    {
+        if (max(m, a[i]) &gt; m)
+        {
+            m = max(m, a[i]);
+            n = i;
+        }
+    }
+    printf("the large number is %d\nit is the %dth number.", m, n + 1);
+    return 0;
+}
+
+int max(int x, int y)
+{
+    return x &gt; y ? x : y;
+}
+</code></pre><h3 id="一维数组名作函数参数"><a href="#一维数组名作函数参数" class="headerlink" title="一维数组名作函数参数"></a>一维数组名作函数参数</h3><h5 id="有一个一维数组score-内放10个学生成绩-求平均成绩"><a href="#有一个一维数组score-内放10个学生成绩-求平均成绩" class="headerlink" title="有一个一维数组score,内放10个学生成绩,求平均成绩."></a>有一个一维数组score,内放10个学生成绩,求平均成绩.</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    float average(float array[10]);
+    float score[10], aver;
+    int i;
+    printf("input 10 scores:\n");
+    for (i = 0; i &lt; 10; i++)
+        scanf("%f", &amp;score[i]);
+    printf("\n");
+    aver = average(score);
+    printf("average score is %5.2f\n", aver);
+    return 0;
+}
+
+float average(float array[10])
+{
+    int i;
+    float aver, sum = array[0];
+    for (i = 1; i &lt; 10; i++)
+        sum = sum + array[i];
+    aver = sum / 10;
+    return aver;
+}
+</code></pre><p>形参数组可以不指定大小,在定义数组时在数组名后加上空括号,如</p><pre><code class="lang-c">float average(float array[])
+</code></pre><h5 id="有两个班级-分别有35名和39名学生-调用一个average函数-分别求两个班的学生的平均成绩"><a href="#有两个班级-分别有35名和39名学生-调用一个average函数-分别求两个班的学生的平均成绩" class="headerlink" title="有两个班级,分别有35名和39名学生,调用一个average函数,分别求两个班的学生的平均成绩."></a>有两个班级,分别有35名和39名学生,调用一个average函数,分别求两个班的学生的平均成绩.</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    float average(float array[], int n);
+    float score1[5] = {89, 99.5, 99, 45, 78};
+    float score2[10] = {85.5, 10.5, 87.5, 78.5, 67.5, 90.5, 99.5, 87.5, 88, 78.5};
+
+    //用数组名作实参
+    printf("The average of class A is %6.2f\n", average(score1, 5));
+    printf("The average of class B is %6.2f\n", average(score2, 10));
+    return 0;
+}
+
+float average(float array[], int n)
+{
+    int i;
+    float aver, sum = array[0];
+    for (i = 1; i &lt; n; i++)
+        sum = sum + array[i];
+    aver = sum / n;
+    return (aver);
+}
+</code></pre><h5 id="使用选择法对10个整数从小到大排序"><a href="#使用选择法对10个整数从小到大排序" class="headerlink" title="使用选择法对10个整数从小到大排序"></a>使用选择法对10个整数从小到大排序</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    void sort(int array[], int n);
+    int a[10], i;
+    printf("please enter array:");
+    for (i = 0; i &lt; 10; i++)
+    {
+        scanf("%d", &amp;a[i]);
+    }
+    sort(a, 10);
+    printf("the sorted array:");
+    for (i = 0; i &lt; 10; i++)
+    {
+        printf("%d", a[i]);
+    }
+    printf("/n");
+    return 0;
+}
+
+void sort(int array[], int n)
+{
+    int i, j, k, t;
+    for (i = 0; i &lt; n - 1; i++)
+    {
+        k = i;
+        for (j = i + 1; j &lt; n; j++)
+        {
+            if (array[j] &lt; array[k])
+                k = j;
+            t = array[k];
+            array[k] = array[i];
+            array[i] = t;
+        }
+    }
+}
+</code></pre><h3 id="多维数组名作函数参数"><a href="#多维数组名作函数参数" class="headerlink" title="多维数组名作函数参数"></a>多维数组名作函数参数</h3><p>可以使用多维函数数组名作为函数的实参和形参.</p><blockquote><p>形参数组和实参数组都是由相同类型和大小的一维数组组成的.C语言编译系统<strong>不检查第一维</strong>的大小.</p></blockquote><h5 id="有一个3×4的矩阵-求所有元素的最大值"><a href="#有一个3×4的矩阵-求所有元素的最大值" class="headerlink" title="有一个3×4的矩阵,求所有元素的最大值."></a>有一个3×4的矩阵,求所有元素的最大值.</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int max_value(int array[][4]);
+    int a[3][4] = {{1,  3,  5,  7},
+                   {2,  4,  6,  8},
+                   {15, 17, 34, 12}};
+    printf("max value is %d", max_value(a));
+
+}
+
+int max_value(int array[][4])
+{
+    int max, i, j;
+    max = array[0][0];
+    for (i = 0; i &lt; 3; ++i)
+    {
+        for (j = 0; j &lt; 4; ++j)
+        {
+            if (array[i][j] &gt; max)
+                max = array[i][j];
+        }
+    }
+    return max;
+}
+</code></pre><blockquote><p>注意:</p><p>1.形参数组array第一维的大小省略,第2维大小不能省略,而且要和实参数组a的第2维大小相同.</p><p>2.在主函数调用max_value函数时,把实参二维数组a的第1行的起始地址传递给形参数组array.因此array数组第一行的起始地址与a数组的第一行起始地址相同.</p></blockquote><h1 id="局部变量和全局变量"><a href="#局部变量和全局变量" class="headerlink" title="局部变量和全局变量"></a>局部变量和全局变量</h1><p><strong>作用域</strong></p><p>每个变量都有作用域问题,即它们在什么范围内有效.</p><h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>定义变量有3种情况:</p><p>(1)在函数的开头定义</p><p>(2)在函数内的复合语句内定义</p><p>(3)在函数的外部定义</p><h4 id="说明"><a href="#说明" class="headerlink" title="说明:"></a>说明:</h4><p>1.主函数中定义的变量也只在主函数中有效</p><p>2.不同函数中可以使用同名的变量</p><p>3.形式参数也是局部变量</p><p>4.在一个函数内部,可以在复合语句中定义变量,这些变量只在本复合语句中有效,这种复合语句也称为”分程序”或”程序块”.离开复合语句,变量就无效,系统会把占用的内存资源释放.</p><h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><blockquote><p>程序的编译单位是源程序文件.</p></blockquote><p>在函数之内定义的变量是局部变量,</p><p>在函数之外定义的变量是外部变量,是<strong>全局变量</strong>.它的有效范围为从定义变量的位置开始到本源程序文件结束.</p><h5 id="非必要不建议使用全局变量"><a href="#非必要不建议使用全局变量" class="headerlink" title="非必要不建议使用全局变量:"></a>非必要不建议使用全局变量:</h5><p>1.在全部执行过程中都占用存储单元,而不是仅在需要时才开辟单元.</p><p>2.减低程序的清晰性,不易维护</p><h1 id="变量的存储方式和生存期"><a href="#变量的存储方式和生存期" class="headerlink" title="变量的存储方式和生存期"></a>变量的存储方式和生存期</h1><h4 id="动态存储方式和静态存储方式"><a href="#动态存储方式和静态存储方式" class="headerlink" title="动态存储方式和静态存储方式"></a>动态存储方式和静态存储方式</h4><p>从变量值的存在时间(即生存期)来分:</p><blockquote><p>静态存储方式:程序在运行期间由系统分配固定的存储空间的方式</p><p>动态存储方式:程序运行期间根据需要进行动态的分配存储空间的方式.</p></blockquote><p>数据分别存放在静态存储区和动态存储区,全局变量全部存放在静态存储区中.</p><blockquote><p>在<strong>动态存储区</strong>中存放以下数据:</p><p>①函数形式参数。在调用函数时给形参分配存储空间。</p><p>②函数中定义的没有用关键字static声明的变量,即自动变量.</p><p>③函数调用时的现场保护和返回地址.</p></blockquote><p>如果在一个程序中两次调用同一函数,而在此函数中定义了局部变量,在两次调用时分配给这些局部变量的存储空间的地址可能不一样.</p><p>每个变量和函数都有两个属性,<strong>数据类型</strong>(如整型,浮点型)和<strong>数据的存储类型</strong>(静态存储,动态存储).</p><blockquote><p>在定义和声明变量和函数时,一般应同时指定其数据数据类型和存储类型,也可以以默认的方式指定(即如果用户不指定,系统会隐含地指定为某一种存储类型).</p></blockquote><p>C的存储类别:</p><ul><li>自动的(auto)</li><li>静态的(static)</li><li>寄存器的(register)</li><li>外部的(extern)</li></ul><h2 id="局部变量的存储类别"><a href="#局部变量的存储类别" class="headerlink" title="局部变量的存储类别"></a>局部变量的存储类别</h2><h4 id="自动变量-auto变量"><a href="#自动变量-auto变量" class="headerlink" title="自动变量(auto变量)"></a>自动变量(auto变量)</h4><p>函数中的局部变量,如果不专门声明为static(静态)存储类型,都是动态地分配存储空间的,数据存储在动态存储区中.程序运行期间根据需要进行动态的分配存储空间的方式.因此这类局部变量称为自动变量.</p><p>自动变量用关键字auto作存储类别的声明.</p><pre><code class="lang-c">int f(int a) //定义f函数，a为形参
+{
+    auto int b, c = 3; //定义b，c为自动变量
+}
+</code></pre><p>执行完后自动释放a,b,c所占的存储单元.</p><blockquote><p>auto关键字可以省略,不写auto则隐含指定为”自动存储类别”,属于动态存储方式.</p></blockquote><h4 id="静态局部变量-static局部变量"><a href="#静态局部变量-static局部变量" class="headerlink" title="静态局部变量(static局部变量)"></a>静态局部变量(static局部变量)</h4><p>有时希望函数中的局部变量的值在函数调用结束后不消失而继续保留原值,即其占用的存储空间不释放,在下一次再调用该函数时,该变量已有值(就是上一次函数调用结束的值)</p><pre><code class="lang-C">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int f(int);
+    int a = 2, i;
+    for (i = 0; i &lt; 3; i++)
+        printf("%d\n", f(a));
+    return 0;
+}
+
+int f(int a)
+{
+    auto int b = 0;
+    static c = 3;
+    b = b + 1;
+    c = c + 1;
+    return (a + b + c);
+}
+--------
+7
+8
+9
+</code></pre><blockquote><p>对静态局部变量是在编译时赋初值的,即只赋值一次,在程序运行时它已有初值.</p><p>而对自动变量是在函数调用时进行的,每调用一次函数重新给一次初值.</p><p>在定义局部变量时不赋初值的话,则对静态变量来说,编译时自动赋初值0(对数值型变量)或空字符’\0’(对字符变量).</p><p>而对自动变量来说,它的值是一个不确定的值.由于每次函数调用结束后存储单元已释放,下次调用时又重新另分配存储单元,而所分配的单元内容是不可知的.</p></blockquote><h5 id="输出1到5的阶乘值-局部静态变量"><a href="#输出1到5的阶乘值-局部静态变量" class="headerlink" title="输出1到5的阶乘值.(局部静态变量)"></a>输出1到5的阶乘值.(局部静态变量)</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int fac(int);
+    int i;
+    for (i = 1; i &lt;= 5; ++i)
+    {
+        printf("%d!=%d\n", i, fac(i));
+    }
+    return 0;
+}
+
+int fac(int n)
+{
+    static int f = 1;//f保留了上次函数调用结束的值
+    f = f * n;
+    return (f);
+}
+</code></pre><blockquote><p>不建议使用静态存储,长期占用不释放.</p></blockquote><h4 id="寄存器变量-register变量"><a href="#寄存器变量-register变量" class="headerlink" title="寄存器变量(register变量)"></a>寄存器变量(register变量)</h4><blockquote><p>为提高执行效率，允许将局部变量的值放在CPU中的寄存器中，需要用时直接从寄存器取出参加运算，不必再到内存中取存取。</p></blockquote><p>优化的编译系统能够识别使用频繁的变量，从而自动地将这些变量放在寄存器中。因此实际上用register声明变量的必要性不大。</p><blockquote><p>三种局部变量的存储位置是不同的：</p><p>自动变量是存储在动态存储区；</p><p>静态局部变量是存储在静态存储区；</p><p>寄存器存储在CPU中的寄存器中。</p></blockquote><h2 id="全局变量的存储类型"><a href="#全局变量的存储类型" class="headerlink" title="全局变量的存储类型"></a>全局变量的存储类型</h2><h4 id="在一个文件内扩展外部变量的作用域"><a href="#在一个文件内扩展外部变量的作用域" class="headerlink" title="在一个文件内扩展外部变量的作用域"></a>在一个文件内扩展外部变量的作用域</h4><blockquote><p>如果由于某种考虑，在定义点之前的函数需要引用该外部变量，则在引用之前用关键字<code>extern</code>对该变量作<strong>“外部变量声明”</strong>，表示把该外部变量的作用域扩展到此位置。</p></blockquote><h5 id="调用函数，求3个整数中的大者。"><a href="#调用函数，求3个整数中的大者。" class="headerlink" title="调用函数，求3个整数中的大者。"></a><strong>调用函数，求3个整数中的大者。</strong></h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+{
+    int max();
+    int i;
+    extern int A, B, C;
+    printf("please enter three integer numbers:");
+    scanf("%d %d %d", &amp;A, &amp;B, &amp;C);
+    printf("max is %d\n", max());
+    return 0;
+}
+
+int A, B, C;
+
+int max()
+{
+    int m;
+    m = A &gt; B ? A : B;
+    if (C &gt; m)m = C;
+    return m;
+}
+</code></pre><h4 id="将外部变量的作用域扩展到其他文件"><a href="#将外部变量的作用域扩展到其他文件" class="headerlink" title="将外部变量的作用域扩展到其他文件"></a>将外部变量的作用域扩展到其他文件</h4><h5 id="给定b的值，输入a和m，求a-b和-a-m-的值"><a href="#给定b的值，输入a和m，求a-b和-a-m-的值" class="headerlink" title="给定b的值，输入a和m，求a*b和$a^m$的值"></a>给定b的值，输入a和m，求a*b和$a^m$的值</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+//file1.c
+int A;
+
+int main()
+{
+    int power(int);
+    int b = 3, c, d, m;
+    printf("please enter the number a and its power m:\n");
+    scanf("%d,%d", &amp;A, &amp;m);
+    c = A * b;
+    printf("%d*%d=%d\n", A, b, c);
+    d = power(m);
+    printf("%d**%d=%d\n", A, m, d);
+    return 0;
+}
+
+//file2.c
+extern  A;
+
+int power(int n)
+{
+    int i, y = 1;
+    for (i = 1; i &lt;= n; i++)
+        y *= A;
+    return y;
+}
+</code></pre><blockquote><p>extern既可以用来扩展外部变量在本文件的作用域,又可以使外部变量的作用域从一个文件扩展到程序中的其他文件,那么系统怎么区别处理呢?</p><p>在编译时遇到extern时,先在本文件中找外部变量的定义,如果找到,则在本文件中扩展作用域;</p><p>如果找不到,就在连接时从其他文件找到外部变量的定义,如果从其他文件中找到了,就将作用域扩展到本文件;如果再找不到,就按出错处理.</p></blockquote><h4 id="将外部变量的作用域限制在本文件中"><a href="#将外部变量的作用域限制在本文件中" class="headerlink" title="将外部变量的作用域限制在本文件中"></a>将外部变量的作用域限制在本文件中</h4><p>有时在程序设计中希望某些外部变量只限于被本文件引用,而不能被其他文件引用,这时可以在定义外部变量时加一个<code>static</code>声明.</p><p>加上<code>static</code>声明,只能用于本文件的外部变量称为<code>静态外部变量</code>.这就为程序的模块化,通用性提供方便.</p><p>如果已确认其他文件不需要引用本文件的外部变量,就可以对本文件的外部变量都加上static,成为静态外部变量,以免被其他文件误用.这就相当于把本文件的外部变量对外界”屏蔽起来”,从其他文件的角度看,这个<code>静态外部变量</code>是”看不见的,不能用的”.</p><blockquote><p>用<code>static</code>声明一个变量的作用:</p><ul><li>对局部变量使用:</li></ul><p>把它分配在静态存储区,该变量在整个程序执行期间不释放,其所分配的空间始终存在.</p><ul><li>对全局变量使用:</li></ul><p>则该变量的作用域只限于本文件模块(即被声明的文件中).</p></blockquote><h5 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h5><p>auto,static,register声明变量时,是在定义变量的基础上加上这些关键字,不能<strong>单独使用</strong></p><p>如:</p><pre><code class="lang-c">    int a;
+    static a; //企图将变量a声明为静态变量
+</code></pre><p>编译时会被认为”重新定义”.</p><h1 id="关于变量的声明和定义"><a href="#关于变量的声明和定义" class="headerlink" title="关于变量的声明和定义"></a>关于变量的声明和定义</h1><ul><li>定义:建立存储空间的声明(“int a;”),定义性声明</li><li>声明:不建立存储空间的声明(“extern a;”),引用性声明</li></ul><p>声明包括定义,但并非所有的声明都是定义.</p><h1 id="内部函数和外部函数"><a href="#内部函数和外部函数" class="headerlink" title="内部函数和外部函数"></a>内部函数和外部函数</h1><h3 id="内部函数"><a href="#内部函数" class="headerlink" title="内部函数"></a>内部函数</h3><p>如果一个函数只能被本文件中的其他函数所调用，它称为<strong>内部函数</strong>，在定义内部函数时，在函数名和函数类型的前面加static，即：</p><pre><code class="lang-c">static 类型名 函数名(形参表)
+static int fun(int a,int b)
+</code></pre><p>内部函数又被称为静态函数，因为它是用static声明的。使用内部函数，可以使函数的作用域只局限于所在文件。这样，在不同的文件中即使有同名的内部函数，也互不干扰，不必担心所用函数是否会与其他文件中的模块中的函数同名。</p><h3 id="外部函数"><a href="#外部函数" class="headerlink" title="外部函数"></a>外部函数</h3><p>如果在定义函数时，在函数首部的最左端加关键字extern，则此函数是外部函数，可供其他文件使用。</p><p>如函数首部可以为：</p><pre><code class="lang-c">extern int fun(int a,int b)
+</code></pre><p>这样，函数fun就可以为其他文件调用。c语言规定，如果在定义函数时省略extern，则默认为<strong>外部函数</strong>。</p><h5 id="有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。"><a href="#有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。" class="headerlink" title="有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。"></a>有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+//file1.c
+int main()
+{
+    extern void enter_string(char str[80]);
+    extern void delete_string(char str[], char ch);
+    extern void print_string(char str[]);
+    char c, str[80];
+    enter_string(str);
+    scanf("%c", &amp;c);//输入需要删除的字符
+    delete_string(str, c);
+    print_string(str);
+    return 0;
+}
+
+
+//file2.c
+void enter_string(char str[80])
+{
+    gets(str);
+}
+
+//file3.c
+void delete_string(char str[], char ch)
+{
+    int i, j;
+    for (int i = j = 0; str[i] != '\0'; i++)
+        if (str[i] != ch)
+            str[j++] = str[i];
+    str[j] = '\0';
+}
+
+//file4.c
+void print_string(char str[])
+{
+    printf("%s\n", str);
+}
+</code></pre><blockquote><p>extern可以省略</p></blockquote><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Good-use-of-pointers/">Good use of pointers</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/use-arrays-to-process-batch-data/">use-arrays-to-process-batch-data</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>head-first-SpringSecurity - Kayleh</title><meta name="description" content="一、权限认证 SpringSecurity1.引入安全框架SpringSecurity Spring Security是一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方案的安全框架。它提供了一组可以在Spring应用上下文中配置的Bean，充分利用了Spring IoC，DI（控制反转Inversionof Control ,DI:Dependency Injection 依"><meta property="og:type" content="article"><meta property="og:title" content="head-first-SpringSecurity"><meta property="og:url" content="https://blog.kayleh.top/head-first-SpringSecurity/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="一、权限认证 SpringSecurity1.引入安全框架SpringSecurity Spring Security是一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方案的安全框架。它提供了一组可以在Spring应用上下文中配置的Bean，充分利用了Spring IoC，DI（控制反转Inversionof Control ,DI:Dependency Injection 依"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211031203812140.png"><meta property="og:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211031203905683.png"><meta property="og:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/2018518151529411.jpg"><meta property="article:published_time" content="2022-05-01T18:05:47.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.645Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="frame"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211031203812140.png"><meta name="keywords" content="frame"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">head-first-SpringSecurity</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%9D%83%E9%99%90%E8%AE%A4%E8%AF%81-SpringSecurity"><span class="toc-text">一、权限认证 SpringSecurity</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E6%9D%83%E9%99%90%E8%AE%A4%E8%AF%81%E9%80%BB%E8%BE%91"><span class="toc-text">自定义的权限认证逻辑</span></a></li></ol></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-05-01T18:05:47.000Z">2022-05-01</time></div></div><article class="md-text content post"><h1 class="article-title"><span>head-first-SpringSecurity</span></h1><h3 id="一、权限认证-SpringSecurity"><a href="#一、权限认证-SpringSecurity" class="headerlink" title="一、权限认证 SpringSecurity"></a>一、权限认证 SpringSecurity</h3><p>1.引入安全框架SpringSecurity</p><p>Spring Security是一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方案的安全框架。它提供了一组可以在Spring应用上下文中配置的Bean，充分利用了Spring IoC，DI（控制反转Inversion<br>of Control ,DI:Dependency Injection 依赖注入）和AOP（面向切面编程）功能，为应用系统提供声明式的安全访问控制功能，减少了为企业系统安全控制编写大量重复代码的工作。</p><p>2.Maven</p><pre><code class="lang-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre><p>3.请求api</p><pre><code class="lang-java">@RestController
+@RequestMapping("user")
+public class AuthController {
+    @GetMapping("login")
+    public String login() {
+        return "Hello SpringSecurity";
+    }
+}
+</code></pre><p>4.此时访问接口，发现</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211031203812140.png" alt="image-20211031203812140"></div><div class="image-meta"><span class="image-caption center">image-20211031203812140</span></div></div><p>默认的Spring Security就是生效了的，此时的接口都是被保护的，需要通过验证才能正常的访问。 Spring Security提供了一个默认的用户，用户名是user，而密码则是启动项目的时候自动生成的。</p><p>我们查看项目启动的日志，会发现如下的一段Log</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211031203905683.png" alt="image-20211031203905683"></div><div class="image-meta"><span class="image-caption center">image-20211031203905683</span></div></div><p>如果不想使用默认的安全机制，可在配置文件中配置参数：</p><pre><code class="lang-properties"># security 使能
+security.basic.enabled=false
+</code></pre><h5 id="自定义的权限认证逻辑"><a href="#自定义的权限认证逻辑" class="headerlink" title="自定义的权限认证逻辑"></a>自定义的权限认证逻辑</h5><p>1.配置SpringSecurity</p><pre><code class="lang-java">
+@Configuration
+public class BrowerSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin()          // 定义当需要用户登录时候，转到的登录页面。
+                .and()
+                .authorizeRequests()    // 定义哪些URL需要被保护、哪些不需要被保护
+                .anyRequest()        // 任何请求,登录后可以访问
+                .authenticated();
+    }
+}
+</code></pre><p>2.配置用户认证逻辑，因为我们是有自己的一套用户体系的</p><pre><code class="lang-java">
+@Component
+public class MyUserDetailsService implements UserDetailsService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("用户的用户名: {}", username);
+        // TODO 根据用户名，查找到对应的密码，与权限
+        // 封装用户信息，并返回。参数分别是：用户名，密码，用户权限
+        User user = new User(userame, "123456",
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return user;
+    }
+}
+</code></pre><p>3.<strong>UserDetails</strong></p><p>在写<code>MyUserDetailsService</code>的时候，里面实现了一个方法，并返回了一个<code>UserDetails</code>。这个UserDetails 就是封装了用户信息的对象，里面包含了七个方法</p><pre><code class="lang-java">public interface UserDetails extends Serializable {
+    // 封装了权限信息
+    Collection&lt;? extends GrantedAuthority&gt; getAuthorities();
+
+    // 密码信息
+    String getPassword();
+
+    // 登录用户名
+    String getUsername();
+
+    // 帐户是否过期
+    boolean isAccountNonExpired();
+
+    // 帐户是否被冻结
+    boolean isAccountNonLocked();
+
+    // 帐户密码是否过期，一般有的密码要求性高的系统会使用到，比较每隔一段时间就要求用户重置密码
+    boolean isCredentialsNonExpired();
+
+    // 帐号是否可用
+    boolean isEnabled();
+}
+</code></pre><p>在返回UserDetails的实现类User的时候，可以通过User的构造方法，设置对应的参数</p><p>4.密码的加密和解密</p><p>SpringSecurity中有一个PasswordEncoder接口</p><pre><code class="lang-java">public interface PasswordEncoder {
+    // 对密码进行加密
+    String encode(CharSequence var1);
+
+    // 对密码进行判断匹配
+    boolean matches(CharSequence var1, String var2);
+}
+</code></pre><p>我们只需要自己实现这个接口，并在配置文件中配置一下就可以了。</p><p>这里我暂时以默认提供的一个实现类进行测试</p><pre><code class="lang-java">// BrowerSecurityConfig 
+@Bean
+public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+}
+</code></pre><pre><code class="lang-java">
+@Component
+public class MyUserDetailsService implements UserDetailsService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("用户的用户名: {}", username);
+
+        String password = passwordEncoder.encode("123456");
+        logger.info("password: {}", password);
+
+        // 参数分别是：用户名，密码，用户权限
+        User user = new User(username, password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return user;
+    }
+}
+</code></pre><p>加密使用：</p><pre><code class="lang-java">
+@Component
+public class MyUserDetailsService implements UserDetailsService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("用户的用户名: {}", username);
+
+        String password = passwordEncoder.encode("123456");
+        logger.info("password: {}", password);
+
+        // 参数分别是：用户名，密码，用户权限
+        User user = new User(username, password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return user;
+    }
+}
+</code></pre><p>这里简单的对123456进行了加密的处理。我们可以进行测试，发现每次打印出来的password都是不一样的，这就是配置的BCryptPasswordEncoder所起到的作用。</p><p><strong>个性化用户认证逻辑</strong></p><p><strong>自定义登录页面</strong></p><p>在之前的测试中，一直都是使用的默认的登录界面，我相信每个产品都是有自己的登录界面设计的，所以我们这一节了解一下如何自定义登录页面。</p><p>我们先写一个简单的登录页面</p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;登录页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;自定义登录页面&lt;/h2&gt;
+  &lt;form action="/user/login" method="post"&gt;
+    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;td&gt;用户名：&lt;/td&gt;
+        &lt;td&gt;&lt;input type="text" name="username"&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;密码：&lt;/td&gt;
+        &lt;td&gt;&lt;input type="password" name="password"&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td colspan="2"&gt;&lt;button type="submit"&gt;登录&lt;/button&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>完成了登录页面之后，就需要将它配置进行SpringSecurity</p><pre><code>// BrowerSecurityConfig.java
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+  http.formLogin()          // 定义当需要用户登录时候，转到的登录页面。
+      .loginPage("/login.html")      // 设置登录页面
+      .loginProcessingUrl("/user/login") // 自定义的登录接口
+      .and()
+      .authorizeRequests()    // 定义哪些URL需要被保护、哪些不需要被保护
+      .antMatchers("/login.html").permitAll()   // 设置所有人都可以访问登录页面
+      .anyRequest()        // 任何请求,登录后可以访问
+      .authenticated()
+      .and()
+      .csrf().disable();     // 关闭csrf防护
+}
+</code></pre><p>这样，每当我们访问被保护的接口的时候，就会调转到login.html页面</p><p><strong>处理不同类型的请求</strong></p><p>因为现在一般都前后端分离了，后端提供接口供前端调用，返回JSON格式的数据给前端。刚才那样，调用了被保护的接口，直接进行了页面的跳转，在web端还可以接受，但是在App端就不行了， 所以我们还需要做进一步的处理。</p><p>这里做一下简单的思路整理</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://raw.githubusercontent.com/Kayleh/cdn4/main/2018518151529411.jpg" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><p>首先来写自定义的Controller，当需要身份认证的时候就跳转过来</p><pre><code class="lang-java">
+@RestController
+public class BrowserSecurityController {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    // 原请求信息的缓存及恢复
+    private RequestCache requestCache = new HttpSessionRequestCache();
+
+    // 用于重定向
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+    /**
+     * 当需要身份认证的时候，跳转过来
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/authentication/require")
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    public BaseResponse requireAuthenication(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SavedRequest savedRequest = requestCache.getRequest(request, response);
+
+        if (savedRequest != null) {
+            String targetUrl = savedRequest.getRedirectUrl();
+            logger.info("引发跳转的请求是:" + targetUrl);
+            if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
+                redirectStrategy.sendRedirect(request, response, "/login.html");
+            }
+        }
+
+        return new BaseResponse("访问的服务需要身份认证，请引导用户到登录页");
+    }
+}
+</code></pre><p>当然还需要将配置文件进行相应的修改， 这里我就不贴代码了。 就是将该接口开放出来 。</p><p><strong>扩展：</strong></p><p>这里我们是写死了如果是从网页访问的接口，那么就跳转到”/login.html”页面，其实我们可以扩展一下，将该跳转地址配置到配置文件中，这样会更方便的。</p><p><strong>自定义处理登录成功/失败</strong></p><p>在之前的测试中，登录成功了都是进行了页面的跳转。</p><p>在前后端分离的情况下，我们登录成功了可能需要向前端返回用户的个人信息，而不是直接进行跳转。登录失败也是同样的道理。</p><p>这里涉及到了Spring Security中的两个接口<code>AuthenticationSuccessHandler</code>和<code>AuthenticationFailureHandler</code>。我们可以实现这个接口，并进行相应的配置就可以了。<br>当然框架是有默认的实现类的，我们可以继承这个实现类再来自定义自己的业务</p><pre><code>@Component("myAuthenctiationSuccessHandler")
+public class MyAuthenctiationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+  private Logger logger = LoggerFactory.getLogger(getClass());
+
+  @Autowired
+  private ObjectMapper objectMapper;
+
+  @Override
+  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                    Authentication authentication) throws IOException, ServletException {
+
+    logger.info("登录成功");
+
+    response.setContentType("application/json;charset=UTF-8");
+    response.getWriter().write(objectMapper.writeValueAsString(authentication));
+  }
+}
+</code></pre><p>这里我们通过response返回一个JSON字符串回去。</p><p>这个方法中的第三个参数<code>Authentication</code>，它里面包含了登录后的用户信息（UserDetails），Session的信息，登录信息等。</p><pre><code class="lang-java">
+@Component("myAuthenctiationFailureHandler")
+public class MyAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
+
+        logger.info("登录失败");
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(objectMapper.writeValueAsString(new BaseResponse(exception.getMessage())));
+    }
+}
+</code></pre><p>这个方法中的第三个参数<code>AuthenticationException</code>，包括了登录失败的信息。<br>同样的，还是需要在配置文件中进行配置，这里就不贴出全部的代码了，只贴出相应的语句</p><pre><code>.successHandler(myAuthenticationSuccessHandler) // 自定义登录成功处理 
+.failureHandler(myAuthenticationFailureHandler) // 自定义登录失败处理
+</code></pre><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/About-Snowflake-and-Consumption-Degradation/">关于「雪糕刺客」和「消费降级」</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/head-first-docker/">head-first-docker</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

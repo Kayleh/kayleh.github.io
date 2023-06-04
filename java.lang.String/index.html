@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>java.lang.String - Kayleh</title><meta name="description" content="StringString类表示字符串。 Java 程序中的所有字符串文字，例如”abc” ，都是作为此类的实例实现的。字符串是常量； 它们的值在创建后无法更改。 字符串缓冲区支持可变字符串。 因为 String 对象是不可变的，所以它们可以共享。 例如： String str = &quot;abc&quot;;  相当于： char data[] = &amp;#123;'a', &amp;#3"><meta property="og:type" content="article"><meta property="og:title" content="java.lang.String"><meta property="og:url" content="https://blog.kayleh.top/java.lang.String/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="StringString类表示字符串。 Java 程序中的所有字符串文字，例如”abc” ，都是作为此类的实例实现的。字符串是常量； 它们的值在创建后无法更改。 字符串缓冲区支持可变字符串。 因为 String 对象是不可变的，所以它们可以共享。 例如： String str = &quot;abc&quot;;  相当于： char data[] = &amp;#123;'a', &amp;#3"><meta property="og:locale" content="zh_CN"><meta property="article:published_time" content="2021-12-19T23:20:58.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.645Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="jdk"><meta name="twitter:card" content="summary"><meta name="keywords" content="jdk"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">java.lang.String</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#String%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84%EF%BC%8CStringBuilder%E5%92%8CStringBuffer%E6%98%AF%E5%8F%AF%E5%8F%98%E7%9A%84"><span class="toc-text">String是不可变的，StringBuilder和StringBuffer是可变的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#String%E5%92%8CStringBuffer%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%8CStringBuilder%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E3%80%82"><span class="toc-text">String和StringBuffer是线程安全的，StringBuilder不是线程安全的。</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%8E%AF%E5%A2%83%E4%B8%8B%EF%BC%8CStringBuilder%E5%92%8CStringBuffer%E6%89%A7%E8%A1%8C%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">单线程环境下，StringBuilder和StringBuffer执行的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#String%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-text">String中的常见的方法有哪些？</span></a></li></ol></li></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-12-19T23:20:58.000Z">2021-12-19</time></div></div><article class="md-text content post"><h1 class="article-title"><span>java.lang.String</span></h1><h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><p>String类表示字符串。 Java 程序中的所有字符串文字，例如”abc” ，都是作为此类的实例实现的。<br>字符串是常量； 它们的值在创建后无法更改。 字符串缓冲区支持可变字符串。 因为 String 对象是不可变的，所以它们可以共享。 例如：</p><pre><code class="lang-java">String str = "abc";
+</code></pre><p>相当于：</p><pre><code class="lang-java">char data[] = {'a', 'b', 'c'};
+String str = new String(data);
+</code></pre><p>以下是一些有关如何使用字符串的更多示例：</p><pre><code class="lang-java">System.out.println("abc");
+String cde = "cde";
+System.out.println("abc" + cde);
+String c = "abc".substring(2,3);
+String d = cde.substring(1, 2);
+</code></pre><p>类String包括用于检查序列中的单个字符、比较字符串、搜索字符串、提取子字符串以及创建所有字符都转换为大写或小写的字符串副本的方法。 大小写映射基于Character类指定的 Unicode 标准版本。<br>Java 语言为字符串连接运算符 ( + ) 以及将其他对象转换为字符串提供了特殊支持。 字符串连接是通过StringBuilder （或StringBuffer ）类及其append方法实现的。 字符串转换通过toString方法toString ，由Object定义，Java 中所有类都继承。 有关字符串连接和转换的其他信息，请参阅 Gosling、Joy 和 Steele， Java 语言规范。<br>除非另有说明，否则将空参数传递给此类中的构造函数或方法将导致抛出NullPointerException 。<br>String表示 UTF-16 格式的字符串，其中补充字符由代理对表示（有关更多信息，请参阅Character类中的Unicode 字符表示部分）。 索引值指的是char代码单元，因此增补字符使用String两个位置。<br>除了用于处理 Unicode 代码单元（即char值）的方法之外， String类还提供了用于处理 Unicode 代码点（即字符）的方法。</p><h4 id="String是不可变的，StringBuilder和StringBuffer是可变的"><a href="#String是不可变的，StringBuilder和StringBuffer是可变的" class="headerlink" title="String是不可变的，StringBuilder和StringBuffer是可变的"></a>String是不可变的，StringBuilder和StringBuffer是可变的</h4><p>String是不可变的，String类中使用final关键字修饰char字符数组来保存字符串</p><pre><code class="lang-java">   private final char value[];
+</code></pre><p>而StringBuilder与StringBuffer都继承自AbstractStringBuilder类，在AbstractStringBuilder中也是使用<strong>字符数组</strong>保存字符串char[] value但是没有用final关键字修饰，所以这两种对象都是可变的。</p><h4 id="String和StringBuffer是线程安全的，StringBuilder不是线程安全的。"><a href="#String和StringBuffer是线程安全的，StringBuilder不是线程安全的。" class="headerlink" title="String和StringBuffer是线程安全的，StringBuilder不是线程安全的。"></a><strong>String和StringBuffer是线程安全的，StringBuilder不是线程安全的。</strong></h4><p>String中的对象的不可变的，所以是线程安全。</p><p>StringBuffer对方法加了synchronized同步锁,所以是线程安全的。</p><p>StringBuilder没有对方法加同步锁，所以不是线程安全的。</p><p><strong>StringBuilder最高，StringBuffer次之，String最低。</strong></p><p>每次对String类型进行改变的时候，都会生成一个新的String对象，然后将指针指向新的String对象。StringBuffer每次都会对StringBuffer本身进行操作，而不是生成新的对象并改变对象引用。相同情况下使用StringBuilder相比使用StringBuffer仅能获得10%~15%左右的性能提升，但要冒多线程不安全的风险。</p><p><strong>对于三者使用的总结：</strong></p><p>当操作少量数据时，优先使用String。</p><p>当在单线程下操作大量数据，优先使用StringBuilder类</p><p>当在多线程下操作大量数据，优先使用StringBuffer类</p><h3 id="单线程环境下，StringBuilder和StringBuffer执行的区别"><a href="#单线程环境下，StringBuilder和StringBuffer执行的区别" class="headerlink" title="单线程环境下，StringBuilder和StringBuffer执行的区别"></a>单线程环境下，StringBuilder和StringBuffer执行的区别</h3><p>StringBuffer中的方法在单线程下synchronized默认加的是<strong>偏向锁</strong>。</p><p>偏向锁是指当一段同步代码一直被同一个线程所访问时，即不存在多个线程的竞争时，那么该线程在后续访问时便会自动获得锁，从而降低获取锁带来的消耗，即提高性能。</p><p>当一个线程访问同步代码块并获取锁时，会在对象头中的 Mark Word 字段里存储锁偏向的线程 ID。在线程进入和退出同步块时不再通过 CAS 操作来加锁和解锁，而是检测 Mark Word 里是否存储着指向当前线程的偏向锁。</p><p>轻量级锁的获取及释放依赖多次 CAS 原子指令，而偏向锁只需要在置换 ThreadID的时候依赖一次 CAS 原子指令即可。</p><p>偏向锁只有遇到其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁，线程是不会主动释放偏向锁的。</p><p>JVM为了提高锁的获取与释放效率对synchronized 进行了优化，引入了偏向锁和轻量级锁 ，</p><p>从此以后锁的状态就有了四种：无锁、偏向锁、轻量级锁、重量级锁。</p><p>这四种状态会随着竞争的情况逐渐升级，而且是不可逆的过程，即不可降级。</p><p>​ 这四种锁的级别由低到高依次是：无锁、偏向锁，轻量级锁，重量级锁。</p><p>​</p><p>String为什么要设置成不可变的？</p><ol><li><strong>实现字符串常量池</strong> 字符串常量池(String pool, String intern pool, String保留池) 是Java<strong>堆内存</strong>中一个特殊的存储区域, 当创建一个String对象时,假如此字符串值已经存在于常量池中,则不会创建一个新的对象,而是引用已经存在的对象。假若字符串对象允许改变,那么将会导致各种逻辑错误,比如改变一个对象会影响到另一个独立对象. 严格来说，这种常量池的思想,是一种<strong>优化</strong>手段.</li><li><strong>允许String对象缓存HashCode</strong> Java中String对象的哈希码被频繁地使用, 比如在HashMap 等容器中。字符串不变性保证了hash码的唯一性,因此可以放心地进行缓存.这也是一种性能优化手段,意味着不必每次都去计算新的哈希码.</li><li><strong>安全性</strong> String被许多的Java类(库)用来当做参数,例如 网络连接地址URL,文件路径path,还有反射机制所需要的String参数等, 假若String不是固定不变的,将会引起各种安全隐患。 数据库的用户名、密码都是以字符串的形式传入来获得数据库的连接，或者在socket编程中，主机名和端口都是以字符串的形式传入。 因为字符串是不可变的，所以它的值是不可改变的，否则黑客们可以钻到空子，改变字符串指向的对象的值，造成安全漏洞。 在并发场景下，多个线程同时读写资源时，由于 String 是不可变的，不会引发线程的问题而保证了线程安全。</li></ol><h4 id="String中的常见的方法有哪些？"><a href="#String中的常见的方法有哪些？" class="headerlink" title="String中的常见的方法有哪些？"></a>String中的常见的方法有哪些？</h4><p>String类是Java最常用的API，它包含了大量处理字符串的方法，比较常用的有：</p><p>1.<strong>char charAt(int index)</strong>：返回指定索引处的字符；</p><p>2.<strong>String substring(int beginIndex, int endIndex)</strong>：从此字符串中截取出一部分子字符串；</p><p>3.<strong>String[] split(String regex)</strong>：以指定的规则将此字符串分割成数组；</p><p>4.<strong>String trim()</strong>：删除字符串前导和后置的空格；</p><p>5.<strong>int indexOf(String str)</strong>：返回子串在此字符串首次出现的索引；</p><p>6.<strong>int lastIndexOf(String str)</strong>：返回子串在此字符串最后出现的索引；</p><p>7.<strong>boolean startsWith(String prefix)</strong>：判断此字符串是否以指定的前缀开头；</p><p>8.<strong>boolean endsWith(String suffix)</strong>：判断此字符串是否以指定的后缀结尾；</p><p>9.<strong>String toUpperCase()</strong>：将此字符串中所有的字符大写；</p><p>10.<strong>String toLowerCase()</strong>：将此字符串中所有的字符小写；</p><p>11.<strong>String replaceFirst(String regex, String replacement)</strong>：用指定字符串替换第一个匹配的子串；</p><p>12.<strong>String replaceAll(String regex, String replacement)</strong>：用指定字符串替换所有的匹配的子串。</p><ul><li><p><code>String s = “”;</code>会新增一个对象</p><p><code>String s1 = new String("");</code>会新增一个对象</p><p><code>String s = s+s1;</code>会新增一个对象</p></li><li><p>intern</p></li></ul><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/edgeset-array/">离散图论3：边集数组</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/Graph-degree/">离散图论1：基础</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

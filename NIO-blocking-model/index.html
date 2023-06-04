@@ -1,0 +1,613 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>NIO blocking model - Kayleh</title><meta name="description" content="NIO模型1. 概述1.1 翻译翻译？什么叫NIO？NIO：我认为翻译成Non-Blocking，更加的通俗直白，相比于BIO，也有一个对比，叫他非阻塞IO最好不过了  它和BIO有以下的区别在这里插入图片描述 Channel是双向的，即可以读又可以写，相比于Stream，它并不区分出输入流和输出流，而且Channel可以完成非阻塞的读写，也可以完成阻塞的读写"><meta property="og:type" content="article"><meta property="og:title" content="NIO blocking model"><meta property="og:url" content="https://blog.kayleh.top/NIO-blocking-model/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="NIO模型1. 概述1.1 翻译翻译？什么叫NIO？NIO：我认为翻译成Non-Blocking，更加的通俗直白，相比于BIO，也有一个对比，叫他非阻塞IO最好不过了  它和BIO有以下的区别在这里插入图片描述 Channel是双向的，即可以读又可以写，相比于Stream，它并不区分出输入流和输出流，而且Channel可以完成非阻塞的读写，也可以完成阻塞的读写"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721215841190.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220142379.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220305715.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220837981.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220618271.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221126713.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221133628.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221448757.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221615368.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221704507.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722145734223.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722145833687.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150046897.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150611349.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150651862.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/202007222229375.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722222907340.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722223243146.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722223923471.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/2020072222584984.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722230412178.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722230845441.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233104941.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231319234.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231507769.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231820775.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/202007222330187.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233204365.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233310845.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233342438.png"><meta property="article:published_time" content="2020-12-05T03:33:46.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.641Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="network"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721215841190.png"><meta name="keywords" content="network"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">NIO blocking model</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-text">1. 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%BF%BB%E8%AF%91%E7%BF%BB%E8%AF%91%EF%BC%9F%E4%BB%80%E4%B9%88%E5%8F%ABNIO%EF%BC%9F"><span class="toc-text">1.1 翻译翻译？什么叫NIO？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Buffer%E7%AE%80%E4%BB%8B"><span class="toc-text">1.2 Buffer简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E5%86%99%E6%A8%A1%E5%BC%8F"><span class="toc-text">1.2.1 写模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E8%AF%BB%E6%A8%A1%E5%BC%8F%E5%88%B0%E5%86%99%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%88%87%E6%8D%A2"><span class="toc-text">1.2.2 读模式到写模式的两种切换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Channel%E7%AE%80%E4%BB%8B"><span class="toc-text">1.3 Channel简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84Channel"><span class="toc-text">1.3.1 几个重要的Channel</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D%E5%AE%9E%E6%88%98"><span class="toc-text">2. 文件拷贝实战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Selector%E6%A6%82%E8%BF%B0"><span class="toc-text">3. Selector概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-NIO%E6%A8%A1%E5%9E%8B%E5%88%86%E6%9E%90"><span class="toc-text">1. NIO模型分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%81%8A%E5%A4%A9%E5%AE%A4%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86"><span class="toc-text">2. 聊天室项目代码重点知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="toc-text">2.1 服务器端</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E5%AD%97%E6%AE%B5"><span class="toc-text">2.1.1 字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E4%B8%BB%E6%96%B9%E6%B3%95"><span class="toc-text">2.1.2 主方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-text">2.1.3 处理方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-%E8%BD%AC%E5%8F%91%E6%B6%88%E6%81%AF%E6%96%B9%E6%B3%95"><span class="toc-text">2.1.4 转发消息方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-5-%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF%E6%96%B9%E6%B3%95"><span class="toc-text">2.1.5 接收消息方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">2.2 客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E5%AD%97%E6%AE%B5"><span class="toc-text">2.2.1 字段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E4%B8%BB%E6%96%B9%E6%B3%95"><span class="toc-text">2.2.2 主方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-text">2.2.3 处理方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-%E6%8E%A5%E6%94%B6%E6%96%B9%E6%B3%95"><span class="toc-text">2.2.4 接收方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-%E5%8F%91%E9%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">2.2.5 发送方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-text">3. 测试结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-text">4. 完整代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF"><span class="toc-text">4.1 服务器端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">4.2 客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9B%91%E5%90%AC%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E8%BF%9B%E7%A8%8B"><span class="toc-text">4.3 客户端监听用户输入进程</span></a></li></ol></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-12-05T03:33:46.000Z">2020-12-05</time></div></div><article class="md-text content post"><h1 class="article-title"><span>NIO blocking model</span></h1><h1 id="NIO模型"><a href="#NIO模型" class="headerlink" title="NIO模型"></a>NIO模型</h1><h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><h3 id="1-1-翻译翻译？什么叫NIO？"><a href="#1-1-翻译翻译？什么叫NIO？" class="headerlink" title="1.1 翻译翻译？什么叫NIO？"></a>1.1 翻译翻译？什么叫NIO？</h3><p>NIO：我认为翻译成<code>Non-Blocking</code>，更加的通俗直白，相比于BIO，也有一个对比，叫他非阻塞IO最好不过了</p><ul><li>它和BIO有以下的区别<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721215841190.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li><li>Channel是<code>双向</code>的，即可以读又可以写，相比于Stream，它并不区分出输入流和输出流，而且Channel可以完成非阻塞的读写，也可以完成阻塞的读写</li></ul><h3 id="1-2-Buffer简介"><a href="#1-2-Buffer简介" class="headerlink" title="1.2 Buffer简介"></a>1.2 Buffer简介</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220142379.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ul><li>Channel的读写是离不开Buffer的，Buffer实际上内存上一块用来读写的区域。</li></ul><h4 id="1-2-1-写模式"><a href="#1-2-1-写模式" class="headerlink" title="1.2.1 写模式"></a>1.2.1 写模式</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220305715.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ul><li>其中三个指针我们要了解一下，<code>position</code>为当前指针位置，<code>limit</code>用于读模式，用它来标记可读的最大范围，<code>capacity</code>是最大的可写范围阈值</li></ul><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220837981.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><p>当我们写数据写了四个格子时，我们执行<code>flip()</code>方法，即可转变为<code>读模式</code>，limit指针就直接变到了我们刚刚写数据的极限位置，position指针回到初始位置，这样我们就可以将数据读出来了<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721220618271.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><p></p><h4 id="1-2-2-读模式到写模式的两种切换"><a href="#1-2-2-读模式到写模式的两种切换" class="headerlink" title="1.2.2 读模式到写模式的两种切换"></a>1.2.2 读模式到写模式的两种切换</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221126713.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ol><li>当我们将数据全部读完时，切换到写模式<br>调用<code>clear()</code>方法，它会使position指针回到初始位置，limit回到最远端，这样就可以重新开始数据了，虽然clear意为清除，但是其实它只是将指针的位置移动了，并没有将数据清除，而是会覆盖原来的位置<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221133628.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li><li>只读了部分数据，我想将未读的部分保留，而现在我又要开始先进行写模式的操作了，这样可以执行<code>compact()</code>方法<br>这个方法会<code>将没有读到的数据保存到初始位置</code>，而<code>position指针的位置将会移动到这些数据的后面位置</code>，从未读的数据后开始进行写数据<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221448757.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div>之后再读数据的时候，我们就能将上次没有读到的数据读出来了</li></ol><h3 id="1-3-Channel简介"><a href="#1-3-Channel简介" class="headerlink" title="1.3 Channel简介"></a>1.3 Channel简介</h3><p>Channel间的数据交换，都需要依赖Buffer<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221615368.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><p></p><h4 id="1-3-1-几个重要的Channel"><a href="#1-3-1-几个重要的Channel" class="headerlink" title="1.3.1 几个重要的Channel"></a>1.3.1 几个重要的Channel</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200721221704507.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ul><li>FileChannel：用于文件传输</li><li>ServerSocketChannel和SocketChannel：用于网络编程的传输</li></ul><h2 id="2-文件拷贝实战"><a href="#2-文件拷贝实战" class="headerlink" title="2. 文件拷贝实战"></a>2. 文件拷贝实战</h2><ul><li>一个字节一个字节的拷贝实在是慢的不行。</li></ul><pre><code class="lang-java">import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+
+interface FileCopyRunner{
+    void copyFile(File source,File target);
+}
+
+public class FileCopyDemo {
+
+    private static void close(Closeable closeable){
+        if(closeable != null) {
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //不使用任何缓冲的留的拷贝
+    private static FileCopyRunner noBufferStreamCopy = new FileCopyRunner() {
+        @Override
+        public void copyFile(File source, File target) {
+            InputStream fin = null;
+            OutputStream fout = null;
+            try {
+                fin = new FileInputStream(source);
+                fout = new FileOutputStream(target);
+                int result;
+                while((result = fin.read()) != - 1){
+                    fout.write(result);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                close(fin);
+                close(fout);
+            }
+        }
+    };
+
+    //使用缓冲区的流的拷贝
+    private static FileCopyRunner bufferStreamCopy = new FileCopyRunner() {
+        @Override
+        public void copyFile(File source, File target) {
+            InputStream fin = null;
+            OutputStream fout = null;
+            try {
+                fin = new FileInputStream(source);
+                fout = new FileOutputStream(target);
+                //创建缓冲区
+                byte[] buffer = new byte[1024];
+                int result;
+                while((result = fin.read(buffer)) != -1){
+                    //result这里表示从中读出来的具体字节数
+                    //虽然缓冲区中能缓存1024，但是我们读取的时候不一定就有这么多字节
+                    //所以我们使用result做下面的参数
+                    fout.write(buffer,0,result);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                close(fin);
+                close(fout);
+            }
+        }
+    };
+
+    //使用带有缓冲区的channel复制 nio
+    private static FileCopyRunner nioBufferCopy = new FileCopyRunner() {
+        @Override
+        public void copyFile(File source, File target) {
+            FileChannel fin = null;
+            FileChannel fout = null;
+
+            try {
+                fin = new FileInputStream(source).getChannel();
+                fout = new FileOutputStream(target).getChannel();
+                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+
+                while(fin.read(byteBuffer) != -1){
+                    byteBuffer.flip();//转变为读模式
+                    while (byteBuffer.hasRemaining()){
+                        fout.write(byteBuffer);
+                    }
+                    byteBuffer.clear();//转变为写模式
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                close(fin);
+                close(fout);
+            }
+        }
+    };
+
+    //使用没有缓冲区的channel复制文件
+    private static FileCopyRunner nioTransferCopy = ((source, target) -&gt; {
+        FileChannel fin = null;
+        FileChannel fout = null;
+
+        try {
+            fin = new FileInputStream(source).getChannel();
+            fout = new FileOutputStream(target).getChannel();
+
+            long transferred = 0L;
+            long size = fin.size();
+            while(transferred != size){
+                //如果拷贝的大小没有达到源文件的大小就要一直拷贝
+                transferred += fin.transferTo(0,size,fout);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close(fin);
+            close(fout);
+        }
+    });
+
+    public static void main(String[] args) {
+        File source = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\project.zip");
+        File target = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\p1.zip");
+        File target2 = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\p2.zip");
+        File target3 = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\p3.zip");
+        File target4 = new File("J:\\StudySpace\\Java秒杀系统方案优化-高性能高并发实战\\p4.zip");
+
+        new Thread(() -&gt; noBufferStreamCopy.copyFile(source,target)).start();
+        new Thread(() -&gt; bufferStreamCopy.copyFile(source,target2)).start();
+        new Thread(() -&gt; nioBufferCopy.copyFile(source,target3)).start();
+        new Thread(() -&gt; nioTransferCopy.copyFile(source,target4)).start();
+    }
+}
+</code></pre><h2 id="3-Selector概述"><a href="#3-Selector概述" class="headerlink" title="3. Selector概述"></a>3. Selector概述</h2><ul><li>Channel需要在Selector上注册<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722145734223.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li><li>注册的同时，要告诉Selector监听的状态<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722145833687.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li><li>Channel对应的状态有：<code>CONNECT</code>：socketChannel已经与服务器建立连接的状态；<code>ACCEPT</code>：serverSocketChannel已经与客户端建立连接的状态；<code>READ</code>：可读状态；<code>WRITE</code>：可写状态<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150046897.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li><li>Channel在Selector上注册完成后，会返回一个SelectKey对象，其中有几个重要的方法：<code>interestOps</code>：查看注册的Channel绑定的状态；<code>readyOps</code>：查看哪些是可操作的状态；<code>channel</code>：返回channel对象；<code>selector</code>：返回selector对象；<code>attachment</code>：附加其他对象<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150611349.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li><li>调用Selector的select方法，返回它监听的事件的数量，可同时响应多个事件。不过它是阻塞式的调用，当监听的事件中没有可以用来响应请求的，则会被阻塞，直到有可用的channel能够响应该请求，才会返回<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722150651862.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li></ul><h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><h2 id="1-NIO模型分析"><a href="#1-NIO模型分析" class="headerlink" title="1. NIO模型分析"></a>1. NIO模型分析</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/202007222229375.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ul><li>在服务器端创建一个<code>Selector</code>，将<code>ServerSocketChannel注册到Selector上</code>，被Selector监听的事件为<code>Accept</code></li></ul><hr><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722222907340.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ul><li>Client1请求与服务器建立连接，Selector接收到Accept事件，服务器端对其进行处理（handles），服务器与客户端连接成功</li></ul><hr><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722223243146.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ul><li>建立连接过程中，服务器通道（ServerSocketChannel）调用<code>accept方法</code>，获取到与客户端进行连接的通道（<code>SocketChannel</code>），也将其<code>注册到Selector</code>上，<code>监听READ事件</code>，这样，客户端向服务器发送消息，就能触发该READ事件进行响应，读取该消息。</li></ul><blockquote><p>Tips: 我们处理这个建立连接并接收从客户端传过来的消息，都是在<code>一个线程</code>内完成的。在bio中，则会为单个客户端单独开辟一个线程，用于处理消息，并且客户端在不发送消息的过程中，该线程一直是阻塞的。</p></blockquote><hr><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722223923471.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><ul><li>同样，两个客户连接过来也是一个线程在起作用，将客户端2的SocketChannel注册到服务器的Selector，并监听READ事件，随时响应随时处理。即一个客户端有一个SocketChannel，两个客户端就有两个SocketChannel，这个就是我们使用nio编程模型来用一个selector对象在一个线程里边监听以及处理多个通道的io的操作</li></ul><hr><p>各个Channel是被配置为<code>非阻塞式</code>的（configureBlocking(false)），但是Selector本身调用的<code>select()方法</code>，它是<code>阻塞式</code>的，当监听在Selector上的事件都没有触发时，那么它就会被阻塞，直到有事件对其进行响应</p><h2 id="2-聊天室项目代码重点知识"><a href="#2-聊天室项目代码重点知识" class="headerlink" title="2. 聊天室项目代码重点知识"></a>2. 聊天室项目代码重点知识</h2><h3 id="2-1-服务器端"><a href="#2-1-服务器端" class="headerlink" title="2.1 服务器端"></a>2.1 服务器端</h3><h4 id="2-1-1-字段"><a href="#2-1-1-字段" class="headerlink" title="2.1.1 字段"></a>2.1.1 字段</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/2020072222584984.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h4 id="2-1-2-主方法"><a href="#2-1-2-主方法" class="headerlink" title="2.1.2 主方法"></a>2.1.2 主方法</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722230412178.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h4 id="2-1-3-处理方法"><a href="#2-1-3-处理方法" class="headerlink" title="2.1.3 处理方法"></a>2.1.3 处理方法</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722230845441.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h4 id="2-1-4-转发消息方法"><a href="#2-1-4-转发消息方法" class="headerlink" title="2.1.4 转发消息方法"></a>2.1.4 转发消息方法</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233104941.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h4 id="2-1-5-接收消息方法"><a href="#2-1-5-接收消息方法" class="headerlink" title="2.1.5 接收消息方法"></a>2.1.5 接收消息方法</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231319234.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h3 id="2-2-客户端"><a href="#2-2-客户端" class="headerlink" title="2.2 客户端"></a>2.2 客户端</h3><h4 id="2-2-1-字段"><a href="#2-2-1-字段" class="headerlink" title="2.2.1 字段"></a>2.2.1 字段</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231507769.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h4 id="2-2-2-主方法"><a href="#2-2-2-主方法" class="headerlink" title="2.2.2 主方法"></a>2.2.2 主方法</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722231820775.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h4 id="2-2-3-处理方法"><a href="#2-2-3-处理方法" class="headerlink" title="2.2.3 处理方法"></a>2.2.3 处理方法</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/202007222330187.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h4 id="2-2-4-接收方法"><a href="#2-2-4-接收方法" class="headerlink" title="2.2.4 接收方法"></a>2.2.4 接收方法</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233204365.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><h4 id="2-2-5-发送方法"><a href="#2-2-5-发送方法" class="headerlink" title="2.2.5 发送方法"></a>2.2.5 发送方法</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233310845.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div><hr><h2 id="3-测试结果"><a href="#3-测试结果" class="headerlink" title="3. 测试结果"></a>3. 测试结果</h2><ul><li>服务器端显示信息正确<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn2/IO/NIO模型/20200722233342438.png" alt="在这里插入图片描述"></div><div class="image-meta"><span class="image-caption center">在这里插入图片描述</span></div></div></li></ul><h2 id="4-完整代码"><a href="#4-完整代码" class="headerlink" title="4. 完整代码"></a>4. 完整代码</h2><h3 id="4-1-服务器端"><a href="#4-1-服务器端" class="headerlink" title="4.1 服务器端"></a>4.1 服务器端</h3><pre><code class="lang-java">package server;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Set;
+
+public class ChatServer {
+    private static final int DEFAULT_PORT = 8888;
+    private static final String QUIT = "quit";
+    private static final int BUFFER = 1024;
+    private int port;
+
+    private ServerSocketChannel serverSocketChannel;
+    private Selector selector;
+    private ByteBuffer rBuffer = ByteBuffer.allocate(BUFFER);
+    private ByteBuffer wBuffer = ByteBuffer.allocate(BUFFER);
+    private Charset charset = Charset.forName(String.valueOf(StandardCharsets.UTF_8));
+
+    public ChatServer(){
+        this(DEFAULT_PORT);
+    }
+
+    public ChatServer(int port) {
+        this.port = port;
+    }
+
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    public void close(Closeable closeable){
+        if(closeable != null) {
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void start(){
+        try {
+            //创建ServerSocketChannel通道
+            serverSocketChannel = ServerSocketChannel.open();
+            //设置非阻塞模式，默认情况也是阻塞调用的
+            serverSocketChannel.configureBlocking(false);
+            //绑定端口号
+            serverSocketChannel.bind(new InetSocketAddress(port));
+            //创建selector
+            selector = Selector.open();
+            //将accept事件注册到selector上
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+            System.out.println("服务器启动成功，监听端口号：" + port + "...");
+
+            //开始进入监听模式
+            while(true){
+                //阻塞式调用
+                selector.select();
+
+                //获取所有的监听事件，
+                Set&lt;SelectionKey&gt; selectionKeys = selector.selectedKeys();
+                for (SelectionKey selectionKey : selectionKeys) {
+                    //处理事件
+                    handles(selectionKey);
+                }
+                //将已经处理完成的事件进行清空
+                selectionKeys.clear();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close(selector);
+        }
+    }
+
+    /**
+     * 处理事件 处理accept事件 和 read事件
+     * @param selectionKey 与selector绑定的channel的key
+     */
+    private void handles(SelectionKey selectionKey) throws IOException {
+        if(selectionKey.isAcceptable()){
+            //处理accept事件
+            //先要获取ServerSocketChannel
+            ServerSocketChannel server =(ServerSocketChannel) selectionKey.channel();
+            // 我觉得这样写也行 直接调用全局变量 SocketChannel socketChannel = serverSocketChannel.accept();
+            //获取对应的客户端的通道
+            SocketChannel socketChannel = server.accept();
+            socketChannel.configureBlocking(false);
+            //将客户端通道绑定到selector上，监听read事件
+            socketChannel.register(selector,SelectionKey.OP_READ);
+            System.out.println("客户端" + socketChannel.socket().getPort() + ":已经连接");
+        }else if(selectionKey.isReadable()){
+            //处理read事件
+            SocketChannel clientChannel = (SocketChannel) selectionKey.channel();
+            String fwdMsg = receive(clientChannel);
+
+            if(fwdMsg.isEmpty()){
+                //接不到消息了，那么就把这个通道给他移除了
+                selectionKey.cancel();
+                //通知selector有注册的通道被移除了，更新状态
+                selector.wakeup();
+            }else {
+                //转发消息
+                forwardMessage(clientChannel,fwdMsg);
+                if(readyToQuit(fwdMsg)){
+                    selectionKey.cancel();
+                    selector.wakeup();
+                }
+            }
+        }
+    }
+
+    /**
+     * 转发消息
+     * @param clientChannel 客户端通道
+     * @param fwdMsg 转发的消息
+     */
+    private void forwardMessage(SocketChannel clientChannel, String fwdMsg) throws IOException {
+        //keys方法区别于selectedKeys,这个方法返回的是接下来需要被处理的通道key
+        //而keys则返回与selector绑定的所有通道key
+        //跳过ServerSocketChannel和本身
+        for (SelectionKey selectionKey : selector.keys()) {
+            SelectableChannel channel = selectionKey.channel();
+            if(channel instanceof ServerSocketChannel)
+                System.out.println("客户端" + clientChannel.socket().getPort() + "：" + fwdMsg);
+            else if(selectionKey.isValid() &amp;&amp; !channel.equals(clientChannel)){
+                wBuffer.clear();
+                //写入消息
+                wBuffer.put(charset.encode("客户端" + clientChannel.socket().getPort() + "：" + fwdMsg));
+                //转换为读模式
+                wBuffer.flip();
+                //有数据就一直读
+                while(wBuffer.hasRemaining())
+                    ((SocketChannel)channel).write(wBuffer);
+            }
+        }
+    }
+
+    /**
+     * 从客户通道上读取消息
+     * @param clientChannel 客户通道
+     * @return 消息
+     */
+    private String receive(SocketChannel clientChannel) throws IOException {
+        //将当前指针置于初始位置，覆盖已有的消息（清空消息）
+        rBuffer.clear();
+        //不停的向缓存中写
+        while(clientChannel.read(rBuffer) &gt; 0);
+        //由写模式到读模式
+        rBuffer.flip();
+        return String.valueOf(charset.decode(rBuffer));
+    }
+
+    public static void main(String[] args) {
+        ChatServer chatServer = new ChatServer();
+        chatServer.start();
+    }
+}
+</code></pre><h3 id="4-2-客户端"><a href="#4-2-客户端" class="headerlink" title="4.2 客户端"></a>4.2 客户端</h3><pre><code class="lang-java">package client;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Set;
+
+public class ChatClient {
+
+    private static final String DEFAULT_SERVER_HOST = "127.0.0.1";
+    private static final int DEFAULT_SERVER_PORT = 8888;
+    private static final String QUIT = "quit";
+
+    private static final int BUFFER = 1024;
+    private String host;
+    private int port;
+    private SocketChannel clientChannel;
+    private Selector selector;
+    private ByteBuffer rBuffer = ByteBuffer.allocate(BUFFER);
+    private ByteBuffer wBuffer = ByteBuffer.allocate(BUFFER);
+    private Charset charset = Charset.forName(String.valueOf(StandardCharsets.UTF_8));
+
+    public ChatClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
+
+    public ChatClient() {
+        this(DEFAULT_SERVER_HOST,DEFAULT_SERVER_PORT);
+    }
+
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    public void close(Closeable closeable){
+        if(closeable != null){
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void start(){
+        try {
+            //创建用户通道
+            clientChannel = SocketChannel.open();
+            clientChannel.configureBlocking(false);//这一步千万不能忘了
+            //创建selector，并且将用户通道的connect请求注册上去
+            selector = Selector.open();
+            clientChannel.register(selector, SelectionKey.OP_CONNECT);
+            //尝试与服务器创建连接
+            clientChannel.connect(new InetSocketAddress(host,port));
+
+            while (selector.isOpen()){
+                //一直监听selector上注册的channel请求
+                selector.select();
+
+                Set&lt;SelectionKey&gt; selectionKeys = selector.selectedKeys();
+                for (SelectionKey selectionKey : selectionKeys) {
+                    //响应请求
+                    handles(selectionKey);
+                }
+                selectionKeys.clear();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (ClosedSelectorException e){
+
+        } finally {
+            close(selector);
+        }
+    }
+
+    private void handles(SelectionKey selectionKey) throws IOException {
+        //处理connect事件
+        if(selectionKey.isConnectable()){
+            //如果能够与服务器响应了
+            SocketChannel channel = (SocketChannel) selectionKey.channel();
+            if(channel.isConnectionPending()){
+                channel.finishConnect(); //正式建立连接
+                new Thread(new UserInputHandler(this)).start();
+            }
+            channel.register(selector,SelectionKey.OP_READ);
+        }else if(selectionKey.isReadable()){
+            String msg = receive(clientChannel);
+            SocketChannel channel = (SocketChannel) selectionKey.channel();
+            if(msg.isEmpty()){
+                //服务端异常
+                close(selector);
+            }else {
+                //TODO 看看这里信息对不对
+                System.out.println(msg);
+            }
+
+        }
+    }
+
+    private String receive(SocketChannel clientChannel) throws IOException {
+        rBuffer.clear();
+        //一直读数据
+        while (clientChannel.read(rBuffer) &gt; 0);
+        rBuffer.flip();
+        return String.valueOf(charset.decode(rBuffer));
+    }
+
+    public void send(String msg) throws IOException {
+        if(msg.isEmpty())
+            return;
+
+        wBuffer.clear();
+        wBuffer.put(charset.encode(msg));
+        wBuffer.flip();
+        while(wBuffer.hasRemaining()){
+            clientChannel.write(wBuffer);
+        }
+
+        if(QUIT.equals(msg))
+            close(selector);
+    }
+
+    public static void main(String[] args) {
+        ChatClient chatClient = new ChatClient();
+        chatClient.start();
+    }
+}
+</code></pre><h3 id="4-3-客户端监听用户输入进程"><a href="#4-3-客户端监听用户输入进程" class="headerlink" title="4.3 客户端监听用户输入进程"></a>4.3 客户端监听用户输入进程</h3><pre><code class="lang-java">package client;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class UserInputHandler implements Runnable{
+
+    private ChatClient chatClient;
+
+    public UserInputHandler(ChatClient chatClient) {
+        this.chatClient = chatClient;
+    }
+
+    @Override
+    public void run() {
+        //等待用户输入信息
+        BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+
+        while(true){
+            try {
+                String msg = consoleReader.readLine();
+                chatClient.send(msg);
+                if(chatClient.readyToQuit(msg)) break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/AIO-blocking-model/">AIO blocking model</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/BIO-blocking-model/">BIO blocking model</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

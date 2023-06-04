@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>head-first-docker - Kayleh</title><meta name="description" content="DockerDocker 是一个开源的应用容器引擎，基于Go 语言并遵从 Apache2.0 协议开源。 Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。 容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。 Docker的应用场景"><meta property="og:type" content="article"><meta property="og:title" content="head-first-docker"><meta property="og:url" content="https://blog.kayleh.top/head-first-docker/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="DockerDocker 是一个开源的应用容器引擎，基于Go 语言并遵从 Apache2.0 协议开源。 Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。 容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。 Docker的应用场景"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211101172701005.png"><meta property="og:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/watermark%252Ctype_ZmFuZ3poZW5naGVpdGk%252Cshadow_10%252Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2d1b3hpbmdlZ2U%253D%252Csize_16%252Ccolor_FFFFFF%252Ct_70"><meta property="article:published_time" content="2022-04-23T21:23:00.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.645Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="docker"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211101172701005.png"><meta name="keywords" content="docker"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">head-first-docker</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker"><span class="toc-text">Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">Docker的应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-window%E7%8E%AF%E5%A2%83%E5%BF%85%E9%A1%BB%E6%98%AFwsl2%EF%BC%8C%E4%B8%94%E9%98%B2%E7%81%AB%E5%A2%99%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81%E6%98%AF%E5%BC%80%E5%90%AF%E7%9A%84%EF%BC%81"><span class="toc-text">docker window环境必须是wsl2，且防火墙服务状态是开启的！</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8"><span class="toc-text">Docker 容器使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#attach-%E5%91%BD%E4%BB%A4"><span class="toc-text">attach 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exec-%E5%91%BD%E4%BB%A4"><span class="toc-text">exec 命令</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%E9%95%9C%E5%83%8F"><span class="toc-text">推送镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-text">登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0%E9%95%9C%E5%83%8F"><span class="toc-text">标记镜像</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-%E5%AE%89%E8%A3%85-MySQL"><span class="toc-text">Docker 安装 MySQL</span></a></li></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-04-23T21:23:00.000Z">2022-04-23</time></div></div><article class="md-text content post"><h1 class="article-title"><span>head-first-docker</span></h1><h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p>Docker 是一个开源的应用容器引擎，基于Go 语言并遵从 Apache2.0 协议开源。</p><p>Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。</p><p>容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。</p><h4 id="Docker的应用场景"><a href="#Docker的应用场景" class="headerlink" title="Docker的应用场景"></a>Docker的应用场景</h4><ul><li>Web 应用的自动化打包和发布。</li><li>自动化测试和持续集成、发布。</li><li>在服务型环境中部署和调整数据库或其他的后台应用。</li><li>从头编译或者扩展现有的 OpenShift 或 Cloud Foundry 平台来搭建自己的 PaaS 环境。</li></ul><p>1.安装使用</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://raw.githubusercontent.com/Kayleh/cdn4/main/image-20211101172701005.png" alt="1"></div><div class="image-meta"><span class="image-caption center">1</span></div></div><p>2.错误排查</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://raw.githubusercontent.com/Kayleh/cdn4/main/watermark%252Ctype_ZmFuZ3poZW5naGVpdGk%252Cshadow_10%252Ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2d1b3hpbmdlZ2U%253D%252Csize_16%252Ccolor_FFFFFF%252Ct_70" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><ul><li><h4 id="docker-window环境必须是wsl2，且防火墙服务状态是开启的！"><a href="#docker-window环境必须是wsl2，且防火墙服务状态是开启的！" class="headerlink" title="docker window环境必须是wsl2，且防火墙服务状态是开启的！"></a>docker window环境必须是wsl2，且防火墙服务状态是开启的！</h4></li><li><p>cmd下执行命令：netsh winsock reset</p></li><li><p>DockerCli.exe -SwitchDaemon</p></li><li><p>手动删除下面这个文件夹即可.</p></li></ul><pre><code class="lang-linux">%USERPROFILE%\.docker\contexts
+</code></pre><ul><li>管理员权限问题，直接在wsl运行,</li></ul><pre><code class="lang-shell">sudo su root
+
+sudo service docker start
+
+- 进入/var/lib，chmod -R 777 docker/*
+
+然后重启docker就好了
+</code></pre><h4 id="Docker-容器使用"><a href="#Docker-容器使用" class="headerlink" title="Docker 容器使用"></a>Docker 容器使用</h4><p>Docker 客户端</p><p>1、容器使用<br>获取镜像<br>如果我们本地没有 ubuntu 镜像，我们可以使用 docker pull 命令来载入 ubuntu 镜像：</p><pre><code class="lang-shell">$ docker pull ubuntu
+</code></pre><p>2、启动容器<br>以下命令使用 ubuntu 镜像启动一个容器，参数为以命令行模式进入该容器：</p><pre><code class="lang-shell">$ docker run -it ubuntu /bin/bash
+</code></pre><p>参数说明：</p><p>-i: 交互式操作。<br>-t: 终端。<br>ubuntu: ubuntu 镜像。<br>/bin/bash：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 /bin/bash。<br>3、要退出终端，直接输入 exit:</p><pre><code class="lang-shell">root@ed09e4490c57:/# exit
+</code></pre><p>4、启动已停止运行的容器<br>查看所有的容器命令如下：</p><pre><code class="lang-shell">$ docker ps -a
+</code></pre><p>5、使用 docker start 启动一个已停止的容器：</p><pre><code class="lang-shell">$ docker start b750bbbcfd88
+</code></pre><p>6、后台运行<br>在大部分的场景下，我们希望 docker 的服务是在后台运行的，我们可以过 -d 指定容器的运行模式。</p><pre><code class="lang-shell">$ docker run -itd --name ubuntu-test ubuntu /bin/bash
+</code></pre><blockquote><p>注：加了 -d 参数默认不会进入容器，想要进入容器需要使用指令 docker exec（下面会介绍到）。</p><p>停止一个容器<br>停止容器的命令如下：<br>$ docker stop &lt;容器 ID&gt;</p></blockquote><p>7、停止的容器可以通过 docker restart 重启：</p><pre><code class="lang-shell">$ docker restart &lt;容器 ID&gt;
+</code></pre><p>8、进入容器<br>在使用 -d 参数时，容器启动后会进入后台。此时想要进入容器，可以通过以下指令进入：</p><h4 id="attach-命令"><a href="#attach-命令" class="headerlink" title="attach 命令"></a>attach 命令</h4><p>使用 docker attach 命令。</p><pre><code class="lang-shell">$ docker attach 1e560fca3906 
+注意： 如果从这个容器退出，会导致容器的停止。
+</code></pre><h4 id="exec-命令"><a href="#exec-命令" class="headerlink" title="exec 命令"></a>exec 命令</h4><p>使用 docker exec 命令。</p><pre><code class="lang-shell">docker exec -it 243c32535da7 /bin/bash
+注意： 如果从这个容器退出，容器不会停止，这就是为什么推荐使用 docker exec 的原因。
+</code></pre><p>更多参数说明请使用 docker exec —help 命令查看。</p><p>9、导出和导入容器</p><ul><li>导出容器</li></ul><p>如果要导出本地某个容器，可以使用 docker export 命令。</p><pre><code class="lang-shell">$ docker export 1e560fca3906 &gt; ubuntu.tar
+导出容器 1e560fca3906 快照到本地文件 ubuntu.tar。
+</code></pre><p>这样将导出容器快照到本地文件。</p><ul><li>导入容器快照</li></ul><p>可以使用 docker import 从容器快照文件中再导入为镜像，以下实例将快照文件 ubuntu.tar 导入到镜像 test/ubuntu:v1:</p><pre><code class="lang-shell">$ cat docker/ubuntu.tar | docker import - test/ubuntu:v1
+</code></pre><p>此外，也可以通过指定 URL 或者某个目录来导入，例如：</p><pre><code class="lang-shell">$ docker import http://example.com/exampleimage.tgz example/imagerepo
+</code></pre><p>10、删除容器<br>删除容器使用 docker rm 命令：</p><pre><code class="lang-shell">$ docker rm -f 1e560fca3906
+下面的命令可以清理掉所有处于终止状态的容器。
+
+$ docker container prune
+</code></pre><p>11、运行一个 web 应用<br>前面我们运行的容器并没有一些什么特别的用处。</p><p>接下来让我们尝试使用 docker 构建一个 web 应用程序。</p><p>我们将在docker容器中运行一个 Python Flask 应用来运行一个web应用。</p><p>kali@kali:~# docker pull training/webapp # 载入镜像<br>kali@kali:~# docker run -d -P training/webapp python app.py</p><blockquote><p>参数说明:</p><p>-d:让容器在后台运行。</p><p>-P:将容器内部使用的网络端口随机映射到我们使用的主机上。</p></blockquote><p>12、查看 WEB 应用容器<br>使用 docker ps 来查看我们正在运行的容器：</p><pre><code>kali@kali:~#  docker ps
+CONTAINER ID        IMAGE               COMMAND             ...        PORTS                 
+d3d5e39ed9d3        training/webapp     "python app.py"     ...        0.0.0.0:32769-&gt;5000/tcp
+这里多了端口信息。
+----------------------------
+PORTS
+0.0.0.0:32769-&gt;5000/tcp
+Docker 开放了 5000 端口（默认 Python Flask 端口）映射到主机端口 32769 上。
+</code></pre><p>这时我们可以通过浏览器访问WEB应用</p><p>我们也可以通过 -p 参数来设置不一样的端口：</p><pre><code>~$ docker run -d -p 5000:5000 training/webapp python app.py
+</code></pre><p>13、docker ps查看正在运行的容器</p><pre><code class="lang-shell">kali@kali:~#  docker ps
+CONTAINER ID        IMAGE                             PORTS                     NAMES
+bf08b7f2cd89        training/webapp     ...        0.0.0.0:5000-&gt;5000/tcp    wizardly_chandrasekhar
+d3d5e39ed9d3        training/webapp     ...        0.0.0.0:32769-&gt;5000/tcp   xenodochial_hoov
+容器内部的 5000 端口映射到我们本地主机的 5000 端口上。
+</code></pre><p>14、网络端口的快捷方式<br>通过 docker ps 命令可以查看到容器的端口映射，docker 还提供了另一个快捷方式 docker port，使用 docker port 可以查看指定 （ID 或者名字）容器的某个确定端口映射到宿主机的端口号。</p><p>上面我们创建的 web 应用容器 ID 为 bf08b7f2cd89 名字为 wizardly_chandrasekhar。</p><p>我可以使用 docker port bf08b7f2cd89 或 docker port wizardly_chandrasekhar 来查看容器端口的映射情况。</p><pre><code>kali@kali:~$ docker port bf08b7f2cd89
+5000/tcp -&gt; 0.0.0.0:5000
+kali@kali:~$ docker port wizardly_chandrasekhar
+5000/tcp -&gt; 0.0.0.0:5000
+</code></pre><p>15、查看 WEB 应用程序日志<br>docker logs [ID或者名字] 可以查看容器内部的标准输出。</p><pre><code>kali@kali:~$ docker logs -f bf08b7f2cd89
+
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+   192.168.239.1 - - [09/May/2016 16:30:37] "GET / HTTP/1.1" 200 -
+   192.168.239.1 - - [09/May/2016 16:30:37] "GET /favicon.ico HTTP/1.1" 404 -
+</code></pre><blockquote><p>-f: 让 docker logs 像使用 tail -f 一样来输出容器内部的标准输出。</p></blockquote><p>从上面，我们可以看到应用程序使用的是 5000 端口并且能够查看到应用程序的访问日志。</p><p>16、查看WEB应用程序容器的进程<br>使用 docker top 来查看容器内部运行的进程</p><pre><code>~$ docker top wizardly_chandrasekhar
+UID     PID         PPID          ...       TIME                CMD
+root    23245       23228         ...       00:00:00            python app.py
+</code></pre><ul><li>检查 WEB 应用程序<br>使用 docker inspect 来查看 Docker 的底层信息。它会返回一个 JSON 文件记录着 Docker 容器的配置和状态信息。</li></ul><pre><code>~$ docker inspect wizardly_chandrasekhar
+[
+    {
+        "Id": "bf08b7f2cd897b5964943134aa6d373e355c286db9b9885b1f60b6e8f82b2b85",
+        "Created": "2018-09-17T01:41:26.174228707Z",
+        "Path": "python",
+        "Args": [
+            "app.py"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 23245,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2018-09-17T01:41:26.494185806Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+]
+</code></pre><p>17、停止 WEB 应用容器</p><pre><code>~$ docker stop wizardly_chandrasekhar   
+wizardly_chandrasekhar
+</code></pre><p>18、重启WEB应用容器<br>已经停止的容器，我们可以使用命令 docker start 来启动。</p><pre><code>~$ docker start wizardly_chandrasekhar
+wizardly_chandrasekhar
+</code></pre><p>查询最后一次创建的容器：</p><pre><code>docker ps -l 
+
+CONTAINER ID        IMAGE                             PORTS                     NAMES
+bf08b7f2cd89        training/webapp     ...        0.0.0.0:5000-&gt;5000/tcp    wizardly_chandrasekhar
+</code></pre><p>正在运行的容器，我们可以使用 docker restart 命令来重启。</p><p>19、移除WEB应用容器</p><p>我们可以使用 docker rm 命令来删除不需要的容器</p><pre><code>kali@kali:~$ docker rm wizardly_chandrasekhar  
+wizardly_chandrasekhar
+</code></pre><p>删除容器时，容器必须是停止状态，否则会报如下错误</p><pre><code>$ docker rm wizardly_chandrasekhar
+Error response from daemon: You cannot remove a running container bf08b7f2cd897b5964943134aa6d373e355c286db9b9885b1f60b6e8f82b2b85. Stop the container before attempting removal or force remove
+</code></pre><h2 id="推送镜像"><a href="#推送镜像" class="headerlink" title="推送镜像"></a>推送镜像</h2><h4 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h4><pre><code class="lang-shell">$ docker login
+</code></pre><h4 id="标记镜像"><a href="#标记镜像" class="headerlink" title="标记镜像"></a>标记镜像</h4><pre><code class="lang-shell">$ docker tag ubuntu:18.04 username/ubuntu:18.04
+$ docker image ls
+REPOSITORY      TAG        IMAGE ID            CREATED           ...  
+ubuntu          18.04      275d79972a86        6 days ago        ...  
+username/ubuntu 18.04      275d79972a86        6 days ago        ...  
+
+$ docker push username/ubuntu:18.04
+$ docker search username/ubuntu
+
+NAME             DESCRIPTION       STARS         OFFICIAL    AUTOMATED
+username/ubuntu
+</code></pre><h3 id="Docker-安装-MySQL"><a href="#Docker-安装-MySQL" class="headerlink" title="Docker 安装 MySQL"></a>Docker 安装 MySQL</h3><p>一、docker search mysql 命令来查看可用版本；</p><p>二、拉取 MySQL 镜像<br>拉取官方的最新版本的镜像：<br>```shell script<br>$ docker pull mysql:latest</p><pre><code>
+三、查看本地镜像
+使用以下命令来查看是否已安装了 mysql：
+```shell script
+$ docker images
+</code></pre><p>四、使用以下命令来运行 mysql 容器：<br>```shell script<br>$ docker run -itd —name=”mysql_venus” -p 3316:3306 -v C:\docker_volumes\mysql\conf\:/etc/mysql/conf.d -v C:\docker_volumes\mysql\data:/var/lib/mysql -v C:\docker_volumes\mysql\logs:/var/log -eMYSQL_ROOT_PASSWORD=”123456” mysql</p><pre><code>- -p 3306:3306 ：映射容器服务的 3316 端口到宿主机的 3306 端口，外部主机可以直接通过 宿主机ip:3316 访问到 MySQL 的服务。
+- MYSQL_ROOT_PASSWORD=123456：设置 MySQL 服务 root 用户的密码。
+  -v 挂载容器
+
+五、通过 docker ps 命令查看是否安装成功
+
+连接数据库
+```shell script
+mysql -h localhost -u root -p
+</code></pre><p>六、进入容器内部</p><pre><code class="lang-shell">docker exec -it mysql bash
+mysql -uroot -p
+</code></pre><p>七、开启远程访问权限</p><p><code>命令：</code><strong>use mysql;</strong></p><p><code>命令：</code><strong>select host,user from user;</strong></p><p><code>命令：</code><strong>ALTER USER ‘root’@’%’ IDENTIFIED WITH mysql_native_password BY ‘123456’;</strong></p><p><code>命令：</code><strong>flush privileges;</strong></p><p>八、查看docker日志</p><p><code>命令：</code></p><p>````<br>docker logs -f —tail 10 a4dac74d48f7</p><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/head-first-SpringSecurity/">head-first-SpringSecurity</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/dic-algorithm/">「字典序」问题—贪心+单调栈</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

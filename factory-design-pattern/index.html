@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>工厂设计模式 - Kayleh</title><meta name="description" content="工厂设计模式工厂方法工厂方法即Factory Method，是一种对象创建型模式。"><meta property="og:type" content="article"><meta property="og:title" content="工厂设计模式"><meta property="og:url" content="https://blog.kayleh.top/factory-design-pattern/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="工厂设计模式工厂方法工厂方法即Factory Method，是一种对象创建型模式。"><meta property="og:locale" content="zh_CN"><meta property="article:published_time" content="2020-06-06T12:42:10.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.661Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="DesignPatterns"><meta name="twitter:card" content="summary"><meta name="keywords" content="DesignPatterns"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">工厂设计模式</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">工厂设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95"><span class="toc-text">工厂方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82"><span class="toc-text">抽象工厂</span></a></li></ol></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-06-06T12:42:10.000Z">2020-06-06</time></div></div><article class="md-text content post"><h1 class="article-title"><span>工厂设计模式</span></h1><h2 id="工厂设计模式"><a href="#工厂设计模式" class="headerlink" title="工厂设计模式"></a>工厂设计模式</h2><h3 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h3><p>工厂方法即Factory Method，是一种对象创建型模式。</p><span id="more"></span><p>工厂方法的目的是使得创建对象和使用对象是分离的，并且客户端总是引用抽象工厂和抽象产品：</p><pre><code class="lang-ascii">┌─────────────┐      ┌─────────────┐
+│   Product   │      │   Factory   │
+└─────────────┘      └─────────────┘
+       ▲                    ▲
+       │                    │
+┌─────────────┐      ┌─────────────┐
+│ ProductImpl │&lt;─ ─ ─│ FactoryImpl │
+└─────────────┘      └─────────────┘
+</code></pre><p>例如实现一个解析字符串到<code>Number</code>的<code>Factory</code>，可以定义如下：</p><pre><code class="lang-java">public class NumberFactoryImpl implements NumberFactory {
+    public Number parse(String s) {
+        return new BigDecimal(s);
+    }
+}
+</code></pre><p>而产品接口是<code>Number</code>，<code>NumberFactoryImpl</code>返回的实际产品是<code>BigDecimal</code>。</p><p>那么客户端如何创建<code>NumberFactoryImpl</code>呢？通常我们会在接口<code>Factory</code>中定义一个静态方法<code>getFactory()</code>来返回真正的子类：</p><pre><code class="lang-java">public interface NumberFactory {
+    // 创建方法:
+    Number parse(String s);
+    // 获取工厂实例:
+    static NumberFactory getFactory() {
+        return impl;
+    }
+    static NumberFactory impl = new NumberFactoryImpl();
+}
+</code></pre><p>在客户端中，我们只需要和工厂接口<code>NumberFactory</code>以及抽象产品<code>Number</code>打交道：</p><pre><code class="lang-java">NumberFactory factory = NumberFactory.getFactory();
+Number result = factory.parse("123.456");
+</code></pre><p>调用方可以完全忽略真正的工厂<code>NumberFactoryImpl</code>和实际的产品<code>BigDecimal</code>，这样做的好处是允许创建产品的代码独立地变换，而不会影响到调用方。</p><p>实际上大多数情况下我们并不需要抽象工厂，而是通过静态方法直接返回产品，即：</p><pre><code class="lang-java">public class NumberFactory {
+    public static Number parse(String s) {
+        return new BigDecimal(s);
+    }
+}
+</code></pre><p>这种简化的使用静态方法创建产品的方式称为静态工厂方法（Static Factory Method）。静态工厂方法广泛地应用在Java标准库中。例如：</p><pre><code class="lang-java">Integer n = Integer.valueOf(100);
+</code></pre><p><code>Integer</code>既是产品又是静态工厂。它提供了静态方法<code>valueOf()</code>来创建<code>Integer</code>。那么这种方式和直接写<code>new Integer(100)</code>有何区别呢？我们观察<code>valueOf()</code>方法：</p><pre><code class="lang-java">public final class Integer {
+    public static Integer valueOf(int i) {
+        if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)
+            return IntegerCache.cache[i + (-IntegerCache.low)];
+        return new Integer(i);
+    }
+    ...
+}
+</code></pre><p>它的好处在于，<code>valueOf()</code>内部可能会使用<code>new</code>创建一个新的<code>Integer</code>实例，但也可能直接返回一个缓存的<code>Integer</code>实例。对于调用方来说，没必要知道<code>Integer</code>创建的细节。</p><blockquote><p>工厂方法可以隐藏创建产品的细节，且不一定每次都会真正创建产品，完全可以返回缓存的产品，从而提升速度并减少内存消耗。</p></blockquote><p>如果调用方直接使用<code>Integer n = new Integer(100)</code>，那么就失去了使用缓存优化的可能性。</p><p>我们经常使用的另一个静态工厂方法是<code>List.of()</code>：</p><pre><code class="lang-java">List&lt;String&gt; list = List.of("A", "B", "C");
+</code></pre><p>这个静态工厂方法接收可变参数，然后返回<code>List</code>接口。需要注意的是，调用方获取的产品总是<code>List</code>接口，而且并不关心它的实际类型。即使调用方知道<code>List</code>产品的实际类型是<code>java.util.ImmutableCollections$ListN</code>，也不要去强制转型为子类，因为静态工厂方法<code>List.of()</code>保证返回<code>List</code>，但也完全可以修改为返回<code>java.util.ArrayList</code>。这就是里氏替换原则：返回实现接口的任意子类都可以满足该方法的要求，且不影响调用方。</p><blockquote><p>总是引用接口而非实现类，能允许变换子类而不影响调用方，即尽可能面向抽象编程。</p></blockquote><p>和<code>List.of()</code>类似，我们使用<code>MessageDigest</code>时，为了创建某个摘要算法，总是使用静态工厂方法<code>getInstance(String)</code>：</p><pre><code class="lang-java">MessageDigest md5 = MessageDigest.getInstance("MD5");
+MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+</code></pre><p>调用方通过产品名称获得产品实例，不但调用简单，而且获得的引用仍然是<code>MessageDigest</code>这个抽象类。</p><h3 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h3><blockquote><p><em>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</em></p></blockquote><p>抽象工厂模式（Abstract Factory）是一个比较复杂的创建型模式。</p><p>抽象工厂模式和工厂方法不太一样，它要解决的问题比较复杂，不但工厂是抽象的，产品是抽象的，而且有多个产品需要创建，因此，这个抽象工厂会对应到多个实际工厂，每个实际工厂负责创建多个实际产品：</p><pre><code class="lang-ascii">                                ┌────────┐
+                             ─ &gt;│ProductA│
+┌────────┐    ┌─────────┐   │   └────────┘
+│ Client │─ ─&gt;│ Factory │─ ─
+└────────┘    └─────────┘   │   ┌────────┐
+                   ▲         ─ &gt;│ProductB│
+           ┌───────┴───────┐    └────────┘
+           │               │
+      ┌─────────┐     ┌─────────┐
+      │Factory1 │     │Factory2 │
+      └─────────┘     └─────────┘
+           │   ┌─────────┐ │   ┌─────────┐
+            ─ &gt;│ProductA1│  ─ &gt;│ProductA2│
+           │   └─────────┘ │   └─────────┘
+               ┌─────────┐     ┌─────────┐
+           └ ─&gt;│ProductB1│ └ ─&gt;│ProductB2│
+               └─────────┘     └─────────┘
+</code></pre><p>这种模式有点类似于多个供应商负责提供一系列类型的产品。我们举个例子：</p><p>假设我们希望为用户提供一个Markdown文本转换为HTML和Word的服务，它的接口定义如下：</p><pre><code class="lang-java">public interface AbstractFactory {
+    // 创建Html文档:
+    HtmlDocument createHtml(String md);
+    // 创建Word文档:
+    WordDocument createWord(String md);
+}
+</code></pre><p>注意到上面的抽象工厂仅仅是一个接口，没有任何代码。同样的，因为<code>HtmlDocument</code>和<code>WordDocument</code>都比较复杂，现在我们并不知道如何实现它们，所以只有接口：</p><pre><code class="lang-java">// Html文档接口:
+public interface HtmlDocument {
+    String toHtml();
+    void save(Path path) throws IOException;
+}
+
+// Word文档接口:
+public interface WordDocument {
+    void save(Path path) throws IOException;
+}
+</code></pre><p>这样，我们就定义好了抽象工厂（<code>AbstractFactory</code>）以及两个抽象产品（<code>HtmlDocument</code>和<code>WordDocument</code>）。因为实现它们比较困难，我们决定让供应商来完成。</p><p>现在市场上有两家供应商：FastDoc Soft的产品便宜，并且转换速度快，而GoodDoc Soft的产品贵，但转换效果好。我们决定同时使用这两家供应商的产品，以便给免费用户和付费用户提供不同的服务。</p><p>我们先看看FastDoc Soft的产品是如何实现的。首先，FastDoc Soft必须要有实际的产品，即<code>FastHtmlDocument</code>和<code>FastWordDocument</code>：</p><pre><code class="lang-java">public class FastHtmlDocument implements HtmlDocument {
+    public String toHtml() {
+        ...
+    }
+    public void save(Path path) throws IOException {
+        ...
+    }
+}
+
+public class FastWordDocument implements WordDocument {
+    public void save(Path path) throws IOException {
+        ...
+    }
+}
+</code></pre><p>然后，FastDoc Soft必须提供一个实际的工厂来生产这两种产品，即<code>FastFactory</code>：</p><pre><code class="lang-java">public class FastFactory implements AbstractFactory {
+    public HtmlDocument createHtml(String md) {
+        return new FastHtmlDocument(md);
+    }
+    public WordDocument createWord(String md) {
+        return new FastWordDocument(md);
+    }
+}
+</code></pre><p>这样，我们就可以使用FastDoc Soft的服务了。客户端编写代码如下：</p><pre><code class="lang-java">// 创建AbstractFactory，实际类型是FastFactory:
+AbstractFactory factory = new FastFactory();
+// 生成Html文档:
+HtmlDocument html = factory.createHtml("#Hello\nHello, world!");
+html.save(Paths.get(".", "fast.html"));
+// 生成Word文档:
+WordDocument word = fastFactory.createWord("#Hello\nHello, world!");
+word.save(Paths.get(".", "fast.doc"));
+</code></pre><p>如果我们要同时使用GoodDoc Soft的服务怎么办？因为用了抽象工厂模式，GoodDoc Soft只需要根据我们定义的抽象工厂和抽象产品接口，实现自己的实际工厂和实际产品即可：</p><pre><code class="lang-java">// 实际工厂:
+public class GoodFactory implements AbstractFactory {
+    public HtmlDocument createHtml(String md) {
+        return new GoodHtmlDocument(md);
+    }
+    public WordDocument createWord(String md) {
+        return new GoodWordDocument(md);
+    }
+}
+
+// 实际产品:
+public class GoodHtmlDocument implements HtmlDocument {
+    ...
+}
+
+public class GoodWordDocument implements HtmlDocument {
+    ...
+}
+</code></pre><p>客户端要使用GoodDoc Soft的服务，只需要把原来的<code>new FastFactory()</code>切换为<code>new GoodFactory()</code>即可。</p><p>注意到客户端代码除了通过<code>new</code>创建了<code>FastFactory</code>或<code>GoodFactory</code>外，其余代码只引用了产品接口，并未引用任何实际产品（例如，<code>FastHtmlDocument</code>），如果把创建工厂的代码放到<code>AbstractFactory</code>中，就可以连实际工厂也屏蔽了：</p><pre><code class="lang-java">public interface AbstractFactory {
+    public static AbstractFactory createFactory(String name) {
+        if (name.equalsIgnoreCase("fast")) {
+            return new FastFactory();
+        } else if (name.equalsIgnoreCase("good")) {
+            return new GoodFactory();
+        } else {
+            throw new IllegalArgumentException("Invalid factory name");
+        }
+    }
+}
+</code></pre><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/builder/">生成器</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/singleton-mode/">单例模式</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>一次应用程序窃取焦点问题排查经历 - Kayleh</title><meta name="description" content="一、问题背景忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。 此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口….. 周而复始几次后，我终于忍不住了。。 二、问题确认"><meta property="og:type" content="article"><meta property="og:title" content="一次应用程序窃取焦点问题排查经历"><meta property="og:url" content="https://blog.kayleh.top/steal-focus/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="一、问题背景忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。 此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口….. 周而复始几次后，我终于忍不住了。。 二、问题确认"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95LUP.png"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95Tud.jpg"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95jC8.md.png"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95v8S.md.png"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95xgg.md.png"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95zvQ.png"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9IwVI.jpg"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9IrPf.png"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9Ipuj.png"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9I9Ds.png"><meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9oAeA.png"><meta property="article:published_time" content="2022-11-10T23:31:11.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.649Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="bug"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://s1.ax1x.com/2022/11/11/z95LUP.png"><meta name="keywords" content="bug"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">一次应用程序窃取焦点问题排查经历</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="toc-text">一、问题背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%97%AE%E9%A2%98%E7%A1%AE%E8%AE%A4"><span class="toc-text">二、问题确认</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81SFW-Seach-in-Fxxking-Web-%E6%96%B9%E6%B3%95"><span class="toc-text">三、SFW(Seach in Fxxking Web)方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%97%AE%E9%A2%98%E9%87%8D%E6%96%B0%E5%88%86%E6%9E%90%E3%80%81%E7%8C%9C%E6%B5%8B"><span class="toc-text">四、问题重新分析、猜测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E3%80%81%E6%A0%B9%E6%BA%90"><span class="toc-text">五、问题怎么产生、根源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E9%97%AE%E9%A2%98%E8%BF%BD%E6%BA%AF"><span class="toc-text">六、问题追溯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%B8%80%EF%BC%9Amstsc-exe"><span class="toc-text">线索一：mstsc.exe</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%BA%8C%EF%BC%9AWindows-Subsystem-for-Linux-GUI%E5%92%8Cmstsc-exe%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB"><span class="toc-text">线索二：Windows Subsystem for Linux GUI和mstsc.exe之间的联系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%B8%89%E3%80%81%E9%97%AE%E9%A2%98%E5%9C%A8%E4%BA%8Ewindow%E9%80%9A%E8%BF%87RDP%E5%90%91WSL%E9%80%9A%E4%BF%A1%E6%97%B6"><span class="toc-text">线索三、问题在于window通过RDP向WSL通信时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E8%A7%A3%E9%87%8A%E5%92%8C%E7%BB%93%E8%AE%BA"><span class="toc-text">官方解释和结论</span></a></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-11-10T23:31:11.000Z">2022-11-10</time></div></div><article class="md-text content post"><h1 class="article-title"><span>一次应用程序窃取焦点问题排查经历</span></h1><h2 id="一、问题背景"><a href="#一、问题背景" class="headerlink" title="一、问题背景"></a>一、问题背景</h2><p>忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。</p><p>此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口…..</p><p>周而复始几次后，我终于忍不住了。。</p><h2 id="二、问题确认"><a href="#二、问题确认" class="headerlink" title="二、问题确认"></a>二、问题确认</h2><p>问题具有随机性、可复现，在排除了“可能不小心按错键导致失焦”的可能性后。</p><p>我就把问题的关键词确认在 <code>“window11”</code> <code>“窗口失焦”</code>。</p><h2 id="三、SFW-Seach-in-Fxxking-Web-方法"><a href="#三、SFW-Seach-in-Fxxking-Web-方法" class="headerlink" title="三、SFW(Seach in Fxxking Web)方法"></a>三、SFW(Seach in Fxxking Web)方法</h2><p>得到了的关键词，开始了从互联网找答案。</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z95LUP.png" alt="z95LUP.png"></div><div class="image-meta"><span class="image-caption center">z95LUP.png</span></div></div><p>通过一番操作后，仍然得不到任何有用的信息。</p><h2 id="四、问题重新分析、猜测"><a href="#四、问题重新分析、猜测" class="headerlink" title="四、问题重新分析、猜测"></a>四、问题重新分析、猜测</h2><p>互联网找不到答案，从问题根源入手。</p><p>由我目前的前置知识得知：</p><pre><code>Force Window to Always Be in Focus
+// window必然会有一个窗口焦点
+</code></pre><p>但从我的现象来看，失焦的时刻并没有其他页面弹出，所以猜测焦点可能被后台程序获取了？传说中的<code>"焦点窃取"</code>?</p><p>经过重新分析后，我确定下一步方向：找到窃取焦点的进程。</p><p>去Web查询窗口焦点的资料，发现了一个软件<code>ViewWizard</code>,不仅可以捕捉到窗口的句柄，还能捕捉到窗口的pid。</p><p>但是使用起来没有那么理想：失去焦点时并没有捕捉到。</p><p>所以我找到了一篇博客：用亲切的C#实现的window api 获取 当前焦点窗口的信息，根据博客提供的思路和window API ，写出获取窗口句柄的代码。</p><pre><code>https://www.cnblogs.com/mq0036/p/12575627.html
+</code></pre><p>代码完成后，执行程序，尝试复现问题。果不其然，窗口被一个叫TscShellContainerClass的窗口捕捉了。</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z95Tud.jpg" alt="z95Tud.jpg"></div><div class="image-meta"><span class="image-caption center">z95Tud.jpg</span></div></div><p>再用回软件<code>ViewWizard</code>根据句柄查询PID。</p><p>知道了PID后，再通过命令查询线程的信息：</p><pre><code class="lang-shell">taskList|findstr XXXX
+</code></pre><p><a target="_blank" rel="noopener" href="https://imgse.com/i/z95jC8"></a></p><div class="tag-plugin image"><div class="image-bg"><a target="_blank" rel="noopener" href="https://imgse.com/i/z95jC8"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z95jC8.md.png" alt="z95jC8.md.png"></a></div><div class="image-meta"><a target="_blank" rel="noopener" href="https://imgse.com/i/z95jC8"><span class="image-caption center">z95jC8.md.png</span></a></div></div><p></p><p>?这不是远程桌面的应用程序吗？他捕捉我焦点干嘛捏？</p><h2 id="五、问题怎么产生、根源"><a href="#五、问题怎么产生、根源" class="headerlink" title="五、问题怎么产生、根源"></a>五、问题怎么产生、根源</h2><ul><li><p>通过process Manage，定位问题发生瞬间的调用信息</p><p>从mstu.exe的调用树已经几乎可以确认是WSL的锅了。</p></li></ul><p><a target="_blank" rel="noopener" href="https://imgse.com/i/z95v8S"></a></p><div class="tag-plugin image"><div class="image-bg"><a target="_blank" rel="noopener" href="https://imgse.com/i/z95v8S"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z95v8S.md.png" alt="z95v8S.md.png"></a></div><div class="image-meta"><a target="_blank" rel="noopener" href="https://imgse.com/i/z95v8S"><span class="image-caption center">z95v8S.md.png</span></a></div></div><p></p><p>自己平时也不会去用远程桌面，这个功能也是我前段时间为了能使用WSLg才打开的。</p><p>并且问题发生的时刻，我没有主动去开启远程桌面程序，不过我WSLg默认是启动的，还是不明白问题的原因。</p><p>于是在确定了导致问题发生的mstsc,开始<code>SFW</code>。</p><h2 id="六、问题追溯"><a href="#六、问题追溯" class="headerlink" title="六、问题追溯"></a>六、问题追溯</h2><h4 id="线索一：mstsc-exe"><a href="#线索一：mstsc-exe" class="headerlink" title="线索一：mstsc.exe"></a>线索一：mstsc.exe</h4><h1 id="mstsc-exe-stealing-focus-mstsc-exe窃取了焦点"><a href="#mstsc-exe-stealing-focus-mstsc-exe窃取了焦点" class="headerlink" title="mstsc.exe stealing focus(mstsc.exe窃取了焦点)"></a>mstsc.exe stealing focus(mstsc.exe窃取了焦点)</h1><pre><code>https://answers.microsoft.com/en-us/windows/forum/all/mstscexe-stealing-focus/f9acb6fd-3c95-4e22-8f40-dc41dffbb178
+</code></pre><p><a target="_blank" rel="noopener" href="https://imgse.com/i/z95xgg"></a></p><div class="tag-plugin image"><div class="image-bg"><a target="_blank" rel="noopener" href="https://imgse.com/i/z95xgg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z95xgg.md.png" alt="z95xgg.md.png"></a></div><div class="image-meta"><a target="_blank" rel="noopener" href="https://imgse.com/i/z95xgg"><span class="image-caption center">z95xgg.md.png</span></a></div></div><p></p><p><a target="_blank" rel="noopener" href="https://imgse.com/i/z95zvQ"></a></p><div class="tag-plugin image"><div class="image-bg"><a target="_blank" rel="noopener" href="https://imgse.com/i/z95zvQ"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z95zvQ.png" alt="z95zvQ.png"></a></div><div class="image-meta"><a target="_blank" rel="noopener" href="https://imgse.com/i/z95zvQ"><span class="image-caption center">z95zvQ.png</span></a></div></div><p></p><p>帖子最终结果为官方也不知道。。当事人自己删除了wslg才临时解决问题。。</p><p>不过通过这一线索，基本可以确认问题出现在window 和 SubSystem linux 之间</p><h4 id="线索二：Windows-Subsystem-for-Linux-GUI和mstsc-exe之间的联系"><a href="#线索二：Windows-Subsystem-for-Linux-GUI和mstsc-exe之间的联系" class="headerlink" title="线索二：Windows Subsystem for Linux GUI和mstsc.exe之间的联系"></a>线索二：Windows Subsystem for Linux GUI和mstsc.exe之间的联系</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z9IwVI.jpg" alt="z9IwVI.jpg"></div><div class="image-meta"><span class="image-caption center">z9IwVI.jpg</span></div></div><p>通过搜索得知，微软在<code>WSLg System Distro</code>里加了远程桌面服务套件——<code>FreeRDP</code>，一个支持Windows远程桌面协议（RDP）的服务端.</p><blockquote><p>整个<code>WSLg System Distro</code>、Windows远程桌面客户端（mstsc.exe）的窗口都是对用户隐藏的，猜测是用户开启WSL或者敲完Linux GUI程序名的时候，这些隐藏的组件就已经在后台运行了。具体来说就是上图的<code>WSLGd</code>，微软解释说一个类似守护进程的程序，负责启动<code>Weston</code>、建立RDP通信等工作，如果它们挂了的话还要负责重启它们。</p></blockquote><h3 id="线索三、问题在于window通过RDP向WSL通信时"><a href="#线索三、问题在于window通过RDP向WSL通信时" class="headerlink" title="线索三、问题在于window通过RDP向WSL通信时"></a>线索三、问题在于window通过RDP向WSL通信时</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z9IrPf.png" alt="z9IrPf.png"></div><div class="image-meta"><span class="image-caption center">z9IrPf.png</span></div></div><p>通过这一线索和开源的信息得知，当一些内容到shot（剪切板）时，负责RDP的线程发生崩溃。</p><p>最后发现了这个问题的issue：</p><p><a target="_blank" rel="noopener" href="https://imgse.com/i/z9Ipuj"></a></p><div class="tag-plugin image"><div class="image-bg"><a target="_blank" rel="noopener" href="https://imgse.com/i/z9Ipuj"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z9Ipuj.png" alt="z9Ipuj.png"></a></div><div class="image-meta"><a target="_blank" rel="noopener" href="https://imgse.com/i/z9Ipuj"><span class="image-caption center">z9Ipuj.png</span></a></div></div><p></p><p><a target="_blank" rel="noopener" href="https://imgse.com/i/z9I9Ds"></a></p><div class="tag-plugin image"><div class="image-bg"><a target="_blank" rel="noopener" href="https://imgse.com/i/z9I9Ds"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z9I9Ds.png" alt="z9I9Ds.png"></a></div><div class="image-meta"><a target="_blank" rel="noopener" href="https://imgse.com/i/z9I9Ds"><span class="image-caption center">z9I9Ds.png</span></a></div></div><p></p><h3 id="官方解释和结论"><a href="#官方解释和结论" class="headerlink" title="官方解释和结论"></a>官方解释和结论</h3><p>由于从 FreeRDP 线程到 wayland 显示循环线程的多线程切换而导致事件源为 NULL，导致崩溃。</p><p><a target="_blank" rel="noopener" href="https://imgse.com/i/z9oAeA"></a></p><div class="tag-plugin image"><div class="image-bg"><a target="_blank" rel="noopener" href="https://imgse.com/i/z9oAeA"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://s1.ax1x.com/2022/11/11/z9oAeA.png" alt="z9oAeA.png"></a></div><div class="image-meta"><a target="_blank" rel="noopener" href="https://imgse.com/i/z9oAeA"><span class="image-caption center">z9oAeA.png</span></a></div></div><p></p><ul><li>提供了临时解决的方案—关闭WSLg :)</li></ul><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/tj-horse-racing/">⌈贪心算法⌋田忌赛马策略</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/Large-number-operations/">超高精度计算</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

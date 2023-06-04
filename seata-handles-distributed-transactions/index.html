@@ -1,0 +1,1722 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>Seata处理分布式事务 - Kayleh</title><meta name="description" content="Seata"><meta property="og:type" content="article"><meta property="og:title" content="Seata处理分布式事务"><meta property="og:url" content="https://blog.kayleh.top/seata-handles-distributed-transactions/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="Seata"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/1.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/2.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/3.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/4.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/5.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/6.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/7.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/8.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/9.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/10.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/11.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/12.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/13.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/14.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/15.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/16.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/17.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/18.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/19.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/20.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/21.png"><meta property="og:image" content="https://blog.kayleh.top/.top//22.png"><meta property="article:published_time" content="2020-08-26T04:25:48.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.641Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="DistributedMicroservices"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/1.png"><meta name="keywords" content="DistributedMicroservices"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Seata处理分布式事务</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B"><span class="toc-text">能干嘛</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%85%B8%E5%9E%8B%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E8%BF%87%E7%A8%8B"><span class="toc-text">一个典型的分布式事务过程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="toc-text">处理过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%94%A8"><span class="toc-text">怎么用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E4%B8%8B%E6%BC%94%E7%A4%BA%E9%83%BD%E9%9C%80%E8%A6%81%E5%85%88%E5%90%AF%E5%8A%A8Nacos%E5%90%8E%E5%90%AF%E5%8A%A8Seata%EF%BC%8C%E4%BF%9D%E8%AF%81%E4%B8%A4%E4%B8%AA%E9%83%BDOK"><span class="toc-text">以下演示都需要先启动Nacos后启动Seata，保证两个都OK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E4%B8%9A%E5%8A%A1%E8%AF%B4%E6%98%8E"><span class="toc-text">分布式事务业务说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%9A%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">创建业务数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#seata-order-%E5%AD%98%E5%82%A8%E8%AE%A2%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">seata_order: 存储订单的数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#seata-storage-%E5%AD%98%E5%82%A8%E5%BA%93%E5%AD%98%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">seata_storage:存储库存的数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#seata-account-%E5%AD%98%E5%82%A8%E8%B4%A6%E6%88%B7%E4%BF%A1%E6%81%AF%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">seata_account: 存储账户信息的数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E8%A1%A8SQL"><span class="toc-text">建表SQL</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E7%85%A7%E4%B8%8A%E8%BF%B03%E5%BA%93%E5%88%86%E5%88%AB%E5%BB%BA%E5%AF%B9%E5%BA%94%E4%B8%9A%E5%8A%A1%E8%A1%A8"><span class="toc-text">按照上述3库分别建对应业务表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E7%85%A7%E4%B8%8A%E8%BF%B03%E5%BA%93%E5%88%86%E5%88%AB%E5%BB%BA%E5%AF%B9%E5%BA%94%E7%9A%84%E5%9B%9E%E6%BB%9A%E6%97%A5%E5%BF%97%E8%A1%A8"><span class="toc-text">按照上述3库分别建对应的回滚日志表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82"><span class="toc-text">业务需求</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E8%AE%A2%E5%8D%95Order-Module"><span class="toc-text">新建订单Order-Module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%BA%93%E5%AD%98Storage-Module"><span class="toc-text">新建库存Storage-Module</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E8%B4%A6%E6%88%B7Account-Module"><span class="toc-text">新建账户Account-Module</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E6%97%B6%E5%BC%82%E5%B8%B8%EF%BC%8C%E6%B2%A1%E5%8A%A0-GlobalTransactional"><span class="toc-text">超时异常，没加@GlobalTransactional</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E6%97%B6%E5%BC%82%E5%B8%B8%EF%BC%8C%E6%B7%BB%E5%8A%A0-GlobalTransactional"><span class="toc-text">超时异常，添加@GlobalTransactional</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Seata"><span class="toc-text">Seata</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%8D%E7%9C%8BTC-TM-RM%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="toc-text">再看TC/TM/RM三大组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AT%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%BD%95%E5%81%9A%E5%88%B0%E5%AF%B9%E4%B8%9A%E5%8A%A1%E7%9A%84%E6%97%A0%E4%BE%B5%E5%85%A5"><span class="toc-text">AT模式如何做到对业务的无侵入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-text">补充</span></a></li></ol></li></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-08-26T04:25:48.000Z">2020-08-26</time></div></div><article class="md-text content post"><h1 class="article-title"><span>Seata处理分布式事务</span></h1><p>Seata</p><span id="more"></span><h1 id="分布式事务问题"><a href="#分布式事务问题" class="headerlink" title="分布式事务问题"></a>分布式事务问题</h1><p>分布式前</p><ul><li><p>单机单库没这个问题</p></li><li><p>从1：1 -&gt; 1:N -&gt; N: N</p></li></ul><p>分布式之后</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/1.png" alt="1598416105757"></div><div class="image-meta"><span class="image-caption center">1598416105757</span></div></div><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/2.png" alt="1598416133712"></div><div class="image-meta"><span class="image-caption center">1598416133712</span></div></div><blockquote><p>一次业务操作需要跨多个数据源或需要跨多个系统进行远程调用，就会产生分布式事务问题</p></blockquote><h1 id="Seata简介"><a href="#Seata简介" class="headerlink" title="Seata简介"></a>Seata简介</h1><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><blockquote><p>Seata是一款开源的分布式事务解决方案，致力于在微服务架构下提供高性能和简单易用的分布式事务服务</p><p><a target="_blank" rel="noopener" href="http://seata.io/zh-cn/">http://seata.io/zh-cn/</a></p></blockquote><h3 id="能干嘛"><a href="#能干嘛" class="headerlink" title="能干嘛"></a>能干嘛</h3><h4 id="一个典型的分布式事务过程"><a href="#一个典型的分布式事务过程" class="headerlink" title="一个典型的分布式事务过程"></a>一个典型的分布式事务过程</h4><p>分布式事务处理过程的-ID+三组件模型</p><blockquote><p>Transaction ID XID 全局唯一的事务ID</p></blockquote><p>3组件概念</p><blockquote><p>Transaction Coordinator(TC)</p><p>事务协调器，维护全局事务的运行状态，负责协调并驱动全局事务的提交或回滚;</p><p>Transaction Manager(TM)</p><p>控制全局事务的边界，负责开启一个全局事务，并最终发起全局提交或全局回滚的决议;</p><p>Resource Manager(RM)</p><p>控制分支事务，负责分支注册，状态汇报，并接收事务协调器的指令，驱动分支（本地）事务的提交和回滚；</p></blockquote><h5 id="处理过程"><a href="#处理过程" class="headerlink" title="处理过程"></a>处理过程</h5><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/3.png" alt="1598416360363"></div><div class="image-meta"><span class="image-caption center">1598416360363</span></div></div><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/4.png" alt="1598416368793"></div><div class="image-meta"><span class="image-caption center">1598416368793</span></div></div><p>下载</p><blockquote><p>发布说明:<a target="_blank" rel="noopener" href="https://github.com/seata/seata/releases">https://github.com/seata/seata/releases</a></p></blockquote><h3 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h3><ul><li><p>Spring 本地@Transactional</p></li><li><p>全局@GlobalTransactional</p><blockquote><p>SEATA的分布式交易解决方案</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/5.png" alt="1598416447489"></div><div class="image-meta"><span class="image-caption center">1598416447489</span></div></div></blockquote></li></ul><h1 id="Seata-Server安装"><a href="#Seata-Server安装" class="headerlink" title="Seata-Server安装"></a>Seata-Server安装</h1><ol><li><p><a target="_blank" rel="noopener" href="http://seata.io/zh-cn/">http://seata.io/zh-cn/</a></p></li><li><p>下载版本</p></li><li><p>seata-server-0.9.0.zip解压到指定目录并修改conf目录下的file.conf配置文件</p><ul><li><p>先备份原始file.conf文件</p></li><li><p>主要修改：自定义事务组名称+事务日志存储模式为db+数据库连接信息</p></li><li><p>file.conf</p><blockquote><p>service模块</p><pre><code>vgroup_mapping.my_test_tx_group = "fsp_tx_group"
+</code></pre><p>store模块</p><pre><code>mode = "db"
+
+  url = "jdbc:mysql://127.0.0.1:3306/seata"
+  user = "root"
+  password = "你自己的密码"
+</code></pre></blockquote></li></ul></li><li><p>mysql5.7数据库新建库seata</p></li><li><p>在seata库里建表</p><ul><li><p>建表db_store.sql在\seata-server-0.9.0\seata\conf目录里面(1.0版本在readme.md里面)</p><blockquote><p>db_store.sql</p></blockquote></li><li><p>SQL</p><pre><code class="lang-sql">-- the table to store GlobalSession data
+drop table if exists `global_table`;
+create table `global_table` (
+  `xid` varchar(128)  not null,
+  `transaction_id` bigint,
+  `status` tinyint not null,
+  `application_id` varchar(32),
+  `transaction_service_group` varchar(32),
+  `transaction_name` varchar(128),
+  `timeout` int,
+  `begin_time` bigint,
+  `application_data` varchar(2000),
+  `gmt_create` datetime,
+  `gmt_modified` datetime,
+  primary key (`xid`),
+  key `idx_gmt_modified_status` (`gmt_modified`, `status`),
+  key `idx_transaction_id` (`transaction_id`)
+);
+
+-- the table to store BranchSession data
+drop table if exists `branch_table`;
+create table `branch_table` (
+  `branch_id` bigint not null,
+  `xid` varchar(128) not null,
+  `transaction_id` bigint ,
+  `resource_group_id` varchar(32),
+  `resource_id` varchar(256) ,
+  `lock_key` varchar(128) ,
+  `branch_type` varchar(8) ,
+  `status` tinyint,
+  `client_id` varchar(64),
+  `application_data` varchar(2000),
+  `gmt_create` datetime,
+  `gmt_modified` datetime,
+  primary key (`branch_id`),
+  key `idx_xid` (`xid`)
+);
+
+-- the table to store lock data
+drop table if exists `lock_table`;
+create table `lock_table` (
+  `row_key` varchar(128) not null,
+  `xid` varchar(96),
+  `transaction_id` long ,
+  `branch_id` long,
+  `resource_id` varchar(256) ,
+  `table_name` varchar(32) ,
+  `pk` varchar(36) ,
+  `gmt_create` datetime ,
+  `gmt_modified` datetime,
+  primary key(`row_key`)
+);
+</code></pre></li></ul></li><li><p>修改seata-server-0.9.0\seata\conf目录下的registry.conf配置文件</p><pre><code>registry {
+  # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
+  type = "nacos"
+
+  nacos {
+    serverAddr = "localhost:8848"
+    namespace = ""
+    cluster = "default"
+  }
+目的是：指明注册中心为nacos，及修改nacos连接信息
+</code></pre></li><li><p>先启动Nacos端口号8848</p></li><li><p>再启动seata-server</p><ul><li><p>softs\seata-server-0.9.0\seata\bin</p><blockquote><p>seata-server.bat</p></blockquote></li></ul></li></ol><h1 id="订单-库存-账户业务数据库准备"><a href="#订单-库存-账户业务数据库准备" class="headerlink" title="订单/库存/账户业务数据库准备"></a>订单/库存/账户业务数据库准备</h1><h3 id="以下演示都需要先启动Nacos后启动Seata，保证两个都OK"><a href="#以下演示都需要先启动Nacos后启动Seata，保证两个都OK" class="headerlink" title="以下演示都需要先启动Nacos后启动Seata，保证两个都OK"></a>以下演示都需要先启动Nacos后启动Seata，保证两个都OK</h3><blockquote><p>Seata没启动报错no available server to connect</p></blockquote><h3 id="分布式事务业务说明"><a href="#分布式事务业务说明" class="headerlink" title="分布式事务业务说明"></a>分布式事务业务说明</h3><p>业务说明</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/6.png" alt="1598416862715"></div><div class="image-meta"><span class="image-caption center">1598416862715</span></div></div><p>下订单—&gt;扣库存—&gt;减账户（余额）</p><h3 id="创建业务数据库"><a href="#创建业务数据库" class="headerlink" title="创建业务数据库"></a>创建业务数据库</h3><h4 id="seata-order-存储订单的数据库"><a href="#seata-order-存储订单的数据库" class="headerlink" title="seata_order: 存储订单的数据库"></a>seata_order: 存储订单的数据库</h4><h4 id="seata-storage-存储库存的数据库"><a href="#seata-storage-存储库存的数据库" class="headerlink" title="seata_storage:存储库存的数据库"></a>seata_storage:存储库存的数据库</h4><h4 id="seata-account-存储账户信息的数据库"><a href="#seata-account-存储账户信息的数据库" class="headerlink" title="seata_account: 存储账户信息的数据库"></a>seata_account: 存储账户信息的数据库</h4><h4 id="建表SQL"><a href="#建表SQL" class="headerlink" title="建表SQL"></a>建表SQL</h4><pre><code class="lang-sql">CREATE DATABASE seata_order；
+CREATE DATABASE seata_storage；
+CREATE DATABASE seata_account；
+</code></pre><h3 id="按照上述3库分别建对应业务表"><a href="#按照上述3库分别建对应业务表" class="headerlink" title="按照上述3库分别建对应业务表"></a>按照上述3库分别建对应业务表</h3><p>seata_order库下建t_order表</p><pre><code class="lang-sql">CREATE TABLE t_order(
+    `id` BIGINT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` BIGINT(11) DEFAULT NULL COMMENT '用户id',
+    `product_id` BIGINT(11) DEFAULT NULL COMMENT '产品id',
+    `count` INT(11) DEFAULT NULL COMMENT '数量',
+    `money` DECIMAL(11,0) DEFAULT NULL COMMENT '金额',
+    `status` INT(1) DEFAULT NULL COMMENT '订单状态：0：创建中; 1：已完结'
+) ENGINE=INNODB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+SELECT * FROM t_order;
+</code></pre><p>seata_storage库下建t_storage表</p><pre><code class="lang-sql">CREATE TABLE t_storage(
+    `id` BIGINT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `product_id` BIGINT(11) DEFAULT NULL COMMENT '产品id',
+   `'total` INT(11) DEFAULT NULL COMMENT '总库存',
+    `used` INT(11) DEFAULT NULL COMMENT '已用库存',
+    `residue` INT(11) DEFAULT NULL COMMENT '剩余库存'
+) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO seata_storage.t_storage(`id`,`product_id`,`total`,`used`,`residue`)
+VALUES('1','1','100','0','100');
+
+
+SELECT * FROM t_storage;
+</code></pre><p>seata_account库下建t_account表</p><pre><code class="lang-sql">CREATE TABLE t_account(
+    `id` BIGINT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    `user_id` BIGINT(11) DEFAULT NULL COMMENT '用户id',
+    `total` DECIMAL(10,0) DEFAULT NULL COMMENT '总额度',
+    `used` DECIMAL(10,0) DEFAULT NULL COMMENT '已用余额',
+    `residue` DECIMAL(10,0) DEFAULT '0' COMMENT '剩余可用额度'
+) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO seata_account.t_account(`id`,`user_id`,`total`,`used`,`residue`) VALUES('1','1','1000','0','1000')
+
+SELECT * FROM t_account;
+</code></pre><h3 id="按照上述3库分别建对应的回滚日志表"><a href="#按照上述3库分别建对应的回滚日志表" class="headerlink" title="按照上述3库分别建对应的回滚日志表"></a>按照上述3库分别建对应的回滚日志表</h3><p>订单-库存-账户3个库下都需要建各自的回滚日志表</p><p>\seata-server-0.9.0\seata\conf目录下的db_undo_log.sql</p><p>建表SQL</p><pre><code class="lang-sql">drop table `undo_log`;
+CREATE TABLE `undo_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `branch_id` bigint(20) NOT NULL,
+  `xid` varchar(100) NOT NULL,
+  `context` varchar(128) NOT NULL,
+  `rollback_info` longblob NOT NULL,
+  `log_status` int(11) NOT NULL,
+  `log_created` datetime NOT NULL,
+  `log_modified` datetime NOT NULL,
+  `ext` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+</code></pre><h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/7.png" alt="1598417026767"></div><div class="image-meta"><span class="image-caption center">1598417026767</span></div></div><h1 id="订单-库存-账户业务微服务准备"><a href="#订单-库存-账户业务微服务准备" class="headerlink" title="订单/库存/账户业务微服务准备"></a>订单/库存/账户业务微服务准备</h1><blockquote><h3 id="业务需求"><a href="#业务需求" class="headerlink" title="业务需求"></a>业务需求</h3><p>下订单-&gt;减库存-&gt;扣余额-&gt;改（订单）状态</p></blockquote><h2 id="新建订单Order-Module"><a href="#新建订单Order-Module" class="headerlink" title="新建订单Order-Module"></a>新建订单Order-Module</h2><ol><li><p>seata-order-service2001</p></li><li><p>POM</p></li></ol><pre><code class="lang-xml">     &lt;dependencies&gt;
+        &lt;!--nacos--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--seata--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-alibaba-seata&lt;/artifactId&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;artifactId&gt;seata-all&lt;/artifactId&gt;
+                    &lt;groupId&gt;io.seata&lt;/groupId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.seata&lt;/groupId&gt;
+            &lt;artifactId&gt;seata-all&lt;/artifactId&gt;
+            &lt;version&gt;0.9.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!--feign--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--web-actuator--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--mysql-druid--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.37&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;1.1.10&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;2.0.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+            &lt;optional&gt;true&lt;/optional&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre><p>3.YML</p><pre><code class="lang-yaml">server:
+  port: 2001
+
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    alibaba:
+      seata:
+        #自定义事务组名称需要与seata-server中的对应
+        tx-service-group: fsp_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_order
+    username: root
+    password: 1111111
+
+feign:
+  hystrix:
+    enabled: false
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+</code></pre><p>4.file.conf</p><pre><code class="lang-properties">transport {
+  # tcp udt unix-domain-socket
+  type = "TCP"
+  #NIO NATIVE
+  server = "NIO"
+  #enable heartbeat
+  heartbeat = true
+  #thread factory for netty
+  thread-factory {
+    boss-thread-prefix = "NettyBoss"
+    worker-thread-prefix = "NettyServerNIOWorker"
+    server-executor-thread-prefix = "NettyServerBizHandler"
+    share-boss-worker = false
+    client-selector-thread-prefix = "NettyClientSelector"
+    client-selector-thread-size = 1
+    client-worker-thread-prefix = "NettyClientWorkerThread"
+    # netty boss thread size,will not be used for UDT
+    boss-thread-size = 1
+    #auto default pin or 8
+    worker-thread-size = 8
+  }
+  shutdown {
+    # when destroy server, wait seconds
+    wait = 3
+  }
+  serialization = "seata"
+  compressor = "none"
+}
+
+service {
+
+  vgroup_mapping.fsp_tx_group = "default" 
+
+  default.grouplist = "127.0.0.1:8091"
+  enableDegrade = false
+  disable = false
+  max.commit.retry.timeout = "-1"
+  max.rollback.retry.timeout = "-1"
+  disableGlobalTransaction = false
+}
+
+
+client {
+  async.commit.buffer.limit = 10000
+  lock {
+    retry.internal = 10
+    retry.times = 30
+  }
+  report.retry.count = 5
+  tm.commit.retry.count = 1
+  tm.rollback.retry.count = 1
+}
+
+## transaction log store
+store {
+  ## store mode: file、db
+  mode = "db"
+
+  ## file store
+  file {
+    dir = "sessionStore"
+
+    # branch session size , if exceeded first try compress lockkey, still exceeded throws exceptions
+    max-branch-session-size = 16384
+    # globe session size , if exceeded throws exceptions
+    max-global-session-size = 512
+    # file buffer size , if exceeded allocate new buffer
+    file-write-buffer-cache-size = 16384
+    # when recover batch read size
+    session.reload.read_size = 100
+    # async, sync
+    flush-disk-mode = async
+  }
+
+  ## database store
+  db {
+    ## the implement of javax.sql.DataSource, such as DruidDataSource(druid)/BasicDataSource(dbcp) etc.
+    datasource = "dbcp"
+    ## mysql/oracle/h2/oceanbase etc.
+    db-type = "mysql"
+    driver-class-name = "com.mysql.jdbc.Driver"
+    url = "jdbc:mysql://127.0.0.1:3306/seata"
+    user = "root"
+    password = "123456"
+    min-conn = 1
+    max-conn = 3
+    global.table = "global_table"
+    branch.table = "branch_table"
+    lock-table = "lock_table"
+    query-limit = 100
+  }
+}
+lock {
+  ## the lock store mode: local、remote
+  mode = "remote"
+
+  local {
+    ## store locks in user's database
+  }
+
+  remote {
+    ## store locks in the seata's server
+  }
+}
+recovery {
+  #schedule committing retry period in milliseconds
+  committing-retry-period = 1000
+  #schedule asyn committing retry period in milliseconds
+  asyn-committing-retry-period = 1000
+  #schedule rollbacking retry period in milliseconds
+  rollbacking-retry-period = 1000
+  #schedule timeout retry period in milliseconds
+  timeout-retry-period = 1000
+}
+
+transaction {
+  undo.data.validation = true
+  undo.log.serialization = "jackson"
+  undo.log.save.days = 7
+  #schedule delete expired undo_log in milliseconds
+  undo.log.delete.period = 86400000
+  undo.log.table = "undo_log"
+}
+
+## metrics settings
+metrics {
+  enabled = false
+  registry-type = "compact"
+  # multi exporters use comma divided
+  exporter-list = "prometheus"
+  exporter-prometheus-port = 9898
+}
+
+support {
+  ## spring
+  spring {
+    # auto proxy the DataSource bean
+    datasource.autoproxy = false
+  }
+}
+</code></pre><p>5.registry.conf</p><pre><code class="lang-properties">registry {
+  # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
+  type = "nacos"
+
+  nacos {
+    serverAddr = "localhost:8848"
+    namespace = ""
+    cluster = "default"
+  }
+  eureka {
+    serviceUrl = "http://localhost:8761/eureka"
+    application = "default"
+    weight = "1"
+  }
+  redis {
+    serverAddr = "localhost:6379"
+    db = "0"
+  }
+  zk {
+    cluster = "default"
+    serverAddr = "127.0.0.1:2181"
+    session.timeout = 6000
+    connect.timeout = 2000
+  }
+  consul {
+    cluster = "default"
+    serverAddr = "127.0.0.1:8500"
+  }
+  etcd3 {
+    cluster = "default"
+    serverAddr = "http://localhost:2379"
+  }
+  sofa {
+    serverAddr = "127.0.0.1:9603"
+    application = "default"
+    region = "DEFAULT_ZONE"
+    datacenter = "DefaultDataCenter"
+    cluster = "default"
+    group = "SEATA_GROUP"
+    addressWaitTime = "3000"
+  }
+  file {
+    name = "file.conf"
+  }
+}
+
+config {
+  # file、nacos 、apollo、zk、consul、etcd3
+  type = "file"
+
+  nacos {
+    serverAddr = "localhost"
+    namespace = ""
+  }
+  consul {
+    serverAddr = "127.0.0.1:8500"
+  }
+  apollo {
+    app.id = "seata-server"
+    apollo.meta = "http://192.168.1.204:8801"
+  }
+  zk {
+    serverAddr = "127.0.0.1:2181"
+    session.timeout = 6000
+    connect.timeout = 2000
+  }
+  etcd3 {
+    serverAddr = "http://localhost:2379"
+  }
+  file {
+    name = "file.conf"
+  }
+}
+</code></pre><p>6.domain</p><ul><li><p>CommonResult</p><p>```java<br>package com.kayleh.springcloud.alibaba.domain;</p><p>import lombok.AllArgsConstructor;<br>import lombok.Data;<br>import lombok.NoArgsConstructor;</p></li></ul><p>@Data<br>@AllArgsConstructor<br>@NoArgsConstructor<br>public class CommonResult<t><br>{<br>private Integer code;<br>private String message;<br>private T data;</t></p><pre><code>  public CommonResult(Integer code, String message)
+  {
+      this(code,message,null);
+  }
+</code></pre><p>}</p><pre><code>
+- Order
+
+  ```java
+  package com.kayleh.springcloud.alibaba.domain;
+
+  import lombok.AllArgsConstructor;
+  import lombok.Data;
+  import lombok.NoArgsConstructor;
+
+  import java.math.BigDecimal;
+
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public class Order
+  {
+      private Long id;
+
+      private Long userId;
+
+      private Long productId;
+
+      private Integer count;
+
+      private BigDecimal money;
+
+      private Integer status; //订单状态：0：创建中；1：已完结
+  }
+</code></pre><p>7.Dao接口及实现</p><ul><li><p>OrderDao</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba.dao;
+
+import com.kayleh.springcloud.alibaba.domain.Order;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+@Mapper
+public interface OrderDao
+{
+    //新建订单
+    void create(Order order);
+
+    //修改订单状态，从零改为1
+    void update(@Param("userId") Long userId,@Param("status") Integer status);
+}
+</code></pre></li><li><p>resources文件夹下新建mapper文件夹后添加</p><p>OrderMapper.xml</p><p>```xml<br>&lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>&lt;!DOCTYPE mapper PUBLIC “-//mybatis.org//DTD Mapper 3.0//EN” “<a target="_blank" rel="noopener" href="http://mybatis.org/dtd/mybatis-3-mapper.dtd">http://mybatis.org/dtd/mybatis-3-mapper.dtd</a>“ &gt;</p><mapper namespace="com.kayleh.springcloud.alibaba.dao.OrderDao"><pre><code>&lt;resultMap id="BaseResultMap" type="com.kayleh.springcloud.alibaba.domain.Order"&gt;
+    &lt;id column="id" property="id" jdbcType="BIGINT"/&gt;
+    &lt;result column="user_id" property="userId" jdbcType="BIGINT"/&gt;
+    &lt;result column="product_id" property="productId" jdbcType="BIGINT"/&gt;
+    &lt;result column="count" property="count" jdbcType="INTEGER"/&gt;
+    &lt;result column="money" property="money" jdbcType="DECIMAL"/&gt;
+    &lt;result column="status" property="status" jdbcType="INTEGER"/&gt;
+&lt;/resultMap&gt;
+
+&lt;insert id="create"&gt;
+    insert into t_order (id,user_id,product_id,count,money,status)
+    values (null,#{userId},#{productId},#{count},#{money},0);
+&lt;/insert&gt;
+</code></pre></mapper></li></ul><pre><code>  &lt;update id="update"&gt;
+      update t_order set status = 1
+      where user_id=#{userId} and status = #{status};
+  &lt;/update&gt;
+</code></pre><p>&lt;/mapper&gt;</p><pre><code>
+8.Service接口及实现
+
+- OrderService
+
+  ```java
+  package com.kayleh.springcloud.alibaba.service;
+
+  import com.kayleh.springcloud.alibaba.domain.Order;
+
+
+  public interface OrderService{
+      void create(Order order);
+  }
+</code></pre><ul><li><p>OrderServiceImpl</p><p>```java<br>package com.kayleh.springcloud.alibaba.service.impl;</p><p>import com.kayleh.springcloud.alibaba.dao.OrderDao;<br>import com.kayleh.springcloud.alibaba.domain.Order;<br>import com.kayleh.springcloud.alibaba.service.AccountService;<br>import com.kayleh.springcloud.alibaba.service.OrderService;<br>import com.kayleh.springcloud.alibaba.service.StorageService;<br>import io.seata.spring.annotation.GlobalTransactional;<br>import lombok.extern.slf4j.Sl f4j;<br>import org.springframework.stereotype.Service;</p><p>import javax.annotation.Resource;</p><p>@Service<br>@Slf4j<br>public class OrderServiceImpl implements OrderService<br>{</p><pre><code>@Resource
+private OrderDao orderDao;
+@Resource
+private StorageService storageService;
+@Resource
+private AccountService accountService;
+
+/**
+ * 创建订单-&gt;调用库存服务扣减库存-&gt;调用账户服务扣减账户余额-&gt;修改订单状态
+ */
+
+@Override
+@GlobalTransactional(name = "fsp-create-order",rollbackFor = Exception.class)
+public void create(Order order){
+    log.info("-----&gt;开始新建订单");
+    //新建订单
+    orderDao.create(order);
+
+    //扣减库存
+    log.info("-----&gt;订单微服务开始调用库存，做扣减Count");
+    storageService.decrease(order.getProductId(),order.getCount());
+    log.info("-----&gt;订单微服务开始调用库存，做扣减end");
+
+    //扣减账户
+    log.info("-----&gt;订单微服务开始调用账户，做扣减Money");
+    accountService.decrease(order.getUserId(),order.getMoney());
+    log.info("-----&gt;订单微服务开始调用账户，做扣减end");
+</code></pre></li></ul><pre><code>        //修改订单状态，从零到1代表已经完成
+        log.info("-----&gt;修改订单状态开始");
+        orderDao.update(order.getUserId(),0);
+        log.info("-----&gt;修改订单状态结束");
+
+        log.info("-----&gt;下订单结束了");
+
+    }
+}
+```
+</code></pre><ul><li><p>StorageService</p><p>```java<br>package com.kayleh.springcloud.alibaba.service;</p><p>import com.kayleh.springcloud.alibaba.domain.CommonResult;<br>import org.springframework.cloud.openfeign.FeignClient;<br>import org.springframework.web.bind.annotation.PostMapping;<br>import org.springframework.web.bind.annotation.RequestParam;</p><p>import java.math.BigDecimal;</p></li></ul><p>@FeignClient(value = “seata-storage-service”)<br>public interface StorageService{<br>@PostMapping(value = “/storage/decrease”)<br>CommonResult decrease(@RequestParam(“productId”) Long productId, @RequestParam(“count”) Integer count);<br>}</p><pre><code>
+- AccountService
+
+  ```java
+  package com.kayleh.springcloud.alibaba.service;
+
+  import com.kayleh.springcloud.alibaba.domain.CommonResult;
+  import org.springframework.cloud.openfeign.FeignClient;
+  import org.springframework.web.bind.annotation.PostMapping;
+  import org.springframework.web.bind.annotation.RequestParam;
+
+  import java.math.BigDecimal;
+
+  @FeignClient(value = "seata-account-service")
+  public interface AccountService{
+      @PostMapping(value = "/account/decrease")
+      CommonResult decrease(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money);
+  }
+</code></pre><p>9.Controller</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba.controller;
+
+import com.kayleh.springcloud.alibaba.domain.CommonResult;
+import com.kayleh.springcloud.alibaba.domain.Order;
+import com.kayleh.springcloud.alibaba.service.OrderService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+
+
+@RestController
+public class OrderController{
+    @Resource
+    private OrderService orderService;
+
+
+    @GetMapping("/order/create")
+    public CommonResult create(Order order)
+    {
+        orderService.create(order);
+        return new CommonResult(200,"订单创建成功");
+    }
+}
+</code></pre><p>10.Config配置</p><ul><li><p>MyBatisConfig</p><p>```java<br>package com.kayleh.springcloud.alibaba.config;</p><p>import org.mybatis.spring.annotation.MapperScan;<br>import org.springframework.context.annotation.Configuration;</p></li></ul><p>@Configuration<br>@MapperScan({“com.kayleh.springcloud.alibaba.dao”})<br>public class MyBatisConfig {</p><p>}</p><pre><code>
+- DataSourceProxyConfig
+
+  ```java
+  package com.kayleh.springcloud.alibaba.config;
+
+  import com.alibaba.druid.pool.DruidDataSource;
+  import io.seata.rm.datasource.DataSourceProxy;
+  import org.apache.ibatis.session.SqlSessionFactory;
+  import org.mybatis.spring.SqlSessionFactoryBean;
+  import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
+  import org.springframework.beans.factory.annotation.Value;
+  import org.springframework.boot.context.properties.ConfigurationProperties;
+  import org.springframework.context.annotation.Bean;
+  import org.springframework.context.annotation.Configuration;
+  import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+  import javax.sql.DataSource;
+
+  @Configuration
+  public class DataSourceProxyConfig {
+
+
+      @Value("${mybatis.mapperLocations}")
+      private String mapperLocations;
+
+
+      @Bean
+      @ConfigurationProperties(prefix = "spring.datasource")
+      public DataSource druidDataSource(){
+          return new DruidDataSource();
+      }
+
+
+      @Bean
+      public DataSourceProxy dataSourceProxy(DataSource dataSource) {
+          return new DataSourceProxy(dataSource);
+      }
+
+
+      @Bean
+      public SqlSessionFactory sqlSessionFactoryBean(DataSourceProxy dataSourceProxy) throws Exception {
+          SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+          sqlSessionFactoryBean.setDataSource(dataSourceProxy);
+          sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
+          sqlSessionFactoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
+          return sqlSessionFactoryBean.getObject();
+      }
+
+  }
+</code></pre><p>11.主启动</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@EnableDiscoveryClient
+@EnableFeignClients
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)//取消数据源自动创建的配置
+public class SeataOrderMainApp2001{
+
+    public static void main(String[] args)
+    {
+        SpringApplication.run(SeataOrderMainApp2001.class, args);
+    }
+}
+</code></pre><h2 id="新建库存Storage-Module"><a href="#新建库存Storage-Module" class="headerlink" title="新建库存Storage-Module"></a>新建库存Storage-Module</h2><p>1.seata-order-service2002</p><p>2.POM</p><pre><code class="lang-xml"> &lt;dependencies&gt;
+        &lt;!--nacos--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--seata--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-alibaba-seata&lt;/artifactId&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;artifactId&gt;seata-all&lt;/artifactId&gt;
+                    &lt;groupId&gt;io.seata&lt;/groupId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.seata&lt;/groupId&gt;
+            &lt;artifactId&gt;seata-all&lt;/artifactId&gt;
+            &lt;version&gt;0.9.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!--feign--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;2.0.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.37&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;1.1.10&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+            &lt;optional&gt;true&lt;/optional&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre><p>3.YML</p><pre><code class="lang-yaml">server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-storage-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: fsp_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_storage
+    username: root
+    password: 111111
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+</code></pre><p>4.file.conf</p><pre><code class="lang-properties">transport {
+  # tcp udt unix-domain-socket
+  type = "TCP"
+  #NIO NATIVE
+  server = "NIO"
+  #enable heartbeat
+  heartbeat = true
+  #thread factory for netty
+  thread-factory {
+    boss-thread-prefix = "NettyBoss"
+    worker-thread-prefix = "NettyServerNIOWorker"
+    server-executor-thread-prefix = "NettyServerBizHandler"
+    share-boss-worker = false
+    client-selector-thread-prefix = "NettyClientSelector"
+    client-selector-thread-size = 1
+    client-worker-thread-prefix = "NettyClientWorkerThread"
+    # netty boss thread size,will not be used for UDT
+    boss-thread-size = 1
+    #auto default pin or 8
+    worker-thread-size = 8
+  }
+  shutdown {
+    # when destroy server, wait seconds
+    wait = 3
+  }
+  serialization = "seata"
+  compressor = "none"
+}
+
+service {
+  #vgroup-&gt;rgroup
+  vgroup_mapping.fsp_tx_group = "default"
+  #only support single node
+  default.grouplist = "127.0.0.1:8091"
+  #degrade current not support
+  enableDegrade = false
+  #disable
+  disable = false
+  #unit ms,s,m,h,d represents milliseconds, seconds, minutes, hours, days, default permanent
+  max.commit.retry.timeout = "-1"
+  max.rollback.retry.timeout = "-1"
+  disableGlobalTransaction = false
+}
+
+client {
+  async.commit.buffer.limit = 10000
+  lock {
+    retry.internal = 10
+    retry.times = 30
+  }
+  report.retry.count = 5
+  tm.commit.retry.count = 1
+  tm.rollback.retry.count = 1
+}
+
+transaction {
+  undo.data.validation = true
+  undo.log.serialization = "jackson"
+  undo.log.save.days = 7
+  #schedule delete expired undo_log in milliseconds
+  undo.log.delete.period = 86400000
+  undo.log.table = "undo_log"
+}
+
+support {
+  ## spring
+  spring {
+    # auto proxy the DataSource bean
+    datasource.autoproxy = false
+  }
+}
+</code></pre><p>5.registry.conf</p><pre><code class="lang-properties">registry {
+  # file 、nacos 、eureka、redis、zk
+  type = "nacos"
+
+  nacos {
+    serverAddr = "localhost:8848"
+    namespace = ""
+    cluster = "default"
+  }
+  eureka {
+    serviceUrl = "http://localhost:8761/eureka"
+    application = "default"
+    weight = "1"
+  }
+  redis {
+    serverAddr = "localhost:6381"
+    db = "0"
+  }
+  zk {
+    cluster = "default"
+    serverAddr = "127.0.0.1:2181"
+    session.timeout = 6000
+    connect.timeout = 2000
+  }
+  file {
+    name = "file.conf"
+  }
+}
+
+config {
+  # file、nacos 、apollo、zk
+  type = "file"
+
+  nacos {
+    serverAddr = "localhost"
+    namespace = ""
+    cluster = "default"
+  }
+  apollo {
+    app.id = "fescar-server"
+    apollo.meta = "http://192.168.1.204:8801"
+  }
+  zk {
+    serverAddr = "127.0.0.1:2181"
+    session.timeout = 6000
+    connect.timeout = 2000
+  }
+  file {
+    name = "file.conf"
+  }
+}
+</code></pre><p>6.domain</p><ul><li><p>CommonResult</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CommonResult&lt;T&gt;
+{
+    private Integer code;
+    private String  message;
+    private T       data;
+
+    public CommonResult(Integer code, String message)
+    {
+        this(code,message,null);
+    }
+}
+</code></pre></li><li><p>Storage</p><p>```java<br>package com.kayleh.springcloud.alibaba.domain;</p><p>import lombok.Data;</p><p>@Data<br>public class Storage {</p><pre><code>private Long id;
+
+// 产品id
+private Long productId;
+
+//总库存
+private Integer total;
+</code></pre></li></ul><pre><code>  //已用库存
+  private Integer used;
+
+
+  //剩余库存
+  private Integer residue;
+</code></pre><p>}</p><pre><code>
+7.Dao接口及实现
+
+- StorageDao
+
+  ```java
+  package com.kayleh.springcloud.alibaba.dao;
+
+  import org.apache.ibatis.annotations.Mapper;
+  import org.apache.ibatis.annotations.Param;
+
+  @Mapper
+  public interface StorageDao {
+      //扣减库存信息
+      void decrease(@Param("productId") Long productId, @Param("count") Integer count);
+  }
+</code></pre><ul><li><p>resources文件夹下新建mapper文件夹后添加</p><p>StorageMapper.xml</p><p>```xml<br>&lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>&lt;!DOCTYPE mapper PUBLIC “-//mybatis.org//DTD Mapper 3.0//EN” “<a target="_blank" rel="noopener" href="http://mybatis.org/dtd/mybatis-3-mapper.dtd">http://mybatis.org/dtd/mybatis-3-mapper.dtd</a>“ &gt;</p></li></ul><mapper namespace="com.kayleh.springcloud.alibaba.dao.StorageDao"><pre><code>  &lt;resultMap id="BaseResultMap" type="com.kayleh.springcloud.alibaba.domain.Storage"&gt;
+      &lt;id column="id" property="id" jdbcType="BIGINT"/&gt;
+      &lt;result column="product_id" property="productId" jdbcType="BIGINT"/&gt;
+      &lt;result column="total" property="total" jdbcType="INTEGER"/&gt;
+      &lt;result column="used" property="used" jdbcType="INTEGER"/&gt;
+      &lt;result column="residue" property="residue" jdbcType="INTEGER"/&gt;
+  &lt;/resultMap&gt;
+
+  &lt;update id="decrease"&gt;
+      UPDATE
+          t_storage
+      SET
+          used = used + #{count},residue = residue - #{count}
+      WHERE
+          product_id = #{productId}
+  &lt;/update&gt;
+</code></pre><p>&lt;/mapper&gt;</p><pre><code>
+8.Service接口及实现
+
+- StorageService
+
+  ```java
+  package com.kayleh.springcloud.alibaba.service;
+
+
+  public interface StorageService {
+
+       // 扣减库存
+      void decrease(Long productId, Integer count);
+  }
+</code></pre><p>StorageServiceImpl</p><pre><code class="lang-java">  package com.kayleh.springcloud.alibaba.service.impl;
+
+  import com.kayleh.springcloud.alibaba.dao.StorageDao;
+  import com.kayleh.springcloud.alibaba.service.StorageService ;
+  import org.slf4j.Logger;
+  import org.slf4j.LoggerFactory;
+  import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.stereotype.Service;
+
+  import javax.annotation.Resource;
+
+
+  @Service
+  public class StorageServiceImpl implements StorageService {
+
+      private static final Logger LOGGER = LoggerFactory.getLogger(StorageServiceImpl.class);
+
+      @Resource
+      private StorageDao storageDao;
+
+       // 扣减库存
+      @Override
+      public void decrease(Long productId, Integer count) {
+          LOGGER.info("-------&gt;storage-service中扣减库存开始");
+          storageDao.decrease(productId,count);
+          LOGGER.info("-------&gt;storage-service中扣减库存结束");
+      }
+  }
+</code></pre><p>9.Controller</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba.controller;
+
+
+import com.kayleh.springcloud.alibaba.domain.CommonResult ;
+import com.kayleh.springcloud.alibaba.service.StorageService ;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class StorageController {
+
+    @Autowired
+    private StorageService storageService;
+
+
+    //扣减库存
+    @RequestMapping("/storage/decrease")
+    public CommonResult decrease(Long productId, Integer count) {
+        storageService.decrease(productId, count);
+        return new CommonResult(200,"扣减库存成功！");
+    }
+}
+</code></pre><p>10.Config配置</p><ul><li><p>MyBatisConfig</p><p>```java<br>package com.kayleh.springcloud.alibaba.config;</p><p>import org.mybatis.spring.annotation.MapperScan;<br>import org.springframework.context.annotation.Configuration;</p></li></ul><p>@Configuration<br>@MapperScan({“com.kayleh.springcloud.alibaba.dao”})<br>public class MyBatisConfig {<br>}</p><pre><code>
+- DataSourceProxyConfig
+
+  ```java
+  package com.kayleh.springcloud.alibaba.config;
+
+  import com.alibaba.druid.pool.DruidDataSource;
+  import io.seata.rm.datasource.DataSourceProxy;
+  import org.apache.ibatis.session.SqlSessionFactory;
+  import org.mybatis.spring.SqlSessionFactoryBean;
+  import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
+  import org.springframework.beans.factory.annotation.Value;
+  import org.springframework.boot.context.properties.ConfigurationProperties;
+  import org.springframework.context.annotation.Bean;
+  import org.springframework.context.annotation.Configuration;
+  import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+  import javax.sql.DataSource;
+
+
+  @Configuration
+  public class DataSourceProxyConfig {
+
+      @Value("${mybatis.mapperLocations}")
+      private String mapperLocations;
+
+      @Bean
+      @ConfigurationProperties(prefix = "spring.datasource")
+      public DataSource druidDataSource(){
+          return new DruidDataSource();
+      }
+
+      @Bean
+      public DataSourceProxy dataSourceProxy(DataSource dataSource) {
+          return new DataSourceProxy(dataSource);
+      }
+
+      @Bean
+      public SqlSessionFactory sqlSessionFactoryBean(DataSourceProxy dataSourceProxy) throws Exception {
+          SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+          sqlSessionFactoryBean.setDataSource(dataSourceProxy);
+          sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
+          sqlSessionFactoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
+          return sqlSessionFactoryBean.getObject();
+      }
+
+  }
+</code></pre><p>11.主启动</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ForkJoinWorkerThread;
+
+
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@EnableDiscoveryClient
+@EnableFeignClients
+public class SeataStorageServiceApplication2002
+{
+    public static void main(String[] args)
+    {
+        SpringApplication.run(SeataStorageServiceApplication2002.class, args);
+    }
+}
+</code></pre><h2 id="新建账户Account-Module"><a href="#新建账户Account-Module" class="headerlink" title="新建账户Account-Module"></a>新建账户Account-Module</h2><p>1.seata-account-service2003</p><p>2.POM</p><pre><code class="lang-xml"> &lt;dependencies&gt;
+        &lt;!--nacos--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!--seata--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-alibaba-seata&lt;/artifactId&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;artifactId&gt;seata-all&lt;/artifactId&gt;
+                    &lt;groupId&gt;io.seata&lt;/groupId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.seata&lt;/groupId&gt;
+            &lt;artifactId&gt;seata-all&lt;/artifactId&gt;
+            &lt;version&gt;0.9.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!--feign--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;2.0.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.37&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;1.1.10&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+            &lt;optional&gt;true&lt;/optional&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre><p>3.YML</p><pre><code class="lang-yaml">server:
+  port: 2003
+
+spring:
+  application:
+    name: seata-account-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: fsp_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_account
+    username: root
+    password: 1111111
+
+feign:
+  hystrix:
+    enabled: false
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+</code></pre><p>4.file.conf</p><pre><code class="lang-properties">transport {
+  # tcp udt unix-domain-socket
+  type = "TCP"
+  #NIO NATIVE
+  server = "NIO"
+  #enable heartbeat
+  heartbeat = true
+  #thread factory for netty
+  thread-factory {
+    boss-thread-prefix = "NettyBoss"
+    worker-thread-prefix = "NettyServerNIOWorker"
+    server-executor-thread-prefix = "NettyServerBizHandler"
+    share-boss-worker = false
+    client-selector-thread-prefix = "NettyClientSelector"
+    client-selector-thread-size = 1
+    client-worker-thread-prefix = "NettyClientWorkerThread"
+    # netty boss thread size,will not be used for UDT
+    boss-thread-size = 1
+    #auto default pin or 8
+    worker-thread-size = 8
+  }
+  shutdown {
+    # when destroy server, wait seconds
+    wait = 3
+  }
+  serialization = "seata"
+  compressor = "none"
+}
+
+service {
+
+  vgroup_mapping.fsp_tx_group = "default" #修改自定义事务组名称
+
+  default.grouplist = "127.0.0.1:8091"
+  enableDegrade = false
+  disable = false
+  max.commit.retry.timeout = "-1"
+  max.rollback.retry.timeout = "-1"
+  disableGlobalTransaction = false
+}
+
+
+client {
+  async.commit.buffer.limit = 10000
+  lock {
+    retry.internal = 10
+    retry.times = 30
+  }
+  report.retry.count = 5
+  tm.commit.retry.count = 1
+  tm.rollback.retry.count = 1
+}
+
+## transaction log store
+store {
+  ## store mode: file、db
+  mode = "db"
+
+  ## file store
+  file {
+    dir = "sessionStore"
+
+    # branch session size , if exceeded first try compress lockkey, still exceeded throws exceptions
+    max-branch-session-size = 16384
+    # globe session size , if exceeded throws exceptions
+    max-global-session-size = 512
+    # file buffer size , if exceeded allocate new buffer
+    file-write-buffer-cache-size = 16384
+    # when recover batch read size
+    session.reload.read_size = 100
+    # async, sync
+    flush-disk-mode = async
+  }
+
+  ## database store
+  db {
+    ## the implement of javax.sql.DataSource, such as DruidDataSource(druid)/BasicDataSource(dbcp) etc.
+    datasource = "dbcp"
+    ## mysql/oracle/h2/oceanbase etc.
+    db-type = "mysql"
+    driver-class-name = "com.mysql.jdbc.Driver"
+    url = "jdbc:mysql://127.0.0.1:3306/seata"
+    user = "root"
+    password = "123456"
+    min-conn = 1
+    max-conn = 3
+    global.table = "global_table"
+    branch.table = "branch_table"
+    lock-table = "lock_table"
+    query-limit = 100
+  }
+}
+lock {
+  ## the lock store mode: local、remote
+  mode = "remote"
+
+  local {
+    ## store locks in user's database
+  }
+
+  remote {
+    ## store locks in the seata's server
+  }
+}
+recovery {
+  #schedule committing retry period in milliseconds
+  committing-retry-period = 1000
+  #schedule asyn committing retry period in milliseconds
+  asyn-committing-retry-period = 1000
+  #schedule rollbacking retry period in milliseconds
+  rollbacking-retry-period = 1000
+  #schedule timeout retry period in milliseconds
+  timeout-retry-period = 1000
+}
+
+transaction {
+  undo.data.validation = true
+  undo.log.serialization = "jackson"
+  undo.log.save.days = 7
+  #schedule delete expired undo_log in milliseconds
+  undo.log.delete.period = 86400000
+  undo.log.table = "undo_log"
+}
+
+## metrics settings
+metrics {
+  enabled = false
+  registry-type = "compact"
+  # multi exporters use comma divided
+  exporter-list = "prometheus"
+  exporter-prometheus-port = 9898
+}
+
+support {
+  ## spring
+  spring {
+    # auto proxy the DataSource bean
+    datasource.autoproxy = false
+  }
+}
+</code></pre><p>5.registry.conf</p><pre><code class="lang-properties">registry {
+  # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
+  type = "nacos"
+
+  nacos {
+    serverAddr = "localhost:8848"
+    namespace = ""
+    cluster = "default"
+  }
+  eureka {
+    serviceUrl = "http://localhost:8761/eureka"
+    application = "default"
+    weight = "1"
+  }
+  redis {
+    serverAddr = "localhost:6379"
+    db = "0"
+  }
+  zk {
+    cluster = "default"
+    serverAddr = "127.0.0.1:2181"
+    session.timeout = 6000
+    connect.timeout = 2000
+  }
+  consul {
+    cluster = "default"
+    serverAddr = "127.0.0.1:8500"
+  }
+  etcd3 {
+    cluster = "default"
+    serverAddr = "http://localhost:2379"
+  }
+  sofa {
+    serverAddr = "127.0.0.1:9603"
+    application = "default"
+    region = "DEFAULT_ZONE"
+    datacenter = "DefaultDataCenter"
+    cluster = "default"
+    group = "SEATA_GROUP"
+    addressWaitTime = "3000"
+  }
+  file {
+    name = "file.conf"
+  }
+}
+
+config {
+  # file、nacos 、apollo、zk、consul、etcd3
+  type = "file"
+
+  nacos {
+    serverAddr = "localhost"
+    namespace = ""
+  }
+  consul {
+    serverAddr = "127.0.0.1:8500"
+  }
+  apollo {
+    app.id = "seata-server"
+    apollo.meta = "http://192.168.1.204:8801"
+  }
+  zk {
+    serverAddr = "127.0.0.1:2181"
+    session.timeout = 6000
+    connect.timeout = 2000
+  }
+  etcd3 {
+    serverAddr = "http://localhost:2379"
+  }
+  file {
+    name = "file.conf"
+  }
+}
+</code></pre><p>6.domain</p><ul><li><p>CommonResult</p><p>```java<br>package com.kayleh.springcloud.alibaba.domain;</p><p>import lombok.AllArgsConstructor;<br>import lombok.Data;<br>import lombok.NoArgsConstructor;</p></li></ul><p>@Data<br>@AllArgsConstructor<br>@NoArgsConstructor<br>public class CommonResult<t><br>{<br>private Integer code;<br>private String message;<br>private T data;</t></p><pre><code>  public CommonResult(Integer code, String message)
+  {
+      this(code,message,null);
+  }
+</code></pre><p>}</p><pre><code>
+- Account
+
+  ```java
+  package com.kayleh.springcloud.alibaba.domain;
+
+  import lombok.AllArgsConstructor;
+  import lombok.Data;
+  import lombok.NoArgsConstructor;
+
+  import java.math.BigDecimal;
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public class Account {
+
+      private Long id;
+
+      /**
+       * 用户id
+       */
+      private Long userId;
+
+      /**
+       * 总额度
+       */
+      private BigDecimal total;
+
+      /**
+       * 已用额度
+       */
+      private BigDecimal used;
+
+      /**
+       * 剩余额度
+       */
+      private BigDecimal residue;
+  }
+</code></pre><p>7.Dao接口及实现</p><ul><li><p>AccountDao</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba.dao;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+import java.math.BigDecimal;
+
+@Mapper
+public interface AccountDao {
+
+    /**
+     * 扣减账户余额
+     */
+    void decrease(@Param("userId") Long userId, @Param("money") BigDecimal money);
+}
+</code></pre></li><li><p>resources文件夹下新建mapper文件夹后添加</p><p>AccountMapper.xml</p><pre><code class="lang-xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" &gt;
+
+&lt;mapper namespace="com.kayleh.springcloud.alibaba.dao.AccountDao"&gt;
+
+    &lt;resultMap id="BaseResultMap" type="com.kayleh.springcloud.alibaba.domain.Account"&gt;
+        &lt;id column="id" property="id" jdbcType="BIGINT"/&gt;
+        &lt;result column="user_id" property="userId" jdbcType="BIGINT"/&gt;
+        &lt;result column="total" property="total" jdbcType="DECIMAL"/&gt;
+        &lt;result column="used" property="used" jdbcType="DECIMAL"/&gt;
+        &lt;result column="residue" property="residue" jdbcType="DECIMAL"/&gt;
+    &lt;/resultMap&gt;
+
+    &lt;update id="decrease"&gt;
+        UPDATE t_account
+        SET
+          residue = residue - #{money},used = used + #{money}
+        WHERE
+          user_id = #{userId};
+    &lt;/update&gt;
+&lt;/mapper&gt;
+</code></pre></li></ul><p>8.Service接口及实现</p><ul><li><p>AccountService</p><p>```java<br>package com.kayleh.springcloud.alibaba.service;</p><p>import org.springframework.web.bind.annotation.RequestParam;<br>import org.springframework.web.bind.annotation.ResponseBody;</p><p>import java.math.BigDecimal;</p></li></ul><p>public interface AccountService {</p><pre><code>  /**
+   * 扣减账户余额
+   */
+  void decrease(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money);
+</code></pre><p>}</p><pre><code>
+  AccountServiceImpl
+
+  ```java
+  package com.kayleh.springcloud.alibaba.service.impl;
+
+
+  import com.kayleh.springcloud.alibaba.dao.AccountDao;
+  import com.kayleh.springcloud.alibaba.service.AccountService ;
+  import org.slf4j.Logger;
+  import org.slf4j.LoggerFactory;
+  import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.stereotype.Service;
+
+  import javax.annotation.Resource;
+  import java.math.BigDecimal;
+  import java.util.concurrent.TimeUnit;
+
+  /**
+   * 账户业务实现类
+   */
+  @Service
+  public class AccountServiceImpl implements AccountService {
+
+      private static final Logger LOGGER = LoggerFactory.getLogger(AccountServiceImpl.class);
+
+
+      @Resource
+      AccountDao accountDao;
+
+      /**
+       * 扣减账户余额
+       */
+      @Override
+      public void decrease(Long userId, BigDecimal money) {
+
+           LOGGER.info("-------&gt;account-service中扣减账户余额开始");
+          try { TimeUnit.SECONDS.sleep(20); } catch (InterruptedException e) { e.printStackTrace(); }
+          accountDao.decrease(userId,money);
+          LOGGER.info("-------&gt;account-service中扣减账户余额结束");
+      }
+  }
+</code></pre><p>9.Controller</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba.controller;
+
+import com.kayleh.springcloud.alibaba.domain.CommonResult ;
+import com.kayleh.springcloud.alibaba.service.AccountService ;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+
+@RestController
+public class AccountController {
+
+    @Resource
+    AccountService accountService;
+
+    /**
+     * 扣减账户余额
+     */
+    @RequestMapping("/account/decrease")
+    public CommonResult decrease(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money){
+        accountService.decrease(userId,money);
+        return new CommonResult(200,"扣减账户余额成功！");
+    }
+}
+</code></pre><p>10.Config配置</p><ul><li><p>MyBatisConfig</p><pre><code class="lang-java">package com.kayleh.springcloud.alibaba.config;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@MapperScan({"com.kayleh.springcloud.alibaba.dao"})
+public class MyBatisConfig {
+
+}
+</code></pre></li><li><p>DataSourceProxyConfig</p><p>```java<br>package com.kayleh.springcloud.alibaba.config;</p><p>import com.alibaba.druid.pool.DruidDataSource;<br>import io.seata.rm.datasource.DataSourceProxy;<br>import org.apache.ibatis.session.SqlSessionFactory;<br>import org.mybatis.spring.SqlSessionFactoryBean;<br>import org.mybatis.spring.transaction.SpringManagedTransactionFactory;<br>import org.springframework.beans.factory.annotation.Value;<br>import org.springframework.boot.context.properties.ConfigurationProperties;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;<br>import org.springframework.core.io.support.PathMatchingResourcePatternResolver;</p><p>import javax.sql.DataSource;</p></li></ul><p>@Configuration<br>public class DataSourceProxyConfig {</p><pre><code>  @Value("${mybatis.mapperLocations}")
+  private String mapperLocations;
+
+  @Bean
+  @ConfigurationProperties(prefix = "spring.datasource")
+  public DataSource druidDataSource(){
+      return new DruidDataSource();
+  }
+
+  @Bean
+  public DataSourceProxy dataSourceProxy(DataSource dataSource) {
+      return new DataSourceProxy(dataSource);
+  }
+
+  @Bean
+  public SqlSessionFactory sqlSessionFactoryBean(DataSourceProxy dataSourceProxy) throws Exception {
+      SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+      sqlSessionFactoryBean.setDataSource(dataSourceProxy);
+      sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
+      sqlSessionFactoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
+      return sqlSessionFactoryBean.getObject();
+  }
+</code></pre><p>}</p><pre><code>
+11.主启动
+
+```java
+package com.kayleh.springcloud.alibaba;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@EnableDiscoveryClient
+@EnableFeignClients
+public class SeataAccountMainApp2003
+{
+    public static void main(String[] args)
+    {
+        SpringApplication.run(SeataAccountMainApp2003.class, args);
+    }
+}
+</code></pre><h1 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h1><p>下订单-&gt;减库存-&gt;扣余额-&gt;改（订单）状态</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/8.png" alt="1598418701820"></div><div class="image-meta"><span class="image-caption center">1598418701820</span></div></div><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/9.png" alt="1598418752655"></div><div class="image-meta"><span class="image-caption center">1598418752655</span></div></div><p>数据库初始情况</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/10.png" alt="1598418770944"></div><div class="image-meta"><span class="image-caption center">1598418770944</span></div></div><p>正常下单</p><blockquote><p><a target="_blank" rel="noopener" href="http://localhost:2001/order/create?userid=1&amp;producrid=1&amp;counr=10&amp;money=100">http://localhost:2001/order/create?userid=1&amp;producrid=1&amp;counr=10&amp;money=100</a></p><p>数据库情况</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/11.png" alt="1598418805563"></div><div class="image-meta"><span class="image-caption center">1598418805563</span></div></div></blockquote><h3 id="超时异常，没加-GlobalTransactional"><a href="#超时异常，没加-GlobalTransactional" class="headerlink" title="超时异常，没加@GlobalTransactional"></a>超时异常，没加@GlobalTransactional</h3><p>seata-order-service2003的decrease</p><pre><code class="lang-java">在accountDao调用decrease之前
+try{
+    TimeUnit.SECONDS.sleep(20);
+}catch(InterruptException e){
+    e.printStackTrace();
+}
+</code></pre><ul><li><p>AccountServiceImpl添加超时</p></li><li><p>数据库情况</p></li><li><p>故障情况</p><blockquote><p>当库存和账户余额扣减后，订单状态并没有设置为已经完成，没有从零改为1</p><p>而且由于feign的重试机制，账户余额还有可能被多次扣减</p></blockquote></li></ul><h3 id="超时异常，添加-GlobalTransactional"><a href="#超时异常，添加-GlobalTransactional" class="headerlink" title="超时异常，添加@GlobalTransactional"></a>超时异常，添加@GlobalTransactional</h3><p>orderServiceImpl</p><pre><code class="lang-java">@GlobalTransactional(name = "fsp-create-order",rollbackFor = Exception.class)
+</code></pre><ul><li><p>AccountServiceImpl添加超时</p></li><li><p>OrderServiceImpl@GlobalTransactional</p></li><li><p>下单后数据库数据并没有任何改变</p><blockquote><p>记录都添加不进来</p></blockquote></li></ul><h1 id="Seata之原理简介"><a href="#Seata之原理简介" class="headerlink" title="Seata之原理简介"></a>Seata之原理简介</h1><h2 id="Seata"><a href="#Seata" class="headerlink" title="Seata"></a>Seata</h2><blockquote><p>2019年1月份蚂蚁金服和阿里巴巴共同开源的分布式事务解决方案</p><p>Simple Extensible Autonomous Transaction Architecture,简单可扩展自治事务框架</p><p>2020起初，参加工作后用1.0以后的版本</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/12.png" alt="图像"></div><div class="image-meta"><span class="image-caption center">图像</span></div></div><p></p></blockquote><h2 id="再看TC-TM-RM三大组件"><a href="#再看TC-TM-RM三大组件" class="headerlink" title="再看TC/TM/RM三大组件"></a>再看TC/TM/RM三大组件</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/13.png" alt="1598419006224"></div><div class="image-meta"><span class="image-caption center">1598419006224</span></div></div><p>分布式事务的执行流程</p><blockquote><p>TM开启分布式事务(TM向TC注册全局事务记录)</p><p>换业务场景，编排数据库，服务等事务内资源（RM向TC汇报资源准备状态）</p><p>TM结束分布式事务，事务一阶段结束（TM通知TC提交/回滚分布式事务）</p><p>TC汇总事务信息，决定分布式事务是提交还是回滚</p><p>TC通知所有RM提交/回滚资源，事务二阶段结束。</p></blockquote><h2 id="AT模式如何做到对业务的无侵入"><a href="#AT模式如何做到对业务的无侵入" class="headerlink" title="AT模式如何做到对业务的无侵入"></a>AT模式如何做到对业务的无侵入</h2><p>是什么</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/14.png" alt="1598419068562"></div><div class="image-meta"><span class="image-caption center">1598419068562</span></div></div><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/15.png" alt="1598419095784"></div><div class="image-meta"><span class="image-caption center">1598419095784</span></div></div><p>一阶段加载</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/16.png" alt="1598419109689"></div><div class="image-meta"><span class="image-caption center">1598419109689</span></div></div><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/17.png" alt="1598419122066"></div><div class="image-meta"><span class="image-caption center">1598419122066</span></div></div><p>二阶段提交</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/18.png" alt="1598419138114"></div><div class="image-meta"><span class="image-caption center">1598419138114</span></div></div><p>二阶段回滚</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/19.png" alt="1598419157493"></div><div class="image-meta"><span class="image-caption center">1598419157493</span></div></div><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/20.png" alt="1598419170919"></div><div class="image-meta"><span class="image-caption center">1598419170919</span></div></div><p>debug</p><h5 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h5><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/Seata处理分布式事务/21.png" alt="1598419193998"></div><div class="image-meta"><span class="image-caption center">1598419193998</span></div></div><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/.top//22.png" alt="1598419205394" style="zoom:80%"></p></mapper><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/snowflake-distributed-id-algorithm/">SnowFlake分布式ID雪花算法</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/sentinel-realizes-fusing-and-current-limiting/">Sentinel实现熔断与限流</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

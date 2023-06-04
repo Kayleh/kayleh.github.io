@@ -1,0 +1,420 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>7 sorting algorithms - Kayleh</title><meta name="description" content="7种排序算法冒泡排序"><meta property="og:type" content="article"><meta property="og:title" content="7 sorting algorithms"><meta property="og:url" content="https://blog.kayleh.top/7-sorting-algorithms/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="7种排序算法冒泡排序"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/1.png"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/2.png"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/3.png"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/4.png"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/5.png"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/6.png"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/7.png"><meta property="article:published_time" content="2020-05-17T13:42:21.000Z"><meta property="article:modified_time" content="2023-06-04T15:27:46.637Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="algorithm"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/1.png"><meta name="keywords" content="algorithm"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}loadCss('/style.css');</script></head><body><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">7 sorting algorithms</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F"><span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F"><span class="toc-text">基数排序</span></a></li></ol></div></div></widget></div></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-05-17T13:42:21.000Z">2020-05-17</time></div></div><article class="md-text content post"><h1 class="article-title"><span>7 sorting algorithms</span></h1><h1 id="7种排序算法"><a href="#7种排序算法" class="headerlink" title="7种排序算法"></a>7种排序算法</h1><h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><span id="more"></span><ul><li><code>冒泡排序（BubbleSorting)</code>的基本思想是：通过对待排序序列从前向后（从下标较小的元素开始）,依次比较相邻元素的值，若发现逆序则交换，使值较大的元素逐渐从前移向后部。</li></ul><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/1.png" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><p>代码实现</p><pre><code class="lang-java">// 将前面的冒泡排序算法，封装成一个方法
+    public static void bubbleSort(int[] arr) {
+        // 冒泡排序 的时间复杂度 O(n^2), 自己写出
+        int temp = 0; // 临时变量
+        boolean flag = false; // 标识变量，表示是否进行过交换
+        for (int i = 0; i &lt; arr.length - 1; i++) {
+            for (int j = 0; j &lt; arr.length - 1 - i; j++) {
+                // 如果前面的数比后面的数大，则交换
+                if (arr[j] &gt; arr[j + 1]) {
+                    flag = true;
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+            //System.out.println("第" + (i + 1) + "趟排序后的数组");
+            //System.out.println(Arrays.toString(arr));
+
+            if (!flag) {
+                // 在一趟排序中，一次交换都没有发生过
+                break;
+            } else {
+                flag = false;
+                // 重置flag!!!, 进行下次判断
+            }
+        }
+</code></pre><hr><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><ul><li><code>插入排序（insertSorting)</code></li><li>基本思想是：把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表中只包含一个元素，无序表中包含有n-1个元素，排序过程中每次从无序表中取出第一个元素，把它的排序码依次与有序表元素的排序码进行比较，将它插入到有序表中的适当位置，使之成为新的有序表。</li><li></li></ul><p>代码实现</p><pre><code class="lang-java"> public static void insertSort(int attr[]) {
+        //从第2个数开始遍历 【1】
+        for (int i = 1; i &lt; attr.length - 1; i++) {
+            // 等待插入的数的前一个数下标
+            int insertIndex = i - 1;
+            //等待插入的数的值
+            int insertValue = attr[i];
+            // insertIndex不能越界
+            // insertValue待插入到前面有序列表的数
+            // insertValue待插入的数 小于 前1个数
+            while (insertIndex &gt;= 0 &amp;&amp; attr[insertIndex] &gt; insertValue) {
+                // 交换
+                //  attr[insertIndex]后移
+                attr[insertIndex + 1] = attr[insertIndex];
+                insertIndex--;
+            }
+            //当退出while循环时，说明插入的位置找到, insertIndex + 1
+            if (insertIndex + 1 != i) {
+                attr[insertIndex + 1] = insertValue;
+            }
+        }
+
+    }
+</code></pre><h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><ul><li><p><code>选择排序（selectSorting)</code>的基本思想是：</p></li><li><p>第一次从arr[0]~arr[n-1]中选取最小值，与arr[0]交换，第二次从arr[1]~arr[n-1]中选取最小值，与arr[1]交换，第三次从arr[2]~arr[n-1]中选取最小值，与arr[2]交换，…，第i次从arr[i-1]~arr[n-1]中选取最小值，与arr[i-1]交换，…,第n-1次从arr[n-2]~arr[n-1]中选取最小值，与arr[n-2]交换，总共通过n-1次，得到一个按排序码从小到大排列的有序序列。</p></li></ul><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/2.png" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><p>代码实现</p><pre><code class="lang-java">public class selectSort {
+    public static void selectSort(int attr[]) {
+        for (int i = 0; i &lt; attr.length - 1; i++) {
+            //假设第一个数就是最小值
+            int minindex = 0;
+            int min = attr[0];
+            //从1开始遍历
+            for (int j = 1; j &lt; attr.length - 1; j++) {
+                //如果第0个数（最小值）比第1个数 大
+                //说明假设的第0个并不是最小值
+                if (min &gt; attr[j]) {
+                    min = attr[j];//重置最小值
+                    minindex = j;//重置最小值索引
+                }
+            }
+            //如果最小值的索引不是0，就发生交换
+            if (minindex != i) {
+                //把第0个数（不是最小值）赋值到 第1个数（较小值）的位置
+                attr[minindex] = attr[i];
+                //把较小值赋值给第1个数
+                attr[i] = min;
+            }
+        }
+    }
+</code></pre><h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><ul><li><p><code>冒泡排序（BubbleSorting)</code>的基本思想是：</p><p>把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止</p></li></ul><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/3.png" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><p>代码实现</p><pre><code class="lang-java">        //移动法
+        //增量gap，并逐步的缩小增量
+        for (int gap = attr.length/2;gap&gt;0;gap/=2){
+            //从第gap个元素开始，逐个对其所在的组进行直接插入排序
+            for (int i =gap;i&lt;attr.length;i++){
+                // 当前位置
+                int j = i;
+
+                //当前位置的值赋值给temp
+                int temp = attr[j];
+                // 如果 当前组的gap个步长前面的数大于当前位置的数
+                if(attr[j]&lt;attr[j-gap]){
+                    while (j-gap &gt;= 0 &amp;&amp; temp &lt; attr[j-gap]){
+                        //移动
+                        attr[j] = attr[j-gap];
+                        j -= gap;
+                    }
+                    //当退出while循环后，就给temp找到插入的位置
+                    attr[j] = temp;
+                }
+            }
+        }
+</code></pre><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><ul><li><p><code>快速排序（QuickSorting)</code></p><p>是对冒泡排序的一种改进。基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列</p></li></ul><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/4.png" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><p>代码实现</p><pre><code class="lang-java">public static void quickSort(int[] arr,int left, int right) {
+        int l = left; //左下标
+        int r = right; //右下标
+        //pivot 中轴值
+        int pivot = arr[(left + right) / 2];
+        int temp = 0; //临时变量，作为交换时使用
+        //while循环的目的是让比pivot 值小放到左边
+        //比pivot 值大放到右边
+        while( l &lt; r) {
+            //在pivot的左边一直找,找到大于等于pivot值,才退出
+            while( arr[l] &lt; pivot) {
+                l += 1;
+            }
+            //在pivot的右边一直找,找到小于等于pivot值,才退出
+            while(arr[r] &gt; pivot) {
+                r -= 1;
+            }
+            //如果l &gt;= r说明pivot 的左右两的值，已经按照左边全部是
+            //小于等于pivot值，右边全部是大于等于pivot值
+            if( l &gt;= r) {
+                break;
+            }
+            //交换
+            temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+
+            //如果交换完后，发现这个arr[l] == pivot值 相等 r--， 前移
+            if(arr[l] == pivot) {
+                r -= 1;
+            }
+            //如果交换完后，发现这个arr[r] == pivot值 相等 l++， 后移
+            if(arr[r] == pivot) {
+                l += 1;
+            }
+        }
+
+        // 如果 l == r, 必须l++, r--, 否则为出现栈溢出
+        if (l == r) {
+            l += 1;
+            r -= 1;
+        }
+        //向左递归
+        if(left &lt; r) {
+            quickSort(arr, left, r);
+        }
+        //向右递归
+        if(right &gt; l) {
+            quickSort(arr, l, right);
+        }
+    }
+</code></pre><h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><ul><li><p><code>归并排序（mergeSorting)</code>的基本思想是：</p><p>是利用归并的思想实现的排序方法，该算法采用经典的分治（divide-and-conquer）策略（分治法将问题分(divide)成一些小的问题然后递归求解，而治(conquer)的阶段则将分的阶段得到的各答案”修补”在一起，即分而治之)。</p></li></ul><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/5.png" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><p>代码实现</p><pre><code class="lang-java"> //分+合方法
+    public static void mergeSort(int[] arr, int left, int right, int[] temp) {
+        if(left &lt; right) {
+            int mid = (left + right) / 2; //中间索引
+            //向左递归进行分解
+            mergeSort(arr, left, mid, temp);
+            //向右递归进行分解
+            mergeSort(arr, mid + 1, right, temp);
+            //合并
+            merge(arr, left, mid, right, temp);
+        }
+    }
+
+    //合并的方法
+    /**
+     *
+     * @param arr 排序的原始数组
+     * @param left 左边有序序列的初始索引
+     * @param mid 中间索引
+     * @param right 右边索引
+     * @param temp 做中转的数组
+     */
+    public static void merge(int[] arr, int left, int mid, int right, int[] temp) {
+        int i = left; // 初始化i, 左边有序序列的初始索引
+        int j = mid + 1; //初始化j, 右边有序序列的初始索引
+        int t = 0; // 指向temp数组的当前索引
+        //(一)
+        //先把左右两边(有序)的数据按照规则填充到temp数组
+        //直到左右两边的有序序列，有一边处理完毕为止
+        while (i &lt;= mid &amp;&amp; j &lt;= right) {//继续
+            //如果左边的有序序列的当前元素，小于等于右边有序序列的当前元素
+            //即将左边的当前元素，填充到 temp数组
+            //然后 t++, i++
+            if(arr[i] &lt;= arr[j]) {
+                temp[t] = arr[i];
+                t += 1;
+                i += 1;
+            } else { //反之,将右边有序序列的当前元素，填充到temp数组
+                temp[t] = arr[j];
+                t += 1;
+                j += 1;
+            }
+        }
+        //(二)
+        //把有剩余数据的一边的数据依次全部填充到temp
+        while( i &lt;= mid) { //左边的有序序列还有剩余的元素，就全部填充到temp
+            temp[t] = arr[i];
+            t += 1;
+            i += 1;
+        }
+        while( j &lt;= right) { //右边的有序序列还有剩余的元素，就全部填充到temp
+            temp[t] = arr[j];
+            t += 1;
+            j += 1;
+        }
+        //(三)
+        //将temp数组的元素拷贝到arr
+        //注意，并不是每次都拷贝所有
+        t = 0;
+        int tempLeft = left; //
+        //第一次合并 tempLeft = 0 , right = 1 //  tempLeft = 2  right = 3 // tL=0 ri=3
+        //最后一次 tempLeft = 0  right = 7
+        while(tempLeft &lt;= right) {
+            arr[tempLeft] = temp[t];
+            t += 1;
+            tempLeft += 1;
+        }
+
+    }
+</code></pre><h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><ul><li><p><code>基数排序（mergeSorting)</code>的基本思想是：</p><p>将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列。</p></li></ul><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/6.png" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><p>代码实现</p><pre><code class="lang-java">
+    //基数排序方法
+    public static void radixSort(int[] arr) {
+
+        //根据前面的推导过程，我们可以得到最终的基数排序代码
+
+        //1. 得到数组中最大的数的位数
+        int max = arr[0]; //假设第一数就是最大数
+        for(int i = 1; i &lt; arr.length; i++) {
+            if (arr[i] &gt; max) {
+                max = arr[i];
+            }
+        }
+        //得到最大数是几位数
+        int maxLength = (max + "").length();
+
+        //定义一个二维数组，表示10个桶, 每个桶就是一个一维数组
+        //说明
+        //1. 二维数组包含10个一维数组
+        //2. 为了防止在放入数的时候，数据溢出，则每个一维数组(桶)，大小定为arr.length
+        //3. 名明确，基数排序是使用空间换时间的经典算法
+        int[][] bucket = new int[10][arr.length];
+
+        //为了记录每个桶中，实际存放了多少个数据,我们定义一个一维数组来记录各个桶的每次放入的数据个数
+        //可以这里理解
+        //比如：bucketElementCounts[0] , 记录的就是  bucket[0] 桶的放入数据个数
+        int[] bucketElementCounts = new int[10];
+
+        //这里使用循环将代码处理
+
+        for(int i = 0 , n = 1; i &lt; maxLength; i++, n *= 10) {
+            //(针对每个元素的对应位进行排序处理)， 第一次是个位，第二次是十位，第三次是百位..
+            for(int j = 0; j &lt; arr.length; j++) {
+                //取出每个元素的对应位的值
+                int digitOfElement = arr[j] / n % 10;
+                //放入到对应的桶中
+                bucket[digitOfElement][bucketElementCounts[digitOfElement]] = arr[j];
+                bucketElementCounts[digitOfElement]++;
+            }
+            //按照这个桶的顺序(一维数组的下标依次取出数据，放入原来数组)
+            int index = 0;
+            //遍历每一桶，并将桶中是数据，放入到原数组
+            for(int k = 0; k &lt; bucketElementCounts.length; k++) {
+                //如果桶中，有数据，我们才放入到原数组
+                if(bucketElementCounts[k] != 0) {
+                    //循环该桶即第k个桶(即第k个一维数组), 放入
+                    for(int l = 0; l &lt; bucketElementCounts[k]; l++) {
+                        //取出元素放入到arr
+                        arr[index++] = bucket[k][l];
+                    }
+                }
+                //第i+1轮处理后，需要将每个 bucketElementCounts[k] = 0 ！！！！
+                bucketElementCounts[k] = 0;
+            }
+
+        }
+
+    }
+</code></pre><p>各个算法的复杂度</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn/img/7种排序算法/7.png" alt="img"></div><div class="image-meta"><span class="image-caption center">img</span></div></div><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/heap-sort/">heap-sort</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/principles-of-computer-organization/">计算机组成原理</a></div></section></div><footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }</script></div><script src="/bundle.js"></script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
