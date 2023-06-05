@@ -1,11 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.kayleh.top/introduction-to-operating-system/</loc>
+    <loc>https://blog.kayleh.top/design-patterns/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/visitor-mode/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/chain-of-responsibility-model/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Greedy-Algorithm/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/program-test/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/continuous/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/dimits-law/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/iterator-mode/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/adapter-mode/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/liskov-substitution-principle/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/linked-forward-star/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/linked-list/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/queue/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/random-weight-distribution/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/objectoriented/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/hash-algorithm/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/palindrome/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/huisu-algorithm/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/back-to-table-query/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/pictrue-bed/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/PriorityQueue/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/off-heap/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/heap-sort/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/memo-mode/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/appearance-mode/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/multi-function/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/multithreading/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/null/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/definite-integral/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/derivative/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/factory-design-pattern/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Differential-array/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Bloom-Filter/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/concurrency-principle/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/generalized-integral/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/principle-of-opening-and-closing/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/differential/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/differential-equation/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/topoSorting/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/traffic-monetizationaccess-to-google-adsense/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/interface-isolation-principle/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/interpolation-search-algorithm/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Boyer%E2%80%93Moore-majority/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
     <loc>https://blog.kayleh.top/operating-system/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/introduction-to-operating-system/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
@@ -145,63 +317,55 @@
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/design-patterns/</loc>
+    <loc>https://blog.kayleh.top/indefinite-integral/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/visitor-mode/</loc>
+    <loc>https://blog.kayleh.top/intermediary-model/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/chain-of-responsibility-model/</loc>
+    <loc>https://blog.kayleh.top/chinese-and-english-switching/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/Greedy-Algorithm/</loc>
+    <loc>https://blog.kayleh.top/Transaction-isolation-level/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/program-test/</loc>
+    <loc>https://blog.kayleh.top/binary-search-algorithm/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/continuous/</loc>
+    <loc>https://blog.kayleh.top/binary-sort-tree/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/dimits-law/</loc>
+    <loc>https://blog.kayleh.top/double-integral/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/iterator-mode/</loc>
+    <loc>https://blog.kayleh.top/flyweight-model/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/adapter-mode/</loc>
+    <loc>https://blog.kayleh.top/what-is-milk-and-why-is-group-wise/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/liskov-substitution-principle/</loc>
+    <loc>https://blog.kayleh.top/What-happened-from-entering-the-URL-to-displaying-the-page/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/linked-forward-star/</loc>
+    <loc>https://blog.kayleh.top/agency-model/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/linked-list/</loc>
+    <loc>https://blog.kayleh.top/dependence-reversal-principle/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/queue/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/random-weight-distribution/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/objectoriented/</loc>
+    <loc>https://blog.kayleh.top/partial-derivative/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
@@ -305,167 +469,7 @@
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/hash-algorithm/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/palindrome/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/huisu-algorithm/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/back-to-table-query/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/pictrue-bed/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/PriorityQueue/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/off-heap/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/heap-sort/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/memo-mode/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/appearance-mode/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/multi-function/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/multithreading/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/null/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/definite-integral/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/derivative/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/factory-design-pattern/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Differential-array/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Bloom-Filter/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/concurrency-principle/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/generalized-integral/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/principle-of-opening-and-closing/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/differential/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/differential-equation/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/topoSorting/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/traffic-monetizationaccess-to-google-adsense/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/interface-isolation-principle/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Boyer%E2%80%93Moore-majority/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/interpolation-search-algorithm/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/indefinite-integral/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/intermediary-model/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/chinese-and-english-switching/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Transaction-isolation-level/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/binary-search-algorithm/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/binary-sort-tree/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/double-integral/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/what-is-milk-and-why-is-group-wise/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/flyweight-model/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/What-happened-from-entering-the-URL-to-displaying-the-page/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/agency-model/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/dependence-reversal-principle/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/partial-derivative/</loc>
+    <loc>https://blog.kayleh.top/Head-First-Map/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
@@ -473,11 +477,11 @@
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/Improve-Robustness-(2)/</loc>
+    <loc>https://blog.kayleh.top/Improve-Robustness-(1)/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/Improve-Robustness-(1)/</loc>
+    <loc>https://blog.kayleh.top/Improve-Robustness-(2)/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
@@ -570,6 +574,86 @@
   </url>
   <url>
     <loc>https://blog.kayleh.top/steal-focus/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/linux/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/lock/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/mvc/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/MYSQL-MVCC-&-LOCK/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/MYSQL-uuid-and-page-splitting/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/mysql-index-wrong/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/mysql/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/mysql-struct/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/mybatis/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/NIO-blocking-model/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/nacos-service-registration-and-configuration-center/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Nacos%EF%BC%9AConfigure-MySQL-data-source/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Native-method/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/redis/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Reflected-XSS-Vulnerability-inFont-Download-Website/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/reflection/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/sql-injection-attacks/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/SQL-injection-vulnerability/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/seata-handles-distributed-transactions/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/sentinel-realizes-fusing-and-current-limiting/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
@@ -685,178 +769,6 @@
     <lastmod>2023-06-05</lastmod>
   </url>
   <url>
-    <loc>https://blog.kayleh.top/Head-First-Map/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/jdbc/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/jdk/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/JVM-classloader-and-parent-delegation-mechanism/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/jvm/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/jvm-gc/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/jmm-memory-model/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/RPC-remoteprocedure-call-service-written-by-spinning-framework/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-network-programming/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-10/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-3/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-4/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-5/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-6/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-7/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-8/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-9/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-2/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/linux/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/lock/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/mvc/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/MYSQL-MVCC-&-LOCK/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/MYSQL-uuid-and-page-splitting/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/mysql-index-wrong/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/mysql-struct/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/mysql/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/mybatis/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/NIO-blocking-model/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/nacos-service-registration-and-configuration-center/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Nacos%EF%BC%9AConfigure-MySQL-data-source/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Native-method/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/redis/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/Reflected-XSS-Vulnerability-inFont-Download-Website/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/reflection/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/sql-injection-attacks/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/SQL-injection-vulnerability/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/seata-handles-distributed-transactions/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/sentinel-realizes-fusing-and-current-limiting/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/01Backpack/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/file-input-and-output/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/7-sorting-algorithms/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.kayleh.top/users-create-data-types-themselves/</loc>
-    <lastmod>2023-06-05</lastmod>
-  </url>
-  <url>
     <loc>https://blog.kayleh.top/AIO-blocking-model/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
@@ -942,6 +854,94 @@
   </url>
   <url>
     <loc>https://blog.kayleh.top/j2se/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/jdbc/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/jdk/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/JVM-classloader-and-parent-delegation-mechanism/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/jvm/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/jvm-gc/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/jmm-memory-model/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/RPC-remoteprocedure-call-service-written-by-spinning-framework/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-network-programming/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-10/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-3/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-4/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-5/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-6/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-7/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-8/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-9/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-2/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/01Backpack/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/file-input-and-output/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/7-sorting-algorithms/</loc>
+    <lastmod>2023-06-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.kayleh.top/users-create-data-types-themselves/</loc>
     <lastmod>2023-06-05</lastmod>
   </url>
 </urlset> 
