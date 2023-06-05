@@ -158,7 +158,9 @@ const init = {
       }
     })
   },
-  
+  /**
+   * Tabs tag listener (without twitter bootstrap).
+   */
   registerTabsTag: function () {
     // Binding `nav-tabs` & `tab-content` by real time permalink changing.
     document.querySelectorAll('.tabs .nav-tabs .tab').forEach(element => {
