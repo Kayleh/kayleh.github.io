@@ -6641,161 +6641,6 @@ ctx.complete();
       </tags>
   </entry>
   <entry>
-    <title>JDBC</title>
-    <url>/jdbc/</url>
-    <content><![CDATA[<h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><span id="more"></span>
-<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="现在有一个学生表，一个课程成绩表，请问，怎么找出学生课程的最高分数，谈一谈思路"><a href="#现在有一个学生表，一个课程成绩表，请问，怎么找出学生课程的最高分数，谈一谈思路" class="headerlink" title="现在有一个学生表，一个课程成绩表，请问，怎么找出学生课程的最高分数，谈一谈思路"></a>现在有一个学生表，一个课程成绩表，请问，怎么找出学生课程的最高分数，谈一谈思路</h3><h3 id="现在，有一个组合索引（A-B-C），可以有哪几种查询方式？"><a href="#现在，有一个组合索引（A-B-C），可以有哪几种查询方式？" class="headerlink" title="现在，有一个组合索引（A,B,C），可以有哪几种查询方式？"></a>现在，有一个组合索引（A,B,C），可以有哪几种查询方式？</h3><pre><code class="lang-sql">优: select * from test where a=10 and b&gt;50
-
-差: select * from test where b = 50
-
-
-优: select * from test order by a
-
-差: select * from test order by b
-
-差: select * from test order by c
-
-
-优: select * from test where a=10 order by a
-
-优: select * from test where a=10 order by b
-
-差: select * from test where a=10 order by c
-
-
-优: select * from test where a&gt;10 order by a
-
-差: select * from test where a&gt;10 order by b
-
-差: select * from test where a&gt;10 order by c
-
-
-优: select * from test where a=10 and b=10 order by a
-
-优: select * from test where a=10 and b=10 order by b
-
-优: select * from test where a=10 and b=10 order by c
-
-
-优: select * from test where a=10 and b=10 order by a
-
-优: select * from test where a=10 and b&gt;10 order by b
-
-差: select * from test where a=10 and b&gt;10 order by c
-</code></pre>
-<h3 id="写SQL：找出每个城市的最新一条记录。"><a href="#写SQL：找出每个城市的最新一条记录。" class="headerlink" title="写SQL：找出每个城市的最新一条记录。"></a>写SQL：找出每个城市的最新一条记录。</h3><p> id     城市     人口         信息     创建时间<br>1         北京         100      info1      时间戳<br>2         北京         100     info2     时间戳<br>3         上海         100     info3     时间戳<br>4         上海         100     info4     时间戳 </p>
-<h3 id="请你讲解一下数据连接池的工作机制"><a href="#请你讲解一下数据连接池的工作机制" class="headerlink" title="请你讲解一下数据连接池的工作机制?"></a>请你讲解一下数据连接池的工作机制?</h3><p>J2EE 服务器启动时会建立一定数量的池连接，并一直维持不少于此数目的池连接。客户端程序需要连接时，池驱动程序会返回一个未使用的池连接并将其表记为忙。如果当前没有空闲连接，池驱动程序就新建一定数量的连接，新建连接的数量由配置参数决定。当使用的池连接调用完成后，池驱动程序将此连接表记为空闲，其他调用就可以使用这个连接。 </p>
-<h3 id="了解继承映射吗，请简单讲讲你的理解。"><a href="#了解继承映射吗，请简单讲讲你的理解。" class="headerlink" title="了解继承映射吗，请简单讲讲你的理解。"></a>了解继承映射吗，请简单讲讲你的理解。</h3><p>① 每个继承结构一张表（table per class hierarchy），不管多少个子类都用一张表。<br>② 每个子类一张表（table per subclass），公共信息放一张表，特有信息放单独的表。<br>③ 每个具体类一张表（table per concrete class），有多少个子类就有多少张表。<br>第一种方式属于单表策略，其优点在于查询子类对象的时候无需表连接，查询速度快，适合多态查询；缺点是可能导致表很大。后两种方式属于多表策略，其优点在于数据存储紧凑，其缺点是需要进行连接查询，不适合多态查询。 </p>
-<h3 id="请介绍一些你了解的数据库优化方法"><a href="#请介绍一些你了解的数据库优化方法" class="headerlink" title="请介绍一些你了解的数据库优化方法"></a>请介绍一些你了解的数据库优化方法</h3><p>（1）选取最适用的字段属性</p>
-<p>MySQL可以很好的支持大数据量的存取，但是一般说来，数据库中的表越小，在它上面执行的查询也就会越快。因此，在创建表的时候，为了获得更好的性能，我们可以将表中字段的宽度设得尽可能小。</p>
-<p>例如，在定义邮政编码这个字段时，如果将其设置为CHAR(255),显然给数据库增加了不必要的空间，甚至使用VARCHAR这种类型也是多余的，因为CHAR(6)就可以很好的完成任务了。同样的，如果可以的话，我们应该使用MEDIUMINT而不是BIGIN来定义整型字段。</p>
-<p>另外一个提高效率的方法是在可能的情况下，应该尽量把字段设置为NOTNULL，这样在将来执行查询的时候，数据库不用去比较NULL值。<br>对于某些文本字段，例如“省份”或者“性别”，我们可以将它们定义为ENUM类型。因为在MySQL中，ENUM类型被当作数值型数据来处理，而数值型数据被处理起来的速度要比文本类型快得多。这样，我们又可以提高数据库的性能。</p>
-<p>（2）使用连接（JOIN）来代替子查询(Sub-Queries)</p>
-<p>MySQL从4.1开始支持SQL的子查询。这个技术可以使用SELECT语句来创建一个单列的查询结果，然后把这个结果作为过滤条件用在另一个查询中。例如，我们要将客户基本信息表中没有任何订单的客户删除掉，就可以利用子查询先从销售信息表中将所有发出订单的客户ID取出来，然后将结果传递给主查询</p>
-<p>（3）使用联合(UNION)来代替手动创建的临时表</p>
-<p>MySQL从4.0的版本开始支持union查询，它可以把需要使用临时表的两条或更多的select查询合并的一个查询中。在客户端的查询会话结束的时候，临时表会被自动删除，从而保证数据库整齐、高效。使用union来创建查询的时候，我们只需要用UNION作为关键字把多个select语句连接起来就可以了，要注意的是所有select语句中的字段数目要想同。下面的例子就演示了一个使用UNION的查询。</p>
-<p>（4）事务</p>
-<p>尽管我们可以使用子查询（Sub-Queries）、连接（JOIN）和联合（UNION）来创建各种各样的查询，但不是所有的数据库操作都可以只用一条或少数几条SQL语句就可以完成的。更多的时候是需要用到一系列的语句来完成某种工作。但是在这种情况下，当这个语句块中的某一条语句运行出错的时候，整个语句块的操作就会变得不确定起来。设想一下，要把某个数据同时插入两个相关联的表中，可能会出现这样的情况：第一个表中成功更新后，数据库突然出现意外状况，造成第二个表中的操作没有完成，这样，就会造成数据的不完整，甚至会破坏数据库中的数据。要避免这种情况，就应该使用事务，它的作用是：要么语句块中每条语句都操作成功，要么都失败。换句话说，就是可以保持数据库中数据的一致性和完整性。事物以BEGIN关键字开始，COMMIT关键字结束。在这之间的一条SQL操作失败，那么，ROLLBACK命令就可以把数据库恢复到BEGIN开始之前的状态。</p>
-<h3 id="说明一下-left-join-和-right-join-的区别？"><a href="#说明一下-left-join-和-right-join-的区别？" class="headerlink" title="说明一下 left join 和 right join 的区别？"></a>说明一下 left join 和 right join 的区别？</h3><p>left join(左联接)     返回包括左表中的所有记录和右表中联结字段相等的记录<br>right join(右联接) 返回包括右表中的所有记录和左表中联结字段相等的记录</p>
-<p>比如：</p>
-<p>表A记录如下：<br>aID aNum<br>1     a20050111<br>2     a20050112<br>3     a20050113<br>4     a20050114<br>5     a20050115</p>
-<p>表B记录如下:<br>bID     bName<br>1     2006032401<br>2     2006032402<br>3     2006032403<br>4     2006032404<br>8     2006032408</p>
-<p>left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的.<br>换句话说,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).<br>B表记录不足的地方均为NULL.</p>
-<h3 id="介绍一下-mysql的主从复制？"><a href="#介绍一下-mysql的主从复制？" class="headerlink" title="介绍一下 mysql的主从复制？"></a>介绍一下 mysql的主从复制？</h3><p>MySQL主从复制是其最重要的功能之一。主从复制是指一台服务器充当主数据库服务器，另一台或多台服务器充当从数据库服务器，主服务器中的数据自动复制到从服务器之中。对于多级复制，数据库服务器即可充当主机，也可充当从机。MySQL主从复制的基础是主服务器对数据库修改记录二进制日志，从服务器通过主服务器的二进制日志自动执行更新。</p>
-<p>MySQL主从复制的两种情况：同步复制和异步复制，实际复制架构中大部分为异步复制。</p>
-<p>复制的基本过程如下：</p>
-<p>Slave上面的IO进程连接上Master，并请求从指定日志文件的指定位置（或者从最开始的日志）之后的日志内容。</p>
-<p>Master接收到来自Slave的IO进程的请求后，负责复制的IO进程会根据请求信息读取日志指定位置之后的日志信息，返回给Slave的IO进程。返回信息中除了日志所包含的信息之外，还包括本次返回的信息已经到Master端的bin-log文件的名称以及bin-log的位置。</p>
-<p>Slave的IO进程接收到信息后，将接收到的日志内容依次添加到Slave端的relay-log文件的最末端，并将读取到的Master端的 bin-log的文件名和位置记录到master-info文件中，以便在下一次读取的时候能够清楚的告诉Master“我需要从某个bin-log的哪个位置开始往后的日志内容，请发给我”。</p>
-<p>Slave的Sql进程检测到relay-log中新增加了内容后，会马上解析relay-log的内容成为在Master端真实执行时候的那些可执行的内容，并在自身执行。</p>
-<h3 id="数据库ACID的特性。"><a href="#数据库ACID的特性。" class="headerlink" title="数据库ACID的特性。"></a>数据库ACID的特性。</h3><p>原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</p>
-<p>一致性指事务前后数据的完整性必须保持一致。</p>
-<p>隔离性指多个用户并发访问数据库时，一个用户的事务不能被其他用户的事务所干扰，多个并发事务之间数据要相互隔离。</p>
-<p>持久性是指一个事务一旦提交，它对数据库中数据的改变就是永久性的，即便数据库发生故障也不应该对其有任何影响。</p>
-<h3 id="请你介绍一下，数据库的三个范式？"><a href="#请你介绍一下，数据库的三个范式？" class="headerlink" title="请你介绍一下，数据库的三个范式？"></a>请你介绍一下，数据库的三个范式？</h3><p>第一范式（1NF）<br>强调的是列的原子性，即列不能够再分成其他几列。<br>第二范式（2NF）<br>首先是 1NF，另外包含两部分内容，一是表必须有一个主键；二是没有包含在主键中的列必须完全依赖于主键，而不能只依赖于主键的一部分。<br>在1NF基础上，任何非主属性不依赖于其它非主属性[在2NF基础上消除传递依赖]。<br>第三范式（3NF）<br>第三范式（3NF）是第二范式（2NF）的一个子集，即满足第三范式（3NF）必须满足第二范式（2NF）。<br>首先是 2NF，另外非主键列必须直接依赖于主键，不能存在传递依赖。即不能存在：非主键列 A 依赖于非主键列 B，非主键列 B 依赖于主键的情况。 </p>
-<h3 id="请你介绍一下，数据库乐观锁和悲观锁"><a href="#请你介绍一下，数据库乐观锁和悲观锁" class="headerlink" title="请你介绍一下，数据库乐观锁和悲观锁"></a>请你介绍一下，数据库乐观锁和悲观锁</h3><p>悲观锁</p>
-<p>悲观锁（Pessimistic Lock），顾名思义，就是很悲观，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁。悲观锁：假定会发生并发冲突，屏蔽一切可能违反数据完整性的操作。</p>
-<p>Java synchronized 就属于悲观锁的一种实现，每次线程要修改数据时都先获得锁，保证同一时刻只有一个线程能操作数据，其他线程则会被block。</p>
-<p>乐观锁</p>
-<p>乐观锁（Optimistic Lock），顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在提交更新的时候会判断一下在此期间别人有没有去更新这个数据。乐观锁适用于读多写少的应用场景，这样可以提高吞吐量。</p>
-<p>乐观锁：假设不会发生并发冲突，只在提交操作时检查是否违反数据完整性。</p>
-<p>乐观锁一般来说有以下2种方式：</p>
-<p>使用数据版本（Version）记录机制实现，这是乐观锁最常用的一种实现方式。何谓数据版本？即为数据增加一个版本标识，一般是通过为数据库表增加一个数字类型的 “version” 字段来实现。当读取数据时，将version字段的值一同读出，数据每更新一次，对此version值加一。当我们提交更新的时候，判断数据库表对应记录的当前版本信息与第一次取出来的version值进行比对，如果数据库表当前版本号与第一次取出来的version值相等，则予以更新，否则认为是过期数据。</p>
-<p>使用时间戳（timestamp）。乐观锁定的第二种实现方式和第一种差不多，同样是在需要乐观锁控制的table中增加一个字段，名称无所谓，字段类型使用时间戳（timestamp）, 和上面的version类似，也是在更新提交的时候检查当前数据库中数据的时间戳和自己更新前取到的时间戳进行对比，如果一致则OK，否则就是版本冲突。</p>
-<h3 id="介绍一下数据库的隔离级别"><a href="#介绍一下数据库的隔离级别" class="headerlink" title="介绍一下数据库的隔离级别"></a>介绍一下数据库的隔离级别</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读（Dirty Read）</th>
-<th>不可重复读（NonRepeatable Read）</th>
-<th>幻读（Phantom Read）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>未提交读（Read uncommitted）</td>
-<td>可能</td>
-<td>可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>已提交读（Read committed）</td>
-<td>不可能</td>
-<td>可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>可重复读（Repeatable read）</td>
-<td>不可能</td>
-<td>不可能</td>
-<td>可能</td>
-</tr>
-<tr>
-<td>可串行化（Serializable ）</td>
-<td>不可能</td>
-<td>不可能</td>
-<td>不可能</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>未提交读(Read Uncommitted)</strong>：允许脏读，也就是可能读取到其他会话中未提交事务修改的数据。</p>
-<p><strong>提交读(Read Committed)</strong>：只能读取到已经提交的数据。Oracle等多数数据库默认都是该级别 (不重复读)。</p>
-<p><strong>可重复读(Repeated Read)</strong>：可重复读。在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复读，但是还存在幻象读。</p>
-<p><strong>串行读(Serializable)</strong>：完全串行化的读，每次读都需要获得表级共享锁，读写相互都会阻塞。</p>
-<h3 id="说明一下，数据库索引底层是怎样实现的，哪些情况下索引会失效"><a href="#说明一下，数据库索引底层是怎样实现的，哪些情况下索引会失效" class="headerlink" title="说明一下，数据库索引底层是怎样实现的，哪些情况下索引会失效"></a>说明一下，数据库索引底层是怎样实现的，哪些情况下索引会失效</h3><p>B+树实现的。</p>
-<p>没有遵循最左匹配原则。</p>
-<p>一些关键字会导致索引失效，例如 or， ！= ， not in，is null ,is not unll</p>
-<p>like查询是以%开头</p>
-<p>隐式转换会导致索引失效。</p>
-<p>对索引应用内部函数，索引字段进行了运算。</p>
-<h3 id="mysql数据库的两种引擎-区别"><a href="#mysql数据库的两种引擎-区别" class="headerlink" title="mysql数据库的两种引擎 区别"></a>mysql数据库的两种引擎 区别</h3><p>InnoDB是聚集索引，支持事务，支持行级锁；MyISAM是非聚集索引，不支持事务，只支持表级锁。 </p>
-<h3 id="请介绍一下，数据库索引，以及，什么时候用Innodb什么时候用MyISAM。"><a href="#请介绍一下，数据库索引，以及，什么时候用Innodb什么时候用MyISAM。" class="headerlink" title="请介绍一下，数据库索引，以及，什么时候用Innodb什么时候用MyISAM。"></a>请介绍一下，数据库索引，以及，什么时候用Innodb什么时候用MyISAM。</h3><p>索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。如果想按特定职员的姓来查找他或她，则与在表中搜索所有的行相比，索引有助于更快地获取信息。索引的一个主要目的就是加快检索表中数据的方法，亦即能协助信息搜索者尽快的找到符合限制条件的记录ID的辅助数据结构。InnoDB主要面向在线事务处理（OLTP）的应用。MyISAM主要面向一些OLAP的应用。 </p>
-<h3 id="数据库水平切分与垂直切分"><a href="#数据库水平切分与垂直切分" class="headerlink" title="数据库水平切分与垂直切分"></a>数据库水平切分与垂直切分</h3><p>垂直拆分就是要把表按模块划分到不同数据库表中（当然原则还是不破坏第三范式），这种拆分在大型网站的演变过程中是很常见的。当一个网站还在很小的时候，只有小量的人来开发和维护，各模块和表都在一起，当网站不断丰富和壮大的时候，也会变成多个子系统来支撑，这时就有按模块和功能把表划分出来的需求。其实，相对于垂直切分更进一步的是服务化改造，说得简单就是要把原来强耦合的系统拆分成多个弱耦合的服务，通过服务间的调用来满足业务需求看，因此表拆出来后要通过服务的形式暴露出去，而不是直接调用不同模块的表，淘宝在架构不断演变过程，最重要的一环就是服务化改造，把用户、交易、店铺、宝贝这些核心的概念抽取成独立的服务，也非常有利于进行局部的优化和治理，保障核心模块的稳定性。</p>
-<p>垂直拆分：单表大数据量依然存在性能瓶颈</p>
-<p>水平拆分，上面谈到垂直切分只是把表按模块划分到不同数据库，但没有解决单表大数据量的问题，而水平切分就是要把一个表按照某种规则把数据划分到不同表或数据库里。例如像计费系统，通过按时间来划分表就比较合适，因为系统都是处理某一时间段的数据。而像SaaS应用，通过按用户维度来划分数据比较合适，因为用户与用户之间的隔离的，一般不存在处理多个用户数据的情况，简单的按user_id范围来水平切分。</p>
-<p>通俗理解：水平拆分行，行数据拆分到不同表中， 垂直拆分列，表数据拆分到不同表中。</p>
-<h3 id="JDBC中如何进行事务处理？"><a href="#JDBC中如何进行事务处理？" class="headerlink" title="JDBC中如何进行事务处理？"></a>JDBC中如何进行事务处理？</h3><p>Connection提供了事务处理的方法，通过调用setAutoCommit(false)可以设置手动提交事务；当事务完成后用commit()显式提交事务；如果在事务处理过程中发生异常则通过rollback()进行事务回滚。除此之外，从JDBC 3.0中还引入了Savepoint（保存点）的概念，允许通过代码设置保存点并让事务回滚到指定的保存点。 </p>
-<h3 id="什么是数据库中事务的ACID？"><a href="#什么是数据库中事务的ACID？" class="headerlink" title="什么是数据库中事务的ACID？"></a>什么是数据库中事务的ACID？</h3><p>- 原子性(Atomic)：事务中各项操作，要么全做要么全不做，任何一项操作的失败都会导致整个事务的失败； </p>
-<p>- 一致性(Consistent)：事务结束后系统状态是一致的；<br>- 隔离性(Isolated)：并发执行的事务彼此无法看到对方的中间状态；<br>- 持久性(Durable)：事务完成后所做的改动都会被持久化，即使发生灾难性的失败。通过日志和同步备份可以在故障发生后重建数据。</p>
-<p>关于事务，在面试中被问到的概率是很高的，可以问的问题也是很多的。首先需要知道的是，只有存在并发数据访问时才需要事务。当多个事务访问同一数据时，可能会存在5类问题，包括3类数据读取问题（脏读、不可重复读和幻读）和2类数据更新问题（第1类丢失更新和第2类丢失更新）。</p>
-<h3 id="使用JDBC操作数据库时，经常遇到性能问题，请你说明一下如何提升读取数据的性能，以及更新数据的性能？"><a href="#使用JDBC操作数据库时，经常遇到性能问题，请你说明一下如何提升读取数据的性能，以及更新数据的性能？" class="headerlink" title="使用JDBC操作数据库时，经常遇到性能问题，请你说明一下如何提升读取数据的性能，以及更新数据的性能？"></a>使用JDBC操作数据库时，经常遇到性能问题，请你说明一下如何提升读取数据的性能，以及更新数据的性能？</h3><p>要提升读取数据的性能，可以指定通过结果集（ResultSet）对象的setFetchSize()方法指定每次抓取的记录数（典型的空间换时间策略）；要提升更新数据的性能可以使用PreparedStatement语句构建批处理，将若干SQL语句置于一个批处理中执行。 </p>
-<h3 id="请你讲讲-Statement-和-PreparedStatement-的区别？哪个性能更好？"><a href="#请你讲讲-Statement-和-PreparedStatement-的区别？哪个性能更好？" class="headerlink" title="请你讲讲 Statement 和 PreparedStatement 的区别？哪个性能更好？"></a>请你讲讲 Statement 和 PreparedStatement 的区别？哪个性能更好？</h3><p>与Statement相比，①PreparedStatement接口代表预编译的语句，它主要的优势在于可以减少SQL的编译错误并增加SQL的安全性（减少SQL注射攻击的可能性）；②PreparedStatement中的SQL语句是可以带参数的，避免了用字符串连接拼接SQL语句的麻烦和不安全；③当批量处理SQL或频繁执行相同的查询时，PreparedStatement有明显的性能上的优势，由于数据库可以将编译优化后的SQL语句缓存起来，下次执行相同结构的语句时就会很快（不用再次编译和生成执行计划）。</p>
-<p>为了提供对存储过程的调用，JDBC API中还提供了CallableStatement接口。存储过程（Stored Procedure）是数据库中一组为了完成特定功能的SQL语句的集合，经编译后存储在数据库中，用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。虽然调用存储过程会在网络开销、安全性、性能上获得很多好处，但是存在如果底层数据库发生迁移时就会有很多麻烦，因为每种数据库的存储过程在书写上存在不少的差别。</p>
-<h3 id="请你解释一下Jdo以及它的作用"><a href="#请你解释一下Jdo以及它的作用" class="headerlink" title="请你解释一下Jdo以及它的作用"></a>请你解释一下Jdo以及它的作用</h3><p>JDO 是Java对象持久化的新的规范，为java data object的简称,也是一个用于存取某种数据仓库中的对象的标准化API。JDO提供了透明的对象存储，因此对开发人员来说，存储数据对象完全不需要额外的代码（如JDBC API的使用）。这些繁琐的例行工作已经转移到JDO产品提供商身上，使开发人员解脱出来，从而集中时间和精力在业务逻辑上。另外，JDO很灵活，因为它可以在任何数据底层上运行。JDBC只是面向关系数据库（RDBMS）JDO更通用，提供到任何数据底层的存储功能，比如关系数据库、文件、XML以及对象数据库（ODBMS）等等，使得应用可移植性更强。 </p>
-<h3 id="谈谈JDBC的反射，以及它的作用？"><a href="#谈谈JDBC的反射，以及它的作用？" class="headerlink" title="谈谈JDBC的反射，以及它的作用？"></a>谈谈JDBC的反射，以及它的作用？</h3><p>通过反射com.mysql.jdbc.Driver类，实例化该类的时候会执行该类内部的静态代码块，该代码块会在Java实现的DriverManager类中注册自己,DriverManager管理所有已经注册的驱动类，当调用DriverManager.geConnection方法时会遍历这些驱动类，并尝试去连接数据库，只要有一个能连接成功，就返回Connection对象，否则则报异常。 </p>
-]]></content>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>J2SE</title>
     <url>/j2se/</url>
     <content><![CDATA[<h1 id="Object-oriented"><a href="#Object-oriented" class="headerlink" title="Object-oriented"></a>Object-oriented</h1><span id="more"></span>
@@ -6953,6 +6798,161 @@ public class CovariantArrays &#123;
 <h3 id="请你讲讲wait方法的底层原理"><a href="#请你讲讲wait方法的底层原理" class="headerlink" title="请你讲讲wait方法的底层原理"></a>请你讲讲wait方法的底层原理</h3><p>ObjectSynchronizer::wait方法通过object的对象中找到ObjectMonitor对象调用方法 void ObjectMonitor::wait(jlong millis, bool interruptible, TRAPS)</p>
 <p>通过ObjectMonitor::AddWaiter调用把新建立的ObjectWaiter对象放入到 _WaitSet 的队列的末尾中然后在ObjectMonitor::exit释放锁，接着 thread_ParkEvent-&gt;park 也就是wait。</p>
 <h2 id><a href="#" class="headerlink" title=" "></a> </h2>]]></content>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JDBC</title>
+    <url>/jdbc/</url>
+    <content><![CDATA[<h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><span id="more"></span>
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="现在有一个学生表，一个课程成绩表，请问，怎么找出学生课程的最高分数，谈一谈思路"><a href="#现在有一个学生表，一个课程成绩表，请问，怎么找出学生课程的最高分数，谈一谈思路" class="headerlink" title="现在有一个学生表，一个课程成绩表，请问，怎么找出学生课程的最高分数，谈一谈思路"></a>现在有一个学生表，一个课程成绩表，请问，怎么找出学生课程的最高分数，谈一谈思路</h3><h3 id="现在，有一个组合索引（A-B-C），可以有哪几种查询方式？"><a href="#现在，有一个组合索引（A-B-C），可以有哪几种查询方式？" class="headerlink" title="现在，有一个组合索引（A,B,C），可以有哪几种查询方式？"></a>现在，有一个组合索引（A,B,C），可以有哪几种查询方式？</h3><pre><code class="lang-sql">优: select * from test where a=10 and b&gt;50
+
+差: select * from test where b = 50
+
+
+优: select * from test order by a
+
+差: select * from test order by b
+
+差: select * from test order by c
+
+
+优: select * from test where a=10 order by a
+
+优: select * from test where a=10 order by b
+
+差: select * from test where a=10 order by c
+
+
+优: select * from test where a&gt;10 order by a
+
+差: select * from test where a&gt;10 order by b
+
+差: select * from test where a&gt;10 order by c
+
+
+优: select * from test where a=10 and b=10 order by a
+
+优: select * from test where a=10 and b=10 order by b
+
+优: select * from test where a=10 and b=10 order by c
+
+
+优: select * from test where a=10 and b=10 order by a
+
+优: select * from test where a=10 and b&gt;10 order by b
+
+差: select * from test where a=10 and b&gt;10 order by c
+</code></pre>
+<h3 id="写SQL：找出每个城市的最新一条记录。"><a href="#写SQL：找出每个城市的最新一条记录。" class="headerlink" title="写SQL：找出每个城市的最新一条记录。"></a>写SQL：找出每个城市的最新一条记录。</h3><p> id     城市     人口         信息     创建时间<br>1         北京         100      info1      时间戳<br>2         北京         100     info2     时间戳<br>3         上海         100     info3     时间戳<br>4         上海         100     info4     时间戳 </p>
+<h3 id="请你讲解一下数据连接池的工作机制"><a href="#请你讲解一下数据连接池的工作机制" class="headerlink" title="请你讲解一下数据连接池的工作机制?"></a>请你讲解一下数据连接池的工作机制?</h3><p>J2EE 服务器启动时会建立一定数量的池连接，并一直维持不少于此数目的池连接。客户端程序需要连接时，池驱动程序会返回一个未使用的池连接并将其表记为忙。如果当前没有空闲连接，池驱动程序就新建一定数量的连接，新建连接的数量由配置参数决定。当使用的池连接调用完成后，池驱动程序将此连接表记为空闲，其他调用就可以使用这个连接。 </p>
+<h3 id="了解继承映射吗，请简单讲讲你的理解。"><a href="#了解继承映射吗，请简单讲讲你的理解。" class="headerlink" title="了解继承映射吗，请简单讲讲你的理解。"></a>了解继承映射吗，请简单讲讲你的理解。</h3><p>① 每个继承结构一张表（table per class hierarchy），不管多少个子类都用一张表。<br>② 每个子类一张表（table per subclass），公共信息放一张表，特有信息放单独的表。<br>③ 每个具体类一张表（table per concrete class），有多少个子类就有多少张表。<br>第一种方式属于单表策略，其优点在于查询子类对象的时候无需表连接，查询速度快，适合多态查询；缺点是可能导致表很大。后两种方式属于多表策略，其优点在于数据存储紧凑，其缺点是需要进行连接查询，不适合多态查询。 </p>
+<h3 id="请介绍一些你了解的数据库优化方法"><a href="#请介绍一些你了解的数据库优化方法" class="headerlink" title="请介绍一些你了解的数据库优化方法"></a>请介绍一些你了解的数据库优化方法</h3><p>（1）选取最适用的字段属性</p>
+<p>MySQL可以很好的支持大数据量的存取，但是一般说来，数据库中的表越小，在它上面执行的查询也就会越快。因此，在创建表的时候，为了获得更好的性能，我们可以将表中字段的宽度设得尽可能小。</p>
+<p>例如，在定义邮政编码这个字段时，如果将其设置为CHAR(255),显然给数据库增加了不必要的空间，甚至使用VARCHAR这种类型也是多余的，因为CHAR(6)就可以很好的完成任务了。同样的，如果可以的话，我们应该使用MEDIUMINT而不是BIGIN来定义整型字段。</p>
+<p>另外一个提高效率的方法是在可能的情况下，应该尽量把字段设置为NOTNULL，这样在将来执行查询的时候，数据库不用去比较NULL值。<br>对于某些文本字段，例如“省份”或者“性别”，我们可以将它们定义为ENUM类型。因为在MySQL中，ENUM类型被当作数值型数据来处理，而数值型数据被处理起来的速度要比文本类型快得多。这样，我们又可以提高数据库的性能。</p>
+<p>（2）使用连接（JOIN）来代替子查询(Sub-Queries)</p>
+<p>MySQL从4.1开始支持SQL的子查询。这个技术可以使用SELECT语句来创建一个单列的查询结果，然后把这个结果作为过滤条件用在另一个查询中。例如，我们要将客户基本信息表中没有任何订单的客户删除掉，就可以利用子查询先从销售信息表中将所有发出订单的客户ID取出来，然后将结果传递给主查询</p>
+<p>（3）使用联合(UNION)来代替手动创建的临时表</p>
+<p>MySQL从4.0的版本开始支持union查询，它可以把需要使用临时表的两条或更多的select查询合并的一个查询中。在客户端的查询会话结束的时候，临时表会被自动删除，从而保证数据库整齐、高效。使用union来创建查询的时候，我们只需要用UNION作为关键字把多个select语句连接起来就可以了，要注意的是所有select语句中的字段数目要想同。下面的例子就演示了一个使用UNION的查询。</p>
+<p>（4）事务</p>
+<p>尽管我们可以使用子查询（Sub-Queries）、连接（JOIN）和联合（UNION）来创建各种各样的查询，但不是所有的数据库操作都可以只用一条或少数几条SQL语句就可以完成的。更多的时候是需要用到一系列的语句来完成某种工作。但是在这种情况下，当这个语句块中的某一条语句运行出错的时候，整个语句块的操作就会变得不确定起来。设想一下，要把某个数据同时插入两个相关联的表中，可能会出现这样的情况：第一个表中成功更新后，数据库突然出现意外状况，造成第二个表中的操作没有完成，这样，就会造成数据的不完整，甚至会破坏数据库中的数据。要避免这种情况，就应该使用事务，它的作用是：要么语句块中每条语句都操作成功，要么都失败。换句话说，就是可以保持数据库中数据的一致性和完整性。事物以BEGIN关键字开始，COMMIT关键字结束。在这之间的一条SQL操作失败，那么，ROLLBACK命令就可以把数据库恢复到BEGIN开始之前的状态。</p>
+<h3 id="说明一下-left-join-和-right-join-的区别？"><a href="#说明一下-left-join-和-right-join-的区别？" class="headerlink" title="说明一下 left join 和 right join 的区别？"></a>说明一下 left join 和 right join 的区别？</h3><p>left join(左联接)     返回包括左表中的所有记录和右表中联结字段相等的记录<br>right join(右联接) 返回包括右表中的所有记录和左表中联结字段相等的记录</p>
+<p>比如：</p>
+<p>表A记录如下：<br>aID aNum<br>1     a20050111<br>2     a20050112<br>3     a20050113<br>4     a20050114<br>5     a20050115</p>
+<p>表B记录如下:<br>bID     bName<br>1     2006032401<br>2     2006032402<br>3     2006032403<br>4     2006032404<br>8     2006032408</p>
+<p>left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的.<br>换句话说,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).<br>B表记录不足的地方均为NULL.</p>
+<h3 id="介绍一下-mysql的主从复制？"><a href="#介绍一下-mysql的主从复制？" class="headerlink" title="介绍一下 mysql的主从复制？"></a>介绍一下 mysql的主从复制？</h3><p>MySQL主从复制是其最重要的功能之一。主从复制是指一台服务器充当主数据库服务器，另一台或多台服务器充当从数据库服务器，主服务器中的数据自动复制到从服务器之中。对于多级复制，数据库服务器即可充当主机，也可充当从机。MySQL主从复制的基础是主服务器对数据库修改记录二进制日志，从服务器通过主服务器的二进制日志自动执行更新。</p>
+<p>MySQL主从复制的两种情况：同步复制和异步复制，实际复制架构中大部分为异步复制。</p>
+<p>复制的基本过程如下：</p>
+<p>Slave上面的IO进程连接上Master，并请求从指定日志文件的指定位置（或者从最开始的日志）之后的日志内容。</p>
+<p>Master接收到来自Slave的IO进程的请求后，负责复制的IO进程会根据请求信息读取日志指定位置之后的日志信息，返回给Slave的IO进程。返回信息中除了日志所包含的信息之外，还包括本次返回的信息已经到Master端的bin-log文件的名称以及bin-log的位置。</p>
+<p>Slave的IO进程接收到信息后，将接收到的日志内容依次添加到Slave端的relay-log文件的最末端，并将读取到的Master端的 bin-log的文件名和位置记录到master-info文件中，以便在下一次读取的时候能够清楚的告诉Master“我需要从某个bin-log的哪个位置开始往后的日志内容，请发给我”。</p>
+<p>Slave的Sql进程检测到relay-log中新增加了内容后，会马上解析relay-log的内容成为在Master端真实执行时候的那些可执行的内容，并在自身执行。</p>
+<h3 id="数据库ACID的特性。"><a href="#数据库ACID的特性。" class="headerlink" title="数据库ACID的特性。"></a>数据库ACID的特性。</h3><p>原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</p>
+<p>一致性指事务前后数据的完整性必须保持一致。</p>
+<p>隔离性指多个用户并发访问数据库时，一个用户的事务不能被其他用户的事务所干扰，多个并发事务之间数据要相互隔离。</p>
+<p>持久性是指一个事务一旦提交，它对数据库中数据的改变就是永久性的，即便数据库发生故障也不应该对其有任何影响。</p>
+<h3 id="请你介绍一下，数据库的三个范式？"><a href="#请你介绍一下，数据库的三个范式？" class="headerlink" title="请你介绍一下，数据库的三个范式？"></a>请你介绍一下，数据库的三个范式？</h3><p>第一范式（1NF）<br>强调的是列的原子性，即列不能够再分成其他几列。<br>第二范式（2NF）<br>首先是 1NF，另外包含两部分内容，一是表必须有一个主键；二是没有包含在主键中的列必须完全依赖于主键，而不能只依赖于主键的一部分。<br>在1NF基础上，任何非主属性不依赖于其它非主属性[在2NF基础上消除传递依赖]。<br>第三范式（3NF）<br>第三范式（3NF）是第二范式（2NF）的一个子集，即满足第三范式（3NF）必须满足第二范式（2NF）。<br>首先是 2NF，另外非主键列必须直接依赖于主键，不能存在传递依赖。即不能存在：非主键列 A 依赖于非主键列 B，非主键列 B 依赖于主键的情况。 </p>
+<h3 id="请你介绍一下，数据库乐观锁和悲观锁"><a href="#请你介绍一下，数据库乐观锁和悲观锁" class="headerlink" title="请你介绍一下，数据库乐观锁和悲观锁"></a>请你介绍一下，数据库乐观锁和悲观锁</h3><p>悲观锁</p>
+<p>悲观锁（Pessimistic Lock），顾名思义，就是很悲观，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁。悲观锁：假定会发生并发冲突，屏蔽一切可能违反数据完整性的操作。</p>
+<p>Java synchronized 就属于悲观锁的一种实现，每次线程要修改数据时都先获得锁，保证同一时刻只有一个线程能操作数据，其他线程则会被block。</p>
+<p>乐观锁</p>
+<p>乐观锁（Optimistic Lock），顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在提交更新的时候会判断一下在此期间别人有没有去更新这个数据。乐观锁适用于读多写少的应用场景，这样可以提高吞吐量。</p>
+<p>乐观锁：假设不会发生并发冲突，只在提交操作时检查是否违反数据完整性。</p>
+<p>乐观锁一般来说有以下2种方式：</p>
+<p>使用数据版本（Version）记录机制实现，这是乐观锁最常用的一种实现方式。何谓数据版本？即为数据增加一个版本标识，一般是通过为数据库表增加一个数字类型的 “version” 字段来实现。当读取数据时，将version字段的值一同读出，数据每更新一次，对此version值加一。当我们提交更新的时候，判断数据库表对应记录的当前版本信息与第一次取出来的version值进行比对，如果数据库表当前版本号与第一次取出来的version值相等，则予以更新，否则认为是过期数据。</p>
+<p>使用时间戳（timestamp）。乐观锁定的第二种实现方式和第一种差不多，同样是在需要乐观锁控制的table中增加一个字段，名称无所谓，字段类型使用时间戳（timestamp）, 和上面的version类似，也是在更新提交的时候检查当前数据库中数据的时间戳和自己更新前取到的时间戳进行对比，如果一致则OK，否则就是版本冲突。</p>
+<h3 id="介绍一下数据库的隔离级别"><a href="#介绍一下数据库的隔离级别" class="headerlink" title="介绍一下数据库的隔离级别"></a>介绍一下数据库的隔离级别</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读（Dirty Read）</th>
+<th>不可重复读（NonRepeatable Read）</th>
+<th>幻读（Phantom Read）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未提交读（Read uncommitted）</td>
+<td>可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>已提交读（Read committed）</td>
+<td>不可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可重复读（Repeatable read）</td>
+<td>不可能</td>
+<td>不可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可串行化（Serializable ）</td>
+<td>不可能</td>
+<td>不可能</td>
+<td>不可能</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>未提交读(Read Uncommitted)</strong>：允许脏读，也就是可能读取到其他会话中未提交事务修改的数据。</p>
+<p><strong>提交读(Read Committed)</strong>：只能读取到已经提交的数据。Oracle等多数数据库默认都是该级别 (不重复读)。</p>
+<p><strong>可重复读(Repeated Read)</strong>：可重复读。在同一个事务内的查询都是事务开始时刻一致的，InnoDB默认级别。在SQL标准中，该隔离级别消除了不可重复读，但是还存在幻象读。</p>
+<p><strong>串行读(Serializable)</strong>：完全串行化的读，每次读都需要获得表级共享锁，读写相互都会阻塞。</p>
+<h3 id="说明一下，数据库索引底层是怎样实现的，哪些情况下索引会失效"><a href="#说明一下，数据库索引底层是怎样实现的，哪些情况下索引会失效" class="headerlink" title="说明一下，数据库索引底层是怎样实现的，哪些情况下索引会失效"></a>说明一下，数据库索引底层是怎样实现的，哪些情况下索引会失效</h3><p>B+树实现的。</p>
+<p>没有遵循最左匹配原则。</p>
+<p>一些关键字会导致索引失效，例如 or， ！= ， not in，is null ,is not unll</p>
+<p>like查询是以%开头</p>
+<p>隐式转换会导致索引失效。</p>
+<p>对索引应用内部函数，索引字段进行了运算。</p>
+<h3 id="mysql数据库的两种引擎-区别"><a href="#mysql数据库的两种引擎-区别" class="headerlink" title="mysql数据库的两种引擎 区别"></a>mysql数据库的两种引擎 区别</h3><p>InnoDB是聚集索引，支持事务，支持行级锁；MyISAM是非聚集索引，不支持事务，只支持表级锁。 </p>
+<h3 id="请介绍一下，数据库索引，以及，什么时候用Innodb什么时候用MyISAM。"><a href="#请介绍一下，数据库索引，以及，什么时候用Innodb什么时候用MyISAM。" class="headerlink" title="请介绍一下，数据库索引，以及，什么时候用Innodb什么时候用MyISAM。"></a>请介绍一下，数据库索引，以及，什么时候用Innodb什么时候用MyISAM。</h3><p>索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。如果想按特定职员的姓来查找他或她，则与在表中搜索所有的行相比，索引有助于更快地获取信息。索引的一个主要目的就是加快检索表中数据的方法，亦即能协助信息搜索者尽快的找到符合限制条件的记录ID的辅助数据结构。InnoDB主要面向在线事务处理（OLTP）的应用。MyISAM主要面向一些OLAP的应用。 </p>
+<h3 id="数据库水平切分与垂直切分"><a href="#数据库水平切分与垂直切分" class="headerlink" title="数据库水平切分与垂直切分"></a>数据库水平切分与垂直切分</h3><p>垂直拆分就是要把表按模块划分到不同数据库表中（当然原则还是不破坏第三范式），这种拆分在大型网站的演变过程中是很常见的。当一个网站还在很小的时候，只有小量的人来开发和维护，各模块和表都在一起，当网站不断丰富和壮大的时候，也会变成多个子系统来支撑，这时就有按模块和功能把表划分出来的需求。其实，相对于垂直切分更进一步的是服务化改造，说得简单就是要把原来强耦合的系统拆分成多个弱耦合的服务，通过服务间的调用来满足业务需求看，因此表拆出来后要通过服务的形式暴露出去，而不是直接调用不同模块的表，淘宝在架构不断演变过程，最重要的一环就是服务化改造，把用户、交易、店铺、宝贝这些核心的概念抽取成独立的服务，也非常有利于进行局部的优化和治理，保障核心模块的稳定性。</p>
+<p>垂直拆分：单表大数据量依然存在性能瓶颈</p>
+<p>水平拆分，上面谈到垂直切分只是把表按模块划分到不同数据库，但没有解决单表大数据量的问题，而水平切分就是要把一个表按照某种规则把数据划分到不同表或数据库里。例如像计费系统，通过按时间来划分表就比较合适，因为系统都是处理某一时间段的数据。而像SaaS应用，通过按用户维度来划分数据比较合适，因为用户与用户之间的隔离的，一般不存在处理多个用户数据的情况，简单的按user_id范围来水平切分。</p>
+<p>通俗理解：水平拆分行，行数据拆分到不同表中， 垂直拆分列，表数据拆分到不同表中。</p>
+<h3 id="JDBC中如何进行事务处理？"><a href="#JDBC中如何进行事务处理？" class="headerlink" title="JDBC中如何进行事务处理？"></a>JDBC中如何进行事务处理？</h3><p>Connection提供了事务处理的方法，通过调用setAutoCommit(false)可以设置手动提交事务；当事务完成后用commit()显式提交事务；如果在事务处理过程中发生异常则通过rollback()进行事务回滚。除此之外，从JDBC 3.0中还引入了Savepoint（保存点）的概念，允许通过代码设置保存点并让事务回滚到指定的保存点。 </p>
+<h3 id="什么是数据库中事务的ACID？"><a href="#什么是数据库中事务的ACID？" class="headerlink" title="什么是数据库中事务的ACID？"></a>什么是数据库中事务的ACID？</h3><p>- 原子性(Atomic)：事务中各项操作，要么全做要么全不做，任何一项操作的失败都会导致整个事务的失败； </p>
+<p>- 一致性(Consistent)：事务结束后系统状态是一致的；<br>- 隔离性(Isolated)：并发执行的事务彼此无法看到对方的中间状态；<br>- 持久性(Durable)：事务完成后所做的改动都会被持久化，即使发生灾难性的失败。通过日志和同步备份可以在故障发生后重建数据。</p>
+<p>关于事务，在面试中被问到的概率是很高的，可以问的问题也是很多的。首先需要知道的是，只有存在并发数据访问时才需要事务。当多个事务访问同一数据时，可能会存在5类问题，包括3类数据读取问题（脏读、不可重复读和幻读）和2类数据更新问题（第1类丢失更新和第2类丢失更新）。</p>
+<h3 id="使用JDBC操作数据库时，经常遇到性能问题，请你说明一下如何提升读取数据的性能，以及更新数据的性能？"><a href="#使用JDBC操作数据库时，经常遇到性能问题，请你说明一下如何提升读取数据的性能，以及更新数据的性能？" class="headerlink" title="使用JDBC操作数据库时，经常遇到性能问题，请你说明一下如何提升读取数据的性能，以及更新数据的性能？"></a>使用JDBC操作数据库时，经常遇到性能问题，请你说明一下如何提升读取数据的性能，以及更新数据的性能？</h3><p>要提升读取数据的性能，可以指定通过结果集（ResultSet）对象的setFetchSize()方法指定每次抓取的记录数（典型的空间换时间策略）；要提升更新数据的性能可以使用PreparedStatement语句构建批处理，将若干SQL语句置于一个批处理中执行。 </p>
+<h3 id="请你讲讲-Statement-和-PreparedStatement-的区别？哪个性能更好？"><a href="#请你讲讲-Statement-和-PreparedStatement-的区别？哪个性能更好？" class="headerlink" title="请你讲讲 Statement 和 PreparedStatement 的区别？哪个性能更好？"></a>请你讲讲 Statement 和 PreparedStatement 的区别？哪个性能更好？</h3><p>与Statement相比，①PreparedStatement接口代表预编译的语句，它主要的优势在于可以减少SQL的编译错误并增加SQL的安全性（减少SQL注射攻击的可能性）；②PreparedStatement中的SQL语句是可以带参数的，避免了用字符串连接拼接SQL语句的麻烦和不安全；③当批量处理SQL或频繁执行相同的查询时，PreparedStatement有明显的性能上的优势，由于数据库可以将编译优化后的SQL语句缓存起来，下次执行相同结构的语句时就会很快（不用再次编译和生成执行计划）。</p>
+<p>为了提供对存储过程的调用，JDBC API中还提供了CallableStatement接口。存储过程（Stored Procedure）是数据库中一组为了完成特定功能的SQL语句的集合，经编译后存储在数据库中，用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。虽然调用存储过程会在网络开销、安全性、性能上获得很多好处，但是存在如果底层数据库发生迁移时就会有很多麻烦，因为每种数据库的存储过程在书写上存在不少的差别。</p>
+<h3 id="请你解释一下Jdo以及它的作用"><a href="#请你解释一下Jdo以及它的作用" class="headerlink" title="请你解释一下Jdo以及它的作用"></a>请你解释一下Jdo以及它的作用</h3><p>JDO 是Java对象持久化的新的规范，为java data object的简称,也是一个用于存取某种数据仓库中的对象的标准化API。JDO提供了透明的对象存储，因此对开发人员来说，存储数据对象完全不需要额外的代码（如JDBC API的使用）。这些繁琐的例行工作已经转移到JDO产品提供商身上，使开发人员解脱出来，从而集中时间和精力在业务逻辑上。另外，JDO很灵活，因为它可以在任何数据底层上运行。JDBC只是面向关系数据库（RDBMS）JDO更通用，提供到任何数据底层的存储功能，比如关系数据库、文件、XML以及对象数据库（ODBMS）等等，使得应用可移植性更强。 </p>
+<h3 id="谈谈JDBC的反射，以及它的作用？"><a href="#谈谈JDBC的反射，以及它的作用？" class="headerlink" title="谈谈JDBC的反射，以及它的作用？"></a>谈谈JDBC的反射，以及它的作用？</h3><p>通过反射com.mysql.jdbc.Driver类，实例化该类的时候会执行该类内部的静态代码块，该代码块会在Java实现的DriverManager类中注册自己,DriverManager管理所有已经注册的驱动类，当调用DriverManager.geConnection方法时会遍历这些驱动类，并尝试去连接数据库，只要有一个能连接成功，就返回Connection对象，否则则报异常。 </p>
+]]></content>
       <tags>
         <tag>Interview</tag>
       </tags>
@@ -8325,298 +8325,6 @@ public class WebConfig extends WebMvcConfigurerAdapter&#123;
       </tags>
   </entry>
   <entry>
-    <title>Java高性能高并发秒杀系统(2)</title>
-    <url>/Java-high-performance-and-high-concurrency-spike-system-2/</url>
-    <content><![CDATA[<h2 id="1-登录过程中，密码两次MD5加密"><a href="#1-登录过程中，密码两次MD5加密" class="headerlink" title="1. 登录过程中，密码两次MD5加密"></a>1. 登录过程中，密码两次MD5加密</h2><h3 id="1-1-为啥用两次MD5哇？"><a href="#1-1-为啥用两次MD5哇？" class="headerlink" title="1.1 为啥用两次MD5哇？"></a>1.1 为啥用两次MD5哇？</h3><ol>
-<li>第一次MD5，是针对<code>传输安全</code>做的MD5加密，因为<code>http是明文传递</code>，如果不进行加密的话，密码就直接被劫持了。<br>(Password1 = MD5(inputPassword,固定的salt值)，salt为字符串)</li>
-<li>第二次MD5，是针对<code>数据库安全</code>做的MD5加密，保证数据库的防盗安全。若不进行二次加密，MD5值经数据库获取，可直接被MD5转换器直接转换为用户密码，不安全。<br>(Password2 = MD5(Password1,随机的salt值))</li>
-</ol>
-<hr>
-<h2 id="2-构建数据库表"><a href="#2-构建数据库表" class="headerlink" title="2. 构建数据库表"></a>2. 构建数据库表</h2><div class="tag-plugin image"><div class="image-bg"><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200709182209155.png"></div></div>
-<h3 id="2-1-几个需要注意的点"><a href="#2-1-几个需要注意的点" class="headerlink" title="2.1 几个需要注意的点"></a>2.1 几个需要注意的点</h3><ul>
-<li>字符集采用的是<code>utf8mb4</code>(most bytes 4)。简单来说，utf8mb4是<code>utf8的超集</code>，能够用<code>4个字节</code>存储更多的字符。标准UTF-8字符集编码可以用1~4个字节取编码21位字符，但是在<code>MySQL中，utf8最多使用3个字节</code>，像一些表情emoji和不常用的字符如“墅”需要用4个字节才能表示出来。用utf8mb4能解决以上问题。</li>
-<li>数据库中存储了<code>&quot;动态&quot;salt值</code></li>
-</ul>
-<hr>
-<h2 id="3-针对MD5加密功能，封装了专用工具类"><a href="#3-针对MD5加密功能，封装了专用工具类" class="headerlink" title="3. 针对MD5加密功能，封装了专用工具类"></a>3. 针对MD5加密功能，封装了专用工具类</h2><p>以下MD5包的Maven依赖了解以下</p>
-<pre><code class="lang-bash">        &lt;dependency&gt;
-            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
-            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
-            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
-            &lt;version&gt;3.6&lt;/version&gt;
-        &lt;/dependency&gt;
-123456789
-</code></pre>
-<h3 id="3-1-工具类代码"><a href="#3-1-工具类代码" class="headerlink" title="3.1 工具类代码"></a>3.1 工具类代码</h3><pre><code class="lang-java">public class MD5Util &#123;
-    //静态的salt，用于第一次MD5
-    private static final String salt = &quot;1a2b3c4d&quot;;
-
-    private static String md5(String src)&#123;
-        //调用DigestUtils，实现md5处理
-        return DigestUtils.md5Hex(src);
-    &#125;
-
-    /**
-     * 第一次MD5处理
-     * @param inputPass
-     * @return
-     */
-    public static String inputPassToFormPass(String inputPass)&#123;
-        //这里没加“”出现了问题？？？
-        String pass =&quot;&quot; + salt.charAt(1) + salt.charAt(7) + inputPass
-                + salt.charAt(3) + salt.charAt(5);
-        //System.out.println(pass);
-        return md5(pass);
-    &#125;
-
-    ...
-&#125;
-123456789101112131415161718192021222324
-</code></pre>
-<ul>
-<li>我在第一次处理加密时，拼接<code>字符</code>时没有添加<code>&quot;&quot;</code>，出现了登录验证失败的问题</li>
-</ul>
-<hr>
-<h2 id="4-加入JSR参数校验"><a href="#4-加入JSR参数校验" class="headerlink" title="4. 加入JSR参数校验"></a>4. 加入JSR参数校验</h2><h3 id="4-1-JSR参数校验"><a href="#4-1-JSR参数校验" class="headerlink" title="4.1 JSR参数校验"></a>4.1 JSR参数校验</h3><ul>
-<li>我们看如下，代码，在登录处理过程中，我们要用<code>代码</code>实现对前端传过来的id和password进行校验（我们这里是验证<code>非空</code>），引入JSR参数校验之后，能够将这些代码省去</li>
-</ul>
-<pre><code class="lang-java">    @PostMapping(&quot;/do_login&quot;)
-    @ResponseBody
-    public Result&lt;Boolean&gt; doLogin(LoginVo loginVo)&#123;
-        log.info(loginVo.toString());
-
-        //参数校验
-        String mobile = loginVo.getMobile();
-        String password = loginVo.getPassword();
-        if(StringUtils.isEmpty(password))&#123;
-            return Result.error(CodeMsg.PASSWORD_EMPTY);
-        &#125;
-        if(! ValidatorUtil.isMobile(mobile))&#123;
-            return Result.error(CodeMsg.MOBILE_ERROR);
-        &#125;
-
-        CodeMsg msg = miaoShaUserService.login(loginVo);
-        if(msg.getCode() == 0)&#123;
-            return Result.success(true);
-        &#125;else &#123;
-            return Result.error(msg);
-        &#125;
-    &#125;
-12345678910111213141516171819202122
-</code></pre>
-<ul>
-<li>进行JSR参数校验升级</li>
-</ul>
-<p>我们先看一下导入的包</p>
-<pre><code class="lang-bash">        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-1234
-</code></pre>
-<p>我们在doLogin()方法上，加上JSR验证，<code>@Valid</code>注解</p>
-<pre><code class="lang-java">public Result&lt;CodeMsg&gt; doLogin(@Valid LoginVo loginVo)
-1
-</code></pre>
-<p>被标注的参数，我们进入它的实现类中，对其中的字段进行约束，如下（<code>@NotNull</code>，<code>@Length</code>，<code>@IsMobile</code>，其中@IsMobile是我们自定义的注解）</p>
-<pre><code class="lang-java">@Data
-public class LoginVo &#123;
-
-    @IsMobile
-    @NotNull
-    private String mobile;
-
-    @NotNull
-    @Length(min = 32)
-    private String password;
-&#125;
-1234567891011
-</code></pre>
-<h3 id="4-2-IsMobile自定义注解"><a href="#4-2-IsMobile自定义注解" class="headerlink" title="4.2 @IsMobile自定义注解"></a>4.2 @IsMobile自定义注解</h3><p>我们看一下它的代码（这个注解的写法，根据已有注解@NotNull，仿写而来），它实现的是对手机号码的验证</p>
-<pre><code class="lang-java">@Target(&#123;ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER&#125;)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Constraint(
-        validatedBy = &#123;IsMobileValidator.class&#125;
-)
-public @interface IsMobile &#123;
-
-    boolean required() default true;
-
-    //以下三条语句，足矣
-    //我们在其中添加错误信息
-    String message() default &quot;手机号码格式错误&quot;;
-
-    Class&lt;?&gt;[] groups() default &#123;&#125;;
-
-    Class&lt;? extends Payload&gt;[] payload() default &#123;&#125;;
-&#125;
-123456789101112131415161718
-</code></pre>
-<ul>
-<li><code>@Target</code>：表示的是能够标注的范围</li>
-<li><code>@Constraint</code>：这个注解帮助我们处理逻辑，其中有<code>IsMobileValidator.class</code>是真正处理逻辑的类，我们看看它的代码</li>
-</ul>
-<pre><code class="lang-java">public class IsMobileValidator implements ConstraintValidator&lt;IsMobile, String&gt; &#123;
-
-    private boolean required = false;
-
-    @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) &#123;
-        if(required)&#123;
-            //在必须有值的情况下
-            return ValidatorUtil.isMobile(s);
-        &#125;else &#123;
-            //在不要求有值的情况下
-            if(StringUtils.isEmpty(s))&#123;
-                //空值是允许的
-                return true;
-            &#125;else &#123;
-                //有值就给它判断判断
-                return ValidatorUtil.isMobile(s);
-            &#125;
-        &#125;
-    &#125;
-
-    @Override
-    public void initialize(IsMobile constraintAnnotation) &#123;
-        required = constraintAnnotation.required();
-    &#125;
-&#125;
-1234567891011121314151617181920212223242526
-</code></pre>
-<ul>
-<li>先看类的声明部分，public class IsMobileValidator implements <code>ConstraintValidator</code>，它有两个泛型，第一个是<code>自定义的注解类</code>，第二个是要<code>验证的参数类型</code>，另外实现该接口的逻辑类，<code>被spring管理成bean</code>，可以在需要的地方进行装配</li>
-<li>其中有一个<code>initialize</code>，初始化方法，它调用的是我们自定义注解中写的<code>required()</code>方法，默认需要有值</li>
-<li>另一个方法<code>isValid</code>，则对逻辑进行验证，true验证通过，false验证失败</li>
-</ul>
-<hr>
-<h2 id="5-全局异常处理器"><a href="#5-全局异常处理器" class="headerlink" title="5. 全局异常处理器"></a>5. 全局异常处理器</h2><h3 id="5-1-我们为什么要引入全局异常处理器？"><a href="#5-1-我们为什么要引入全局异常处理器？" class="headerlink" title="5.1 我们为什么要引入全局异常处理器？"></a>5.1 我们为什么要引入全局异常处理器？</h3><ul>
-<li>一边想，一边看一下下面这个方法</li>
-</ul>
-<pre><code class="lang-java">    public CodeMsg login(LoginVo loginVo)&#123;
-        if(loginVo == null)&#123;
-            return CodeMsg.SERVER_ERROR;
-        &#125;
-
-        String mobile = loginVo.getMobile();
-        String password = loginVo.getPassword();
-        //判断手机号是否存在
-        MiaoShaUser user = getById(Long.parseLong(mobile));
-        if(user == null)&#123;
-            return CodeMsg.MOBILE_NOT_EXIST;
-        &#125;
-
-        //验证密码
-        String DBPass = user.getPassword();
-        //这里对前端来的密码第二次MD5处理
-        String formPassToDBPass = MD5Util.formPassToDBPass(password, user.getSalt());
-        if(!formPassToDBPass.equals(DBPass))&#123;
-            return CodeMsg.PASSWORD_ERROR;
-        &#125;
-
-        return CodeMsg.SUCCESS;
-    &#125;
-1234567891011121314151617181920212223
-</code></pre>
-<p>它的返回值是CodeMsg，而在业务中，方法对应的返回值应该是<code>确切的</code>，我们登陆，返回应该为 true 或 false，所以，我们要对这里进行优化</p>
-<h3 id="5-2-优化"><a href="#5-2-优化" class="headerlink" title="5.2 优化"></a>5.2 优化</h3><p>代码如下</p>
-<pre><code class="lang-java">    public boolean login(LoginVo loginVo)&#123;
-        if(loginVo == null)&#123;
-            throw new GlobalException(CodeMsg.SERVER_ERROR);
-        &#125;
-
-        String mobile = loginVo.getMobile();
-        String password = loginVo.getPassword();
-        //判断手机号是否存在
-        MiaoShaUser user = getById(Long.parseLong(mobile));
-        if(user == null)&#123;
-            throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
-        &#125;
-
-        //验证密码
-        String DBPass = user.getPassword();
-        //这里对前端来的密码第二次MD5处理
-        String formPassToDBPass = MD5Util.formPassToDBPass(password, user.getSalt());
-        if(!formPassToDBPass.equals(DBPass))&#123;
-            throw new GlobalException(CodeMsg.PASSWORD_ERROR);
-        &#125;
-
-        return true;
-    &#125;
-1234567891011121314151617181920212223
-</code></pre>
-<p>我们可以发现，对应的参数验证，并没有返回值，而是直接<code>抛出异常</code>，而且我们也将<code>返回值进行了修改</code>，执行到方法的最后，能够返回ture</p>
-<h3 id="5-3-全局异常"><a href="#5-3-全局异常" class="headerlink" title="5.3 全局异常"></a>5.3 全局异常</h3><pre><code class="lang-java">public class GlobalException extends RuntimeException &#123;
-    private CodeMsg codeMsg;
-
-    public GlobalException(CodeMsg codeMsg)&#123;
-        this.codeMsg = codeMsg;
-    &#125;
-
-    public CodeMsg getCodeMsg() &#123;
-        return codeMsg;
-    &#125;
-&#125;
-1234567891011
-</code></pre>
-<ul>
-<li>全局异常就比较简单了，它<code>继承了RuntimeException类</code>，其中包含我们需要返回的信息CodeMsg的字段</li>
-</ul>
-<h3 id="5-4-全局异常处理器"><a href="#5-4-全局异常处理器" class="headerlink" title="5.4 全局异常处理器"></a>5.4 全局异常处理器</h3><p>这个处理器可就值得说一说了！</p>
-<pre><code class="lang-java">@ControllerAdvice
-@ResponseBody
-public class GlobalExceptionHandler &#123;
-
-    @ExceptionHandler(value = Exception.class)
-    public Result&lt;String&gt; exceptionHandler(HttpServletRequest request,Exception e)&#123;
-        if(e instanceof GlobalException)&#123;
-            GlobalException ge = (GlobalException) e;
-
-            CodeMsg codeMsg = ge.getCodeMsg();
-            return Result.error(codeMsg);
-        &#125; else if(e instanceof BindException)&#123;
-            //获取错误列表，拿取其中的第一个
-            BindException be = (BindException) e;
-            List&lt;ObjectError&gt; allErrors = be.getAllErrors();
-            ObjectError error = allErrors.get(0);
-
-            String message = error.getDefaultMessage();
-            return Result.error(CodeMsg.BIND_ERROR.fillArgs(message));
-        &#125;else &#123;
-            return Result.error(CodeMsg.SERVER_ERROR);
-        &#125;
-
-    &#125;
-&#125;
-12345678910111213141516171819202122232425
-</code></pre>
-<ul>
-<li><code>@ControllerAdvice</code>：它是增强的Controller，能够实现<code>全局异常处理</code>和全局数据绑定</li>
-<li>配合<code>@ExceptionHandler(value = Exception.class)</code>，它能够实现对所有异常的接受，而在方法中，对不同的异常进行处理</li>
-</ul>
-<hr>
-<h2 id="6-关注一下参数替换的方法"><a href="#6-关注一下参数替换的方法" class="headerlink" title="6. 关注一下参数替换的方法"></a>6. 关注一下参数替换的方法</h2><pre><code class="lang-java">    public static CodeMsg BIND_ERROR = new CodeMsg(500101,&quot;参数校验异常：%s&quot;);
-
-    public CodeMsg fillArgs(Object... args)&#123;
-        int code = this.code;
-        String message = String.format(this.msg, args);
-        return new CodeMsg(code,message);
-    &#125;
-1234567
-</code></pre>
-<ul>
-<li>其中<code>String.format()</code>能够根据传入的字符串格式，比如”参数校验异常：%s”，其中<code>%s</code>，能被第二个传入的参数进行替换，从而形成<code>动态的字符串</code></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>project</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java高性能高并发秒杀系统</title>
     <url>/Java-high-performance-and-high-concurrency-spike-system/</url>
     <content><![CDATA[<h6 id="CSDN方-圆"><a href="#CSDN方-圆" class="headerlink" title="@CSDN方 圆"></a><em>@CSDN方 圆</em></h6><h2 id="1-集成Mybatis"><a href="#1-集成Mybatis" class="headerlink" title="1. 集成Mybatis"></a>1. 集成Mybatis</h2><blockquote>
@@ -8927,6 +8635,298 @@ public class RedisService &#123;
 </code></pre>
 <ul>
 <li>注解<code>@SupressWarings(&quot;unchecked&quot;)</code>，镇压警告</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>project</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java高性能高并发秒杀系统(2)</title>
+    <url>/Java-high-performance-and-high-concurrency-spike-system-2/</url>
+    <content><![CDATA[<h2 id="1-登录过程中，密码两次MD5加密"><a href="#1-登录过程中，密码两次MD5加密" class="headerlink" title="1. 登录过程中，密码两次MD5加密"></a>1. 登录过程中，密码两次MD5加密</h2><h3 id="1-1-为啥用两次MD5哇？"><a href="#1-1-为啥用两次MD5哇？" class="headerlink" title="1.1 为啥用两次MD5哇？"></a>1.1 为啥用两次MD5哇？</h3><ol>
+<li>第一次MD5，是针对<code>传输安全</code>做的MD5加密，因为<code>http是明文传递</code>，如果不进行加密的话，密码就直接被劫持了。<br>(Password1 = MD5(inputPassword,固定的salt值)，salt为字符串)</li>
+<li>第二次MD5，是针对<code>数据库安全</code>做的MD5加密，保证数据库的防盗安全。若不进行二次加密，MD5值经数据库获取，可直接被MD5转换器直接转换为用户密码，不安全。<br>(Password2 = MD5(Password1,随机的salt值))</li>
+</ol>
+<hr>
+<h2 id="2-构建数据库表"><a href="#2-构建数据库表" class="headerlink" title="2. 构建数据库表"></a>2. 构建数据库表</h2><div class="tag-plugin image"><div class="image-bg"><img src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200709182209155.png"></div></div>
+<h3 id="2-1-几个需要注意的点"><a href="#2-1-几个需要注意的点" class="headerlink" title="2.1 几个需要注意的点"></a>2.1 几个需要注意的点</h3><ul>
+<li>字符集采用的是<code>utf8mb4</code>(most bytes 4)。简单来说，utf8mb4是<code>utf8的超集</code>，能够用<code>4个字节</code>存储更多的字符。标准UTF-8字符集编码可以用1~4个字节取编码21位字符，但是在<code>MySQL中，utf8最多使用3个字节</code>，像一些表情emoji和不常用的字符如“墅”需要用4个字节才能表示出来。用utf8mb4能解决以上问题。</li>
+<li>数据库中存储了<code>&quot;动态&quot;salt值</code></li>
+</ul>
+<hr>
+<h2 id="3-针对MD5加密功能，封装了专用工具类"><a href="#3-针对MD5加密功能，封装了专用工具类" class="headerlink" title="3. 针对MD5加密功能，封装了专用工具类"></a>3. 针对MD5加密功能，封装了专用工具类</h2><p>以下MD5包的Maven依赖了解以下</p>
+<pre><code class="lang-bash">        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.6&lt;/version&gt;
+        &lt;/dependency&gt;
+123456789
+</code></pre>
+<h3 id="3-1-工具类代码"><a href="#3-1-工具类代码" class="headerlink" title="3.1 工具类代码"></a>3.1 工具类代码</h3><pre><code class="lang-java">public class MD5Util &#123;
+    //静态的salt，用于第一次MD5
+    private static final String salt = &quot;1a2b3c4d&quot;;
+
+    private static String md5(String src)&#123;
+        //调用DigestUtils，实现md5处理
+        return DigestUtils.md5Hex(src);
+    &#125;
+
+    /**
+     * 第一次MD5处理
+     * @param inputPass
+     * @return
+     */
+    public static String inputPassToFormPass(String inputPass)&#123;
+        //这里没加“”出现了问题？？？
+        String pass =&quot;&quot; + salt.charAt(1) + salt.charAt(7) + inputPass
+                + salt.charAt(3) + salt.charAt(5);
+        //System.out.println(pass);
+        return md5(pass);
+    &#125;
+
+    ...
+&#125;
+123456789101112131415161718192021222324
+</code></pre>
+<ul>
+<li>我在第一次处理加密时，拼接<code>字符</code>时没有添加<code>&quot;&quot;</code>，出现了登录验证失败的问题</li>
+</ul>
+<hr>
+<h2 id="4-加入JSR参数校验"><a href="#4-加入JSR参数校验" class="headerlink" title="4. 加入JSR参数校验"></a>4. 加入JSR参数校验</h2><h3 id="4-1-JSR参数校验"><a href="#4-1-JSR参数校验" class="headerlink" title="4.1 JSR参数校验"></a>4.1 JSR参数校验</h3><ul>
+<li>我们看如下，代码，在登录处理过程中，我们要用<code>代码</code>实现对前端传过来的id和password进行校验（我们这里是验证<code>非空</code>），引入JSR参数校验之后，能够将这些代码省去</li>
+</ul>
+<pre><code class="lang-java">    @PostMapping(&quot;/do_login&quot;)
+    @ResponseBody
+    public Result&lt;Boolean&gt; doLogin(LoginVo loginVo)&#123;
+        log.info(loginVo.toString());
+
+        //参数校验
+        String mobile = loginVo.getMobile();
+        String password = loginVo.getPassword();
+        if(StringUtils.isEmpty(password))&#123;
+            return Result.error(CodeMsg.PASSWORD_EMPTY);
+        &#125;
+        if(! ValidatorUtil.isMobile(mobile))&#123;
+            return Result.error(CodeMsg.MOBILE_ERROR);
+        &#125;
+
+        CodeMsg msg = miaoShaUserService.login(loginVo);
+        if(msg.getCode() == 0)&#123;
+            return Result.success(true);
+        &#125;else &#123;
+            return Result.error(msg);
+        &#125;
+    &#125;
+12345678910111213141516171819202122
+</code></pre>
+<ul>
+<li>进行JSR参数校验升级</li>
+</ul>
+<p>我们先看一下导入的包</p>
+<pre><code class="lang-bash">        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+1234
+</code></pre>
+<p>我们在doLogin()方法上，加上JSR验证，<code>@Valid</code>注解</p>
+<pre><code class="lang-java">public Result&lt;CodeMsg&gt; doLogin(@Valid LoginVo loginVo)
+1
+</code></pre>
+<p>被标注的参数，我们进入它的实现类中，对其中的字段进行约束，如下（<code>@NotNull</code>，<code>@Length</code>，<code>@IsMobile</code>，其中@IsMobile是我们自定义的注解）</p>
+<pre><code class="lang-java">@Data
+public class LoginVo &#123;
+
+    @IsMobile
+    @NotNull
+    private String mobile;
+
+    @NotNull
+    @Length(min = 32)
+    private String password;
+&#125;
+1234567891011
+</code></pre>
+<h3 id="4-2-IsMobile自定义注解"><a href="#4-2-IsMobile自定义注解" class="headerlink" title="4.2 @IsMobile自定义注解"></a>4.2 @IsMobile自定义注解</h3><p>我们看一下它的代码（这个注解的写法，根据已有注解@NotNull，仿写而来），它实现的是对手机号码的验证</p>
+<pre><code class="lang-java">@Target(&#123;ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER&#125;)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Constraint(
+        validatedBy = &#123;IsMobileValidator.class&#125;
+)
+public @interface IsMobile &#123;
+
+    boolean required() default true;
+
+    //以下三条语句，足矣
+    //我们在其中添加错误信息
+    String message() default &quot;手机号码格式错误&quot;;
+
+    Class&lt;?&gt;[] groups() default &#123;&#125;;
+
+    Class&lt;? extends Payload&gt;[] payload() default &#123;&#125;;
+&#125;
+123456789101112131415161718
+</code></pre>
+<ul>
+<li><code>@Target</code>：表示的是能够标注的范围</li>
+<li><code>@Constraint</code>：这个注解帮助我们处理逻辑，其中有<code>IsMobileValidator.class</code>是真正处理逻辑的类，我们看看它的代码</li>
+</ul>
+<pre><code class="lang-java">public class IsMobileValidator implements ConstraintValidator&lt;IsMobile, String&gt; &#123;
+
+    private boolean required = false;
+
+    @Override
+    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) &#123;
+        if(required)&#123;
+            //在必须有值的情况下
+            return ValidatorUtil.isMobile(s);
+        &#125;else &#123;
+            //在不要求有值的情况下
+            if(StringUtils.isEmpty(s))&#123;
+                //空值是允许的
+                return true;
+            &#125;else &#123;
+                //有值就给它判断判断
+                return ValidatorUtil.isMobile(s);
+            &#125;
+        &#125;
+    &#125;
+
+    @Override
+    public void initialize(IsMobile constraintAnnotation) &#123;
+        required = constraintAnnotation.required();
+    &#125;
+&#125;
+1234567891011121314151617181920212223242526
+</code></pre>
+<ul>
+<li>先看类的声明部分，public class IsMobileValidator implements <code>ConstraintValidator</code>，它有两个泛型，第一个是<code>自定义的注解类</code>，第二个是要<code>验证的参数类型</code>，另外实现该接口的逻辑类，<code>被spring管理成bean</code>，可以在需要的地方进行装配</li>
+<li>其中有一个<code>initialize</code>，初始化方法，它调用的是我们自定义注解中写的<code>required()</code>方法，默认需要有值</li>
+<li>另一个方法<code>isValid</code>，则对逻辑进行验证，true验证通过，false验证失败</li>
+</ul>
+<hr>
+<h2 id="5-全局异常处理器"><a href="#5-全局异常处理器" class="headerlink" title="5. 全局异常处理器"></a>5. 全局异常处理器</h2><h3 id="5-1-我们为什么要引入全局异常处理器？"><a href="#5-1-我们为什么要引入全局异常处理器？" class="headerlink" title="5.1 我们为什么要引入全局异常处理器？"></a>5.1 我们为什么要引入全局异常处理器？</h3><ul>
+<li>一边想，一边看一下下面这个方法</li>
+</ul>
+<pre><code class="lang-java">    public CodeMsg login(LoginVo loginVo)&#123;
+        if(loginVo == null)&#123;
+            return CodeMsg.SERVER_ERROR;
+        &#125;
+
+        String mobile = loginVo.getMobile();
+        String password = loginVo.getPassword();
+        //判断手机号是否存在
+        MiaoShaUser user = getById(Long.parseLong(mobile));
+        if(user == null)&#123;
+            return CodeMsg.MOBILE_NOT_EXIST;
+        &#125;
+
+        //验证密码
+        String DBPass = user.getPassword();
+        //这里对前端来的密码第二次MD5处理
+        String formPassToDBPass = MD5Util.formPassToDBPass(password, user.getSalt());
+        if(!formPassToDBPass.equals(DBPass))&#123;
+            return CodeMsg.PASSWORD_ERROR;
+        &#125;
+
+        return CodeMsg.SUCCESS;
+    &#125;
+1234567891011121314151617181920212223
+</code></pre>
+<p>它的返回值是CodeMsg，而在业务中，方法对应的返回值应该是<code>确切的</code>，我们登陆，返回应该为 true 或 false，所以，我们要对这里进行优化</p>
+<h3 id="5-2-优化"><a href="#5-2-优化" class="headerlink" title="5.2 优化"></a>5.2 优化</h3><p>代码如下</p>
+<pre><code class="lang-java">    public boolean login(LoginVo loginVo)&#123;
+        if(loginVo == null)&#123;
+            throw new GlobalException(CodeMsg.SERVER_ERROR);
+        &#125;
+
+        String mobile = loginVo.getMobile();
+        String password = loginVo.getPassword();
+        //判断手机号是否存在
+        MiaoShaUser user = getById(Long.parseLong(mobile));
+        if(user == null)&#123;
+            throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
+        &#125;
+
+        //验证密码
+        String DBPass = user.getPassword();
+        //这里对前端来的密码第二次MD5处理
+        String formPassToDBPass = MD5Util.formPassToDBPass(password, user.getSalt());
+        if(!formPassToDBPass.equals(DBPass))&#123;
+            throw new GlobalException(CodeMsg.PASSWORD_ERROR);
+        &#125;
+
+        return true;
+    &#125;
+1234567891011121314151617181920212223
+</code></pre>
+<p>我们可以发现，对应的参数验证，并没有返回值，而是直接<code>抛出异常</code>，而且我们也将<code>返回值进行了修改</code>，执行到方法的最后，能够返回ture</p>
+<h3 id="5-3-全局异常"><a href="#5-3-全局异常" class="headerlink" title="5.3 全局异常"></a>5.3 全局异常</h3><pre><code class="lang-java">public class GlobalException extends RuntimeException &#123;
+    private CodeMsg codeMsg;
+
+    public GlobalException(CodeMsg codeMsg)&#123;
+        this.codeMsg = codeMsg;
+    &#125;
+
+    public CodeMsg getCodeMsg() &#123;
+        return codeMsg;
+    &#125;
+&#125;
+1234567891011
+</code></pre>
+<ul>
+<li>全局异常就比较简单了，它<code>继承了RuntimeException类</code>，其中包含我们需要返回的信息CodeMsg的字段</li>
+</ul>
+<h3 id="5-4-全局异常处理器"><a href="#5-4-全局异常处理器" class="headerlink" title="5.4 全局异常处理器"></a>5.4 全局异常处理器</h3><p>这个处理器可就值得说一说了！</p>
+<pre><code class="lang-java">@ControllerAdvice
+@ResponseBody
+public class GlobalExceptionHandler &#123;
+
+    @ExceptionHandler(value = Exception.class)
+    public Result&lt;String&gt; exceptionHandler(HttpServletRequest request,Exception e)&#123;
+        if(e instanceof GlobalException)&#123;
+            GlobalException ge = (GlobalException) e;
+
+            CodeMsg codeMsg = ge.getCodeMsg();
+            return Result.error(codeMsg);
+        &#125; else if(e instanceof BindException)&#123;
+            //获取错误列表，拿取其中的第一个
+            BindException be = (BindException) e;
+            List&lt;ObjectError&gt; allErrors = be.getAllErrors();
+            ObjectError error = allErrors.get(0);
+
+            String message = error.getDefaultMessage();
+            return Result.error(CodeMsg.BIND_ERROR.fillArgs(message));
+        &#125;else &#123;
+            return Result.error(CodeMsg.SERVER_ERROR);
+        &#125;
+
+    &#125;
+&#125;
+12345678910111213141516171819202122232425
+</code></pre>
+<ul>
+<li><code>@ControllerAdvice</code>：它是增强的Controller，能够实现<code>全局异常处理</code>和全局数据绑定</li>
+<li>配合<code>@ExceptionHandler(value = Exception.class)</code>，它能够实现对所有异常的接受，而在方法中，对不同的异常进行处理</li>
+</ul>
+<hr>
+<h2 id="6-关注一下参数替换的方法"><a href="#6-关注一下参数替换的方法" class="headerlink" title="6. 关注一下参数替换的方法"></a>6. 关注一下参数替换的方法</h2><pre><code class="lang-java">    public static CodeMsg BIND_ERROR = new CodeMsg(500101,&quot;参数校验异常：%s&quot;);
+
+    public CodeMsg fillArgs(Object... args)&#123;
+        int code = this.code;
+        String message = String.format(this.msg, args);
+        return new CodeMsg(code,message);
+    &#125;
+1234567
+</code></pre>
+<ul>
+<li>其中<code>String.format()</code>能够根据传入的字符串格式，比如”参数校验异常：%s”，其中<code>%s</code>，能被第二个传入的参数进行替换，从而形成<code>动态的字符串</code></li>
 </ul>
 ]]></content>
       <tags>
@@ -9996,6 +9996,14 @@ innodb_buffer_pool_instances=2
       </tags>
   </entry>
   <entry>
+    <title>MYSQL逻辑架构</title>
+    <url>/mysql-struct/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MYSQL</title>
     <url>/mysql/</url>
     <content><![CDATA[<h1 id="MYSQL索引"><a href="#MYSQL索引" class="headerlink" title="MYSQL索引"></a>MYSQL索引</h1><span id="more"></span>
@@ -10774,14 +10782,6 @@ Slave_SQL_Running:Yes
 ]]></content>
       <tags>
         <tag>sql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MYSQL逻辑架构</title>
-    <url>/mysql-struct/</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -20878,37 +20878,6 @@ public EventExecutor next() &#123;
       </tags>
   </entry>
   <entry>
-    <title>Improve Robustness (1)</title>
-    <url>/Improve-Robustness-(1)/</url>
-    <content><![CDATA[<h1 id="提高代码鲁棒性——（1）"><a href="#提高代码鲁棒性——（1）" class="headerlink" title="提高代码鲁棒性——（1）"></a>提高代码鲁棒性——（1）</h1><ul>
-<li>需要 Map 的主键和取值时，应该迭代 entrySet()</li>
-</ul>
-<p>当循环中只需要 Map 的主键时，迭代 keySet() 是正确的。但是，当需要主键和取值时，迭代 entrySet() 才是更高效的做法，比先迭代 keySet() 后再去 get 取值性能更佳。</p>
-<p>反例：</p>
-<pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
-for(String key : map.keySet())
-&#123;
-    String value = map.get(key);
-&#125;
-</code></pre>
-<p>正例：</p>
-<pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
-for(Map.Entry&lt;String,String&gt; entry:map.entrySet())
-&#123;
-    String key = map.getKey();
-    String value = entry.getValue();
-    ...
-&#125;
-</code></pre>
-<ul>
-<li>不要让常量变成变量</li>
-</ul>
-<pre><code class="lang-java">
-
-</code></pre>
-]]></content>
-  </entry>
-  <entry>
     <title>Improve Robustness (2)</title>
     <url>/Improve-Robustness-(2)/</url>
     <content><![CDATA[<h1 id="TDD测试驱动开发"><a href="#TDD测试驱动开发" class="headerlink" title="TDD测试驱动开发"></a>TDD测试驱动开发</h1><p>用户提供的信息：</p>
@@ -20949,6 +20918,37 @@ for(Map.Entry&lt;String,String&gt; entry:map.entrySet())
 <h2 id="永远不要认为你依赖的东西会正常工作"><a href="#永远不要认为你依赖的东西会正常工作" class="headerlink" title="永远不要认为你依赖的东西会正常工作"></a>永远不要认为你依赖的东西会正常工作</h2><p>作为一个后台微服务，我们一定会用到数据库，会用到缓存．如果你假设数据库不会宕机，并没有处理数据库宕机的代码，那你的代码永远都不够健壮．一旦数据库宕机，前台就会返回大量的500，有心人就会有可乘之机了．</p>
 <h2 id="做压力测试"><a href="#做压力测试" class="headerlink" title="做压力测试"></a>做压力测试</h2><p>有的错误，如果你不做压力测试，是察觉不到的．比如，不正确的并发处理，死锁等问题．对于一个点赞接口来说，如果你用postman来进行测试，点一次结果正确，点两次结果正确，但是你并发的点一万次，结果可能就会因为并发处理不对而是9990了．</p>
 <p>如果你没用数据库连接池，网络带宽足够大，并发执行十万次数据库写操作，数据库可能就会因此宕机(至少会有明显的网路延时)，这时候如果你的微服务如果对外提供正确的错误信息，那恭喜，你的代码足够健壮了．</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Improve Robustness (1)</title>
+    <url>/Improve-Robustness-(1)/</url>
+    <content><![CDATA[<h1 id="提高代码鲁棒性——（1）"><a href="#提高代码鲁棒性——（1）" class="headerlink" title="提高代码鲁棒性——（1）"></a>提高代码鲁棒性——（1）</h1><ul>
+<li>需要 Map 的主键和取值时，应该迭代 entrySet()</li>
+</ul>
+<p>当循环中只需要 Map 的主键时，迭代 keySet() 是正确的。但是，当需要主键和取值时，迭代 entrySet() 才是更高效的做法，比先迭代 keySet() 后再去 get 取值性能更佳。</p>
+<p>反例：</p>
+<pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
+for(String key : map.keySet())
+&#123;
+    String value = map.get(key);
+&#125;
+</code></pre>
+<p>正例：</p>
+<pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
+for(Map.Entry&lt;String,String&gt; entry:map.entrySet())
+&#123;
+    String key = map.getKey();
+    String value = entry.getValue();
+    ...
+&#125;
+</code></pre>
+<ul>
+<li>不要让常量变成变量</li>
+</ul>
+<pre><code class="lang-java">
+
+</code></pre>
 ]]></content>
   </entry>
   <entry>
@@ -25379,6 +25379,17 @@ class Node &#123;
       </tags>
   </entry>
   <entry>
+    <title>什么是「奶头乐」和为什么是「群体弱智」</title>
+    <url>/what-is-milk-and-why-is-group-wise/</url>
+    <content><![CDATA[<h1 id="什么是「奶头乐」"><a href="#什么是「奶头乐」" class="headerlink" title="什么是「奶头乐」?"></a>什么是「奶头乐」?</h1><blockquote>
+<p><a href="https://zh.wikipedia.org/zh-sg/%E5%A5%B6%E5%A4%B4%E4%B9%90">维基百科：奶头乐</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>think</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>享元模式</title>
     <url>/flyweight-model/</url>
     <content><![CDATA[<h3 id="享元"><a href="#享元" class="headerlink" title="享元"></a>享元</h3><blockquote>
@@ -25438,17 +25449,6 @@ class Node &#123;
       </categories>
       <tags>
         <tag>DesignPatterns</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>什么是「奶头乐」和为什么是「群体弱智」</title>
-    <url>/what-is-milk-and-why-is-group-wise/</url>
-    <content><![CDATA[<h1 id="什么是「奶头乐」"><a href="#什么是「奶头乐」" class="headerlink" title="什么是「奶头乐」?"></a>什么是「奶头乐」?</h1><blockquote>
-<p><a href="https://zh.wikipedia.org/zh-sg/%E5%A5%B6%E5%A4%B4%E4%B9%90">维基百科：奶头乐</a></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>think</tag>
       </tags>
   </entry>
   <entry>
@@ -33816,6 +33816,37 @@ class Circle extends Shape&#123;
       </tags>
   </entry>
   <entry>
+    <title>摩尔投票法最佳实践</title>
+    <url>/Boyer%E2%80%93Moore-majority/</url>
+    <content><![CDATA[<h3 id="摩尔投票算法基础理论及最佳实践"><a href="#摩尔投票算法基础理论及最佳实践" class="headerlink" title="摩尔投票算法基础理论及最佳实践"></a>摩尔投票算法基础理论及最佳实践</h3><p>会议大厅站满了投票代表，每个都有一个牌子上面写着自己所选的候选人的名字。然后选举意见不合的（所选的候选人不同）两个人，会打一架，并且会同时击倒对方。</p>
+<p>这里意见不合的两个人促成了算法的核心思想：<strong>对拼消耗</strong></p>
+<p>显而易见，如果一个人拥有的选票比其它所有人加起来的选票还要多的话，这个候选人将会赢得这场“战争”，当混乱结束，最后剩下的那个代表（可能会有多个）将会来自多数人所站的阵营。但是如果所有参加候选人的选票都不是大多数（选票都未超过一半），那么最后站在那的代表（一个人）并不能代表所有的选票的大多数。因此，当某人站到最后时，需要统计他所选的候选人的选票是否超过一半（包括倒下的），来判断选票结果是否有效。</p>
+<pre><code class="lang-java">    /*
+       求多数元素(众数)
+       摩尔投票法
+    */
+    public int majorityElement1(int[] nums) &#123;
+        int count = 0;//当前记录出现次数
+        int current = -1;//当前记录值
+        for (int num : nums) &#123;
+            if (num == current) count++;
+            if (num != current) &#123;
+                if (count == 0) &#123;
+                    current = num;
+                &#125; else &#123;
+                    count--;
+                &#125;
+            &#125;
+        &#125;
+        return current;
+    &#125;
+</code></pre>
+]]></content>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>interpolation-search-algorithm</title>
     <url>/interpolation-search-algorithm/</url>
     <content><![CDATA[<h3 id="插值查找算法"><a href="#插值查找算法" class="headerlink" title="插值查找算法"></a>插值查找算法</h3><span id="more"></span>
@@ -33860,34 +33891,65 @@ public class insertSearch &#123;
       </tags>
   </entry>
   <entry>
-    <title>摩尔投票法最佳实践</title>
-    <url>/Boyer%E2%80%93Moore-majority/</url>
-    <content><![CDATA[<h3 id="摩尔投票算法基础理论及最佳实践"><a href="#摩尔投票算法基础理论及最佳实践" class="headerlink" title="摩尔投票算法基础理论及最佳实践"></a>摩尔投票算法基础理论及最佳实践</h3><p>会议大厅站满了投票代表，每个都有一个牌子上面写着自己所选的候选人的名字。然后选举意见不合的（所选的候选人不同）两个人，会打一架，并且会同时击倒对方。</p>
-<p>这里意见不合的两个人促成了算法的核心思想：<strong>对拼消耗</strong></p>
-<p>显而易见，如果一个人拥有的选票比其它所有人加起来的选票还要多的话，这个候选人将会赢得这场“战争”，当混乱结束，最后剩下的那个代表（可能会有多个）将会来自多数人所站的阵营。但是如果所有参加候选人的选票都不是大多数（选票都未超过一半），那么最后站在那的代表（一个人）并不能代表所有的选票的大多数。因此，当某人站到最后时，需要统计他所选的候选人的选票是否超过一半（包括倒下的），来判断选票结果是否有效。</p>
-<pre><code class="lang-java">    /*
-       求多数元素(众数)
-       摩尔投票法
-    */
-    public int majorityElement1(int[] nums) &#123;
-        int count = 0;//当前记录出现次数
-        int current = -1;//当前记录值
-        for (int num : nums) &#123;
-            if (num == current) count++;
-            if (num != current) &#123;
-                if (count == 0) &#123;
-                    current = num;
-                &#125; else &#123;
-                    count--;
-                &#125;
-            &#125;
-        &#125;
-        return current;
-    &#125;
-</code></pre>
+    <title>introduction to operating system</title>
+    <url>/introduction-to-operating-system/</url>
+    <content><![CDATA[<h1 id="操作系统概论"><a href="#操作系统概论" class="headerlink" title="操作系统概论"></a>操作系统概论</h1><span id="more"></span>
+<h3 id="64位和32位的区别？"><a href="#64位和32位的区别？" class="headerlink" title="64位和32位的区别？"></a>64位和32位的区别？</h3><p>操作系统只是硬件和应用软件中间的一个平台。32位操作系统针对的32位的CPU设计。64位操作系统针对的64位的CPU设计。 </p>
+<h3 id="CentOS-和-Linux的关系？"><a href="#CentOS-和-Linux的关系？" class="headerlink" title="CentOS 和 Linux的关系？"></a>CentOS 和 Linux的关系？</h3><p>CentOS是Linux众多得发行版本之一，linux有三大发行版本（：Slackware、debian、redhat）,而Redhat有收费的商业版和免费的开源版,商业版的业内称之为RHEL系列，CentOS是来自于依照开放源代码规定而公布的源代码重新编译而成。可以用CentOS替代商业版的RHEL使用。两者的不同，CentOS不包含封闭源代码软件，是免费的。 </p>
+<h2 id="进程的描述与控制"><a href="#进程的描述与控制" class="headerlink" title="进程的描述与控制"></a>进程的描述与控制</h2><h3 id="LINUX下的线程，GDI类"><a href="#LINUX下的线程，GDI类" class="headerlink" title="LINUX下的线程，GDI类"></a>LINUX下的线程，GDI类</h3><p>LINUX实现的就是基于核心轻量级进程的”一对一”线程模型，一个线程实体对应一个核心轻量级进程，而线程之间的管理在核外函数库中实现。 </p>
+<p>GDI类为图像设备编程接口类库。 </p>
+<h3 id="进程和线程的区别是什么？"><a href="#进程和线程的区别是什么？" class="headerlink" title="进程和线程的区别是什么？"></a>进程和线程的区别是什么？</h3><p>进程是执行着的应用程序，而线程是进程内部的一个执行序列。一个进程可以有多个线程。线程又叫做轻量级进程。 </p>
+<h3 id="系统线程数量上限是多少？"><a href="#系统线程数量上限是多少？" class="headerlink" title="系统线程数量上限是多少？"></a>系统线程数量上限是多少？</h3><p>Linux 系统中单个进程的最大线程数有其最大的限制 PTHREAD_THREADS_MAX。</p>
+<p>这个限制可以在/usr/include/bits/local_lim.h中查看 ，对 linuxthreads 这个值一般是 1024，对于 nptl 则没有硬性的限制，仅仅受限于系统的资源。</p>
+<p>这个系统的资源主要就是线程的 stack 所占用的内存，用 ulimit -s 可以查看默认的线程栈大小，一般情况下，这个值是8M=8192KB。</p>
+<h3 id="线程与进程的区别"><a href="#线程与进程的区别" class="headerlink" title="线程与进程的区别"></a>线程与进程的区别</h3><p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
+<p>1) 简而言之,一个程序至少有一个进程,一个进程至少有一个线程.</p>
+<p>2) 线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
+<p>3) 另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</p>
+<p>4) 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
+<p>5) 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
+<h3 id="如何杀死一个进程？"><a href="#如何杀死一个进程？" class="headerlink" title="如何杀死一个进程？"></a>如何杀死一个进程？</h3><p>Kill pid</p>
+<h2 id="输入输出系统"><a href="#输入输出系统" class="headerlink" title="输入输出系统"></a>输入输出系统</h2><h3 id="请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO"><a href="#请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO" class="headerlink" title="请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO"></a>请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO</h3><p>阻塞，非阻塞，io多路复用，epoll支持文件符数目没有限制，fd集合只会从用户进程拷贝到内核一次，自己维护一个事件队列，不用每次遍历fd集合发现是否有就绪状态。</p>
+<h2 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h2><h3 id="怎么理解操作系统里的内存碎片，有什么解决办法？"><a href="#怎么理解操作系统里的内存碎片，有什么解决办法？" class="headerlink" title="怎么理解操作系统里的内存碎片，有什么解决办法？"></a>怎么理解操作系统里的内存碎片，有什么解决办法？</h3><p>内存碎片分为：内部碎片和外部碎片。</p>
+<p>内部碎片就是已经被分配出去（能明确指出属于哪个进程）却不能被利用的内存空间；</p>
+<p>内部碎片是处于区域内部或页面内部的存储块。占有这些区域或页面的进程并不使用这个存储块。而在进程占有这块存储块时，系统无法利用它。直到进程释放它，或进程结束时，系统才有可能利用这个存储块。</p>
+<p>单道连续分配只有内部碎片。多道固定连续分配既有内部碎片，又有外部碎片。</p>
+<p>外部碎片指的是还没有被分配出去（不属于任何进程），但由于太小了无法分配给申请内存空间的新进程的内存空闲区域。</p>
+<p>外部碎片是出于任何已分配区域或页面外部的空闲存储块。这些存储块的总和可以满足当前申请的长度要求，但是由于它们的地址不连续或其他原因，使得系统无法满足当前申请。</p>
+<p>使用伙伴系统算法。</p>
+<h3 id="什么是页式存储？"><a href="#什么是页式存储？" class="headerlink" title="什么是页式存储？"></a>什么是页式存储？</h3><p>主存被等分成大小相等的片，称为主存块，又称为实页。</p>
+<p>当一个用户程序装入内存时，以页面为单位进行分配。页面的大小是为2n ,通常为1KB、2KB、2n KB等</p>
+<h2 id="处理调度与死锁"><a href="#处理调度与死锁" class="headerlink" title="处理调度与死锁"></a>处理调度与死锁</h2><h3 id="系统如何提高并发性？"><a href="#系统如何提高并发性？" class="headerlink" title="系统如何提高并发性？"></a>系统如何提高并发性？</h3><p>1、提高CPU并发计算能力</p>
+<p>（1）多进程&amp;多线程</p>
+<p>（2）减少进程切换，使用线程，考虑进程绑定CPU</p>
+<p>（3）减少使用不必要的锁，考虑无锁编程</p>
+<p>（4）考虑进程优先级</p>
+<p>（5）关注系统负载</p>
+<p>2、改进I/O模型</p>
+<p>(1)DMA技术</p>
+<p>(2)异步I/O</p>
+<p>(3)改进多路I/O就绪通知策略，epoll</p>
+<p>(4)Sendfile</p>
+<p>(5)内存映射</p>
+<p>(6)直接I/O</p>
+<h3 id="通常系统CPU比较高是什么原因？"><a href="#通常系统CPU比较高是什么原因？" class="headerlink" title="通常系统CPU比较高是什么原因？"></a>通常系统CPU比较高是什么原因？</h3><p>1、首先查看是哪些进程的CPU占用率最高（如下可以看到详细的路径）</p>
+<p>ps -aux —sort -pcpu | more</p>
+<p># 定位有问题的线程可以用如下命令</p>
+<p>ps -mp pid -o THREAD,tid,time | more</p>
+<p>2、查看JAVA进程的每个线程的CPU占用率</p>
+<p>ps -Lp 5798 cu | more        # 5798是查出来进程PID</p>
+<p>3、追踪线程，查看负载过高的原因，使用JDK下的一个工具</p>
+<p>jstack 5798                            # 5798是PID</p>
+<p>jstack -J-d64 -m 5798    # -j-d64指定64为系统</p>
+<p>jstack 查出来的线程ID是16进制，可以把输出追加到文件，导出用记事本打开，再根据系统中的线程ID去搜索查看该ID的线程运行内容，可以和开发一起排查。</p>
+<h3 id="什么情况下会发生死锁？解决死锁的策略有哪些？"><a href="#什么情况下会发生死锁？解决死锁的策略有哪些？" class="headerlink" title="什么情况下会发生死锁？解决死锁的策略有哪些？"></a>什么情况下会发生死锁？解决死锁的策略有哪些？</h3><p>（一）互斥条件：一个资源一次只能被一个进程访问。即某个资源在一段时间内只能由一个进程占有，不能同时被两个或两个以上的进程占 有。这种独占资源如CD-ROM驱动器，打印机等等，必须在占有该资源的进程主动释放它之后，其它进程才能占有该资源。这是由资源本身的属性所决定的。</p>
+<p>（二）请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放。进程至少已经占有一个资源，但又申请新的资源；由于该资源已被另外进程占有，此时该进程阻塞；但是，它在等待新资源之时，仍继续占用已占有的资源。</p>
+<p>（三）不剥夺条件：进程已经获得的资源，在未使用完之前不能强行剥夺，而只能由该资源的占有者进程自行释放。</p>
+<p>（四）循环等待条件：若干资源形成一种头尾相接的循环等待资源关系。</p>
+<p>解决方法：银行家算法</p>
 ]]></content>
       <tags>
-        <tag>algorithm</tag>
+        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
@@ -34188,68 +34250,6 @@ public class insertSearch &#123;
 ]]></content>
       <tags>
         <tag>Operating Systems</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>introduction to operating system</title>
-    <url>/introduction-to-operating-system/</url>
-    <content><![CDATA[<h1 id="操作系统概论"><a href="#操作系统概论" class="headerlink" title="操作系统概论"></a>操作系统概论</h1><span id="more"></span>
-<h3 id="64位和32位的区别？"><a href="#64位和32位的区别？" class="headerlink" title="64位和32位的区别？"></a>64位和32位的区别？</h3><p>操作系统只是硬件和应用软件中间的一个平台。32位操作系统针对的32位的CPU设计。64位操作系统针对的64位的CPU设计。 </p>
-<h3 id="CentOS-和-Linux的关系？"><a href="#CentOS-和-Linux的关系？" class="headerlink" title="CentOS 和 Linux的关系？"></a>CentOS 和 Linux的关系？</h3><p>CentOS是Linux众多得发行版本之一，linux有三大发行版本（：Slackware、debian、redhat）,而Redhat有收费的商业版和免费的开源版,商业版的业内称之为RHEL系列，CentOS是来自于依照开放源代码规定而公布的源代码重新编译而成。可以用CentOS替代商业版的RHEL使用。两者的不同，CentOS不包含封闭源代码软件，是免费的。 </p>
-<h2 id="进程的描述与控制"><a href="#进程的描述与控制" class="headerlink" title="进程的描述与控制"></a>进程的描述与控制</h2><h3 id="LINUX下的线程，GDI类"><a href="#LINUX下的线程，GDI类" class="headerlink" title="LINUX下的线程，GDI类"></a>LINUX下的线程，GDI类</h3><p>LINUX实现的就是基于核心轻量级进程的”一对一”线程模型，一个线程实体对应一个核心轻量级进程，而线程之间的管理在核外函数库中实现。 </p>
-<p>GDI类为图像设备编程接口类库。 </p>
-<h3 id="进程和线程的区别是什么？"><a href="#进程和线程的区别是什么？" class="headerlink" title="进程和线程的区别是什么？"></a>进程和线程的区别是什么？</h3><p>进程是执行着的应用程序，而线程是进程内部的一个执行序列。一个进程可以有多个线程。线程又叫做轻量级进程。 </p>
-<h3 id="系统线程数量上限是多少？"><a href="#系统线程数量上限是多少？" class="headerlink" title="系统线程数量上限是多少？"></a>系统线程数量上限是多少？</h3><p>Linux 系统中单个进程的最大线程数有其最大的限制 PTHREAD_THREADS_MAX。</p>
-<p>这个限制可以在/usr/include/bits/local_lim.h中查看 ，对 linuxthreads 这个值一般是 1024，对于 nptl 则没有硬性的限制，仅仅受限于系统的资源。</p>
-<p>这个系统的资源主要就是线程的 stack 所占用的内存，用 ulimit -s 可以查看默认的线程栈大小，一般情况下，这个值是8M=8192KB。</p>
-<h3 id="线程与进程的区别"><a href="#线程与进程的区别" class="headerlink" title="线程与进程的区别"></a>线程与进程的区别</h3><p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
-<p>1) 简而言之,一个程序至少有一个进程,一个进程至少有一个线程.</p>
-<p>2) 线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
-<p>3) 另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</p>
-<p>4) 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
-<p>5) 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
-<h3 id="如何杀死一个进程？"><a href="#如何杀死一个进程？" class="headerlink" title="如何杀死一个进程？"></a>如何杀死一个进程？</h3><p>Kill pid</p>
-<h2 id="输入输出系统"><a href="#输入输出系统" class="headerlink" title="输入输出系统"></a>输入输出系统</h2><h3 id="请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO"><a href="#请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO" class="headerlink" title="请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO"></a>请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO</h3><p>阻塞，非阻塞，io多路复用，epoll支持文件符数目没有限制，fd集合只会从用户进程拷贝到内核一次，自己维护一个事件队列，不用每次遍历fd集合发现是否有就绪状态。</p>
-<h2 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h2><h3 id="怎么理解操作系统里的内存碎片，有什么解决办法？"><a href="#怎么理解操作系统里的内存碎片，有什么解决办法？" class="headerlink" title="怎么理解操作系统里的内存碎片，有什么解决办法？"></a>怎么理解操作系统里的内存碎片，有什么解决办法？</h3><p>内存碎片分为：内部碎片和外部碎片。</p>
-<p>内部碎片就是已经被分配出去（能明确指出属于哪个进程）却不能被利用的内存空间；</p>
-<p>内部碎片是处于区域内部或页面内部的存储块。占有这些区域或页面的进程并不使用这个存储块。而在进程占有这块存储块时，系统无法利用它。直到进程释放它，或进程结束时，系统才有可能利用这个存储块。</p>
-<p>单道连续分配只有内部碎片。多道固定连续分配既有内部碎片，又有外部碎片。</p>
-<p>外部碎片指的是还没有被分配出去（不属于任何进程），但由于太小了无法分配给申请内存空间的新进程的内存空闲区域。</p>
-<p>外部碎片是出于任何已分配区域或页面外部的空闲存储块。这些存储块的总和可以满足当前申请的长度要求，但是由于它们的地址不连续或其他原因，使得系统无法满足当前申请。</p>
-<p>使用伙伴系统算法。</p>
-<h3 id="什么是页式存储？"><a href="#什么是页式存储？" class="headerlink" title="什么是页式存储？"></a>什么是页式存储？</h3><p>主存被等分成大小相等的片，称为主存块，又称为实页。</p>
-<p>当一个用户程序装入内存时，以页面为单位进行分配。页面的大小是为2n ,通常为1KB、2KB、2n KB等</p>
-<h2 id="处理调度与死锁"><a href="#处理调度与死锁" class="headerlink" title="处理调度与死锁"></a>处理调度与死锁</h2><h3 id="系统如何提高并发性？"><a href="#系统如何提高并发性？" class="headerlink" title="系统如何提高并发性？"></a>系统如何提高并发性？</h3><p>1、提高CPU并发计算能力</p>
-<p>（1）多进程&amp;多线程</p>
-<p>（2）减少进程切换，使用线程，考虑进程绑定CPU</p>
-<p>（3）减少使用不必要的锁，考虑无锁编程</p>
-<p>（4）考虑进程优先级</p>
-<p>（5）关注系统负载</p>
-<p>2、改进I/O模型</p>
-<p>(1)DMA技术</p>
-<p>(2)异步I/O</p>
-<p>(3)改进多路I/O就绪通知策略，epoll</p>
-<p>(4)Sendfile</p>
-<p>(5)内存映射</p>
-<p>(6)直接I/O</p>
-<h3 id="通常系统CPU比较高是什么原因？"><a href="#通常系统CPU比较高是什么原因？" class="headerlink" title="通常系统CPU比较高是什么原因？"></a>通常系统CPU比较高是什么原因？</h3><p>1、首先查看是哪些进程的CPU占用率最高（如下可以看到详细的路径）</p>
-<p>ps -aux —sort -pcpu | more</p>
-<p># 定位有问题的线程可以用如下命令</p>
-<p>ps -mp pid -o THREAD,tid,time | more</p>
-<p>2、查看JAVA进程的每个线程的CPU占用率</p>
-<p>ps -Lp 5798 cu | more        # 5798是查出来进程PID</p>
-<p>3、追踪线程，查看负载过高的原因，使用JDK下的一个工具</p>
-<p>jstack 5798                            # 5798是PID</p>
-<p>jstack -J-d64 -m 5798    # -j-d64指定64为系统</p>
-<p>jstack 查出来的线程ID是16进制，可以把输出追加到文件，导出用记事本打开，再根据系统中的线程ID去搜索查看该ID的线程运行内容，可以和开发一起排查。</p>
-<h3 id="什么情况下会发生死锁？解决死锁的策略有哪些？"><a href="#什么情况下会发生死锁？解决死锁的策略有哪些？" class="headerlink" title="什么情况下会发生死锁？解决死锁的策略有哪些？"></a>什么情况下会发生死锁？解决死锁的策略有哪些？</h3><p>（一）互斥条件：一个资源一次只能被一个进程访问。即某个资源在一段时间内只能由一个进程占有，不能同时被两个或两个以上的进程占 有。这种独占资源如CD-ROM驱动器，打印机等等，必须在占有该资源的进程主动释放它之后，其它进程才能占有该资源。这是由资源本身的属性所决定的。</p>
-<p>（二）请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放。进程至少已经占有一个资源，但又申请新的资源；由于该资源已被另外进程占有，此时该进程阻塞；但是，它在等待新资源之时，仍继续占用已占有的资源。</p>
-<p>（三）不剥夺条件：进程已经获得的资源，在未使用完之前不能强行剥夺，而只能由该资源的占有者进程自行释放。</p>
-<p>（四）循环等待条件：若干资源形成一种头尾相接的循环等待资源关系。</p>
-<p>解决方法：银行家算法</p>
-]]></content>
-      <tags>
-        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
