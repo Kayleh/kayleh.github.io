@@ -5286,7 +5286,7 @@ img[fancybox='true'] {
 <div class="widgets">
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
-<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span></div><div class="widget-body related-posts fs14"><a class="item title" href="/dimits-law/"><span class="title">迪米特法则</span></a><a class="item title" href="/iterator-mode/"><span class="title">迭代器模式</span></a><a class="item title" href="/adapter-mode/"><span class="title">适配器模式</span></a><a class="item title" href="/liskov-substitution-principle/"><span class="title">里氏替换原则</span></a><a class="item title" href="/linked-forward-star/"><span class="title">链式前向星(linked-forward-star)实现</span></a></div></widget>
+<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span></div><div class="widget-body related-posts fs14"><a class="item title" href="/chain-of-responsibility-model/"><span class="title">责任链模式</span></a><a class="item title" href="/Greedy-Algorithm/"><span class="title">贪心算法的基础理论及实践</span></a><a class="item title" href="/program-test/"><span class="title">Software testing process</span></a><a class="item title" href="/continuous/"><span class="title">连续</span></a><a class="item title" href="/dimits-law/"><span class="title">迪米特法则</span></a></div></widget>
 
 <widget class="widget-wrapper timeline"><div class="widget-header cap theme dis-select"><span class="name">近期动态</span></div><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/Kayleh/blog_notes/issues" user="Kayleh"></div></div></widget>
 </div>
@@ -5311,113 +5311,25 @@ img[fancybox='true'] {
 <div class="nav-wrap"><nav class="sub post cap"><a href="/">近期发布</a><a class="active" href="/tags">标签：algorithm</a><a href="/archives">归档</a></nav></div>
 
   <div class="post-list post"><a class="post-card post " href="/Graph-degree/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">离散图论1：基础</h2><div class="excerpt"><p>基础理论度：对于无向图
-
-度指的是该节点与相邻节点的总边数
-
-对于有向图:
-
-节点（顶点）的入度是指进入该节点的边的条数；
-节点（顶点）的出度是指从该节点出发的边的条数。
-
-
-
-度为0的顶点称为孤立顶点)。
-度为1的顶点称为叶节点或端点，与该顶点相关联的边称为悬挂边。在右图中，{3,5}是一条悬挂边。这个术语在数据结构与图论中对树)的研究中很常见。
-有n个顶点的图中度为n-1的顶点称为全连接顶点。
-
-
-算法应用：
-
-在一个小镇里，按从 1 到 n 为 n 个人进行编号。传言称，这些人中有一个是小镇上的秘密法官。
-如果小镇的法官真的存在，那么：
-小镇的法官不相信任何人。每个人（除了小镇法官外）都信任小镇的法官。只有一个人同时满足条件 1 和条件 2 。给定数组 trust，该数组由信任对 trust[i] = [a, b] 组成，表示编号为 a 的人信任编号为 b 的人。
-如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的编号。否则，返回 -1。
-
-输入：n = 2, trust = [[1,2]]
-输出：2
-
-
-在此场景中，可以把a对b的信任表示为a指向b的有向边，小镇的信任关系表示为一个有向图。</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-19T20:41:10.000Z">2021-12-19</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">离散图论1：基础</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-19T20:41:10.000Z">2021-12-19</time></span></div></article>
 </a><a class="post-card post " href="/01Backpack/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">01背包算法</h2><div class="excerpt"><p>背包问题（Knapsack problem）是一种组合优化的NP完全（NP-Complete，NPC）问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。NPC问题是没有多项式时间复杂度的解法的，但是利用动态规划，我们可以以伪多项式时间复杂度求解背包问题。
-背包问题有以下几种分类：
-
-01背包问题
-完全背包问题
-多重背包问题
-
-01背包问题：
-一共有N件物品，第i（i从1开始）件物品的重量为w[i]，价值为v[i]。在总重量不超过背包承载上限W的情况下，能够装入背包的最大价值是多少？
-
-动态规划解题步骤一、定义dp数组根据题意，可以得知dp数组的定义：dp[i][j]表示书包内物品的价值。其中变量为物品的重量和书包的限重
-所以可以得出数组的定义：
-dp[i][j]
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-11-07T23:59:16.000Z">2021-11-07</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">01背包算法</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-11-07T23:59:16.000Z">2021-11-07</time></span></div></article>
 </a><a class="post-card post " href="/Boyer%E2%80%93Moore-majority/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">摩尔投票法最佳实践</h2><div class="excerpt"><p>摩尔投票算法基础理论及最佳实践会议大厅站满了投票代表，每个都有一个牌子上面写着自己所选的候选人的名字。然后选举意见不合的（所选的候选人不同）两个人，会打一架，并且会同时击倒对方。
-这里意见不合的两个人促成了算法的核心思想：对拼消耗
-显而易见，如果一个人拥有的选票比其它所有人加起来的选票还要多的话，这个候选人将会赢得这场“战争”，当混乱结束，最后剩下的那个代表（可能会有多个）将会来自多数人所站的阵营。但是如果所有参加候选人的选票都不是大多数（选票都未超过一半），那么最后站在那的代表（一个人）并不能代表所有的选票的大多数。因此，当某人站到最后时，需要统计他所选的候选人的选票是否超过一半（包括倒下的），来判断选票结果是否有效。
-    /*
-       求多数元素(众数)
-       摩尔投票法
-    */
-    public int majorityElement1(int[] nums) {
-        int count = 0;//当前记录出现次数
-        int current = -1;//当前记录值
-        for (int num : nums) {
-            if (num == current) count++;
-            if (num != current) {
-                if (count == 0) {
-                    current = num;
-                } else {
-                    count--;
-                }
-            }
-        }
-        return current;
-    }
-
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-09-30T11:57:32.000Z">2021-09-30</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">摩尔投票法最佳实践</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-09-30T11:57:32.000Z">2021-09-30</time></span></div></article>
 </a><a class="post-card post " href="/Head-First-Map/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">Head First Map</h2><div class="excerpt"><p>深入浅出Map
-Map是java里边是一个接口,常见的实现类有HashMap、LinkedHashMap、TreeMap和ConcurrentHashMap
-
-HashMap底层数据结构是数组+链表/红黑树
-LinkedHashMap底层数据结构是数组+链表+双向链表
-TreeMap底层数据结构是红黑树
-ConcurrentHashMap底层数据结构是数组+链表/红黑树
-HashMap
-简单总结HashMap：
-
-无序，允许为null，非同步
-底层由散列表(哈希表)实现
-初始容量和装载因子对HashMap影响挺大的，设置小了不好，设置大了也不好
-
-
-new一个hashmap时会发生什么?HashMap有几个构造方法,但最主要的就是指定初始值以及负载因子的大小.如果不指定,默认hashmap的大小为16,负载因子的大小为0.75.</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-04-17T17:31:12.000Z">2021-04-17</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">Head First Map</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-04-17T17:31:12.000Z">2021-04-17</time></span></div></article>
 </a><a class="post-card post " href="/dynamic-programming/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">统筹学——动态规划（Dynamic programming）</h2><div class="excerpt"><p>动态规划
-首先，动态规划问题的一般形式就是求最值。动态规划其实是运筹学的一种最优化方法，只不过在计算机问题上应用比较多，比如说让你求最长递增子序列呀，最小编辑距离呀等等。
-既然是要求最值，核心问题是什么呢？求解动态规划的核心问题是穷举。因为要求最值，肯定要把所有可行的答案穷举出来，然后在其中找最值呗。
-动态规划这么简单，就是穷举就完事了？我看到的动态规划问题都很难啊！
-首先，动态规划的穷举有点特别，因为这类问题存在「重叠子问题」，如果暴力穷举的话效率会极其低下，所以需要「备忘录」或者「DP table」来优化穷举过程，避免不必要的计算。
-而且，动态规划问题一定会具备「最优子结构」，才能通过子问题的最值得到原问题的最值。
-另外，虽然动态规划的核心思想就是穷举求最值，但是问题可以千变万化，穷举所有可行解其实并不是一件容易的事，只有列出正确的「状态转移方程」才能正确地穷举。
-以上提到的重叠子问题、最优子结构、状态转移方程就是动态规划三要素。具体什么意思等会会举例详解，但是在实际的算法问题中，写出状态转移方程是最困难的，这也就是为什么很多朋友觉得动态规划问题困难的原因，我来提供我研究出来的一个思维框架，辅助你思考状态转移方程：
-明确 base case -&gt; 明确「状态」-&gt; 明确「选择」 -&gt; 定义 dp 数组/函数的含义。
-按上面的套路走，最后的结果就可以套这个框架：</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-01-31T18:54:04.000Z">2021-01-31</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">统筹学——动态规划（Dynamic programming）</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-01-31T18:54:04.000Z">2021-01-31</time></span></div></article>
 </a><a class="post-card post " href="/snowflake-distributed-id-algorithm/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">SnowFlake分布式ID雪花算法</h2><div class="excerpt"><p></p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-08-28T08:20:50.000Z">2020-08-28</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">SnowFlake分布式ID雪花算法</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-08-28T08:20:50.000Z">2020-08-28</time></span></div></article>
 </a><a class="post-card post " href="/encoding-algorithm/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">encoding-algorithm</h2><div class="excerpt"><p>编码算法</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-06-19T00:53:22.000Z">2020-06-19</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">encoding-algorithm</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-06-19T00:53:22.000Z">2020-06-19</time></span></div></article>
 </a><a class="post-card post " href="/hash-algorithm/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">hash algorithm</h2><div class="excerpt"><p>哈希算法
-哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。 </p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-06-17T10:03:58.000Z">2020-06-17</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">hash algorithm</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-06-17T10:03:58.000Z">2020-06-17</time></span></div></article>
 </a><a class="post-card post " href="/interpolation-search-algorithm/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">interpolation-search-algorithm</h2><div class="excerpt"><p>插值查找算法</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-06-17T01:18:21.000Z">2020-06-17</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">interpolation-search-algorithm</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-06-17T01:18:21.000Z">2020-06-17</time></span></div></article>
 </a><a class="post-card post " href="/binary-search-algorithm/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">binary-search-algorithm</h2><div class="excerpt"><p>二分查找算法</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-06-17T01:04:50.000Z">2020-06-17</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">binary-search-algorithm</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-06-17T01:04:50.000Z">2020-06-17</time></span></div></article>
 </a></div>
   
   <div class="paginator-wrap dis-select">

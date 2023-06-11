@@ -5286,7 +5286,7 @@ img[fancybox='true'] {
 <div class="widgets">
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
-<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span></div><div class="widget-body related-posts fs14"><a class="item title" href="/dimits-law/"><span class="title">迪米特法则</span></a><a class="item title" href="/iterator-mode/"><span class="title">迭代器模式</span></a><a class="item title" href="/adapter-mode/"><span class="title">适配器模式</span></a><a class="item title" href="/liskov-substitution-principle/"><span class="title">里氏替换原则</span></a><a class="item title" href="/linked-forward-star/"><span class="title">链式前向星(linked-forward-star)实现</span></a></div></widget>
+<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span></div><div class="widget-body related-posts fs14"><a class="item title" href="/chain-of-responsibility-model/"><span class="title">责任链模式</span></a><a class="item title" href="/Greedy-Algorithm/"><span class="title">贪心算法的基础理论及实践</span></a><a class="item title" href="/program-test/"><span class="title">Software testing process</span></a><a class="item title" href="/continuous/"><span class="title">连续</span></a><a class="item title" href="/dimits-law/"><span class="title">迪米特法则</span></a></div></widget>
 
 <widget class="widget-wrapper timeline"><div class="widget-header cap theme dis-select"><span class="name">近期动态</span></div><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/Kayleh/blog_notes/issues" user="Kayleh"></div></div></widget>
 </div>
@@ -5311,237 +5311,25 @@ img[fancybox='true'] {
 <div class="nav-wrap"><nav class="sub post cap"><a href="/">近期发布</a><a class="active" href="/tags">标签：jvm</a><a href="/archives">归档</a></nav></div>
 
   <div class="post-list post"><a class="post-card post " href="/jvm-method-inline/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">⌈JVM⌋方法内联优化</h2><div class="excerpt"><p>内联优化在内部编译方法的时候，JVM根据内部逻辑分析是否热点代码，如果代码足够热，JVM会对方法内联优化，节省额外的方法调用开销（方法栈帧的生成、参数字段的压入、栈帧的弹出、指令执行地址跳转）。
-方法内联是由JIT编译器在运行时完成的。既然涉及到编译，方法内联也是有一定的开销的，包括cpu时间和内存，所以这又是一个trade-off的老问题了。JIT根据以下信息决定是否进行内联：
-
-被调用方法是否足够hot。这个取决于该方法被调用的次数，次数阈值默认值为10,000。即运行时被调用次数超过10,000的方法，可以被认为是hot。
-被调用方法大小是否合适。对于过大的方法，JIT认为它是不适合做内联的。这个方法大小阈值由-XX:FreqInlineSize指定，不建议修改。即大于这个阈值size的方法，不考虑进行内联
-被调用方法运行时其实现是否可以唯一确定。显然，对于类方法、私有方法和final方法，JIT是可以唯一确定它们的具体实现代码的(这里对应字节码中的invokestatic和invokespecial)；另一方面，对于public方法调用，它所指向的具体实现可能是自身、父类、子类的方法实现代码（多态），只有当JIT能唯一确定方法的具体实现时，才有可能完成内联（对应字节码中的invokevirtual和invokeinterface）
-
-另外内联优化不仅仅消除了调用开销，被内联优化的方法会编译成native code(机器码)放在JVM Code Cache nmethod中，使多次调用方法时性能提升。
-函数调用的代码：
-package RUN.java;
-
-class Solution1 {
-    //函数调用: 0.2982 ms
-    private int gogogo(int n) {
-        for (int i = 0; i &lt; 10; i++) {
-            n &lt;&lt;= 1;
-        }
-        return n;
-    }
-
-    public static void main(String[] args) {
-        long start = System.nanoTime();
-        Solution1 s = new Solution1();
-        int n = 1;
-        int ans = 0;
-        for (int i = 0; i &lt; 10000; i++) {
-            ans += s.gogogo(n);
-        }
-        long end = System.nanoTime();
-        System.out.println("函数调用: " + (end - start) / 1000000.0 + " ms");
-    }
-}
-
-直接内联的代码：
-package RUN.java;
-
-class Solution {
-    //内联调用: 1.003 ms
-    public static void main(String[] args) {
-        long start = System.nanoTime();
-        int n = 1;
-        int ans = 0;
-        for (int i = 0; i &lt; 10000; i++) {
-            for (int i1 = 0; i1 &lt; 10; i1++) {
-                n &lt;&lt;= 1;
-            }
-            ans += n;
-        }
-        long end = System.nanoTime();
-        System.out.println("内联调用: " + (end - start) / 1000000.0 + " ms");
-    }
-}
-
-
-执行前增加 -XX:+PrintCompilation 参数，输出编译结果。具体每项内联信息所代表的意思
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-10-14T22:24:15.000Z">2022-10-14</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">⌈JVM⌋方法内联优化</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-10-14T22:24:15.000Z">2022-10-14</time></span></div></article>
 </a><a class="post-card post " href="/head-first-JVM(4)/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">head first JVM(4)</h2><div class="excerpt"><p>调优案例分析与实战高性能硬件上的程序部署策略
-在高性能硬件上部署程序，目前主要有两种方式：
-
-通过64位JDK来使用大内存。
-使用若干个32位虚拟机建立逻辑集群来利用硬件资源。
-
-其中，使用64位JDK来管理大内存，会面临以下问题：
-
-内存回收导致的长时间停顿。
-现阶段，64位JDK的性能测试结果普遍低于32位JDK。
-需要保证程序足够稳定，因为这种应用要是产生堆溢出几乎就无法产生堆转储快照（因为要产生十几GB乃至更大的Dump文件），哪怕产生了快照也几乎无法进行分析。
-相同程序在64位JDK消耗的内存一般比32位JDK大，这是由于指针膨胀，以及数据类型对齐补白等因素导致的。
-
-控制Full GC频率的关键是看应用中绝大多数对象能否符合“朝生夕灭”的原则，即大多数对象的生存时间不应太长，尤其是不能有成批量的、长生存时间的大对象产生，这样才能保障老年代空间的稳定。在大多数网站形式的应用里，主要对象的生存周期都应该是请求级或者页面级的，会话级和全局级的长生命对象相对很少。只要代码写得合理，应当都能实现在超大堆中正常使用而没有Full GC，这样的话，使用超大堆内存时，网站响应速度才会比较有保证。
-使用逻辑集群的方式来部署程序，可能会遇到下面一些问题：
-尽量避免节点竞争全局的资源，最典型的就是磁盘竞争，各个节点如果同时访问某个磁盘文件的话（尤其是并发写操作容易出现问题），很容易导致IO异常。
-很难最高效率地利用某些资源池，譬如连接池，一般都是在各个节点建立自己独立的连接池，这样有可能导致一些节点池满了而另外一些节点仍有较多空余。尽管可以使用集中式的JNDI，但这个有一定复杂性并且可能带来额外的性能开销。
-各个节点仍然不可避免地受到32位的内存限制，在32位Windows平台中每个进程只能使用2GB的内存，考虑到堆以外的内存开销，堆一般最多只能开到1.5GB。在某些Linux或UNIX系统（如Solaris）中，可以提升到3GB乃至接近4GB的内存，但32位中仍然受最高4GB（232）内存的限制。
-大量使用本地缓存（如大量使用HashMap作为K/V缓存）的应用，在逻辑集群中会造成较大的内存浪费，因为每个逻辑节点上都有一份缓存，这时候可以考虑把本地缓存改为集中式缓存。
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-07-12T23:51:24.000Z">2021-07-12</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">head first JVM(4)</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-07-12T23:51:24.000Z">2021-07-12</time></span></div></article>
 </a><a class="post-card post " href="/head-first-JVM(3)/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">head first JVM(3)</h2><div class="excerpt"><p>内存分配与回收策略自动化解决了两个问题：
-
-给对象分配内存
-回收分配给对象的内存
-
-对象优先在Eden分配大多数情况下，对象在新生代Eden区中分配。当Eden区没有足够空间进行分配时，虚拟机将发起一次Minor GC。
-虚拟机提供了-XX:+PrintGCDetails这个收集器日志参数，告诉虚拟机在发生垃圾收集行为时打印内存回收日志，并且在进程退出的时候输出当前的内存各区域分配情况。在实际应用中，内存回收日志一般是打印到文件后通过日志工具进行分析
--XX:SurvivorRatio=8决定了新生代中Eden区与一个Survivor区的空间比例是8∶1，从输出的结果也可以清晰地看到“eden space 8192K、fromspace 1024K、to space 1024K”的信息，新生代总可用空间为9216KB（Eden区+1个Survivor区的总容量）。
-Minor GC和Full GC
-新生代GC（Minor GC）：指发生在新生代的垃圾收集动作，因为Java对象大多都具备朝生夕灭的特性，所以Minor GC非常频繁，一般回收速度也比较快。
-老年代GC（Major GC / Full GC）：指发生在老年代的GC，出现了MajorGC，经常会伴随至少一次的Minor GC（但非绝对的，在Parallel Scavenge收集器的收集策略里就有直接进行Major GC的策略选择过程）。Major GC的速度一般会比Minor GC慢10倍以上。
-
-长期存活的对象将进入老年代</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-07-11T00:24:20.000Z">2021-07-11</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">head first JVM(3)</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-07-11T00:24:20.000Z">2021-07-11</time></span></div></article>
 </a><a class="post-card post " href="/head-first-JVM(2)/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">Head First JVM(2)</h2><div class="excerpt"><p>垃圾收集器与内存分配策略判断对象存活1.引用计数算法
-给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。
-
-2.可达性分析算法通过可达性分析（Reachability Analysis）来判定对象是否存活。这个算法的基本思路就是通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（ReferenceChain），当一个对象到GC Roots没有任何引用链相连，则证明此对象是不可用的。对象object 5、object 6、object 7虽然互相有关联，但是它们到GC Roots是不可达的，它们将会被判定为是可回收的对象。
-可作为GC Roots的对象包括下面几种：
-
-虚拟机栈（栈帧中的本地变量表）中引用的对象。
-
-方法区中类静态属性引用的对象。
-
-方法区中常量引用的对象。
-
-本地方法栈中JNI（即一般说的Native方法）引用的对象。
-
-
-
-即使在可达性分析算法中不可达的对象，也并非是“非死不可”的，这时候它们暂时处于“缓刑”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程：如果对象在进行可达性分析后发现没有与GC Roots相连接的引用链，那它将会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行finalize()方法。当对象没有覆盖finalize()方法，或者finalize()方法已经被虚拟机调用过，虚拟机将这两种情况都视为“没有必要执行”。
-如果这个对象被判定为有必要执行finalize()方法，那么这个对象将会放置在一个叫做F-Queue的队列之中，并在稍后由一个由虚拟机自动建立的、低优先级的Finalizer线程去执行它。这里所谓的“执行”是指虚拟机会触发这个方法，但并不承诺会等待它运行结束，这样做的原因是，如果一个对象在finalize()方法中执行缓慢，或者发生了死循环（更极端的情况），将很可能会导致F-Queue队列中其他对象永久处于等待，甚至导致整个内存回收系统崩溃。finalize()方法是对象逃脱死亡命运的最后一次机会，稍后GC将对F-Queue中的对象进行第二次小规模的标记，如果对象要在finalize()中成功拯救自己——只要重新与引用链上的任何一个对象建立关联即可，譬如把自己（this关键字）赋值给某个类变量或者对象的成员变量，那在第二次标记时它将被移除出“即将回收”的集合；如果对象这时候还没有逃脱，那基本上它就真的被回收了。
-一个对象的finalize()被执行，但是它仍然可以存活。
-注意：代码中有两段完全一样的代码片段，执行结果却是一次逃脱成功，一次失败，这是因为任何一个对象的finalize()方法都只会被系统自动调用一次，如果对象面临下一次回收，它的finalize()方法不会被再次执行，因此第二段代码的自救行动失败了。
-
-3.方法区回收</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-07-08T00:00:05.000Z">2021-07-08</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">Head First JVM(2)</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-07-08T00:00:05.000Z">2021-07-08</time></span></div></article>
 </a><a class="post-card post " href="/head-first-JVM(1)/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">head first JVM(1)</h2><div class="excerpt"><p>自动内存管理机制一. 运行时数据区域.jpg
-1.程序计数器程序计数器是一块较小的内存空间，它可以被看做是当前线程所执行的字节码的行号指示器，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。
-
-注意：在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）都只会执行一条线程中的指令。
-
-如果线程正在执行的是一个Java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是Native方法，这个计数器值则为空（Undefined）。此内存区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。
-2. 虚拟机栈Java虚拟机栈与程序计数器一样，Java虚拟机栈（Java Virtual Machine Stacks）也是线程私有的，它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行的同时都会创建一个栈帧（Stack Frame)[插图]用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中入栈到出栈的过程。
-
-局部变量表存放了编译期可知的各种基本数据类型（boolean、byte、char、short、int、float、long、double）、对象引用（reference类型，它不等同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置）和returnAddress类型（指向了一条字节码指令的地址）。其中64位长度的long和double类型的数据会占用2个局部变量空间（Slot），其余的数据类型只占用1个。局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的，在方法运行期间不会改变局部变量表的大小。
-在Java虚拟机规范中，对这个区域规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError异常；如果虚拟机栈可以动态扩展（当前大部分的Java虚拟机都可动态扩展，只不过Java虚拟机规范中也允许固定长度的虚拟机栈），如果扩展时无法申请到足够的内存，就会抛出OutOfMemoryError异常。
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-07-07T23:07:06.000Z">2021-07-07</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">head first JVM(1)</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-07-07T23:07:06.000Z">2021-07-07</time></span></div></article>
 </a><a class="post-card post " href="/off-heap/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">off-heap</h2><div class="excerpt"><p>堆外内存off-heap叫做堆外内存，将你的对象从堆中脱离出来序列化，然后存储在一大块内存中，这就像它存储到磁盘上一样，但它仍然在RAM中。对象在这种状态下不能直接使用，它们必须首先反序列化，也不受垃圾收集。序列化和反序列化将会影响部分性能（所以可以考虑使用FST-serialization）使用堆外内存能够降低GC导致的暂停。堆外内存不受垃圾收集器管理，也不属于老年代，新生代。
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-20T13:21:38.000Z">2020-12-20</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">off-heap</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-20T13:21:38.000Z">2020-12-20</time></span></div></article>
 </a><a class="post-card post " href="/jvm-gc/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">JVM垃圾回收机制</h2><div class="excerpt"><p>GC是什么分代收集算法
-
-次数上频繁收集Young区 Minor GC
-次数上较少收集Old区      Full GC
-基本不动Perm永久区
-
-GC是发生在哪个部分
-GC是发生在堆(heap)里面的
-
-GC分几种?:one:引用计数法(被淘汰)缺点:
-
-每次对对象赋值时均要维护引用计数器,且计数器本身也有一定的消耗
-较难处理循环引用
-
-
-JVM的实现一般不采用这种方式
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-16T17:46:57.000Z">2020-12-16</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">JVM垃圾回收机制</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-16T17:46:57.000Z">2020-12-16</time></span></div></article>
 </a><a class="post-card post " href="/Native-method/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">Native method?</h2><div class="excerpt"><p>Native 方法?翻看Thread.start()源码,竟然出现了无方法体的方法??
-    private native void start0();
-
-这里其实用到了关键字native
-native关键字
-说明java的作用范围达不到了,回去调用底层C语言的库.
-
-使用native关键字会进入本地方法栈,调用本地方法接口JNI(Java Native Interface)
-JNI的作用: 扩展Java的使用,融合不同的编程语言为Java所用
-它在内存区域中专门开辟了一块标记区域: Native Method Stack,登记Native方法.
-在最终执行的时候,加载本地方法库中的方法通过JNI</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-15T16:58:42.000Z">2020-12-15</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">Native method?</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-15T16:58:42.000Z">2020-12-15</time></span></div></article>
 </a><a class="post-card post " href="/Sandbox-security-mechanism/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">沙箱安全机制</h2><div class="excerpt"><p>
-
-什么是沙箱？ Java安全模型的核心就是Java沙箱（sandbox），什么是沙箱？沙箱是一个限制程序运行的环境。沙箱机制就是将 Java 代码限定在虚拟机(JVM)特定的运行范围中，并且严格限制代码对本地系统资源访问，通过这样的措施来保证对代码的有效隔离，防止对本地系统造成破坏。沙箱主要限制系统资源访问，那系统资源包括什么？——CPU、内存、文件系统、网络。不同级别的沙箱对这些资源访问的限制也可以不一样。
-   所有的Java程序运行都可以指定沙箱，可以定制安全策略。
-
-
-
-
- ### java中的安全模型：
-
-  在Java中将执行程序分成本地代码和远程代码两种，本地代码默认视为可信任的，而远程代码则被看作是不受信的。对于授信的本地代码，可以访问一切本地资源。而对于非授信的远程代码在早期的Java实现中，安全依赖于沙箱 (Sandbox) 机制。如下图所示
-
- {% image https://cdn.kayleh.top/gh/kayleh/cdn4/沙箱安全机制/1095776-20180111144130504-757642373.gif  %}
-
- 但如此严格的安全机制也给程序的功能扩展带来障碍，比如当用户希望远程代码访问本地系统的文件时候，就无法实现。因此在后续的 Java1.1 版本中，针对安全机制做了改进，增加了安全策略，允许用户指定代码对本地资源的访问权限。如下图所示
-
- {% image D:\Blog\source\_posts\沙箱安全机制\1095776-20180111144207051-1274870859.gif  %}
-
- 在 Java1.2 版本中，再次改进了安全机制，增加了代码签名。不论本地代码或是远程代码，都会按照用户的安全策略设定，由类加载器加载到虚拟机中权限不同的运行空间，来实现差异化的代码执行权限控制。如下图所示
-
- {% image D:\Blog\source\_posts\沙箱安全机制\1095776-20180111144239051-1741250711.gif  %}
-
- 当前最新的安全机制实现，则引入了域 (Domain) 的概念。虚拟机会把所有代码加载到不同的系统域和应用域，系统域部分专门负责与关键资源进行交互，而各个应用域部分则通过系统域的部分代理来对各种需要的资源进行访问。虚拟机中不同的受保护域 (Protected Domain)，对应不一样的权限 (Permission)。存在于不同域中的类文件就具有了当前域的全部权限，如下图所示
-
- {% image D:\Blog\source\_posts\沙箱安全机制\1095776-20180111144309176-1047557575.gif  %}
-
- 以上提到的都是基本的 Java 安全模型概念，在应用开发中还有一些关于安全的复杂用法，其中最常用到的 API 就是 doPrivileged。doPrivileged 方法能够使一段受信任代码获得更大的权限，甚至比调用它的应用程序还要多，可做到临时访问更多的资源。有时候这是非常必要的，可以应付一些特殊的应用场景。例如，应用程序可能无法直接访问某些系统资源，但这样的应用程序必须得到这些资源才能够完成功能。
-
-
-
- ### 组成沙箱的基本组件：
-
- - 字节码校验器（bytecode verifier）：确保Java类文件遵循Java语言规范。这样可以帮助Java程序实现内存保护。但并不是所有的类文件都会经过字节码校验，比如核心类。
- - 类装载器（class loader）：其中类装载器在3个方面对Java沙箱起作用
-
- 1. 它防止恶意代码去干涉善意的代码；
- 2. 它守护了被信任的类库边界；
- 3. 它将代码归入保护域，确定了代码可以进行哪些操作。
-
-      虚拟机为不同的类加载器载入的类提供不同的命名空间，命名空间由一系列唯一的名称组成，每一个被装载的类将有一个名字，这个命名空间是由Java虚拟机为每一个类装载器维护的，它们互相之间甚至不可见。
-
-      类装载器采用的机制是双亲委派模式。1. 从最内层JVM自带类加载器开始加载，外层恶意同名类得不到加载从而无法使用；
-
- 2. 由于严格通过包来区分了访问域，外层恶意的类通过内置代码也无法获得权限访问到内层类，破坏代码就自然无法生效。
-
- - 存取控制器（access controller）：存取控制器可以控制核心API对操作系统的存取权限，而这个控制的策略设定，可以由用户指定。
- - 安全管理器（security manager）：是核心API和操作系统之间的主要接口。实现权限控制，比存取控制器优先级高。
- - 安全软件包（security package）：java.security下的类和扩展包下的类，允许用户为自己的应用增加新的安全特性，包括：
-   1. 安全提供者
-   2. 消息摘要
-   3. 数字签名
-   4. 加密
-   5. 鉴别
-
-说白了就是限制远程代码权限
-
-假如一段代码：
-    public void a()
-    { b(); }
-
-    public void b()
-    { a(); }
-
-调用肯定会栈溢出,但是如果远程恶意修改栈空间就会导致内存溢出.
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-15T16:58:23.000Z">2020-12-15</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">沙箱安全机制</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-15T16:58:23.000Z">2020-12-15</time></span></div></article>
 </a><a class="post-card post " href="/JVM-classloader-and-parent-delegation-mechanism/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">JVM classloader and parent delegation-mechanism</h2><div class="excerpt"><p>JVM-类加载器和双亲委派机制JVMjava的六种存储地址及解释1） 寄存器(register)：这是最快的存储区，因为它位于不同于其他存储区的地方——处理器内部。但是寄存器的数量极其有限，所以寄存器由编译器根据需求进行分配。你不能直接控制，也不能在程序中感觉到寄存器存在的任何迹象。
-2） 堆栈(stack)：位于通用RAM中，但通过它的“堆栈指针”可以从处理器哪里获得支持。堆栈指针若向下移动，则分配新的内存；若向上移动，则释放那些内存。这是一种快速有效的分配存储方法，仅次于寄存器。创建程序时候，JAVA编译器必须知道存储在堆栈内所有数据的确切大小和生命周期，因为它必须生成相应的代码，以便上下移动堆栈指针。这一约束限制了程序的灵活性，所以虽然某些JAVA数据存储在堆栈中——特别是对象引用，但是JAVA对象不存储其中。3）堆(heap)：一种通用性的内存池（也存在于RAM中），用于存放所有的JAVA对象。堆不同于堆栈的好处是：编译器不需要知道要从堆里分配多少存储区域，也不必知道存储的数据在堆里存活多长时间。因此，在堆里分配存储有很大的灵活性。当你需要创建一个对象的时候，只需要new写一行简单的代码，当执行这行代码时，会自动在堆里进行存储分配。当然，为这种灵活性必须要付出相应的代码。用堆进行存储分配比用堆栈进行存储存储需要更多的时间。4）静态存储(static storage)：这里的“静态”是指“在固定的位置”。静态存储里存放程序运行时一直存在的数据。你可用关键字static来标识一个对象的特定元素是静态的，但JAVA对象本身从来不会存放在静态存储空间里。5） 常量存储(constant storage)：常量值通常直接存放在程序代码内部，这样做是安全的，因为它们永远不会被改变。有时，在嵌入式系统中，常量本身会和其他部分分割离开，所以在这种情况下，可以选择将其放在ROM中。6） 非RAM存储：如果数据完全存活于程序之外，那么它可以不受程序的任何控制，在程序没有运行时也可以存在。
-栈、堆、方法区存储的内容
-堆区:1.存储的全部是对象，每个对象都包含一个与之对应的class的信息。(class的目的是得到操作指令)2.jvm只有一个堆区(heap)被所有线程共享，堆中不存放基本类型和对象引用，只存放对象本身 。
-栈区:1.每个线程包含一个栈区，栈中只保存基础数据类型的值和对象以及基础数据的引用2.每个栈中的数据(基础数据类型和对象引用)都是私有的，其他栈不能访问。3.栈分为3个部分：基本类型变量区、执行环境上下文、操作指令区(存放操作指令)。 </p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-14T13:28:57.000Z">2020-12-14</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?jvm"></div><h2 class="post-title">JVM classloader and parent delegation-mechanism</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2020-12-14T13:28:57.000Z">2020-12-14</time></span></div></article>
 </a></div>
   
 

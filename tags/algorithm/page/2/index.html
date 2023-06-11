@@ -5286,7 +5286,7 @@ img[fancybox='true'] {
 <div class="widgets">
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
-<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span></div><div class="widget-body related-posts fs14"><a class="item title" href="/dimits-law/"><span class="title">迪米特法则</span></a><a class="item title" href="/iterator-mode/"><span class="title">迭代器模式</span></a><a class="item title" href="/adapter-mode/"><span class="title">适配器模式</span></a><a class="item title" href="/liskov-substitution-principle/"><span class="title">里氏替换原则</span></a><a class="item title" href="/linked-forward-star/"><span class="title">链式前向星(linked-forward-star)实现</span></a></div></widget>
+<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span></div><div class="widget-body related-posts fs14"><a class="item title" href="/chain-of-responsibility-model/"><span class="title">责任链模式</span></a><a class="item title" href="/Greedy-Algorithm/"><span class="title">贪心算法的基础理论及实践</span></a><a class="item title" href="/program-test/"><span class="title">Software testing process</span></a><a class="item title" href="/continuous/"><span class="title">连续</span></a><a class="item title" href="/dimits-law/"><span class="title">迪米特法则</span></a></div></widget>
 
 <widget class="widget-wrapper timeline"><div class="widget-header cap theme dis-select"><span class="name">近期动态</span></div><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/Kayleh/blog_notes/issues" user="Kayleh"></div></div></widget>
 </div>
@@ -5311,317 +5311,25 @@ img[fancybox='true'] {
 <div class="nav-wrap"><nav class="sub post cap"><a href="/">近期发布</a><a class="active" href="/tags">标签：algorithm</a><a href="/archives">归档</a></nav></div>
 
   <div class="post-list post"><a class="post-card post " href="/PriorityQueue/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">堆—优先队列</h2><div class="excerpt"><p>「优先队列」应用场景：从序列中找一个最值（最大值或最小值），如果顺序寻找最值需要O(n)的时间，而使用优先队列则只需要O(logn)的时间。
-普通的队列是一种先进先出的数据结构，元素在队尾入，在队头出。
-在优先队列中。元素被赋予了优先级，具有最高优先级的元素先出。
-优先队列是利用堆来实现的，堆可以看作是一棵完全二叉树的循序存储结构，具有n个节点的完全二叉树的深度为（logn）+1
-在这棵完全二叉树中，
-如果每一个节点的值都大于等于左右孩子的值，则称之为最大堆，大顶堆。
-如果每一个节点的值都小于等于左右孩子的值，则称之为最小堆，小顶堆。
-优先队列的操作
-出队：堆顶出队，最后一个记录代替堆顶的位置，重新调整为堆</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-01-04T00:02:09.000Z">2022-01-04</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">堆—优先队列</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-01-04T00:02:09.000Z">2022-01-04</time></span></div></article>
 </a><a class="post-card post " href="/slidingWindow/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">滑动窗口</h2><div class="excerpt"><p>「滑动窗口」//给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
-//
-// 注意：
-// 对于 t 中重复字符，我们寻找的子字符串中该字符数量必须不少于 t 中该字符数量。
-// 如果 s 中存在这样的子串，我们保证它是唯一的答案。
-//
-// 示例 1：
-//输入：s = "ADOBECODEBANC", t = "ABC"
-//输出："BANC"
-//
-//
-// 示例 2：
-//输入：s = "a", t = "a"
-//输出："a"
-//
-//
-// 示例 3:
-//输入: s = "a", t = "aa"
-//输出: ""
-//解释: t 中两个字符 'a' 均应包含在 s 的子串中，
-//因此没有符合条件的子字符串，返回空字符串。
-//
-//
-// 提示：
-// 1 &lt;= s.length, t.length &lt;= 10⁵
-// s 和 t 由英文字母组成
-//进阶：你能设计一个在 o(n) 时间内解决此问题的算法吗？ Related Topics 哈希表 字符串 滑动窗口 👍 1527 👎 0
-
-
-import java.util.HashMap;
-import java.util.Map;
-
-class Solution
-{
-    public String minWindow(String s, String t) {
-        // 存放t字符的数量，方便进行比对
-        Map&lt;Character, Integer&gt; need = new HashMap&lt;&gt;();
-        // 存放由截取的s字符数量
-        Map&lt;Character, Integer&gt; window = new HashMap&lt;&gt;();
-        for (char charArray : t.toCharArray()) {
-            need.put(charArray, need.getOrDefault(charArray, 0) + 1);
-        }
-        int left = 0, start = 0, valid = 0, len = Integer.MAX_VALUE;
-        for (int right = 0; right &lt; s.length(); right++) {
-            char RChar = s.charAt(right);
-            // need如果存在右指针所指字符，window将添加所指字符数量
-            if (need.containsKey(RChar)) {
-                window.put(RChar, window.getOrDefault(RChar, 0) + 1);
-                // 当need的右指针所指字符数量与window的右指针所指字符数量相等时，对total数量加一
-                if (window.get(RChar).equals(need.get(RChar))) {
-                    valid++;
-                }
-            }
-            // 当valid达到need字符种类数时寻找最小值
-            while (valid == need.size()) {
-                if (right - left + 1 &lt; len) {
-                    len = right - left + 1;
-                    // 记录最小值一开始的位置
-                    start = left;
-                }
-                // 获取左指针当前字符，并将左指针左移
-                char LChar = s.charAt(left++);
-                if (window.containsKey(LChar)) {
-                    // 当LChar的个数相等时，说明左指针左移一位后肯定不相等，所以total减一
-                    if (window.get(LChar).equals(need.get(LChar))) {
-                        valid--;
-                    }
-                    window.put(LChar, window.get(LChar) - 1);
-                }
-            }
-        }
-        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
-    }
-}
-
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-01-02T18:18:16.000Z">2022-01-02</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">滑动窗口</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-01-02T18:18:16.000Z">2022-01-02</time></span></div></article>
 </a><a class="post-card post " href="/Differential-array/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">差分数组—前缀和思想</h2><div class="excerpt"><p>前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。
-prefix[i]就代表着nums[0..i-1]所有元素的累加和，如果我们想求区间nums[i..j]的累加和，只要计算prefix[j+1] - prefix[i]即可，而不需要遍历整个区间求和。
-「差分数组」差分数组的主要适用场景是频繁对原始数组的某个区间的元素进行增减
-对nums数组构造一个diff差分数组，diff[i]就是nums[i]和nums[i-1]之差：
-int[] diff = new int[nums.length];
-// 构造差分数组
-diff[0] = nums[0];
-for (int i = 1; i &lt; nums.length; i++) {
-    diff[i] = nums[i] - nums[i - 1];
-}
-
-通过这个diff差分数组是可以反推出原始数组nums的，代码逻辑如下：
-int[] res = new int[diff.length];
-// 根据差分数组构造结果数组
-res[0] = diff[0];
-for (int i = 1; i &lt; diff.length; i++) {
-    res[i] = res[i - 1] + diff[i];
-}
-这样构造差分数组diff，就可以快速进行区间增减的操作，如果你想对区间nums[i..j]的元素全部加 3，那么只需要让diff[i] += 3，然后再让diff[j+1] -= 3即可
-原理很简单，回想diff数组反推nums数组的过程，diff[i] += 3意味着给nums[i..]所有的元素都加了 3，然后diff[j+1] -= 3又意味着对于nums[j+1..]所有元素再减 3，那综合起来，就是对nums[i..j]中的所有元素都加 3 了</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-01-01T22:25:42.000Z">2022-01-01</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">差分数组—前缀和思想</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2022-01-01T22:25:42.000Z">2022-01-01</time></span></div></article>
 </a><a class="post-card post " href="/adjacency-table/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">「图论」4：邻接表</h2><div class="excerpt"><p>
-根据邻接表建图：
-List&lt;Integer&gt;[] buildGraph(int numCourses, int[][] prerequisites) {
-    // 图中共有 numCourses 个节点
-    List&lt;Integer&gt;[] graph = new LinkedList[numCourses];
-    for (int i = 0; i &lt; numCourses; i++) {
-        graph[i] = new LinkedList&lt;&gt;();
-    }
-    for (int[] edge : prerequisites) {
-        int from = edge[1];
-        int to = edge[0];
-        // 修完课程 from 才能修课程 to
-        // 在图中添加一条从 from 指向 to 的有向边
-        graph[from].add(to);
-    }
-    return graph;
-}
-
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-27T16:50:17.000Z">2021-12-27</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">「图论」4：邻接表</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-27T16:50:17.000Z">2021-12-27</time></span></div></article>
 </a><a class="post-card post " href="/huisu-algorithm/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">回溯算法</h2><div class="excerpt"><p></p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-27T13:26:11.000Z">2021-12-27</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">回溯算法</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-27T13:26:11.000Z">2021-12-27</time></span></div></article>
 </a><a class="post-card post " href="/Greedy-Algorithm/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">贪心算法的基础理论及实践</h2><div class="excerpt"><p>class Solution
-{
-    // 面积
-    //矩形的长度：两条垂直线的距离
-    //矩形的宽度：两条垂直线其中较短一条的长度
-    public int maxArea(int[] height) {
-        //设置两个指针 left 和 right，分别指向数组的最左端和最右端。 此时，两条垂直线的距离是最远的，
-        int l = 0, r = height.length - 1;
-        int res = 0;
-        while (l &lt; r) {
-            // 若要下一个矩形面积比当前面积来得大，
-            int lHigh = height[l];
-            int rHigh = height[r];
-            int area = Math.min(lHigh, rHigh) * (r - l);
-            res = Math.max(res, area);
-            // 把 height[left] 和 height[right] 中较短的垂直线往中间移动，
-            // 看看是否可以找到更长的垂直线。
-            if (lHigh &lt;= rHigh) {++l;
-            } else {--r;}
-            //例子的核心在于：贪心，每次保留最长的边向中间求面积
-        }
-        return res;
-    }
-}
-
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-24T18:56:07.000Z">2021-12-24</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">贪心算法的基础理论及实践</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-24T18:56:07.000Z">2021-12-24</time></span></div></article>
 </a><a class="post-card post " href="/dp-array/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">dp矩阵数组优化、滚动数组、线性数组</h2><div class="excerpt"><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
-机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
-问总共有多少条不同的路径？
-
-//输入：m = 3, n = 2
-//输出：3
-//解释：
-//从左上角开始，总共有 3 条路径可以到达右下角。
-//1. 向右 -&gt; 向下 -&gt; 向下
-//2. 向下 -&gt; 向下 -&gt; 向右
-//3. 向下 -&gt; 向右 -&gt; 向下
-public int uniquePaths(int m, int n) {
-    int[][] dp = new int[m][n];
-    //region 初始化：一直往右边或一直往下面走
-    for (int i = 0; i &lt; m; i++) {
-        dp[i][0] = 1;
-    }
-    for (int i = 0; i &lt; n; i++) {
-        dp[0][i] = 1;
-    }
-    //endregion
-    for (int i = 1; i &lt; m; i++) {
-        for (int j = 1; j &lt; n; j++) {
-            // dp[i - 1][j] + dp[i][j - 1] 分别表示从 左边和上面 过来
-            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-        }
-    }
-    return dp[m - 1][n - 1];
-}
-
-public int uniquePaths2(int m, int n) {
-    int[] pre = new int[n];
-    int[] cur = new int[n];
-    Arrays.fill(pre, 1);
-    Arrays.fill(cur, 1);
-    //滚动数组，只要上一行的数据
-    for (int i = 1; i &lt; m; i++) {
-        for (int j = 1; j &lt; n; j++) {
-            // cur[j-1]表示从左边过来
-            // pre[j] 表示从上面过来
-            cur[j] = cur[j - 1] + pre[j];
-        }
-        pre = cur.clone();
-    }
-    return pre[n - 1];
-}
-
-public int uniquePaths3(int m, int n) {
-    int[] dp = new int[n];
-    Arrays.fill(dp, 1);
-    for (int i = 1; i &lt; m; i++) {
-        for (int j = 1; j &lt; n; j++) {
-            //dp[j]是上一次计算后的结果再加上左边的 dp[j-1]即为当前结果
-            dp[j] += dp[j - 1];
-        }
-    }
-    return dp[n - 1];
-}
-
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-24T10:39:22.000Z">2021-12-24</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">dp矩阵数组优化、滚动数组、线性数组</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-24T10:39:22.000Z">2021-12-24</time></span></div></article>
 </a><a class="post-card post " href="/random-weight-distribution/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">随机权值选择算法</h2><div class="excerpt"><p>按权值随机选择算法给你一个 下标从 0 开始 的正整数数组 w ，其中 w[i] 代表第 i 个下标的权重。
-请你实现一个函数 pickIndex ，它可以 随机地 从范围 [0, w.length - 1] 内（含 0 和 w.length - 1）选出并返回一个下标。选取下标 i 的 概率 为 w[i] / sum(w) 。
-例如，对于 w = [1, 3]，挑选下标 0 的概率为 1 / (1 + 3) = 0.25 （即，25%），而选取下标 1 的概率为 3 / (1 + 3) = 0.75（即，75%）。
-输入：
-["Solution","pickIndex","pickIndex","pickIndex","pickIndex","pickIndex"]
-[[[1,3]],[],[],[],[],[]]
-输出：
-[null,1,1,1,1,0]
-解释：
-Solution solution = new Solution([1, 3]);
-solution.pickIndex(); // 返回 1，返回下标 1，返回该下标概率为 3/4 。
-solution.pickIndex(); // 返回 1
-solution.pickIndex(); // 返回 1
-solution.pickIndex(); // 返回 1
-solution.pickIndex(); // 返回 0，返回下标 0，返回该下标概率为 1/4 。
-
-由于这是一个随机问题，允许多个答案，因此下列输出都可以被认为是正确的:
-[null,1,1,1,1,0]
-[null,1,1,1,1,1]
-[null,1,1,1,0,0]
-[null,1,1,1,0,1]
-[null,1,0,1,0,0]
-......
-诸若此类。
-
-来源：力扣（LeetCode）
-
-方案一：前缀和+二分查找
-
-把待选择的数放平到线段上
-如:
- 待选择的数组：[ 1,3,2,4,2  ]
-按数字权值大小在线段上分布放平:
-1___3__2____4__2
-求出前缀和:
-1___4__6____10__12
-不难发现：现在前缀和数组可以表示，每一个数字占所有可能选择的几率（线段长度除以总长度）
- 那如果选择的是7呢？
-这时，比如数组左边抛出一个小球，随机落到7点处，即6-10之间，其实已经是10的概率分布范围了。这时需要二分查找，查找当前数字的最左值，即10的位置。
-
-class Solution {
-
-    int nums[];//前缀和数组
-
-    public Solution(int[] w) {
-        int n = w.length;
-        nums = new int[n + 1];
-        //第0位为占位符，可以理解为小球抛出点
-        for (int i = 1; i &lt;= n; i++) nums[i] = nums[i - 1] + w[i - 1];
-    }
-
-    public int pickIndex() {
-        int n = nums.length;
-        int t = (int) (Math.random() * nums[n - 1]) + 1;
-        //二分法，获取最左边界值
-        int l = 1;
-        int r = n - 1;
-        while (l &lt; r) {
-            int mid = l + r + 1 &gt;&gt; 1;
-            if (nums[mid] &lt; t) l = mid;
-            else r = mid - 1;
-        }
-        return nums[r] &lt; t ? r : r - 1;
-    }
-}
-
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-22T20:14:07.000Z">2021-12-22</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">随机权值选择算法</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-22T20:14:07.000Z">2021-12-22</time></span></div></article>
 </a><a class="post-card post " href="/adjacency-matrix/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">离散图论2：邻接矩阵</h2><div class="excerpt"><p>假设节点为[a,b,c,d]，在邻接矩阵中，
-
-无向图：如果v1到v2有边，则邻接矩阵M[v_1][v_2]=M[v_2][v_1]=1，否则=0.
-M[0]中的值为1的元素的个数为a(节点0)的度，M[i][0]中的值为1的元素的个数也为a(节点0)的度，因为在无向图中，邻接矩阵是以对角线对称的。
-
-有向图：M[0]中的值为1的元素的个数为a(节点0)的出度，M[i][0]中的值为1的元素的个数也为a(节点0)的入度
-
-带权图：如果v1到v2有边，则邻接矩阵M[v_1][v_2]=W_1_2, 否则为正无穷
-
-
-优点：
-
-快速判断两顶点是否有边
-方便计算各顶点的度
-
-缺点
-
-不便于增删节点
-不便于访问所有邻接点
-空间复杂度高，如果图比较稀疏，会造成空间浪费
-
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-22T16:34:18.000Z">2021-12-22</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">离散图论2：邻接矩阵</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-22T16:34:18.000Z">2021-12-22</time></span></div></article>
 </a><a class="post-card post " href="/edgeset-array/">
-<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">离散图论3：边集数组</h2><div class="excerpt"><p>如果要对边进行排序，或按边的权重进行排序，推荐使用边集数组
-</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-22T16:30:52.000Z">2021-12-22</time></span></div></article>
+<article class="md-text"><div class="post-cover"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://source.unsplash.com/1280x640/?algorithm"></div><h2 class="post-title">离散图论3：边集数组</h2><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2021-12-22T16:30:52.000Z">2021-12-22</time></span></div></article>
 </a></div>
   
   <div class="paginator-wrap dis-select">
