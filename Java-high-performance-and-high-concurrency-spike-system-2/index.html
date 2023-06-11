@@ -1,4 +1,70 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>Java高性能高并发秒杀系统(2) - Kayleh</title><meta name="description" content="MD5加密和全局异常处理器"><meta property="og:type" content="article"><meta property="og:title" content="Java高性能高并发秒杀系统(2)"><meta property="og:url" content="https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-2/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="MD5加密和全局异常处理器"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200709182209155.png"><meta property="article:published_time" content="2020-11-06T12:13:45.000Z"><meta property="article:modified_time" content="2023-06-11T15:26:41.646Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="project"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200709182209155.png"><meta name="twitter:creator" content="@kayleh"><meta name="keywords" content="project"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><link rel="preconnect" href="https://s1.hdslb.com/"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://gcore.jsdelivr.net">
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin="">
+  <link rel="dns-prefetch" href="//unpkg.com">
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Java高性能高并发秒杀系统(2) - Kayleh</title>
+
+  
+    <meta name="description" content="MD5加密和全局异常处理器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java高性能高并发秒杀系统(2)">
+<meta property="og:url" content="https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-2/index.html">
+<meta property="og:site_name" content="Kayleh">
+<meta property="og:description" content="MD5加密和全局异常处理器">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200709182209155.png">
+<meta property="article:published_time" content="2020-11-06T12:13:45.000Z">
+<meta property="article:modified_time" content="2023-06-11T16:12:59.884Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200709182209155.png">
+<meta name="twitter:creator" content="@kayleh">
+  
+  
+  
+  <meta name="keywords" content="project">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml">
+  
+
+  
+    
+
+
+  
+
+  
+    <link rel="shortcut icon" href="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg">
+  
+
+  
+
+  
+
+
+  
+    
+      
+    
+      <link rel="preconnect" href="https://s1.hdslb.com/"> <script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
   --width-left: 288px;
   --width-main: 720px;
   --gap-l: 16px;
@@ -5200,7 +5266,66 @@ img[fancybox='true'] {
   color: #fa6400;
   opacity: 0.75;
 }
-</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>--<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?project"></div></div></div><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">主页</a><a class="nav-item" href="/notes/">随记</a></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Java高性能高并发秒杀系统(2)</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E5%AF%86%E7%A0%81%E4%B8%A4%E6%AC%A1MD5%E5%8A%A0%E5%AF%86"><span class="toc-text">1. 登录过程中，密码两次MD5加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%B8%BA%E5%95%A5%E7%94%A8%E4%B8%A4%E6%AC%A1MD5%E5%93%87%EF%BC%9F"><span class="toc-text">1.1 为啥用两次MD5哇？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9E%84%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8"><span class="toc-text">2. 构建数据库表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%87%A0%E4%B8%AA%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="toc-text">2.1 几个需要注意的点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%92%88%E5%AF%B9MD5%E5%8A%A0%E5%AF%86%E5%8A%9F%E8%83%BD%EF%BC%8C%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%93%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-text">3. 针对MD5加密功能，封装了专用工具类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%B7%A5%E5%85%B7%E7%B1%BB%E4%BB%A3%E7%A0%81"><span class="toc-text">3.1 工具类代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8A%A0%E5%85%A5JSR%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C"><span class="toc-text">4. 加入JSR参数校验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-JSR%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C"><span class="toc-text">4.1 JSR参数校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-IsMobile%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3"><span class="toc-text">4.2 @IsMobile自定义注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">5. 全局异常处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E5%85%A5%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8%EF%BC%9F"><span class="toc-text">5.1 我们为什么要引入全局异常处理器？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%BC%98%E5%8C%96"><span class="toc-text">5.2 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8"><span class="toc-text">5.3 全局异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">5.4 全局异常处理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%85%B3%E6%B3%A8%E4%B8%80%E4%B8%8B%E5%8F%82%E6%95%B0%E6%9B%BF%E6%8D%A2%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">6. 关注一下参数替换的方法</span></a></li></ol></div></div></widget></div><footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-11-06T12:13:45.000Z">2020-11-06</time></div></div><article class="md-text content post"><h1 class="article-title"><span>Java高性能高并发秒杀系统(2)</span></h1><h2 id="1-登录过程中，密码两次MD5加密"><a href="#1-登录过程中，密码两次MD5加密" class="headerlink" title="1. 登录过程中，密码两次MD5加密"></a>1. 登录过程中，密码两次MD5加密</h2><h3 id="1-1-为啥用两次MD5哇？"><a href="#1-1-为啥用两次MD5哇？" class="headerlink" title="1.1 为啥用两次MD5哇？"></a>1.1 为啥用两次MD5哇？</h3><ol><li>第一次MD5，是针对<code>传输安全</code>做的MD5加密，因为<code>http是明文传递</code>，如果不进行加密的话，密码就直接被劫持了。<br>(Password1 = MD5(inputPassword,固定的salt值)，salt为字符串)</li><li>第二次MD5，是针对<code>数据库安全</code>做的MD5加密，保证数据库的防盗安全。若不进行二次加密，MD5值经数据库获取，可直接被MD5转换器直接转换为用户密码，不安全。<br>(Password2 = MD5(Password1,随机的salt值))</li></ol><hr><h2 id="2-构建数据库表"><a href="#2-构建数据库表" class="headerlink" title="2. 构建数据库表"></a>2. 构建数据库表</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200709182209155.png"></div></div><h3 id="2-1-几个需要注意的点"><a href="#2-1-几个需要注意的点" class="headerlink" title="2.1 几个需要注意的点"></a>2.1 几个需要注意的点</h3><ul><li>字符集采用的是<code>utf8mb4</code>(most bytes 4)。简单来说，utf8mb4是<code>utf8的超集</code>，能够用<code>4个字节</code>存储更多的字符。标准UTF-8字符集编码可以用1~4个字节取编码21位字符，但是在<code>MySQL中，utf8最多使用3个字节</code>，像一些表情emoji和不常用的字符如“墅”需要用4个字节才能表示出来。用utf8mb4能解决以上问题。</li><li>数据库中存储了<code>"动态"salt值</code></li></ul><hr><h2 id="3-针对MD5加密功能，封装了专用工具类"><a href="#3-针对MD5加密功能，封装了专用工具类" class="headerlink" title="3. 针对MD5加密功能，封装了专用工具类"></a>3. 针对MD5加密功能，封装了专用工具类</h2><p>以下MD5包的Maven依赖了解以下</p><pre><code class="lang-bash">        &lt;dependency&gt;
+</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>-  - 
+    
+  
+
+
+
+  
+
+<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?project"></div></div></div>
+
+
+  <div class="l_body" id="start">
+    <aside class="l_left" layout="post">
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy="" class="avatar" src="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0"> Dreamaker</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">导航</a><a class="nav-item" href="/notes/">随记</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Java高性能高并发秒杀系统(2)</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%99%BB%E5%BD%95%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E5%AF%86%E7%A0%81%E4%B8%A4%E6%AC%A1MD5%E5%8A%A0%E5%AF%86"><span class="toc-text">1. 登录过程中，密码两次MD5加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%B8%BA%E5%95%A5%E7%94%A8%E4%B8%A4%E6%AC%A1MD5%E5%93%87%EF%BC%9F"><span class="toc-text">1.1 为啥用两次MD5哇？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9E%84%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8"><span class="toc-text">2. 构建数据库表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%87%A0%E4%B8%AA%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9"><span class="toc-text">2.1 几个需要注意的点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%92%88%E5%AF%B9MD5%E5%8A%A0%E5%AF%86%E5%8A%9F%E8%83%BD%EF%BC%8C%E5%B0%81%E8%A3%85%E4%BA%86%E4%B8%93%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-text">3. 针对MD5加密功能，封装了专用工具类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%B7%A5%E5%85%B7%E7%B1%BB%E4%BB%A3%E7%A0%81"><span class="toc-text">3.1 工具类代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8A%A0%E5%85%A5JSR%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C"><span class="toc-text">4. 加入JSR参数校验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-JSR%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C"><span class="toc-text">4.1 JSR参数校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-IsMobile%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3"><span class="toc-text">4.2 @IsMobile自定义注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">5. 全局异常处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E5%85%A5%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8%EF%BC%9F"><span class="toc-text">5.1 我们为什么要引入全局异常处理器？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%BC%98%E5%8C%96"><span class="toc-text">5.2 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8"><span class="toc-text">5.3 全局异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">5.4 全局异常处理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%85%B3%E6%B3%A8%E4%B8%80%E4%B8%8B%E5%8F%82%E6%95%B0%E6%9B%BF%E6%8D%A2%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">6. 关注一下参数替换的方法</span></a></li></ol></div></div></widget>
+
+
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer>
+
+    </aside>
+    <div class="l_main">
+      
+
+      
+
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-11-06T12:13:45.000Z">2020-11-06</time></div></div>
+
+<article class="md-text content post">
+<h1 class="article-title"><span>Java高性能高并发秒杀系统(2)</span></h1>
+<h2 id="1-登录过程中，密码两次MD5加密"><a href="#1-登录过程中，密码两次MD5加密" class="headerlink" title="1. 登录过程中，密码两次MD5加密"></a>1. 登录过程中，密码两次MD5加密</h2><h3 id="1-1-为啥用两次MD5哇？"><a href="#1-1-为啥用两次MD5哇？" class="headerlink" title="1.1 为啥用两次MD5哇？"></a>1.1 为啥用两次MD5哇？</h3><ol>
+<li>第一次MD5，是针对<code>传输安全</code>做的MD5加密，因为<code>http是明文传递</code>，如果不进行加密的话，密码就直接被劫持了。<br>(Password1 = MD5(inputPassword,固定的salt值)，salt为字符串)</li>
+<li>第二次MD5，是针对<code>数据库安全</code>做的MD5加密，保证数据库的防盗安全。若不进行二次加密，MD5值经数据库获取，可直接被MD5转换器直接转换为用户密码，不安全。<br>(Password2 = MD5(Password1,随机的salt值))</li>
+</ol>
+<hr>
+<h2 id="2-构建数据库表"><a href="#2-构建数据库表" class="headerlink" title="2. 构建数据库表"></a>2. 构建数据库表</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200709182209155.png"></div></div>
+<h3 id="2-1-几个需要注意的点"><a href="#2-1-几个需要注意的点" class="headerlink" title="2.1 几个需要注意的点"></a>2.1 几个需要注意的点</h3><ul>
+<li>字符集采用的是<code>utf8mb4</code>(most bytes 4)。简单来说，utf8mb4是<code>utf8的超集</code>，能够用<code>4个字节</code>存储更多的字符。标准UTF-8字符集编码可以用1~4个字节取编码21位字符，但是在<code>MySQL中，utf8最多使用3个字节</code>，像一些表情emoji和不常用的字符如“墅”需要用4个字节才能表示出来。用utf8mb4能解决以上问题。</li>
+<li>数据库中存储了<code>"动态"salt值</code></li>
+</ul>
+<hr>
+<h2 id="3-针对MD5加密功能，封装了专用工具类"><a href="#3-针对MD5加密功能，封装了专用工具类" class="headerlink" title="3. 针对MD5加密功能，封装了专用工具类"></a>3. 针对MD5加密功能，封装了专用工具类</h2><p>以下MD5包的Maven依赖了解以下</p>
+<pre><code class="lang-bash">        &lt;dependency&gt;
             &lt;groupId&gt;commons-codec&lt;/groupId&gt;
             &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
         &lt;/dependency&gt;
@@ -5210,7 +5335,8 @@ img[fancybox='true'] {
             &lt;version&gt;3.6&lt;/version&gt;
         &lt;/dependency&gt;
 123456789
-</code></pre><h3 id="3-1-工具类代码"><a href="#3-1-工具类代码" class="headerlink" title="3.1 工具类代码"></a>3.1 工具类代码</h3><pre><code class="lang-java">public class MD5Util {
+</code></pre>
+<h3 id="3-1-工具类代码"><a href="#3-1-工具类代码" class="headerlink" title="3.1 工具类代码"></a>3.1 工具类代码</h3><pre><code class="lang-java">public class MD5Util {
     //静态的salt，用于第一次MD5
     private static final String salt = "1a2b3c4d";
 
@@ -5235,7 +5361,15 @@ img[fancybox='true'] {
     ...
 }
 123456789101112131415161718192021222324
-</code></pre><ul><li>我在第一次处理加密时，拼接<code>字符</code>时没有添加<code>""</code>，出现了登录验证失败的问题</li></ul><hr><h2 id="4-加入JSR参数校验"><a href="#4-加入JSR参数校验" class="headerlink" title="4. 加入JSR参数校验"></a>4. 加入JSR参数校验</h2><h3 id="4-1-JSR参数校验"><a href="#4-1-JSR参数校验" class="headerlink" title="4.1 JSR参数校验"></a>4.1 JSR参数校验</h3><ul><li>我们看如下，代码，在登录处理过程中，我们要用<code>代码</code>实现对前端传过来的id和password进行校验（我们这里是验证<code>非空</code>），引入JSR参数校验之后，能够将这些代码省去</li></ul><pre><code class="lang-java">    @PostMapping("/do_login")
+</code></pre>
+<ul>
+<li>我在第一次处理加密时，拼接<code>字符</code>时没有添加<code>""</code>，出现了登录验证失败的问题</li>
+</ul>
+<hr>
+<h2 id="4-加入JSR参数校验"><a href="#4-加入JSR参数校验" class="headerlink" title="4. 加入JSR参数校验"></a>4. 加入JSR参数校验</h2><h3 id="4-1-JSR参数校验"><a href="#4-1-JSR参数校验" class="headerlink" title="4.1 JSR参数校验"></a>4.1 JSR参数校验</h3><ul>
+<li>我们看如下，代码，在登录处理过程中，我们要用<code>代码</code>实现对前端传过来的id和password进行校验（我们这里是验证<code>非空</code>），引入JSR参数校验之后，能够将这些代码省去</li>
+</ul>
+<pre><code class="lang-java">    @PostMapping("/do_login")
     @ResponseBody
     public Result&lt;Boolean&gt; doLogin(LoginVo loginVo){
         log.info(loginVo.toString());
@@ -5258,14 +5392,23 @@ img[fancybox='true'] {
         }
     }
 12345678910111213141516171819202122
-</code></pre><ul><li>进行JSR参数校验升级</li></ul><p>我们先看一下导入的包</p><pre><code class="lang-bash">        &lt;dependency&gt;
+</code></pre>
+<ul>
+<li>进行JSR参数校验升级</li>
+</ul>
+<p>我们先看一下导入的包</p>
+<pre><code class="lang-bash">        &lt;dependency&gt;
             &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
             &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
         &lt;/dependency&gt;
 1234
-</code></pre><p>我们在doLogin()方法上，加上JSR验证，<code>@Valid</code>注解</p><pre><code class="lang-java">public Result&lt;CodeMsg&gt; doLogin(@Valid LoginVo loginVo)
+</code></pre>
+<p>我们在doLogin()方法上，加上JSR验证，<code>@Valid</code>注解</p>
+<pre><code class="lang-java">public Result&lt;CodeMsg&gt; doLogin(@Valid LoginVo loginVo)
 1
-</code></pre><p>被标注的参数，我们进入它的实现类中，对其中的字段进行约束，如下（<code>@NotNull</code>，<code>@Length</code>，<code>@IsMobile</code>，其中@IsMobile是我们自定义的注解）</p><pre><code class="lang-java">@Data
+</code></pre>
+<p>被标注的参数，我们进入它的实现类中，对其中的字段进行约束，如下（<code>@NotNull</code>，<code>@Length</code>，<code>@IsMobile</code>，其中@IsMobile是我们自定义的注解）</p>
+<pre><code class="lang-java">@Data
 public class LoginVo {
 
     @IsMobile
@@ -5277,7 +5420,9 @@ public class LoginVo {
     private String password;
 }
 1234567891011
-</code></pre><h3 id="4-2-IsMobile自定义注解"><a href="#4-2-IsMobile自定义注解" class="headerlink" title="4.2 @IsMobile自定义注解"></a>4.2 @IsMobile自定义注解</h3><p>我们看一下它的代码（这个注解的写法，根据已有注解@NotNull，仿写而来），它实现的是对手机号码的验证</p><pre><code class="lang-java">@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER})
+</code></pre>
+<h3 id="4-2-IsMobile自定义注解"><a href="#4-2-IsMobile自定义注解" class="headerlink" title="4.2 @IsMobile自定义注解"></a>4.2 @IsMobile自定义注解</h3><p>我们看一下它的代码（这个注解的写法，根据已有注解@NotNull，仿写而来），它实现的是对手机号码的验证</p>
+<pre><code class="lang-java">@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(
@@ -5296,7 +5441,12 @@ public @interface IsMobile {
     Class&lt;? extends Payload&gt;[] payload() default {};
 }
 123456789101112131415161718
-</code></pre><ul><li><code>@Target</code>：表示的是能够标注的范围</li><li><code>@Constraint</code>：这个注解帮助我们处理逻辑，其中有<code>IsMobileValidator.class</code>是真正处理逻辑的类，我们看看它的代码</li></ul><pre><code class="lang-java">public class IsMobileValidator implements ConstraintValidator&lt;IsMobile, String&gt; {
+</code></pre>
+<ul>
+<li><code>@Target</code>：表示的是能够标注的范围</li>
+<li><code>@Constraint</code>：这个注解帮助我们处理逻辑，其中有<code>IsMobileValidator.class</code>是真正处理逻辑的类，我们看看它的代码</li>
+</ul>
+<pre><code class="lang-java">public class IsMobileValidator implements ConstraintValidator&lt;IsMobile, String&gt; {
 
     private boolean required = false;
 
@@ -5323,7 +5473,17 @@ public @interface IsMobile {
     }
 }
 1234567891011121314151617181920212223242526
-</code></pre><ul><li>先看类的声明部分，public class IsMobileValidator implements <code>ConstraintValidator</code>，它有两个泛型，第一个是<code>自定义的注解类</code>，第二个是要<code>验证的参数类型</code>，另外实现该接口的逻辑类，<code>被spring管理成bean</code>，可以在需要的地方进行装配</li><li>其中有一个<code>initialize</code>，初始化方法，它调用的是我们自定义注解中写的<code>required()</code>方法，默认需要有值</li><li>另一个方法<code>isValid</code>，则对逻辑进行验证，true验证通过，false验证失败</li></ul><hr><h2 id="5-全局异常处理器"><a href="#5-全局异常处理器" class="headerlink" title="5. 全局异常处理器"></a>5. 全局异常处理器</h2><h3 id="5-1-我们为什么要引入全局异常处理器？"><a href="#5-1-我们为什么要引入全局异常处理器？" class="headerlink" title="5.1 我们为什么要引入全局异常处理器？"></a>5.1 我们为什么要引入全局异常处理器？</h3><ul><li>一边想，一边看一下下面这个方法</li></ul><pre><code class="lang-java">    public CodeMsg login(LoginVo loginVo){
+</code></pre>
+<ul>
+<li>先看类的声明部分，public class IsMobileValidator implements <code>ConstraintValidator</code>，它有两个泛型，第一个是<code>自定义的注解类</code>，第二个是要<code>验证的参数类型</code>，另外实现该接口的逻辑类，<code>被spring管理成bean</code>，可以在需要的地方进行装配</li>
+<li>其中有一个<code>initialize</code>，初始化方法，它调用的是我们自定义注解中写的<code>required()</code>方法，默认需要有值</li>
+<li>另一个方法<code>isValid</code>，则对逻辑进行验证，true验证通过，false验证失败</li>
+</ul>
+<hr>
+<h2 id="5-全局异常处理器"><a href="#5-全局异常处理器" class="headerlink" title="5. 全局异常处理器"></a>5. 全局异常处理器</h2><h3 id="5-1-我们为什么要引入全局异常处理器？"><a href="#5-1-我们为什么要引入全局异常处理器？" class="headerlink" title="5.1 我们为什么要引入全局异常处理器？"></a>5.1 我们为什么要引入全局异常处理器？</h3><ul>
+<li>一边想，一边看一下下面这个方法</li>
+</ul>
+<pre><code class="lang-java">    public CodeMsg login(LoginVo loginVo){
         if(loginVo == null){
             return CodeMsg.SERVER_ERROR;
         }
@@ -5347,7 +5507,10 @@ public @interface IsMobile {
         return CodeMsg.SUCCESS;
     }
 1234567891011121314151617181920212223
-</code></pre><p>它的返回值是CodeMsg，而在业务中，方法对应的返回值应该是<code>确切的</code>，我们登陆，返回应该为 true 或 false，所以，我们要对这里进行优化</p><h3 id="5-2-优化"><a href="#5-2-优化" class="headerlink" title="5.2 优化"></a>5.2 优化</h3><p>代码如下</p><pre><code class="lang-java">    public boolean login(LoginVo loginVo){
+</code></pre>
+<p>它的返回值是CodeMsg，而在业务中，方法对应的返回值应该是<code>确切的</code>，我们登陆，返回应该为 true 或 false，所以，我们要对这里进行优化</p>
+<h3 id="5-2-优化"><a href="#5-2-优化" class="headerlink" title="5.2 优化"></a>5.2 优化</h3><p>代码如下</p>
+<pre><code class="lang-java">    public boolean login(LoginVo loginVo){
         if(loginVo == null){
             throw new GlobalException(CodeMsg.SERVER_ERROR);
         }
@@ -5371,7 +5534,9 @@ public @interface IsMobile {
         return true;
     }
 1234567891011121314151617181920212223
-</code></pre><p>我们可以发现，对应的参数验证，并没有返回值，而是直接<code>抛出异常</code>，而且我们也将<code>返回值进行了修改</code>，执行到方法的最后，能够返回ture</p><h3 id="5-3-全局异常"><a href="#5-3-全局异常" class="headerlink" title="5.3 全局异常"></a>5.3 全局异常</h3><pre><code class="lang-java">public class GlobalException extends RuntimeException {
+</code></pre>
+<p>我们可以发现，对应的参数验证，并没有返回值，而是直接<code>抛出异常</code>，而且我们也将<code>返回值进行了修改</code>，执行到方法的最后，能够返回ture</p>
+<h3 id="5-3-全局异常"><a href="#5-3-全局异常" class="headerlink" title="5.3 全局异常"></a>5.3 全局异常</h3><pre><code class="lang-java">public class GlobalException extends RuntimeException {
     private CodeMsg codeMsg;
 
     public GlobalException(CodeMsg codeMsg){
@@ -5383,7 +5548,12 @@ public @interface IsMobile {
     }
 }
 1234567891011
-</code></pre><ul><li>全局异常就比较简单了，它<code>继承了RuntimeException类</code>，其中包含我们需要返回的信息CodeMsg的字段</li></ul><h3 id="5-4-全局异常处理器"><a href="#5-4-全局异常处理器" class="headerlink" title="5.4 全局异常处理器"></a>5.4 全局异常处理器</h3><p>这个处理器可就值得说一说了！</p><pre><code class="lang-java">@ControllerAdvice
+</code></pre>
+<ul>
+<li>全局异常就比较简单了，它<code>继承了RuntimeException类</code>，其中包含我们需要返回的信息CodeMsg的字段</li>
+</ul>
+<h3 id="5-4-全局异常处理器"><a href="#5-4-全局异常处理器" class="headerlink" title="5.4 全局异常处理器"></a>5.4 全局异常处理器</h3><p>这个处理器可就值得说一说了！</p>
+<pre><code class="lang-java">@ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
 
@@ -5409,7 +5579,13 @@ public class GlobalExceptionHandler {
     }
 }
 12345678910111213141516171819202122232425
-</code></pre><ul><li><code>@ControllerAdvice</code>：它是增强的Controller，能够实现<code>全局异常处理</code>和全局数据绑定</li><li>配合<code>@ExceptionHandler(value = Exception.class)</code>，它能够实现对所有异常的接受，而在方法中，对不同的异常进行处理</li></ul><hr><h2 id="6-关注一下参数替换的方法"><a href="#6-关注一下参数替换的方法" class="headerlink" title="6. 关注一下参数替换的方法"></a>6. 关注一下参数替换的方法</h2><pre><code class="lang-java">    public static CodeMsg BIND_ERROR = new CodeMsg(500101,"参数校验异常：%s");
+</code></pre>
+<ul>
+<li><code>@ControllerAdvice</code>：它是增强的Controller，能够实现<code>全局异常处理</code>和全局数据绑定</li>
+<li>配合<code>@ExceptionHandler(value = Exception.class)</code>，它能够实现对所有异常的接受，而在方法中，对不同的异常进行处理</li>
+</ul>
+<hr>
+<h2 id="6-关注一下参数替换的方法"><a href="#6-关注一下参数替换的方法" class="headerlink" title="6. 关注一下参数替换的方法"></a>6. 关注一下参数替换的方法</h2><pre><code class="lang-java">    public static CodeMsg BIND_ERROR = new CodeMsg(500101,"参数校验异常：%s");
 
     public CodeMsg fillArgs(Object... args){
         int code = this.code;
@@ -5417,7 +5593,61 @@ public class GlobalExceptionHandler {
         return new CodeMsg(code,message);
     }
 1234567
-</code></pre><ul><li>其中<code>String.format()</code>能够根据传入的字符串格式，比如”参数校验异常：%s”，其中<code>%s</code>，能被第二个传入的参数进行替换，从而形成<code>动态的字符串</code></li></ul><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system-3/">Java高性能高并发秒杀系统(3)</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system/">Java高性能高并发秒杀系统</a></div></section></div><div class="related-wrap reveal" id="related-posts"><section class="header"><div class="title cap theme">您可能感兴趣的文章</div></section><section class="body"><div class="related-posts"><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-10/" title="Java高性能高并发秒杀系统(10)"><span class="title">Java高性能高并发秒杀系统(10)</span><span class="excerpt">项目总结</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-3/" title="Java高性能高并发秒杀系统(3)"><span class="title">Java高性能高并发秒杀系统(3)</span><span class="excerpt">实现分布式Session</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-4/" title="Java高性能高并发秒杀系统(4)"><span class="title">Java高性能高并发秒杀系统(4)</span><span class="excerpt">秒杀功能的实现</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-5/" title="Java高性能高并发秒杀系统(5)"><span class="title">Java高性能高并发秒杀系统(5)</span><span class="excerpt">JMeter压力测试</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div><div class="related-wrap md-text reveal" id="comments"><section class="header cmt-title cap theme">快来参与讨论吧</section><section class="body cmt-body giscus"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg><div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div></section></div><footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+</code></pre>
+<ul>
+<li>其中<code>String.format()</code>能够根据传入的字符串格式，比如”参数校验异常：%s”，其中<code>%s</code>，能被第二个传入的参数进行替换，从而形成<code>动态的字符串</code></li>
+</ul>
+
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system-3/">Java高性能高并发秒杀系统(3)</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system/">Java高性能高并发秒杀系统</a></div></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class="header">
+      <div class="title cap theme">您可能感兴趣的文章</div>
+    </section>
+    <section class="body">
+    <div class="related-posts"><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-10/" title="Java高性能高并发秒杀系统(10)"><span class="title">Java高性能高并发秒杀系统(10)</span><span class="excerpt">项目总结</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-3/" title="Java高性能高并发秒杀系统(3)"><span class="title">Java高性能高并发秒杀系统(3)</span><span class="excerpt">实现分布式Session</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-4/" title="Java高性能高并发秒杀系统(4)"><span class="title">Java高性能高并发秒杀系统(4)</span><span class="excerpt">秒杀功能的实现</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-5/" title="Java高性能高并发秒杀系统(5)"><span class="title">Java高性能高并发秒杀系统(5)</span><span class="excerpt">JMeter压力测试</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div>
+
+
+
+  <div class="related-wrap md-text reveal" id="comments">
+    <section class="header cmt-title cap theme">
+      快来参与讨论吧
+    </section>
+    <section class="body cmt-body giscus">
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class="float-panel mobile-only blur" style="display:none">
+  <button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()">
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class="scripts">
+    <script type="text/javascript">
+  const stellar = {
     // 懒加载 css https://github.com/filamentgroup/loadCSS
     loadCSS: (href, before, media, attributes) => {
       var doc = window.document;
@@ -5563,7 +5793,37 @@ public class GlobalExceptionHandler {
   }
   if ('true' == 'true') {
     stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
-  }</script><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script></div><script src="/bundle.js"></script><script>function loadJS() {
+  }
+</script>
+
+<!-- required -->
+
+  
+
+
+
+
+<!-- optional -->
+
+  
+
+
+
+
+<!-- inject -->
+
+  
+    <script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script>
+  
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script>
+  
+
+
+  </div>
+
+
+<script src="/bundle.js"></script><script>
+  function loadJS() {
     const els = document.querySelectorAll("#comments #giscus");
     if (els.length === 0) return;
     els.forEach((el, i) => {
@@ -5586,4 +5846,5 @@ public class GlobalExceptionHandler {
   }
   window.addEventListener('DOMContentLoaded', (event) => {
     loadJS();
-  });</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+  });
+</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

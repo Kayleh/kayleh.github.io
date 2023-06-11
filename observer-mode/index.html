@@ -1,4 +1,68 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>观察者模式 - Kayleh</title><meta name="description" content="观察者  定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。"><meta property="og:type" content="article"><meta property="og:title" content="观察者模式"><meta property="og:url" content="https://blog.kayleh.top/observer-mode/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="观察者  定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。"><meta property="og:locale" content="zh_CN"><meta property="article:published_time" content="2020-06-13T08:07:09.000Z"><meta property="article:modified_time" content="2023-06-11T15:26:41.674Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="DesignPatterns"><meta name="twitter:card" content="summary"><meta name="twitter:creator" content="@kayleh"><meta name="keywords" content="DesignPatterns"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><link rel="preconnect" href="https://s1.hdslb.com/"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://gcore.jsdelivr.net">
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin="">
+  <link rel="dns-prefetch" href="//unpkg.com">
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>观察者模式 - Kayleh</title>
+
+  
+    <meta name="description" content="观察者  定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观察者模式">
+<meta property="og:url" content="https://blog.kayleh.top/observer-mode/index.html">
+<meta property="og:site_name" content="Kayleh">
+<meta property="og:description" content="观察者  定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-13T08:07:09.000Z">
+<meta property="article:modified_time" content="2023-06-11T16:12:59.909Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="DesignPatterns">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@kayleh">
+  
+  
+  
+  <meta name="keywords" content="DesignPatterns">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml">
+  
+
+  
+    
+
+
+  
+
+  
+    <link rel="shortcut icon" href="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg">
+  
+
+  
+
+  
+
+
+  
+    
+      
+    
+      <link rel="preconnect" href="https://s1.hdslb.com/"> <script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
   --width-left: 288px;
   --width-main: 720px;
   --gap-l: 16px;
@@ -5200,7 +5264,62 @@ img[fancybox='true'] {
   color: #fa6400;
   opacity: 0.75;
 }
-</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>--<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?DesignPatterns"></div></div></div><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">主页</a><a class="nav-item" href="/notes/">随记</a></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">观察者模式</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85"><span class="toc-text">观察者</span></a></li></ol></div></div></widget></div><footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-06-13T08:07:09.000Z">2020-06-13</time></div></div><article class="md-text content post"><h1 class="article-title"><span>观察者模式</span></h1><h4 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h4><hr><blockquote><p>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</p><span id="more"></span></blockquote><p>观察者模式（Observer）又称发布-订阅模式（Publish-Subscribe：Pub/Sub）。它是一种通知机制，让发送通知的一方（被观察方）和接收通知的一方（观察者）能彼此分离，互不影响。</p><p>要理解观察者模式，我们还是看例子。</p><p>假设一个电商网站，有多种<code>Product</code>（商品），同时，<code>Customer</code>（消费者）和<code>Admin</code>（管理员）对商品上架、价格改变都感兴趣，希望能第一时间获得通知。于是，<code>Store</code>（商场）可以这么写：</p><pre><code class="lang-java">public class Store {
+</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>-  - 
+    
+  
+
+
+
+  
+
+<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?DesignPatterns"></div></div></div>
+
+
+  <div class="l_body" id="start">
+    <aside class="l_left" layout="post">
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy="" class="avatar" src="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0"> Dreamaker</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">导航</a><a class="nav-item" href="/notes/">随记</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">观察者模式</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85"><span class="toc-text">观察者</span></a></li></ol></div></div></widget>
+
+
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer>
+
+    </aside>
+    <div class="l_main">
+      
+
+      
+
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-06-13T08:07:09.000Z">2020-06-13</time></div></div>
+
+<article class="md-text content post">
+<h1 class="article-title"><span>观察者模式</span></h1>
+<h4 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h4><hr>
+<blockquote>
+<p>定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。</p>
+<span id="more"></span>
+</blockquote>
+<p>观察者模式（Observer）又称发布-订阅模式（Publish-Subscribe：Pub/Sub）。它是一种通知机制，让发送通知的一方（被观察方）和接收通知的一方（观察者）能彼此分离，互不影响。</p>
+<p>要理解观察者模式，我们还是看例子。</p>
+<p>假设一个电商网站，有多种<code>Product</code>（商品），同时，<code>Customer</code>（消费者）和<code>Admin</code>（管理员）对商品上架、价格改变都感兴趣，希望能第一时间获得通知。于是，<code>Store</code>（商场）可以这么写：</p>
+<pre><code class="lang-java">public class Store {
     Customer customer;
     Admin admin;
 
@@ -5224,7 +5343,11 @@ img[fancybox='true'] {
         admin.onPriceChanged(p);
     }
 }
-</code></pre><p>我们观察上述<code>Store</code>类的问题：它直接引用了<code>Customer</code>和<code>Admin</code>。先不考虑多个<code>Customer</code>或多个<code>Admin</code>的问题，上述<code>Store</code>类最大的问题是，如果要加一个新的观察者类型，例如工商局管理员，<code>Store</code>类就必须继续改动。</p><p>因此，上述问题的本质是<code>Store</code>希望发送通知给那些关心<code>Product</code>的对象，但<code>Store</code>并不想知道这些人是谁。观察者模式就是要分离被观察者和观察者之间的耦合关系。</p><p>要实现这一目标也很简单，<code>Store</code>不能直接引用<code>Customer</code>和<code>Admin</code>，相反，它引用一个<code>ProductObserver</code>接口，任何人想要观察<code>Store</code>，只要实现该接口，并且把自己注册到<code>Store</code>即可：</p><pre><code class="lang-java">public class Store {
+</code></pre>
+<p>我们观察上述<code>Store</code>类的问题：它直接引用了<code>Customer</code>和<code>Admin</code>。先不考虑多个<code>Customer</code>或多个<code>Admin</code>的问题，上述<code>Store</code>类最大的问题是，如果要加一个新的观察者类型，例如工商局管理员，<code>Store</code>类就必须继续改动。</p>
+<p>因此，上述问题的本质是<code>Store</code>希望发送通知给那些关心<code>Product</code>的对象，但<code>Store</code>并不想知道这些人是谁。观察者模式就是要分离被观察者和观察者之间的耦合关系。</p>
+<p>要实现这一目标也很简单，<code>Store</code>不能直接引用<code>Customer</code>和<code>Admin</code>，相反，它引用一个<code>ProductObserver</code>接口，任何人想要观察<code>Store</code>，只要实现该接口，并且把自己注册到<code>Store</code>即可：</p>
+<pre><code class="lang-java">public class Store {
     private List&lt;ProductObserver&gt; observers = new ArrayList&lt;&gt;();
     private Map&lt;String, Product&gt; products = new HashMap&lt;&gt;();
 
@@ -5252,7 +5375,9 @@ img[fancybox='true'] {
         observers.forEach(o -&gt; o.onPriceChanged(p));
     }
 }
-</code></pre><p>就是这么一个小小的改动，使得观察者类型就可以无限扩充，而且，观察者的定义可以放到客户端：</p><pre><code class="lang-java">// observer:
+</code></pre>
+<p>就是这么一个小小的改动，使得观察者类型就可以无限扩充，而且，观察者的定义可以放到客户端：</p>
+<pre><code class="lang-java">// observer:
 Admin a = new Admin();
 Customer c = new Customer();
 // store:
@@ -5260,7 +5385,9 @@ Store store = new Store();
 // 注册观察者:
 store.addObserver(a);
 store.addObserver(c);
-</code></pre><p>甚至可以注册匿名观察者：</p><pre><code class="lang-java">store.addObserver(new ProductObserver() {
+</code></pre>
+<p>甚至可以注册匿名观察者：</p>
+<pre><code class="lang-java">store.addObserver(new ProductObserver() {
     public void onPublished(Product product) {
         System.out.println("[Log] on product published: " + product);
     }
@@ -5269,7 +5396,9 @@ store.addObserver(c);
         System.out.println("[Log] on product price changed: " + product);
     }
 });
-</code></pre><p>用一张图画出观察者模式：</p><pre><code class="lang-ascii">┌─────────┐      ┌───────────────┐
+</code></pre>
+<p>用一张图画出观察者模式：</p>
+<pre><code class="lang-ascii">┌─────────┐      ┌───────────────┐
 │  Store  │─ ─ ─&gt;│ProductObserver│
 └─────────┘      └───────────────┘
      │                   ▲
@@ -5279,17 +5408,26 @@ store.addObserver(c);
 ┌─────────┐   ┌─────────┐ ┌─────────┐
 │ Product │   │  Admin  │ │Customer │ ...
 └─────────┘   └─────────┘ └─────────┘
-</code></pre><p>观察者模式也有很多变体形式。有的观察者模式把被观察者也抽象出接口：</p><pre><code class="lang-java">public interface ProductObservable { // 注意此处拼写是Observable不是Observer!
+</code></pre>
+<p>观察者模式也有很多变体形式。有的观察者模式把被观察者也抽象出接口：</p>
+<pre><code class="lang-java">public interface ProductObservable { // 注意此处拼写是Observable不是Observer!
     void addObserver(ProductObserver observer);
     void removeObserver(ProductObserver observer);
 }
-</code></pre><p>对应的实体被观察者就要实现该接口：</p><pre><code class="lang-java">public class Store implements ProductObservable {
+</code></pre>
+<p>对应的实体被观察者就要实现该接口：</p>
+<pre><code class="lang-java">public class Store implements ProductObservable {
     ...
 }
-</code></pre><p>有些观察者模式把通知变成一个Event对象，从而不再有多种方法通知，而是统一成一种：</p><pre><code class="lang-java">public interface ProductObserver {
+</code></pre>
+<p>有些观察者模式把通知变成一个Event对象，从而不再有多种方法通知，而是统一成一种：</p>
+<pre><code class="lang-java">public interface ProductObserver {
     void onEvent(ProductEvent event);
 }
-</code></pre><p>让观察者自己从Event对象中读取通知类型和通知数据。</p><p>广义的观察者模式包括所有消息系统。所谓消息系统，就是把观察者和被观察者完全分离，通过消息系统本身来通知：</p><pre><code class="lang-ascii">                 ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐
+</code></pre>
+<p>让观察者自己从Event对象中读取通知类型和通知数据。</p>
+<p>广义的观察者模式包括所有消息系统。所谓消息系统，就是把观察者和被观察者完全分离，通过消息系统本身来通知：</p>
+<pre><code class="lang-ascii">                 ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐
                    Messaging System
                  │                       │
                    ┌──────────────────┐
@@ -5302,8 +5440,70 @@ store.addObserver(c);
               └──┼&gt;│Topic:soldOut     │──┼─────&gt;│ConsumerB│
                    └──────────────────┘         └─────────┘
                  └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘
-</code></pre><p>消息发送方称为Producer，消息接收方称为Consumer，Producer发送消息的时候，必须选择发送到哪个Topic。Consumer可以订阅自己感兴趣的Topic，从而只获得特定类型的消息。</p><p>使用消息系统实现观察者模式时，Producer和Consumer甚至经常不在同一台机器上，并且双方对对方完全一无所知，因为注册观察者这个动作本身都在消息系统中完成，而不是在Producer内部完成。</p><p>此外，注意到我们在编写观察者模式的时候，通知Observer是依靠语句：</p><pre><code class="lang-java">observers.forEach(o -&gt; o.onPublished(p));
-</code></pre><p>这说明各个观察者是依次获得的同步通知，如果上一个观察者处理太慢，会导致下一个观察者不能及时获得通知。此外，如果观察者在处理通知的时候，发生了异常，还需要被观察者处理异常，才能保证继续通知下一个观察者。</p><p>思考：如何改成异步通知，使得所有观察者可以并发同时处理？</p><p>有的童鞋可能发现Java标准库有个<code>java.util.Observable</code>类和一个<code>Observer</code>接口，用来帮助我们实现观察者模式。但是，这个类非常不！好！用！实现观察者模式的时候，也不推荐借助这两个东东。</p><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/state-mode/">状态模式</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/memo-mode/">memo-mode</a></div></section></div><div class="related-wrap reveal" id="related-posts"><section class="header"><div class="title cap theme">您可能感兴趣的文章</div></section><section class="body"><div class="related-posts"><a class="item" href="/intermediary-model/" title="中介者模式"><span class="title">中介者模式</span><span class="excerpt">中介者模式 中介者模式（Mediator Pattern）是用来降低多个对象和类之间的通信复杂性。这种模式提供了一个中介类，该类通常处理不同类之间的通信，并支持松耦合，使代码易于维护。中介者模式属于行为型模式。</span></a><a class="item" href="/flyweight-model/" title="享元模式"><span class="title">享元模式</span><span class="excerpt">享元 运用共享技术有效地支持大量细粒度的对象。 </span></a><a class="item" href="/agency-model/" title="代理模式"><span class="title">代理模式</span><span class="excerpt">代理模式 为其他对象提供一种代理以控制对这个对象的访问。 </span></a><a class="item" href="/dependence-reversal-principle/" title="依赖倒转原则"><span class="title">依赖倒转原则</span><span class="excerpt">依赖倒转原则 Dependence Inversion Priciple</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div><div class="related-wrap md-text reveal" id="comments"><section class="header cmt-title cap theme">快来参与讨论吧</section><section class="body cmt-body giscus"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg><div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div></section></div><footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+</code></pre>
+<p>消息发送方称为Producer，消息接收方称为Consumer，Producer发送消息的时候，必须选择发送到哪个Topic。Consumer可以订阅自己感兴趣的Topic，从而只获得特定类型的消息。</p>
+<p>使用消息系统实现观察者模式时，Producer和Consumer甚至经常不在同一台机器上，并且双方对对方完全一无所知，因为注册观察者这个动作本身都在消息系统中完成，而不是在Producer内部完成。</p>
+<p>此外，注意到我们在编写观察者模式的时候，通知Observer是依靠语句：</p>
+<pre><code class="lang-java">observers.forEach(o -&gt; o.onPublished(p));
+</code></pre>
+<p>这说明各个观察者是依次获得的同步通知，如果上一个观察者处理太慢，会导致下一个观察者不能及时获得通知。此外，如果观察者在处理通知的时候，发生了异常，还需要被观察者处理异常，才能保证继续通知下一个观察者。</p>
+<p>思考：如何改成异步通知，使得所有观察者可以并发同时处理？</p>
+<p>有的童鞋可能发现Java标准库有个<code>java.util.Observable</code>类和一个<code>Observer</code>接口，用来帮助我们实现观察者模式。但是，这个类非常不！好！用！实现观察者模式的时候，也不推荐借助这两个东东。</p>
+
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/state-mode/">状态模式</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/memo-mode/">memo-mode</a></div></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class="header">
+      <div class="title cap theme">您可能感兴趣的文章</div>
+    </section>
+    <section class="body">
+    <div class="related-posts"><a class="item" href="/intermediary-model/" title="中介者模式"><span class="title">中介者模式</span><span class="excerpt">中介者模式
+ 中介者模式（Mediator Pattern）是用来降低多个对象和类之间的通信复杂性。这种模式提供了一个中介类，该类通常处理不同类之间的通信，并支持松耦合，使代码易于维护。中介者模式属于行为型模式。</span></a><a class="item" href="/flyweight-model/" title="享元模式"><span class="title">享元模式</span><span class="excerpt">享元
+运用共享技术有效地支持大量细粒度的对象。 </span></a><a class="item" href="/agency-model/" title="代理模式"><span class="title">代理模式</span><span class="excerpt">代理模式
+为其他对象提供一种代理以控制对这个对象的访问。 </span></a><a class="item" href="/dependence-reversal-principle/" title="依赖倒转原则"><span class="title">依赖倒转原则</span><span class="excerpt">依赖倒转原则
+ Dependence Inversion Priciple</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div>
+
+
+
+  <div class="related-wrap md-text reveal" id="comments">
+    <section class="header cmt-title cap theme">
+      快来参与讨论吧
+    </section>
+    <section class="body cmt-body giscus">
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class="float-panel mobile-only blur" style="display:none">
+  <button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()">
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class="scripts">
+    <script type="text/javascript">
+  const stellar = {
     // 懒加载 css https://github.com/filamentgroup/loadCSS
     loadCSS: (href, before, media, attributes) => {
       var doc = window.document;
@@ -5449,7 +5649,37 @@ store.addObserver(c);
   }
   if ('true' == 'true') {
     stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
-  }</script><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script></div><script src="/bundle.js"></script><script>function loadJS() {
+  }
+</script>
+
+<!-- required -->
+
+  
+
+
+
+
+<!-- optional -->
+
+  
+
+
+
+
+<!-- inject -->
+
+  
+    <script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script>
+  
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script>
+  
+
+
+  </div>
+
+
+<script src="/bundle.js"></script><script>
+  function loadJS() {
     const els = document.querySelectorAll("#comments #giscus");
     if (els.length === 0) return;
     els.forEach((el, i) => {
@@ -5472,4 +5702,5 @@ store.addObserver(c);
   }
   window.addEventListener('DOMContentLoaded', (event) => {
     loadJS();
-  });</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+  });
+</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

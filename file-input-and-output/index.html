@@ -1,4 +1,70 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>file input and output - Kayleh</title><meta name="description" content="对文件的输入输出文件 程序文件。包括源程序文件，这种文件的内容是程序代码 数据文件。供程序运行时读写的数据  操作系统把各种设备都统一作为文件来处理。 文件一般指存储在外部介质上数据的集合。 流(数据流)数据的输入输出.流表示了信息从源到目的地的流动. 文件名文件路径+文件名主干+文件后缀 文件的分类"><meta property="og:type" content="article"><meta property="og:title" content="file input and output"><meta property="og:url" content="https://blog.kayleh.top/file-input-and-output/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="对文件的输入输出文件 程序文件。包括源程序文件，这种文件的内容是程序代码 数据文件。供程序运行时读写的数据  操作系统把各种设备都统一作为文件来处理。 文件一般指存储在外部介质上数据的集合。 流(数据流)数据的输入输出.流表示了信息从源到目的地的流动. 文件名文件路径+文件名主干+文件后缀 文件的分类"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/1183448-20200229114252989-978233196.png"><meta property="article:published_time" content="2020-11-03T18:24:07.000Z"><meta property="article:modified_time" content="2023-06-11T15:26:41.638Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="C"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/1183448-20200229114252989-978233196.png"><meta name="twitter:creator" content="@kayleh"><meta name="keywords" content="C"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><link rel="preconnect" href="https://s1.hdslb.com/"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://gcore.jsdelivr.net">
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin="">
+  <link rel="dns-prefetch" href="//unpkg.com">
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>file input and output - Kayleh</title>
+
+  
+    <meta name="description" content="对文件的输入输出文件 程序文件。包括源程序文件，这种文件的内容是程序代码 数据文件。供程序运行时读写的数据  操作系统把各种设备都统一作为文件来处理。 文件一般指存储在外部介质上数据的集合。 流(数据流)数据的输入输出.流表示了信息从源到目的地的流动. 文件名文件路径+文件名主干+文件后缀 文件的分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="file input and output">
+<meta property="og:url" content="https://blog.kayleh.top/file-input-and-output/index.html">
+<meta property="og:site_name" content="Kayleh">
+<meta property="og:description" content="对文件的输入输出文件 程序文件。包括源程序文件，这种文件的内容是程序代码 数据文件。供程序运行时读写的数据  操作系统把各种设备都统一作为文件来处理。 文件一般指存储在外部介质上数据的集合。 流(数据流)数据的输入输出.流表示了信息从源到目的地的流动. 文件名文件路径+文件名主干+文件后缀 文件的分类">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/1183448-20200229114252989-978233196.png">
+<meta property="article:published_time" content="2020-11-03T18:24:07.000Z">
+<meta property="article:modified_time" content="2023-06-11T16:12:59.880Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/1183448-20200229114252989-978233196.png">
+<meta name="twitter:creator" content="@kayleh">
+  
+  
+  
+  <meta name="keywords" content="C">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml">
+  
+
+  
+    
+
+
+  
+
+  
+    <link rel="shortcut icon" href="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg">
+  
+
+  
+
+  
+
+
+  
+    
+      
+    
+      <link rel="preconnect" href="https://s1.hdslb.com/"> <script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
   --width-left: 288px;
   --width-main: 720px;
   --gap-l: 16px;
@@ -5200,7 +5266,73 @@ img[fancybox='true'] {
   color: #fa6400;
   opacity: 0.75;
 }
-</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>--<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?C"></div></div></div><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">主页</a><a class="nav-item" href="/notes/">随记</a></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">file input and output</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-text">文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81-%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-text">流(数据流)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-text">文件名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">文件的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-text">文件缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B%E6%8C%87%E9%92%88"><span class="toc-text">文件类型指针</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD%E6%96%87%E4%BB%B6"><span class="toc-text">打开与关闭文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8fopen%E5%87%BD%E6%95%B0%E6%89%93%E5%BC%80%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-text">用fopen函数打开数据文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F"><span class="toc-text">使用文件方式.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8fclose%E5%87%BD%E6%95%B0%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-text">用fclose函数关闭数据文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-text">顺序读写数据文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E5%90%91%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6"><span class="toc-text">怎样向文件读写字符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5%E4%B8%80%E4%BA%9B%E5%AD%97%E7%AC%A6-%E5%B9%B6%E9%80%90%E4%B8%AA%E6%8A%8A%E5%AE%83%E4%BB%AC%E9%80%81%E5%88%B0%E7%A3%81%E7%9B%98%E4%B8%8A%E5%8E%BB-%E7%9B%B4%E5%88%B0%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E2%80%9D-%E2%80%9D%E4%B8%BA%E6%AD%A2"><span class="toc-text">从键盘输入一些字符,并逐个把它们送到磁盘上去,直到用户输入一个”#”为止.</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%86%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%A4%8D%E5%88%B6%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="toc-text">将一个磁盘文件中的信息复制到另一个磁盘文件中</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E5%90%91%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">怎样向文件读写一个字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E9%94%AE%E7%9B%98%E8%AF%BB%E5%85%A5%E8%8B%A5%E5%B9%B2%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AF%B9%E5%AE%83%E4%BB%AC%E6%8C%89%E5%AD%97%E6%AF%8D%E5%A4%A7%E5%B0%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%8E%92%E5%BA%8F-%E7%84%B6%E5%90%8E%E6%8A%8A%E6%8E%92%E5%A5%BD%E5%BA%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%81%E5%88%B0%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%AD%E4%BF%9D%E5%AD%98"><span class="toc-text">从键盘读入若干个字符串,对它们按字母大小的顺序排序,然后把排好序的字符串送到磁盘文件中保存.</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%96%B9%E5%BC%8F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="toc-text">用格式化的方式读写文本文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E5%BC%8F%E5%90%91%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E4%B8%80%E7%BB%84%E6%95%B0%E6%8D%AE"><span class="toc-text">用二进制方式向文件读写一组数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A510%E4%B8%AA%E5%AD%A6%E7%94%9F%E7%9A%84%E6%9C%89%E5%85%B3%E6%95%B0%E6%8D%AE-%E7%84%B6%E5%90%8E%E6%8A%8A%E5%AE%83%E4%BB%AC%E8%BD%AC%E5%AD%98%E5%88%B0%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%8A"><span class="toc-text">从键盘输入10个学生的有关数据,然后把它们转存到磁盘文件上.</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E5%92%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-text">文本文件和二进制文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-text">随机读写数据文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%E6%A0%87%E8%AE%B0%E5%8F%8A%E5%85%B6%E5%AE%9A%E4%BD%8D"><span class="toc-text">文件位置标记及其定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%E6%A0%87%E8%AE%B0"><span class="toc-text">文件位置标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%E6%A0%87%E8%AE%B0%E7%9A%84%E5%AE%9A%E4%BD%8D"><span class="toc-text">文件位置标记的定位</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6-%E5%86%85%E6%9C%89%E4%B8%80%E4%BA%9B%E4%BF%A1%E6%81%AF-%E8%A6%81%E6%B1%82%E7%AC%AC1%E6%AC%A1%E5%B0%86%E5%AE%83%E7%9A%84%E5%86%85%E5%AE%B9%E6%98%BE%E7%A4%BA%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A-%E7%AC%AC2%E6%AC%A1%E6%8A%8A%E5%AE%83%E5%A4%8D%E5%88%B6%E5%88%B0%E5%8F%A6%E4%B8%80%E6%96%87%E4%BB%B6%E4%B8%8A"><span class="toc-text">有一个磁盘文件,内有一些信息.要求第1次将它的内容显示在屏幕上,第2次把它复制到另一文件上.</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E8%AF%BB%E5%86%99"><span class="toc-text">随机读写</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%8A%E5%AD%98%E6%9C%8910%E4%B8%AA%E5%AD%A6%E7%94%9F%E7%9A%84%E6%95%B0%E6%8D%AE-%E8%A6%81%E6%B1%82%E5%B0%86%E7%AC%AC1-3-5-7-9%E4%B8%AA%E5%AD%A6%E7%94%9F%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5%E8%AE%A1%E7%AE%97%E6%9C%BA-%E5%B9%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A%E6%98%BE%E7%A4%BA%E5%87%BA%E6%9D%A5"><span class="toc-text">在磁盘文件上存有10个学生的数据.要求将第1,3,5,7,9个学生数据输入计算机,并在屏幕上显示出来.</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E7%9A%84%E5%87%BA%E9%94%99%E6%A3%80%E6%B5%8B"><span class="toc-text">文件读写的出错检测</span></a></li></div></div></widget></div><footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-11-03T18:24:07.000Z">2020-11-03</time></div></div><article class="md-text content post"><h1 class="article-title"><span>file input and output</span></h1><h1 id="对文件的输入输出"><a href="#对文件的输入输出" class="headerlink" title="对文件的输入输出"></a>对文件的输入输出</h1><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul><li><strong>程序文件</strong>。包括源程序文件，这种文件的内容是程序代码</li><li><strong>数据文件</strong>。供程序运行时读写的数据</li></ul><p>操作系统把各种设备都统一作为文件来处理。</p><p>文件一般指存储在外部介质上数据的集合。</p><h4 id="流-数据流"><a href="#流-数据流" class="headerlink" title="流(数据流)"></a>流(数据流)</h4><p>数据的输入输出.流表示了信息从源到目的地的流动.</p><h4 id="文件名"><a href="#文件名" class="headerlink" title="文件名"></a>文件名</h4><p>文件路径+文件名主干+文件后缀</p><h4 id="文件的分类"><a href="#文件的分类" class="headerlink" title="文件的分类"></a>文件的分类</h4><ul><li><strong>ASCII文件</strong>,在存储前需要转换,<strong>文本文件</strong></li><li><strong>二进制文件</strong>,存储在内存的数据的映象,不需要加以转换输出到外存,称为<strong>映像文件</strong>.</li></ul><h4 id="文件缓冲区"><a href="#文件缓冲区" class="headerlink" title="文件缓冲区"></a>文件缓冲区</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/1183448-20200229114252989-978233196.png"></div></div><p>ANSI C标准采用“缓冲文件系统”处理数据文件。</p><p>所谓缓冲文件系统是指系统自动地在内存区为程序中每一个正在使用的文件开辟一个文件缓冲区从内存向磁盘输出数据必须先送到内存中的缓冲区，装满缓冲区后才一起送到磁盘去。</p><p>如果从磁盘向计算机读入数据，则一次从磁盘文件将一批数据输入到内存缓冲区(充满缓冲区)，然后再从缓冲区逐个地将数据送到程序数据区(给程序变量) 。</p><p>程序与磁盘之间交互，不是立即完成，系统或程序可根据需要设置缓冲区，以提高存取效率</p><h4 id="文件类型指针"><a href="#文件类型指针" class="headerlink" title="文件类型指针"></a>文件类型指针</h4><p>对于操作系统而言,关键的概念是”<strong>文件指针</strong>”.每个被使用的文件都在内存中开辟一段存储单元,用来存放文件的有关信息.这些信息是保存在一个结构体变量中的.该结构体类型变量是由系统定义的,取名为FILE.有几个文件就建立几个这样的结构体变量,分别存放各文件的有关信息.同时返回对应的FILE结构指针.</p><p>FILE结构体类型在stdio.h文件中定义如下:</p><pre><code class="lang-c">Typedef struct
+</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>-  - 
+    
+  
+
+
+
+  
+
+<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?C"></div></div></div>
+
+
+  <div class="l_body" id="start">
+    <aside class="l_left" layout="post">
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy="" class="avatar" src="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0"> Dreamaker</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">导航</a><a class="nav-item" href="/notes/">随记</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">file input and output</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-text">文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81-%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-text">流(数据流)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-text">文件名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">文件的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-text">文件缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B%E6%8C%87%E9%92%88"><span class="toc-text">文件类型指针</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E4%B8%8E%E5%85%B3%E9%97%AD%E6%96%87%E4%BB%B6"><span class="toc-text">打开与关闭文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8fopen%E5%87%BD%E6%95%B0%E6%89%93%E5%BC%80%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-text">用fopen函数打开数据文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F"><span class="toc-text">使用文件方式.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8fclose%E5%87%BD%E6%95%B0%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-text">用fclose函数关闭数据文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-text">顺序读写数据文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E5%90%91%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E5%AD%97%E7%AC%A6"><span class="toc-text">怎样向文件读写字符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5%E4%B8%80%E4%BA%9B%E5%AD%97%E7%AC%A6-%E5%B9%B6%E9%80%90%E4%B8%AA%E6%8A%8A%E5%AE%83%E4%BB%AC%E9%80%81%E5%88%B0%E7%A3%81%E7%9B%98%E4%B8%8A%E5%8E%BB-%E7%9B%B4%E5%88%B0%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E2%80%9D-%E2%80%9D%E4%B8%BA%E6%AD%A2"><span class="toc-text">从键盘输入一些字符,并逐个把它们送到磁盘上去,直到用户输入一个”#”为止.</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%86%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF%E5%A4%8D%E5%88%B6%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="toc-text">将一个磁盘文件中的信息复制到另一个磁盘文件中</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%8E%E6%A0%B7%E5%90%91%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">怎样向文件读写一个字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E9%94%AE%E7%9B%98%E8%AF%BB%E5%85%A5%E8%8B%A5%E5%B9%B2%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AF%B9%E5%AE%83%E4%BB%AC%E6%8C%89%E5%AD%97%E6%AF%8D%E5%A4%A7%E5%B0%8F%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%8E%92%E5%BA%8F-%E7%84%B6%E5%90%8E%E6%8A%8A%E6%8E%92%E5%A5%BD%E5%BA%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%81%E5%88%B0%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%AD%E4%BF%9D%E5%AD%98"><span class="toc-text">从键盘读入若干个字符串,对它们按字母大小的顺序排序,然后把排好序的字符串送到磁盘文件中保存.</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%96%B9%E5%BC%8F%E8%AF%BB%E5%86%99%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="toc-text">用格式化的方式读写文本文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%B9%E5%BC%8F%E5%90%91%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E4%B8%80%E7%BB%84%E6%95%B0%E6%8D%AE"><span class="toc-text">用二进制方式向文件读写一组数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A510%E4%B8%AA%E5%AD%A6%E7%94%9F%E7%9A%84%E6%9C%89%E5%85%B3%E6%95%B0%E6%8D%AE-%E7%84%B6%E5%90%8E%E6%8A%8A%E5%AE%83%E4%BB%AC%E8%BD%AC%E5%AD%98%E5%88%B0%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%8A"><span class="toc-text">从键盘输入10个学生的有关数据,然后把它们转存到磁盘文件上.</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E5%92%8C%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-text">文本文件和二进制文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="toc-text">随机读写数据文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%E6%A0%87%E8%AE%B0%E5%8F%8A%E5%85%B6%E5%AE%9A%E4%BD%8D"><span class="toc-text">文件位置标记及其定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%E6%A0%87%E8%AE%B0"><span class="toc-text">文件位置标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%E6%A0%87%E8%AE%B0%E7%9A%84%E5%AE%9A%E4%BD%8D"><span class="toc-text">文件位置标记的定位</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6-%E5%86%85%E6%9C%89%E4%B8%80%E4%BA%9B%E4%BF%A1%E6%81%AF-%E8%A6%81%E6%B1%82%E7%AC%AC1%E6%AC%A1%E5%B0%86%E5%AE%83%E7%9A%84%E5%86%85%E5%AE%B9%E6%98%BE%E7%A4%BA%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A-%E7%AC%AC2%E6%AC%A1%E6%8A%8A%E5%AE%83%E5%A4%8D%E5%88%B6%E5%88%B0%E5%8F%A6%E4%B8%80%E6%96%87%E4%BB%B6%E4%B8%8A"><span class="toc-text">有一个磁盘文件,内有一些信息.要求第1次将它的内容显示在屏幕上,第2次把它复制到另一文件上.</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E8%AF%BB%E5%86%99"><span class="toc-text">随机读写</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%8A%E5%AD%98%E6%9C%8910%E4%B8%AA%E5%AD%A6%E7%94%9F%E7%9A%84%E6%95%B0%E6%8D%AE-%E8%A6%81%E6%B1%82%E5%B0%86%E7%AC%AC1-3-5-7-9%E4%B8%AA%E5%AD%A6%E7%94%9F%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5%E8%AE%A1%E7%AE%97%E6%9C%BA-%E5%B9%B6%E5%9C%A8%E5%B1%8F%E5%B9%95%E4%B8%8A%E6%98%BE%E7%A4%BA%E5%87%BA%E6%9D%A5"><span class="toc-text">在磁盘文件上存有10个学生的数据.要求将第1,3,5,7,9个学生数据输入计算机,并在屏幕上显示出来.</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E7%9A%84%E5%87%BA%E9%94%99%E6%A3%80%E6%B5%8B"><span class="toc-text">文件读写的出错检测</span></a></li></div></div></widget>
+
+
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer>
+
+    </aside>
+    <div class="l_main">
+      
+
+      
+
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-11-03T18:24:07.000Z">2020-11-03</time></div></div>
+
+<article class="md-text content post">
+<h1 class="article-title"><span>file input and output</span></h1>
+<h1 id="对文件的输入输出"><a href="#对文件的输入输出" class="headerlink" title="对文件的输入输出"></a>对文件的输入输出</h1><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul>
+<li><strong>程序文件</strong>。包括源程序文件，这种文件的内容是程序代码</li>
+<li><strong>数据文件</strong>。供程序运行时读写的数据</li>
+</ul>
+<p>操作系统把各种设备都统一作为文件来处理。</p>
+<p>文件一般指存储在外部介质上数据的集合。</p>
+<h4 id="流-数据流"><a href="#流-数据流" class="headerlink" title="流(数据流)"></a>流(数据流)</h4><p>数据的输入输出.流表示了信息从源到目的地的流动.</p>
+<h4 id="文件名"><a href="#文件名" class="headerlink" title="文件名"></a>文件名</h4><p>文件路径+文件名主干+文件后缀</p>
+<h4 id="文件的分类"><a href="#文件的分类" class="headerlink" title="文件的分类"></a>文件的分类</h4><ul>
+<li><strong>ASCII文件</strong>,在存储前需要转换,<strong>文本文件</strong></li>
+<li><strong>二进制文件</strong>,存储在内存的数据的映象,不需要加以转换输出到外存,称为<strong>映像文件</strong>.</li>
+</ul>
+<h4 id="文件缓冲区"><a href="#文件缓冲区" class="headerlink" title="文件缓冲区"></a>文件缓冲区</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/1183448-20200229114252989-978233196.png"></div></div>
+<p>ANSI C标准采用“缓冲文件系统”处理数据文件。</p>
+<p>所谓缓冲文件系统是指系统自动地在内存区为程序中每一个正在使用的文件开辟一个文件缓冲区从内存向磁盘输出数据必须先送到内存中的缓冲区，装满缓冲区后才一起送到磁盘去。</p>
+<p>如果从磁盘向计算机读入数据，则一次从磁盘文件将一批数据输入到内存缓冲区(充满缓冲区)，然后再从缓冲区逐个地将数据送到程序数据区(给程序变量) 。 </p>
+<p>程序与磁盘之间交互，不是立即完成，系统或程序可根据需要设置缓冲区，以提高存取效率 </p>
+<h4 id="文件类型指针"><a href="#文件类型指针" class="headerlink" title="文件类型指针"></a>文件类型指针</h4><p>对于操作系统而言,关键的概念是”<strong>文件指针</strong>”.每个被使用的文件都在内存中开辟一段存储单元,用来存放文件的有关信息.这些信息是保存在一个结构体变量中的.该结构体类型变量是由系统定义的,取名为FILE.有几个文件就建立几个这样的结构体变量,分别存放各文件的有关信息.同时返回对应的FILE结构指针.</p>
+<p>FILE结构体类型在stdio.h文件中定义如下:</p>
+<pre><code class="lang-c">Typedef struct
 {
   short level;            //缓冲区”满”或”空”的程度//
   unsigned flags;         //文件状态标志//
@@ -5212,11 +5344,144 @@ img[fancybox='true'] {
   unsigned istemp;       //临时文件,指示器//
   short token;           //用于有效性检查//
 }FILE;
-</code></pre><p>定义一个指向文件型数据的指针变量</p><pre><code class="lang-c">FILE *fp;
-</code></pre><p>可以使fp指向某一个文件的文件信息区(是一个结构体变量),通过该文件信息区中的信息就能够访问该文件.</p><p><strong>通过文件指针变量能够找到与它关联的文件</strong>,如果有n个文件,应设n个指针变量,分别指向n个FILE类型变量,以实现对n个文件的访问.</p><p>通常将这种指向文件信息区的指针变量简称为<strong>指向文件的指针变量</strong></p><blockquote><p>并不是指向外部介质上的数据文件的开头,而是指向内存中的文件信息区的开头.</p></blockquote><h2 id="打开与关闭文件"><a href="#打开与关闭文件" class="headerlink" title="打开与关闭文件"></a>打开与关闭文件</h2><p>“打开”指为文件建立相应的信息区(用来存放有关文件的信息)和文件缓存区(用来暂时存放输入输出的数据).</p><p>打开文件的同时,一般指定一个指针变量指向该文件,建立起指针变量与文件之间的联系.</p><h4 id="用fopen函数打开数据文件"><a href="#用fopen函数打开数据文件" class="headerlink" title="用fopen函数打开数据文件"></a>用fopen函数打开数据文件</h4><p>fopen(文件名,使用文件方式)</p><pre><code class="lang-c">FILE *fp;
+</code></pre>
+<p>定义一个指向文件型数据的指针变量</p>
+<pre><code class="lang-c">FILE *fp;
+</code></pre>
+<p>可以使fp指向某一个文件的文件信息区(是一个结构体变量),通过该文件信息区中的信息就能够访问该文件.</p>
+<p><strong>通过文件指针变量能够找到与它关联的文件</strong>,如果有n个文件,应设n个指针变量,分别指向n个FILE类型变量,以实现对n个文件的访问.</p>
+<p>通常将这种指向文件信息区的指针变量简称为<strong>指向文件的指针变量</strong></p>
+<blockquote>
+<p>并不是指向外部介质上的数据文件的开头,而是指向内存中的文件信息区的开头.</p>
+</blockquote>
+<h2 id="打开与关闭文件"><a href="#打开与关闭文件" class="headerlink" title="打开与关闭文件"></a>打开与关闭文件</h2><p>“打开”指为文件建立相应的信息区(用来存放有关文件的信息)和文件缓存区(用来暂时存放输入输出的数据).</p>
+<p>打开文件的同时,一般指定一个指针变量指向该文件,建立起指针变量与文件之间的联系.</p>
+<h4 id="用fopen函数打开数据文件"><a href="#用fopen函数打开数据文件" class="headerlink" title="用fopen函数打开数据文件"></a>用fopen函数打开数据文件</h4><p>fopen(文件名,使用文件方式)</p>
+<pre><code class="lang-c">FILE *fp;
 fp=fopen("a1","r");
-</code></pre><p>实现失败返回NULL.</p><h4 id="使用文件方式"><a href="#使用文件方式" class="headerlink" title="使用文件方式."></a>使用文件方式.</h4><div class="table-container"><table><thead><tr><th>打开方式</th><th>含义</th><th>指定文件不存在时</th><th>指定文件存在时</th></tr></thead><tbody><tr><td>r</td><td>只读方式打开文本文件</td><td>出错</td><td>正常打开</td></tr><tr><td>w</td><td>只写方式打开文本文件</td><td>建立新文件</td><td>文件原有内容丢失</td></tr><tr><td>a</td><td>追加方式打开文本文件</td><td>建立新文件</td><td>在原有内容末尾追加</td></tr><tr><td>r+</td><td>读/写方式打开文本文件</td><td>出错</td><td>正常打开</td></tr><tr><td>w+</td><td>读/写方式创建新的文本文件</td><td>建立新文件</td><td>文件原有内容丢失</td></tr><tr><td>a+</td><td>读/追加方式建立新的文本文件</td><td>建立新文件</td><td>在原有内容末尾追加</td></tr><tr><td>rb</td><td>只读方式打开二进制文件</td><td>出错</td><td>正常打开</td></tr><tr><td>wb</td><td>只写方式打开二进制文件</td><td>建立新文件</td><td>文件原有内容丢失</td></tr><tr><td>ab</td><td>追加方式打开二进制文件</td><td>建立新文件</td><td>在原有内容末尾添加</td></tr><tr><td>rb+</td><td>读/写方式打开二进制文件</td><td>出错</td><td>正常打开</td></tr><tr><td>wb+</td><td>读/写方式创建新的二进制文件</td><td>建立新文件</td><td>文件原有内容丢失</td></tr><tr><td>ab+</td><td>读/追加方式创建新的二进制文件</td><td>建立新文件</td><td>在原有内容末尾追加</td></tr></tbody></table></div><blockquote><p>带b区别在于换行的处理</p></blockquote><h4 id="用fclose函数关闭数据文件"><a href="#用fclose函数关闭数据文件" class="headerlink" title="用fclose函数关闭数据文件"></a>用fclose函数关闭数据文件</h4><p>fclose(文件指针);</p><pre><code class="lang-c">fclose(fp);
-</code></pre><p>先把缓冲区中的数据输出到磁盘文件,然后才撤销文件信息区.</p><h2 id="顺序读写数据文件"><a href="#顺序读写数据文件" class="headerlink" title="顺序读写数据文件"></a>顺序读写数据文件</h2><h4 id="怎样向文件读写字符"><a href="#怎样向文件读写字符" class="headerlink" title="怎样向文件读写字符"></a>怎样向文件读写字符</h4><p>读写一个字符的函数.</p><div class="table-container"><table><thead><tr><th>函数名</th><th>调用形式</th><th>功能</th><th>返回值</th></tr></thead><tbody><tr><td>fgetc</td><td>fgetc(fp)</td><td>从fp指向的文件读入一个字符</td><td>读成功,带回所读的字符,失败了则返回文件结束标志EOF(即-1)</td></tr><tr><td>fputc</td><td>fputc(ch,fp)</td><td>把字符ch写到文件指针变量fp所指向的文件中</td><td>输出成功,返回值就是输出的字符,输出失败,则返回文件结束标志EOF(即-1)</td></tr></tbody></table></div><h5 id="从键盘输入一些字符-并逐个把它们送到磁盘上去-直到用户输入一个”-”为止"><a href="#从键盘输入一些字符-并逐个把它们送到磁盘上去-直到用户输入一个”-”为止" class="headerlink" title="从键盘输入一些字符,并逐个把它们送到磁盘上去,直到用户输入一个”#”为止."></a>从键盘输入一些字符,并逐个把它们送到磁盘上去,直到用户输入一个”#”为止.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
+</code></pre>
+<p>实现失败返回NULL.</p>
+<h4 id="使用文件方式"><a href="#使用文件方式" class="headerlink" title="使用文件方式."></a>使用文件方式.</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>打开方式</th>
+<th>含义</th>
+<th>指定文件不存在时</th>
+<th>指定文件存在时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r</td>
+<td>只读方式打开文本文件</td>
+<td>出错</td>
+<td>正常打开</td>
+</tr>
+<tr>
+<td>w</td>
+<td>只写方式打开文本文件</td>
+<td>建立新文件</td>
+<td>文件原有内容丢失</td>
+</tr>
+<tr>
+<td>a</td>
+<td>追加方式打开文本文件</td>
+<td>建立新文件</td>
+<td>在原有内容末尾追加</td>
+</tr>
+<tr>
+<td>r+</td>
+<td>读/写方式打开文本文件</td>
+<td>出错</td>
+<td>正常打开</td>
+</tr>
+<tr>
+<td>w+</td>
+<td>读/写方式创建新的文本文件</td>
+<td>建立新文件</td>
+<td>文件原有内容丢失</td>
+</tr>
+<tr>
+<td>a+</td>
+<td>读/追加方式建立新的文本文件</td>
+<td>建立新文件</td>
+<td>在原有内容末尾追加</td>
+</tr>
+<tr>
+<td>rb</td>
+<td>只读方式打开二进制文件</td>
+<td>出错</td>
+<td>正常打开</td>
+</tr>
+<tr>
+<td>wb</td>
+<td>只写方式打开二进制文件</td>
+<td>建立新文件</td>
+<td>文件原有内容丢失</td>
+</tr>
+<tr>
+<td>ab</td>
+<td>追加方式打开二进制文件</td>
+<td>建立新文件</td>
+<td>在原有内容末尾添加</td>
+</tr>
+<tr>
+<td>rb+</td>
+<td>读/写方式打开二进制文件</td>
+<td>出错</td>
+<td>正常打开</td>
+</tr>
+<tr>
+<td>wb+</td>
+<td>读/写方式创建新的二进制文件</td>
+<td>建立新文件</td>
+<td>文件原有内容丢失</td>
+</tr>
+<tr>
+<td>ab+</td>
+<td>读/追加方式创建新的二进制文件</td>
+<td>建立新文件</td>
+<td>在原有内容末尾追加</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>带b区别在于换行的处理</p>
+</blockquote>
+<h4 id="用fclose函数关闭数据文件"><a href="#用fclose函数关闭数据文件" class="headerlink" title="用fclose函数关闭数据文件"></a>用fclose函数关闭数据文件</h4><p>fclose(文件指针);</p>
+<pre><code class="lang-c">fclose(fp);
+</code></pre>
+<p>先把缓冲区中的数据输出到磁盘文件,然后才撤销文件信息区.</p>
+<h2 id="顺序读写数据文件"><a href="#顺序读写数据文件" class="headerlink" title="顺序读写数据文件"></a>顺序读写数据文件</h2><h4 id="怎样向文件读写字符"><a href="#怎样向文件读写字符" class="headerlink" title="怎样向文件读写字符"></a>怎样向文件读写字符</h4><p>读写一个字符的函数.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>调用形式</th>
+<th>功能</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fgetc</td>
+<td>fgetc(fp)</td>
+<td>从fp指向的文件读入一个字符</td>
+<td>读成功,带回所读的字符,失败了则返回文件结束标志EOF(即-1)</td>
+</tr>
+<tr>
+<td>fputc</td>
+<td>fputc(ch,fp)</td>
+<td>把字符ch写到文件指针变量fp所指向的文件中</td>
+<td>输出成功,返回值就是输出的字符,输出失败,则返回文件结束标志EOF(即-1)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="从键盘输入一些字符-并逐个把它们送到磁盘上去-直到用户输入一个”-”为止"><a href="#从键盘输入一些字符-并逐个把它们送到磁盘上去-直到用户输入一个”-”为止" class="headerlink" title="从键盘输入一些字符,并逐个把它们送到磁盘上去,直到用户输入一个”#”为止."></a>从键盘输入一些字符,并逐个把它们送到磁盘上去,直到用户输入一个”#”为止.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 int main()
 {
@@ -5242,7 +5507,8 @@ int main()
     putchar(10); //向屏幕输出一个换行符s
     return 0;
 }
-</code></pre><h5 id="将一个磁盘文件中的信息复制到另一个磁盘文件中"><a href="#将一个磁盘文件中的信息复制到另一个磁盘文件中" class="headerlink" title="将一个磁盘文件中的信息复制到另一个磁盘文件中"></a>将一个磁盘文件中的信息复制到另一个磁盘文件中</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
+</code></pre>
+<h5 id="将一个磁盘文件中的信息复制到另一个磁盘文件中"><a href="#将一个磁盘文件中的信息复制到另一个磁盘文件中" class="headerlink" title="将一个磁盘文件中的信息复制到另一个磁盘文件中"></a>将一个磁盘文件中的信息复制到另一个磁盘文件中</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 int main()
 {
@@ -5276,12 +5542,57 @@ int main()
     fclose(out);
     return 0;
 }
-</code></pre><p>在访问磁盘文件时,是逐个字符(字节)进行的,为了知道当前访问到第几个字节,系统用”文件读写位置标记”来表示当前所访问的位置.开始时指向第1个字节,每访问完一个字节,当前读写位置就指向下一个字节.为了知道对文件的读写是否完成,只需看文件读写位置是否移到文件的末尾.</p><blockquote><p>feof函数可以检测文件是否已被读取过.</p></blockquote><h4 id="怎样向文件读写一个字符串"><a href="#怎样向文件读写一个字符串" class="headerlink" title="怎样向文件读写一个字符串"></a>怎样向文件读写一个字符串</h4><pre><code class="lang-c">fgets(str,n,fp);
-</code></pre><p>作用是从fp所指向的文件中读入一个长度为n-1的字符串,并在最后加一个’\0’字符,然后把这n个字符存放到字符数组str中.</p><p><strong>读写一个字符串的函数</strong></p><div class="table-container"><table><thead><tr><th>函数名</th><th>调用形式</th><th>功能</th><th>返回值</th></tr></thead><tbody><tr><td>fgets</td><td>fgets(str,n,fp)</td><td>从fp指向的文件读入一个长度为(n-1)的字符串,存放到字符数组str中.</td><td>读成功,返回地址str,失败则返回NULL</td></tr><tr><td>fputs</td><td>fputs(str,fp)</td><td>把str所指向的字符串写到文件指针变量fp所指向的文件中</td><td>输出成功,返回0;否则返回非0值</td></tr></tbody></table></div><p><strong>fgets函数的原型为：</strong></p><pre><code class="lang-c">char *fgets(char * str,int n,FILE *fp);
-</code></pre><p>作用是从文件读入一个字符串.调用时可以写成下面的形式:</p><pre><code class="lang-c">fgets(str,n,fp)
-</code></pre><p>n是要求得到的字符个数,但实际上只从fp所指向的文件中读入n-1字符,然后在最后加一个’\0’字符,这样得到的字符串共有n个字符,把它们放到字符数组str中.</p><p>如果在读完n-1个字符之前遇到换行符’\n’或文件结束符EOF,读入即结束,但将所遇到的换行符”\n”也作为一个字符读入.执行成功返回值为str数组首元素的地址,如果一开始就遇到文件尾或读数据出错,则为NULL.</p><p><strong>fputs函数的原型为：</strong></p><pre><code class="lang-c">char *fputs(char * str,FILE *fp);
-</code></pre><p>其作用是将str所指向的字符串输出到fp所指向的文件中.调用时可以写成下面的形式:</p><pre><code class="lang-c">fputs("China",fp);
-</code></pre><p>第一个参数可以是字符串常量,字符数组名或字符型指针.字符串末尾的’\0’不输出.输出成功,函数值为0,不成功则为EOF(-1).</p><h5 id="从键盘读入若干个字符串-对它们按字母大小的顺序排序-然后把排好序的字符串送到磁盘文件中保存"><a href="#从键盘读入若干个字符串-对它们按字母大小的顺序排序-然后把排好序的字符串送到磁盘文件中保存" class="headerlink" title="从键盘读入若干个字符串,对它们按字母大小的顺序排序,然后把排好序的字符串送到磁盘文件中保存."></a>从键盘读入若干个字符串,对它们按字母大小的顺序排序,然后把排好序的字符串送到磁盘文件中保存.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
+</code></pre>
+<p>在访问磁盘文件时,是逐个字符(字节)进行的,为了知道当前访问到第几个字节,系统用”文件读写位置标记”来表示当前所访问的位置.开始时指向第1个字节,每访问完一个字节,当前读写位置就指向下一个字节.为了知道对文件的读写是否完成,只需看文件读写位置是否移到文件的末尾.</p>
+<blockquote>
+<p>feof函数可以检测文件是否已被读取过.</p>
+</blockquote>
+<h4 id="怎样向文件读写一个字符串"><a href="#怎样向文件读写一个字符串" class="headerlink" title="怎样向文件读写一个字符串"></a>怎样向文件读写一个字符串</h4><pre><code class="lang-c">fgets(str,n,fp);
+</code></pre>
+<p>作用是从fp所指向的文件中读入一个长度为n-1的字符串,并在最后加一个’\0’字符,然后把这n个字符存放到字符数组str中.</p>
+<p><strong>读写一个字符串的函数</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>调用形式</th>
+<th>功能</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fgets</td>
+<td>fgets(str,n,fp)</td>
+<td>从fp指向的文件读入一个长度为(n-1)的字符串,存放到字符数组str中.</td>
+<td>读成功,返回地址str,失败则返回NULL</td>
+</tr>
+<tr>
+<td>fputs</td>
+<td>fputs(str,fp)</td>
+<td>把str所指向的字符串写到文件指针变量fp所指向的文件中</td>
+<td>输出成功,返回0;否则返回非0值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>fgets函数的原型为：</strong></p>
+<pre><code class="lang-c">char *fgets(char * str,int n,FILE *fp);
+</code></pre>
+<p>作用是从文件读入一个字符串.调用时可以写成下面的形式:</p>
+<pre><code class="lang-c">fgets(str,n,fp)
+</code></pre>
+<p>n是要求得到的字符个数,但实际上只从fp所指向的文件中读入n-1字符,然后在最后加一个’\0’字符,这样得到的字符串共有n个字符,把它们放到字符数组str中.</p>
+<p>如果在读完n-1个字符之前遇到换行符’\n’或文件结束符EOF,读入即结束,但将所遇到的换行符”\n”也作为一个字符读入.执行成功返回值为str数组首元素的地址,如果一开始就遇到文件尾或读数据出错,则为NULL.</p>
+<p><strong>fputs函数的原型为：</strong></p>
+<pre><code class="lang-c">char *fputs(char * str,FILE *fp);
+</code></pre>
+<p>其作用是将str所指向的字符串输出到fp所指向的文件中.调用时可以写成下面的形式:</p>
+<pre><code class="lang-c">fputs("China",fp);
+</code></pre>
+<p>第一个参数可以是字符串常量,字符数组名或字符型指针.字符串末尾的’\0’不输出.输出成功,函数值为0,不成功则为EOF(-1).</p>
+<h5 id="从键盘读入若干个字符串-对它们按字母大小的顺序排序-然后把排好序的字符串送到磁盘文件中保存"><a href="#从键盘读入若干个字符串-对它们按字母大小的顺序排序-然后把排好序的字符串送到磁盘文件中保存" class="headerlink" title="从键盘读入若干个字符串,对它们按字母大小的顺序排序,然后把排好序的字符串送到磁盘文件中保存."></a>从键盘读入若干个字符串,对它们按字母大小的顺序排序,然后把排好序的字符串送到磁盘文件中保存.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
 int main()
@@ -5324,15 +5635,31 @@ int main()
     fclose(fp);
     return 0;
 }
-</code></pre><h4 id="用格式化的方式读写文本文件"><a href="#用格式化的方式读写文本文件" class="headerlink" title="用格式化的方式读写文本文件"></a>用格式化的方式读写文本文件</h4><pre><code class="lang-c">fprintf(文件指针,格式化字符串,输出表列);
+</code></pre>
+<h4 id="用格式化的方式读写文本文件"><a href="#用格式化的方式读写文本文件" class="headerlink" title="用格式化的方式读写文本文件"></a>用格式化的方式读写文本文件</h4><pre><code class="lang-c">fprintf(文件指针,格式化字符串,输出表列);
 fscanf(文件指针,格式化字符串,输入表列);//从磁盘文件上读入ASCII字符
 ---
 fprintf(fp,"%d,%6.2f",i,f);
-</code></pre><p>因为在输入时要将文件中的ASCII码<strong>转换为二进制形式</strong>再保存在内存变量中,在输出时又要将内存中的二进制形式转换成字符,要花费更多的时间,因此,在内存与磁盘交换数据的情况下,最好不用fprintf和fscanf函数,而用fread和fwrite函数.</p><h4 id="用二进制方式向文件读写一组数据"><a href="#用二进制方式向文件读写一组数据" class="headerlink" title="用二进制方式向文件读写一组数据"></a>用二进制方式向文件读写一组数据</h4><p>允许用fread函数从文件读一个数据块,用fwrite函数向文件写一个数据块.在读写时以二进制形式进行的.在向磁盘写数据时,直接将内存中的一组数据<strong>原封不动,不加转换</strong>地复制到磁盘文件上,读入时也是将磁盘文件中若干字节的内容一批读入内存.</p><pre><code class="lang-c">fread(buffer,size,count,fp);
+</code></pre>
+<p>因为在输入时要将文件中的ASCII码<strong>转换为二进制形式</strong>再保存在内存变量中,在输出时又要将内存中的二进制形式转换成字符,要花费更多的时间,因此,在内存与磁盘交换数据的情况下,最好不用fprintf和fscanf函数,而用fread和fwrite函数.</p>
+<h4 id="用二进制方式向文件读写一组数据"><a href="#用二进制方式向文件读写一组数据" class="headerlink" title="用二进制方式向文件读写一组数据"></a>用二进制方式向文件读写一组数据</h4><p>允许用fread函数从文件读一个数据块,用fwrite函数向文件写一个数据块.在读写时以二进制形式进行的.在向磁盘写数据时,直接将内存中的一组数据<strong>原封不动,不加转换</strong>地复制到磁盘文件上,读入时也是将磁盘文件中若干字节的内容一批读入内存.</p>
+<pre><code class="lang-c">fread(buffer,size,count,fp);
 fwrite(buffer,size,count,fp);
-</code></pre><blockquote><p>buffer:</p><ul><li>fread:用来存放从文件读入的数据的存储区的地址</li><li>fwrite:把此地址开始的存储区中的数据向文件输出(指起始地址)</li></ul><p>size：要读的每个数据块的字节数<br>count：要读的数据块的个数<br>fp：文件指针</p></blockquote><p>如:</p><pre><code class="lang-c">fread(f,4,10,fp);
+</code></pre>
+<blockquote>
+<p>buffer:</p>
+<ul>
+<li>fread:用来存放从文件读入的数据的存储区的地址</li>
+<li>fwrite:把此地址开始的存储区中的数据向文件输出(指起始地址)</li>
+</ul>
+<p>size：要读的每个数据块的字节数<br>count：要读的数据块的个数<br>fp：文件指针</p>
+</blockquote>
+<p>如:</p>
+<pre><code class="lang-c">fread(f,4,10,fp);
 //f是一个float型数组名(代表数组首元素地址),从fp所指向的文件读入10个4个字节的数据,存储到数组f中
-</code></pre><p>fread或fwrite执行成功返回<strong>count</strong>(输入或输出数据项的个数).</p><h5 id="从键盘输入10个学生的有关数据-然后把它们转存到磁盘文件上"><a href="#从键盘输入10个学生的有关数据-然后把它们转存到磁盘文件上" class="headerlink" title="从键盘输入10个学生的有关数据,然后把它们转存到磁盘文件上."></a>从键盘输入10个学生的有关数据,然后把它们转存到磁盘文件上.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
+</code></pre>
+<p>fread或fwrite执行成功返回<strong>count</strong>(输入或输出数据项的个数).</p>
+<h5 id="从键盘输入10个学生的有关数据-然后把它们转存到磁盘文件上"><a href="#从键盘输入10个学生的有关数据-然后把它们转存到磁盘文件上" class="headerlink" title="从键盘输入10个学生的有关数据,然后把它们转存到磁盘文件上."></a>从键盘输入10个学生的有关数据,然后把它们转存到磁盘文件上.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
 #define SIZE 10
 struct Student_type
 {
@@ -5368,7 +5695,29 @@ int main()
     save();
     return 0;
 }
-</code></pre><h4 id="文本文件和二进制文件"><a href="#文本文件和二进制文件" class="headerlink" title="文本文件和二进制文件"></a>文本文件和二进制文件</h4><ul><li><p>数据的存储方式</p><p>​ 文本方式: 数据以字符方式(ASCII代码)存储到文件中.如整数12,送到文件时占2个字节,而不是4个字节.以文本方式保存的数据便于阅读</p><p>​ 二进制方式:数据按在内存的存储状态原封不动地复制到文件.如整数12,送到文件时和内存中一样占4个字节.</p></li><li><p>文件的分类</p><p>​ 文本文件(ASCII文件):文件全部为ASCII字符</p><p>​ 二进制文件:按二进制方式把在内存中的数据复制到文件的,称为二进制文件,即映像文件.</p></li><li><p>文件的打开方式</p><p>​ 文本方式: 不带b的方式,读写文件时<strong>对换行符进行转换</strong></p><p>​ 文本方式: 带b的方式,读写文件时<strong>对换行符不进行转换</strong></p></li><li><p>文件读写函数</p><p>​ 文本读写函数:用来向文本文件读写字符数据的函数(如fgetc,fgets,fputc,fputs,fscanf,fprintf等)</p><p>​ 二进制读写函数:用来向二进制文件读写二进制数据的函数(如getw,putw,fread,fwrite等)</p></li></ul><hr><h2 id="随机读写数据文件"><a href="#随机读写数据文件" class="headerlink" title="随机读写数据文件"></a>随机读写数据文件</h2><h3 id="文件位置标记及其定位"><a href="#文件位置标记及其定位" class="headerlink" title="文件位置标记及其定位"></a>文件位置标记及其定位</h3><h4 id="文件位置标记"><a href="#文件位置标记" class="headerlink" title="文件位置标记"></a>文件位置标记</h4><p>文件位置标记用来指示”接下来要读写的下一个字符的位置”</p><h4 id="文件位置标记的定位"><a href="#文件位置标记的定位" class="headerlink" title="文件位置标记的定位"></a>文件位置标记的定位</h4><p>:one: 用rewind函数使文件位置标记指向开头.同时feof函数的值会回复为0(假).</p><h5 id="有一个磁盘文件-内有一些信息-要求第1次将它的内容显示在屏幕上-第2次把它复制到另一文件上"><a href="#有一个磁盘文件-内有一些信息-要求第1次将它的内容显示在屏幕上-第2次把它复制到另一文件上" class="headerlink" title="有一个磁盘文件,内有一些信息.要求第1次将它的内容显示在屏幕上,第2次把它复制到另一文件上."></a>有一个磁盘文件,内有一些信息.要求第1次将它的内容显示在屏幕上,第2次把它复制到另一文件上.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
+</code></pre>
+<h4 id="文本文件和二进制文件"><a href="#文本文件和二进制文件" class="headerlink" title="文本文件和二进制文件"></a>文本文件和二进制文件</h4><ul>
+<li><p>数据的存储方式</p>
+<p>​    文本方式: 数据以字符方式(ASCII代码)存储到文件中.如整数12,送到文件时占2个字节,而不是4个字节.以文本方式保存的数据便于阅读</p>
+<p>​    二进制方式:数据按在内存的存储状态原封不动地复制到文件.如整数12,送到文件时和内存中一样占4个字节.</p>
+</li>
+<li><p>文件的分类</p>
+<p>​    文本文件(ASCII文件):文件全部为ASCII字符</p>
+<p>​    二进制文件:按二进制方式把在内存中的数据复制到文件的,称为二进制文件,即映像文件.</p>
+</li>
+<li><p>文件的打开方式</p>
+<p>​    文本方式: 不带b的方式,读写文件时<strong>对换行符进行转换</strong></p>
+<p>​    文本方式: 带b的方式,读写文件时<strong>对换行符不进行转换</strong></p>
+</li>
+<li><p>文件读写函数</p>
+<p>​    文本读写函数:用来向文本文件读写字符数据的函数(如fgetc,fgets,fputc,fputs,fscanf,fprintf等)</p>
+<p>​    二进制读写函数:用来向二进制文件读写二进制数据的函数(如getw,putw,fread,fwrite等)</p>
+</li>
+</ul>
+<hr>
+<h2 id="随机读写数据文件"><a href="#随机读写数据文件" class="headerlink" title="随机读写数据文件"></a>随机读写数据文件</h2><h3 id="文件位置标记及其定位"><a href="#文件位置标记及其定位" class="headerlink" title="文件位置标记及其定位"></a>文件位置标记及其定位</h3><h4 id="文件位置标记"><a href="#文件位置标记" class="headerlink" title="文件位置标记"></a>文件位置标记</h4><p>文件位置标记用来指示”接下来要读写的下一个字符的位置”</p>
+<h4 id="文件位置标记的定位"><a href="#文件位置标记的定位" class="headerlink" title="文件位置标记的定位"></a>文件位置标记的定位</h4><p>:one: 用rewind函数使文件位置标记指向开头.同时feof函数的值会回复为0(假).</p>
+<h5 id="有一个磁盘文件-内有一些信息-要求第1次将它的内容显示在屏幕上-第2次把它复制到另一文件上"><a href="#有一个磁盘文件-内有一些信息-要求第1次将它的内容显示在屏幕上-第2次把它复制到另一文件上" class="headerlink" title="有一个磁盘文件,内有一些信息.要求第1次将它的内容显示在屏幕上,第2次把它复制到另一文件上."></a>有一个磁盘文件,内有一些信息.要求第1次将它的内容显示在屏幕上,第2次把它复制到另一文件上.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
 
 int main()
 {
@@ -5394,9 +5743,45 @@ int main()
     fclose(fp2);
     return 0;
 }
-</code></pre><p>:two:用fseek函数改变文件位置标记</p><pre><code class="lang-c">fseek(文件类型指针,位移量,起始点);
-</code></pre><p><strong>起始点:</strong></p><div class="table-container"><table><thead><tr><th>起始点</th><th>名字</th><th>用数字代表</th></tr></thead><tbody><tr><td>文件开始位置</td><td>SEEK_SET</td><td>0</td></tr><tr><td>文件当前位置</td><td>SEEK_CUR</td><td>1</td></tr><tr><td>文件末尾位置</td><td>SEEK_END</td><td>2</td></tr></tbody></table></div><p>位移量:以”起始点”为基点,应是long型数据(在数字的末尾加一个字母L,就表示是long型);</p><pre><code class="lang-c">fseek(fp,100L,0);//将文件位置标记先前移到离文件开头100个字节处.
-</code></pre><p>:three:用ftell函数测定文件位置标记的当前位置.</p><p>函数得到流式文件中文件位置标记的当前位置.调用函数时出错(如不存在fp指向的文件),返回值为-1L.</p><h4 id="随机读写"><a href="#随机读写" class="headerlink" title="随机读写"></a>随机读写</h4><h5 id="在磁盘文件上存有10个学生的数据-要求将第1-3-5-7-9个学生数据输入计算机-并在屏幕上显示出来"><a href="#在磁盘文件上存有10个学生的数据-要求将第1-3-5-7-9个学生数据输入计算机-并在屏幕上显示出来" class="headerlink" title="在磁盘文件上存有10个学生的数据.要求将第1,3,5,7,9个学生数据输入计算机,并在屏幕上显示出来."></a>在磁盘文件上存有10个学生的数据.要求将第1,3,5,7,9个学生数据输入计算机,并在屏幕上显示出来.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
+</code></pre>
+<p>:two:用fseek函数改变文件位置标记</p>
+<pre><code class="lang-c">fseek(文件类型指针,位移量,起始点);
+</code></pre>
+<p><strong>起始点:</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>起始点</th>
+<th>名字</th>
+<th>用数字代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件开始位置</td>
+<td>SEEK_SET</td>
+<td>0</td>
+</tr>
+<tr>
+<td>文件当前位置</td>
+<td>SEEK_CUR</td>
+<td>1</td>
+</tr>
+<tr>
+<td>文件末尾位置</td>
+<td>SEEK_END</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>位移量:以”起始点”为基点,应是long型数据(在数字的末尾加一个字母L,就表示是long型);</p>
+<pre><code class="lang-c">fseek(fp,100L,0);//将文件位置标记先前移到离文件开头100个字节处.
+</code></pre>
+<p>:three:用ftell函数测定文件位置标记的当前位置.</p>
+<p>函数得到流式文件中文件位置标记的当前位置.调用函数时出错(如不存在fp指向的文件),返回值为-1L.</p>
+<h4 id="随机读写"><a href="#随机读写" class="headerlink" title="随机读写"></a>随机读写</h4><h5 id="在磁盘文件上存有10个学生的数据-要求将第1-3-5-7-9个学生数据输入计算机-并在屏幕上显示出来"><a href="#在磁盘文件上存有10个学生的数据-要求将第1-3-5-7-9个学生数据输入计算机-并在屏幕上显示出来" class="headerlink" title="在磁盘文件上存有10个学生的数据.要求将第1,3,5,7,9个学生数据输入计算机,并在屏幕上显示出来."></a>在磁盘文件上存有10个学生的数据.要求将第1,3,5,7,9个学生数据输入计算机,并在屏幕上显示出来.</h5><pre><code class="lang-c">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
 struct Student_type
@@ -5427,8 +5812,70 @@ int main()
     fclose(fp);
     return 0;
 }
-</code></pre><h2 id="文件读写的出错检测"><a href="#文件读写的出错检测" class="headerlink" title="文件读写的出错检测"></a>文件读写的出错检测</h2><p>检查输入输出函数调用时可能出现的错误.</p><p><strong>ferror函数</strong></p><pre><code class="lang-c">ferror(fp);
-</code></pre><p>如果返回值为0,表示未出现错误.</p><p>如果返回一个非零值,表示出错.</p><blockquote><p>对同一个文件每一次调用输入输出函数,都会产生一个新的ferror函数值.因此在调用一个输入输出函数后立即检查ferror的值,否则信息会丢失.</p><p>在执行fopen函数时,ferror函数的初始值自动置为0.</p></blockquote><p><strong>clearerr函数</strong></p><p>使文件出错标记和文件结束标记置为0.</p><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system/">Java高性能高并发秒杀系统</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/users-create-data-types-themselves/">users create data types themselves</a></div></section></div><div class="related-wrap reveal" id="related-posts"><section class="header"><div class="title cap theme">您可能感兴趣的文章</div></section><section class="body"><div class="related-posts"><a class="item" href="/users-create-data-types-themselves/" title="users create data types themselves"><span class="title">users create data types themselves</span></a><a class="item" href="/C-algorithm/" title="C algorithm"><span class="title">C algorithm</span></a><a class="item" href="/c-pointer/" title="C pointer"><span class="title">C pointer</span><span class="excerpt">指针</span></a><a class="item" href="/C-programming/" title="C programming"><span class="title">C programming</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div><div class="related-wrap md-text reveal" id="comments"><section class="header cmt-title cap theme">快来参与讨论吧</section><section class="body cmt-body giscus"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg><div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div></section></div><footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+</code></pre>
+<h2 id="文件读写的出错检测"><a href="#文件读写的出错检测" class="headerlink" title="文件读写的出错检测"></a>文件读写的出错检测</h2><p>检查输入输出函数调用时可能出现的错误.</p>
+<p><strong>ferror函数</strong></p>
+<pre><code class="lang-c">ferror(fp);
+</code></pre>
+<p>如果返回值为0,表示未出现错误.</p>
+<p>如果返回一个非零值,表示出错.</p>
+<blockquote>
+<p>对同一个文件每一次调用输入输出函数,都会产生一个新的ferror函数值.因此在调用一个输入输出函数后立即检查ferror的值,否则信息会丢失.</p>
+<p>在执行fopen函数时,ferror函数的初始值自动置为0.</p>
+</blockquote>
+<p><strong>clearerr函数</strong></p>
+<p>使文件出错标记和文件结束标记置为0.</p>
+
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system/">Java高性能高并发秒杀系统</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/users-create-data-types-themselves/">users create data types themselves</a></div></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class="header">
+      <div class="title cap theme">您可能感兴趣的文章</div>
+    </section>
+    <section class="body">
+    <div class="related-posts"><a class="item" href="/users-create-data-types-themselves/" title="users create data types themselves"><span class="title">users create data types themselves</span></a><a class="item" href="/C-algorithm/" title="C algorithm"><span class="title">C algorithm</span></a><a class="item" href="/c-pointer/" title="C pointer"><span class="title">C pointer</span><span class="excerpt">指针</span></a><a class="item" href="/C-programming/" title="C programming"><span class="title">C programming</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div>
+
+
+
+  <div class="related-wrap md-text reveal" id="comments">
+    <section class="header cmt-title cap theme">
+      快来参与讨论吧
+    </section>
+    <section class="body cmt-body giscus">
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class="float-panel mobile-only blur" style="display:none">
+  <button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()">
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class="scripts">
+    <script type="text/javascript">
+  const stellar = {
     // 懒加载 css https://github.com/filamentgroup/loadCSS
     loadCSS: (href, before, media, attributes) => {
       var doc = window.document;
@@ -5574,7 +6021,37 @@ int main()
   }
   if ('true' == 'true') {
     stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
-  }</script><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script></div><script src="/bundle.js"></script><script>function loadJS() {
+  }
+</script>
+
+<!-- required -->
+
+  
+
+
+
+
+<!-- optional -->
+
+  
+
+
+
+
+<!-- inject -->
+
+  
+    <script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script>
+  
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script>
+  
+
+
+  </div>
+
+
+<script src="/bundle.js"></script><script>
+  function loadJS() {
     const els = document.querySelectorAll("#comments #giscus");
     if (els.length === 0) return;
     els.forEach((el, i) => {
@@ -5597,4 +6074,5 @@ int main()
   }
   window.addEventListener('DOMContentLoaded', (event) => {
     loadJS();
-  });</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+  });
+</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

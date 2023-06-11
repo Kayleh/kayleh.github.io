@@ -1,4 +1,71 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>Java高性能高并发秒杀系统(4) - Kayleh</title><meta name="description" content="秒杀功能的实现"><meta property="og:type" content="article"><meta property="og:title" content="Java高性能高并发秒杀系统(4)"><meta property="og:url" content="https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-4/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="秒杀功能的实现"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712214753389.png"><meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712231043251.png"><meta property="article:published_time" content="2020-11-07T12:13:45.000Z"><meta property="article:modified_time" content="2023-06-11T15:26:41.646Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="project"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712214753389.png"><meta name="twitter:creator" content="@kayleh"><meta name="keywords" content="project"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><link rel="preconnect" href="https://s1.hdslb.com/"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://gcore.jsdelivr.net">
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin="">
+  <link rel="dns-prefetch" href="//unpkg.com">
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Java高性能高并发秒杀系统(4) - Kayleh</title>
+
+  
+    <meta name="description" content="秒杀功能的实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java高性能高并发秒杀系统(4)">
+<meta property="og:url" content="https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-4/index.html">
+<meta property="og:site_name" content="Kayleh">
+<meta property="og:description" content="秒杀功能的实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712214753389.png">
+<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712231043251.png">
+<meta property="article:published_time" content="2020-11-07T12:13:45.000Z">
+<meta property="article:modified_time" content="2023-06-11T16:12:59.884Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712214753389.png">
+<meta name="twitter:creator" content="@kayleh">
+  
+  
+  
+  <meta name="keywords" content="project">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml">
+  
+
+  
+    
+
+
+  
+
+  
+    <link rel="shortcut icon" href="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg">
+  
+
+  
+
+  
+
+
+  
+    
+      
+    
+      <link rel="preconnect" href="https://s1.hdslb.com/"> <script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
   --width-left: 288px;
   --width-main: 720px;
   --gap-l: 16px;
@@ -5200,7 +5267,56 @@ img[fancybox='true'] {
   color: #fa6400;
   opacity: 0.75;
 }
-</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>--<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?project"></div></div></div><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">主页</a><a class="nav-item" href="/notes/">随记</a></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Java高性能高并发秒杀系统(4)</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0%E8%81%94%E8%A1%A8%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-text">1. 实现联表查询的一个小技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%B7%A6%E8%81%94%E8%A1%A8%E6%9F%A5%E8%AF%A2SQL%E8%AF%AD%E5%8F%A5"><span class="toc-text">1.1 左联表查询SQL语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Druid%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E4%B8%ADurl%E5%9C%B0%E5%9D%80%E7%9A%84%E5%86%99%E6%B3%95"><span class="toc-text">1.2 Druid数据库连接池中url地址的写法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85%E9%A1%B5%E5%AF%B9RestFul%E9%A3%8E%E6%A0%BC%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">2. 商品详情页对RestFul风格的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A7%92%E6%9D%80%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%80%BB%E8%BE%91"><span class="toc-text">3. 秒杀功能实现的逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%87%8F%E5%B0%91%E5%BA%93%E5%AD%98%E7%9A%84sql%E8%AF%AD%E5%8F%A5"><span class="toc-text">3.1 减少库存的sql语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%88%9B%E5%BB%BA%E8%AE%A2%E5%8D%95%E7%9A%84sql%E8%AF%AD%E5%8F%A5"><span class="toc-text">3.2 创建订单的sql语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-SelectKey-%E6%B3%A8%E8%A7%A3"><span class="toc-text">3.3 @SelectKey()注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E8%8E%B7%E5%8F%96%E4%B8%BB%E9%94%AE%E5%80%BC%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">3.3.1 获取主键值的注意事项</span></a></li></ol></li></ol></li></ol></div></div></widget></div><footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-11-07T12:13:45.000Z">2020-11-07</time></div></div><article class="md-text content post"><h1 class="article-title"><span>Java高性能高并发秒杀系统(4)</span></h1><h2 id="1-实现联表查询的一个小技巧"><a href="#1-实现联表查询的一个小技巧" class="headerlink" title="1. 实现联表查询的一个小技巧"></a>1. 实现联表查询的一个小技巧</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712214753389.png"></div></div><p>商品表和秒杀商品表是两个互相独立的表，其中的关联为<code>goods_id</code>，但是我要返回的对象，既想要商品表中的字段，又想要秒杀商品表中的字段，用下面这个方法，有点儿亮眼</p><pre><code class="lang-java">@Data
+</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>-  - 
+    
+  
+
+
+
+  
+
+<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?project"></div></div></div>
+
+
+  <div class="l_body" id="start">
+    <aside class="l_left" layout="post">
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy="" class="avatar" src="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0"> Dreamaker</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">导航</a><a class="nav-item" href="/notes/">随记</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Java高性能高并发秒杀系统(4)</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0%E8%81%94%E8%A1%A8%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-text">1. 实现联表查询的一个小技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%B7%A6%E8%81%94%E8%A1%A8%E6%9F%A5%E8%AF%A2SQL%E8%AF%AD%E5%8F%A5"><span class="toc-text">1.1 左联表查询SQL语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Druid%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E4%B8%ADurl%E5%9C%B0%E5%9D%80%E7%9A%84%E5%86%99%E6%B3%95"><span class="toc-text">1.2 Druid数据库连接池中url地址的写法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85%E9%A1%B5%E5%AF%B9RestFul%E9%A3%8E%E6%A0%BC%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">2. 商品详情页对RestFul风格的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A7%92%E6%9D%80%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%80%BB%E8%BE%91"><span class="toc-text">3. 秒杀功能实现的逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%87%8F%E5%B0%91%E5%BA%93%E5%AD%98%E7%9A%84sql%E8%AF%AD%E5%8F%A5"><span class="toc-text">3.1 减少库存的sql语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%88%9B%E5%BB%BA%E8%AE%A2%E5%8D%95%E7%9A%84sql%E8%AF%AD%E5%8F%A5"><span class="toc-text">3.2 创建订单的sql语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-SelectKey-%E6%B3%A8%E8%A7%A3"><span class="toc-text">3.3 @SelectKey()注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E8%8E%B7%E5%8F%96%E4%B8%BB%E9%94%AE%E5%80%BC%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">3.3.1 获取主键值的注意事项</span></a></li></ol></li></ol></li></ol></div></div></widget>
+
+
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer>
+
+    </aside>
+    <div class="l_main">
+      
+
+      
+
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2020-11-07T12:13:45.000Z">2020-11-07</time></div></div>
+
+<article class="md-text content post">
+<h1 class="article-title"><span>Java高性能高并发秒杀系统(4)</span></h1>
+<h2 id="1-实现联表查询的一个小技巧"><a href="#1-实现联表查询的一个小技巧" class="headerlink" title="1. 实现联表查询的一个小技巧"></a>1. 实现联表查询的一个小技巧</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712214753389.png"></div></div>
+<p>商品表和秒杀商品表是两个互相独立的表，其中的关联为<code>goods_id</code>，但是我要返回的对象，既想要商品表中的字段，又想要秒杀商品表中的字段，用下面这个方法，有点儿亮眼</p>
+<pre><code class="lang-java">@Data
 public class GoodsVo extends Goods {
     private Double miaoshaPrice;
     private Integer stockCount;
@@ -5208,32 +5324,117 @@ public class GoodsVo extends Goods {
     private Date endDate;
 }
 1234567
-</code></pre><p>创建一个GoodsVo类，继承Goods类，再将<code>秒杀商品表中特有的字段</code>，添加进去即可</p><h3 id="1-1-左联表查询SQL语句"><a href="#1-1-左联表查询SQL语句" class="headerlink" title="1.1 左联表查询SQL语句"></a>1.1 左联表查询SQL语句</h3><ul><li>查询所有的商品</li></ul><pre><code class="lang-sql">    @Select("select g.*,mg.stock_count,mg.miaosha_price,mg.start_date,mg.end_date from miaosha_goods mg left join goods g on mg.goods_id = g.id")
+</code></pre>
+<p>创建一个GoodsVo类，继承Goods类，再将<code>秒杀商品表中特有的字段</code>，添加进去即可</p>
+<h3 id="1-1-左联表查询SQL语句"><a href="#1-1-左联表查询SQL语句" class="headerlink" title="1.1 左联表查询SQL语句"></a>1.1 左联表查询SQL语句</h3><ul>
+<li>查询所有的商品</li>
+</ul>
+<pre><code class="lang-sql">    @Select("select g.*,mg.stock_count,mg.miaosha_price,mg.start_date,mg.end_date from miaosha_goods mg left join goods g on mg.goods_id = g.id")
     public List&lt;GoodsVo&gt; listGoodsVo();
 12
-</code></pre><ul><li>根据id获取商品</li></ul><pre><code class="lang-sql">    @Select("select g.*,mg.stock_count,mg.miaosha_price,mg.start_date,mg.end_date from miaosha_goods mg left join goods g on mg.goods_id = g.id where mg.goods_id = #{goodId}")
+</code></pre>
+<ul>
+<li>根据id获取商品</li>
+</ul>
+<pre><code class="lang-sql">    @Select("select g.*,mg.stock_count,mg.miaosha_price,mg.start_date,mg.end_date from miaosha_goods mg left join goods g on mg.goods_id = g.id where mg.goods_id = #{goodId}")
     public GoodsVo getGoodsVoByGoodsId(@Param("goodId")long goodId);
 12
-</code></pre><h3 id="1-2-Druid数据库连接池中url地址的写法"><a href="#1-2-Druid数据库连接池中url地址的写法" class="headerlink" title="1.2 Druid数据库连接池中url地址的写法"></a>1.2 Druid数据库连接池中url地址的写法</h3><pre><code class="lang-sql">jdbc:mysql://xxx.xx.xxx.xxx:3306/miaosha?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true&amp;useSSL=false&amp;useTimezone=true&amp;serverTimezone=GMT%2B8
+</code></pre>
+<h3 id="1-2-Druid数据库连接池中url地址的写法"><a href="#1-2-Druid数据库连接池中url地址的写法" class="headerlink" title="1.2 Druid数据库连接池中url地址的写法"></a>1.2 Druid数据库连接池中url地址的写法</h3><pre><code class="lang-sql">jdbc:mysql://xxx.xx.xxx.xxx:3306/miaosha?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true&amp;useSSL=false&amp;useTimezone=true&amp;serverTimezone=GMT%2B8
 1
-</code></pre><ul><li><code>serverTimezone=GMT%2B8</code>:时区为GMT%2B8</li></ul><hr><h2 id="2-商品详情页对RestFul风格的使用"><a href="#2-商品详情页对RestFul风格的使用" class="headerlink" title="2. 商品详情页对RestFul风格的使用"></a>2. 商品详情页对RestFul风格的使用</h2><pre><code class="lang-java">    @RequestMapping("to_detail/{goodsId}")
+</code></pre>
+<ul>
+<li><code>serverTimezone=GMT%2B8</code>:时区为GMT%2B8</li>
+</ul>
+<hr>
+<h2 id="2-商品详情页对RestFul风格的使用"><a href="#2-商品详情页对RestFul风格的使用" class="headerlink" title="2. 商品详情页对RestFul风格的使用"></a>2. 商品详情页对RestFul风格的使用</h2><pre><code class="lang-java">    @RequestMapping("to_detail/{goodsId}")
     public String toDetail(Model model, MiaoShaUser user, @PathVariable("goodsId") long goodsId){
         ...
 }
 1234
-</code></pre><ul><li><code>@RequestMapping</code>指定的映射URL，其中有用{}括起来的参数，在方法的形参处，用<code>@PathVariable</code>注解对其进行获取</li></ul><hr><h2 id="3-秒杀功能实现的逻辑"><a href="#3-秒杀功能实现的逻辑" class="headerlink" title="3. 秒杀功能实现的逻辑"></a>3. 秒杀功能实现的逻辑</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712231043251.png"></div></div><h3 id="3-1-减少库存的sql语句"><a href="#3-1-减少库存的sql语句" class="headerlink" title="3.1 减少库存的sql语句"></a>3.1 减少库存的sql语句</h3><pre><code class="lang-sql">    @Update("update miaosha_goods set stock_count = stock_count - 1 where goods_id = #{goodsId}")
+</code></pre>
+<ul>
+<li><code>@RequestMapping</code>指定的映射URL，其中有用{}括起来的参数，在方法的形参处，用<code>@PathVariable</code>注解对其进行获取</li>
+</ul>
+<hr>
+<h2 id="3-秒杀功能实现的逻辑"><a href="#3-秒杀功能实现的逻辑" class="headerlink" title="3. 秒杀功能实现的逻辑"></a>3. 秒杀功能实现的逻辑</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/Java高性能高并发秒杀系统/20200712231043251.png"></div></div>
+<h3 id="3-1-减少库存的sql语句"><a href="#3-1-减少库存的sql语句" class="headerlink" title="3.1 减少库存的sql语句"></a>3.1 减少库存的sql语句</h3><pre><code class="lang-sql">    @Update("update miaosha_goods set stock_count = stock_count - 1 where goods_id = #{goodsId}")
     void reduceStock(MiaoshaGoods miaoshaGoods);
 12
-</code></pre><h3 id="3-2-创建订单的sql语句"><a href="#3-2-创建订单的sql语句" class="headerlink" title="3.2 创建订单的sql语句"></a>3.2 创建订单的sql语句</h3><pre><code class="lang-sql">    @Insert("insert into order_info (user_id,goods_id,goods_name,goods_count,goods_price,order_channel,status,create_date)" +
+</code></pre>
+<h3 id="3-2-创建订单的sql语句"><a href="#3-2-创建订单的sql语句" class="headerlink" title="3.2 创建订单的sql语句"></a>3.2 创建订单的sql语句</h3><pre><code class="lang-sql">    @Insert("insert into order_info (user_id,goods_id,goods_name,goods_count,goods_price,order_channel,status,create_date)" +
             "values(#{userId},#{goodsId},#{goodsName},#{goodsCount},#{goodsPrice},#{orderChannel},#{status},#{createDate})" )
     @SelectKey(statement = "select last_insert_id()",keyProperty = "id",resultType = long.class,before = false)
     long insert(OrderInfo orderInfo);
 1234
-</code></pre><h3 id="3-3-SelectKey-注解"><a href="#3-3-SelectKey-注解" class="headerlink" title="3.3 @SelectKey()注解"></a>3.3 @SelectKey()注解</h3><ul><li><code>需要前置注解</code>：@Insert 或 @InsertProvider 或 @Update 或 @UpdateProvider，否则无效。</li><li>statement：填入将会被执行的 SQL 字符串</li><li>keyProperty属性：填入将会被更新的参数对象的属性</li><li>before属性：填入 true 或 false 以指明 SQL 语句应被在插入语句的之前还是之后执行</li><li>resultType属性：填入 keyProperty 的 Java 类型</li></ul><h4 id="3-3-1-获取主键值的注意事项"><a href="#3-3-1-获取主键值的注意事项" class="headerlink" title="3.3.1 获取主键值的注意事项"></a>3.3.1 获取主键值的注意事项</h4><p>可能我们在执行完插入方法后，想如下这样通过获取返回值的方法来获取主键id值</p><pre><code class="lang-java">long orderId = orderDao.insert(orderInfo)
+</code></pre>
+<h3 id="3-3-SelectKey-注解"><a href="#3-3-SelectKey-注解" class="headerlink" title="3.3 @SelectKey()注解"></a>3.3 @SelectKey()注解</h3><ul>
+<li><code>需要前置注解</code>：@Insert 或 @InsertProvider 或 @Update 或 @UpdateProvider，否则无效。</li>
+<li>statement：填入将会被执行的 SQL 字符串</li>
+<li>keyProperty属性：填入将会被更新的参数对象的属性</li>
+<li>before属性：填入 true 或 false 以指明 SQL 语句应被在插入语句的之前还是之后执行</li>
+<li>resultType属性：填入 keyProperty 的 Java 类型</li>
+</ul>
+<h4 id="3-3-1-获取主键值的注意事项"><a href="#3-3-1-获取主键值的注意事项" class="headerlink" title="3.3.1 获取主键值的注意事项"></a>3.3.1 获取主键值的注意事项</h4><p>可能我们在执行完插入方法后，想如下这样通过获取返回值的方法来获取主键id值</p>
+<pre><code class="lang-java">long orderId = orderDao.insert(orderInfo)
 1
-</code></pre><p>然而并不是这样，<code>因为执行插入sql语句返回值只有两种情况</code>，一种是插入成功返回1，另一种是插入失败，返回0，所以若这里出现一直获取到1值的问题，用如下方法解决</p><pre><code class="lang-sql">orderInfo.getId();
+</code></pre>
+<p>然而并不是这样，<code>因为执行插入sql语句返回值只有两种情况</code>，一种是插入成功返回1，另一种是插入失败，返回0，所以若这里出现一直获取到1值的问题，用如下方法解决</p>
+<pre><code class="lang-sql">orderInfo.getId();
 1
-</code></pre><p>因为，@SelectKey()会将值直接映射到实体类的属性上进行修改，要想获取主键值，只能这样获取，不能通过返回值获取</p><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system-5/">Java高性能高并发秒杀系统(5)</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system-3/">Java高性能高并发秒杀系统(3)</a></div></section></div><div class="related-wrap reveal" id="related-posts"><section class="header"><div class="title cap theme">您可能感兴趣的文章</div></section><section class="body"><div class="related-posts"><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-10/" title="Java高性能高并发秒杀系统(10)"><span class="title">Java高性能高并发秒杀系统(10)</span><span class="excerpt">项目总结</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-3/" title="Java高性能高并发秒杀系统(3)"><span class="title">Java高性能高并发秒杀系统(3)</span><span class="excerpt">实现分布式Session</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-5/" title="Java高性能高并发秒杀系统(5)"><span class="title">Java高性能高并发秒杀系统(5)</span><span class="excerpt">JMeter压力测试</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-6/" title="Java高性能高并发秒杀系统(6)"><span class="title">Java高性能高并发秒杀系统(6)</span><span class="excerpt">页面缓存和对象缓存</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div><div class="related-wrap md-text reveal" id="comments"><section class="header cmt-title cap theme">快来参与讨论吧</section><section class="body cmt-body giscus"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg><div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div></section></div><footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+</code></pre>
+<p>因为，@SelectKey()会将值直接映射到实体类的属性上进行修改，要想获取主键值，只能这样获取，不能通过返回值获取</p>
+
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system-5/">Java高性能高并发秒杀系统(5)</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/Java-high-performance-and-high-concurrency-spike-system-3/">Java高性能高并发秒杀系统(3)</a></div></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class="header">
+      <div class="title cap theme">您可能感兴趣的文章</div>
+    </section>
+    <section class="body">
+    <div class="related-posts"><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-10/" title="Java高性能高并发秒杀系统(10)"><span class="title">Java高性能高并发秒杀系统(10)</span><span class="excerpt">项目总结</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-3/" title="Java高性能高并发秒杀系统(3)"><span class="title">Java高性能高并发秒杀系统(3)</span><span class="excerpt">实现分布式Session</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-5/" title="Java高性能高并发秒杀系统(5)"><span class="title">Java高性能高并发秒杀系统(5)</span><span class="excerpt">JMeter压力测试</span></a><a class="item" href="/Java-high-performance-and-high-concurrency-spike-system-6/" title="Java高性能高并发秒杀系统(6)"><span class="title">Java高性能高并发秒杀系统(6)</span><span class="excerpt">页面缓存和对象缓存</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div>
+
+
+
+  <div class="related-wrap md-text reveal" id="comments">
+    <section class="header cmt-title cap theme">
+      快来参与讨论吧
+    </section>
+    <section class="body cmt-body giscus">
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class="float-panel mobile-only blur" style="display:none">
+  <button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()">
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class="scripts">
+    <script type="text/javascript">
+  const stellar = {
     // 懒加载 css https://github.com/filamentgroup/loadCSS
     loadCSS: (href, before, media, attributes) => {
       var doc = window.document;
@@ -5379,7 +5580,37 @@ public class GoodsVo extends Goods {
   }
   if ('true' == 'true') {
     stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
-  }</script><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script></div><script src="/bundle.js"></script><script>function loadJS() {
+  }
+</script>
+
+<!-- required -->
+
+  
+
+
+
+
+<!-- optional -->
+
+  
+
+
+
+
+<!-- inject -->
+
+  
+    <script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script>
+  
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script>
+  
+
+
+  </div>
+
+
+<script src="/bundle.js"></script><script>
+  function loadJS() {
     const els = document.querySelectorAll("#comments #giscus");
     if (els.length === 0) return;
     els.forEach((el, i) => {
@@ -5402,4 +5633,5 @@ public class GoodsVo extends Goods {
   }
   window.addEventListener('DOMContentLoaded', (event) => {
     loadJS();
-  });</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+  });
+</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

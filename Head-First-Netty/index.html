@@ -1,4 +1,86 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 5.4.2"><meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0"><meta charset="utf-8"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://gcore.jsdelivr.net"><link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin=""><link rel="dns-prefetch" href="//unpkg.com"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#f8f8f8"><title>Head First Netty - Kayleh</title><meta name="description" content="思维导图 前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。 一、Netty概述官方的介绍：  Netty is an asynchronous event-driven network application frameworkfor rapid development of maintain"><meta property="og:type" content="article"><meta property="og:title" content="Head First Netty"><meta property="og:url" content="https://blog.kayleh.top/Head-First-Netty/index.html"><meta property="og:site_name" content="Kayleh"><meta property="og:description" content="思维导图 前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。 一、Netty概述官方的介绍：  Netty is an asynchronous event-driven network application frameworkfor rapid development of maintain"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/15944ade0142471399997efd68e52948.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/cc27d56addd74e82b6b6b349c7f3769b.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/92908e107d6a487bb930ab6cd6be269f.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/419e8af300b24c9eaed71a76ddc2ddeb.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/23835a6ae2374897bf28a0b70fce9cc8.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/173194f21adfa111"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/40cf762660d9455eb6066119cf5eeb49.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/ae5c6ed3008d4323aaa817e9cb46437a.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951ae3c43228"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951f80b07785"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/5fa70ed04e234fad9e524b3766051c4a.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/e7bac501d86e4e75a897686d7bab40fe.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/4c6e9319213b489bbfcc2d7697cf03b0.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/c77ea0ea4e554d65b61ee0a2eae78a0c.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/7a95eeb933be4470acdc5f0f07afbc2a.png"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/17319554d4546047"><meta property="article:published_time" content="2021-05-26T06:26:52.000Z"><meta property="article:modified_time" content="2023-06-11T15:26:41.654Z"><meta property="article:author" content="Kayleh"><meta property="article:tag" content="frame"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png"><meta name="twitter:creator" content="@kayleh"><meta name="keywords" content="frame"><link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg"><link rel="preconnect" href="https://s1.hdslb.com/"><script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://gcore.jsdelivr.net">
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin="">
+  <link rel="dns-prefetch" href="//unpkg.com">
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Head First Netty - Kayleh</title>
+
+  
+    <meta name="description" content="思维导图 前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。 一、Netty概述官方的介绍：  Netty is an asynchronous event-driven network application frameworkfor rapid development of maintain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Head First Netty">
+<meta property="og:url" content="https://blog.kayleh.top/Head-First-Netty/index.html">
+<meta property="og:site_name" content="Kayleh">
+<meta property="og:description" content="思维导图 前言本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。 一、Netty概述官方的介绍：  Netty is an asynchronous event-driven network application frameworkfor rapid development of maintain">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/15944ade0142471399997efd68e52948.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/cc27d56addd74e82b6b6b349c7f3769b.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/92908e107d6a487bb930ab6cd6be269f.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/419e8af300b24c9eaed71a76ddc2ddeb.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/23835a6ae2374897bf28a0b70fce9cc8.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/173194f21adfa111">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/40cf762660d9455eb6066119cf5eeb49.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/ae5c6ed3008d4323aaa817e9cb46437a.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/1731951ae3c43228">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/1731951f80b07785">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/5fa70ed04e234fad9e524b3766051c4a.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/e7bac501d86e4e75a897686d7bab40fe.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/4c6e9319213b489bbfcc2d7697cf03b0.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/c77ea0ea4e554d65b61ee0a2eae78a0c.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/7a95eeb933be4470acdc5f0f07afbc2a.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/17319554d4546047">
+<meta property="article:published_time" content="2021-05-26T06:26:52.000Z">
+<meta property="article:modified_time" content="2023-06-11T16:12:59.892Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="frame">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png">
+<meta name="twitter:creator" content="@kayleh">
+  
+  
+  
+  <meta name="keywords" content="frame">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Kayleh" type="application/atom+xml">
+  
+
+  
+    
+
+
+  
+
+  
+    <link rel="shortcut icon" href="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg">
+  
+
+  
+
+  
+
+
+  
+    
+      
+    
+      <link rel="preconnect" href="https://s1.hdslb.com/"> <script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
   --width-left: 288px;
   --width-main: 720px;
   --gap-l: 16px;
@@ -5200,7 +5282,87 @@ img[fancybox='true'] {
   color: #fa6400;
   opacity: 0.75;
 }
-</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>--<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?frame"></div></div></div><div class="l_body" id="start"><aside class="l_left" layout="post"><header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp)"></div><img no-lazy="" class="avatar" src="https://cdn.jsdelivr.net/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0">Dreamaker</div></a></div><nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">主页</a><a class="nav-item" href="/notes/">随记</a></nav></header><div class="widgets"><widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget><widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Head First Netty</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-NIO%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">2.1 NIO的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Netty%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">2.2 Netty的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%BC%95%E5%85%A5Maven%E4%BE%9D%E8%B5%96"><span class="toc-text">4.1 引入Maven依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-text">4.2 创建服务端启动类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">4.3 创建服务端处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-text">4.4 创建客户端启动类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">4.5 创建客户端处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-%E6%B5%8B%E8%AF%95"><span class="toc-text">4.6 测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-taskQueue%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="toc-text">5.1 taskQueue任务队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-scheduleTaskQueue%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="toc-text">5.2 scheduleTaskQueue延时任务队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-Future%E5%BC%82%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-text">5.3 Future异步机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-Bootstrap%E4%B8%8EServerBootStrap"><span class="toc-text">5.4 Bootstrap与ServerBootStrap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-1-group"><span class="toc-text">5.4.1 group()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-2-channel"><span class="toc-text">5.4.2 channel()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-3-option-%E4%B8%8EchildOption"><span class="toc-text">5.4.3 option()与childOption()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-4-%E8%AE%BE%E7%BD%AE%E6%B5%81%E6%B0%B4%E7%BA%BF-%E9%87%8D%E7%82%B9"><span class="toc-text">5.4.4 设置流水线(重点)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-5-bind"><span class="toc-text">5.4.5 bind()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-6-%E4%BC%98%E9%9B%85%E5%9C%B0%E5%85%B3%E9%97%ADEventLoopGroup"><span class="toc-text">5.4.6 优雅地关闭EventLoopGroup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-Channel"><span class="toc-text">5.5 Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-1-%E8%8E%B7%E5%8F%96channel%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-text">5.5.1 获取channel的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-2-%E8%8E%B7%E5%8F%96channel%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-text">5.5.2 获取channel的配置参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-3-channel%E6%94%AF%E6%8C%81%E7%9A%84IO%E6%93%8D%E4%BD%9C"><span class="toc-text">5.5.3 channel支持的IO操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-Selector"><span class="toc-text">5.6 Selector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-7-PiPeline%E4%B8%8EChannelPipeline"><span class="toc-text">5.7 PiPeline与ChannelPipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-8-ChannelHandlerContext"><span class="toc-text">5.8 ChannelHandlerContext</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-9-EventLoopGroup"><span class="toc-text">5.9 EventLoopGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-9-1-%E8%BD%AE%E8%AF%A2%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">5.9.1 轮询机制的实现原理</span></a></li></ol></li></ol></div></div></widget></div><footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer></aside><div class="l_main"><div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-05-26T06:26:52.000Z">2021-05-26</time></div></div><article class="md-text content post"><h1 class="article-title"><span>Head First Netty</span></h1><h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png"></div></div><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。</p><h1 id="一、Netty概述"><a href="#一、Netty概述" class="headerlink" title="一、Netty概述"></a>一、Netty概述</h1><p>官方的介绍：</p><blockquote><p>Netty is <em>an asynchronous event-driven network application framework</em><br>for rapid development of maintainable high performance protocol servers &amp; clients.</p></blockquote><p><strong>Netty</strong>是 一个<strong>异步事件驱动</strong>的网络应用程序框架，用于<strong>快速开发可维护的高性能协议服务器和客户端</strong>。</p><h1 id="二、为什么使用Netty"><a href="#二、为什么使用Netty" class="headerlink" title="二、为什么使用Netty"></a>二、为什么使用Netty</h1><p>从官网上介绍，Netty是一个网络应用程序框架，开发服务器和客户端。也就是用于网络编程的一个框架。既然是网络编程，Socket就不谈了，为什么不用NIO呢？</p><h2 id="2-1-NIO的缺点"><a href="#2-1-NIO的缺点" class="headerlink" title="2.1 NIO的缺点"></a>2.1 NIO的缺点</h2><p>对于这个问题，之前我写了一篇文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GfV9w2B0mbT7PmeBS45xLw">《NIO入门》</a>对NIO有比较详细的介绍，NIO的主要问题是：</p><ul><li>NIO的类库和API繁杂，学习成本高，你需要熟练掌握Selector、ServerSocketChannel、SocketChannel、ByteBuffer等。</li><li>需要熟悉Java多线程编程。这是因为NIO编程涉及到Reactor模式，你必须对多线程和网络编程非常熟悉，才能写出高质量的NIO程序。</li><li>臭名昭著的epoll bug。它会导致Selector空轮询，最终导致CPU 100%。直到JDK1.7版本依然没得到根本性的解决。</li></ul><h2 id="2-2-Netty的优点"><a href="#2-2-Netty的优点" class="headerlink" title="2.2 Netty的优点"></a>2.2 Netty的优点</h2><p>相对地，Netty的优点有很多：</p><ul><li>API使用简单，学习成本低。</li><li>功能强大，内置了多种解码编码器，支持多种协议。</li><li>性能高，对比其他主流的NIO框架，Netty的性能最优。</li><li>社区活跃，发现BUG会及时修复，迭代版本周期短，不断加入新的功能。</li><li>Dubbo、Elasticsearch都采用了Netty，质量得到验证。</li></ul><h1 id="三、架构图"><a href="#三、架构图" class="headerlink" title="三、架构图"></a>三、架构图</h1><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/15944ade0142471399997efd68e52948.png"></div></div><p>上面这张图就是在官网首页的架构图，我们从上到下分析一下。</p><blockquote><p>绿色的部分<strong>Core</strong>核心模块，包括零拷贝、API库、可扩展的事件模型。</p><p>橙色部分<strong>Protocol Support</strong>协议支持，包括Http协议、webSocket、SSL(安全套接字协议)、谷歌Protobuf协议、zlib/gzip压缩与解压缩、Large File Transfer大文件传输等等。</p><p>红色的部分<strong>Transport Services</strong>传输服务，包括Socket、Datagram、Http Tunnel等等。</p></blockquote><p>以上可看出Netty的功能、协议、传输方式都比较全，比较强大。</p><h1 id="四、永远的Hello-Word"><a href="#四、永远的Hello-Word" class="headerlink" title="四、永远的Hello Word"></a>四、永远的Hello Word</h1><p>首先搭建一个HelloWord工程，先熟悉一下API，还有为后面的学习做铺垫。以下面这张图为依据：</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/cc27d56addd74e82b6b6b349c7f3769b.png"></div></div><h2 id="4-1-引入Maven依赖"><a href="#4-1-引入Maven依赖" class="headerlink" title="4.1 引入Maven依赖"></a>4.1 引入Maven依赖</h2><p>使用的版本是4.1.20，相对比较稳定的一个版本。</p><pre><code>&lt;dependency&gt;
+</style><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/regular.css"><link rel="stylesheet" href="//s1.hdslb.com/bfs/static/jinkela/long/font/medium.css"></noscript></head><body>-  - 
+    
+  
+
+
+
+  
+
+<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://source.unsplash.com/2000x400/?frame"></div></div></div>
+
+
+  <div class="l_body" id="start">
+    <aside class="l_left" layout="post">
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/avatar/round/rainbow64@3x.webp);"></div><img no-lazy="" class="avatar" src="https://cdn.kayleh.top/gh/kayleh/cdn/img/2.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Kayleh</div><div class="sub normal cap">blog</div><div class="sub hover cap" style="opacity:0"> Dreamaker</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item" target="_blank" rel="noopener" href="https://kayleh.top">导航</a><a class="nav-item" href="/notes/">随记</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Head First Netty</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-NIO%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">2.1 NIO的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Netty%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">2.2 Netty的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%BC%95%E5%85%A5Maven%E4%BE%9D%E8%B5%96"><span class="toc-text">4.1 引入Maven依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-text">4.2 创建服务端启动类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">4.3 创建服务端处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="toc-text">4.4 创建客户端启动类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">4.5 创建客户端处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-%E6%B5%8B%E8%AF%95"><span class="toc-text">4.6 测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-taskQueue%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="toc-text">5.1 taskQueue任务队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-scheduleTaskQueue%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="toc-text">5.2 scheduleTaskQueue延时任务队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-Future%E5%BC%82%E6%AD%A5%E6%9C%BA%E5%88%B6"><span class="toc-text">5.3 Future异步机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-Bootstrap%E4%B8%8EServerBootStrap"><span class="toc-text">5.4 Bootstrap与ServerBootStrap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-1-group"><span class="toc-text">5.4.1 group()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-2-channel"><span class="toc-text">5.4.2 channel()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-3-option-%E4%B8%8EchildOption"><span class="toc-text">5.4.3 option()与childOption()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-4-%E8%AE%BE%E7%BD%AE%E6%B5%81%E6%B0%B4%E7%BA%BF-%E9%87%8D%E7%82%B9"><span class="toc-text">5.4.4 设置流水线(重点)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-5-bind"><span class="toc-text">5.4.5 bind()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-6-%E4%BC%98%E9%9B%85%E5%9C%B0%E5%85%B3%E9%97%ADEventLoopGroup"><span class="toc-text">5.4.6 优雅地关闭EventLoopGroup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-Channel"><span class="toc-text">5.5 Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-1-%E8%8E%B7%E5%8F%96channel%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-text">5.5.1 获取channel的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-2-%E8%8E%B7%E5%8F%96channel%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-text">5.5.2 获取channel的配置参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-3-channel%E6%94%AF%E6%8C%81%E7%9A%84IO%E6%93%8D%E4%BD%9C"><span class="toc-text">5.5.3 channel支持的IO操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-Selector"><span class="toc-text">5.6 Selector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-7-PiPeline%E4%B8%8EChannelPipeline"><span class="toc-text">5.7 PiPeline与ChannelPipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-8-ChannelHandlerContext"><span class="toc-text">5.8 ChannelHandlerContext</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-9-EventLoopGroup"><span class="toc-text">5.9 EventLoopGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-9-1-%E8%BD%AE%E8%AF%A2%E6%9C%BA%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">5.9.1 轮询机制的实现原理</span></a></li></ol></li></ol></div></div></widget>
+
+
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/kayleh" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs/ablobcatrainbow.png"></a></div></footer>
+
+    </aside>
+    <div class="l_main">
+      
+
+      
+
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-05-26T06:26:52.000Z">2021-05-26</time></div></div>
+
+<article class="md-text content post">
+<h1 class="article-title"><span>Head First Netty</span></h1>
+<h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png"></div></div>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文主要讲述Netty框架的一些特性以及重要组件，希望看完之后能对Netty框架有一个比较直观的感受，希望能帮助读者快速入门Netty，减少一些弯路。</p>
+<h1 id="一、Netty概述"><a href="#一、Netty概述" class="headerlink" title="一、Netty概述"></a>一、Netty概述</h1><p>官方的介绍：</p>
+<blockquote>
+<p>Netty is <em>an asynchronous event-driven network application framework</em><br>for rapid development of maintainable high performance protocol servers &amp; clients.</p>
+</blockquote>
+<p><strong>Netty</strong>是 一个<strong>异步事件驱动</strong>的网络应用程序框架，用于<strong>快速开发可维护的高性能协议服务器和客户端</strong>。</p>
+<h1 id="二、为什么使用Netty"><a href="#二、为什么使用Netty" class="headerlink" title="二、为什么使用Netty"></a>二、为什么使用Netty</h1><p>从官网上介绍，Netty是一个网络应用程序框架，开发服务器和客户端。也就是用于网络编程的一个框架。既然是网络编程，Socket就不谈了，为什么不用NIO呢？</p>
+<h2 id="2-1-NIO的缺点"><a href="#2-1-NIO的缺点" class="headerlink" title="2.1 NIO的缺点"></a>2.1 NIO的缺点</h2><p>对于这个问题，之前我写了一篇文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GfV9w2B0mbT7PmeBS45xLw">《NIO入门》</a>对NIO有比较详细的介绍，NIO的主要问题是：</p>
+<ul>
+<li>NIO的类库和API繁杂，学习成本高，你需要熟练掌握Selector、ServerSocketChannel、SocketChannel、ByteBuffer等。</li>
+<li>需要熟悉Java多线程编程。这是因为NIO编程涉及到Reactor模式，你必须对多线程和网络编程非常熟悉，才能写出高质量的NIO程序。</li>
+<li>臭名昭著的epoll bug。它会导致Selector空轮询，最终导致CPU 100%。直到JDK1.7版本依然没得到根本性的解决。</li>
+</ul>
+<h2 id="2-2-Netty的优点"><a href="#2-2-Netty的优点" class="headerlink" title="2.2 Netty的优点"></a>2.2 Netty的优点</h2><p>相对地，Netty的优点有很多：</p>
+<ul>
+<li>API使用简单，学习成本低。</li>
+<li>功能强大，内置了多种解码编码器，支持多种协议。</li>
+<li>性能高，对比其他主流的NIO框架，Netty的性能最优。</li>
+<li>社区活跃，发现BUG会及时修复，迭代版本周期短，不断加入新的功能。</li>
+<li>Dubbo、Elasticsearch都采用了Netty，质量得到验证。</li>
+</ul>
+<h1 id="三、架构图"><a href="#三、架构图" class="headerlink" title="三、架构图"></a>三、架构图</h1><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/15944ade0142471399997efd68e52948.png"></div></div>
+<p>上面这张图就是在官网首页的架构图，我们从上到下分析一下。</p>
+<blockquote>
+<p>绿色的部分<strong>Core</strong>核心模块，包括零拷贝、API库、可扩展的事件模型。</p>
+<p>橙色部分<strong>Protocol Support</strong>协议支持，包括Http协议、webSocket、SSL(安全套接字协议)、谷歌Protobuf协议、zlib/gzip压缩与解压缩、Large File Transfer大文件传输等等。</p>
+<p>红色的部分<strong>Transport Services</strong>传输服务，包括Socket、Datagram、Http Tunnel等等。</p>
+</blockquote>
+<p>以上可看出Netty的功能、协议、传输方式都比较全，比较强大。</p>
+<h1 id="四、永远的Hello-Word"><a href="#四、永远的Hello-Word" class="headerlink" title="四、永远的Hello Word"></a>四、永远的Hello Word</h1><p>首先搭建一个HelloWord工程，先熟悉一下API，还有为后面的学习做铺垫。以下面这张图为依据：</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/cc27d56addd74e82b6b6b349c7f3769b.png"></div></div>
+<h2 id="4-1-引入Maven依赖"><a href="#4-1-引入Maven依赖" class="headerlink" title="4.1 引入Maven依赖"></a>4.1 引入Maven依赖</h2><p>使用的版本是4.1.20，相对比较稳定的一个版本。</p>
+<pre><code>&lt;dependency&gt;
     &lt;groupId&gt;io.netty&lt;/groupId&gt;
     &lt;artifactId&gt;netty-all&lt;/artifactId&gt;
     &lt;version&gt;4.1.20.Final&lt;/version&gt;
@@ -5310,7 +5472,12 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("收到服务端" + ctx.channel().remoteAddress() + "的消息：" + byteBuf.toString(CharsetUtil.UTF_8));
     }
 }
-</code></pre><h2 id="4-6-测试"><a href="#4-6-测试" class="headerlink" title="4.6 测试"></a>4.6 测试</h2><p>先启动服务端，再启动客户端，就可以看到结果：</p><p>MyServer打印结果:</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/92908e107d6a487bb930ab6cd6be269f.png"></div></div><p>MyClient打印结果：<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/419e8af300b24c9eaed71a76ddc2ddeb.png"></div></div><p></p><h1 id="五、Netty的特性与重要组件"><a href="#五、Netty的特性与重要组件" class="headerlink" title="五、Netty的特性与重要组件"></a>五、Netty的特性与重要组件</h1><h2 id="5-1-taskQueue任务队列"><a href="#5-1-taskQueue任务队列" class="headerlink" title="5.1 taskQueue任务队列"></a>5.1 taskQueue任务队列</h2><p>如果Handler处理器有一些长时间的业务处理，可以交给<strong>taskQueue异步处理</strong>。怎么用呢，请看代码演示：</p><pre><code>public class MyServerHandler extends ChannelInboundHandlerAdapter {
+</code></pre><h2 id="4-6-测试"><a href="#4-6-测试" class="headerlink" title="4.6 测试"></a>4.6 测试</h2><p>先启动服务端，再启动客户端，就可以看到结果：</p>
+<p>MyServer打印结果:</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/92908e107d6a487bb930ab6cd6be269f.png"></div></div>
+<p>MyClient打印结果：<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/419e8af300b24c9eaed71a76ddc2ddeb.png"></div></div><p></p>
+<h1 id="五、Netty的特性与重要组件"><a href="#五、Netty的特性与重要组件" class="headerlink" title="五、Netty的特性与重要组件"></a>五、Netty的特性与重要组件</h1><h2 id="5-1-taskQueue任务队列"><a href="#5-1-taskQueue任务队列" class="headerlink" title="5.1 taskQueue任务队列"></a>5.1 taskQueue任务队列</h2><p>如果Handler处理器有一些长时间的业务处理，可以交给<strong>taskQueue异步处理</strong>。怎么用呢，请看代码演示：</p>
+<pre><code>public class MyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -5329,7 +5496,10 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
         });
     }
 }
-</code></pre><p>我们打一个debug调试，是可以看到添加进去的taskQueue有一个任务。</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/23835a6ae2374897bf28a0b70fce9cc8.png"></div></div><h2 id="5-2-scheduleTaskQueue延时任务队列"><a href="#5-2-scheduleTaskQueue延时任务队列" class="headerlink" title="5.2 scheduleTaskQueue延时任务队列"></a>5.2 scheduleTaskQueue延时任务队列</h2><p>延时任务队列和上面介绍的任务队列非常相似，只是多了一个可延迟一定时间再执行的设置，请看代码演示：</p><pre><code>ctx.channel().eventLoop().schedule(new Runnable() {
+</code></pre><p>我们打一个debug调试，是可以看到添加进去的taskQueue有一个任务。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/23835a6ae2374897bf28a0b70fce9cc8.png"></div></div>
+<h2 id="5-2-scheduleTaskQueue延时任务队列"><a href="#5-2-scheduleTaskQueue延时任务队列" class="headerlink" title="5.2 scheduleTaskQueue延时任务队列"></a>5.2 scheduleTaskQueue延时任务队列</h2><p>延时任务队列和上面介绍的任务队列非常相似，只是多了一个可延迟一定时间再执行的设置，请看代码演示：</p>
+<pre><code>ctx.channel().eventLoop().schedule(new Runnable() {
     @Override
     public void run() {
         try {
@@ -5341,8 +5511,13 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
         }
     }
 },5, TimeUnit.SECONDS);//5秒后执行
-</code></pre><p>依然打开debug进行调试查看，我们可以有一个scheduleTaskQueue任务待执行中</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/173194f21adfa111"></div></div><h2 id="5-3-Future异步机制"><a href="#5-3-Future异步机制" class="headerlink" title="5.3 Future异步机制"></a>5.3 Future异步机制</h2><p>在搭建HelloWord工程的时候，我们看到有一行这样的代码：</p><pre><code>ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 6666);
-</code></pre><p>很多操作都返回这个ChannelFuture对象，究竟这个ChannelFuture对象是用来做什么的呢？</p><p>ChannelFuture提供操作完成时一种异步通知的方式。一般在Socket编程中，等待响应结果都是同步阻塞的，而Netty则不会造成阻塞，因为ChannelFuture是采取类似观察者模式的形式进行获取结果。请看一段代码演示：</p><pre><code>//添加监听器
+</code></pre><p>依然打开debug进行调试查看，我们可以有一个scheduleTaskQueue任务待执行中</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/173194f21adfa111"></div></div>
+<h2 id="5-3-Future异步机制"><a href="#5-3-Future异步机制" class="headerlink" title="5.3 Future异步机制"></a>5.3 Future异步机制</h2><p>在搭建HelloWord工程的时候，我们看到有一行这样的代码：</p>
+<pre><code>ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 6666);
+</code></pre><p>很多操作都返回这个ChannelFuture对象，究竟这个ChannelFuture对象是用来做什么的呢？</p>
+<p>ChannelFuture提供操作完成时一种异步通知的方式。一般在Socket编程中，等待响应结果都是同步阻塞的，而Netty则不会造成阻塞，因为ChannelFuture是采取类似观察者模式的形式进行获取结果。请看一段代码演示：</p>
+<pre><code>//添加监听器
 channelFuture.addListener(new ChannelFutureListener() {
     //使用匿名内部类，ChannelFutureListener接口
     //重写operationComplete方法
@@ -5356,9 +5531,21 @@ channelFuture.addListener(new ChannelFutureListener() {
         }
     }
 });
-</code></pre><h2 id="5-4-Bootstrap与ServerBootStrap"><a href="#5-4-Bootstrap与ServerBootStrap" class="headerlink" title="5.4 Bootstrap与ServerBootStrap"></a>5.4 Bootstrap与ServerBootStrap</h2><p>Bootstrap和ServerBootStrap是Netty提供的一个创建客户端和服务端启动器的工厂类，使用这个工厂类非常便利地创建启动类，根据上面的一些例子，其实也看得出来能大大地减少了开发的难度。首先看一个类图：</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/40cf762660d9455eb6066119cf5eeb49.png"></div></div><p>可以看出都是继承于AbstractBootStrap抽象类，所以大致上的配置方法都相同。</p><p>一般来说，使用Bootstrap创建启动器的步骤可分为以下几步：</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/ae5c6ed3008d4323aaa817e9cb46437a.png"></div></div><h3 id="5-4-1-group"><a href="#5-4-1-group" class="headerlink" title="5.4.1 group()"></a>5.4.1 group()</h3><p>在上一篇文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vWbbn1qXRFVva8Y9yET18Q">《Reactor模式》</a>中，我们就讲过服务端要使用两个线程组：</p><ul><li>bossGroup 用于监听客户端连接，专门负责与客户端创建连接，并把连接注册到workerGroup的Selector中。</li><li>workerGroup用于处理每一个连接发生的读写事件。</li></ul><p>一般创建线程组直接使用以下new就完事了：</p><pre><code>EventLoopGroup bossGroup = new NioEventLoopGroup();
+</code></pre><h2 id="5-4-Bootstrap与ServerBootStrap"><a href="#5-4-Bootstrap与ServerBootStrap" class="headerlink" title="5.4 Bootstrap与ServerBootStrap"></a>5.4 Bootstrap与ServerBootStrap</h2><p>Bootstrap和ServerBootStrap是Netty提供的一个创建客户端和服务端启动器的工厂类，使用这个工厂类非常便利地创建启动类，根据上面的一些例子，其实也看得出来能大大地减少了开发的难度。首先看一个类图：</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/40cf762660d9455eb6066119cf5eeb49.png"></div></div>
+<p>可以看出都是继承于AbstractBootStrap抽象类，所以大致上的配置方法都相同。</p>
+<p>一般来说，使用Bootstrap创建启动器的步骤可分为以下几步：</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/ae5c6ed3008d4323aaa817e9cb46437a.png"></div></div>
+<h3 id="5-4-1-group"><a href="#5-4-1-group" class="headerlink" title="5.4.1 group()"></a>5.4.1 group()</h3><p>在上一篇文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vWbbn1qXRFVva8Y9yET18Q">《Reactor模式》</a>中，我们就讲过服务端要使用两个线程组：</p>
+<ul>
+<li>bossGroup 用于监听客户端连接，专门负责与客户端创建连接，并把连接注册到workerGroup的Selector中。</li>
+<li>workerGroup用于处理每一个连接发生的读写事件。</li>
+</ul>
+<p>一般创建线程组直接使用以下new就完事了：</p>
+<pre><code>EventLoopGroup bossGroup = new NioEventLoopGroup();
 EventLoopGroup workerGroup = new NioEventLoopGroup();
-</code></pre><p>有点好奇的是，既然是线程组，那线程数默认是多少呢？深入源码：</p><pre><code>    //使用一个常量保存
+</code></pre><p>有点好奇的是，既然是线程组，那线程数默认是多少呢？深入源码：</p>
+<pre><code>    //使用一个常量保存
     private static final int DEFAULT_EVENT_LOOP_THREADS;
 
     static {
@@ -5375,11 +5562,27 @@ EventLoopGroup workerGroup = new NioEventLoopGroup();
         //如果不传入，则使用常量的值，也就是cpu核数的两倍
         super(nThreads == 0 ? DEFAULT_EVENT_LOOP_THREADS : nThreads, executor, args);
     }
-</code></pre><p>通过源码可以看到，默认的线程数是cpu核数的两倍。假设想自定义线程数，可以使用有参构造器：</p><pre><code>//设置bossGroup线程数为1
+</code></pre><p>通过源码可以看到，默认的线程数是cpu核数的两倍。假设想自定义线程数，可以使用有参构造器：</p>
+<pre><code>//设置bossGroup线程数为1
 EventLoopGroup bossGroup = new NioEventLoopGroup(1);
 //设置workerGroup线程数为16
 EventLoopGroup workerGroup = new NioEventLoopGroup(16);
-</code></pre><h3 id="5-4-2-channel"><a href="#5-4-2-channel" class="headerlink" title="5.4.2 channel()"></a>5.4.2 channel()</h3><p>这个方法用于设置通道类型，当建立连接后，会根据这个设置创建对应的Channel实例。</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951ae3c43228"></div></div><p>使用debug模式可以看到</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/1731951f80b07785"></div></div><p>通道类型有以下：</p><p><strong>NioSocketChannel</strong>： 异步非阻塞的客户端 TCP Socket 连接。</p><p><strong>NioServerSocketChannel</strong>： 异步非阻塞的服务器端 TCP Socket 连接。</p><blockquote><p>常用的就是这两个通道类型，因为是异步非阻塞的。所以是首选。</p></blockquote><p>OioSocketChannel： 同步阻塞的客户端 TCP Socket 连接。</p><p>OioServerSocketChannel： 同步阻塞的服务器端 TCP Socket 连接。</p><blockquote><p>稍微在本地调试过，用起来和Nio有一些不同，是阻塞的，所以API调用也不一样。因为是阻塞的IO，几乎没什么人会选择使用Oio，所以也很难找到例子。我稍微琢磨了一下，经过几次报错之后，总算调通了。代码如下：</p></blockquote><pre><code>//server端代码，跟上面几乎一样，只需改三个地方
+</code></pre><h3 id="5-4-2-channel"><a href="#5-4-2-channel" class="headerlink" title="5.4.2 channel()"></a>5.4.2 channel()</h3><p>这个方法用于设置通道类型，当建立连接后，会根据这个设置创建对应的Channel实例。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/1731951ae3c43228"></div></div>
+<p>使用debug模式可以看到</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/1731951f80b07785"></div></div>
+<p>通道类型有以下：</p>
+<p><strong>NioSocketChannel</strong>： 异步非阻塞的客户端 TCP Socket 连接。</p>
+<p><strong>NioServerSocketChannel</strong>： 异步非阻塞的服务器端 TCP Socket 连接。</p>
+<blockquote>
+<p>常用的就是这两个通道类型，因为是异步非阻塞的。所以是首选。</p>
+</blockquote>
+<p>OioSocketChannel： 同步阻塞的客户端 TCP Socket 连接。</p>
+<p>OioServerSocketChannel： 同步阻塞的服务器端 TCP Socket 连接。</p>
+<blockquote>
+<p>稍微在本地调试过，用起来和Nio有一些不同，是阻塞的，所以API调用也不一样。因为是阻塞的IO，几乎没什么人会选择使用Oio，所以也很难找到例子。我稍微琢磨了一下，经过几次报错之后，总算调通了。代码如下：</p>
+</blockquote>
+<pre><code>//server端代码，跟上面几乎一样，只需改三个地方
 //这个地方使用的是OioEventLoopGroup
 EventLoopGroup bossGroup = new OioEventLoopGroup();
 ServerBootstrap bootstrap = new ServerBootstrap();
@@ -5392,7 +5595,27 @@ EventLoopGroup eventExecutors = new OioEventLoopGroup();
 //通道类型设置为OioSocketChannel
 bootstrap.group(eventExecutors)//设置线程组
         .channel(OioSocketChannel.class)//设置客户端的通道实现类型
-</code></pre><p>NioSctpChannel： 异步的客户端 Sctp（Stream Control Transmission Protocol，流控制传输协议）连接。</p><p>NioSctpServerChannel： 异步的 Sctp 服务器端连接。</p><blockquote><p>本地没启动成功，网上看了一些网友的评论，说是只能在linux环境下才可以启动。从报错信息看：SCTP not supported on this platform，不支持这个平台。因为我电脑是window系统，所以网友说的有点道理。</p></blockquote><h3 id="5-4-3-option-与childOption"><a href="#5-4-3-option-与childOption" class="headerlink" title="5.4.3 option()与childOption()"></a>5.4.3 option()与childOption()</h3><p>首先说一下这两个的区别。</p><p>option()设置的是服务端用于接收进来的连接，也就是boosGroup线程。</p><p>childOption()是提供给父管道接收到的连接，也就是workerGroup线程。</p><p>搞清楚了之后，我们看一下常用的一些设置有哪些：</p><p>SocketChannel参数，也就是childOption()常用的参数：</p><blockquote><p><strong>SO_RCVBUF</strong> Socket参数，TCP数据接收缓冲区大小。<br><strong>TCP_NODELAY</strong> TCP参数，立即发送数据，默认值为Ture。<br><strong>SO_KEEPALIVE</strong> Socket参数，连接保活，默认值为False。启用该功能时，TCP会主动探测空闲连接的有效性。</p></blockquote><p>ServerSocketChannel参数，也就是option()常用参数：</p><blockquote><p><strong>SO_BACKLOG</strong> Socket参数，服务端接受连接的队列长度，如果队列已满，客户端连接将被拒绝。默认值，Windows为200，其他为128。</p></blockquote><p>由于篇幅限制，其他就不列举了，大家可以去网上找资料看看，了解一下。</p><h3 id="5-4-4-设置流水线-重点"><a href="#5-4-4-设置流水线-重点" class="headerlink" title="5.4.4 设置流水线(重点)"></a>5.4.4 设置流水线(重点)</h3><p>ChannelPipeline是Netty处理请求的责任链，ChannelHandler则是具体处理请求的处理器。实际上每一个channel都有一个处理器的流水线。</p><p>在Bootstrap中childHandler()方法需要初始化通道，实例化一个ChannelInitializer，这时候需要重写initChannel()初始化通道的方法，装配流水线就是在这个地方进行。代码演示如下：</p><pre><code>//使用匿名内部类的形式初始化通道对象
+</code></pre><p>NioSctpChannel： 异步的客户端 Sctp（Stream Control Transmission Protocol，流控制传输协议）连接。</p>
+<p>NioSctpServerChannel： 异步的 Sctp 服务器端连接。</p>
+<blockquote>
+<p>本地没启动成功，网上看了一些网友的评论，说是只能在linux环境下才可以启动。从报错信息看：SCTP not supported on this platform，不支持这个平台。因为我电脑是window系统，所以网友说的有点道理。</p>
+</blockquote>
+<h3 id="5-4-3-option-与childOption"><a href="#5-4-3-option-与childOption" class="headerlink" title="5.4.3 option()与childOption()"></a>5.4.3 option()与childOption()</h3><p>首先说一下这两个的区别。</p>
+<p>option()设置的是服务端用于接收进来的连接，也就是boosGroup线程。</p>
+<p>childOption()是提供给父管道接收到的连接，也就是workerGroup线程。</p>
+<p>搞清楚了之后，我们看一下常用的一些设置有哪些：</p>
+<p>SocketChannel参数，也就是childOption()常用的参数：</p>
+<blockquote>
+<p><strong>SO_RCVBUF</strong> Socket参数，TCP数据接收缓冲区大小。<br><strong>TCP_NODELAY</strong> TCP参数，立即发送数据，默认值为Ture。<br><strong>SO_KEEPALIVE</strong> Socket参数，连接保活，默认值为False。启用该功能时，TCP会主动探测空闲连接的有效性。</p>
+</blockquote>
+<p>ServerSocketChannel参数，也就是option()常用参数：</p>
+<blockquote>
+<p><strong>SO_BACKLOG</strong> Socket参数，服务端接受连接的队列长度，如果队列已满，客户端连接将被拒绝。默认值，Windows为200，其他为128。</p>
+</blockquote>
+<p>由于篇幅限制，其他就不列举了，大家可以去网上找资料看看，了解一下。</p>
+<h3 id="5-4-4-设置流水线-重点"><a href="#5-4-4-设置流水线-重点" class="headerlink" title="5.4.4 设置流水线(重点)"></a>5.4.4 设置流水线(重点)</h3><p>ChannelPipeline是Netty处理请求的责任链，ChannelHandler则是具体处理请求的处理器。实际上每一个channel都有一个处理器的流水线。</p>
+<p>在Bootstrap中childHandler()方法需要初始化通道，实例化一个ChannelInitializer，这时候需要重写initChannel()初始化通道的方法，装配流水线就是在这个地方进行。代码演示如下：</p>
+<pre><code>//使用匿名内部类的形式初始化通道对象
 bootstrap.childHandler(new ChannelInitializer&lt;SocketChannel&gt;() {
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
@@ -5400,18 +5623,70 @@ bootstrap.childHandler(new ChannelInitializer&lt;SocketChannel&gt;() {
         socketChannel.pipeline().addLast(new MyServerHandler());
     }
 });
-</code></pre><p>处理器Handler主要分为两种：</p><blockquote><p>ChannelInboundHandlerAdapter(入站处理器)、ChannelOutboundHandler(出站处理器)</p></blockquote><p>入站指的是数据从底层java NIO Channel到Netty的Channel。</p><p>出站指的是通过Netty的Channel来操作底层的java NIO Channel。</p><p><strong>ChannelInboundHandlerAdapter处理器常用的事件有</strong>：</p><ol><li>注册事件 fireChannelRegistered。</li><li>连接建立事件 fireChannelActive。</li><li>读事件和读完成事件 fireChannelRead、fireChannelReadComplete。</li><li>异常通知事件 fireExceptionCaught。</li><li>用户自定义事件 fireUserEventTriggered。</li><li>Channel 可写状态变化事件 fireChannelWritabilityChanged。</li><li>连接关闭事件 fireChannelInactive。</li></ol><p><strong>ChannelOutboundHandler处理器常用的事件有</strong>：</p><ol><li>端口绑定 bind。</li><li>连接服务端 connect。</li><li>写事件 write。</li><li>刷新时间 flush。</li><li>读事件 read。</li><li>主动断开连接 disconnect。</li><li>关闭 channel 事件 close。</li></ol><blockquote><p>还有一个类似的handler()，主要用于装配parent通道，也就是bossGroup线程。一般情况下，都用不上这个方法。</p></blockquote><h3 id="5-4-5-bind"><a href="#5-4-5-bind" class="headerlink" title="5.4.5 bind()"></a>5.4.5 bind()</h3><p>提供用于服务端或者客户端绑定服务器地址和端口号，默认是异步启动。如果加上sync()方法则是同步。</p><p>有五个同名的重载方法，作用都是用于绑定地址端口号。不一一介绍了。</p><h3 id="5-4-6-优雅地关闭EventLoopGroup"><a href="#5-4-6-优雅地关闭EventLoopGroup" class="headerlink" title="5.4.6 优雅地关闭EventLoopGroup"></a>5.4.6 优雅地关闭EventLoopGroup</h3><pre><code>//释放掉所有的资源，包括创建的线程
+</code></pre><p>处理器Handler主要分为两种：</p>
+<blockquote>
+<p>ChannelInboundHandlerAdapter(入站处理器)、ChannelOutboundHandler(出站处理器)</p>
+</blockquote>
+<p>入站指的是数据从底层java NIO Channel到Netty的Channel。</p>
+<p>出站指的是通过Netty的Channel来操作底层的java NIO Channel。</p>
+<p><strong>ChannelInboundHandlerAdapter处理器常用的事件有</strong>：</p>
+<ol>
+<li>注册事件 fireChannelRegistered。</li>
+<li>连接建立事件 fireChannelActive。</li>
+<li>读事件和读完成事件 fireChannelRead、fireChannelReadComplete。</li>
+<li>异常通知事件 fireExceptionCaught。</li>
+<li>用户自定义事件 fireUserEventTriggered。</li>
+<li>Channel 可写状态变化事件 fireChannelWritabilityChanged。</li>
+<li>连接关闭事件 fireChannelInactive。</li>
+</ol>
+<p><strong>ChannelOutboundHandler处理器常用的事件有</strong>：</p>
+<ol>
+<li>端口绑定 bind。</li>
+<li>连接服务端 connect。</li>
+<li>写事件 write。</li>
+<li>刷新时间 flush。</li>
+<li>读事件 read。</li>
+<li>主动断开连接 disconnect。</li>
+<li>关闭 channel 事件 close。</li>
+</ol>
+<blockquote>
+<p>还有一个类似的handler()，主要用于装配parent通道，也就是bossGroup线程。一般情况下，都用不上这个方法。</p>
+</blockquote>
+<h3 id="5-4-5-bind"><a href="#5-4-5-bind" class="headerlink" title="5.4.5 bind()"></a>5.4.5 bind()</h3><p>提供用于服务端或者客户端绑定服务器地址和端口号，默认是异步启动。如果加上sync()方法则是同步。</p>
+<p>有五个同名的重载方法，作用都是用于绑定地址端口号。不一一介绍了。</p>
+<h3 id="5-4-6-优雅地关闭EventLoopGroup"><a href="#5-4-6-优雅地关闭EventLoopGroup" class="headerlink" title="5.4.6 优雅地关闭EventLoopGroup"></a>5.4.6 优雅地关闭EventLoopGroup</h3><pre><code>//释放掉所有的资源，包括创建的线程
 bossGroup.shutdownGracefully();
 workerGroup.shutdownGracefully();
-</code></pre><p>会关闭所有的child Channel。关闭之后，释放掉底层的资源。</p><h2 id="5-5-Channel"><a href="#5-5-Channel" class="headerlink" title="5.5 Channel"></a>5.5 Channel</h2><p>Channel是什么？不妨看一下官方文档的说明：</p><blockquote><p>A nexus to a network socket or a component which is capable of I/O operations such as read, write, connect, and bind</p></blockquote><p>翻译大意：一种连接到网络套接字或能进行读、写、连接和绑定等I/O操作的组件。</p><p>如果上面这段说明比较抽象，下面还有一段说明：</p><blockquote><p>A channel provides a user:</p><p>the current state of the channel (e.g. is it open? is it connected?),<br>the configuration parameters of the channel (e.g. receive buffer size),<br>the I/O operations that the channel supports (e.g. read, write, connect, and bind), and<br>the ChannelPipeline which handles all I/O events and requests associated with the channel.</p></blockquote><p>翻译大意：</p><p>channel为用户提供：</p><ol><li>通道当前的状态（例如它是打开？还是已连接？）</li><li>channel的配置参数（例如接收缓冲区的大小）</li><li>channel支持的IO操作（例如读、写、连接和绑定），以及处理与channel相关联的所有IO事件和请求的ChannelPipeline。</li></ol><h3 id="5-5-1-获取channel的状态"><a href="#5-5-1-获取channel的状态" class="headerlink" title="5.5.1 获取channel的状态"></a>5.5.1 获取channel的状态</h3><pre><code>boolean isOpen(); //如果通道打开，则返回true
+</code></pre><p>会关闭所有的child Channel。关闭之后，释放掉底层的资源。</p>
+<h2 id="5-5-Channel"><a href="#5-5-Channel" class="headerlink" title="5.5 Channel"></a>5.5 Channel</h2><p>Channel是什么？不妨看一下官方文档的说明：</p>
+<blockquote>
+<p>A nexus to a network socket or a component which is capable of I/O operations such as read, write, connect, and bind</p>
+</blockquote>
+<p>翻译大意：一种连接到网络套接字或能进行读、写、连接和绑定等I/O操作的组件。</p>
+<p>如果上面这段说明比较抽象，下面还有一段说明：</p>
+<blockquote>
+<p>A channel provides a user:</p>
+<p>the current state of the channel (e.g. is it open? is it connected?),<br>the configuration parameters of the channel (e.g. receive buffer size),<br>the I/O operations that the channel supports (e.g. read, write, connect, and bind), and<br>the ChannelPipeline which handles all I/O events and requests associated with the channel.</p>
+</blockquote>
+<p>翻译大意：</p>
+<p>channel为用户提供：</p>
+<ol>
+<li>通道当前的状态（例如它是打开？还是已连接？）</li>
+<li>channel的配置参数（例如接收缓冲区的大小）</li>
+<li>channel支持的IO操作（例如读、写、连接和绑定），以及处理与channel相关联的所有IO事件和请求的ChannelPipeline。</li>
+</ol>
+<h3 id="5-5-1-获取channel的状态"><a href="#5-5-1-获取channel的状态" class="headerlink" title="5.5.1 获取channel的状态"></a>5.5.1 获取channel的状态</h3><pre><code>boolean isOpen(); //如果通道打开，则返回true
 boolean isRegistered();//如果通道注册到EventLoop，则返回true
 boolean isActive();//如果通道处于活动状态并且已连接，则返回true
 boolean isWritable();//当且仅当I/O线程将立即执行请求的写入操作时，返回true。
-</code></pre><p>以上就是获取channel的四种状态的方法。</p><h3 id="5-5-2-获取channel的配置参数"><a href="#5-5-2-获取channel的配置参数" class="headerlink" title="5.5.2 获取channel的配置参数"></a>5.5.2 获取channel的配置参数</h3><p>获取单条配置信息，使用getOption()，代码演示：</p><pre><code>ChannelConfig config = channel.config();//获取配置参数
+</code></pre><p>以上就是获取channel的四种状态的方法。</p>
+<h3 id="5-5-2-获取channel的配置参数"><a href="#5-5-2-获取channel的配置参数" class="headerlink" title="5.5.2 获取channel的配置参数"></a>5.5.2 获取channel的配置参数</h3><p>获取单条配置信息，使用getOption()，代码演示：</p>
+<pre><code>ChannelConfig config = channel.config();//获取配置参数
 //获取ChannelOption.SO_BACKLOG参数,
 Integer soBackLogConfig = config.getOption(ChannelOption.SO_BACKLOG);
 //因为我启动器配置的是128，所以我这里获取的soBackLogConfig=128
-</code></pre><p>获取多条配置信息，使用getOptions()，代码演示：</p><pre><code>ChannelConfig config = channel.config();
+</code></pre><p>获取多条配置信息，使用getOptions()，代码演示：</p>
+<pre><code>ChannelConfig config = channel.config();
 Map&lt;ChannelOption&lt;?&gt;, Object&gt; options = config.getOptions();
 for (Map.Entry&lt;ChannelOption&lt;?&gt;, Object&gt; entry : options.entrySet()) {
     System.out.println(entry.getKey() + " : " + entry.getValue());
@@ -5423,17 +5698,33 @@ WRITE_BUFFER_WATER_MARK : WriteBufferWaterMark(low: 32768, high: 65536)
 SO_BACKLOG : 128
 以下省略...
 */
-</code></pre><h3 id="5-5-3-channel支持的IO操作"><a href="#5-5-3-channel支持的IO操作" class="headerlink" title="5.5.3 channel支持的IO操作"></a>5.5.3 channel支持的IO操作</h3><p><strong>写操作</strong>，这里演示从服务端写消息发送到客户端：</p><pre><code>@Override
+</code></pre><h3 id="5-5-3-channel支持的IO操作"><a href="#5-5-3-channel支持的IO操作" class="headerlink" title="5.5.3 channel支持的IO操作"></a>5.5.3 channel支持的IO操作</h3><p><strong>写操作</strong>，这里演示从服务端写消息发送到客户端：</p>
+<pre><code>@Override
 public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     ctx.channel().writeAndFlush(Unpooled.copiedBuffer("这波啊，这波是肉蛋葱鸡~", CharsetUtil.UTF_8));
 }
-</code></pre><p>客户端控制台：</p><pre><code>//收到服务端/127.0.0.1:6666的消息：这波啊，这波是肉蛋葱鸡~
-</code></pre><p><strong>连接</strong>操作，代码演示：</p><pre><code>ChannelFuture connect = channelFuture.channel().connect(new InetSocketAddress("127.0.0.1", 6666));//一般使用启动器，这种方式不常用
-</code></pre><p><strong>通过channel获取ChannelPipeline</strong>，并做相关的处理：</p><pre><code>//获取ChannelPipeline对象
+</code></pre><p>客户端控制台：</p>
+<pre><code>//收到服务端/127.0.0.1:6666的消息：这波啊，这波是肉蛋葱鸡~
+</code></pre><p><strong>连接</strong>操作，代码演示：</p>
+<pre><code>ChannelFuture connect = channelFuture.channel().connect(new InetSocketAddress("127.0.0.1", 6666));//一般使用启动器，这种方式不常用
+</code></pre><p><strong>通过channel获取ChannelPipeline</strong>，并做相关的处理：</p>
+<pre><code>//获取ChannelPipeline对象
 ChannelPipeline pipeline = ctx.channel().pipeline();
 //往pipeline中添加ChannelHandler处理器，装配流水线
 pipeline.addLast(new MyServerHandler());
-</code></pre><h2 id="5-6-Selector"><a href="#5-6-Selector" class="headerlink" title="5.6 Selector"></a>5.6 Selector</h2><p>在NioEventLoop中，有一个成员变量selector，这是nio包的Selector，在之前<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GfV9w2B0mbT7PmeBS45xLw">《NIO入门》</a>中，我已经讲过Selector了。</p><p>Netty中的Selector也和NIO的Selector是一样的，就是用于监听事件，管理注册到Selector中的channel，实现多路复用器。</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/5fa70ed04e234fad9e524b3766051c4a.png"></div></div><h2 id="5-7-PiPeline与ChannelPipeline"><a href="#5-7-PiPeline与ChannelPipeline" class="headerlink" title="5.7 PiPeline与ChannelPipeline"></a>5.7 PiPeline与ChannelPipeline</h2><p>在前面介绍Channel时，我们知道可以在channel中装配ChannelHandler流水线处理器，那一个channel不可能只有一个channelHandler处理器，肯定是有很多的，既然是很多channelHandler在一个流水线工作，肯定是有顺序的。</p><p>于是pipeline就出现了，pipeline相当于处理器的容器。初始化channel时，把channelHandler按顺序装在pipeline中，就可以实现按序执行channelHandler了。</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/e7bac501d86e4e75a897686d7bab40fe.png"></div></div><p>在一个Channel中，只有一个ChannelPipeline。该pipeline在Channel被创建的时候创建。ChannelPipeline包含了一个ChannelHander形成的列表，且所有ChannelHandler都会注册到ChannelPipeline中。</p><h2 id="5-8-ChannelHandlerContext"><a href="#5-8-ChannelHandlerContext" class="headerlink" title="5.8 ChannelHandlerContext"></a>5.8 ChannelHandlerContext</h2><p>在Netty中，Handler处理器是有我们定义的，上面讲过通过集成入站处理器或者出站处理器实现。这时如果我们想在Handler中获取pipeline对象，或者channel对象，怎么获取呢。</p><p>于是Netty设计了这个ChannelHandlerContext上下文对象，就可以拿到channel、pipeline等对象，就可以进行读写等操作。</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/4c6e9319213b489bbfcc2d7697cf03b0.png"></div></div><p>通过类图，ChannelHandlerContext是一个接口，下面有三个实现类。</p><p>实际上ChannelHandlerContext在pipeline中是一个链表的形式。看一段源码就明白了：</p><pre><code>//ChannelPipeline实现类DefaultChannelPipeline的构造器方法
+</code></pre><h2 id="5-6-Selector"><a href="#5-6-Selector" class="headerlink" title="5.6 Selector"></a>5.6 Selector</h2><p>在NioEventLoop中，有一个成员变量selector，这是nio包的Selector，在之前<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GfV9w2B0mbT7PmeBS45xLw">《NIO入门》</a>中，我已经讲过Selector了。</p>
+<p>Netty中的Selector也和NIO的Selector是一样的，就是用于监听事件，管理注册到Selector中的channel，实现多路复用器。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/5fa70ed04e234fad9e524b3766051c4a.png"></div></div>
+<h2 id="5-7-PiPeline与ChannelPipeline"><a href="#5-7-PiPeline与ChannelPipeline" class="headerlink" title="5.7 PiPeline与ChannelPipeline"></a>5.7 PiPeline与ChannelPipeline</h2><p>在前面介绍Channel时，我们知道可以在channel中装配ChannelHandler流水线处理器，那一个channel不可能只有一个channelHandler处理器，肯定是有很多的，既然是很多channelHandler在一个流水线工作，肯定是有顺序的。</p>
+<p>于是pipeline就出现了，pipeline相当于处理器的容器。初始化channel时，把channelHandler按顺序装在pipeline中，就可以实现按序执行channelHandler了。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/e7bac501d86e4e75a897686d7bab40fe.png"></div></div>
+<p>在一个Channel中，只有一个ChannelPipeline。该pipeline在Channel被创建的时候创建。ChannelPipeline包含了一个ChannelHander形成的列表，且所有ChannelHandler都会注册到ChannelPipeline中。</p>
+<h2 id="5-8-ChannelHandlerContext"><a href="#5-8-ChannelHandlerContext" class="headerlink" title="5.8 ChannelHandlerContext"></a>5.8 ChannelHandlerContext</h2><p>在Netty中，Handler处理器是有我们定义的，上面讲过通过集成入站处理器或者出站处理器实现。这时如果我们想在Handler中获取pipeline对象，或者channel对象，怎么获取呢。</p>
+<p>于是Netty设计了这个ChannelHandlerContext上下文对象，就可以拿到channel、pipeline等对象，就可以进行读写等操作。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/4c6e9319213b489bbfcc2d7697cf03b0.png"></div></div>
+<p>通过类图，ChannelHandlerContext是一个接口，下面有三个实现类。</p>
+<p>实际上ChannelHandlerContext在pipeline中是一个链表的形式。看一段源码就明白了：</p>
+<pre><code>//ChannelPipeline实现类DefaultChannelPipeline的构造器方法
 protected DefaultChannelPipeline(Channel channel) {
     this.channel = ObjectUtil.checkNotNull(channel, "channel");
     succeededFuture = new SucceededChannelFuture(channel, null);
@@ -5445,7 +5736,14 @@ protected DefaultChannelPipeline(Channel channel) {
     head.next = tail;
     tail.prev = head;
 }
-</code></pre><p>下面我用一张图来表示，会更加清晰一点：<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/c77ea0ea4e554d65b61ee0a2eae78a0c.png"></div></div><p></p><h2 id="5-9-EventLoopGroup"><a href="#5-9-EventLoopGroup" class="headerlink" title="5.9 EventLoopGroup"></a>5.9 EventLoopGroup</h2><p>我们先看一下EventLoopGroup的类图：</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/7a95eeb933be4470acdc5f0f07afbc2a.png"></div></div><p>其中包括了常用的实现类NioEventLoopGroup。OioEventLoopGroup在前面的例子中也有使用过。</p><p>从Netty的架构图中，可以知道服务器是需要两个线程组进行配合工作的，而这个线程组的接口就是EventLoopGroup。</p><p>每个EventLoopGroup里包括一个或多个EventLoop，每个EventLoop中维护一个Selector实例。</p><h3 id="5-9-1-轮询机制的实现原理"><a href="#5-9-1-轮询机制的实现原理" class="headerlink" title="5.9.1 轮询机制的实现原理"></a>5.9.1 轮询机制的实现原理</h3><p>我们不妨看一段DefaultEventExecutorChooserFactory的源码：</p><pre><code>private final AtomicInteger idx = new AtomicInteger();
+</code></pre><p>下面我用一张图来表示，会更加清晰一点：<br></p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/c77ea0ea4e554d65b61ee0a2eae78a0c.png"></div></div><p></p>
+<h2 id="5-9-EventLoopGroup"><a href="#5-9-EventLoopGroup" class="headerlink" title="5.9 EventLoopGroup"></a>5.9 EventLoopGroup</h2><p>我们先看一下EventLoopGroup的类图：</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/7a95eeb933be4470acdc5f0f07afbc2a.png"></div></div>
+<p>其中包括了常用的实现类NioEventLoopGroup。OioEventLoopGroup在前面的例子中也有使用过。</p>
+<p>从Netty的架构图中，可以知道服务器是需要两个线程组进行配合工作的，而这个线程组的接口就是EventLoopGroup。</p>
+<p>每个EventLoopGroup里包括一个或多个EventLoop，每个EventLoop中维护一个Selector实例。</p>
+<h3 id="5-9-1-轮询机制的实现原理"><a href="#5-9-1-轮询机制的实现原理" class="headerlink" title="5.9.1 轮询机制的实现原理"></a>5.9.1 轮询机制的实现原理</h3><p>我们不妨看一段DefaultEventExecutorChooserFactory的源码：</p>
+<pre><code>private final AtomicInteger idx = new AtomicInteger();
 private final EventExecutor[] executors;
 
 @Override
@@ -5453,11 +5751,64 @@ public EventExecutor next() {
     //idx.getAndIncrement()相当于idx++，然后对任务长度取模
     return executors[idx.getAndIncrement() &amp; executors.length - 1];
 }
-</code></pre><p>这段代码可以确定执行的方式是轮询机制，接下来debug调试一下：</p><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/kayleh/cdn4/head-first-netty/17319554d4546047"></div></div><p>它这里还有一个判断，如果线程数不是2的N次方，则采用取模算法实现。</p><pre><code>@Override
+</code></pre><p>这段代码可以确定执行的方式是轮询机制，接下来debug调试一下：</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/17319554d4546047"></div></div>
+<p>它这里还有一个判断，如果线程数不是2的N次方，则采用取模算法实现。</p>
+<pre><code>@Override
 public EventExecutor next() {
     return executors[Math.abs(idx.getAndIncrement() % executors.length)];
 }
-</code></pre><div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p></div></section></div></article><div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/mybatis-cache/">mybatis-cache</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/spring-and-jwt/">Spring and Jwt</a></div></section></div><div class="related-wrap reveal" id="related-posts"><section class="header"><div class="title cap theme">您可能感兴趣的文章</div></section><section class="body"><div class="related-posts"><a class="item" href="/inversion-of-control/" title="Inversion of Control控制反转"><span class="title">Inversion of Control控制反转</span><span class="excerpt">控制反转的定义</span></a><a class="item" href="/Spring-Cyclic-Ependencies/" title="Spring Cyclic Ependencies"><span class="title">Spring Cyclic Ependencies</span></a><a class="item" href="/SpringBoot-startup-process/" title="SpringBoot startup process"><span class="title">SpringBoot startup process</span></a><a class="item" href="/springmvc-work-stream/" title="SpringMVC work stream"><span class="title">SpringMVC work stream</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div><div class="related-wrap md-text reveal" id="comments"><section class="header cmt-title cap theme">快来参与讨论吧</section><section class="body cmt-body giscus"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg><div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div></section></div><footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p></div></footer><div class="float-panel mobile-only blur" style="display:none"><button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()"><svg class="icon" style="width:1em;height:1em;vertical-align:middle;fill:currentColor;overflow:hidden" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg></button></div></div></div><div class="scripts"><script type="text/javascript">const stellar = {
+</code></pre>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/mybatis-cache/">mybatis-cache</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/spring-and-jwt/">Spring and Jwt</a></div></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class="header">
+      <div class="title cap theme">您可能感兴趣的文章</div>
+    </section>
+    <section class="body">
+    <div class="related-posts"><a class="item" href="/inversion-of-control/" title="Inversion of Control控制反转"><span class="title">Inversion of Control控制反转</span><span class="excerpt">控制反转的定义</span></a><a class="item" href="/Spring-Cyclic-Ependencies/" title="Spring Cyclic Ependencies"><span class="title">Spring Cyclic Ependencies</span></a><a class="item" href="/SpringBoot-startup-process/" title="SpringBoot startup process"><span class="title">SpringBoot startup process</span></a><a class="item" href="/springmvc-work-stream/" title="SpringMVC work stream"><span class="title">SpringMVC work stream</span></a><a class="item" href="/01Backpack/" title="01背包算法"><span class="title">01背包算法</span></a></div></section></div>
+
+
+
+  <div class="related-wrap md-text reveal" id="comments">
+    <section class="header cmt-title cap theme">
+      快来参与讨论吧
+    </section>
+    <section class="body cmt-body giscus">
+      
+
+<svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg>
+
+<div id="giscus" data-repo="Kayleh/kayleh.top.giscus" data-repo-id="R_kgDOJrPWjA" data-category="announcements" data-category-id="DIC_kwDOJrPWjM4CW9R6" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous"></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/tags">标签</a><a href="/archives">归档</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends">友链</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/">关于本站</a></div></div><div class="text"><p>本站由 <a href="/">@kayleh</a> 创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class="float-panel mobile-only blur" style="display:none">
+  <button type="button" class="sidebar-toggle mobile" onclick="sidebar.toggle()">
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class="scripts">
+    <script type="text/javascript">
+  const stellar = {
     // 懒加载 css https://github.com/filamentgroup/loadCSS
     loadCSS: (href, before, media, attributes) => {
       var doc = window.document;
@@ -5603,7 +5954,37 @@ public EventExecutor next() {
   }
   if ('true' == 'true') {
     stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
-  }</script><script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script></div><script src="/bundle.js"></script><script>function loadJS() {
+  }
+</script>
+
+<!-- required -->
+
+  
+
+
+
+
+<!-- optional -->
+
+  
+
+
+
+
+<!-- inject -->
+
+  
+    <script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async=""></script>
+  
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912" crossorigin="anonymous"></script>
+  
+
+
+  </div>
+
+
+<script src="/bundle.js"></script><script>
+  function loadJS() {
     const els = document.querySelectorAll("#comments #giscus");
     if (els.length === 0) return;
     els.forEach((el, i) => {
@@ -5626,4 +6007,5 @@ public EventExecutor next() {
   }
   window.addEventListener('DOMContentLoaded', (event) => {
     loadJS();
-  });</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+  });
+</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
