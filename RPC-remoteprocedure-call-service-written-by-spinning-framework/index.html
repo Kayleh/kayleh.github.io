@@ -28,7 +28,7 @@
 <meta property="og:description" content="https://www.jb51.net/article/87079.htm  RPC，即 Remote Procedure Call（远程过程调用），说得通俗一点就是：调用远程计算机上的服务，就像调用本地服务一样。 RPC 可基于 HTTP 或 TCP 协议，Web Service 就是基于 HTTP 协议的 RPC，它具有良好的跨平台性，但其性能却不如基于 TCP 协议的 RPC。会两方面会">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-07T00:20:50.000Z">
-<meta property="article:modified_time" content="2023-06-12T16:21:08.727Z">
+<meta property="article:modified_time" content="2023-06-12T16:44:23.651Z">
 <meta property="article:author" content="Kayleh">
 <meta property="article:tag" content="kayleh,blog,algo,algorithm,cpp,java">
 <meta name="twitter:card" content="summary">
@@ -59,11 +59,97 @@
 
 
   
-    
-      
-    
-  
-<script>function loadCss(l){var d=document,h=d.head,s=d.createElement('link');s.rel='stylesheet';s.href=l;!function e(f){if (d.body)return f();setTimeout(function(){e(f)})}(function(){h.appendChild(s);});}</script><style>:root {
+<style>@font-face {
+  font-family: 'Comic Sans MS';
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light.ttf") format('truetype');
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'Comic Sans MS';
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light-Oblique.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light-Oblique.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light-Oblique.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light-Oblique.ttf") format('truetype');
+  font-weight: 100;
+  font-style: oblique;
+}
+@font-face {
+  font-family: 'Comic Sans MS';
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular.ttf") format('truetype');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Comic Sans MS';
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular-Oblique.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular-Oblique.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular-Oblique.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular-Oblique.ttf") format('truetype');
+  font-weight: 300;
+  font-style: oblique;
+}
+@font-face {
+  font-family: 'Comic Sans MS';
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold.ttf") format('truetype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Comic Sans MS';
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold-Oblique.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold-Oblique.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold-Oblique.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold-Oblique.ttf") format('truetype');
+  font-weight: 700;
+  font-style: oblique;
+}
+@font-face {
+  font-family: cursive;
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light.ttf") format('truetype');
+  font-weight: 100;
+}
+@font-face {
+  font-family: cursive;
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light-Oblique.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light-Oblique.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light-Oblique.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Light-Oblique.ttf") format('truetype');
+  font-weight: 100;
+  font-style: oblique;
+}
+@font-face {
+  font-family: cursive;
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular.ttf") format('truetype');
+  font-weight: 300;
+}
+@font-face {
+  font-family: cursive;
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular-Oblique.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular-Oblique.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular-Oblique.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Regular-Oblique.ttf") format('truetype');
+  font-weight: 300;
+  font-style: oblique;
+}
+@font-face {
+  font-family: cursive;
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold.ttf") format('truetype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: cursive;
+  font-display: swap;
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold-Oblique.eot");
+  src: url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold-Oblique.eot?#iefix") format('embedded-opentype'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold-Oblique.woff") format('woff'), url("https://cdn.kayleh.top/gh/kayleh/home_blog2/font/ComicNeue-Bold-Oblique.ttf") format('truetype');
+  font-weight: 700;
+  font-style: oblique;
+}
+:root {
   --width-left: 288px;
   --width-main: 720px;
   --gap-l: 16px;
@@ -5265,7 +5351,7 @@ img[fancybox='true'] {
   color: #fa6400;
   opacity: 0.75;
 }
-</style><noscript><link rel="stylesheet" href="https://cdn.kayleh.top/gh/kayleh/home_blog2/css/font.min.css"></noscript></head>
+</style></head>
 
 <body>
   
@@ -5290,7 +5376,7 @@ img[fancybox='true'] {
 
 
 
-<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span></div><div class="widget-body related-posts fs14"><a class="item title" href="/cache/"><span class="title">缓存一致性方案</span></a><a class="item title" href="/encoding-algorithm/"><span class="title">encoding-algorithm</span></a><a class="item title" href="/automated-test-selenium/"><span class="title">automated test：selenium</span></a><a class="item title" href="/Reservoir-Sampling%C2%B7/"><span class="title">蓄水池抽样算法</span></a><a class="item title" href="/decorator-mode/"><span class="title">装饰器模式</span></a></div></widget>
+<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span></div><div class="widget-body related-posts fs14"><a class="item title" href="/computer-network/"><span class="title">计算机网络</span></a><a class="item title" href="/design-patterns/"><span class="title">设计模式</span></a><a class="item title" href="/visitor-mode/"><span class="title">访问者模式</span></a><a class="item title" href="/chain-of-responsibility-model/"><span class="title">责任链模式</span></a><a class="item title" href="/Greedy-Algorithm/"><span class="title">贪心算法的基础理论及实践</span></a></div></widget>
 
 
 
