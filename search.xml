@@ -35062,6 +35062,158 @@ Football Game Finished!
       </tags>
   </entry>
   <entry>
+    <title>Test case</title>
+    <url>/test-case/</url>
+    <content><![CDATA[<h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><h4 id="什么是测试用例"><a href="#什么是测试用例" class="headerlink" title="什么是测试用例"></a>什么是测试用例</h4><p> 测试用例(Test Case)是指对一项特定的软件产品进行测试任务的描述，体现测试方案、方法、技术和策略。其内容包括测试目标、测试环境、输入数据、测试步骤、预期结果、测试脚本等，最终形成文档。简单地认为，测试用例是为某个特殊目标而编制的一组测试输入、执行条件以及预期结果，用于核实是否满足某个特定软件需求。 </p>
+<h5 id="回归测试"><a href="#回归测试" class="headerlink" title="回归测试"></a>回归测试</h5><h5 id="模板：（excel）"><a href="#模板：（excel）" class="headerlink" title="模板：（excel）"></a>模板：（excel）</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>测试用例编号</th>
+<th>测试项</th>
+<th>依赖用例</th>
+<th>测试步骤</th>
+<th>输入数据</th>
+<th>预期结果</th>
+<th>测试结果</th>
+<th>测试人</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>1、2、</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标识符(用例编号)，一般编号规则：TestCase<strong>_</strong>项目名称<strong>_</strong>模块名称<strong>_</strong>功能名称<strong>_</strong>0001</td>
+<td>测试用例的测试目的。一般情况下，用一句话表明目的。（用谷歌浏览器打开百度首页）</td>
+<td>一般功能流程上，下游的功能测试依赖于上游的功能测试的用例</td>
+<td>用最朴实的语言，写出来软件的操作步骤，要尽量详细（在文本框输入xxx）</td>
+<td>测试数据</td>
+<td>准确，在重要的步骤之后，设定预期结果，一般和测试目的密切相关</td>
+<td>只有两个，通过/失败（和预期结果）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="测试用例编写注意事项"><a href="#测试用例编写注意事项" class="headerlink" title="测试用例编写注意事项"></a>测试用例编写注意事项</h4><h4 id="黑盒测试用例设计方法"><a href="#黑盒测试用例设计方法" class="headerlink" title="黑盒测试用例设计方法"></a>黑盒测试用例设计方法</h4>]]></content>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>状态模式</title>
+    <url>/state-mode/</url>
+    <content><![CDATA[<h4 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h4><hr>
+<blockquote>
+<p>允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它的类。</p>
+<span id="more"></span>
+</blockquote>
+<p><strong>状态模式（State）</strong>经常用在带有状态的对象中。</p>
+<p>什么是状态？我们以QQ聊天为例，一个用户的QQ有几种状态：</p>
+<ul>
+<li>离线状态（尚未登录）；</li>
+<li>正在登录状态；</li>
+<li>在线状态；</li>
+<li>忙状态（暂时离开）。</li>
+</ul>
+<p>如何表示状态？我们定义一个<code>enum</code>就可以表示不同的状态。但不同的状态需要对应不同的行为，比如收到消息时：</p>
+<pre><code class="lang-java">if (state == ONLINE) &#123;
+    // 闪烁图标
+&#125; else if (state == BUSY) &#123;
+    reply(&quot;现在忙，稍后回复&quot;);
+&#125; else if ...
+</code></pre>
+<p>状态模式的目的是为了把上述一大串<code>if...else...</code>的逻辑给分拆到不同的状态类中，使得将来增加状态比较容易。</p>
+<p>例如，我们设计一个聊天机器人，它有两个状态：</p>
+<ul>
+<li>未连线；</li>
+<li>已连线。</li>
+</ul>
+<p>对于未连线状态，我们收到消息也不回复：</p>
+<pre><code class="lang-java">public class DisconnectedState implements State &#123;
+    public String init() &#123;
+        return &quot;Bye!&quot;;
+    &#125;
+
+    public String reply(String input) &#123;
+        return &quot;&quot;;
+    &#125;
+&#125;
+</code></pre>
+<p>对于已连线状态，我们回应收到的消息：</p>
+<pre><code class="lang-java">public class ConnectedState implements State &#123;
+    public String init() &#123;
+        return &quot;Hello, I&#39;m Bob.&quot;;
+    &#125;
+
+    public String reply(String input) &#123;
+        if (input.endsWith(&quot;?&quot;)) &#123;
+            return &quot;Yes. &quot; + input.substring(0, input.length() - 1) + &quot;!&quot;;
+        &#125;
+        if (input.endsWith(&quot;.&quot;)) &#123;
+            return input.substring(0, input.length() - 1) + &quot;!&quot;;
+        &#125;
+        return input.substring(0, input.length() - 1) + &quot;?&quot;;
+    &#125;
+&#125;
+</code></pre>
+<p>状态模式的关键设计思想在于状态切换，我们引入一个<code>BotContext</code>完成状态切换：</p>
+<pre><code class="lang-java">public class BotContext &#123;
+    private State state = new DisconnectedState();
+
+    public String chat(String input) &#123;
+        if (&quot;hello&quot;.equalsIgnoreCase(input)) &#123;
+            // 收到hello切换到在线状态:
+            state = new ConnectedState();
+            return state.init();
+        &#125; else if (&quot;bye&quot;.equalsIgnoreCase(input)) &#123;
+            /  收到bye切换到离线状态:
+            state = new DisconnectedState();
+            return state.init();
+        &#125;
+        return state.reply(input);
+    &#125;
+&#125;
+</code></pre>
+<p>这样，一个价值千万的AI聊天机器人就诞生了：</p>
+<pre><code class="lang-java">Scanner scanner = new Scanner(System.in);
+BotContext bot = new BotContext();
+for (;;) &#123;
+    System.out.print(&quot;&gt; &quot;);
+    String input = scanner.nextLine();
+    String output = bot.chat(input);
+    System.out.println(output.isEmpty() ? &quot;(no reply)&quot; : &quot;&lt; &quot; + output);
+&#125;
+</code></pre>
+<p>试试效果：</p>
+<pre><code class="lang-java">&gt; hello
+&lt; Hello, I&#39;m Bob.
+&gt; Nice to meet you.
+&lt; Nice to meet you!
+&gt; Today is cold?
+&lt; Yes. Today is cold!
+&gt; bye
+&lt; Bye!
+</code></pre>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>DesignPatterns</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Talk about:IO</title>
     <url>/IO/</url>
     <content><![CDATA[<h1 id="File对象"><a href="#File对象" class="headerlink" title="File对象"></a>File对象</h1><p>在计算机系统中，文件是非常重要的存储方式。Java的标准库<code>java.io</code>提供了<code>File</code>对象来操作文件和目录。</p>
@@ -35918,52 +36070,53 @@ Files.write(Paths.get(&quot;/path/to/file.txt&quot;), lines);
       </tags>
   </entry>
   <entry>
-    <title>Test case</title>
-    <url>/test-case/</url>
-    <content><![CDATA[<h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><h4 id="什么是测试用例"><a href="#什么是测试用例" class="headerlink" title="什么是测试用例"></a>什么是测试用例</h4><p> 测试用例(Test Case)是指对一项特定的软件产品进行测试任务的描述，体现测试方案、方法、技术和策略。其内容包括测试目标、测试环境、输入数据、测试步骤、预期结果、测试脚本等，最终形成文档。简单地认为，测试用例是为某个特殊目标而编制的一组测试输入、执行条件以及预期结果，用于核实是否满足某个特定软件需求。 </p>
-<h5 id="回归测试"><a href="#回归测试" class="headerlink" title="回归测试"></a>回归测试</h5><h5 id="模板：（excel）"><a href="#模板：（excel）" class="headerlink" title="模板：（excel）"></a>模板：（excel）</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>测试用例编号</th>
-<th>测试项</th>
-<th>依赖用例</th>
-<th>测试步骤</th>
-<th>输入数据</th>
-<th>预期结果</th>
-<th>测试结果</th>
-<th>测试人</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td>1、2、</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>标识符(用例编号)，一般编号规则：TestCase<strong>_</strong>项目名称<strong>_</strong>模块名称<strong>_</strong>功能名称<strong>_</strong>0001</td>
-<td>测试用例的测试目的。一般情况下，用一句话表明目的。（用谷歌浏览器打开百度首页）</td>
-<td>一般功能流程上，下游的功能测试依赖于上游的功能测试的用例</td>
-<td>用最朴实的语言，写出来软件的操作步骤，要尽量详细（在文本框输入xxx）</td>
-<td>测试数据</td>
-<td>准确，在重要的步骤之后，设定预期结果，一般和测试目的密切相关</td>
-<td>只有两个，通过/失败（和预期结果）</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="测试用例编写注意事项"><a href="#测试用例编写注意事项" class="headerlink" title="测试用例编写注意事项"></a>测试用例编写注意事项</h4><h4 id="黑盒测试用例设计方法"><a href="#黑盒测试用例设计方法" class="headerlink" title="黑盒测试用例设计方法"></a>黑盒测试用例设计方法</h4>]]></content>
+    <title>生成器</title>
+    <url>/builder/</url>
+    <content><![CDATA[<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><blockquote>
+<p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。 </p>
+<span id="more"></span>
+</blockquote>
+<p><strong>生成器模式（Builder）</strong>是使用多个“小型”工厂来最终创建出一个完整对象。</p>
+<p>当我们使用Builder的时候，一般来说，是因为创建这个对象的步骤比较多，每个步骤都需要一个零部件，最终组合成一个完整的对象。</p>
+<h5 id="使用Builder模式时，适用于创建的对象比较复杂，最好一步一步创建出“零件”，最后再装配起来。"><a href="#使用Builder模式时，适用于创建的对象比较复杂，最好一步一步创建出“零件”，最后再装配起来。" class="headerlink" title="使用Builder模式时，适用于创建的对象比较复杂，最好一步一步创建出“零件”，最后再装配起来。"></a>使用Builder模式时，适用于创建的对象比较复杂，最好一步一步创建出“零件”，最后再装配起来。</h5><p>JavaMail的<code>MimeMessage</code>就可以看作是一个Builder模式，只不过Builder和最终产品合二为一，都是<code>MimeMessage</code>：</p>
+<pre><code>Multipart multipart = new MimeMultipart();
+// 添加text:
+BodyPart textpart = new MimeBodyPart();
+textpart.setContent(body, &quot;text/html;charset=utf-8&quot;);
+multipart.addBodyPart(textpart);
+// 添加image:
+BodyPart imagepart = new MimeBodyPart();
+imagepart.setFileName(fileName);
+imagepart.setDataHandler(new DataHandler(new ByteArrayDataSource(input, &quot;application/octet-stream&quot;)));
+multipart.addBodyPart(imagepart);
+
+MimeMessage message = new MimeMessage(session);
+// 设置发送方地址:
+message.setFrom(new InternetAddress(&quot;me@example.com&quot;));
+// 设置接收方地址:
+message.setRecipient(Message.RecipientType.TO, new InternetAddress(&quot;xiaoming@somewhere.com&quot;));
+// 设置邮件主题:
+message.setSubject(&quot;Hello&quot;, &quot;UTF-8&quot;);
+// 设置邮件内容为multipart:
+message.setContent(multipart);
+</code></pre><h5 id="很多时候，我们可以简化Builder模式，以链式调用的方式来创建对象。例如，我们经常编写这样的代码："><a href="#很多时候，我们可以简化Builder模式，以链式调用的方式来创建对象。例如，我们经常编写这样的代码：" class="headerlink" title="很多时候，我们可以简化Builder模式，以链式调用的方式来创建对象。例如，我们经常编写这样的代码："></a>很多时候，我们可以简化Builder模式，以链式调用的方式来创建对象。例如，我们经常编写这样的代码：</h5><pre><code>StringBuilder builder = new StringBuilder();
+builder.append(secure ? &quot;https://&quot; : &quot;http://&quot;)
+       .append(&quot;www.liaoxuefeng.com&quot;)
+       .append(&quot;/&quot;)
+       .append(&quot;?t=0&quot;);
+String url = builder.toString();
+</code></pre><h5 id="由于我们经常需要构造URL字符串，可以使用Builder模式编写一个URLBuilder，调用方式如下："><a href="#由于我们经常需要构造URL字符串，可以使用Builder模式编写一个URLBuilder，调用方式如下：" class="headerlink" title="由于我们经常需要构造URL字符串，可以使用Builder模式编写一个URLBuilder，调用方式如下："></a>由于我们经常需要构造URL字符串，可以使用Builder模式编写一个URLBuilder，调用方式如下：</h5><pre><code>String url = URLBuilder.builder() // 创建Builder
+        .setDomain(&quot;www.liaoxuefeng.com&quot;) // 设置domain
+        .setScheme(&quot;https&quot;) // 设置scheme
+        .setPath(&quot;/&quot;) // 设置路径
+        .setQuery(Map.of(&quot;a&quot;, &quot;123&quot;, &quot;q&quot;, &quot;K&amp;R&quot;)) // 设置query
+        .build(); // 完成build
+</code></pre>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
       <tags>
-        <tag>test</tag>
+        <tag>DesignPatterns</tag>
       </tags>
   </entry>
   <entry>
@@ -36047,159 +36200,6 @@ class Solution
 ]]></content>
       <tags>
         <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>状态模式</title>
-    <url>/state-mode/</url>
-    <content><![CDATA[<h4 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h4><hr>
-<blockquote>
-<p>允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它的类。</p>
-<span id="more"></span>
-</blockquote>
-<p><strong>状态模式（State）</strong>经常用在带有状态的对象中。</p>
-<p>什么是状态？我们以QQ聊天为例，一个用户的QQ有几种状态：</p>
-<ul>
-<li>离线状态（尚未登录）；</li>
-<li>正在登录状态；</li>
-<li>在线状态；</li>
-<li>忙状态（暂时离开）。</li>
-</ul>
-<p>如何表示状态？我们定义一个<code>enum</code>就可以表示不同的状态。但不同的状态需要对应不同的行为，比如收到消息时：</p>
-<pre><code class="lang-java">if (state == ONLINE) &#123;
-    // 闪烁图标
-&#125; else if (state == BUSY) &#123;
-    reply(&quot;现在忙，稍后回复&quot;);
-&#125; else if ...
-</code></pre>
-<p>状态模式的目的是为了把上述一大串<code>if...else...</code>的逻辑给分拆到不同的状态类中，使得将来增加状态比较容易。</p>
-<p>例如，我们设计一个聊天机器人，它有两个状态：</p>
-<ul>
-<li>未连线；</li>
-<li>已连线。</li>
-</ul>
-<p>对于未连线状态，我们收到消息也不回复：</p>
-<pre><code class="lang-java">public class DisconnectedState implements State &#123;
-    public String init() &#123;
-        return &quot;Bye!&quot;;
-    &#125;
-
-    public String reply(String input) &#123;
-        return &quot;&quot;;
-    &#125;
-&#125;
-</code></pre>
-<p>对于已连线状态，我们回应收到的消息：</p>
-<pre><code class="lang-java">public class ConnectedState implements State &#123;
-    public String init() &#123;
-        return &quot;Hello, I&#39;m Bob.&quot;;
-    &#125;
-
-    public String reply(String input) &#123;
-        if (input.endsWith(&quot;?&quot;)) &#123;
-            return &quot;Yes. &quot; + input.substring(0, input.length() - 1) + &quot;!&quot;;
-        &#125;
-        if (input.endsWith(&quot;.&quot;)) &#123;
-            return input.substring(0, input.length() - 1) + &quot;!&quot;;
-        &#125;
-        return input.substring(0, input.length() - 1) + &quot;?&quot;;
-    &#125;
-&#125;
-</code></pre>
-<p>状态模式的关键设计思想在于状态切换，我们引入一个<code>BotContext</code>完成状态切换：</p>
-<pre><code class="lang-java">public class BotContext &#123;
-    private State state = new DisconnectedState();
-
-    public String chat(String input) &#123;
-        if (&quot;hello&quot;.equalsIgnoreCase(input)) &#123;
-            // 收到hello切换到在线状态:
-            state = new ConnectedState();
-            return state.init();
-        &#125; else if (&quot;bye&quot;.equalsIgnoreCase(input)) &#123;
-            /  收到bye切换到离线状态:
-            state = new DisconnectedState();
-            return state.init();
-        &#125;
-        return state.reply(input);
-    &#125;
-&#125;
-</code></pre>
-<p>这样，一个价值千万的AI聊天机器人就诞生了：</p>
-<pre><code class="lang-java">Scanner scanner = new Scanner(System.in);
-BotContext bot = new BotContext();
-for (;;) &#123;
-    System.out.print(&quot;&gt; &quot;);
-    String input = scanner.nextLine();
-    String output = bot.chat(input);
-    System.out.println(output.isEmpty() ? &quot;(no reply)&quot; : &quot;&lt; &quot; + output);
-&#125;
-</code></pre>
-<p>试试效果：</p>
-<pre><code class="lang-java">&gt; hello
-&lt; Hello, I&#39;m Bob.
-&gt; Nice to meet you.
-&lt; Nice to meet you!
-&gt; Today is cold?
-&lt; Yes. Today is cold!
-&gt; bye
-&lt; Bye!
-</code></pre>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>DesignPatterns</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成器</title>
-    <url>/builder/</url>
-    <content><![CDATA[<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><blockquote>
-<p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。 </p>
-<span id="more"></span>
-</blockquote>
-<p><strong>生成器模式（Builder）</strong>是使用多个“小型”工厂来最终创建出一个完整对象。</p>
-<p>当我们使用Builder的时候，一般来说，是因为创建这个对象的步骤比较多，每个步骤都需要一个零部件，最终组合成一个完整的对象。</p>
-<h5 id="使用Builder模式时，适用于创建的对象比较复杂，最好一步一步创建出“零件”，最后再装配起来。"><a href="#使用Builder模式时，适用于创建的对象比较复杂，最好一步一步创建出“零件”，最后再装配起来。" class="headerlink" title="使用Builder模式时，适用于创建的对象比较复杂，最好一步一步创建出“零件”，最后再装配起来。"></a>使用Builder模式时，适用于创建的对象比较复杂，最好一步一步创建出“零件”，最后再装配起来。</h5><p>JavaMail的<code>MimeMessage</code>就可以看作是一个Builder模式，只不过Builder和最终产品合二为一，都是<code>MimeMessage</code>：</p>
-<pre><code>Multipart multipart = new MimeMultipart();
-// 添加text:
-BodyPart textpart = new MimeBodyPart();
-textpart.setContent(body, &quot;text/html;charset=utf-8&quot;);
-multipart.addBodyPart(textpart);
-// 添加image:
-BodyPart imagepart = new MimeBodyPart();
-imagepart.setFileName(fileName);
-imagepart.setDataHandler(new DataHandler(new ByteArrayDataSource(input, &quot;application/octet-stream&quot;)));
-multipart.addBodyPart(imagepart);
-
-MimeMessage message = new MimeMessage(session);
-// 设置发送方地址:
-message.setFrom(new InternetAddress(&quot;me@example.com&quot;));
-// 设置接收方地址:
-message.setRecipient(Message.RecipientType.TO, new InternetAddress(&quot;xiaoming@somewhere.com&quot;));
-// 设置邮件主题:
-message.setSubject(&quot;Hello&quot;, &quot;UTF-8&quot;);
-// 设置邮件内容为multipart:
-message.setContent(multipart);
-</code></pre><h5 id="很多时候，我们可以简化Builder模式，以链式调用的方式来创建对象。例如，我们经常编写这样的代码："><a href="#很多时候，我们可以简化Builder模式，以链式调用的方式来创建对象。例如，我们经常编写这样的代码：" class="headerlink" title="很多时候，我们可以简化Builder模式，以链式调用的方式来创建对象。例如，我们经常编写这样的代码："></a>很多时候，我们可以简化Builder模式，以链式调用的方式来创建对象。例如，我们经常编写这样的代码：</h5><pre><code>StringBuilder builder = new StringBuilder();
-builder.append(secure ? &quot;https://&quot; : &quot;http://&quot;)
-       .append(&quot;www.liaoxuefeng.com&quot;)
-       .append(&quot;/&quot;)
-       .append(&quot;?t=0&quot;);
-String url = builder.toString();
-</code></pre><h5 id="由于我们经常需要构造URL字符串，可以使用Builder模式编写一个URLBuilder，调用方式如下："><a href="#由于我们经常需要构造URL字符串，可以使用Builder模式编写一个URLBuilder，调用方式如下：" class="headerlink" title="由于我们经常需要构造URL字符串，可以使用Builder模式编写一个URLBuilder，调用方式如下："></a>由于我们经常需要构造URL字符串，可以使用Builder模式编写一个URLBuilder，调用方式如下：</h5><pre><code>String url = URLBuilder.builder() // 创建Builder
-        .setDomain(&quot;www.liaoxuefeng.com&quot;) // 设置domain
-        .setScheme(&quot;https&quot;) // 设置scheme
-        .setPath(&quot;/&quot;) // 设置路径
-        .setQuery(Map.of(&quot;a&quot;, &quot;123&quot;, &quot;q&quot;, &quot;K&amp;R&quot;)) // 设置query
-        .build(); // 完成build
-</code></pre>]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>DesignPatterns</tag>
       </tags>
   </entry>
   <entry>
