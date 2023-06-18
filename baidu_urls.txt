@@ -1,3 +1,4 @@
+https://blog.kayleh.top/ci-cd-continuous-delivery-continuous-integration-github-action-pages/
 https://blog.kayleh.top/reverse-proxy-jsdelivr-with-cf-workers/
 https://blog.kayleh.top/linked-forward-star/
 https://blog.kayleh.top/jvm-tuning-practice/
@@ -7,4 +8,3 @@ https://blog.kayleh.top/Large-number-operations/
 https://blog.kayleh.top/Minimum-Spanning-Tree/
 https://blog.kayleh.top/jvm-method-inline/
 https://blog.kayleh.top/what-is-milk-and-why-is-group-wise/
-https://blog.kayleh.top/About-Snowflake-and-Consumption-Degradation/
