@@ -3713,8 +3713,97 @@ i = 10;        //代码2
   <entry>
     <title>CI/CD 持续交付&amp;持续集成(Github Action Pages)</title>
     <url>/ci-cd-continuous-delivery-continuous-integration-github-action-pages/</url>
-    <content><![CDATA[<h2 id="持续集成-、交付、部署"><a href="#持续集成-、交付、部署" class="headerlink" title="持续集成 、交付、部署"></a>持续集成 、交付、部署</h2><p>持续集成是指，频繁地（一天多次）将代码集成到主干。 每次集成都通过自动化的构建（包括编译，发布，自动化测试）来验证，从而尽早地发现集成错误。许多团队发现这种方法可以显著减少集成问题，并允许团队更快地开发高质量的软件。 这是持续交付和持续部署的基础。</p>
-<h2 id="使用Github-Action"><a href="#使用Github-Action" class="headerlink" title="使用Github Action"></a>使用Github Action</h2><p>GitHub Actions 是一个强大的持续集成/持续交付（CI/CD）工具，它可以与 GitHub 存储库集成，帮助自动化软件开发工作流程。</p>
+    <content><![CDATA[<h4 id="1-什么是持续集成-、交付、部署"><a href="#1-什么是持续集成-、交付、部署" class="headerlink" title="1.什么是持续集成 、交付、部署"></a>1.什么是持续集成 、交付、部署</h4><blockquote>
+<p>持续集成是指，频繁地（一天多次）将代码集成到主干。 每次集成都通过自动化的构建（包括编译，发布，自动化测试）来验证，从而尽早地发现集成错误。许多团队发现这种方法可以显著减少集成问题，并允许团队更快地开发高质量的软件。 这是持续交付和持续部署的基础。</p>
+</blockquote>
+<h4 id="2-使用Github-Action"><a href="#2-使用Github-Action" class="headerlink" title="2.使用Github Action"></a>2.使用Github Action</h4><blockquote>
+<p>GitHub Actions 是一个强大的持续集成/持续交付（CI/CD）工具，它可以与 GitHub 存储库集成，帮助自动化软件开发工作流程。</p>
+</blockquote>
+<h6 id="本文从本站部署出发，介绍如何使用-Github-Action-实现-CI-CD"><a href="#本文从本站部署出发，介绍如何使用-Github-Action-实现-CI-CD" class="headerlink" title="本文从本站部署出发，介绍如何使用 Github Action 实现 CI/CD"></a>本文从<a href="https://kayleh.top">本站</a>部署出发，介绍如何使用 Github Action 实现 CI/CD</h6><h4 id="使用前准备"><a href="#使用前准备" class="headerlink" title="使用前准备"></a>使用前准备</h4><ol>
+<li><a href="https://github.com">Github</a> 账号</li>
+<li>配置了<a href="https://pages.github.com/">Pages</a> 仓库的Github</li>
+</ol>
+<h4 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h4><p>本站使用的是nodejs框架<a href="https://hexo.io/zh-cn/">hexo</a>，所以本文以hexo为例.</p>
+<p>框架的源代码放在source仓库，生成的静态文件放在public仓库，所以我们需要在source仓库的.github/workflows/目录下创建一个yml文件，文件名随意，本文以hexo.yml为例</p>
+<blockquote>
+<p>也可以放在同一个仓库，即源代码放到master分支，生成的静态文件放在gh-pages分支，在master分支的.github/workflows/目录下创建yml文件</p>
+</blockquote>
+<pre><code class="lang-yml">name: auto deploy
+
+on:
+  workflow_dispatch: # 手动触发
+  push: # push 时触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 运行环境为最新版 Ubuntu
+    name: auto deploy
+    steps:
+      # 1. 获取源码
+      - name: Checkout
+        uses: actions/checkout@v3 # 使用 actions/checkout@v3
+        with: # 条件
+          submodules: false # Checkout private submodules(themes or something else). 当有子模块时切换分支？
+      # 2. 配置环境
+      - name: Setup Node.js 16.15.0
+        uses: actions/setup-node@master
+        with:
+          node-version: &quot;16.15.0&quot;
+      - name: &#39;缓存依赖环境&#39;
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules
+          key: $&#123;&#123; runner.os &#125;&#125;-node-$&#123;&#123; hashFiles('**/package-lock.json') &#125;&#125;
+          restore-keys: |
+            $&#123;&#123; runner.os &#125;&#125;-node-
+      - name: &#39;安装依赖环境&#39;
+        if: steps.cache.outputs.cache-hit != &#39;true&#39;
+        run: npm ci
+      # 3. 生成静态文件
+      - name: Generate Public Files
+        run: |
+          npm i
+          npm install hexo-cli -g
+          hexo clean &amp;&amp; hexo generate
+          # 配置 SSH
+          mkdir -p ~/.ssh &amp;&amp; echo &quot;$&#123;&#123; secrets.DEPLOY_KEY &#125;&#125;&quot; &gt; ~/.ssh/id_rsa &amp;&amp; chmod 600 ~/.ssh/id_rsa  &amp;&amp; ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts
+          # 配置 Git
+          git config --global user.name &#39;kayleh&#39;
+          git config --global user.email &#39;yaojinqing@kayleh.top&#39;
+      # 4. 部署到 GitHub 仓库（可选）
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: $&#123;&#123; secrets.DEPLOY_KEY &#125;&#125;
+          external_repository: Kayleh/public
+          publish_branch: master #gh-pages
+          publish_dir: ./public
+          commit_message: $&#123;&#123; github.event.head_commit.message &#125;&#125;
+          user_name: &#39;github-actions[bot]&#39;
+          user_email: &#39;github-actions[bot]@users.noreply.github.com&#39;
+#    # 5. 部署到服务器（可选）
+#    - name: Deploy to Server
+#      uses: easingthemes/ssh-deploy@v3
+#      env:
+#        SSH_PRIVATE_KEY: $&#123;&#123; secrets.SERVER_SSH_KEY &#125;&#125;
+#        ARGS: &quot;-rltgoDzvO --delete&quot;
+#        EXCLUDE: &quot;.well-known, .user.ini&quot;
+#        SOURCE: public/
+#        REMOTE_HOST: $&#123;&#123; secrets.REMOTE_HOST &#125;&#125;
+#        REMOTE_PORT: $&#123;&#123; secrets.REMOTE_PORT &#125;&#125;
+#        REMOTE_USER: $&#123;&#123; secrets.REMOTE_USER &#125;&#125;
+#        TARGET: $&#123;&#123; secrets.TARGET &#125;&#125;
+</code></pre>
+<h4 id="3-配置Github-Secrets"><a href="#3-配置Github-Secrets" class="headerlink" title="3.配置Github Secrets"></a>3.配置Github Secrets</h4><blockquote>
+<p>为了安全，我们需要配置Github Secrets，用于存放私密信息，如ssh key等</p>
+</blockquote>
+<p>1.先生成ssh key</p>
+<pre><code class="lang-bash">ssh-keygen -t rsa -b 4096 -C &quot;
+</code></pre>
+<p>2.在生成的文件夹中找到id_rsa.pub，复制内容，以此为ssh key</p>
+<p>3.在Github仓库的Settings-&gt;Secrets中添加DEPLOY_KEY，值为ssh key，用于提交代码,部署到Github Pages</p>
+<p>到这里，我们就可以通过push代码，自动部署到Github Pages了</p>
 ]]></content>
       <tags>
         <tag>project</tag>
