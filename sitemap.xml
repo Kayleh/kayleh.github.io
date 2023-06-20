@@ -2,6 +2,258 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kayleh.top/google8102e2f35ce9e391.html</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/mainfest.json</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/create/index.html</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/friends/index.html</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/notes/index.html</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/txCharity/index.html</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/law-of-robida/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/IO/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/test-case/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/slidingWindow/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/state-mode/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/builder/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Graph-degree/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/adjacency-matrix/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/edgeset-array/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/adjacency-table/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/strategy-mode/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/series/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/linear-search-algorithm/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/combination-mode/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/cache/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/encoding-algorithm/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/automated-test-selenium/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Reservoir-Sampling%C2%B7/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/decorator-mode/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/observer-mode/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/interpreter-mode/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/principles-of-computer-organization/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.kayleh.top/introduction-to-computer-network/</loc>
     
     <lastmod>2023-06-20</lastmod>
@@ -164,24 +416,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/google8102e2f35ce9e391.html</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/mainfest.json</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.kayleh.top/about/index.html</loc>
     
     <lastmod>2023-06-20</lastmod>
@@ -209,7 +443,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/create/index.html</loc>
+    <loc>https://blog.kayleh.top/springcloud/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -218,7 +452,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/friends/index.html</loc>
+    <loc>https://blog.kayleh.top/eureka-service-registration-and-discovery/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -227,7 +461,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/notes/index.html</loc>
+    <loc>https://blog.kayleh.top/ribbon-load-balancing-service-call-degradation/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -236,7 +470,214 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/txCharity/index.html</loc>
+    <loc>https://blog.kayleh.top/gateway-service-current-limit/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud-config-distributed-configuration-center/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud-bus-message/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud-stream-message-driver/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud-sleuth-distributed-request-link-tracking/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud-alibaba/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/distributed-lock/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Front-end-security/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/dynamic-array/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/dynamic-programming/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/round-dp-algorithm/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/single-responsibility-principle/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/singleton-mode/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/single-point-login/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/prototype/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/synthetic-reuse-principle/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/command-mode/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/hash-algorithm/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/palindrome/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/huisu-algorithm/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/back-to-table-query/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/pictrue-bed/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/PriorityQueue/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/off-heap/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -542,204 +983,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/law-of-robida/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/IO/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/test-case/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/slidingWindow/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/state-mode/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/builder/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Graph-degree/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/adjacency-matrix/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/edgeset-array/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/adjacency-table/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/strategy-mode/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/series/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/linear-search-algorithm/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/combination-mode/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/cache/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/encoding-algorithm/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/automated-test-selenium/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Reservoir-Sampling%C2%B7/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/decorator-mode/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/observer-mode/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/interpreter-mode/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/principles-of-computer-organization/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.kayleh.top/indefinite-integral/</loc>
     
     <lastmod>2023-06-20</lastmod>
@@ -902,384 +1145,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/springcloud/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/eureka-service-registration-and-discovery/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/ribbon-load-balancing-service-call-degradation/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/gateway-service-current-limit/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud-config-distributed-configuration-center/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud-bus-message/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud-stream-message-driver/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud-sleuth-distributed-request-link-tracking/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud-alibaba/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/distributed-lock/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Front-end-security/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/dynamic-array/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/dynamic-programming/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/round-dp-algorithm/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/single-responsibility-principle/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/singleton-mode/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/single-point-login/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/prototype/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/synthetic-reuse-principle/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/command-mode/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/hash-algorithm/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/palindrome/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/huisu-algorithm/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/back-to-table-query/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/pictrue-bed/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/PriorityQueue/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/off-heap/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Head-First-Map/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Head-First-Netty/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Improve-Robustness-(1)/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Improve-Robustness-(2)/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Integer/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/java.lang.String/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/automated-test-katalon/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/mybatis-cache/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Proxy/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/realize-modular-programming-with-functions/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/select-structure-programming/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/sequential-programming/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/spring-and-jwt/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/deb/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/ubuntu-set-ip/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.kayleh.top/common-commands-of-unix/</loc>
     
     <lastmod>2023-06-20</lastmod>
@@ -1380,132 +1245,6 @@
   
   <url>
     <loc>https://blog.kayleh.top/steal-focus/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/SQL-injection-vulnerability/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/seata-handles-distributed-transactions/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/sentinel-realizes-fusing-and-current-limiting/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/snowflake-distributed-id-algorithm/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/sparsearray/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Spring-Cyclic-Ependencies/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/spring/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/SpringBoot-startup-process/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springmvc-work-stream/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springmvc-environment-construction/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/SpringSecurity/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/spring-springmvc-mybatis-integration/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/spring-architecture/</loc>
-    
-    <lastmod>2023-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/spring-relate/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -1667,7 +1406,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/j2ee/</loc>
+    <loc>https://blog.kayleh.top/Head-First-Map/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -1676,7 +1415,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/j2se/</loc>
+    <loc>https://blog.kayleh.top/Head-First-Netty/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -1685,7 +1424,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/jdbc/</loc>
+    <loc>https://blog.kayleh.top/Improve-Robustness-(1)/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -1694,7 +1433,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/jdk/</loc>
+    <loc>https://blog.kayleh.top/Improve-Robustness-(2)/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -1703,7 +1442,97 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/JVM-classloader-and-parent-delegation-mechanism/</loc>
+    <loc>https://blog.kayleh.top/Integer/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/java.lang.String/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/automated-test-katalon/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/mybatis-cache/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Proxy/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/realize-modular-programming-with-functions/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/select-structure-programming/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/sequential-programming/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/spring-and-jwt/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/deb/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/ubuntu-set-ip/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
@@ -2009,6 +1838,132 @@
   </url>
   
   <url>
+    <loc>https://blog.kayleh.top/SQL-injection-vulnerability/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/seata-handles-distributed-transactions/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/sentinel-realizes-fusing-and-current-limiting/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/snowflake-distributed-id-algorithm/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/sparsearray/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Spring-Cyclic-Ependencies/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/spring/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/SpringBoot-startup-process/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springmvc-work-stream/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springmvc-environment-construction/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/SpringSecurity/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/spring-springmvc-mybatis-integration/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/spring-architecture/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/spring-relate/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.kayleh.top/01Backpack/</loc>
     
     <lastmod>2023-06-20</lastmod>
@@ -2226,6 +2181,51 @@
   
   <url>
     <loc>https://blog.kayleh.top/inversion-of-control/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/j2ee/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/j2se/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/jdbc/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/jdk/</loc>
+    
+    <lastmod>2023-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/JVM-classloader-and-parent-delegation-mechanism/</loc>
     
     <lastmod>2023-06-20</lastmod>
     
