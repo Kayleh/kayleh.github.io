@@ -3584,6 +3584,56 @@ struct NODE
       </tags>
   </entry>
   <entry>
+    <title>CAS &amp; AQS</title>
+    <url>/CAS-&amp;-AQS/</url>
+    <content><![CDATA[<h2 id="CAS（Compare-And-Swap）原理分析"><a href="#CAS（Compare-And-Swap）原理分析" class="headerlink" title="CAS（Compare And Swap）原理分析"></a>CAS（Compare And Swap）原理分析</h2><p>字面意思是<strong>比较和交换</strong>，先看看下面场景（A 和 B 线程同时执行下面的代码）：</p>
+<pre><code class="lang-java">int i = 10;    //代码1
+i = 10;        //代码2
+</code></pre>
+<p>场景 1：A 线程执行代码 1 和代码 2，然后 B 线程执行代码 1 和代码 2，CAS 成功。</p>
+<p>场景 2：A 线程执行代码 1，此时 B 线程执行代码 1 和代码 2，A 线程执行代码 2，CAS 不成功，为什么呢？</p>
+<p>因为 A 线程执行代码 1 时候会旧值（i 的内存地址的值 10）保存起来，执行代码 2 的时候先判断 i 的最新值（可能被其他线程修改了）跟旧值比较，如果相等则把 i 赋值为 20，如果不是则 CAS 不成功。CAS 是一个<strong>原子性操作</strong>，要么成功要么失败，CAS 操作用得比较多的是 sun.misc 包的 Unsafe 类，而 Java 并发包大量使用 Unsafe 类的 CAS 操作，比如：AtomicInteger 整数原子类（本质是自旋锁 + CAS），CAS 不需加锁，提高代码运行效率。也是一种乐观锁方式，我们通常认为在大多数场景下不会出现竞争资源的情况，如果 CAS 操作失败，会不断重试直到成功。</p>
+<p><strong>CAS 优点</strong>：资源竞争不大的场景系统开销小。</p>
+<p><strong>CAS 缺点</strong>：</p>
+<p>如果 CAS 长时间操作失败，即长时间自旋，会导致 CPU 开销大，但是可以使用 CPU 提供的 pause 指令，这个 pause 指令可以让自旋重试失败时 CPU 先睡眠一小段时间后再继续自旋重试 CAS 操作，jvm 支持 pause 指令，可以让性能提升一些。</p>
+<p>存在 ABA 问题，即原来内存地址的值是 A，然后被改为了 B，再被改为 A 值，此时 CAS 操作时认为该值未被改动过，ABA 问题可以引入版本号来解决，每次改动都让版本号 +1。Java 中处理 ABA 的一个方案是 AtomicStampedReference 类，它是使用一个 int 类型的字段作为版本号，每次修改之前都先获取版本号和当前线程持有的版本号比对，如果一致才进行修改操作，并把版本号 +1。</p>
+<p>无法保证代码块的原子性，CAS 只能保证单个变量的原子性操作，如果要保证多个变量的原子性操作就要使用悲观锁了。</p>
+<h2 id="AQS（AbstractQueuedSynchronizer）原理分析"><a href="#AQS（AbstractQueuedSynchronizer）原理分析" class="headerlink" title="AQS（AbstractQueuedSynchronizer）原理分析"></a>AQS（AbstractQueuedSynchronizer）原理分析</h2><p>字面意思是<strong>抽象的队列同步器</strong>，AQS 是一个同步器框架，它制定了一套多线程场景下访问共享资源的方案，Java 中很多同步类底层都是使用 AQS 实现，比如：ReentrantLock、CountDownLatch、ReentrantReadWriteLock，这些 java 同步类的内部会使用一个 Sync 内部类，而这个 Sync 继承了 AbstractQueuedSynchronizer 类，这是一种模板方法模式，所以说这些同步类的底层是使用 AQS 实现。</p>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/cas/1.png"></div></div>
+<p>AQS 内部维护了一个 volatile 修饰的 int state 属性（共享资源）和一个先进先出的线程等待队列（即多线程竞争共享资源时被阻塞的线程会进入这个队列）。因为 state 是使用 volatile 修饰，所以在多线程之前可见，访问 state 的方式有 3 种，getState()、setState()和 compareAndSetState()。</p>
+<p><strong>AQS 定义了 3 种资源共享方式：</strong></p>
+<p>独占锁（exclusive），保证只有一条线程执行，比如 ReentrantLock、AtomicInteger。</p>
+<p>共享锁（shared），允许多个线程同时执行，比如 CountDownLatch、Semaphore。</p>
+<p>同时实现独占和共享，比如 ReentrantReadWriteLock，允许多个线程同时执行读操作，只允许一条线程执行写操作。</p>
+<p>ReentrantLock 和 CountDownLatch 都是<strong>自定义同步器</strong>，它们的内部类 Sync 都是继承了 AbstractQueuedSynchronizer，独占锁和共享锁的区别在于各自重写的获取和释放共享资源的方式不一样，至于线程获取资源失败、唤醒出队、中断等操作 AQS 已经实现好了。</p>
+<p><strong>ReentrantLock</strong></p>
+<p>state 的初始值是 0，即没有被锁定，当 A 线程 tryAcquire() 时会独占锁住 state，并且把 state+1，然后 B 线程（即其他线程）tryAcquire() 时就会失败进入等待队列，直到 A 线程 tryRelease() 释放锁把 state-1，此时也有可能出现重入锁的情况，state-1 后的值不是 0 而是一个正整数，因为重入锁也会 state+1，只有当 state=0 时，才代表其他线程可以 tryAcquire() 获取锁。</p>
+<p><strong>CountDownLatch</strong></p>
+<p>8 人赛跑场景，即开启 8 个线程进行赛跑，state 的初始值设置为 8（必须与线程数一致），每个参赛者跑到终点（即线程执行完毕）则调用 countDown()，使用 CAS 操作把 state-1，直到 8 个参赛者都跑到终点了（即 state=0），此时调用 await() 判断 state 是否为 0，如果是 0 则不阻塞继续执行后面的代码。</p>
+<p>tryAcquire()、tryRelease()、tryAcquireShared()、tryReleaseShared() 的详细流程分析</p>
+<p><strong>tryAcquire() 详细流程如下：</strong></p>
+<p>调用 tryAcquire() 尝试获取共享资源，如果成功则返回 true;</p>
+<p>如果不成功，则调用 addWaiter() 把此线程构造一个 Node 节点（标记为独占模式），并使用 CAS 操作把节点追加到等待队列的尾部，然后该 Node 节点的线程进入自旋状态;</p>
+<p>线程自旋时，判断自旋节点的前驱节点是不是头结点，并且已经释放共享资源（即 state=0），自旋节点是否成功获取共享资源（即 state=1），如果三个条件都成立则自旋节点设置为头节点，如果不成立则把自旋节点的线程挂起，等待前驱节点唤醒。</p>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/cas/2.png"></div></div>
+<p><strong>tryRelease() 详细流程如下：</strong></p>
+<p>调用 tryRelease() 释放共享资源，即 state=0，然后唤醒没有被中断的后驱节点的线程;</p>
+<p>被唤醒的线程自旋，判断自旋节点的前驱节点是不是头结点，是否已经释放共享资源（即 state=0），自旋节点是否成功获取共享资源（即 state=1），如果三个条件都成立则自旋节点设置为头节点，如果不成立则把自旋节点的线程挂起，等待被前驱节点唤醒。</p>
+<p><strong>tryAcquireShared() 详细流程如下：</strong></p>
+<p>调用 tryAcquireShared() 尝试获取共享资源，如果 state&gt;=0，则表示同步状态（state）有剩余还可以让其他线程获取共享资源，此时获取成功返回;</p>
+<p>如果 state&lt;0，则表示获取共享资源失败，把此线程构造一个 Node 节点（标记为共享模式），并使用 CAS 操作把节点追加到等待队列的尾部，然后该 Node 节点的线程进入自旋状态;</p>
+<p>线程自旋时，判断自旋节点的前驱节点是不是头结点，是否已经释放共享资源（即 state=0），再调用 tryAcquireShared() 尝试获取共享资源，如果三个条件都成立，则表示自旋节点可执行，同时把自旋节点设置为头节点，并且唤醒所有后继节点的线程。</p>
+<p>如果不成立，挂起自旋的线程，等待被前驱节点唤醒。</p>
+<p><strong>tryReleaseShared() 详细流程如下：</strong></p>
+<p>调用 tryReleaseShared() 释放共享资源，即 state-1，然后遍历整个队列，唤醒所有没有被中断的后驱节点的线程;</p>
+<p>被唤醒的线程自旋，判断自旋节点的前驱节点是不是头结点，是否已经释放共享资源（即 state=0），再调用 tryAcquireShared() 尝试获取共享资源，如果三个条件都成立，则表示自旋节点可执行，同时把自旋节点设置为头节点，并且唤醒所有后继节点的线程。</p>
+<p>如果不成立，挂起自旋的线程，等待被前驱节点唤醒。</p>
+]]></content>
+      <tags>
+        <tag>Concurrency</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C programming</title>
     <url>/C-programming/</url>
     <content><![CDATA[<h1 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h1><h4 id="1-什么是程序-什么是程序设计"><a href="#1-什么是程序-什么是程序设计" class="headerlink" title="1.什么是程序?什么是程序设计?"></a>1.什么是程序?什么是程序设计?</h4><p><code>程序</code>是一组计算机能识别和执行的指令，运行于电子计算机上，满足人们某种需求的信息化工具。<br><code>程序设计</code>（programming），是给出解决特定问题程序的过程，软件开发过程中的重要步骤。程序设计往往以某种程序设计语言为工具，给出这种语言下的程序。程序设计过程一般包括分析、设计、编码、测试、调试等不同阶段。</p>
@@ -3658,56 +3708,6 @@ int main()
 ]]></content>
       <tags>
         <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CAS &amp; AQS</title>
-    <url>/CAS-&amp;-AQS/</url>
-    <content><![CDATA[<h2 id="CAS（Compare-And-Swap）原理分析"><a href="#CAS（Compare-And-Swap）原理分析" class="headerlink" title="CAS（Compare And Swap）原理分析"></a>CAS（Compare And Swap）原理分析</h2><p>字面意思是<strong>比较和交换</strong>，先看看下面场景（A 和 B 线程同时执行下面的代码）：</p>
-<pre><code class="lang-java">int i = 10;    //代码1
-i = 10;        //代码2
-</code></pre>
-<p>场景 1：A 线程执行代码 1 和代码 2，然后 B 线程执行代码 1 和代码 2，CAS 成功。</p>
-<p>场景 2：A 线程执行代码 1，此时 B 线程执行代码 1 和代码 2，A 线程执行代码 2，CAS 不成功，为什么呢？</p>
-<p>因为 A 线程执行代码 1 时候会旧值（i 的内存地址的值 10）保存起来，执行代码 2 的时候先判断 i 的最新值（可能被其他线程修改了）跟旧值比较，如果相等则把 i 赋值为 20，如果不是则 CAS 不成功。CAS 是一个<strong>原子性操作</strong>，要么成功要么失败，CAS 操作用得比较多的是 sun.misc 包的 Unsafe 类，而 Java 并发包大量使用 Unsafe 类的 CAS 操作，比如：AtomicInteger 整数原子类（本质是自旋锁 + CAS），CAS 不需加锁，提高代码运行效率。也是一种乐观锁方式，我们通常认为在大多数场景下不会出现竞争资源的情况，如果 CAS 操作失败，会不断重试直到成功。</p>
-<p><strong>CAS 优点</strong>：资源竞争不大的场景系统开销小。</p>
-<p><strong>CAS 缺点</strong>：</p>
-<p>如果 CAS 长时间操作失败，即长时间自旋，会导致 CPU 开销大，但是可以使用 CPU 提供的 pause 指令，这个 pause 指令可以让自旋重试失败时 CPU 先睡眠一小段时间后再继续自旋重试 CAS 操作，jvm 支持 pause 指令，可以让性能提升一些。</p>
-<p>存在 ABA 问题，即原来内存地址的值是 A，然后被改为了 B，再被改为 A 值，此时 CAS 操作时认为该值未被改动过，ABA 问题可以引入版本号来解决，每次改动都让版本号 +1。Java 中处理 ABA 的一个方案是 AtomicStampedReference 类，它是使用一个 int 类型的字段作为版本号，每次修改之前都先获取版本号和当前线程持有的版本号比对，如果一致才进行修改操作，并把版本号 +1。</p>
-<p>无法保证代码块的原子性，CAS 只能保证单个变量的原子性操作，如果要保证多个变量的原子性操作就要使用悲观锁了。</p>
-<h2 id="AQS（AbstractQueuedSynchronizer）原理分析"><a href="#AQS（AbstractQueuedSynchronizer）原理分析" class="headerlink" title="AQS（AbstractQueuedSynchronizer）原理分析"></a>AQS（AbstractQueuedSynchronizer）原理分析</h2><p>字面意思是<strong>抽象的队列同步器</strong>，AQS 是一个同步器框架，它制定了一套多线程场景下访问共享资源的方案，Java 中很多同步类底层都是使用 AQS 实现，比如：ReentrantLock、CountDownLatch、ReentrantReadWriteLock，这些 java 同步类的内部会使用一个 Sync 内部类，而这个 Sync 继承了 AbstractQueuedSynchronizer 类，这是一种模板方法模式，所以说这些同步类的底层是使用 AQS 实现。</p>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/cas/1.png"></div></div>
-<p>AQS 内部维护了一个 volatile 修饰的 int state 属性（共享资源）和一个先进先出的线程等待队列（即多线程竞争共享资源时被阻塞的线程会进入这个队列）。因为 state 是使用 volatile 修饰，所以在多线程之前可见，访问 state 的方式有 3 种，getState()、setState()和 compareAndSetState()。</p>
-<p><strong>AQS 定义了 3 种资源共享方式：</strong></p>
-<p>独占锁（exclusive），保证只有一条线程执行，比如 ReentrantLock、AtomicInteger。</p>
-<p>共享锁（shared），允许多个线程同时执行，比如 CountDownLatch、Semaphore。</p>
-<p>同时实现独占和共享，比如 ReentrantReadWriteLock，允许多个线程同时执行读操作，只允许一条线程执行写操作。</p>
-<p>ReentrantLock 和 CountDownLatch 都是<strong>自定义同步器</strong>，它们的内部类 Sync 都是继承了 AbstractQueuedSynchronizer，独占锁和共享锁的区别在于各自重写的获取和释放共享资源的方式不一样，至于线程获取资源失败、唤醒出队、中断等操作 AQS 已经实现好了。</p>
-<p><strong>ReentrantLock</strong></p>
-<p>state 的初始值是 0，即没有被锁定，当 A 线程 tryAcquire() 时会独占锁住 state，并且把 state+1，然后 B 线程（即其他线程）tryAcquire() 时就会失败进入等待队列，直到 A 线程 tryRelease() 释放锁把 state-1，此时也有可能出现重入锁的情况，state-1 后的值不是 0 而是一个正整数，因为重入锁也会 state+1，只有当 state=0 时，才代表其他线程可以 tryAcquire() 获取锁。</p>
-<p><strong>CountDownLatch</strong></p>
-<p>8 人赛跑场景，即开启 8 个线程进行赛跑，state 的初始值设置为 8（必须与线程数一致），每个参赛者跑到终点（即线程执行完毕）则调用 countDown()，使用 CAS 操作把 state-1，直到 8 个参赛者都跑到终点了（即 state=0），此时调用 await() 判断 state 是否为 0，如果是 0 则不阻塞继续执行后面的代码。</p>
-<p>tryAcquire()、tryRelease()、tryAcquireShared()、tryReleaseShared() 的详细流程分析</p>
-<p><strong>tryAcquire() 详细流程如下：</strong></p>
-<p>调用 tryAcquire() 尝试获取共享资源，如果成功则返回 true;</p>
-<p>如果不成功，则调用 addWaiter() 把此线程构造一个 Node 节点（标记为独占模式），并使用 CAS 操作把节点追加到等待队列的尾部，然后该 Node 节点的线程进入自旋状态;</p>
-<p>线程自旋时，判断自旋节点的前驱节点是不是头结点，并且已经释放共享资源（即 state=0），自旋节点是否成功获取共享资源（即 state=1），如果三个条件都成立则自旋节点设置为头节点，如果不成立则把自旋节点的线程挂起，等待前驱节点唤醒。</p>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/cas/2.png"></div></div>
-<p><strong>tryRelease() 详细流程如下：</strong></p>
-<p>调用 tryRelease() 释放共享资源，即 state=0，然后唤醒没有被中断的后驱节点的线程;</p>
-<p>被唤醒的线程自旋，判断自旋节点的前驱节点是不是头结点，是否已经释放共享资源（即 state=0），自旋节点是否成功获取共享资源（即 state=1），如果三个条件都成立则自旋节点设置为头节点，如果不成立则把自旋节点的线程挂起，等待被前驱节点唤醒。</p>
-<p><strong>tryAcquireShared() 详细流程如下：</strong></p>
-<p>调用 tryAcquireShared() 尝试获取共享资源，如果 state&gt;=0，则表示同步状态（state）有剩余还可以让其他线程获取共享资源，此时获取成功返回;</p>
-<p>如果 state&lt;0，则表示获取共享资源失败，把此线程构造一个 Node 节点（标记为共享模式），并使用 CAS 操作把节点追加到等待队列的尾部，然后该 Node 节点的线程进入自旋状态;</p>
-<p>线程自旋时，判断自旋节点的前驱节点是不是头结点，是否已经释放共享资源（即 state=0），再调用 tryAcquireShared() 尝试获取共享资源，如果三个条件都成立，则表示自旋节点可执行，同时把自旋节点设置为头节点，并且唤醒所有后继节点的线程。</p>
-<p>如果不成立，挂起自旋的线程，等待被前驱节点唤醒。</p>
-<p><strong>tryReleaseShared() 详细流程如下：</strong></p>
-<p>调用 tryReleaseShared() 释放共享资源，即 state-1，然后遍历整个队列，唤醒所有没有被中断的后驱节点的线程;</p>
-<p>被唤醒的线程自旋，判断自旋节点的前驱节点是不是头结点，是否已经释放共享资源（即 state=0），再调用 tryAcquireShared() 尝试获取共享资源，如果三个条件都成立，则表示自旋节点可执行，同时把自旋节点设置为头节点，并且唤醒所有后继节点的线程。</p>
-<p>如果不成立，挂起自旋的线程，等待被前驱节点唤醒。</p>
-]]></content>
-      <tags>
-        <tag>Concurrency</tag>
       </tags>
   </entry>
   <entry>
@@ -6903,6 +6903,17 @@ public class CovariantArrays &#123;
       </tags>
   </entry>
   <entry>
+    <title>JDK</title>
+    <url>/jdk/</url>
+    <content><![CDATA[<h1 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h1><span id="more"></span>
+<h3 id="请问JDK和JRE的区别是什么？"><a href="#请问JDK和JRE的区别是什么？" class="headerlink" title="请问JDK和JRE的区别是什么？"></a>请问JDK和JRE的区别是什么？</h3><p>Java运行时环境(JRE)是将要执行Java程序的Java虚拟机。它同时也包含了执行applet需要的浏览器插件。Java开发工具包(JDK)是完整的Java软件开发包，包含了JRE，编译器和其他的工具(比如：JavaDoc，Java调试器)，可以让开发者开发、编译、执行Java应用程序。 </p>
+<h3 id="Java中的LongAdder和AtomicLong有什么区别？"><a href="#Java中的LongAdder和AtomicLong有什么区别？" class="headerlink" title="Java中的LongAdder和AtomicLong有什么区别？"></a>Java中的LongAdder和AtomicLong有什么区别？</h3><p>JDK1.8引入了LongAdder类。CAS机制就是，在一个死循环内，不断尝试修改目标值，直到修改成功。如果竞争不激烈，那么修改成功的概率就很高，否则，修改失败的的概率就很高，在大量修改失败时，这些原子操作就会进行多次循环尝试，因此性能就会受到影响。 结合ConcurrentHashMap的实现思想，应该可以想到对一种传统AtomicInteger等原子类的改进思路。虽然CAS操作没有锁，但是像减少粒度这种分离热点的思想依然可以使用。将AtomicInteger的内部核心数据value分离成一个数组，每个线程访问时，通过哈希等算法映射到其中一个数字进行计数，而最终的计数结果，则为这个数组的求和累加。热点数据value被分离成多个单元cell，每个cell独自维护内部的值，当前对象的实际值由所有的cell累计合成，这样热点就进行了有效的分离，提高了并行度。 </p>
+]]></content>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JDBC</title>
     <url>/jdbc/</url>
     <content><![CDATA[<h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><span id="more"></span>
@@ -7058,17 +7069,6 @@ public class CovariantArrays &#123;
       </tags>
   </entry>
   <entry>
-    <title>JDK</title>
-    <url>/jdk/</url>
-    <content><![CDATA[<h1 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h1><span id="more"></span>
-<h3 id="请问JDK和JRE的区别是什么？"><a href="#请问JDK和JRE的区别是什么？" class="headerlink" title="请问JDK和JRE的区别是什么？"></a>请问JDK和JRE的区别是什么？</h3><p>Java运行时环境(JRE)是将要执行Java程序的Java虚拟机。它同时也包含了执行applet需要的浏览器插件。Java开发工具包(JDK)是完整的Java软件开发包，包含了JRE，编译器和其他的工具(比如：JavaDoc，Java调试器)，可以让开发者开发、编译、执行Java应用程序。 </p>
-<h3 id="Java中的LongAdder和AtomicLong有什么区别？"><a href="#Java中的LongAdder和AtomicLong有什么区别？" class="headerlink" title="Java中的LongAdder和AtomicLong有什么区别？"></a>Java中的LongAdder和AtomicLong有什么区别？</h3><p>JDK1.8引入了LongAdder类。CAS机制就是，在一个死循环内，不断尝试修改目标值，直到修改成功。如果竞争不激烈，那么修改成功的概率就很高，否则，修改失败的的概率就很高，在大量修改失败时，这些原子操作就会进行多次循环尝试，因此性能就会受到影响。 结合ConcurrentHashMap的实现思想，应该可以想到对一种传统AtomicInteger等原子类的改进思路。虽然CAS操作没有锁，但是像减少粒度这种分离热点的思想依然可以使用。将AtomicInteger的内部核心数据value分离成一个数组，每个线程访问时，通过哈希等算法映射到其中一个数字进行计数，而最终的计数结果，则为这个数组的求和累加。热点数据value被分离成多个单元cell，每个cell独自维护内部的值，当前对象的实际值由所有的cell累计合成，这样热点就进行了有效的分离，提高了并行度。 </p>
-]]></content>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JVM classloader and parent delegation-mechanism</title>
     <url>/JVM-classloader-and-parent-delegation-mechanism/</url>
     <content><![CDATA[<h1 id="JVM-类加载器和双亲委派机制"><a href="#JVM-类加载器和双亲委派机制" class="headerlink" title="JVM-类加载器和双亲委派机制"></a>JVM-类加载器和双亲委派机制</h1><h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h4 id="java的六种存储地址及解释"><a href="#java的六种存储地址及解释" class="headerlink" title="java的六种存储地址及解释"></a>java的六种存储地址及解释</h4><p>1） 寄存器(register)：这是最快的存储区，因为它位于不同于其他存储区的地方——处理器内部。但是寄存器的数量极其有限，所以寄存器由编译器根据需求进行分配。你不能直接控制，也不能在程序中感觉到寄存器存在的任何迹象。</p>
@@ -7119,6 +7119,90 @@ public class CovariantArrays &#123;
 <p>4.重复步骤 3</p>
 <p>Class Not Found</p>
 </blockquote>
+]]></content>
+      <tags>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM垃圾回收机制</title>
+    <url>/jvm-gc/</url>
+    <content><![CDATA[<h3 id="GC是什么"><a href="#GC是什么" class="headerlink" title="GC是什么"></a>GC是什么</h3><p><strong>分代收集算法</strong></p>
+<blockquote>
+<p>次数上频繁收集Young区 Minor GC</p>
+<p>次数上较少收集Old区      Full GC</p>
+<p>基本不动Perm永久区</p>
+</blockquote>
+<h3 id="GC是发生在哪个部分"><a href="#GC是发生在哪个部分" class="headerlink" title="GC是发生在哪个部分"></a>GC是发生在哪个部分</h3><blockquote>
+<p>GC是发生在堆(heap)里面的</p>
+</blockquote>
+<h3 id="GC分几种"><a href="#GC分几种" class="headerlink" title="GC分几种?"></a>GC分几种?</h3><h4 id="one-引用计数法-被淘汰"><a href="#one-引用计数法-被淘汰" class="headerlink" title=":one:引用计数法(被淘汰)"></a>:one:引用计数法(被淘汰)</h4><p>缺点:</p>
+<ul>
+<li>每次对对象赋值时均要维护引用计数器,且计数器本身也有一定的消耗</li>
+<li>较难处理循环引用</li>
+</ul>
+<blockquote>
+<p>JVM的实现一般不采用这种方式</p>
+</blockquote>
+<h4 id="two-复制算法-Copying"><a href="#two-复制算法-Copying" class="headerlink" title=":two:复制算法(Copying)"></a>:two:复制算法(Copying)</h4><p>年轻代中使用的是Minor GC,这种GC算法采用的是复制算法(Copying)</p>
+<p><strong>原理:</strong></p>
+<ul>
+<li>从根集合(GC Root)开始,通过Tracing从From中找到存活对象,拷贝到To中;</li>
+<li>From丶To交换身份,下次内存分配从To开始</li>
+</ul>
+<p><strong>优势:heavy_check_mark:</strong> </p>
+<ul>
+<li><p>没有标记和清除的过程,效率高</p>
+</li>
+<li><p>没有内存碎片,可以利用bump-the-pointrt实现快速内存分配</p>
+</li>
+</ul>
+<p><strong>劣势:heavy_multiplication_x:</strong></p>
+<ul>
+<li>需要双倍空间</li>
+</ul>
+<h4 id="three-标记清除-Mark-Sweep"><a href="#three-标记清除-Mark-Sweep" class="headerlink" title=":three:标记清除(Mark-Sweep)"></a>:three:标记清除(Mark-Sweep)</h4><p>老年代一般是由标记清除或者是标记清除与标记整理的混合实现</p>
+<p><strong>原理</strong></p>
+<ul>
+<li><p>1.标记(Mark)</p>
+<p>从根集合开始扫描,对存活的对象进行标记</p>
+</li>
+<li><p>2.清除(Sweep)</p>
+<p>扫描整个内存空间,回收未被标记的对象,使用free-list记录可以区域.</p>
+</li>
+</ul>
+<p><strong>优势:heavy_check_mark:</strong> </p>
+<ul>
+<li>不需要额外空间</li>
+</ul>
+<p><strong>劣势:heavy_multiplication_x:</strong></p>
+<ul>
+<li>两次扫描,耗时严重</li>
+<li>会产生内存碎片</li>
+</ul>
+<h4 id="four-标记压缩-Mark-Compact"><a href="#four-标记压缩-Mark-Compact" class="headerlink" title=":four:标记压缩(Mark-Compact)"></a>:four:标记压缩(Mark-Compact)</h4><p><strong>原理:</strong></p>
+<ul>
+<li><p>1.标记(Mark)</p>
+<p>与标记-清除一样</p>
+</li>
+<li><p>2.压缩(Compact)</p>
+<p>再次扫描,并往一段滑动存活对象.</p>
+</li>
+</ul>
+<p><strong>优势:heavy_check_mark:</strong> </p>
+<ul>
+<li>没有内存碎片,可以利用bump-the-pointrt</li>
+</ul>
+<p><strong>劣势:heavy_multiplication_x:</strong></p>
+<ul>
+<li>需要移动对象的成本</li>
+</ul>
+<h4 id="five-标记清除压缩-Mark-Sweep-Compact"><a href="#five-标记清除压缩-Mark-Sweep-Compact" class="headerlink" title=":five:标记清除压缩(Mark-Sweep-Compact)"></a>:five:标记清除压缩(Mark-Sweep-Compact)</h4><p><strong>原理:</strong></p>
+<ul>
+<li>1.Mark-Sweep和Mark-Compact的结合</li>
+<li>2.和Mark-Sweep一致,当进行多次GC后才Compact</li>
+</ul>
+<p>:heavy_check_mark:减少移动对象的成本</p>
 ]]></content>
       <tags>
         <tag>jvm</tag>
@@ -7262,90 +7346,6 @@ public class CovariantArrays &#123;
 ]]></content>
       <tags>
         <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JVM垃圾回收机制</title>
-    <url>/jvm-gc/</url>
-    <content><![CDATA[<h3 id="GC是什么"><a href="#GC是什么" class="headerlink" title="GC是什么"></a>GC是什么</h3><p><strong>分代收集算法</strong></p>
-<blockquote>
-<p>次数上频繁收集Young区 Minor GC</p>
-<p>次数上较少收集Old区      Full GC</p>
-<p>基本不动Perm永久区</p>
-</blockquote>
-<h3 id="GC是发生在哪个部分"><a href="#GC是发生在哪个部分" class="headerlink" title="GC是发生在哪个部分"></a>GC是发生在哪个部分</h3><blockquote>
-<p>GC是发生在堆(heap)里面的</p>
-</blockquote>
-<h3 id="GC分几种"><a href="#GC分几种" class="headerlink" title="GC分几种?"></a>GC分几种?</h3><h4 id="one-引用计数法-被淘汰"><a href="#one-引用计数法-被淘汰" class="headerlink" title=":one:引用计数法(被淘汰)"></a>:one:引用计数法(被淘汰)</h4><p>缺点:</p>
-<ul>
-<li>每次对对象赋值时均要维护引用计数器,且计数器本身也有一定的消耗</li>
-<li>较难处理循环引用</li>
-</ul>
-<blockquote>
-<p>JVM的实现一般不采用这种方式</p>
-</blockquote>
-<h4 id="two-复制算法-Copying"><a href="#two-复制算法-Copying" class="headerlink" title=":two:复制算法(Copying)"></a>:two:复制算法(Copying)</h4><p>年轻代中使用的是Minor GC,这种GC算法采用的是复制算法(Copying)</p>
-<p><strong>原理:</strong></p>
-<ul>
-<li>从根集合(GC Root)开始,通过Tracing从From中找到存活对象,拷贝到To中;</li>
-<li>From丶To交换身份,下次内存分配从To开始</li>
-</ul>
-<p><strong>优势:heavy_check_mark:</strong> </p>
-<ul>
-<li><p>没有标记和清除的过程,效率高</p>
-</li>
-<li><p>没有内存碎片,可以利用bump-the-pointrt实现快速内存分配</p>
-</li>
-</ul>
-<p><strong>劣势:heavy_multiplication_x:</strong></p>
-<ul>
-<li>需要双倍空间</li>
-</ul>
-<h4 id="three-标记清除-Mark-Sweep"><a href="#three-标记清除-Mark-Sweep" class="headerlink" title=":three:标记清除(Mark-Sweep)"></a>:three:标记清除(Mark-Sweep)</h4><p>老年代一般是由标记清除或者是标记清除与标记整理的混合实现</p>
-<p><strong>原理</strong></p>
-<ul>
-<li><p>1.标记(Mark)</p>
-<p>从根集合开始扫描,对存活的对象进行标记</p>
-</li>
-<li><p>2.清除(Sweep)</p>
-<p>扫描整个内存空间,回收未被标记的对象,使用free-list记录可以区域.</p>
-</li>
-</ul>
-<p><strong>优势:heavy_check_mark:</strong> </p>
-<ul>
-<li>不需要额外空间</li>
-</ul>
-<p><strong>劣势:heavy_multiplication_x:</strong></p>
-<ul>
-<li>两次扫描,耗时严重</li>
-<li>会产生内存碎片</li>
-</ul>
-<h4 id="four-标记压缩-Mark-Compact"><a href="#four-标记压缩-Mark-Compact" class="headerlink" title=":four:标记压缩(Mark-Compact)"></a>:four:标记压缩(Mark-Compact)</h4><p><strong>原理:</strong></p>
-<ul>
-<li><p>1.标记(Mark)</p>
-<p>与标记-清除一样</p>
-</li>
-<li><p>2.压缩(Compact)</p>
-<p>再次扫描,并往一段滑动存活对象.</p>
-</li>
-</ul>
-<p><strong>优势:heavy_check_mark:</strong> </p>
-<ul>
-<li>没有内存碎片,可以利用bump-the-pointrt</li>
-</ul>
-<p><strong>劣势:heavy_multiplication_x:</strong></p>
-<ul>
-<li>需要移动对象的成本</li>
-</ul>
-<h4 id="five-标记清除压缩-Mark-Sweep-Compact"><a href="#five-标记清除压缩-Mark-Sweep-Compact" class="headerlink" title=":five:标记清除压缩(Mark-Sweep-Compact)"></a>:five:标记清除压缩(Mark-Sweep-Compact)</h4><p><strong>原理:</strong></p>
-<ul>
-<li>1.Mark-Sweep和Mark-Compact的结合</li>
-<li>2.和Mark-Sweep一致,当进行多次GC后才Compact</li>
-</ul>
-<p>:heavy_check_mark:减少移动对象的成本</p>
-]]></content>
-      <tags>
-        <tag>jvm</tag>
       </tags>
   </entry>
   <entry>
@@ -9059,6 +9059,77 @@ public class RedisService &#123;
       </tags>
   </entry>
   <entry>
+    <title>Lock</title>
+    <url>/lock/</url>
+    <content><![CDATA[<h1 id="LOCK"><a href="#LOCK" class="headerlink" title="LOCK"></a>LOCK</h1><span id="more"></span>
+<h3 id="简述一下synchronized与java-util-concurrent-locks-Lock的相同之处和不同之处？"><a href="#简述一下synchronized与java-util-concurrent-locks-Lock的相同之处和不同之处？" class="headerlink" title="简述一下synchronized与java.util.concurrent.locks.Lock的相同之处和不同之处？"></a>简述一下synchronized与java.util.concurrent.locks.Lock的相同之处和不同之处？</h3><p>主要相同点：Lock能完成synchronized所实现的所有功能<br>主要不同点：Lock有比synchronized更精确的线程语义和更好的性能。synchronized会自动释放锁，而Lock一定要求程序员手工释放，并且必须在finally从句中释放。 </p>
+<h3 id="JAVA中如何确保N个线程可以访问N个资源，但同时又不导致死锁？"><a href="#JAVA中如何确保N个线程可以访问N个资源，但同时又不导致死锁？" class="headerlink" title="JAVA中如何确保N个线程可以访问N个资源，但同时又不导致死锁？"></a>JAVA中如何确保N个线程可以访问N个资源，但同时又不导致死锁？</h3><p>使用多线程的时候，一种非常简单的避免死锁的方式就是：</p>
+<p>指定获取锁的顺序，并强制线程按照指定的顺序获取锁。因此，如果所有的线程都是以同样的顺序加锁和释放锁，就不会出现死锁了。</p>
+<p>预防死锁，预先破坏产生死锁的四个条件。互斥不可能破坏，所以有如下三种方法：</p>
+<p>1.破坏请求和保持条件，进程必须等所有要请求的资源都空闲时才能申请资源，这种方法会使资源浪费严重(有些资源可能仅在运行初期或结束时才使用，甚至根本不使用). 允许进程获取初期所需资源后，便开始运行，运行过程中再逐步释放自己占有的资源，比如有一个进程的任务是把数据复制到磁盘中再打印，前期只需获得磁盘资源而不需要获得打印机资源，待复制完毕后再释放掉磁盘资源。这种方法比第一种方法好，会使资源利用率上升。</p>
+<p>2.破坏不可抢占条件，这种方法代价大，实现复杂。</p>
+<p>3.破坏循坏等待条件，对各进程请求资源的顺序做一个规定，避免相互等待。这种方法对资源的利用率比前两种都高，但是前期要为设备指定序号，新设备加入会有一个问题，其次对用户编程也有限制。</p>
+<h3 id="请问什么是死锁-deadlock"><a href="#请问什么是死锁-deadlock" class="headerlink" title="请问什么是死锁(deadlock)?"></a>请问什么是死锁(deadlock)?</h3><p>两个线程或两个以上线程都在等待对方执行完毕才能继续往下执行的时候就发生了死锁。结果就是这些线程都陷入了无限的等待中。</p>
+<p>例如，如果线程1锁住了A，然后尝试对B进行加锁，同时线程2已经锁住了B，接着尝试对A进行加锁，这时死锁就发生了。线程1永远得不到B，线程2也永远得不到A，并且它们永远也不会知道发生了这样的事情。为了得到彼此的对象（A和B），它们将永远阻塞下去。这种情况就是一个死锁。</p>
+<h3 id="说明一下锁和同步的区别。"><a href="#说明一下锁和同步的区别。" class="headerlink" title="说明一下锁和同步的区别。"></a>说明一下锁和同步的区别。</h3><p><strong>用法上的不同：</strong><br>synchronized既可以加在方法上，也可以加载特定代码块上，而lock需要显示地指定起始位置和终止位置。<br>synchronized是托管给JVM执行的12，lock的锁定是通过代码实现的，它有比synchronized更精确的线程语义。<br><strong>性能上的不同：</strong><br>lock接口的实现类ReentrantLock，不仅具有和synchronized相同的并发性和内存语义，还多了超时的获取锁、定时锁、等候和中断锁等。<br>在竞争不是很激烈的情况下，synchronized的性能优于ReentrantLock，竞争激烈的情况下synchronized的性能会下降的非常快，而ReentrantLock则基本不变。<br><strong>锁机制不同：</strong><br>synchronized获取锁和释放锁的方式都是在块结构中，当获取多个锁时，必须以相反的顺序释放，并且是自动解锁。而Lock则需要开发人员手动释放，并且必须在finally中释放，否则会引起死锁。 </p>
+<h3 id="请说明一下synchronized的可重入怎么实现。"><a href="#请说明一下synchronized的可重入怎么实现。" class="headerlink" title="请说明一下synchronized的可重入怎么实现。"></a>请说明一下synchronized的可重入怎么实现。</h3><p> 每个锁关联一个线程持有者和一个计数器。当计数器为0时表示该锁没有被任何线程持有，那么任何线程都都可能获得该锁而调用相应方法。当一个线程请求成功后，JVM会记下持有锁的线程，并将计数器计为1。此时其他线程请求该锁，则必须等待。而该持有锁的线程如果再次请求这个锁，就可以再次拿到这个锁，同时计数器会递增。当线程退出一个synchronized方法/块时，计数器会递减，如果计数器为0则释放该锁。 </p>
+<h3 id="请讲一下非公平锁和公平锁在reetrantlock里的实现过程是怎样的。"><a href="#请讲一下非公平锁和公平锁在reetrantlock里的实现过程是怎样的。" class="headerlink" title="请讲一下非公平锁和公平锁在reetrantlock里的实现过程是怎样的。"></a>请讲一下非公平锁和公平锁在reetrantlock里的实现过程是怎样的。</h3><p> 如果一个锁是公平的，那么锁的获取顺序就应该符合请求的绝对时间顺序，FIFO。对于非公平锁，只要CAS设置同步状态成功，则表示当前线程获取了锁，而公平锁还需要判断当前节点是否有前驱节点，如果有，则表示有线程比当前线程更早请求获取锁，因此需要等待前驱线程获取并释放锁之后才能继续获取锁。 </p>
+]]></content>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MVC</title>
+    <url>/mvc/</url>
+    <content><![CDATA[<h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><span id="more"></span>
+<h3 id="请谈一下Spring-MVC的工作原理是怎样的？"><a href="#请谈一下Spring-MVC的工作原理是怎样的？" class="headerlink" title="请谈一下Spring MVC的工作原理是怎样的？"></a>请谈一下Spring MVC的工作原理是怎样的？</h3><p>①客户端的所有请求都交给前端控制器DispatcherServlet来处理，它会负责调用系统的其他模块来真正处理用户的请求。<br>② DispatcherServlet收到请求后，将根据请求的信息（包括URL、HTTP协议方法、请求头、请求参数、Cookie等）以及HandlerMapping的配置找到处理该请求的Handler（任何一个对象都可以作为请求的Handler）。<br>③在这个地方Spring会通过HandlerAdapter对该处理器进行封装。<br>④ HandlerAdapter是一个适配器，它用统一的接口对各种Handler中的方法进行调用。<br>⑤ Handler完成对用户请求的处理后，会返回一个ModelAndView对象给DispatcherServlet，ModelAndView顾名思义，包含了数据模型以及相应的视图的信息。<br>⑥ ModelAndView的视图是逻辑视图，DispatcherServlet还要借助ViewResolver完成从逻辑视图到真实视图对象的解析工作。<br>⑦ 当得到真正的视图对象后，DispatcherServlet会利用视图对象对模型数据进行渲染。<br>⑧ 客户端得到响应，可能是一个普通的HTML页面，也可以是XML或JSON字符串，还可以是一张图片或者一个PDF文件。 </p>
+<h3 id="简述一下SpringMVC的运行机制？以及运行机制的流程是什么？"><a href="#简述一下SpringMVC的运行机制？以及运行机制的流程是什么？" class="headerlink" title="简述一下SpringMVC的运行机制？以及运行机制的流程是什么？"></a>简述一下SpringMVC的运行机制？以及运行机制的流程是什么？</h3><p>1、用户发送请求时会先从DispathcherServler的doService方法开始，在该方法中会将ApplicationContext、localeResolver、themeResolver等对象添加到request中，紧接着就是调用doDispatch方法。</p>
+<p>2、进入该方法后首先会检查该请求是否是文件上传的请求(校验的规则是是否是post并且contenttType是否为multipart/为前缀)即调用的是checkMultipart方法；如果是的将request包装成MultipartHttpServletRequest。</p>
+<p>3、然后调用getHandler方法来匹配每个HandlerMapping对象，如果匹配成功会返回这个Handle的处理链HandlerExecutionChain对象，在获取该对象的内部其实也获取我们自定定义的拦截器，并执行了其中的方法。</p>
+<p>4、执行拦截器的preHandle方法，如果返回false执行afterCompletion方法并理解返回</p>
+<p>5、通过上述获取到了HandlerExecutionChain对象，通过该对象的getHandler()方法获得一个object通过HandlerAdapter进行封装得到HandlerAdapter对象。</p>
+<p>6、该对象调用handle方法来执行Controller中的方法，该对象如果返回一个ModelAndView给DispatcherServlet。</p>
+<p>7、DispatcherServlet借助ViewResolver完成逻辑试图名到真实视图对象的解析，得到View后DispatcherServlet使用这个View对ModelAndView中的模型数据进行视图渲染。</p>
+<h3 id="说明一下springmvc和spring-boot区别是什么？"><a href="#说明一下springmvc和spring-boot区别是什么？" class="headerlink" title="说明一下springmvc和spring-boot区别是什么？"></a>说明一下springmvc和spring-boot区别是什么？</h3><p>总的来说，Spring 就像一个大家族，有众多衍生产品例如 Boot，Security，JPA等等。但他们的基础都是Spring 的 IOC 和 AOP，IOC提供了依赖注入的容器，而AOP解决了面向切面的编程，然后在此两者的基础上实现了其他衍生产品的高级功能；因为 Spring 的配置非常复杂，各种xml，properties处理起来比较繁琐。于是为了简化开发者的使用，Spring社区创造性地推出了Spring Boot，它遵循约定优于配置，极大降低了Spring使用门槛，但又不失Spring原本灵活强大的功能。 </p>
+<h3 id="说明一下Spring-MVC注解的优点是什么？"><a href="#说明一下Spring-MVC注解的优点是什么？" class="headerlink" title="说明一下Spring MVC注解的优点是什么？"></a>说明一下Spring MVC注解的优点是什么？</h3><p>1、XML配置起来有时候冗长，此时注解可能是更好的选择，如jpa的实体映射；注解在处理一些不变的元数据时有时候比XML方便的多，比如springmvc的数据绑定，如果用xml写的代码会多的多；</p>
+<p>2、注解最大的好处就是简化了XML配置；其实大部分注解一定确定后很少会改变，所以在一些中小项目中使用注解反而提供了开发效率，所以没必要一头走到黑；</p>
+<p>3、注解相对于XML的另一个好处是类型安全的，XML只能在运行期才能发现问题。</p>
+<h3 id="请简单介绍一下你了解的Java领域中的Web-Service框架都有哪些？"><a href="#请简单介绍一下你了解的Java领域中的Web-Service框架都有哪些？" class="headerlink" title="请简单介绍一下你了解的Java领域中的Web Service框架都有哪些？"></a>请简单介绍一下你了解的Java领域中的Web Service框架都有哪些？</h3><p>Java领域的Web Service框架很多，包括Axis2（Axis的升级版本）、Jersey（RESTful的Web Service框架）、CXF（XFire的延续版本）、Hessian、Turmeric、JBoss SOA等，其中绝大多数都是开源框架。 </p>
+<h3 id="简述一下Mybatis和Hibernate的区别是什么？"><a href="#简述一下Mybatis和Hibernate的区别是什么？" class="headerlink" title="简述一下Mybatis和Hibernate的区别是什么？"></a>简述一下Mybatis和Hibernate的区别是什么？</h3><p>1、简介</p>
+<p>Hibernate：Hibernate是当前最流行的ORM框架之一，对JDBC提供了较为完整的封装。Hibernate的O/R Mapping实现了POJO 和数据库表之间的映射，以及SQL的自动生成和执行。</p>
+<p>Mybatis：Mybatis同样也是非常流行的ORM框架，主要着力点在于 POJO 与 SQL 之间的映射关系。然后通过映射配置文件，将SQL所需的参数，以及返回的结果字段映射到指定 POJO 。相对Hibernate“O/R”而言，Mybatis 是一种“Sql Mapping”的ORM实现。</p>
+<p>2、缓存机制对比</p>
+<p>相同点</p>
+<p>Hibernate和Mybatis的二级缓存除了采用系统默认的缓存机制外，都可以通过实现你自己的缓存或为其他第三方缓存方案，创建适配器来完全覆盖缓存行为。</p>
+<p>不同点</p>
+<p>Hibernate的二级缓存配置在SessionFactory生成的配置文件中进行详细配置，然后再在具体的表-对象映射中配置是那种缓存。</p>
+<p>MyBatis的二级缓存配置都是在每个具体的表-对象映射中进行详细配置，这样针对不同的表可以自定义不同的缓存机制。并且Mybatis可以在命名空间中共享相同的缓存配置和实例，通过Cache-ref来实现。</p>
+<p>两者比较</p>
+<p>因为Hibernate对查询对象有着良好的管理机制，用户无需关心SQL。所以在使用二级缓存时如果出现脏数据，系统会报出错误并提示。而MyBatis在这一方面，使用二级缓存时需要特别小心。如果不能完全确定数据更新操作的波及范围，避免Cache的盲目使用。否则，脏数据的出现会给系统的正常运行带来很大的隐患。</p>
+<p>Mybatis：小巧、方便、高效、简单、直接、半自动化</p>
+<p>Hibernate：强大、方便、高效、复杂、间接、全自动化</p>
+<h3 id="请问EJB需要直接实现它的业务接口或者Home接口吗？请简述一下理由。"><a href="#请问EJB需要直接实现它的业务接口或者Home接口吗？请简述一下理由。" class="headerlink" title="请问EJB需要直接实现它的业务接口或者Home接口吗？请简述一下理由。"></a>请问EJB需要直接实现它的业务接口或者Home接口吗？请简述一下理由。</h3><p> 在EJB中则至少要包括10个class:<br>Bean类，特定App Server的Bean实现类Bean的remote接口，特定App Server的remote接口实现类，特定App Server的remote接口的实现类的stub类和skeleton类。<br>Bean的home接口，特定App Server的home接口实现类，特定App Server的home接口的实现类的stub类和skeleton类。<br>和RMI不同的是，EJB中这10个class真正需要用户写的只有3个，Bean类，remote接口，home接口，其它的7个究竟怎么生成，被打包在哪里，是否需要更多的类文件，否根据不同的App Server表现出较大的差异。<br>Weblogic：<br>home接口和remote接口的weblogic的实现类的stub类和skeleton类是在EJB被部署到weblogic的时候，由weblogic动态生成stub类和skeleton类的字节码，所以看不到这4个类文件。<br>对于一次客户端远程调用EJB，要经过两个远程对象的多次RMI循环。首先是通过JNDI查找Home接口，获得Home接口的实现类，这个过程其实相当复杂，首先是找到Home接口的Weblogic实现类，然后创建一个Home接口的Weblogic实现类的stub类的对象实例，将它序列化传送给客户端（注意stub类的实例是在第1次RMI循环中，由服务器动态发送给客户端的，因此不需要客户端保存Home接口的Weblogic实现类的stub 类），最后客户端获得该stub类的对象实例（普通的RMI需要在客户端保存stub类，而EJB不需要，因为服务器会把stub类的对象实例发送给客户端）。<br>客户端拿到服务器给它的Home接口的Weblogic实现类的stub类对象实例以后，调用stub类的create方法， (在代码上就是home.create()，但是后台要做很多事情),于是经过第2次RMI循环，在服务器端，Home接口的Weblogic实现类的 skeleton类收到stub类的调用信息后，由它再去调用Home接口的Weblogic实现类的create方法。<br>在服务端， Home接口的Weblogic实现类的create方法再去调用Bean类的Weblogic实现类的ejbCreate方法，在服务端创建或者分配一个EJB实例，然后将这个EJB实例的远程接口的Weblogic实现类的stub类对象实例序列化发送给客户端。 </p>
+<h3 id="说明一下EJB的几种类型分别是什么？"><a href="#说明一下EJB的几种类型分别是什么？" class="headerlink" title="说明一下EJB的几种类型分别是什么？"></a>说明一下EJB的几种类型分别是什么？</h3><p>会话（Session）Bean ，实体（Entity）Bean 消息驱动的（Message Driven）Bean，会话Bean又可分为有状态（Stateful）和无状态（Stateless）两种，<br>实体Bean可分为Bean管理的持续性（BMP）和容器管理的持续性（CMP）两种。 </p>
+<h3 id="简述一下EJB的激活机制是什么？"><a href="#简述一下EJB的激活机制是什么？" class="headerlink" title="简述一下EJB的激活机制是什么？"></a>简述一下EJB的激活机制是什么？</h3><p>以Stateful Session Bean 为例：其Cache大小决定了内存中可以同时存在的Bean实例的数量，根据MRU或NRU算法，实例在激活和去激活状态之间迁移，激活机制是当客户端调用某个EJB实例业务方法时，如果对应EJB Object发现自己没有绑定对应的Bean实例则从其去激活Bean存储中（通过序列化机制存储实例）回复（激活）此实例。状态变迁前会调用对应的 ejbActive和ejbPassivate方法。 </p>
+<h3 id="说一下EJB规范中EJB禁止的操作有哪些？"><a href="#说一下EJB规范中EJB禁止的操作有哪些？" class="headerlink" title="说一下EJB规范中EJB禁止的操作有哪些？"></a>说一下EJB规范中EJB禁止的操作有哪些？</h3><p>1.不能操作线程和线程API(线程API指非线程对象的方法如notify,wait等)，</p>
+<p>2.不能操作awt，</p>
+<p>3.不能实现服务器功能，</p>
+<p>4.不能对静态属生存取，</p>
+<p>5.不能使用IO操作直接存取文件系统，</p>
+<p>6.不能加载本地库.，</p>
+<p>7.不能将this作为变量和返回，</p>
+<p>8.不能循环调用。</p>
+<h3 id="请简述一下EJB的角色以及对应的三个对象分别是什么？"><a href="#请简述一下EJB的角色以及对应的三个对象分别是什么？" class="headerlink" title="请简述一下EJB的角色以及对应的三个对象分别是什么？"></a>请简述一下EJB的角色以及对应的三个对象分别是什么？</h3><p> 一个完整的基于EJB的分布式计算结构由六个角色组成，这六个角色可以由不同的开发商提供，每个角色所作的工作必须遵循Sun公司提供的EJB规范，以保证彼此之间的兼容性。这六个角色分别是EJB组件开发者（Enterprise Bean Provider） 、应用组合者（Application Assembler）、部署者（Deployer）、EJB 服务器提供者（EJB Server Provider）、EJB 容器提供者（EJB Container Provider）、系统管理员（System Administrator）<br>三个对象是Remote（Local）接口、Home（LocalHome）接口，Bean类 </p>
+<h3 id="EJB包括SessionBean和EntityBean，请说出他们的生命周期以及EJB是如何管理事务的？"><a href="#EJB包括SessionBean和EntityBean，请说出他们的生命周期以及EJB是如何管理事务的？" class="headerlink" title="EJB包括SessionBean和EntityBean，请说出他们的生命周期以及EJB是如何管理事务的？"></a>EJB包括SessionBean和EntityBean，请说出他们的生命周期以及EJB是如何管理事务的？</h3><p>SessionBean： Stateless Session Bean 的生命周期是由容器决定的，当客户机发出请求要建立一个Bean的实例时，EJB容器不一定要创建一个新的Bean的实例供客户机调用，而是随便找一个现有的实例提供给客户机。当客户机第一次调用一个Stateful Session Bean 时，容器必须立即在服务器中创建一个新的Bean实例，并关联到客户机上，以后此客户机调用Stateful Session Bean 的方法时容器会把调用分派到与此客户机相关联的Bean实例。<br>EntityBean：Entity Beans能存活相对较长的时间，并且状态是持续的。只要数据库中的数据存在，Entity beans就一直存活。而不是按照应用程序或者服务进程来说的。即使EJB容器崩溃了，Entity beans也是存活的。Entity Beans生命周期能够被容器或者Beans自己管理。<br>EJB通过以下技术管理实务：对象管理组织（OMG）的对象实务服务（OTS），Sun Microsystems的Transaction Service（JTS）、Java Transaction API（JTA），开发组（X/Open）的XA接口。 </p>
+<h3 id="EJB与JAVA-BEAN的区别是什么？"><a href="#EJB与JAVA-BEAN的区别是什么？" class="headerlink" title="EJB与JAVA BEAN的区别是什么？"></a>EJB与JAVA BEAN的区别是什么？</h3><p> Java Bean 是可复用的组件，对Java Bean并没有严格的规范，理论上讲，任何一个Java类都可以是一个Bean。但通常情况下，由于Java Bean是被容器所创建（如Tomcat）的，所以Java Bean应具有一个无参的构造器，另外，通常Java Bean还要实现Serializable接口用于实现Bean的持久性。Java Bean实际上相当于微软COM模型中的本地进程内COM组件，它是不能被跨进程访问的。EnterpriseJava Bean 相当于DCOM，即分布式组件。它是基于Java的远程方法调用（RMI）技术的，所以EJB可以被远程访问（跨进程、跨计算机）。但EJB必须被布署在诸如Webspere、WebLogic这样的容器中，EJB客户从不直接访问真正的EJB组件，而是通过其容器访问。EJB容器是EJB组件的代理， EJB组件由容器所创建和管理。客户通过容器来访问真正的EJB组件。 </p>
+<h3 id="请问EJB是基于哪些技术实现的？并说明一下SessionBean和EntityBean的区别以及StatefulBean和StatelessBean的区别。"><a href="#请问EJB是基于哪些技术实现的？并说明一下SessionBean和EntityBean的区别以及StatefulBean和StatelessBean的区别。" class="headerlink" title="请问EJB是基于哪些技术实现的？并说明一下SessionBean和EntityBean的区别以及StatefulBean和StatelessBean的区别。"></a>请问EJB是基于哪些技术实现的？并说明一下SessionBean和EntityBean的区别以及StatefulBean和StatelessBean的区别。</h3><p>EJB包括Session Bean、Entity Bean、Message Driven Bean，基于JNDI、RMI、JAT等技术实现。<br>SessionBean在J2EE应用程序中被用来完成一些服务器端的业务操作，例如访问数据库、调用其他EJB组件。EntityBean被用来代表应用系统中用到的数据。<br>对于客户机，SessionBean是一种非持久性对象，它实现某些在服务器上运行的业务逻辑。<br>对于客户机，EntityBean是一种持久性对象，它代表一个存储在持久性存储器中的实体的对象视图，或是一个由现有企业应用程序实现的实体。<br>Session Bean 还可以再细分为 Stateful Session Bean 与 Stateless Session Bean ，这两种的 Session Bean都可以将系统逻辑放在 method之中执行，不同的是 Stateful Session Bean 可以记录呼叫者的状态，因此通常来说，一个使用者会有一个相对应的Stateful Session Bean 的实体。Stateless Session Bean 虽然也是逻辑组件，但是他却不负责记录使用者状态，也就是说当使用者呼叫 Stateless Session Bean 的时候，EJB Container 并不会找寻特定的 Stateless Session Bean 的实体来执行这个 method。换言之，很可能数个使用者在执行某个 Stateless Session Bean 的 methods 时，会是同一个 Bean 的 Instance 在执行。从内存方面来看， Stateful Session Bean 与 Stateless Session Bean 比较， Stateful Session Bean 会消耗 J2EE Server 较多的内存，然而 Stateful Session Bean 的优势却在于他可以维持使用者的状态。</p>
+]]></content>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux</title>
     <url>/linux/</url>
     <content><![CDATA[<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><span id="more"></span>
@@ -9951,77 +10022,6 @@ default-character-set=utf8
 ]]></content>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Lock</title>
-    <url>/lock/</url>
-    <content><![CDATA[<h1 id="LOCK"><a href="#LOCK" class="headerlink" title="LOCK"></a>LOCK</h1><span id="more"></span>
-<h3 id="简述一下synchronized与java-util-concurrent-locks-Lock的相同之处和不同之处？"><a href="#简述一下synchronized与java-util-concurrent-locks-Lock的相同之处和不同之处？" class="headerlink" title="简述一下synchronized与java.util.concurrent.locks.Lock的相同之处和不同之处？"></a>简述一下synchronized与java.util.concurrent.locks.Lock的相同之处和不同之处？</h3><p>主要相同点：Lock能完成synchronized所实现的所有功能<br>主要不同点：Lock有比synchronized更精确的线程语义和更好的性能。synchronized会自动释放锁，而Lock一定要求程序员手工释放，并且必须在finally从句中释放。 </p>
-<h3 id="JAVA中如何确保N个线程可以访问N个资源，但同时又不导致死锁？"><a href="#JAVA中如何确保N个线程可以访问N个资源，但同时又不导致死锁？" class="headerlink" title="JAVA中如何确保N个线程可以访问N个资源，但同时又不导致死锁？"></a>JAVA中如何确保N个线程可以访问N个资源，但同时又不导致死锁？</h3><p>使用多线程的时候，一种非常简单的避免死锁的方式就是：</p>
-<p>指定获取锁的顺序，并强制线程按照指定的顺序获取锁。因此，如果所有的线程都是以同样的顺序加锁和释放锁，就不会出现死锁了。</p>
-<p>预防死锁，预先破坏产生死锁的四个条件。互斥不可能破坏，所以有如下三种方法：</p>
-<p>1.破坏请求和保持条件，进程必须等所有要请求的资源都空闲时才能申请资源，这种方法会使资源浪费严重(有些资源可能仅在运行初期或结束时才使用，甚至根本不使用). 允许进程获取初期所需资源后，便开始运行，运行过程中再逐步释放自己占有的资源，比如有一个进程的任务是把数据复制到磁盘中再打印，前期只需获得磁盘资源而不需要获得打印机资源，待复制完毕后再释放掉磁盘资源。这种方法比第一种方法好，会使资源利用率上升。</p>
-<p>2.破坏不可抢占条件，这种方法代价大，实现复杂。</p>
-<p>3.破坏循坏等待条件，对各进程请求资源的顺序做一个规定，避免相互等待。这种方法对资源的利用率比前两种都高，但是前期要为设备指定序号，新设备加入会有一个问题，其次对用户编程也有限制。</p>
-<h3 id="请问什么是死锁-deadlock"><a href="#请问什么是死锁-deadlock" class="headerlink" title="请问什么是死锁(deadlock)?"></a>请问什么是死锁(deadlock)?</h3><p>两个线程或两个以上线程都在等待对方执行完毕才能继续往下执行的时候就发生了死锁。结果就是这些线程都陷入了无限的等待中。</p>
-<p>例如，如果线程1锁住了A，然后尝试对B进行加锁，同时线程2已经锁住了B，接着尝试对A进行加锁，这时死锁就发生了。线程1永远得不到B，线程2也永远得不到A，并且它们永远也不会知道发生了这样的事情。为了得到彼此的对象（A和B），它们将永远阻塞下去。这种情况就是一个死锁。</p>
-<h3 id="说明一下锁和同步的区别。"><a href="#说明一下锁和同步的区别。" class="headerlink" title="说明一下锁和同步的区别。"></a>说明一下锁和同步的区别。</h3><p><strong>用法上的不同：</strong><br>synchronized既可以加在方法上，也可以加载特定代码块上，而lock需要显示地指定起始位置和终止位置。<br>synchronized是托管给JVM执行的12，lock的锁定是通过代码实现的，它有比synchronized更精确的线程语义。<br><strong>性能上的不同：</strong><br>lock接口的实现类ReentrantLock，不仅具有和synchronized相同的并发性和内存语义，还多了超时的获取锁、定时锁、等候和中断锁等。<br>在竞争不是很激烈的情况下，synchronized的性能优于ReentrantLock，竞争激烈的情况下synchronized的性能会下降的非常快，而ReentrantLock则基本不变。<br><strong>锁机制不同：</strong><br>synchronized获取锁和释放锁的方式都是在块结构中，当获取多个锁时，必须以相反的顺序释放，并且是自动解锁。而Lock则需要开发人员手动释放，并且必须在finally中释放，否则会引起死锁。 </p>
-<h3 id="请说明一下synchronized的可重入怎么实现。"><a href="#请说明一下synchronized的可重入怎么实现。" class="headerlink" title="请说明一下synchronized的可重入怎么实现。"></a>请说明一下synchronized的可重入怎么实现。</h3><p> 每个锁关联一个线程持有者和一个计数器。当计数器为0时表示该锁没有被任何线程持有，那么任何线程都都可能获得该锁而调用相应方法。当一个线程请求成功后，JVM会记下持有锁的线程，并将计数器计为1。此时其他线程请求该锁，则必须等待。而该持有锁的线程如果再次请求这个锁，就可以再次拿到这个锁，同时计数器会递增。当线程退出一个synchronized方法/块时，计数器会递减，如果计数器为0则释放该锁。 </p>
-<h3 id="请讲一下非公平锁和公平锁在reetrantlock里的实现过程是怎样的。"><a href="#请讲一下非公平锁和公平锁在reetrantlock里的实现过程是怎样的。" class="headerlink" title="请讲一下非公平锁和公平锁在reetrantlock里的实现过程是怎样的。"></a>请讲一下非公平锁和公平锁在reetrantlock里的实现过程是怎样的。</h3><p> 如果一个锁是公平的，那么锁的获取顺序就应该符合请求的绝对时间顺序，FIFO。对于非公平锁，只要CAS设置同步状态成功，则表示当前线程获取了锁，而公平锁还需要判断当前节点是否有前驱节点，如果有，则表示有线程比当前线程更早请求获取锁，因此需要等待前驱线程获取并释放锁之后才能继续获取锁。 </p>
-]]></content>
-      <tags>
-        <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MVC</title>
-    <url>/mvc/</url>
-    <content><![CDATA[<h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><span id="more"></span>
-<h3 id="请谈一下Spring-MVC的工作原理是怎样的？"><a href="#请谈一下Spring-MVC的工作原理是怎样的？" class="headerlink" title="请谈一下Spring MVC的工作原理是怎样的？"></a>请谈一下Spring MVC的工作原理是怎样的？</h3><p>①客户端的所有请求都交给前端控制器DispatcherServlet来处理，它会负责调用系统的其他模块来真正处理用户的请求。<br>② DispatcherServlet收到请求后，将根据请求的信息（包括URL、HTTP协议方法、请求头、请求参数、Cookie等）以及HandlerMapping的配置找到处理该请求的Handler（任何一个对象都可以作为请求的Handler）。<br>③在这个地方Spring会通过HandlerAdapter对该处理器进行封装。<br>④ HandlerAdapter是一个适配器，它用统一的接口对各种Handler中的方法进行调用。<br>⑤ Handler完成对用户请求的处理后，会返回一个ModelAndView对象给DispatcherServlet，ModelAndView顾名思义，包含了数据模型以及相应的视图的信息。<br>⑥ ModelAndView的视图是逻辑视图，DispatcherServlet还要借助ViewResolver完成从逻辑视图到真实视图对象的解析工作。<br>⑦ 当得到真正的视图对象后，DispatcherServlet会利用视图对象对模型数据进行渲染。<br>⑧ 客户端得到响应，可能是一个普通的HTML页面，也可以是XML或JSON字符串，还可以是一张图片或者一个PDF文件。 </p>
-<h3 id="简述一下SpringMVC的运行机制？以及运行机制的流程是什么？"><a href="#简述一下SpringMVC的运行机制？以及运行机制的流程是什么？" class="headerlink" title="简述一下SpringMVC的运行机制？以及运行机制的流程是什么？"></a>简述一下SpringMVC的运行机制？以及运行机制的流程是什么？</h3><p>1、用户发送请求时会先从DispathcherServler的doService方法开始，在该方法中会将ApplicationContext、localeResolver、themeResolver等对象添加到request中，紧接着就是调用doDispatch方法。</p>
-<p>2、进入该方法后首先会检查该请求是否是文件上传的请求(校验的规则是是否是post并且contenttType是否为multipart/为前缀)即调用的是checkMultipart方法；如果是的将request包装成MultipartHttpServletRequest。</p>
-<p>3、然后调用getHandler方法来匹配每个HandlerMapping对象，如果匹配成功会返回这个Handle的处理链HandlerExecutionChain对象，在获取该对象的内部其实也获取我们自定定义的拦截器，并执行了其中的方法。</p>
-<p>4、执行拦截器的preHandle方法，如果返回false执行afterCompletion方法并理解返回</p>
-<p>5、通过上述获取到了HandlerExecutionChain对象，通过该对象的getHandler()方法获得一个object通过HandlerAdapter进行封装得到HandlerAdapter对象。</p>
-<p>6、该对象调用handle方法来执行Controller中的方法，该对象如果返回一个ModelAndView给DispatcherServlet。</p>
-<p>7、DispatcherServlet借助ViewResolver完成逻辑试图名到真实视图对象的解析，得到View后DispatcherServlet使用这个View对ModelAndView中的模型数据进行视图渲染。</p>
-<h3 id="说明一下springmvc和spring-boot区别是什么？"><a href="#说明一下springmvc和spring-boot区别是什么？" class="headerlink" title="说明一下springmvc和spring-boot区别是什么？"></a>说明一下springmvc和spring-boot区别是什么？</h3><p>总的来说，Spring 就像一个大家族，有众多衍生产品例如 Boot，Security，JPA等等。但他们的基础都是Spring 的 IOC 和 AOP，IOC提供了依赖注入的容器，而AOP解决了面向切面的编程，然后在此两者的基础上实现了其他衍生产品的高级功能；因为 Spring 的配置非常复杂，各种xml，properties处理起来比较繁琐。于是为了简化开发者的使用，Spring社区创造性地推出了Spring Boot，它遵循约定优于配置，极大降低了Spring使用门槛，但又不失Spring原本灵活强大的功能。 </p>
-<h3 id="说明一下Spring-MVC注解的优点是什么？"><a href="#说明一下Spring-MVC注解的优点是什么？" class="headerlink" title="说明一下Spring MVC注解的优点是什么？"></a>说明一下Spring MVC注解的优点是什么？</h3><p>1、XML配置起来有时候冗长，此时注解可能是更好的选择，如jpa的实体映射；注解在处理一些不变的元数据时有时候比XML方便的多，比如springmvc的数据绑定，如果用xml写的代码会多的多；</p>
-<p>2、注解最大的好处就是简化了XML配置；其实大部分注解一定确定后很少会改变，所以在一些中小项目中使用注解反而提供了开发效率，所以没必要一头走到黑；</p>
-<p>3、注解相对于XML的另一个好处是类型安全的，XML只能在运行期才能发现问题。</p>
-<h3 id="请简单介绍一下你了解的Java领域中的Web-Service框架都有哪些？"><a href="#请简单介绍一下你了解的Java领域中的Web-Service框架都有哪些？" class="headerlink" title="请简单介绍一下你了解的Java领域中的Web Service框架都有哪些？"></a>请简单介绍一下你了解的Java领域中的Web Service框架都有哪些？</h3><p>Java领域的Web Service框架很多，包括Axis2（Axis的升级版本）、Jersey（RESTful的Web Service框架）、CXF（XFire的延续版本）、Hessian、Turmeric、JBoss SOA等，其中绝大多数都是开源框架。 </p>
-<h3 id="简述一下Mybatis和Hibernate的区别是什么？"><a href="#简述一下Mybatis和Hibernate的区别是什么？" class="headerlink" title="简述一下Mybatis和Hibernate的区别是什么？"></a>简述一下Mybatis和Hibernate的区别是什么？</h3><p>1、简介</p>
-<p>Hibernate：Hibernate是当前最流行的ORM框架之一，对JDBC提供了较为完整的封装。Hibernate的O/R Mapping实现了POJO 和数据库表之间的映射，以及SQL的自动生成和执行。</p>
-<p>Mybatis：Mybatis同样也是非常流行的ORM框架，主要着力点在于 POJO 与 SQL 之间的映射关系。然后通过映射配置文件，将SQL所需的参数，以及返回的结果字段映射到指定 POJO 。相对Hibernate“O/R”而言，Mybatis 是一种“Sql Mapping”的ORM实现。</p>
-<p>2、缓存机制对比</p>
-<p>相同点</p>
-<p>Hibernate和Mybatis的二级缓存除了采用系统默认的缓存机制外，都可以通过实现你自己的缓存或为其他第三方缓存方案，创建适配器来完全覆盖缓存行为。</p>
-<p>不同点</p>
-<p>Hibernate的二级缓存配置在SessionFactory生成的配置文件中进行详细配置，然后再在具体的表-对象映射中配置是那种缓存。</p>
-<p>MyBatis的二级缓存配置都是在每个具体的表-对象映射中进行详细配置，这样针对不同的表可以自定义不同的缓存机制。并且Mybatis可以在命名空间中共享相同的缓存配置和实例，通过Cache-ref来实现。</p>
-<p>两者比较</p>
-<p>因为Hibernate对查询对象有着良好的管理机制，用户无需关心SQL。所以在使用二级缓存时如果出现脏数据，系统会报出错误并提示。而MyBatis在这一方面，使用二级缓存时需要特别小心。如果不能完全确定数据更新操作的波及范围，避免Cache的盲目使用。否则，脏数据的出现会给系统的正常运行带来很大的隐患。</p>
-<p>Mybatis：小巧、方便、高效、简单、直接、半自动化</p>
-<p>Hibernate：强大、方便、高效、复杂、间接、全自动化</p>
-<h3 id="请问EJB需要直接实现它的业务接口或者Home接口吗？请简述一下理由。"><a href="#请问EJB需要直接实现它的业务接口或者Home接口吗？请简述一下理由。" class="headerlink" title="请问EJB需要直接实现它的业务接口或者Home接口吗？请简述一下理由。"></a>请问EJB需要直接实现它的业务接口或者Home接口吗？请简述一下理由。</h3><p> 在EJB中则至少要包括10个class:<br>Bean类，特定App Server的Bean实现类Bean的remote接口，特定App Server的remote接口实现类，特定App Server的remote接口的实现类的stub类和skeleton类。<br>Bean的home接口，特定App Server的home接口实现类，特定App Server的home接口的实现类的stub类和skeleton类。<br>和RMI不同的是，EJB中这10个class真正需要用户写的只有3个，Bean类，remote接口，home接口，其它的7个究竟怎么生成，被打包在哪里，是否需要更多的类文件，否根据不同的App Server表现出较大的差异。<br>Weblogic：<br>home接口和remote接口的weblogic的实现类的stub类和skeleton类是在EJB被部署到weblogic的时候，由weblogic动态生成stub类和skeleton类的字节码，所以看不到这4个类文件。<br>对于一次客户端远程调用EJB，要经过两个远程对象的多次RMI循环。首先是通过JNDI查找Home接口，获得Home接口的实现类，这个过程其实相当复杂，首先是找到Home接口的Weblogic实现类，然后创建一个Home接口的Weblogic实现类的stub类的对象实例，将它序列化传送给客户端（注意stub类的实例是在第1次RMI循环中，由服务器动态发送给客户端的，因此不需要客户端保存Home接口的Weblogic实现类的stub 类），最后客户端获得该stub类的对象实例（普通的RMI需要在客户端保存stub类，而EJB不需要，因为服务器会把stub类的对象实例发送给客户端）。<br>客户端拿到服务器给它的Home接口的Weblogic实现类的stub类对象实例以后，调用stub类的create方法， (在代码上就是home.create()，但是后台要做很多事情),于是经过第2次RMI循环，在服务器端，Home接口的Weblogic实现类的 skeleton类收到stub类的调用信息后，由它再去调用Home接口的Weblogic实现类的create方法。<br>在服务端， Home接口的Weblogic实现类的create方法再去调用Bean类的Weblogic实现类的ejbCreate方法，在服务端创建或者分配一个EJB实例，然后将这个EJB实例的远程接口的Weblogic实现类的stub类对象实例序列化发送给客户端。 </p>
-<h3 id="说明一下EJB的几种类型分别是什么？"><a href="#说明一下EJB的几种类型分别是什么？" class="headerlink" title="说明一下EJB的几种类型分别是什么？"></a>说明一下EJB的几种类型分别是什么？</h3><p>会话（Session）Bean ，实体（Entity）Bean 消息驱动的（Message Driven）Bean，会话Bean又可分为有状态（Stateful）和无状态（Stateless）两种，<br>实体Bean可分为Bean管理的持续性（BMP）和容器管理的持续性（CMP）两种。 </p>
-<h3 id="简述一下EJB的激活机制是什么？"><a href="#简述一下EJB的激活机制是什么？" class="headerlink" title="简述一下EJB的激活机制是什么？"></a>简述一下EJB的激活机制是什么？</h3><p>以Stateful Session Bean 为例：其Cache大小决定了内存中可以同时存在的Bean实例的数量，根据MRU或NRU算法，实例在激活和去激活状态之间迁移，激活机制是当客户端调用某个EJB实例业务方法时，如果对应EJB Object发现自己没有绑定对应的Bean实例则从其去激活Bean存储中（通过序列化机制存储实例）回复（激活）此实例。状态变迁前会调用对应的 ejbActive和ejbPassivate方法。 </p>
-<h3 id="说一下EJB规范中EJB禁止的操作有哪些？"><a href="#说一下EJB规范中EJB禁止的操作有哪些？" class="headerlink" title="说一下EJB规范中EJB禁止的操作有哪些？"></a>说一下EJB规范中EJB禁止的操作有哪些？</h3><p>1.不能操作线程和线程API(线程API指非线程对象的方法如notify,wait等)，</p>
-<p>2.不能操作awt，</p>
-<p>3.不能实现服务器功能，</p>
-<p>4.不能对静态属生存取，</p>
-<p>5.不能使用IO操作直接存取文件系统，</p>
-<p>6.不能加载本地库.，</p>
-<p>7.不能将this作为变量和返回，</p>
-<p>8.不能循环调用。</p>
-<h3 id="请简述一下EJB的角色以及对应的三个对象分别是什么？"><a href="#请简述一下EJB的角色以及对应的三个对象分别是什么？" class="headerlink" title="请简述一下EJB的角色以及对应的三个对象分别是什么？"></a>请简述一下EJB的角色以及对应的三个对象分别是什么？</h3><p> 一个完整的基于EJB的分布式计算结构由六个角色组成，这六个角色可以由不同的开发商提供，每个角色所作的工作必须遵循Sun公司提供的EJB规范，以保证彼此之间的兼容性。这六个角色分别是EJB组件开发者（Enterprise Bean Provider） 、应用组合者（Application Assembler）、部署者（Deployer）、EJB 服务器提供者（EJB Server Provider）、EJB 容器提供者（EJB Container Provider）、系统管理员（System Administrator）<br>三个对象是Remote（Local）接口、Home（LocalHome）接口，Bean类 </p>
-<h3 id="EJB包括SessionBean和EntityBean，请说出他们的生命周期以及EJB是如何管理事务的？"><a href="#EJB包括SessionBean和EntityBean，请说出他们的生命周期以及EJB是如何管理事务的？" class="headerlink" title="EJB包括SessionBean和EntityBean，请说出他们的生命周期以及EJB是如何管理事务的？"></a>EJB包括SessionBean和EntityBean，请说出他们的生命周期以及EJB是如何管理事务的？</h3><p>SessionBean： Stateless Session Bean 的生命周期是由容器决定的，当客户机发出请求要建立一个Bean的实例时，EJB容器不一定要创建一个新的Bean的实例供客户机调用，而是随便找一个现有的实例提供给客户机。当客户机第一次调用一个Stateful Session Bean 时，容器必须立即在服务器中创建一个新的Bean实例，并关联到客户机上，以后此客户机调用Stateful Session Bean 的方法时容器会把调用分派到与此客户机相关联的Bean实例。<br>EntityBean：Entity Beans能存活相对较长的时间，并且状态是持续的。只要数据库中的数据存在，Entity beans就一直存活。而不是按照应用程序或者服务进程来说的。即使EJB容器崩溃了，Entity beans也是存活的。Entity Beans生命周期能够被容器或者Beans自己管理。<br>EJB通过以下技术管理实务：对象管理组织（OMG）的对象实务服务（OTS），Sun Microsystems的Transaction Service（JTS）、Java Transaction API（JTA），开发组（X/Open）的XA接口。 </p>
-<h3 id="EJB与JAVA-BEAN的区别是什么？"><a href="#EJB与JAVA-BEAN的区别是什么？" class="headerlink" title="EJB与JAVA BEAN的区别是什么？"></a>EJB与JAVA BEAN的区别是什么？</h3><p> Java Bean 是可复用的组件，对Java Bean并没有严格的规范，理论上讲，任何一个Java类都可以是一个Bean。但通常情况下，由于Java Bean是被容器所创建（如Tomcat）的，所以Java Bean应具有一个无参的构造器，另外，通常Java Bean还要实现Serializable接口用于实现Bean的持久性。Java Bean实际上相当于微软COM模型中的本地进程内COM组件，它是不能被跨进程访问的。EnterpriseJava Bean 相当于DCOM，即分布式组件。它是基于Java的远程方法调用（RMI）技术的，所以EJB可以被远程访问（跨进程、跨计算机）。但EJB必须被布署在诸如Webspere、WebLogic这样的容器中，EJB客户从不直接访问真正的EJB组件，而是通过其容器访问。EJB容器是EJB组件的代理， EJB组件由容器所创建和管理。客户通过容器来访问真正的EJB组件。 </p>
-<h3 id="请问EJB是基于哪些技术实现的？并说明一下SessionBean和EntityBean的区别以及StatefulBean和StatelessBean的区别。"><a href="#请问EJB是基于哪些技术实现的？并说明一下SessionBean和EntityBean的区别以及StatefulBean和StatelessBean的区别。" class="headerlink" title="请问EJB是基于哪些技术实现的？并说明一下SessionBean和EntityBean的区别以及StatefulBean和StatelessBean的区别。"></a>请问EJB是基于哪些技术实现的？并说明一下SessionBean和EntityBean的区别以及StatefulBean和StatelessBean的区别。</h3><p>EJB包括Session Bean、Entity Bean、Message Driven Bean，基于JNDI、RMI、JAT等技术实现。<br>SessionBean在J2EE应用程序中被用来完成一些服务器端的业务操作，例如访问数据库、调用其他EJB组件。EntityBean被用来代表应用系统中用到的数据。<br>对于客户机，SessionBean是一种非持久性对象，它实现某些在服务器上运行的业务逻辑。<br>对于客户机，EntityBean是一种持久性对象，它代表一个存储在持久性存储器中的实体的对象视图，或是一个由现有企业应用程序实现的实体。<br>Session Bean 还可以再细分为 Stateful Session Bean 与 Stateless Session Bean ，这两种的 Session Bean都可以将系统逻辑放在 method之中执行，不同的是 Stateful Session Bean 可以记录呼叫者的状态，因此通常来说，一个使用者会有一个相对应的Stateful Session Bean 的实体。Stateless Session Bean 虽然也是逻辑组件，但是他却不负责记录使用者状态，也就是说当使用者呼叫 Stateless Session Bean 的时候，EJB Container 并不会找寻特定的 Stateless Session Bean 的实体来执行这个 method。换言之，很可能数个使用者在执行某个 Stateless Session Bean 的 methods 时，会是同一个 Bean 的 Instance 在执行。从内存方面来看， Stateful Session Bean 与 Stateless Session Bean 比较， Stateful Session Bean 会消耗 J2EE Server 较多的内存，然而 Stateful Session Bean 的优势却在于他可以维持使用者的状态。</p>
-]]></content>
-      <tags>
-        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
@@ -16603,6 +16603,47 @@ public class SparseArray &#123;
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot startup process</title>
+    <url>/SpringBoot-startup-process/</url>
+    <content><![CDATA[<h2 id="SpringBoot应用启动流程"><a href="#SpringBoot应用启动流程" class="headerlink" title="SpringBoot应用启动流程"></a>SpringBoot应用启动流程</h2><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn3/SpringBoot启动过程和注解/640.jpg"></div></div> 
+<p>我们将各步骤总结精炼如下：</p>
+<ol>
+<li>通过 <code>SpringFactoriesLoader</code> 加载 <code>META-INF/spring.factories</code> 文件，获取并创建 <code>SpringApplicationRunListener</code> 对象</li>
+<li>然后由 <code>SpringApplicationRunListener</code> 来发出 starting 消息</li>
+<li>创建参数，并配置当前 SpringBoot 应用将要使用的 Environment</li>
+<li>完成之后，依然由 <code>SpringApplicationRunListener</code> 来发出 environmentPrepared 消息</li>
+<li>创建 <code>ApplicationContext</code></li>
+<li>初始化 <code>ApplicationContext</code>，并设置 Environment，加载相关配置等</li>
+<li>由 <code>SpringApplicationRunListener</code> 来发出 <code>contextPrepared</code> 消息，告知SpringBoot 应用使用的 <code>ApplicationContext</code> 已准备OK</li>
+<li>将各种 beans 装载入 <code>ApplicationContext</code>，继续由 <code>SpringApplicationRunListener</code> 来发出 contextLoaded 消息，告知 SpringBoot 应用使用的 <code>ApplicationContext</code> 已装填OK</li>
+<li>refresh ApplicationContext，完成IoC容器可用的最后一步</li>
+<li>由 <code>SpringApplicationRunListener</code> 来发出 started 消息</li>
+<li>完成最终的程序的启动</li>
+<li>由 <code>SpringApplicationRunListener</code> 来发出 running 消息，告知程序已运行起来了</li>
+</ol>
+<p>至此，全流程结束！</p>
+]]></content>
+      <tags>
+        <tag>frame</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringMVC work stream</title>
+    <url>/springmvc-work-stream/</url>
+    <content><![CDATA[<h2 id="SpringMVC工作流程"><a href="#SpringMVC工作流程" class="headerlink" title="SpringMVC工作流程"></a>SpringMVC工作流程</h2><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/springmvc工作流程/springmvc工作流程.png"></div></div>
+<ul>
+<li><p>处理模型数据方式一:将方法的返回值设置为ModelAndView</p>
+</li>
+<li><p>处理模型数据方式二:方法的返回值仍是String类型,在方法的入参中传入Map,Model或者ModelMap,</p>
+<p>不管将处理器方法的返回值设置为ModelAndView还是在方法的入参传入Map,Model或者ModelMap,SpringMVC都会转换为一个ModelAndView对象.</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>frame</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring</title>
     <url>/spring/</url>
     <content><![CDATA[<h1 id="SPRING"><a href="#SPRING" class="headerlink" title="SPRING"></a>SPRING</h1><span id="more"></span>
@@ -16691,47 +16732,6 @@ public class SparseArray &#123;
 ]]></content>
       <tags>
         <tag>Interview</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot startup process</title>
-    <url>/SpringBoot-startup-process/</url>
-    <content><![CDATA[<h2 id="SpringBoot应用启动流程"><a href="#SpringBoot应用启动流程" class="headerlink" title="SpringBoot应用启动流程"></a>SpringBoot应用启动流程</h2><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn3/SpringBoot启动过程和注解/640.jpg"></div></div> 
-<p>我们将各步骤总结精炼如下：</p>
-<ol>
-<li>通过 <code>SpringFactoriesLoader</code> 加载 <code>META-INF/spring.factories</code> 文件，获取并创建 <code>SpringApplicationRunListener</code> 对象</li>
-<li>然后由 <code>SpringApplicationRunListener</code> 来发出 starting 消息</li>
-<li>创建参数，并配置当前 SpringBoot 应用将要使用的 Environment</li>
-<li>完成之后，依然由 <code>SpringApplicationRunListener</code> 来发出 environmentPrepared 消息</li>
-<li>创建 <code>ApplicationContext</code></li>
-<li>初始化 <code>ApplicationContext</code>，并设置 Environment，加载相关配置等</li>
-<li>由 <code>SpringApplicationRunListener</code> 来发出 <code>contextPrepared</code> 消息，告知SpringBoot 应用使用的 <code>ApplicationContext</code> 已准备OK</li>
-<li>将各种 beans 装载入 <code>ApplicationContext</code>，继续由 <code>SpringApplicationRunListener</code> 来发出 contextLoaded 消息，告知 SpringBoot 应用使用的 <code>ApplicationContext</code> 已装填OK</li>
-<li>refresh ApplicationContext，完成IoC容器可用的最后一步</li>
-<li>由 <code>SpringApplicationRunListener</code> 来发出 started 消息</li>
-<li>完成最终的程序的启动</li>
-<li>由 <code>SpringApplicationRunListener</code> 来发出 running 消息，告知程序已运行起来了</li>
-</ol>
-<p>至此，全流程结束！</p>
-]]></content>
-      <tags>
-        <tag>frame</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringMVC work stream</title>
-    <url>/springmvc-work-stream/</url>
-    <content><![CDATA[<h2 id="SpringMVC工作流程"><a href="#SpringMVC工作流程" class="headerlink" title="SpringMVC工作流程"></a>SpringMVC工作流程</h2><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/springmvc工作流程/springmvc工作流程.png"></div></div>
-<ul>
-<li><p>处理模型数据方式一:将方法的返回值设置为ModelAndView</p>
-</li>
-<li><p>处理模型数据方式二:方法的返回值仍是String类型,在方法的入参中传入Map,Model或者ModelMap,</p>
-<p>不管将处理器方法的返回值设置为ModelAndView还是在方法的入参传入Map,Model或者ModelMap,SpringMVC都会转换为一个ModelAndView对象.</p>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>frame</tag>
       </tags>
   </entry>
   <entry>
@@ -18103,7 +18103,7 @@ public class AccountController &#123;
   </entry>
   <entry>
     <title>Tailscale实现异地组网+SSH远程连接</title>
-    <url>/null/</url>
+    <url>/tailscale-ssh-remote-connection/</url>
     <content><![CDATA[<h1 id="Tailscale实现异地组网-SSH远程连接"><a href="#Tailscale实现异地组网-SSH远程连接" class="headerlink" title="Tailscale实现异地组网+SSH远程连接"></a>Tailscale实现异地组网+SSH远程连接</h1><h2 id="1-Tailscale简介"><a href="#1-Tailscale简介" class="headerlink" title="1. Tailscale简介"></a>1. Tailscale简介</h2><p><a href="https://tailscale.com/">Tailscale</a><br>是一个基于WireGuard的VPN软件，可以实现内网穿透，组网，远程连接等功能。<br>它的优点是简单易用，不需要配置复杂的路由器， 只需要在每台设备上安装Tailscale客户端，<br>就可以实现内网穿透，组网，远程连接等功能，使用起来十分简单方便。</p>
 <h2 id="2-Tailscale安装"><a href="#2-Tailscale安装" class="headerlink" title="2. Tailscale安装"></a>2. Tailscale安装</h2><h5 id="客户端安装"><a href="#客户端安装" class="headerlink" title="客户端安装"></a>客户端安装</h5><p>登录<a href="https://tailscale.com/">Tailscale官网</a>，注册账号，然后下载对应的客户端，安装即可。</p>
 <p>安装完成后，打开Tailscale客户端，登录账号，然后登录<a href="https://login.tailscale.com/admin/machines">控制台</a>,就可以看到已经连接的设备了。<br>在控制台上，可以看到每台设备的IP地址，这些IP地址都是在同一个局域网内的，可以直接通过这些IP地址进行内网穿透，组网，远程连接等操作。</p>
@@ -23815,6 +23815,148 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>⌈JVM⌋方法内联优化</title>
+    <url>/jvm-method-inline/</url>
+    <content><![CDATA[<h2 id="内联优化"><a href="#内联优化" class="headerlink" title="内联优化"></a>内联优化</h2><p>在内部编译方法的时候，JVM根据内部逻辑分析是否热点代码，如果代码足够热，JVM会对方法内联优化，节省额外的方法调用开销（方法栈帧的生成、参数字段的压入、栈帧的弹出、指令执行地址跳转）。</p>
+<p>方法内联是由JIT编译器在运行时完成的。既然涉及到编译，方法内联也是有一定的开销的，包括cpu时间和内存，所以这又是一个trade-off的老问题了。JIT根据以下信息决定是否进行内联：</p>
+<ul>
+<li><strong>被调用方法是否足够hot</strong>。这个取决于该方法被调用的次数，次数阈值默认值为10,000。即运行时被调用次数超过10,000的方法，可以被认为是hot。</li>
+<li><strong>被调用方法大小是否合适</strong>。对于过大的方法，JIT认为它是不适合做内联的。这个方法大小阈值由-XX:FreqInlineSize指定，不建议修改。即大于这个阈值size的方法，不考虑进行内联</li>
+<li><strong>被调用方法运行时其实现是否可以唯一确定</strong>。显然，对于类方法、私有方法和final方法，JIT是可以唯一确定它们的具体实现代码的(这里对应字节码中的invokestatic和invokespecial)；另一方面，对于public方法调用，它所指向的具体实现可能是自身、父类、子类的方法实现代码（多态），只有当JIT能唯一确定方法的具体实现时，才有可能完成内联（对应字节码中的invokevirtual和invokeinterface）</li>
+</ul>
+<p>另外内联优化不仅仅消除了调用开销，被内联优化的方法会编译成native code(机器码)放在JVM Code Cache nmethod中，使多次调用方法时性能提升。</p>
+<p>函数调用的代码：</p>
+<pre><code class="lang-java">package RUN.java;
+
+class Solution1 &#123;
+    //函数调用: 0.2982 ms
+    private int gogogo(int n) &#123;
+        for (int i = 0; i &lt; 10; i++) &#123;
+            n &lt;&lt;= 1;
+        &#125;
+        return n;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        long start = System.nanoTime();
+        Solution1 s = new Solution1();
+        int n = 1;
+        int ans = 0;
+        for (int i = 0; i &lt; 10000; i++) &#123;
+            ans += s.gogogo(n);
+        &#125;
+        long end = System.nanoTime();
+        System.out.println(&quot;函数调用: &quot; + (end - start) / 1000000.0 + &quot; ms&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>直接内联的代码：</p>
+<pre><code class="lang-java">package RUN.java;
+
+class Solution &#123;
+    //内联调用: 1.003 ms
+    public static void main(String[] args) &#123;
+        long start = System.nanoTime();
+        int n = 1;
+        int ans = 0;
+        for (int i = 0; i &lt; 10000; i++) &#123;
+            for (int i1 = 0; i1 &lt; 10; i1++) &#123;
+                n &lt;&lt;= 1;
+            &#125;
+            ans += n;
+        &#125;
+        long end = System.nanoTime();
+        System.out.println(&quot;内联调用: &quot; + (end - start) / 1000000.0 + &quot; ms&quot;);
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li>执行前增加 -XX:+PrintCompilation 参数，输出编译结果。具体每项内联信息所代表的意思</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>jvm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>「LRUCache算法」—双向链表</title>
+    <url>/lru-cache/</url>
+    <content><![CDATA[<p>当不得不淘汰某些数据时（通常是容量已满），选择最久未被使用的数据进行淘汰。</p>
+<pre><code class="lang-java">class LRUCache &#123;
+    class Node &#123;
+        int k, v;
+        Node l, r;
+        Node(int _k, int _v) &#123;
+            k = _k;
+            v = _v;
+        &#125;
+    &#125;
+    int n;
+    Node head, tail;
+    Map&lt;Integer, Node&gt; map;
+    public LRUCache(int capacity) &#123;
+        n = capacity;
+        map = new HashMap&lt;&gt;();
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.r = tail;
+        tail.l = head;
+    &#125;
+
+    public int get(int key) &#123;
+        if (map.containsKey(key)) &#123;
+            Node node = map.get(key);
+            refresh(node);
+            return node.v;
+        &#125;
+        return -1;
+    &#125;
+
+    public void put(int key, int value) &#123;
+        Node node = null;
+        if (map.containsKey(key)) &#123;
+            node = map.get(key);
+            node.v = value;
+        &#125; else &#123;
+            if (map.size() == n) &#123;
+                Node del = tail.l;
+                map.remove(del.k);
+                delete(del);
+            &#125;
+            node = new Node(key, value);
+            map.put(key, node);
+        &#125;
+        refresh(node);
+    &#125;
+
+    // refresh 操作分两步：
+    // 1. 先将当前节点从双向链表中删除（如果该节点本身存在于双向链表中的话）
+    // 2. 将当前节点添加到双向链表头部
+    void refresh(Node node) &#123;
+        delete(node);
+        node.r = head.r;
+        node.l = head;
+        head.r.l = node;
+        head.r = node;
+    &#125;
+
+    // delete 操作：将当前节点从双向链表中移除
+    // 由于我们预先建立 head 和 tail 两位哨兵，因此如果 node.l 不为空，则代表了 node 本身存在于双向链表（不是新节点）
+    void delete(Node node) &#123;
+        if (node.l != null) &#123;
+            Node left = node.l;
+            left.r = node.r;
+            node.r.l = left;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+]]></content>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>超高精度计算</title>
     <url>/Large-number-operations/</url>
     <content><![CDATA[<h1 id="高精算法解决了什么问题？"><a href="#高精算法解决了什么问题？" class="headerlink" title="高精算法解决了什么问题？"></a>高精算法解决了什么问题？</h1><p>在利用计算机作数值计算的时候，有时候会遇到这样的问题：</p>
@@ -24143,148 +24285,6 @@ int main()
     return 0;
 &#125;
 //......................................................................................
-</code></pre>
-]]></content>
-      <tags>
-        <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>⌈JVM⌋方法内联优化</title>
-    <url>/jvm-method-inline/</url>
-    <content><![CDATA[<h2 id="内联优化"><a href="#内联优化" class="headerlink" title="内联优化"></a>内联优化</h2><p>在内部编译方法的时候，JVM根据内部逻辑分析是否热点代码，如果代码足够热，JVM会对方法内联优化，节省额外的方法调用开销（方法栈帧的生成、参数字段的压入、栈帧的弹出、指令执行地址跳转）。</p>
-<p>方法内联是由JIT编译器在运行时完成的。既然涉及到编译，方法内联也是有一定的开销的，包括cpu时间和内存，所以这又是一个trade-off的老问题了。JIT根据以下信息决定是否进行内联：</p>
-<ul>
-<li><strong>被调用方法是否足够hot</strong>。这个取决于该方法被调用的次数，次数阈值默认值为10,000。即运行时被调用次数超过10,000的方法，可以被认为是hot。</li>
-<li><strong>被调用方法大小是否合适</strong>。对于过大的方法，JIT认为它是不适合做内联的。这个方法大小阈值由-XX:FreqInlineSize指定，不建议修改。即大于这个阈值size的方法，不考虑进行内联</li>
-<li><strong>被调用方法运行时其实现是否可以唯一确定</strong>。显然，对于类方法、私有方法和final方法，JIT是可以唯一确定它们的具体实现代码的(这里对应字节码中的invokestatic和invokespecial)；另一方面，对于public方法调用，它所指向的具体实现可能是自身、父类、子类的方法实现代码（多态），只有当JIT能唯一确定方法的具体实现时，才有可能完成内联（对应字节码中的invokevirtual和invokeinterface）</li>
-</ul>
-<p>另外内联优化不仅仅消除了调用开销，被内联优化的方法会编译成native code(机器码)放在JVM Code Cache nmethod中，使多次调用方法时性能提升。</p>
-<p>函数调用的代码：</p>
-<pre><code class="lang-java">package RUN.java;
-
-class Solution1 &#123;
-    //函数调用: 0.2982 ms
-    private int gogogo(int n) &#123;
-        for (int i = 0; i &lt; 10; i++) &#123;
-            n &lt;&lt;= 1;
-        &#125;
-        return n;
-    &#125;
-
-    public static void main(String[] args) &#123;
-        long start = System.nanoTime();
-        Solution1 s = new Solution1();
-        int n = 1;
-        int ans = 0;
-        for (int i = 0; i &lt; 10000; i++) &#123;
-            ans += s.gogogo(n);
-        &#125;
-        long end = System.nanoTime();
-        System.out.println(&quot;函数调用: &quot; + (end - start) / 1000000.0 + &quot; ms&quot;);
-    &#125;
-&#125;
-</code></pre>
-<p>直接内联的代码：</p>
-<pre><code class="lang-java">package RUN.java;
-
-class Solution &#123;
-    //内联调用: 1.003 ms
-    public static void main(String[] args) &#123;
-        long start = System.nanoTime();
-        int n = 1;
-        int ans = 0;
-        for (int i = 0; i &lt; 10000; i++) &#123;
-            for (int i1 = 0; i1 &lt; 10; i1++) &#123;
-                n &lt;&lt;= 1;
-            &#125;
-            ans += n;
-        &#125;
-        long end = System.nanoTime();
-        System.out.println(&quot;内联调用: &quot; + (end - start) / 1000000.0 + &quot; ms&quot;);
-    &#125;
-&#125;
-</code></pre>
-<ul>
-<li>执行前增加 -XX:+PrintCompilation 参数，输出编译结果。具体每项内联信息所代表的意思</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>jvm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>「LRUCache算法」—双向链表</title>
-    <url>/lru-cache/</url>
-    <content><![CDATA[<p>当不得不淘汰某些数据时（通常是容量已满），选择最久未被使用的数据进行淘汰。</p>
-<pre><code class="lang-java">class LRUCache &#123;
-    class Node &#123;
-        int k, v;
-        Node l, r;
-        Node(int _k, int _v) &#123;
-            k = _k;
-            v = _v;
-        &#125;
-    &#125;
-    int n;
-    Node head, tail;
-    Map&lt;Integer, Node&gt; map;
-    public LRUCache(int capacity) &#123;
-        n = capacity;
-        map = new HashMap&lt;&gt;();
-        head = new Node(-1, -1);
-        tail = new Node(-1, -1);
-        head.r = tail;
-        tail.l = head;
-    &#125;
-
-    public int get(int key) &#123;
-        if (map.containsKey(key)) &#123;
-            Node node = map.get(key);
-            refresh(node);
-            return node.v;
-        &#125;
-        return -1;
-    &#125;
-
-    public void put(int key, int value) &#123;
-        Node node = null;
-        if (map.containsKey(key)) &#123;
-            node = map.get(key);
-            node.v = value;
-        &#125; else &#123;
-            if (map.size() == n) &#123;
-                Node del = tail.l;
-                map.remove(del.k);
-                delete(del);
-            &#125;
-            node = new Node(key, value);
-            map.put(key, node);
-        &#125;
-        refresh(node);
-    &#125;
-
-    // refresh 操作分两步：
-    // 1. 先将当前节点从双向链表中删除（如果该节点本身存在于双向链表中的话）
-    // 2. 将当前节点添加到双向链表头部
-    void refresh(Node node) &#123;
-        delete(node);
-        node.r = head.r;
-        node.l = head;
-        head.r.l = node;
-        head.r = node;
-    &#125;
-
-    // delete 操作：将当前节点从双向链表中移除
-    // 由于我们预先建立 head 和 tail 两位哨兵，因此如果 node.l 不为空，则代表了 node 本身存在于双向链表（不是新节点）
-    void delete(Node node) &#123;
-        if (node.l != null) &#123;
-            Node left = node.l;
-            left.r = node.r;
-            node.r.l = left;
-        &#125;
-    &#125;
-&#125;
 </code></pre>
 ]]></content>
       <tags>
@@ -25550,6 +25550,17 @@ class Node &#123;
       </tags>
   </entry>
   <entry>
+    <title>什么是「奶头乐」和为什么是「群体弱智」</title>
+    <url>/what-is-milk-and-why-is-group-wise/</url>
+    <content><![CDATA[<h1 id="什么是「奶头乐」"><a href="#什么是「奶头乐」" class="headerlink" title="什么是「奶头乐」?"></a>什么是「奶头乐」?</h1><blockquote>
+<p><a href="https://zh.wikipedia.org/zh-sg/%E5%A5%B6%E5%A4%B4%E4%B9%90">维基百科：奶头乐</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>think</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>享元模式</title>
     <url>/flyweight-model/</url>
     <content><![CDATA[<h3 id="享元"><a href="#享元" class="headerlink" title="享元"></a>享元</h3><blockquote>
@@ -25609,17 +25620,6 @@ class Node &#123;
       </categories>
       <tags>
         <tag>DesignPatterns</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>什么是「奶头乐」和为什么是「群体弱智」</title>
-    <url>/what-is-milk-and-why-is-group-wise/</url>
-    <content><![CDATA[<h1 id="什么是「奶头乐」"><a href="#什么是「奶头乐」" class="headerlink" title="什么是「奶头乐」?"></a>什么是「奶头乐」?</h1><blockquote>
-<p><a href="https://zh.wikipedia.org/zh-sg/%E5%A5%B6%E5%A4%B4%E4%B9%90">维基百科：奶头乐</a></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>think</tag>
       </tags>
   </entry>
   <entry>
@@ -26093,6 +26093,14 @@ class OpenAndClose implements IOpenAndClose&#123;
       </tags>
   </entry>
   <entry>
+    <title>关于「雪糕刺客」和「消费降级」</title>
+    <url>/About-Snowflake-and-Consumption-Degradation/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>think</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jsdelivr的CDN加速缓存不刷新问题</title>
     <url>/the-cdn-acceleration-cache-of-jsdelivr-does-not-refresh/</url>
     <content><![CDATA[<hr>
@@ -26103,14 +26111,6 @@ class OpenAndClose implements IOpenAndClose&#123;
 ]]></content>
       <tags>
         <tag>maintain</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于「雪糕刺客」和「消费降级」</title>
-    <url>/About-Snowflake-and-Consumption-Degradation/</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>think</tag>
       </tags>
   </entry>
   <entry>
@@ -34062,6 +34062,68 @@ public class insertSearch &#123;
       </tags>
   </entry>
   <entry>
+    <title>introduction to operating system</title>
+    <url>/introduction-to-operating-system/</url>
+    <content><![CDATA[<h1 id="操作系统概论"><a href="#操作系统概论" class="headerlink" title="操作系统概论"></a>操作系统概论</h1><span id="more"></span>
+<h3 id="64位和32位的区别？"><a href="#64位和32位的区别？" class="headerlink" title="64位和32位的区别？"></a>64位和32位的区别？</h3><p>操作系统只是硬件和应用软件中间的一个平台。32位操作系统针对的32位的CPU设计。64位操作系统针对的64位的CPU设计。 </p>
+<h3 id="CentOS-和-Linux的关系？"><a href="#CentOS-和-Linux的关系？" class="headerlink" title="CentOS 和 Linux的关系？"></a>CentOS 和 Linux的关系？</h3><p>CentOS是Linux众多得发行版本之一，linux有三大发行版本（：Slackware、debian、redhat）,而Redhat有收费的商业版和免费的开源版,商业版的业内称之为RHEL系列，CentOS是来自于依照开放源代码规定而公布的源代码重新编译而成。可以用CentOS替代商业版的RHEL使用。两者的不同，CentOS不包含封闭源代码软件，是免费的。 </p>
+<h2 id="进程的描述与控制"><a href="#进程的描述与控制" class="headerlink" title="进程的描述与控制"></a>进程的描述与控制</h2><h3 id="LINUX下的线程，GDI类"><a href="#LINUX下的线程，GDI类" class="headerlink" title="LINUX下的线程，GDI类"></a>LINUX下的线程，GDI类</h3><p>LINUX实现的就是基于核心轻量级进程的”一对一”线程模型，一个线程实体对应一个核心轻量级进程，而线程之间的管理在核外函数库中实现。 </p>
+<p>GDI类为图像设备编程接口类库。 </p>
+<h3 id="进程和线程的区别是什么？"><a href="#进程和线程的区别是什么？" class="headerlink" title="进程和线程的区别是什么？"></a>进程和线程的区别是什么？</h3><p>进程是执行着的应用程序，而线程是进程内部的一个执行序列。一个进程可以有多个线程。线程又叫做轻量级进程。 </p>
+<h3 id="系统线程数量上限是多少？"><a href="#系统线程数量上限是多少？" class="headerlink" title="系统线程数量上限是多少？"></a>系统线程数量上限是多少？</h3><p>Linux 系统中单个进程的最大线程数有其最大的限制 PTHREAD_THREADS_MAX。</p>
+<p>这个限制可以在/usr/include/bits/local_lim.h中查看 ，对 linuxthreads 这个值一般是 1024，对于 nptl 则没有硬性的限制，仅仅受限于系统的资源。</p>
+<p>这个系统的资源主要就是线程的 stack 所占用的内存，用 ulimit -s 可以查看默认的线程栈大小，一般情况下，这个值是8M=8192KB。</p>
+<h3 id="线程与进程的区别"><a href="#线程与进程的区别" class="headerlink" title="线程与进程的区别"></a>线程与进程的区别</h3><p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
+<p>1) 简而言之,一个程序至少有一个进程,一个进程至少有一个线程.</p>
+<p>2) 线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
+<p>3) 另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</p>
+<p>4) 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
+<p>5) 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
+<h3 id="如何杀死一个进程？"><a href="#如何杀死一个进程？" class="headerlink" title="如何杀死一个进程？"></a>如何杀死一个进程？</h3><p>Kill pid</p>
+<h2 id="输入输出系统"><a href="#输入输出系统" class="headerlink" title="输入输出系统"></a>输入输出系统</h2><h3 id="请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO"><a href="#请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO" class="headerlink" title="请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO"></a>请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO</h3><p>阻塞，非阻塞，io多路复用，epoll支持文件符数目没有限制，fd集合只会从用户进程拷贝到内核一次，自己维护一个事件队列，不用每次遍历fd集合发现是否有就绪状态。</p>
+<h2 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h2><h3 id="怎么理解操作系统里的内存碎片，有什么解决办法？"><a href="#怎么理解操作系统里的内存碎片，有什么解决办法？" class="headerlink" title="怎么理解操作系统里的内存碎片，有什么解决办法？"></a>怎么理解操作系统里的内存碎片，有什么解决办法？</h3><p>内存碎片分为：内部碎片和外部碎片。</p>
+<p>内部碎片就是已经被分配出去（能明确指出属于哪个进程）却不能被利用的内存空间；</p>
+<p>内部碎片是处于区域内部或页面内部的存储块。占有这些区域或页面的进程并不使用这个存储块。而在进程占有这块存储块时，系统无法利用它。直到进程释放它，或进程结束时，系统才有可能利用这个存储块。</p>
+<p>单道连续分配只有内部碎片。多道固定连续分配既有内部碎片，又有外部碎片。</p>
+<p>外部碎片指的是还没有被分配出去（不属于任何进程），但由于太小了无法分配给申请内存空间的新进程的内存空闲区域。</p>
+<p>外部碎片是出于任何已分配区域或页面外部的空闲存储块。这些存储块的总和可以满足当前申请的长度要求，但是由于它们的地址不连续或其他原因，使得系统无法满足当前申请。</p>
+<p>使用伙伴系统算法。</p>
+<h3 id="什么是页式存储？"><a href="#什么是页式存储？" class="headerlink" title="什么是页式存储？"></a>什么是页式存储？</h3><p>主存被等分成大小相等的片，称为主存块，又称为实页。</p>
+<p>当一个用户程序装入内存时，以页面为单位进行分配。页面的大小是为2n ,通常为1KB、2KB、2n KB等</p>
+<h2 id="处理调度与死锁"><a href="#处理调度与死锁" class="headerlink" title="处理调度与死锁"></a>处理调度与死锁</h2><h3 id="系统如何提高并发性？"><a href="#系统如何提高并发性？" class="headerlink" title="系统如何提高并发性？"></a>系统如何提高并发性？</h3><p>1、提高CPU并发计算能力</p>
+<p>（1）多进程&amp;多线程</p>
+<p>（2）减少进程切换，使用线程，考虑进程绑定CPU</p>
+<p>（3）减少使用不必要的锁，考虑无锁编程</p>
+<p>（4）考虑进程优先级</p>
+<p>（5）关注系统负载</p>
+<p>2、改进I/O模型</p>
+<p>(1)DMA技术</p>
+<p>(2)异步I/O</p>
+<p>(3)改进多路I/O就绪通知策略，epoll</p>
+<p>(4)Sendfile</p>
+<p>(5)内存映射</p>
+<p>(6)直接I/O</p>
+<h3 id="通常系统CPU比较高是什么原因？"><a href="#通常系统CPU比较高是什么原因？" class="headerlink" title="通常系统CPU比较高是什么原因？"></a>通常系统CPU比较高是什么原因？</h3><p>1、首先查看是哪些进程的CPU占用率最高（如下可以看到详细的路径）</p>
+<p>ps -aux —sort -pcpu | more</p>
+<p># 定位有问题的线程可以用如下命令</p>
+<p>ps -mp pid -o THREAD,tid,time | more</p>
+<p>2、查看JAVA进程的每个线程的CPU占用率</p>
+<p>ps -Lp 5798 cu | more        # 5798是查出来进程PID</p>
+<p>3、追踪线程，查看负载过高的原因，使用JDK下的一个工具</p>
+<p>jstack 5798                            # 5798是PID</p>
+<p>jstack -J-d64 -m 5798    # -j-d64指定64为系统</p>
+<p>jstack 查出来的线程ID是16进制，可以把输出追加到文件，导出用记事本打开，再根据系统中的线程ID去搜索查看该ID的线程运行内容，可以和开发一起排查。</p>
+<h3 id="什么情况下会发生死锁？解决死锁的策略有哪些？"><a href="#什么情况下会发生死锁？解决死锁的策略有哪些？" class="headerlink" title="什么情况下会发生死锁？解决死锁的策略有哪些？"></a>什么情况下会发生死锁？解决死锁的策略有哪些？</h3><p>（一）互斥条件：一个资源一次只能被一个进程访问。即某个资源在一段时间内只能由一个进程占有，不能同时被两个或两个以上的进程占 有。这种独占资源如CD-ROM驱动器，打印机等等，必须在占有该资源的进程主动释放它之后，其它进程才能占有该资源。这是由资源本身的属性所决定的。</p>
+<p>（二）请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放。进程至少已经占有一个资源，但又申请新的资源；由于该资源已被另外进程占有，此时该进程阻塞；但是，它在等待新资源之时，仍继续占用已占有的资源。</p>
+<p>（三）不剥夺条件：进程已经获得的资源，在未使用完之前不能强行剥夺，而只能由该资源的占有者进程自行释放。</p>
+<p>（四）循环等待条件：若干资源形成一种头尾相接的循环等待资源关系。</p>
+<p>解决方法：银行家算法</p>
+]]></content>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Operating Systems</title>
     <url>/operating-system/</url>
     <content><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h3 id="OS-Kernel的特征"><a href="#OS-Kernel的特征" class="headerlink" title="OS Kernel的特征"></a>OS Kernel的特征</h3><span id="more"></span>
@@ -34359,68 +34421,6 @@ public class insertSearch &#123;
 ]]></content>
       <tags>
         <tag>Operating Systems</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>introduction to operating system</title>
-    <url>/introduction-to-operating-system/</url>
-    <content><![CDATA[<h1 id="操作系统概论"><a href="#操作系统概论" class="headerlink" title="操作系统概论"></a>操作系统概论</h1><span id="more"></span>
-<h3 id="64位和32位的区别？"><a href="#64位和32位的区别？" class="headerlink" title="64位和32位的区别？"></a>64位和32位的区别？</h3><p>操作系统只是硬件和应用软件中间的一个平台。32位操作系统针对的32位的CPU设计。64位操作系统针对的64位的CPU设计。 </p>
-<h3 id="CentOS-和-Linux的关系？"><a href="#CentOS-和-Linux的关系？" class="headerlink" title="CentOS 和 Linux的关系？"></a>CentOS 和 Linux的关系？</h3><p>CentOS是Linux众多得发行版本之一，linux有三大发行版本（：Slackware、debian、redhat）,而Redhat有收费的商业版和免费的开源版,商业版的业内称之为RHEL系列，CentOS是来自于依照开放源代码规定而公布的源代码重新编译而成。可以用CentOS替代商业版的RHEL使用。两者的不同，CentOS不包含封闭源代码软件，是免费的。 </p>
-<h2 id="进程的描述与控制"><a href="#进程的描述与控制" class="headerlink" title="进程的描述与控制"></a>进程的描述与控制</h2><h3 id="LINUX下的线程，GDI类"><a href="#LINUX下的线程，GDI类" class="headerlink" title="LINUX下的线程，GDI类"></a>LINUX下的线程，GDI类</h3><p>LINUX实现的就是基于核心轻量级进程的”一对一”线程模型，一个线程实体对应一个核心轻量级进程，而线程之间的管理在核外函数库中实现。 </p>
-<p>GDI类为图像设备编程接口类库。 </p>
-<h3 id="进程和线程的区别是什么？"><a href="#进程和线程的区别是什么？" class="headerlink" title="进程和线程的区别是什么？"></a>进程和线程的区别是什么？</h3><p>进程是执行着的应用程序，而线程是进程内部的一个执行序列。一个进程可以有多个线程。线程又叫做轻量级进程。 </p>
-<h3 id="系统线程数量上限是多少？"><a href="#系统线程数量上限是多少？" class="headerlink" title="系统线程数量上限是多少？"></a>系统线程数量上限是多少？</h3><p>Linux 系统中单个进程的最大线程数有其最大的限制 PTHREAD_THREADS_MAX。</p>
-<p>这个限制可以在/usr/include/bits/local_lim.h中查看 ，对 linuxthreads 这个值一般是 1024，对于 nptl 则没有硬性的限制，仅仅受限于系统的资源。</p>
-<p>这个系统的资源主要就是线程的 stack 所占用的内存，用 ulimit -s 可以查看默认的线程栈大小，一般情况下，这个值是8M=8192KB。</p>
-<h3 id="线程与进程的区别"><a href="#线程与进程的区别" class="headerlink" title="线程与进程的区别"></a>线程与进程的区别</h3><p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
-<p>1) 简而言之,一个程序至少有一个进程,一个进程至少有一个线程.</p>
-<p>2) 线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
-<p>3) 另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</p>
-<p>4) 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
-<p>5) 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
-<h3 id="如何杀死一个进程？"><a href="#如何杀死一个进程？" class="headerlink" title="如何杀死一个进程？"></a>如何杀死一个进程？</h3><p>Kill pid</p>
-<h2 id="输入输出系统"><a href="#输入输出系统" class="headerlink" title="输入输出系统"></a>输入输出系统</h2><h3 id="请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO"><a href="#请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO" class="headerlink" title="请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO"></a>请介绍一下，socket编程的三种通信模型，BIO，NIO，AIO</h3><p>阻塞，非阻塞，io多路复用，epoll支持文件符数目没有限制，fd集合只会从用户进程拷贝到内核一次，自己维护一个事件队列，不用每次遍历fd集合发现是否有就绪状态。</p>
-<h2 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h2><h3 id="怎么理解操作系统里的内存碎片，有什么解决办法？"><a href="#怎么理解操作系统里的内存碎片，有什么解决办法？" class="headerlink" title="怎么理解操作系统里的内存碎片，有什么解决办法？"></a>怎么理解操作系统里的内存碎片，有什么解决办法？</h3><p>内存碎片分为：内部碎片和外部碎片。</p>
-<p>内部碎片就是已经被分配出去（能明确指出属于哪个进程）却不能被利用的内存空间；</p>
-<p>内部碎片是处于区域内部或页面内部的存储块。占有这些区域或页面的进程并不使用这个存储块。而在进程占有这块存储块时，系统无法利用它。直到进程释放它，或进程结束时，系统才有可能利用这个存储块。</p>
-<p>单道连续分配只有内部碎片。多道固定连续分配既有内部碎片，又有外部碎片。</p>
-<p>外部碎片指的是还没有被分配出去（不属于任何进程），但由于太小了无法分配给申请内存空间的新进程的内存空闲区域。</p>
-<p>外部碎片是出于任何已分配区域或页面外部的空闲存储块。这些存储块的总和可以满足当前申请的长度要求，但是由于它们的地址不连续或其他原因，使得系统无法满足当前申请。</p>
-<p>使用伙伴系统算法。</p>
-<h3 id="什么是页式存储？"><a href="#什么是页式存储？" class="headerlink" title="什么是页式存储？"></a>什么是页式存储？</h3><p>主存被等分成大小相等的片，称为主存块，又称为实页。</p>
-<p>当一个用户程序装入内存时，以页面为单位进行分配。页面的大小是为2n ,通常为1KB、2KB、2n KB等</p>
-<h2 id="处理调度与死锁"><a href="#处理调度与死锁" class="headerlink" title="处理调度与死锁"></a>处理调度与死锁</h2><h3 id="系统如何提高并发性？"><a href="#系统如何提高并发性？" class="headerlink" title="系统如何提高并发性？"></a>系统如何提高并发性？</h3><p>1、提高CPU并发计算能力</p>
-<p>（1）多进程&amp;多线程</p>
-<p>（2）减少进程切换，使用线程，考虑进程绑定CPU</p>
-<p>（3）减少使用不必要的锁，考虑无锁编程</p>
-<p>（4）考虑进程优先级</p>
-<p>（5）关注系统负载</p>
-<p>2、改进I/O模型</p>
-<p>(1)DMA技术</p>
-<p>(2)异步I/O</p>
-<p>(3)改进多路I/O就绪通知策略，epoll</p>
-<p>(4)Sendfile</p>
-<p>(5)内存映射</p>
-<p>(6)直接I/O</p>
-<h3 id="通常系统CPU比较高是什么原因？"><a href="#通常系统CPU比较高是什么原因？" class="headerlink" title="通常系统CPU比较高是什么原因？"></a>通常系统CPU比较高是什么原因？</h3><p>1、首先查看是哪些进程的CPU占用率最高（如下可以看到详细的路径）</p>
-<p>ps -aux —sort -pcpu | more</p>
-<p># 定位有问题的线程可以用如下命令</p>
-<p>ps -mp pid -o THREAD,tid,time | more</p>
-<p>2、查看JAVA进程的每个线程的CPU占用率</p>
-<p>ps -Lp 5798 cu | more        # 5798是查出来进程PID</p>
-<p>3、追踪线程，查看负载过高的原因，使用JDK下的一个工具</p>
-<p>jstack 5798                            # 5798是PID</p>
-<p>jstack -J-d64 -m 5798    # -j-d64指定64为系统</p>
-<p>jstack 查出来的线程ID是16进制，可以把输出追加到文件，导出用记事本打开，再根据系统中的线程ID去搜索查看该ID的线程运行内容，可以和开发一起排查。</p>
-<h3 id="什么情况下会发生死锁？解决死锁的策略有哪些？"><a href="#什么情况下会发生死锁？解决死锁的策略有哪些？" class="headerlink" title="什么情况下会发生死锁？解决死锁的策略有哪些？"></a>什么情况下会发生死锁？解决死锁的策略有哪些？</h3><p>（一）互斥条件：一个资源一次只能被一个进程访问。即某个资源在一段时间内只能由一个进程占有，不能同时被两个或两个以上的进程占 有。这种独占资源如CD-ROM驱动器，打印机等等，必须在占有该资源的进程主动释放它之后，其它进程才能占有该资源。这是由资源本身的属性所决定的。</p>
-<p>（二）请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放。进程至少已经占有一个资源，但又申请新的资源；由于该资源已被另外进程占有，此时该进程阻塞；但是，它在等待新资源之时，仍继续占用已占有的资源。</p>
-<p>（三）不剥夺条件：进程已经获得的资源，在未使用完之前不能强行剥夺，而只能由该资源的占有者进程自行释放。</p>
-<p>（四）循环等待条件：若干资源形成一种头尾相接的循环等待资源关系。</p>
-<p>解决方法：银行家算法</p>
-]]></content>
-      <tags>
-        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
@@ -34726,6 +34726,58 @@ public class insertSearch &#123;
       </tags>
   </entry>
   <entry>
+    <title>Stack</title>
+    <url>/stack/</url>
+    <content><![CDATA[<h2 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h2><p>1<code>栈</code>是一个<strong>先入后出</strong>(FILO-First In Last Out)的有序列表。</p>
+<span id="more"></span>
+<p>2栈(stack)是限制线性表中元素的插入和删除<strong>只能在线性表的同一端</strong>进行的一种特殊线性表。允许插入和删除的一端，为变化的一端，称为<strong>栈顶</strong>(Top)，另一端为固定的一端，称为<strong>栈底</strong>(Bottom)。</p>
+<p>3.根据栈的定义可知，最先放入栈中元素在栈底，最后放入的元素在栈顶，而删除元素刚好相反，最后放入的元素最先删除，最先放入的元素最后删除</p>
+<pre><code>           ───────────────────────────────┐
+  (\(\       (\(\    (\(\    (\(\    (\(\ │
+ (=&#39;.&#39;) &lt;─&gt; (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)│
+O(_&quot;)&quot;)    O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)│
+           ───────────────────────────────┘
+           stack
+</code></pre><!--more-->
+<p>和队列区别开</p>
+<pre><code>          ────────────────────────
+  (\(\      (\(\    (\(\    (\(\      (\(\
+ (=&#39;.&#39;) ─&gt; (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;) ─&gt; (=&#39;.&#39;)
+O(_&quot;)&quot;)   O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)   O(_&quot;)&quot;)
+          ────────────────────────
+           Queue
+</code></pre><hr>
+<h5 id="栈的结构"><a href="#栈的结构" class="headerlink" title="栈的结构"></a>栈的结构</h5><pre><code>           ───────────────────────────────┐
+             (\(\    (\(\    (\(\    (\(\ │
+            (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)│
+           O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)│
+           ───────────────────────────────┘
+             ↑                        ↑
+           Top栈顶                 Bottom栈底
+          初始化为-1
+</code></pre><h5 id="入栈"><a href="#入栈" class="headerlink" title="入栈"></a>入栈</h5><pre><code>           ───────────────────────────────┐
+  (\(\               (\(\    (\(\    (\(\ │
+ (=&#39;.&#39;)  ─&gt;         (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)│
+O(_&quot;)&quot;)            O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)│
+  data     ───────────────────────────────┘
+           push入栈
+           top++;
+           stack[top]=data
+</code></pre><h5 id="出栈"><a href="#出栈" class="headerlink" title="出栈"></a>出栈</h5><pre><code>           ───────────────────────────────┐
+         (\(\        (\(\    (\(\    (\(\ │
+    &lt;─  (=&#39;.&#39;)      (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)│
+       O(_&quot;)&quot;)     O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)│
+           ───────────────────────────────┘
+           pop出栈
+          int value = stack[top];
+          top--;
+          return value;
+</code></pre>]]></content>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>极限</title>
     <url>/limit/</url>
     <content><![CDATA[<h1 id="极限"><a href="#极限" class="headerlink" title="极限"></a>极限</h1><blockquote>
@@ -34813,58 +34865,6 @@ public class insertSearch &#123;
 ]]></content>
       <tags>
         <tag>math</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Stack</title>
-    <url>/stack/</url>
-    <content><![CDATA[<h2 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h2><p>1<code>栈</code>是一个<strong>先入后出</strong>(FILO-First In Last Out)的有序列表。</p>
-<span id="more"></span>
-<p>2栈(stack)是限制线性表中元素的插入和删除<strong>只能在线性表的同一端</strong>进行的一种特殊线性表。允许插入和删除的一端，为变化的一端，称为<strong>栈顶</strong>(Top)，另一端为固定的一端，称为<strong>栈底</strong>(Bottom)。</p>
-<p>3.根据栈的定义可知，最先放入栈中元素在栈底，最后放入的元素在栈顶，而删除元素刚好相反，最后放入的元素最先删除，最先放入的元素最后删除</p>
-<pre><code>           ───────────────────────────────┐
-  (\(\       (\(\    (\(\    (\(\    (\(\ │
- (=&#39;.&#39;) &lt;─&gt; (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)│
-O(_&quot;)&quot;)    O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)│
-           ───────────────────────────────┘
-           stack
-</code></pre><!--more-->
-<p>和队列区别开</p>
-<pre><code>          ────────────────────────
-  (\(\      (\(\    (\(\    (\(\      (\(\
- (=&#39;.&#39;) ─&gt; (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;) ─&gt; (=&#39;.&#39;)
-O(_&quot;)&quot;)   O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)   O(_&quot;)&quot;)
-          ────────────────────────
-           Queue
-</code></pre><hr>
-<h5 id="栈的结构"><a href="#栈的结构" class="headerlink" title="栈的结构"></a>栈的结构</h5><pre><code>           ───────────────────────────────┐
-             (\(\    (\(\    (\(\    (\(\ │
-            (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)│
-           O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)│
-           ───────────────────────────────┘
-             ↑                        ↑
-           Top栈顶                 Bottom栈底
-          初始化为-1
-</code></pre><h5 id="入栈"><a href="#入栈" class="headerlink" title="入栈"></a>入栈</h5><pre><code>           ───────────────────────────────┐
-  (\(\               (\(\    (\(\    (\(\ │
- (=&#39;.&#39;)  ─&gt;         (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)│
-O(_&quot;)&quot;)            O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)│
-  data     ───────────────────────────────┘
-           push入栈
-           top++;
-           stack[top]=data
-</code></pre><h5 id="出栈"><a href="#出栈" class="headerlink" title="出栈"></a>出栈</h5><pre><code>           ───────────────────────────────┐
-         (\(\        (\(\    (\(\    (\(\ │
-    &lt;─  (=&#39;.&#39;)      (=&#39;.&#39;)  (=&#39;.&#39;)  (=&#39;.&#39;)│
-       O(_&quot;)&quot;)     O(_&quot;)&quot;) O(_&quot;)&quot;) O(_&quot;)&quot;)│
-           ───────────────────────────────┘
-           pop出栈
-          int value = stack[top];
-          top--;
-          return value;
-</code></pre>]]></content>
-      <tags>
-        <tag>algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -34983,6 +34983,14 @@ car.drive();
       </tags>
   </entry>
   <entry>
+    <title>比较器Comparator使用</title>
+    <url>/Comparator/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>jdk</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>模板方法</title>
     <url>/template-method/</url>
     <content><![CDATA[<h4 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h4><hr>
@@ -35091,14 +35099,6 @@ Football Game Finished!
       </categories>
       <tags>
         <tag>DesignPatterns</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>比较器Comparator使用</title>
-    <url>/Comparator/</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>jdk</tag>
       </tags>
   </entry>
   <entry>
@@ -37047,6 +37047,78 @@ Grace
       </tags>
   </entry>
   <entry>
+    <title>蓄水池抽样算法</title>
+    <url>/Reservoir-Sampling%C2%B7/</url>
+    <content><![CDATA[<h3 id="「蓄水池抽样算法」"><a href="#「蓄水池抽样算法」" class="headerlink" title="「蓄水池抽样算法」"></a>「蓄水池抽样算法」</h3><p>优势：只需一次遍历，适用总量未知的情况</p>
+<p>蓄水池抽样算法可以扩展很多应用范围，比如游戏的签到抽奖系统，在抽奖之前，你不知道参与的总人数。</p>
+<p>对于一个池内，获取每个数字的概率都是一样的</p>
+<blockquote>
+<ul>
+<li>如果我们池子中只有一个数字，那么拿到第一个数字的概率就是100%毋庸置疑。</li>
+<li>两个数字50% 三个数字每个数字的几率都是33% 以此类推。。。。</li>
+</ul>
+<p>当我们不知道池子里有多少个数字的时候，就需要用蓄水池的算法思想去计算。</p>
+<ul>
+<li>当链表前行到第一个数字，此时取第一个数字的几率为100%，那result自然等于这个数字。</li>
+<li>前进到第二个数字，那么此时取这个数字的几率自然就为50%（池子里只有两个数字），那么就是50%的几率取新数字，50%的几率保留原本的数字。</li>
+<li>第三个数字的时候，33%的几率取当前最新的这个数字，66%的几率保留原本的数字。这66%中：原本的数字有50%的几率是1，有50%的几率是2。也就是此时三个数字的概率都为33%。 通过这个算法，就能达到取数的概率均摊，从而实现随机。</li>
+</ul>
+</blockquote>
+<pre><code class="lang-java">//给你一个单链表，随机选择链表的一个节点，并返回相应的节点值。每个节点 被选中的概率一样 。
+//
+// 实现 Solution 类：
+//
+//
+// Solution(ListNode head) 使用整数数组初始化对象。
+// int getRandom() 从链表中随机选择一个节点并返回该节点的值。链表中所有节点被选中的概率相等。
+</code></pre>
+<pre><code class="lang-java">class Solution &#123;
+    ListNode head;
+    Random random = new Random();
+    public Solution(ListNode _head) &#123;
+        random = new Random();
+        head = _head;
+    &#125;
+    public int getRandom() &#123;
+        int ans = 0, idx = 0;
+        ListNode t = head;
+        while (t != null &amp;&amp; ++idx &gt;= 0) &#123;
+            if (random.nextInt(idx) == 0) ans = t.val;
+            t = t.next;
+        &#125;
+        return ans;
+    &#125;
+&#125;
+</code></pre>
+<p>为什么算法是正确可靠的？</p>
+<pre><code class="lang-java">蓄水池算法思想：
+假设现在有一个容量为N的袋子，一个机器每次发出一个球，问你如何使得最终发了任意颗球后，所有球在袋子中的几率相等？
+实现方法：
+1.如果发出来的球的序号(count)小于等于N，那么袋子还没装满直接丢进去就可以了。
+2.如果发出来的球的序号(count)大于N，那么就以N/count的概率判断这个球是否入袋，如果入袋就以1/N的概率随机淘汰掉袋子中的某个位置的球。这里的袋子在代码实现中就是数组，所以就是随机淘汰掉0~N-1下标位置的球。
+证明：
+为什么这样所有球在袋子的概率是相同的呢？
+1.机器发出的球数如果小于等于N，那么很明显所有的球在袋子中的概率都是相等的，为1,毋庸置疑。
+2.机器发出的球数如果大于N，比如此时count=N+1，问3号球在袋子中的概率？
+2.1此时N+1号球以N/(N+1)的概率入袋，所以N+1号球在袋子中的概率就是N/(N+1)，不管你淘汰哪个，反正我是进去了
+2.2此时3号球被淘汰的概率是N/(N+1)*1/N=1/(N+1)，这个也好理解，被淘汰这个事件由N+1能够进入袋子和1/N的概率正好
+淘汰掉3号两个事件组成。那么3号球存在袋子中的概率就是1-1/(N+1) = N/(N+1)，这和N+1号球是相同的。
+
+我们选择的3号位置是随机的，同理选择其他位置采用同样的计算方法也能得到1~N+1号球的概率都是相同的，而且是N/(N+1)。所以蓄水池算法正确。
+
+对于这道题目来说，需要我们返回随机一个位置节点的值，那么好嘛，可以定义一个袋子，假如这个袋子容量就是1，那么每次从袋子中淘汰的概率都是1，因为就一个元素，所以必定淘汰它。只要将所有节点都判断一遍，最后袋子里剩下的不就是随机节点的值吗。
+
+作者：vigilant-hermannoht
+链接：https://leetcode-cn.com/problems/linked-list-random-node/solution/xu-shui-chi-suan-fa-zheng-ming-wei-shi-y-xwzn/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+</code></pre>
+]]></content>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>automated test：selenium</title>
     <url>/automated-test-selenium/</url>
     <content><![CDATA[<h1 id="Selenium"><a href="#Selenium" class="headerlink" title="Selenium"></a>Selenium</h1><blockquote>
@@ -37228,78 +37300,6 @@ driver.quit()
 ]]></content>
       <tags>
         <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>蓄水池抽样算法</title>
-    <url>/Reservoir-Sampling%C2%B7/</url>
-    <content><![CDATA[<h3 id="「蓄水池抽样算法」"><a href="#「蓄水池抽样算法」" class="headerlink" title="「蓄水池抽样算法」"></a>「蓄水池抽样算法」</h3><p>优势：只需一次遍历，适用总量未知的情况</p>
-<p>蓄水池抽样算法可以扩展很多应用范围，比如游戏的签到抽奖系统，在抽奖之前，你不知道参与的总人数。</p>
-<p>对于一个池内，获取每个数字的概率都是一样的</p>
-<blockquote>
-<ul>
-<li>如果我们池子中只有一个数字，那么拿到第一个数字的概率就是100%毋庸置疑。</li>
-<li>两个数字50% 三个数字每个数字的几率都是33% 以此类推。。。。</li>
-</ul>
-<p>当我们不知道池子里有多少个数字的时候，就需要用蓄水池的算法思想去计算。</p>
-<ul>
-<li>当链表前行到第一个数字，此时取第一个数字的几率为100%，那result自然等于这个数字。</li>
-<li>前进到第二个数字，那么此时取这个数字的几率自然就为50%（池子里只有两个数字），那么就是50%的几率取新数字，50%的几率保留原本的数字。</li>
-<li>第三个数字的时候，33%的几率取当前最新的这个数字，66%的几率保留原本的数字。这66%中：原本的数字有50%的几率是1，有50%的几率是2。也就是此时三个数字的概率都为33%。 通过这个算法，就能达到取数的概率均摊，从而实现随机。</li>
-</ul>
-</blockquote>
-<pre><code class="lang-java">//给你一个单链表，随机选择链表的一个节点，并返回相应的节点值。每个节点 被选中的概率一样 。
-//
-// 实现 Solution 类：
-//
-//
-// Solution(ListNode head) 使用整数数组初始化对象。
-// int getRandom() 从链表中随机选择一个节点并返回该节点的值。链表中所有节点被选中的概率相等。
-</code></pre>
-<pre><code class="lang-java">class Solution &#123;
-    ListNode head;
-    Random random = new Random();
-    public Solution(ListNode _head) &#123;
-        random = new Random();
-        head = _head;
-    &#125;
-    public int getRandom() &#123;
-        int ans = 0, idx = 0;
-        ListNode t = head;
-        while (t != null &amp;&amp; ++idx &gt;= 0) &#123;
-            if (random.nextInt(idx) == 0) ans = t.val;
-            t = t.next;
-        &#125;
-        return ans;
-    &#125;
-&#125;
-</code></pre>
-<p>为什么算法是正确可靠的？</p>
-<pre><code class="lang-java">蓄水池算法思想：
-假设现在有一个容量为N的袋子，一个机器每次发出一个球，问你如何使得最终发了任意颗球后，所有球在袋子中的几率相等？
-实现方法：
-1.如果发出来的球的序号(count)小于等于N，那么袋子还没装满直接丢进去就可以了。
-2.如果发出来的球的序号(count)大于N，那么就以N/count的概率判断这个球是否入袋，如果入袋就以1/N的概率随机淘汰掉袋子中的某个位置的球。这里的袋子在代码实现中就是数组，所以就是随机淘汰掉0~N-1下标位置的球。
-证明：
-为什么这样所有球在袋子的概率是相同的呢？
-1.机器发出的球数如果小于等于N，那么很明显所有的球在袋子中的概率都是相等的，为1,毋庸置疑。
-2.机器发出的球数如果大于N，比如此时count=N+1，问3号球在袋子中的概率？
-2.1此时N+1号球以N/(N+1)的概率入袋，所以N+1号球在袋子中的概率就是N/(N+1)，不管你淘汰哪个，反正我是进去了
-2.2此时3号球被淘汰的概率是N/(N+1)*1/N=1/(N+1)，这个也好理解，被淘汰这个事件由N+1能够进入袋子和1/N的概率正好
-淘汰掉3号两个事件组成。那么3号球存在袋子中的概率就是1-1/(N+1) = N/(N+1)，这和N+1号球是相同的。
-
-我们选择的3号位置是随机的，同理选择其他位置采用同样的计算方法也能得到1~N+1号球的概率都是相同的，而且是N/(N+1)。所以蓄水池算法正确。
-
-对于这道题目来说，需要我们返回随机一个位置节点的值，那么好嘛，可以定义一个袋子，假如这个袋子容量就是1，那么每次从袋子中淘汰的概率都是1，因为就一个元素，所以必定淘汰它。只要将所有节点都判断一遍，最后袋子里剩下的不就是随机节点的值吗。
-
-作者：vigilant-hermannoht
-链接：https://leetcode-cn.com/problems/linked-list-random-node/solution/xu-shui-chi-suan-fa-zheng-ming-wei-shi-y-xwzn/
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-</code></pre>
-]]></content>
-      <tags>
-        <tag>algorithm</tag>
       </tags>
   </entry>
   <entry>
