@@ -3811,6 +3811,26 @@ jobs:
       </tags>
   </entry>
   <entry>
+    <title>GC</title>
+    <url>/gc/</url>
+    <content><![CDATA[<h1 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h1><span id="more"></span>
+<h3 id="简单描述一下垃圾回收器的基本原理是什么？还有垃圾回收器可以马上回收内存吗？并且有什么办法可以主动通知虚拟机进行垃圾回收呢？"><a href="#简单描述一下垃圾回收器的基本原理是什么？还有垃圾回收器可以马上回收内存吗？并且有什么办法可以主动通知虚拟机进行垃圾回收呢？" class="headerlink" title="简单描述一下垃圾回收器的基本原理是什么？还有垃圾回收器可以马上回收内存吗？并且有什么办法可以主动通知虚拟机进行垃圾回收呢？"></a>简单描述一下垃圾回收器的基本原理是什么？还有垃圾回收器可以马上回收内存吗？并且有什么办法可以主动通知虚拟机进行垃圾回收呢？</h3><p> 对于GC来说，当程序员创建对象时，GC就开始监控这个对象的地址、大小以及使用情况。通常，GC采用有向图的方式记录和管理堆(heap)中的所有对象。通过这种方式确定哪些对象是”可达的”，哪些对象是”不可达的”。当GC确定一些对象为”不可达”时，GC就有责任回收这些内存空间。可以。程序员可以手动执行System.gc()，通知GC运行，但是Java语言规范并不保证GC一定会执行。 </p>
+<h3 id="在java中会存在内存泄漏吗？请简单描述一下。"><a href="#在java中会存在内存泄漏吗？请简单描述一下。" class="headerlink" title="在java中会存在内存泄漏吗？请简单描述一下。"></a>在java中会存在内存泄漏吗？请简单描述一下。</h3><p>Java中的确存在Java的内存泄漏, 并且事态可以变得相当严重</p>
+<p>Java garbage collector自动释放哪些内存里面程序不在需要的对象, 以此避免大多数的其他程序上下文的内存泄漏. 但是Java应用程序依旧会有相当的内存泄漏. 查找原因会十分困难.<br>有两类主要的Java内存泄漏:<br>* 不再需要的对象引用<br>* 未释放的系统资源<br><strong>非必要的对象引用</strong><br>Java代码常常保留对于不再需要的对象引用, 并且这组织了内存的垃圾收集器的工作. Java对象通常被其他对象包含引用, 为此一个单一对象可以保持整个对象树在内存中, 于是导致了如下问题:<br>* 在向数组添加对象以后遗漏了对于他们的处理<br>* 直到你再次使用对象的时候都不释放引用. 比如一个菜单指令可以插件一个对象实例引用并且不释放便于以后再次调用的时候使用, 但是也许永远不会发生.<br>* 在其他引用依然需要旧有状态的时候贸然修改对象状态. 比如当你为了在一个文本文件里面保存一些属性而使用一个数组, 诸如”字符个数”等字段在不再需要的时候依然保留在内存当中.<br>* 允许一个长久执行的线程所引用的对象. 设置引用为NULL也无济于事, 在线程退出和空闲之前, 对象不会被收集释放<br><strong>未释放的系统资源</strong><br>Java方法可以定位Java实例意外的堆内存, 诸如针对视窗和位图的内存资源. Java常常通过JNI(Java Native Interface)调用C/C++子程序定位这些资源.</p>
+<h3 id="说明一下垃圾回收的优点以及原理。"><a href="#说明一下垃圾回收的优点以及原理。" class="headerlink" title="说明一下垃圾回收的优点以及原理。"></a>说明一下垃圾回收的优点以及原理。</h3><p> Java 语言中一个显著的特点就是引入了垃圾回收机制，使c++程序员最头疼的内存管理的问题迎刃而解，它使得Java程序员在编写程序的时候不再需要考虑内存管理。由于有个垃圾回收机制，Java中的对象不再有”作用域”的概念，只有对象的引用才有”作用域”。垃圾回收可以有效的防止内存泄露，有效的使用可以使用的内存。垃圾回收器通常是作为一个单独的低级别的线程运行，不可预知的情况下对内存堆中已经死亡的或者长时间没有使用的对象进行清楚和回收，程序员不能实时的调用垃圾回收器对某个对象或所有对象进行垃圾回收。回收机制有分代复制垃圾回收和标记垃圾回收，增量垃圾回收。 </p>
+<h3 id="请问GC是什么-还有为什么要有GC"><a href="#请问GC是什么-还有为什么要有GC" class="headerlink" title="请问GC是什么? 还有为什么要有GC?"></a>请问GC是什么? 还有为什么要有GC?</h3><p> GC是垃圾收集的意思（Gabage Collection）,内存处理是编程人员容易出现问题的地方，忘记或者错误的内存回收会导致程序或系统的不稳定甚至崩溃，Java提供的GC功能可以自动监测对象是否超过作用域从而达到自动回收内存的目的，Java语言没有提供释放已分配内存的显示操作方法。 </p>
+<h3 id="简述一下GC算法"><a href="#简述一下GC算法" class="headerlink" title="简述一下GC算法"></a>简述一下GC算法</h3><p>①GC（GarbageCollection 垃圾收集），GC的对象是堆空间和永久区</p>
+<p>②GC算法包含：引用计数法，标记清除，标记压缩，复制算法。</p>
+<p>③引用计数器的实现很简单，对于一个对象A，只要有任何一个对象引用了A，则A的引用计数器就加1，当引用失效时，引用计数器就减1。只要对象A的引用计数器的值为0，则对象A就不可能再被使用。</p>
+<p>④标记-清除算法是现代垃圾回收算法的思想基础。标记-清除算法将垃圾回收分为两个阶段：标记阶段和清除阶段。一种可行的实现是，在标记阶段，首先通过根节点，标记所有从根节点开始的可达对象。因此，未被标记的对象就是未被引用的垃圾对象。然后，在清除阶段，清除所有未被标记的对象。与标记-清除算法相比，复制算法是一种相对高效的回收方法不适用于存活对象较多的场合如老年代将原有的内存空间分为两块，每次只使用其中一块，在垃圾回收时，将正在使用的内存中的存活对象复制到未使用的内存块中，之后，清除正在使用的内存块中的所有对象，交换两个内存的角色，完成垃圾回收。</p>
+<h3 id="什么原因会导致minor-gc运行频繁？同样的，什么原因又会导致minor-gc运行很慢？请简要说明一下"><a href="#什么原因会导致minor-gc运行频繁？同样的，什么原因又会导致minor-gc运行很慢？请简要说明一下" class="headerlink" title="什么原因会导致minor gc运行频繁？同样的，什么原因又会导致minor gc运行很慢？请简要说明一下"></a>什么原因会导致minor gc运行频繁？同样的，什么原因又会导致minor gc运行很慢？请简要说明一下</h3><p> 可能是堆内存太小。 </p>
+<h3 id="请问java中内存泄漏是什么意思？什么场景下会出现内存泄漏的情况？"><a href="#请问java中内存泄漏是什么意思？什么场景下会出现内存泄漏的情况？" class="headerlink" title="请问java中内存泄漏是什么意思？什么场景下会出现内存泄漏的情况？"></a>请问java中内存泄漏是什么意思？什么场景下会出现内存泄漏的情况？</h3><p> Java中的内存泄露，广义并通俗的说，就是：不再会被使用的对象的内存不能被回收，就是内存泄露。如果长生命周期的对象持有短生命周期的引用，就很可能会出现内存泄露。 </p>
+]]></content>
+      <tags>
+        <tag>Interview</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Download</title>
     <url>/Download/</url>
     <content><![CDATA[<h1 id="Java-多线程下载器的设计与实现"><a href="#Java-多线程下载器的设计与实现" class="headerlink" title="Java 多线程下载器的设计与实现"></a>Java 多线程下载器的设计与实现</h1><p>应用并发的场景有很多，下载文件就是一个很常见的并发场景。</p>
@@ -4141,26 +4161,6 @@ public class HttpDownloader &#123;
 ]]></content>
       <tags>
         <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GC</title>
-    <url>/gc/</url>
-    <content><![CDATA[<h1 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h1><span id="more"></span>
-<h3 id="简单描述一下垃圾回收器的基本原理是什么？还有垃圾回收器可以马上回收内存吗？并且有什么办法可以主动通知虚拟机进行垃圾回收呢？"><a href="#简单描述一下垃圾回收器的基本原理是什么？还有垃圾回收器可以马上回收内存吗？并且有什么办法可以主动通知虚拟机进行垃圾回收呢？" class="headerlink" title="简单描述一下垃圾回收器的基本原理是什么？还有垃圾回收器可以马上回收内存吗？并且有什么办法可以主动通知虚拟机进行垃圾回收呢？"></a>简单描述一下垃圾回收器的基本原理是什么？还有垃圾回收器可以马上回收内存吗？并且有什么办法可以主动通知虚拟机进行垃圾回收呢？</h3><p> 对于GC来说，当程序员创建对象时，GC就开始监控这个对象的地址、大小以及使用情况。通常，GC采用有向图的方式记录和管理堆(heap)中的所有对象。通过这种方式确定哪些对象是”可达的”，哪些对象是”不可达的”。当GC确定一些对象为”不可达”时，GC就有责任回收这些内存空间。可以。程序员可以手动执行System.gc()，通知GC运行，但是Java语言规范并不保证GC一定会执行。 </p>
-<h3 id="在java中会存在内存泄漏吗？请简单描述一下。"><a href="#在java中会存在内存泄漏吗？请简单描述一下。" class="headerlink" title="在java中会存在内存泄漏吗？请简单描述一下。"></a>在java中会存在内存泄漏吗？请简单描述一下。</h3><p>Java中的确存在Java的内存泄漏, 并且事态可以变得相当严重</p>
-<p>Java garbage collector自动释放哪些内存里面程序不在需要的对象, 以此避免大多数的其他程序上下文的内存泄漏. 但是Java应用程序依旧会有相当的内存泄漏. 查找原因会十分困难.<br>有两类主要的Java内存泄漏:<br>* 不再需要的对象引用<br>* 未释放的系统资源<br><strong>非必要的对象引用</strong><br>Java代码常常保留对于不再需要的对象引用, 并且这组织了内存的垃圾收集器的工作. Java对象通常被其他对象包含引用, 为此一个单一对象可以保持整个对象树在内存中, 于是导致了如下问题:<br>* 在向数组添加对象以后遗漏了对于他们的处理<br>* 直到你再次使用对象的时候都不释放引用. 比如一个菜单指令可以插件一个对象实例引用并且不释放便于以后再次调用的时候使用, 但是也许永远不会发生.<br>* 在其他引用依然需要旧有状态的时候贸然修改对象状态. 比如当你为了在一个文本文件里面保存一些属性而使用一个数组, 诸如”字符个数”等字段在不再需要的时候依然保留在内存当中.<br>* 允许一个长久执行的线程所引用的对象. 设置引用为NULL也无济于事, 在线程退出和空闲之前, 对象不会被收集释放<br><strong>未释放的系统资源</strong><br>Java方法可以定位Java实例意外的堆内存, 诸如针对视窗和位图的内存资源. Java常常通过JNI(Java Native Interface)调用C/C++子程序定位这些资源.</p>
-<h3 id="说明一下垃圾回收的优点以及原理。"><a href="#说明一下垃圾回收的优点以及原理。" class="headerlink" title="说明一下垃圾回收的优点以及原理。"></a>说明一下垃圾回收的优点以及原理。</h3><p> Java 语言中一个显著的特点就是引入了垃圾回收机制，使c++程序员最头疼的内存管理的问题迎刃而解，它使得Java程序员在编写程序的时候不再需要考虑内存管理。由于有个垃圾回收机制，Java中的对象不再有”作用域”的概念，只有对象的引用才有”作用域”。垃圾回收可以有效的防止内存泄露，有效的使用可以使用的内存。垃圾回收器通常是作为一个单独的低级别的线程运行，不可预知的情况下对内存堆中已经死亡的或者长时间没有使用的对象进行清楚和回收，程序员不能实时的调用垃圾回收器对某个对象或所有对象进行垃圾回收。回收机制有分代复制垃圾回收和标记垃圾回收，增量垃圾回收。 </p>
-<h3 id="请问GC是什么-还有为什么要有GC"><a href="#请问GC是什么-还有为什么要有GC" class="headerlink" title="请问GC是什么? 还有为什么要有GC?"></a>请问GC是什么? 还有为什么要有GC?</h3><p> GC是垃圾收集的意思（Gabage Collection）,内存处理是编程人员容易出现问题的地方，忘记或者错误的内存回收会导致程序或系统的不稳定甚至崩溃，Java提供的GC功能可以自动监测对象是否超过作用域从而达到自动回收内存的目的，Java语言没有提供释放已分配内存的显示操作方法。 </p>
-<h3 id="简述一下GC算法"><a href="#简述一下GC算法" class="headerlink" title="简述一下GC算法"></a>简述一下GC算法</h3><p>①GC（GarbageCollection 垃圾收集），GC的对象是堆空间和永久区</p>
-<p>②GC算法包含：引用计数法，标记清除，标记压缩，复制算法。</p>
-<p>③引用计数器的实现很简单，对于一个对象A，只要有任何一个对象引用了A，则A的引用计数器就加1，当引用失效时，引用计数器就减1。只要对象A的引用计数器的值为0，则对象A就不可能再被使用。</p>
-<p>④标记-清除算法是现代垃圾回收算法的思想基础。标记-清除算法将垃圾回收分为两个阶段：标记阶段和清除阶段。一种可行的实现是，在标记阶段，首先通过根节点，标记所有从根节点开始的可达对象。因此，未被标记的对象就是未被引用的垃圾对象。然后，在清除阶段，清除所有未被标记的对象。与标记-清除算法相比，复制算法是一种相对高效的回收方法不适用于存活对象较多的场合如老年代将原有的内存空间分为两块，每次只使用其中一块，在垃圾回收时，将正在使用的内存中的存活对象复制到未使用的内存块中，之后，清除正在使用的内存块中的所有对象，交换两个内存的角色，完成垃圾回收。</p>
-<h3 id="什么原因会导致minor-gc运行频繁？同样的，什么原因又会导致minor-gc运行很慢？请简要说明一下"><a href="#什么原因会导致minor-gc运行频繁？同样的，什么原因又会导致minor-gc运行很慢？请简要说明一下" class="headerlink" title="什么原因会导致minor gc运行频繁？同样的，什么原因又会导致minor gc运行很慢？请简要说明一下"></a>什么原因会导致minor gc运行频繁？同样的，什么原因又会导致minor gc运行很慢？请简要说明一下</h3><p> 可能是堆内存太小。 </p>
-<h3 id="请问java中内存泄漏是什么意思？什么场景下会出现内存泄漏的情况？"><a href="#请问java中内存泄漏是什么意思？什么场景下会出现内存泄漏的情况？" class="headerlink" title="请问java中内存泄漏是什么意思？什么场景下会出现内存泄漏的情况？"></a>请问java中内存泄漏是什么意思？什么场景下会出现内存泄漏的情况？</h3><p> Java中的内存泄露，广义并通俗的说，就是：不再会被使用的对象的内存不能被回收，就是内存泄露。如果长生命周期的对象持有短生命周期的引用，就很可能会出现内存泄露。 </p>
-]]></content>
-      <tags>
-        <tag>Interview</tag>
       </tags>
   </entry>
   <entry>
@@ -19128,43 +19128,6 @@ EmpBusinessLogic.java TestEmployeeDetails.java TestRunner.java
       </tags>
   </entry>
   <entry>
-    <title>contract</title>
-    <url>/contract/</url>
-    <content><![CDATA[<span id="more"></span>
-<pre><code class="lang-s">         ,-.                              ,--,                 ,---,
-     ,--/ /|                            ,--.&#39;|               ,--.&#39; |
-   ,--. :/ |                            |  | :               |  |  :
-   :  : &#39; /                             :  : &#39;               :  :  :
-   |  &#39;  /       ,--.--.          .--,  |  &#39; |       ,---.   :  |  |,--.
-   &#39;  |  :      /       \       /_ ./|  &#39;  | |      /     \  |  :  &#39;   |
-   |  |   \    .--.  .-. |   , &#39; , &#39; :  |  | :     /    /  | |  |   /&#39; :
-   &#39;  : |. \    \__\/: . .  /___/ \: |  &#39;  : |__  .    &#39; / | &#39;  :  | | |
-   |  | &#39; \ \   ,&quot; .--.; |   .  \  &#39; |  |  | &#39;.&#39;| &#39;   ;   /| |  |  &#39; | :
-   &#39;  : |--&#39;   /  /  ,.  |    \  ;   :  ;  :    ; &#39;   |  / | |  :  :_:,&#39;
-   ;  |,&#39;     ;  :   .&#39;   \    \  \  ;  |  ,   /  |   :    | |  | ,&#39;
-   &#39;--&#39;       |  ,     .-./     :  \  \  ---`-&#39;    \   \  /  `--&#39;&#39;
-               `--`---&#39;          \  &#39; ;             `----&#39;
-                                  `--`
-</code></pre>
-<hr>
-<p>我是一名保安，安全与我无关</p>
-<p>保安？保护不了任何人</p>
-<hr>
-<p> Github: <a href="https://github.com/Kayleh">https://github.com/Kayleh</a></p>
-<p> Google: mailto:kaylehisdied@gmail.com</p>
-<p> Facebook: <a href="https://www.facebook.com/kayleh.yao.7">https://www.facebook.com/kayleh.yao.7</a></p>
-<p> Twitter: <a href="https://twitter.com/y40jinqing">https://twitter.com/y40jinqing</a></p>
-<p> Weibo: <a href="https://weibo.com/5737136689/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo">https://weibo.com/5737136689/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo</a></p>
-<p> Zhihu: <a href="https://www.zhihu.com/people/ni-hui-gan-xie-wo-de">https://www.zhihu.com/people/ni-hui-gan-xie-wo-de</a></p>
-<p> Linkedin: <a href="https://www.linkedin.com/in/jinqing-yao-97a750186/">https://www.linkedin.com/in/jinqing-yao-97a750186/</a></p>
-<hr>
-<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/contract/wechat.jpg" alt="wechat" style="zoom: 33%;"></p>
-]]></content>
-      <tags>
-        <tag>about</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cycle structure programming</title>
     <url>/cycle-structure-programming/</url>
     <content><![CDATA[<h1 id="循环结构体程序设计"><a href="#循环结构体程序设计" class="headerlink" title="循环结构体程序设计"></a>循环结构体程序设计</h1><h3 id="用while语句实现循环"><a href="#用while语句实现循环" class="headerlink" title="用while语句实现循环"></a>用while语句实现循环</h3><blockquote>
@@ -19269,6 +19232,43 @@ int main()
 ]]></content>
       <tags>
         <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>contract</title>
+    <url>/contract/</url>
+    <content><![CDATA[<span id="more"></span>
+<pre><code class="lang-s">         ,-.                              ,--,                 ,---,
+     ,--/ /|                            ,--.&#39;|               ,--.&#39; |
+   ,--. :/ |                            |  | :               |  |  :
+   :  : &#39; /                             :  : &#39;               :  :  :
+   |  &#39;  /       ,--.--.          .--,  |  &#39; |       ,---.   :  |  |,--.
+   &#39;  |  :      /       \       /_ ./|  &#39;  | |      /     \  |  :  &#39;   |
+   |  |   \    .--.  .-. |   , &#39; , &#39; :  |  | :     /    /  | |  |   /&#39; :
+   &#39;  : |. \    \__\/: . .  /___/ \: |  &#39;  : |__  .    &#39; / | &#39;  :  | | |
+   |  | &#39; \ \   ,&quot; .--.; |   .  \  &#39; |  |  | &#39;.&#39;| &#39;   ;   /| |  |  &#39; | :
+   &#39;  : |--&#39;   /  /  ,.  |    \  ;   :  ;  :    ; &#39;   |  / | |  :  :_:,&#39;
+   ;  |,&#39;     ;  :   .&#39;   \    \  \  ;  |  ,   /  |   :    | |  | ,&#39;
+   &#39;--&#39;       |  ,     .-./     :  \  \  ---`-&#39;    \   \  /  `--&#39;&#39;
+               `--`---&#39;          \  &#39; ;             `----&#39;
+                                  `--`
+</code></pre>
+<hr>
+<p>我是一名保安，安全与我无关</p>
+<p>保安？保护不了任何人</p>
+<hr>
+<p> Github: <a href="https://github.com/Kayleh">https://github.com/Kayleh</a></p>
+<p> Google: mailto:kaylehisdied@gmail.com</p>
+<p> Facebook: <a href="https://www.facebook.com/kayleh.yao.7">https://www.facebook.com/kayleh.yao.7</a></p>
+<p> Twitter: <a href="https://twitter.com/y40jinqing">https://twitter.com/y40jinqing</a></p>
+<p> Weibo: <a href="https://weibo.com/5737136689/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo">https://weibo.com/5737136689/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo</a></p>
+<p> Zhihu: <a href="https://www.zhihu.com/people/ni-hui-gan-xie-wo-de">https://www.zhihu.com/people/ni-hui-gan-xie-wo-de</a></p>
+<p> Linkedin: <a href="https://www.linkedin.com/in/jinqing-yao-97a750186/">https://www.linkedin.com/in/jinqing-yao-97a750186/</a></p>
+<hr>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/contract/wechat.jpg" alt="wechat" style="zoom: 33%;"></p>
+]]></content>
+      <tags>
+        <tag>about</tag>
       </tags>
   </entry>
   <entry>
@@ -20586,6 +20586,37 @@ mysql -uroot -p
       </tags>
   </entry>
   <entry>
+    <title>Improve Robustness (1)</title>
+    <url>/Improve-Robustness-(1)/</url>
+    <content><![CDATA[<h1 id="提高代码鲁棒性——（1）"><a href="#提高代码鲁棒性——（1）" class="headerlink" title="提高代码鲁棒性——（1）"></a>提高代码鲁棒性——（1）</h1><ul>
+<li>需要 Map 的主键和取值时，应该迭代 entrySet()</li>
+</ul>
+<p>当循环中只需要 Map 的主键时，迭代 keySet() 是正确的。但是，当需要主键和取值时，迭代 entrySet() 才是更高效的做法，比先迭代 keySet() 后再去 get 取值性能更佳。</p>
+<p>反例：</p>
+<pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
+for(String key : map.keySet())
+&#123;
+    String value = map.get(key);
+&#125;
+</code></pre>
+<p>正例：</p>
+<pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
+for(Map.Entry&lt;String,String&gt; entry:map.entrySet())
+&#123;
+    String key = map.getKey();
+    String value = entry.getValue();
+    ...
+&#125;
+</code></pre>
+<ul>
+<li>不要让常量变成变量</li>
+</ul>
+<pre><code class="lang-java">
+
+</code></pre>
+]]></content>
+  </entry>
+  <entry>
     <title>Head First Netty</title>
     <url>/Head-First-Netty/</url>
     <content><![CDATA[<h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/head-first-netty/b3fc6eb690464940b4a9b1100cfed5a2.png"></div></div>
@@ -21021,37 +21052,6 @@ public EventExecutor next() &#123;
       <tags>
         <tag>frame</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Improve Robustness (1)</title>
-    <url>/Improve-Robustness-(1)/</url>
-    <content><![CDATA[<h1 id="提高代码鲁棒性——（1）"><a href="#提高代码鲁棒性——（1）" class="headerlink" title="提高代码鲁棒性——（1）"></a>提高代码鲁棒性——（1）</h1><ul>
-<li>需要 Map 的主键和取值时，应该迭代 entrySet()</li>
-</ul>
-<p>当循环中只需要 Map 的主键时，迭代 keySet() 是正确的。但是，当需要主键和取值时，迭代 entrySet() 才是更高效的做法，比先迭代 keySet() 后再去 get 取值性能更佳。</p>
-<p>反例：</p>
-<pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
-for(String key : map.keySet())
-&#123;
-    String value = map.get(key);
-&#125;
-</code></pre>
-<p>正例：</p>
-<pre><code class="lang-java">Map&lt;String,String&gt; map = new HashMap();
-for(Map.Entry&lt;String,String&gt; entry:map.entrySet())
-&#123;
-    String key = map.getKey();
-    String value = entry.getValue();
-    ...
-&#125;
-</code></pre>
-<ul>
-<li>不要让常量变成变量</li>
-</ul>
-<pre><code class="lang-java">
-
-</code></pre>
-]]></content>
   </entry>
   <entry>
     <title>Improve Robustness (2)</title>
@@ -21595,6 +21595,143 @@ public class CglibTest &#123;
 ]]></content>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>select structure programming</title>
+    <url>/select-structure-programming/</url>
+    <content><![CDATA[<h1 id="选择结构程序设计"><a href="#选择结构程序设计" class="headerlink" title="选择结构程序设计"></a>选择结构程序设计</h1><h3 id="选择结构和条件判断"><a href="#选择结构和条件判断" class="headerlink" title="选择结构和条件判断"></a>选择结构和条件判断</h3><h3 id="用if语句实现选择结构"><a href="#用if语句实现选择结构" class="headerlink" title="用if语句实现选择结构"></a>用if语句实现选择结构</h3><blockquote>
+<p>if</p>
+</blockquote>
+<h3 id="关系运算符和关系表达式"><a href="#关系运算符和关系表达式" class="headerlink" title="关系运算符和关系表达式"></a>关系运算符和关系表达式</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">关系运算符</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">==</td>
+<td style="text-align:left">检查两个操作数的值是否相等，如果相等则条件为真。</td>
+<td style="text-align:left">(A == B) 为假。</td>
+</tr>
+<tr>
+<td style="text-align:left">!=</td>
+<td style="text-align:left">检查两个操作数的值是否相等，如果不相等则条件为真。</td>
+<td style="text-align:left">(A != B) 为真。</td>
+</tr>
+<tr>
+<td style="text-align:left">&gt;</td>
+<td style="text-align:left">检查左操作数的值是否大于右操作数的值，如果是则条件为真。</td>
+<td style="text-align:left">(A &gt; B) 为假。</td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;</td>
+<td style="text-align:left">检查左操作数的值是否小于右操作数的值，如果是则条件为真。</td>
+<td style="text-align:left">(A &lt; B) 为真。</td>
+</tr>
+<tr>
+<td style="text-align:left">&gt;=</td>
+<td style="text-align:left">检查左操作数的值是否大于或等于右操作数的值，如果是则条件为真。</td>
+<td style="text-align:left">(A &gt;= B) 为假。</td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;=</td>
+<td style="text-align:left">检查左操作数的值是否小于或等于右操作数的值，如果是则条件为真。</td>
+<td style="text-align:left">(A &lt;= B) 为真。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="输入两个实数-按由小到大的顺序输出这两个数"><a href="#输入两个实数-按由小到大的顺序输出这两个数" class="headerlink" title="输入两个实数,按由小到大的顺序输出这两个数"></a>输入两个实数,按由小到大的顺序输出这两个数</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+&#123;
+    float a, b, t;
+    scanf(&quot;%f,%f&quot;, &amp;a, &amp;b);
+    if (a &gt; b)
+    &#123;
+        //将a和b的值互换
+        t = a;
+        a = b;
+        b = t;
+    &#125;
+    printf(&quot;%5.2f,%5.2f\n&quot;, a, b);
+    return 0;
+&#125;
+</code></pre>
+<h5 id="输入3个数啊a-b-c-要求按由小到大的顺序输出"><a href="#输入3个数啊a-b-c-要求按由小到大的顺序输出" class="headerlink" title="输入3个数啊a,b,c,要求按由小到大的顺序输出."></a>输入3个数啊a,b,c,要求按由小到大的顺序输出.</h5><h3 id="if语句的一般形式"><a href="#if语句的一般形式" class="headerlink" title="if语句的一般形式"></a>if语句的一般形式</h3><blockquote>
+<p>if(表达式) 语句1</p>
+<p>​    [else 语句2]</p>
+<p>……..</p>
+</blockquote>
+<h3 id="逻辑运算符和逻辑表达式"><a href="#逻辑运算符和逻辑表达式" class="headerlink" title="逻辑运算符和逻辑表达式"></a>逻辑运算符和逻辑表达式</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">逻辑运算符</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&amp;&amp;</td>
+<td style="text-align:left">称为逻辑与运算符。如果两个操作数都非零，则条件为真。</td>
+<td style="text-align:left">(A &amp;&amp; B) 为假。</td>
+</tr>
+<tr>
+<td style="text-align:left">\</td>
+<td style="text-align:left">\</td>
+<td style="text-align:left"></td>
+<td>称为逻辑或运算符。如果两个操作数中有任意一个非零，则条件为真。</td>
+<td>(A \</td>
+<td>\</td>
+<td>B) 为真。</td>
+</tr>
+<tr>
+<td style="text-align:left">!</td>
+<td style="text-align:left">称为逻辑非运算符。用来逆转操作数的逻辑状态。如果条件为真则逻辑非运算符将使其为假。</td>
+<td style="text-align:left">!(A &amp;&amp; B) 为真。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="选择结构的嵌套"><a href="#选择结构的嵌套" class="headerlink" title="选择结构的嵌套"></a>选择结构的嵌套</h3><h3 id="用switch语句实现多分支选择结构"><a href="#用switch语句实现多分支选择结构" class="headerlink" title="用switch语句实现多分支选择结构"></a>用switch语句实现多分支选择结构</h3><p>要求按照考试成绩等级输出百分制分数制,A等为85分以上,B等为70~84分,C等为60~69分,D等为60分以下.成绩的等级由键盘输入.</p>
+<pre><code class="lang-c">#include&lt;stdio.h&gt;
+
+int main()
+&#123;
+    char grade;
+    scanf(&quot;%c&quot;, &amp;grade);
+    printf(&quot;Yours Score:&quot;);
+    switch (grade)
+    &#123;
+        case &#39;A&#39;:
+            printf(&quot;85~100&quot;);
+            break;
+        case &#39;B&#39;:
+            printf(&quot;70~84&quot;);
+            break;
+        case &#39;C&#39;:
+            printf(&quot;60~69&quot;);
+            break;
+        case &#39;D&#39;:
+            printf(&quot;&lt;60&quot;);
+            break;
+        default:
+            printf(&quot;enter data error!&quot;);
+
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+]]></content>
+      <tags>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -22309,143 +22446,6 @@ void print_string(char str[])
 <blockquote>
 <p>extern可以省略</p>
 </blockquote>
-]]></content>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>select structure programming</title>
-    <url>/select-structure-programming/</url>
-    <content><![CDATA[<h1 id="选择结构程序设计"><a href="#选择结构程序设计" class="headerlink" title="选择结构程序设计"></a>选择结构程序设计</h1><h3 id="选择结构和条件判断"><a href="#选择结构和条件判断" class="headerlink" title="选择结构和条件判断"></a>选择结构和条件判断</h3><h3 id="用if语句实现选择结构"><a href="#用if语句实现选择结构" class="headerlink" title="用if语句实现选择结构"></a>用if语句实现选择结构</h3><blockquote>
-<p>if</p>
-</blockquote>
-<h3 id="关系运算符和关系表达式"><a href="#关系运算符和关系表达式" class="headerlink" title="关系运算符和关系表达式"></a>关系运算符和关系表达式</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">关系运算符</th>
-<th style="text-align:left">描述</th>
-<th style="text-align:left">实例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">==</td>
-<td style="text-align:left">检查两个操作数的值是否相等，如果相等则条件为真。</td>
-<td style="text-align:left">(A == B) 为假。</td>
-</tr>
-<tr>
-<td style="text-align:left">!=</td>
-<td style="text-align:left">检查两个操作数的值是否相等，如果不相等则条件为真。</td>
-<td style="text-align:left">(A != B) 为真。</td>
-</tr>
-<tr>
-<td style="text-align:left">&gt;</td>
-<td style="text-align:left">检查左操作数的值是否大于右操作数的值，如果是则条件为真。</td>
-<td style="text-align:left">(A &gt; B) 为假。</td>
-</tr>
-<tr>
-<td style="text-align:left">&lt;</td>
-<td style="text-align:left">检查左操作数的值是否小于右操作数的值，如果是则条件为真。</td>
-<td style="text-align:left">(A &lt; B) 为真。</td>
-</tr>
-<tr>
-<td style="text-align:left">&gt;=</td>
-<td style="text-align:left">检查左操作数的值是否大于或等于右操作数的值，如果是则条件为真。</td>
-<td style="text-align:left">(A &gt;= B) 为假。</td>
-</tr>
-<tr>
-<td style="text-align:left">&lt;=</td>
-<td style="text-align:left">检查左操作数的值是否小于或等于右操作数的值，如果是则条件为真。</td>
-<td style="text-align:left">(A &lt;= B) 为真。</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h5 id="输入两个实数-按由小到大的顺序输出这两个数"><a href="#输入两个实数-按由小到大的顺序输出这两个数" class="headerlink" title="输入两个实数,按由小到大的顺序输出这两个数"></a>输入两个实数,按由小到大的顺序输出这两个数</h5><pre><code class="lang-c">#include&lt;stdio.h&gt;
-
-int main()
-&#123;
-    float a, b, t;
-    scanf(&quot;%f,%f&quot;, &amp;a, &amp;b);
-    if (a &gt; b)
-    &#123;
-        //将a和b的值互换
-        t = a;
-        a = b;
-        b = t;
-    &#125;
-    printf(&quot;%5.2f,%5.2f\n&quot;, a, b);
-    return 0;
-&#125;
-</code></pre>
-<h5 id="输入3个数啊a-b-c-要求按由小到大的顺序输出"><a href="#输入3个数啊a-b-c-要求按由小到大的顺序输出" class="headerlink" title="输入3个数啊a,b,c,要求按由小到大的顺序输出."></a>输入3个数啊a,b,c,要求按由小到大的顺序输出.</h5><h3 id="if语句的一般形式"><a href="#if语句的一般形式" class="headerlink" title="if语句的一般形式"></a>if语句的一般形式</h3><blockquote>
-<p>if(表达式) 语句1</p>
-<p>​    [else 语句2]</p>
-<p>……..</p>
-</blockquote>
-<h3 id="逻辑运算符和逻辑表达式"><a href="#逻辑运算符和逻辑表达式" class="headerlink" title="逻辑运算符和逻辑表达式"></a>逻辑运算符和逻辑表达式</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">逻辑运算符</th>
-<th style="text-align:left">描述</th>
-<th style="text-align:left">实例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">&amp;&amp;</td>
-<td style="text-align:left">称为逻辑与运算符。如果两个操作数都非零，则条件为真。</td>
-<td style="text-align:left">(A &amp;&amp; B) 为假。</td>
-</tr>
-<tr>
-<td style="text-align:left">\</td>
-<td style="text-align:left">\</td>
-<td style="text-align:left"></td>
-<td>称为逻辑或运算符。如果两个操作数中有任意一个非零，则条件为真。</td>
-<td>(A \</td>
-<td>\</td>
-<td>B) 为真。</td>
-</tr>
-<tr>
-<td style="text-align:left">!</td>
-<td style="text-align:left">称为逻辑非运算符。用来逆转操作数的逻辑状态。如果条件为真则逻辑非运算符将使其为假。</td>
-<td style="text-align:left">!(A &amp;&amp; B) 为真。</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="选择结构的嵌套"><a href="#选择结构的嵌套" class="headerlink" title="选择结构的嵌套"></a>选择结构的嵌套</h3><h3 id="用switch语句实现多分支选择结构"><a href="#用switch语句实现多分支选择结构" class="headerlink" title="用switch语句实现多分支选择结构"></a>用switch语句实现多分支选择结构</h3><p>要求按照考试成绩等级输出百分制分数制,A等为85分以上,B等为70~84分,C等为60~69分,D等为60分以下.成绩的等级由键盘输入.</p>
-<pre><code class="lang-c">#include&lt;stdio.h&gt;
-
-int main()
-&#123;
-    char grade;
-    scanf(&quot;%c&quot;, &amp;grade);
-    printf(&quot;Yours Score:&quot;);
-    switch (grade)
-    &#123;
-        case &#39;A&#39;:
-            printf(&quot;85~100&quot;);
-            break;
-        case &#39;B&#39;:
-            printf(&quot;70~84&quot;);
-            break;
-        case &#39;C&#39;:
-            printf(&quot;60~69&quot;);
-            break;
-        case &#39;D&#39;:
-            printf(&quot;&lt;60&quot;);
-            break;
-        default:
-            printf(&quot;enter data error!&quot;);
-
-    &#125;
-    return 0;
-&#125;
-</code></pre>
 ]]></content>
       <tags>
         <tag>C</tag>
@@ -24425,6 +24425,82 @@ num 不会包含任何前导零。
       </tags>
   </entry>
   <entry>
+    <title>⌈贪心算法⌋田忌赛马策略</title>
+    <url>/tj-horse-racing/</url>
+    <content><![CDATA[<h2 id="田忌赛马"><a href="#田忌赛马" class="headerlink" title="田忌赛马"></a>田忌赛马</h2><blockquote>
+<p>齐使者如梁，孙膑以刑徒阴见，说齐使。齐使以为奇，窃载与之齐。齐将田忌善而客待之。忌数与齐诸公子驰逐重射。孙子见其马足不甚相远，马有上、中、下、辈。于是孙子谓田忌曰：“君弟重射，臣能令君胜。”田忌信然之，与王及诸公子逐射千金。及临质，“<a href="https://baike.baidu.com/item/%E5%AD%99%E5%AD%90/1681?fromModule=lemma_inlink">孙子</a>曰：‘今以君之下驷与彼上驷，取君上驷与彼中驷，取君中驷与彼下驷。’既驰三辈毕，而田忌一不胜而再胜，卒得王千金。”</p>
+</blockquote>
+<p>思考一个问题： 田忌和齐威王有相同数量的马，他们要在一场比赛中决出胜负，规则是：每匹马只能和对手比赛一次，胜者得一分，负者得零分，最后得分高的一方获胜。田忌和齐威王都是聪明的人，他们都会采用最优策略，田忌想要赢得齐威王的千金，那么田忌应该怎么安排马匹的顺序呢？</p>
+<h3 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h3><p>贪心算法是一种在每一步选择中都采取在当前状态下最好或最优的选择，从而希望导致结果是全局最好或最优的算法。贪心算法与动态规划的不同在于它对每个子问题的解决方案都做出选择，不能回退。动态规划则会保存以前的运算结果，并根据以前的结果对当前进行选择，有回退功能。</p>
+<h3 id="田忌赛马策略"><a href="#田忌赛马策略" class="headerlink" title="田忌赛马策略"></a>田忌赛马策略</h3><p>田忌赛马策略是一种贪心算法，它的基本思想是：在每一轮比赛中，田忌都会选择一匹自己最强的马和对手最弱的马进行比赛，这样可以保证自己的马在每一轮比赛中都有机会获胜，使得优势最大化。</p>
+<p>所以，田忌在每一次选择时都采取在当前状态下最好的选择，从而希望导致结果是全局最好的算法。</p>
+<p>策略如下：<br>田忌在每一次安排马匹的顺序时，都会选择一匹自己最弱的马和对手最弱比赛，</p>
+<ul>
+<li>如果田忌的马赢了，就加一分</li>
+<li>如果田忌的马输了，就把这匹下等马送去给对方上等马当炮灰（注意：每一匹马只能比赛一次）</li>
+</ul>
+<h4 id="优势洗牌"><a href="#优势洗牌" class="headerlink" title="优势洗牌"></a>优势洗牌</h4>]]></content>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringMVC@ModelAttribute的使用</title>
+    <url>/use-of-springmvcmodelattribute/</url>
+    <content><![CDATA[<h2 id="ModelAttribute？"><a href="#ModelAttribute？" class="headerlink" title="@ModelAttribute？"></a>@ModelAttribute？</h2><span id="more"></span>
+<p>@ModelAttribute的原理比较复杂，需要对源码有一定的理解。它可以使被</p>
+<p>@ModelAttribute修饰的方法在控制器的处理方法之前调用。<br>但如果@ModelAttribute标注在方法的入参前，它可以从隐含对象中获取隐含的模型数据中获取对象，再将请求参数绑定到对象中，再传入入参。</p>
+<hr>
+<h3 id="实际场景："><a href="#实际场景：" class="headerlink" title="实际场景："></a>实际场景：</h3><p>Spring在进行数据库update全字段更新操作提交表单的时候，从页面获取的数据会封装成一个new的pojo对象，没有带的值为null；所以我们只能更新我们提交的数据。ModelAttribute暂时保存表单pojo对象，覆盖数据库保存的pojo对象的数据即可。</p>
+<pre><code class="lang-bash">ModelAttribute提前与目标方法运行
+/**
+ * @author Kayleh
+ */
+@Controller
+public class ModelAttributeTest &#123;
+
+  @RequestMapping(&quot;/update&quot;)
+  public String update()&#123;     
+    System.out.println(&quot;页面update的bean对象：&quot;+bean);  
+  &#125;
+  @ModelAttribute
+  public void modelAttribute()&#123;     
+    System.out.println(&quot;ModelAttribute调用了...&quot;);  
+  &#125;
+
+
+===========输出=========
+ModelAttribute调用了...
+页面update的bean对象：bean&#123;......&#125;
+</code></pre>
+<h6 id="可以得出：ModelAttribute标注的方法总会在目标方法-update-前执行。"><a href="#可以得出：ModelAttribute标注的方法总会在目标方法-update-前执行。" class="headerlink" title="可以得出：ModelAttribute标注的方法总会在目标方法(update)前执行。"></a>可以得出：ModelAttribute标注的方法总会在目标方法(update)前执行。</h6><h3 id="ModelAttribute可以取出隐含对象的值"><a href="#ModelAttribute可以取出隐含对象的值" class="headerlink" title="ModelAttribute可以取出隐含对象的值"></a>ModelAttribute可以取出隐含对象的值</h3><pre><code class="lang-bash">@ModelAttribute
+  public void TestModelAttribute(Map&lt;String, Object&gt; map)&#123;
+
+    POJO pojo = new POJO(&quot;kayleh&quot;, 1104);
+    map.put(&quot;value&quot;,pojo);
+    System.out.println(&quot;modelAttribute方法...);
+  &#125;
+@RequestMapping(&quot;/updateBook&quot;)
+  public String updateBook(@RequestParam(value=&quot;author&quot;)String author,
+      Map&lt;String, Object&gt; model,
+      HttpServletRequest request,
+      @ModelAttribute(&quot;value&quot;)POJO pojo
+      )&#123;
+
+    System.out.println(pojo);
+    return &quot;ok&quot;;
+  &#125;
+</code></pre>
+<p> @ModelAttribute(“value”)这里如果指定的”value”,value就是从map取出参数的key.如果是@ModelAttribute,没有指定key,SpringMVC会默认使用返回值类型的首字母小写作为key.如pOJO.</p>
+]]></content>
+      <categories>
+        <category>SpringMVC</category>
+      </categories>
+      <tags>
+        <tag>frame</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>「毛概」</title>
     <url>/maogai/</url>
     <content><![CDATA[<h2 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h2><h2 id="第一章：毛泽东思想及其历史地位"><a href="#第一章：毛泽东思想及其历史地位" class="headerlink" title="第一章：毛泽东思想及其历史地位"></a>第一章：毛泽东思想及其历史地位</h2><h3 id="第一节-毛泽东思想的形成和发展"><a href="#第一节-毛泽东思想的形成和发展" class="headerlink" title="第一节 毛泽东思想的形成和发展"></a>第一节 毛泽东思想的形成和发展</h3><h4 id="一、毛泽东思想形成和发展的历史条件"><a href="#一、毛泽东思想形成和发展的历史条件" class="headerlink" title="一、毛泽东思想形成和发展的历史条件"></a>一、毛泽东思想形成和发展的历史条件</h4><p>（一）毛泽东思想形成和发展的时代背景</p>
@@ -24637,82 +24713,6 @@ num 不会包含任何前导零。
 ]]></content>
       <tags>
         <tag>maogai</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>⌈贪心算法⌋田忌赛马策略</title>
-    <url>/tj-horse-racing/</url>
-    <content><![CDATA[<h2 id="田忌赛马"><a href="#田忌赛马" class="headerlink" title="田忌赛马"></a>田忌赛马</h2><blockquote>
-<p>齐使者如梁，孙膑以刑徒阴见，说齐使。齐使以为奇，窃载与之齐。齐将田忌善而客待之。忌数与齐诸公子驰逐重射。孙子见其马足不甚相远，马有上、中、下、辈。于是孙子谓田忌曰：“君弟重射，臣能令君胜。”田忌信然之，与王及诸公子逐射千金。及临质，“<a href="https://baike.baidu.com/item/%E5%AD%99%E5%AD%90/1681?fromModule=lemma_inlink">孙子</a>曰：‘今以君之下驷与彼上驷，取君上驷与彼中驷，取君中驷与彼下驷。’既驰三辈毕，而田忌一不胜而再胜，卒得王千金。”</p>
-</blockquote>
-<p>思考一个问题： 田忌和齐威王有相同数量的马，他们要在一场比赛中决出胜负，规则是：每匹马只能和对手比赛一次，胜者得一分，负者得零分，最后得分高的一方获胜。田忌和齐威王都是聪明的人，他们都会采用最优策略，田忌想要赢得齐威王的千金，那么田忌应该怎么安排马匹的顺序呢？</p>
-<h3 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h3><p>贪心算法是一种在每一步选择中都采取在当前状态下最好或最优的选择，从而希望导致结果是全局最好或最优的算法。贪心算法与动态规划的不同在于它对每个子问题的解决方案都做出选择，不能回退。动态规划则会保存以前的运算结果，并根据以前的结果对当前进行选择，有回退功能。</p>
-<h3 id="田忌赛马策略"><a href="#田忌赛马策略" class="headerlink" title="田忌赛马策略"></a>田忌赛马策略</h3><p>田忌赛马策略是一种贪心算法，它的基本思想是：在每一轮比赛中，田忌都会选择一匹自己最强的马和对手最弱的马进行比赛，这样可以保证自己的马在每一轮比赛中都有机会获胜，使得优势最大化。</p>
-<p>所以，田忌在每一次选择时都采取在当前状态下最好的选择，从而希望导致结果是全局最好的算法。</p>
-<p>策略如下：<br>田忌在每一次安排马匹的顺序时，都会选择一匹自己最弱的马和对手最弱比赛，</p>
-<ul>
-<li>如果田忌的马赢了，就加一分</li>
-<li>如果田忌的马输了，就把这匹下等马送去给对方上等马当炮灰（注意：每一匹马只能比赛一次）</li>
-</ul>
-<h4 id="优势洗牌"><a href="#优势洗牌" class="headerlink" title="优势洗牌"></a>优势洗牌</h4>]]></content>
-      <tags>
-        <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringMVC@ModelAttribute的使用</title>
-    <url>/use-of-springmvcmodelattribute/</url>
-    <content><![CDATA[<h2 id="ModelAttribute？"><a href="#ModelAttribute？" class="headerlink" title="@ModelAttribute？"></a>@ModelAttribute？</h2><span id="more"></span>
-<p>@ModelAttribute的原理比较复杂，需要对源码有一定的理解。它可以使被</p>
-<p>@ModelAttribute修饰的方法在控制器的处理方法之前调用。<br>但如果@ModelAttribute标注在方法的入参前，它可以从隐含对象中获取隐含的模型数据中获取对象，再将请求参数绑定到对象中，再传入入参。</p>
-<hr>
-<h3 id="实际场景："><a href="#实际场景：" class="headerlink" title="实际场景："></a>实际场景：</h3><p>Spring在进行数据库update全字段更新操作提交表单的时候，从页面获取的数据会封装成一个new的pojo对象，没有带的值为null；所以我们只能更新我们提交的数据。ModelAttribute暂时保存表单pojo对象，覆盖数据库保存的pojo对象的数据即可。</p>
-<pre><code class="lang-bash">ModelAttribute提前与目标方法运行
-/**
- * @author Kayleh
- */
-@Controller
-public class ModelAttributeTest &#123;
-
-  @RequestMapping(&quot;/update&quot;)
-  public String update()&#123;     
-    System.out.println(&quot;页面update的bean对象：&quot;+bean);  
-  &#125;
-  @ModelAttribute
-  public void modelAttribute()&#123;     
-    System.out.println(&quot;ModelAttribute调用了...&quot;);  
-  &#125;
-
-
-===========输出=========
-ModelAttribute调用了...
-页面update的bean对象：bean&#123;......&#125;
-</code></pre>
-<h6 id="可以得出：ModelAttribute标注的方法总会在目标方法-update-前执行。"><a href="#可以得出：ModelAttribute标注的方法总会在目标方法-update-前执行。" class="headerlink" title="可以得出：ModelAttribute标注的方法总会在目标方法(update)前执行。"></a>可以得出：ModelAttribute标注的方法总会在目标方法(update)前执行。</h6><h3 id="ModelAttribute可以取出隐含对象的值"><a href="#ModelAttribute可以取出隐含对象的值" class="headerlink" title="ModelAttribute可以取出隐含对象的值"></a>ModelAttribute可以取出隐含对象的值</h3><pre><code class="lang-bash">@ModelAttribute
-  public void TestModelAttribute(Map&lt;String, Object&gt; map)&#123;
-
-    POJO pojo = new POJO(&quot;kayleh&quot;, 1104);
-    map.put(&quot;value&quot;,pojo);
-    System.out.println(&quot;modelAttribute方法...);
-  &#125;
-@RequestMapping(&quot;/updateBook&quot;)
-  public String updateBook(@RequestParam(value=&quot;author&quot;)String author,
-      Map&lt;String, Object&gt; model,
-      HttpServletRequest request,
-      @ModelAttribute(&quot;value&quot;)POJO pojo
-      )&#123;
-
-    System.out.println(pojo);
-    return &quot;ok&quot;;
-  &#125;
-</code></pre>
-<p> @ModelAttribute(“value”)这里如果指定的”value”,value就是从map取出参数的key.如果是@ModelAttribute,没有指定key,SpringMVC会默认使用返回值类型的首字母小写作为key.如pOJO.</p>
-]]></content>
-      <categories>
-        <category>SpringMVC</category>
-      </categories>
-      <tags>
-        <tag>frame</tag>
       </tags>
   </entry>
   <entry>
@@ -25550,6 +25550,17 @@ class Node &#123;
       </tags>
   </entry>
   <entry>
+    <title>什么是「奶头乐」和为什么是「群体弱智」</title>
+    <url>/what-is-milk-and-why-is-group-wise/</url>
+    <content><![CDATA[<h1 id="什么是「奶头乐」"><a href="#什么是「奶头乐」" class="headerlink" title="什么是「奶头乐」?"></a>什么是「奶头乐」?</h1><blockquote>
+<p><a href="https://zh.wikipedia.org/zh-sg/%E5%A5%B6%E5%A4%B4%E4%B9%90">维基百科：奶头乐</a></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>think</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>享元模式</title>
     <url>/flyweight-model/</url>
     <content><![CDATA[<h3 id="享元"><a href="#享元" class="headerlink" title="享元"></a>享元</h3><blockquote>
@@ -25612,17 +25623,6 @@ class Node &#123;
       </tags>
   </entry>
   <entry>
-    <title>什么是「奶头乐」和为什么是「群体弱智」</title>
-    <url>/what-is-milk-and-why-is-group-wise/</url>
-    <content><![CDATA[<h1 id="什么是「奶头乐」"><a href="#什么是「奶头乐」" class="headerlink" title="什么是「奶头乐」?"></a>什么是「奶头乐」?</h1><blockquote>
-<p><a href="https://zh.wikipedia.org/zh-sg/%E5%A5%B6%E5%A4%B4%E4%B9%90">维基百科：奶头乐</a></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>think</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>What happened from entering the URL to displaying the page?</title>
     <url>/What-happened-from-entering-the-URL-to-displaying-the-page/</url>
     <content><![CDATA[<h1 id="从输入URL到显示页面经历了什么"><a href="#从输入URL到显示页面经历了什么" class="headerlink" title="从输入URL到显示页面经历了什么?"></a>从输入URL到显示页面经历了什么?</h1><blockquote>
@@ -25661,6 +25661,110 @@ DOM树是由HTML文件中的标签排列组成，渲染树是在DOM树中加入C
 ]]></content>
       <tags>
         <tag>network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>依赖倒转原则</title>
+    <url>/dependence-reversal-principle/</url>
+    <content><![CDATA[<h3 id="依赖倒转原则"><a href="#依赖倒转原则" class="headerlink" title="依赖倒转原则"></a>依赖倒转原则</h3><blockquote>
+<p> Dependence Inversion Priciple</p>
+ <span id="more"></span>
+</blockquote>
+<h5 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h5><ul>
+<li>高层模块不应该依赖低层模块，二者都应该依赖其抽象</li>
+<li>抽象不应该依赖细节，细节应该依赖抽象</li>
+<li>依赖倒转的中心思想是面向接口编程</li>
+<li>依赖倒转原则是基于这样的设计理念：相对于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建的架构比细节为基础的架构要稳定的多。在java中，抽象指的是接口或抽象类，细节就是具体的实现类</li>
+<li>使用接口或抽象类的目的是制定好规范，而不涉及任何具体的操作，把展现细节的任务交给他们的实现类去完成</li>
+</ul>
+<h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><ul>
+<li>低层模块尽量都要有抽象类或接口，或者两者都有，程序稳定性更好</li>
+<li>变量的声明类型尽量是抽象类或接口，这样我们的变量引用和实际对象间，就存在一个缓冲层。利于程序扩展和优化</li>
+<li>继承时遵循里氏替换原则</li>
+</ul>
+<h6 id="1通过接口传递实现依赖"><a href="#1通过接口传递实现依赖" class="headerlink" title="1通过接口传递实现依赖"></a>1通过接口传递实现依赖</h6><pre><code class="lang-java">interface IOpenAndClose&#123;
+    //抽象方法
+    public void open(ITV tv);
+&#125;
+interface ITV&#123;
+    //ITV接口
+    public void play();
+&#125;
+
+class Htc implements ITV&#123;
+    @Override
+    public void play() &#123;
+        System.out.println(&quot;htc电视机，打开&quot;);
+    &#125;
+&#125;
+//实现接口
+class OpenAndClose implements IOpenAndClose&#123;
+    public void open(ITV tv)&#123;
+        tv.play();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="2-通过构造方法依赖传递"><a href="#2-通过构造方法依赖传递" class="headerlink" title="2.通过构造方法依赖传递"></a>2.通过构造方法依赖传递</h5><pre><code class="lang-java">interface IOpenAndClose&#123;
+    //抽象方法
+    public void open(ITV tv);
+&#125;
+interface ITV&#123;
+    //ITV接口
+    public void play();
+&#125;
+
+class Htc implements ITV&#123;
+    @Override
+    public void play() &#123;
+        System.out.println(&quot;htc电视机，打开&quot;);
+    &#125;
+&#125;
+//实现接口
+class OpenAndClose implements IOpenAndClose&#123;
+    public ITV tv;
+    public OpenAndClose(ITV tv)&#123;
+        //构造器
+        this.tv = tv;
+    &#125;
+    public void open()&#123;
+        tv.play();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="3-通过setter方法传递"><a href="#3-通过setter方法传递" class="headerlink" title="3.通过setter方法传递"></a>3.通过setter方法传递</h5><pre><code class="lang-java">interface IOpenAndClose&#123;
+    //抽象方法
+    public void open(ITV tv);
+    public void name(ITV tv);
+&#125;
+interface ITV&#123;
+    //ITV接口
+    public void play();
+&#125;
+
+class Htc implements ITV&#123;
+    @Override
+    public void play() &#123;
+        System.out.println(&quot;htc电视机，打开&quot;);
+    &#125;
+&#125;
+//实现接口
+class OpenAndClose implements IOpenAndClose&#123;
+    public ITV tv;
+    public setTv(ITV tv)&#123;
+        //构造器
+        this.tv = tv;
+    &#125;
+    public void open()&#123;
+        tv.play();
+    &#125;
+&#125;
+</code></pre>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>DesignPatterns</tag>
       </tags>
   </entry>
   <entry>
@@ -25933,110 +26037,6 @@ Fake close and released to idle queue for future reuse: com.mysql.jdbc.JDBC4Conn
       </tags>
   </entry>
   <entry>
-    <title>依赖倒转原则</title>
-    <url>/dependence-reversal-principle/</url>
-    <content><![CDATA[<h3 id="依赖倒转原则"><a href="#依赖倒转原则" class="headerlink" title="依赖倒转原则"></a>依赖倒转原则</h3><blockquote>
-<p> Dependence Inversion Priciple</p>
- <span id="more"></span>
-</blockquote>
-<h5 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h5><ul>
-<li>高层模块不应该依赖低层模块，二者都应该依赖其抽象</li>
-<li>抽象不应该依赖细节，细节应该依赖抽象</li>
-<li>依赖倒转的中心思想是面向接口编程</li>
-<li>依赖倒转原则是基于这样的设计理念：相对于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建的架构比细节为基础的架构要稳定的多。在java中，抽象指的是接口或抽象类，细节就是具体的实现类</li>
-<li>使用接口或抽象类的目的是制定好规范，而不涉及任何具体的操作，把展现细节的任务交给他们的实现类去完成</li>
-</ul>
-<h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><ul>
-<li>低层模块尽量都要有抽象类或接口，或者两者都有，程序稳定性更好</li>
-<li>变量的声明类型尽量是抽象类或接口，这样我们的变量引用和实际对象间，就存在一个缓冲层。利于程序扩展和优化</li>
-<li>继承时遵循里氏替换原则</li>
-</ul>
-<h6 id="1通过接口传递实现依赖"><a href="#1通过接口传递实现依赖" class="headerlink" title="1通过接口传递实现依赖"></a>1通过接口传递实现依赖</h6><pre><code class="lang-java">interface IOpenAndClose&#123;
-    //抽象方法
-    public void open(ITV tv);
-&#125;
-interface ITV&#123;
-    //ITV接口
-    public void play();
-&#125;
-
-class Htc implements ITV&#123;
-    @Override
-    public void play() &#123;
-        System.out.println(&quot;htc电视机，打开&quot;);
-    &#125;
-&#125;
-//实现接口
-class OpenAndClose implements IOpenAndClose&#123;
-    public void open(ITV tv)&#123;
-        tv.play();
-    &#125;
-&#125;
-</code></pre>
-<h5 id="2-通过构造方法依赖传递"><a href="#2-通过构造方法依赖传递" class="headerlink" title="2.通过构造方法依赖传递"></a>2.通过构造方法依赖传递</h5><pre><code class="lang-java">interface IOpenAndClose&#123;
-    //抽象方法
-    public void open(ITV tv);
-&#125;
-interface ITV&#123;
-    //ITV接口
-    public void play();
-&#125;
-
-class Htc implements ITV&#123;
-    @Override
-    public void play() &#123;
-        System.out.println(&quot;htc电视机，打开&quot;);
-    &#125;
-&#125;
-//实现接口
-class OpenAndClose implements IOpenAndClose&#123;
-    public ITV tv;
-    public OpenAndClose(ITV tv)&#123;
-        //构造器
-        this.tv = tv;
-    &#125;
-    public void open()&#123;
-        tv.play();
-    &#125;
-&#125;
-</code></pre>
-<h5 id="3-通过setter方法传递"><a href="#3-通过setter方法传递" class="headerlink" title="3.通过setter方法传递"></a>3.通过setter方法传递</h5><pre><code class="lang-java">interface IOpenAndClose&#123;
-    //抽象方法
-    public void open(ITV tv);
-    public void name(ITV tv);
-&#125;
-interface ITV&#123;
-    //ITV接口
-    public void play();
-&#125;
-
-class Htc implements ITV&#123;
-    @Override
-    public void play() &#123;
-        System.out.println(&quot;htc电视机，打开&quot;);
-    &#125;
-&#125;
-//实现接口
-class OpenAndClose implements IOpenAndClose&#123;
-    public ITV tv;
-    public setTv(ITV tv)&#123;
-        //构造器
-        this.tv = tv;
-    &#125;
-    public void open()&#123;
-        tv.play();
-    &#125;
-&#125;
-</code></pre>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>DesignPatterns</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>偏导数</title>
     <url>/partial-derivative/</url>
     <content><![CDATA[<h3 id="在某点偏导的定义"><a href="#在某点偏导的定义" class="headerlink" title="在某点偏导的定义"></a>在某点偏导的定义</h3><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/偏导数/1601445508700.png"></div></div>
@@ -26093,6 +26093,14 @@ class OpenAndClose implements IOpenAndClose&#123;
       </tags>
   </entry>
   <entry>
+    <title>关于「雪糕刺客」和「消费降级」</title>
+    <url>/About-Snowflake-and-Consumption-Degradation/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>think</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jsdelivr的CDN加速缓存不刷新问题</title>
     <url>/the-cdn-acceleration-cache-of-jsdelivr-does-not-refresh/</url>
     <content><![CDATA[<hr>
@@ -26103,14 +26111,6 @@ class OpenAndClose implements IOpenAndClose&#123;
 ]]></content>
       <tags>
         <tag>maintain</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于「雪糕刺客」和「消费降级」</title>
-    <url>/About-Snowflake-and-Consumption-Degradation/</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>think</tag>
       </tags>
   </entry>
   <entry>
@@ -31621,6 +31621,87 @@ Stock [ Name: ABC, Quantity: 10 ] sold
       </tags>
   </entry>
   <entry>
+    <title>回溯算法</title>
+    <url>/huisu-algorithm/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>palindrome</title>
+    <url>/palindrome/</url>
+    <content><![CDATA[<h3 id="什么是回文数？"><a href="#什么是回文数？" class="headerlink" title="什么是回文数？"></a>什么是回文数？</h3><p>回文数指的是正序和倒序读都是一样的数，例如121从左到右，从右到左读都是121。任何一个自然数与它的倒序数相加，所得的和再与和的倒序数相加，……如此反复进行下去，经过有限次步骤后，最后必定能得到一个回文数。</p>
+<span id="more"></span>
+<h4 id="问题：判断一个数是否为回文数，是返回true，否侧抛出false。"><a href="#问题：判断一个数是否为回文数，是返回true，否侧抛出false。" class="headerlink" title="问题：判断一个数是否为回文数，是返回true，否侧抛出false。"></a>问题：判断一个数是否为回文数，是返回true，否侧抛出false。</h4><pre><code class="lang-bash">
+@题目来源lettcode
+
+利用Java的StringBuilder通过把整数转换为字符串来实现↓
+
+
+
+import java.util.Scanner;
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/12 13:14
+ */
+public class palindrome &#123;
+    public static boolean ispalindrome(int i) &#123;
+        String str = (new StringBuilder(i + &quot;&quot;)).reverse().toString();
+        return (i + &quot;&quot;).equals(str);
+    &#125;
+    public static void main(String[] args) &#123;
+        while (true) &#123;
+            System.out.println(&quot;输入需要判断的整数&quot;);
+            Scanner scanner = new Scanner(System.in);
+            int str1 = scanner.nextInt();
+            System.out.println(ispalindrome(str1));
+        &#125;
+    &#125;
+&#125;
+/**
+ * 输入需要判断的整数：1
+ * false
+ * 输入需要判断的整数：12121
+ * true
+ */
+</code></pre>
+<hr>
+<pre><code class="lang-bash">进阶：不改变整数为字符串
+
+通过取整和取余获取整数中的数字进行比较
+/**
+ * @Author: Wizard
+ * @Date: 2020/4/12 13:14
+ */
+public class palindrome &#123;
+    public static boolean ispalindrome(int i) &#123;
+        if(i&lt;0||(i%10==0&amp;&amp;i!=0))
+            return false;
+        int number = 0;
+        while(i&gt;number)&#123;
+            number = number * 10 + i % 10;
+            i /=10;
+        &#125;
+        return i == number || i==number/10;
+    &#125;
+    public static void main(String[] args) &#123;
+        while (true) &#123;
+            System.out.println(&quot;输入需要判断的整数&quot;);
+            Scanner scanner = new Scanner(System.in);
+            int str1 = scanner.nextInt();
+            System.out.println(ispalindrome(str1));
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h6 id="微信公众号-每日学习干货↓"><a href="#微信公众号-每日学习干货↓" class="headerlink" title="微信公众号:每日学习干货↓"></a>微信公众号:每日学习干货↓</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tag-plugin image"><div class="image-bg"><img src="/.top//1.jpg"></div></div> </p>
+]]></content>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hash algorithm</title>
     <url>/hash-algorithm/</url>
     <content><![CDATA[<h3 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h3><blockquote>
@@ -31840,87 +31921,6 @@ hashB(&quot;java003&quot;) = ???
 </code></pre>
 <p> 类似的，计算SHA-256，我们需要传入名称<code>&quot;SHA-256&quot;</code>，计算SHA-512，我们需要传入名称<code>&quot;SHA-512&quot;</code>。Java标准库支持的所有哈希算法可以在<a href="https://docs.oracle.com/en/java/javase/14/docs/specs/security/standard-names.html#messagedigest-algorithms">这里</a>查到。 </p>
 ]]></content>
-      <tags>
-        <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>palindrome</title>
-    <url>/palindrome/</url>
-    <content><![CDATA[<h3 id="什么是回文数？"><a href="#什么是回文数？" class="headerlink" title="什么是回文数？"></a>什么是回文数？</h3><p>回文数指的是正序和倒序读都是一样的数，例如121从左到右，从右到左读都是121。任何一个自然数与它的倒序数相加，所得的和再与和的倒序数相加，……如此反复进行下去，经过有限次步骤后，最后必定能得到一个回文数。</p>
-<span id="more"></span>
-<h4 id="问题：判断一个数是否为回文数，是返回true，否侧抛出false。"><a href="#问题：判断一个数是否为回文数，是返回true，否侧抛出false。" class="headerlink" title="问题：判断一个数是否为回文数，是返回true，否侧抛出false。"></a>问题：判断一个数是否为回文数，是返回true，否侧抛出false。</h4><pre><code class="lang-bash">
-@题目来源lettcode
-
-利用Java的StringBuilder通过把整数转换为字符串来实现↓
-
-
-
-import java.util.Scanner;
-/**
- * @Author: Wizard
- * @Date: 2020/4/12 13:14
- */
-public class palindrome &#123;
-    public static boolean ispalindrome(int i) &#123;
-        String str = (new StringBuilder(i + &quot;&quot;)).reverse().toString();
-        return (i + &quot;&quot;).equals(str);
-    &#125;
-    public static void main(String[] args) &#123;
-        while (true) &#123;
-            System.out.println(&quot;输入需要判断的整数&quot;);
-            Scanner scanner = new Scanner(System.in);
-            int str1 = scanner.nextInt();
-            System.out.println(ispalindrome(str1));
-        &#125;
-    &#125;
-&#125;
-/**
- * 输入需要判断的整数：1
- * false
- * 输入需要判断的整数：12121
- * true
- */
-</code></pre>
-<hr>
-<pre><code class="lang-bash">进阶：不改变整数为字符串
-
-通过取整和取余获取整数中的数字进行比较
-/**
- * @Author: Wizard
- * @Date: 2020/4/12 13:14
- */
-public class palindrome &#123;
-    public static boolean ispalindrome(int i) &#123;
-        if(i&lt;0||(i%10==0&amp;&amp;i!=0))
-            return false;
-        int number = 0;
-        while(i&gt;number)&#123;
-            number = number * 10 + i % 10;
-            i /=10;
-        &#125;
-        return i == number || i==number/10;
-    &#125;
-    public static void main(String[] args) &#123;
-        while (true) &#123;
-            System.out.println(&quot;输入需要判断的整数&quot;);
-            Scanner scanner = new Scanner(System.in);
-            int str1 = scanner.nextInt();
-            System.out.println(ispalindrome(str1));
-        &#125;
-    &#125;
-&#125;
-</code></pre>
-<h6 id="微信公众号-每日学习干货↓"><a href="#微信公众号-每日学习干货↓" class="headerlink" title="微信公众号:每日学习干货↓"></a>微信公众号:每日学习干货↓</h6><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="tag-plugin image"><div class="image-bg"><img src="/.top//1.jpg"></div></div> </p>
-]]></content>
-      <tags>
-        <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>回溯算法</title>
-    <url>/huisu-algorithm/</url>
-    <content><![CDATA[]]></content>
       <tags>
         <tag>algorithm</tag>
       </tags>
@@ -33386,6 +33386,48 @@ public class RedissonBloomServiceImpl implements RedissonBloomFilterService &#12
       </tags>
   </entry>
   <entry>
+    <title>广义积分和瑕积分</title>
+    <url>/generalized-integral/</url>
+    <content><![CDATA[<h1 id="广义积分"><a href="#广义积分" class="headerlink" title="广义积分"></a>广义积分</h1><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601302982305.png"></div></div>
+<h3 id="无穷限积分"><a href="#无穷限积分" class="headerlink" title="无穷限积分"></a>无穷限积分</h3><p>①上限是无穷的，就对b求导</p>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303240702.png"></div></div>
+<p>如果极限存在，就是收敛的，如果不存在，就是发散的。</p>
+<p>②下限是无穷的，就对a求导</p>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303277989.png"></div></div>
+<p>③上下限都是无穷</p>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303420141.png"></div></div>
+<p>结合①和②来求。</p>
+<h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303693780.png"></div></div>
+<p>广义的牛顿-莱布尼茨公式</p>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303809560.png"></div></div>
+<h5 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h5><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303899003.png"></div></div>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601304242138.png"></div></div>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><blockquote>
+<p>-也收敛</p>
+</blockquote>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601304752667.png"></div></div>
+<blockquote>
+<p>2）第二个性质。反之，不一定</p>
+</blockquote>
+<p>分部积分和换元积分也成立。</p>
+<h3 id="收敛判定"><a href="#收敛判定" class="headerlink" title="收敛判定"></a>收敛判定</h3><p>定理：</p>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601305473068.png"></div></div>
+<h4 id="★★★比较判别法"><a href="#★★★比较判别法" class="headerlink" title="★★★比较判别法"></a>★★★比较判别法</h4><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601305670196.png"></div></div>
+<p>大敛则小敛，小散大必散</p>
+<blockquote>
+<p>找一个比被积函数大的易比函数进行比较</p>
+</blockquote>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601306623507.png"></div></div>
+<hr>
+<h3 id="绝对收敛、条件收敛"><a href="#绝对收敛、条件收敛" class="headerlink" title="绝对收敛、条件收敛"></a>绝对收敛、条件收敛</h3><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601307238632.png"></div></div>
+<p>绝对收敛必收敛</p>
+<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601308675891.png"></div></div>
+<h2 id="瑕积分"><a href="#瑕积分" class="headerlink" title="#瑕积分"></a>#瑕积分</h2>]]></content>
+      <tags>
+        <tag>math</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>concurrency-principle</title>
     <url>/concurrency-principle/</url>
     <content><![CDATA[<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="为什么要创建线程池"><a href="#为什么要创建线程池" class="headerlink" title="为什么要创建线程池"></a>为什么要创建线程池</h3><pre><code class="lang-bash">如果系统要运行多个线程,大量反复的启动创建和回收线程会非常占用系统资源,导致性能下降.
@@ -33639,48 +33681,6 @@ public class Test111907 &#123;
 </ul>
 <p>微信公众号:每日学习干货</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>广义积分和瑕积分</title>
-    <url>/generalized-integral/</url>
-    <content><![CDATA[<h1 id="广义积分"><a href="#广义积分" class="headerlink" title="广义积分"></a>广义积分</h1><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601302982305.png"></div></div>
-<h3 id="无穷限积分"><a href="#无穷限积分" class="headerlink" title="无穷限积分"></a>无穷限积分</h3><p>①上限是无穷的，就对b求导</p>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303240702.png"></div></div>
-<p>如果极限存在，就是收敛的，如果不存在，就是发散的。</p>
-<p>②下限是无穷的，就对a求导</p>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303277989.png"></div></div>
-<p>③上下限都是无穷</p>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303420141.png"></div></div>
-<p>结合①和②来求。</p>
-<h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303693780.png"></div></div>
-<p>广义的牛顿-莱布尼茨公式</p>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303809560.png"></div></div>
-<h5 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h5><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601303899003.png"></div></div>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601304242138.png"></div></div>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><blockquote>
-<p>-也收敛</p>
-</blockquote>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601304752667.png"></div></div>
-<blockquote>
-<p>2）第二个性质。反之，不一定</p>
-</blockquote>
-<p>分部积分和换元积分也成立。</p>
-<h3 id="收敛判定"><a href="#收敛判定" class="headerlink" title="收敛判定"></a>收敛判定</h3><p>定理：</p>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601305473068.png"></div></div>
-<h4 id="★★★比较判别法"><a href="#★★★比较判别法" class="headerlink" title="★★★比较判别法"></a>★★★比较判别法</h4><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601305670196.png"></div></div>
-<p>大敛则小敛，小散大必散</p>
-<blockquote>
-<p>找一个比被积函数大的易比函数进行比较</p>
-</blockquote>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601306623507.png"></div></div>
-<hr>
-<h3 id="绝对收敛、条件收敛"><a href="#绝对收敛、条件收敛" class="headerlink" title="绝对收敛、条件收敛"></a>绝对收敛、条件收敛</h3><div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601307238632.png"></div></div>
-<p>绝对收敛必收敛</p>
-<div class="tag-plugin image"><div class="image-bg"><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/广义积分/1601308675891.png"></div></div>
-<h2 id="瑕积分"><a href="#瑕积分" class="headerlink" title="#瑕积分"></a>#瑕积分</h2>]]></content>
-      <tags>
-        <tag>math</tag>
-      </tags>
   </entry>
   <entry>
     <title>开闭原则</title>
@@ -36064,55 +36064,6 @@ Files.write(Paths.get(&quot;/path/to/file.txt&quot;), lines);
       </tags>
   </entry>
   <entry>
-    <title>Test case</title>
-    <url>/test-case/</url>
-    <content><![CDATA[<h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><h4 id="什么是测试用例"><a href="#什么是测试用例" class="headerlink" title="什么是测试用例"></a>什么是测试用例</h4><p> 测试用例(Test Case)是指对一项特定的软件产品进行测试任务的描述，体现测试方案、方法、技术和策略。其内容包括测试目标、测试环境、输入数据、测试步骤、预期结果、测试脚本等，最终形成文档。简单地认为，测试用例是为某个特殊目标而编制的一组测试输入、执行条件以及预期结果，用于核实是否满足某个特定软件需求。 </p>
-<h5 id="回归测试"><a href="#回归测试" class="headerlink" title="回归测试"></a>回归测试</h5><h5 id="模板：（excel）"><a href="#模板：（excel）" class="headerlink" title="模板：（excel）"></a>模板：（excel）</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>测试用例编号</th>
-<th>测试项</th>
-<th>依赖用例</th>
-<th>测试步骤</th>
-<th>输入数据</th>
-<th>预期结果</th>
-<th>测试结果</th>
-<th>测试人</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td>1、2、</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>标识符(用例编号)，一般编号规则：TestCase<strong>_</strong>项目名称<strong>_</strong>模块名称<strong>_</strong>功能名称<strong>_</strong>0001</td>
-<td>测试用例的测试目的。一般情况下，用一句话表明目的。（用谷歌浏览器打开百度首页）</td>
-<td>一般功能流程上，下游的功能测试依赖于上游的功能测试的用例</td>
-<td>用最朴实的语言，写出来软件的操作步骤，要尽量详细（在文本框输入xxx）</td>
-<td>测试数据</td>
-<td>准确，在重要的步骤之后，设定预期结果，一般和测试目的密切相关</td>
-<td>只有两个，通过/失败（和预期结果）</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="测试用例编写注意事项"><a href="#测试用例编写注意事项" class="headerlink" title="测试用例编写注意事项"></a>测试用例编写注意事项</h4><h4 id="黑盒测试用例设计方法"><a href="#黑盒测试用例设计方法" class="headerlink" title="黑盒测试用例设计方法"></a>黑盒测试用例设计方法</h4>]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>滑动窗口</title>
     <url>/slidingWindow/</url>
     <content><![CDATA[<h3 id="「滑动窗口」"><a href="#「滑动窗口」" class="headerlink" title="「滑动窗口」"></a>「滑动窗口」</h3><pre><code class="lang-java">//给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 &quot;&quot; 。
@@ -36193,6 +36144,55 @@ class Solution
 ]]></content>
       <tags>
         <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Test case</title>
+    <url>/test-case/</url>
+    <content><![CDATA[<h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><h4 id="什么是测试用例"><a href="#什么是测试用例" class="headerlink" title="什么是测试用例"></a>什么是测试用例</h4><p> 测试用例(Test Case)是指对一项特定的软件产品进行测试任务的描述，体现测试方案、方法、技术和策略。其内容包括测试目标、测试环境、输入数据、测试步骤、预期结果、测试脚本等，最终形成文档。简单地认为，测试用例是为某个特殊目标而编制的一组测试输入、执行条件以及预期结果，用于核实是否满足某个特定软件需求。 </p>
+<h5 id="回归测试"><a href="#回归测试" class="headerlink" title="回归测试"></a>回归测试</h5><h5 id="模板：（excel）"><a href="#模板：（excel）" class="headerlink" title="模板：（excel）"></a>模板：（excel）</h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>测试用例编号</th>
+<th>测试项</th>
+<th>依赖用例</th>
+<th>测试步骤</th>
+<th>输入数据</th>
+<th>预期结果</th>
+<th>测试结果</th>
+<th>测试人</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>1、2、</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标识符(用例编号)，一般编号规则：TestCase<strong>_</strong>项目名称<strong>_</strong>模块名称<strong>_</strong>功能名称<strong>_</strong>0001</td>
+<td>测试用例的测试目的。一般情况下，用一句话表明目的。（用谷歌浏览器打开百度首页）</td>
+<td>一般功能流程上，下游的功能测试依赖于上游的功能测试的用例</td>
+<td>用最朴实的语言，写出来软件的操作步骤，要尽量详细（在文本框输入xxx）</td>
+<td>测试数据</td>
+<td>准确，在重要的步骤之后，设定预期结果，一般和测试目的密切相关</td>
+<td>只有两个，通过/失败（和预期结果）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="测试用例编写注意事项"><a href="#测试用例编写注意事项" class="headerlink" title="测试用例编写注意事项"></a>测试用例编写注意事项</h4><h4 id="黑盒测试用例设计方法"><a href="#黑盒测试用例设计方法" class="headerlink" title="黑盒测试用例设计方法"></a>黑盒测试用例设计方法</h4>]]></content>
+      <tags>
+        <tag>test</tag>
       </tags>
   </entry>
   <entry>
@@ -36718,6 +36718,400 @@ public class OrderSearch &#123;
 ]]></content>
       <tags>
         <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性代数基础</title>
+    <url>/linear-algebra/</url>
+    <content><![CDATA[<h1 id="一、行列式"><a href="#一、行列式" class="headerlink" title="一、行列式"></a>一、行列式</h1><h2 id="1-1-行列式的定义（按行展开）"><a href="#1-1-行列式的定义（按行展开）" class="headerlink" title="1.1 行列式的定义（按行展开）"></a>1.1 行列式的定义（按行展开）</h2><h3 id="一阶行列式："><a href="#一阶行列式：" class="headerlink" title="一阶行列式："></a>一阶行列式：</h3><pre><code>D = |a| = a
+</code></pre><h3 id="二阶行列式："><a href="#二阶行列式：" class="headerlink" title="二阶行列式："></a>二阶行列式：</h3><pre><code>|a b|
+|c d| = ad - bc
+</code></pre><h3 id="三阶行列式："><a href="#三阶行列式：" class="headerlink" title="三阶行列式："></a>三阶行列式：</h3><pre><code>|a b c|
+|d e f| = aei + bfg + cdh - ceg - bdi - afh
+|g h i|
+</code></pre><h3 id="逆序数"><a href="#逆序数" class="headerlink" title="逆序数"></a>逆序数</h3><p>对于一个排列，如果一对数的前面一个数大于后面一个数，那么就称这两个数构成一个逆序，一个排列中逆序的总数称为这个排列的逆序数。（冒泡排序的交换次数）</p>
+<p>例如：</p>
+<p>1.<code>2 4 3 1</code>的逆序数为3，分别是<code>2的逆序数为1（1）</code>，<code>4的逆序数为2（2，1）</code>，<code>3的逆序数为1（1）</code>，<code>1的逆序数为0（无）</code>。</p>
+<p>2.<code>1 2 ... n</code>的逆序数为0</p>
+<p>3.<code>n n-1 ... 2 1</code>的逆序数为n(n-1)/2。</p>
+<blockquote>
+<p>奇排列：逆序数为奇数</p>
+<p>偶排列：逆序数为偶数</p>
+</blockquote>
+<h3 id="对换"><a href="#对换" class="headerlink" title="对换"></a>对换</h3><p>对换是指将两个数的位置对调，对换的次数称为对换数。</p>
+<blockquote>
+<p>一个排列对换一次，奇偶性改变一次。</p>
+<p>一个排列如果做了偶数次对换，那么它的奇偶性不变。</p>
+<p>n级排列的奇排列有n! / 2个，偶排列有n! / 2个。</p>
+</blockquote>
+<h3 id="n阶行列式："><a href="#n阶行列式：" class="headerlink" title="n阶行列式："></a>n阶行列式：</h3><pre><code>|a11 a12 ... a1n|
+|a21 a22 ... a2n|
+|... ... ... ...|
+|an1 an2 ... ann|
+</code></pre><p>取n个元素相乘，每行每列各取一个，共有n!种取法，每种取法对应一个乘积，将所有乘积相加，得到行列式的值。<br>aij<br>行标i为自然数1,2,…,n，<br>列标j为排列的所有可能的排列，即1,2,…,n的全排列。如果某一项的排列的<em>列标</em>的逆序数为奇数，则该项前面加负号，否则加正号。</p>
+<h3 id="下三角行列式"><a href="#下三角行列式" class="headerlink" title="下三角行列式"></a>下三角行列式</h3><p>形如：</p>
+<pre><code>|a11 0   0   ... 0  |
+|a21 a22 0   ... 0  |
+|a31 a32 a33 ... 0  |
+|... ... ... ... ...|
+|an1 an2 an3 ... ann|
+</code></pre><p>对角线以下的元素都为0，称为下三角行列式。</p>
+<p>下三角行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。</p>
+<h3 id="上三角行列式"><a href="#上三角行列式" class="headerlink" title="上三角行列式"></a>上三角行列式</h3><p>形如：</p>
+<pre><code>|a11 a12 a13 ... a1n|
+|0   a22 a23 ... a2n|
+|0   0   a33 ... a3n|
+|... ... ... ... ...|
+|0   0   ... 0   ann|
+</code></pre><p>对角线以上的元素都为0，称为上三角行列式。<br>上三角行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。</p>
+<h3 id="对角形行列式"><a href="#对角形行列式" class="headerlink" title="对角形行列式"></a>对角形行列式</h3><p>形如：</p>
+<pre><code>|a11 0   0   ... 0  |
+|0   a22 0   ... 0  |
+|0   0   a33 ... 0  |
+|... ... ... ... ...|
+|0   0   ... 0   ann|
+</code></pre><p>对角线上的元素都不为0，称为对角形行列式。</p>
+<p>对角形行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。</p>
+<h3 id="（右下）三角行列式"><a href="#（右下）三角行列式" class="headerlink" title="（右下）三角行列式"></a>（右下）三角行列式</h3><p>形如：</p>
+<pre><code>|0   0   ... 0     a1n|
+|0   0   ... a2n-1 a2n|
+|0   ... ... ... ...  |
+|an1 an2 ... an-1  an |
+</code></pre><p>行列式的值等于副对角线（从右上角到左下角） 上的元素的乘积，符号为副对角线上的元素的排列的逆序数的奇偶性决定：<br>D = (-1)^ [ n(n-1)/2  ] <em> a1n </em> a2n-1 <em> … </em> an1</p>
+<h2 id="1-1-行列式的定义（按列展开）"><a href="#1-1-行列式的定义（按列展开）" class="headerlink" title="1.1 行列式的定义（按列展开）"></a>1.1 行列式的定义（按列展开）</h2><p>和按行展开类似，只是每行每列各取一个的时候，行标和列标的排列不同。</p>
+<h2 id="1-1-行列式的定义（既不按行展开又不按列展开）"><a href="#1-1-行列式的定义（既不按行展开又不按列展开）" class="headerlink" title="1.1 行列式的定义（既不按行展开又不按列展开）"></a>1.1 行列式的定义（既不按行展开又不按列展开）</h2><blockquote>
+<p>符号由行标和列标的排列的逆序数的相加决定。</p>
+</blockquote>
+<pre><code>D = (-1)^ [ 行标的逆序数 + 列标的逆序数 ] * a11 * a22 * ... * ann
+</code></pre><p>例如：</p>
+<pre><code>(-1)^ (N(i21m) + N(1k32)) * ai1 * a2k * a13 * am2 
+
+k=4 i=3 m=4 N(3214) + N(1432) = 3 + 3 = 6 , 6为偶数，所以符号为正
+
+k=4 i=4 m=3 N(4213) + N(1432) = 4 + 3 = 7 , 7为奇数，所以符号为负
+</code></pre><h2 id="1-2-行列式的性质"><a href="#1-2-行列式的性质" class="headerlink" title="1.2 行列式的性质"></a>1.2 行列式的性质</h2><h3 id="性质1-行列式与它的转置行列式相等。对行成立的性质对列也成立。"><a href="#性质1-行列式与它的转置行列式相等。对行成立的性质对列也成立。" class="headerlink" title="性质1 行列式与它的转置行列式相等。对行成立的性质对列也成立。"></a>性质1 行列式与它的转置行列式相等。对行成立的性质对列也成立。</h3><blockquote>
+<p>转置行列式：行列式的行变成列，列变成行。</p>
+</blockquote>
+<pre><code>D = |1 2 3|  =  D^T = |1 4 7|
+    |4 5 6|           |2 5 8|
+    |7 8 9|           |3 6 9|
+</code></pre><pre><code>(D^T)^T = D
+</code></pre><h3 id="性质2-互换行列式的两行，行列式变号。"><a href="#性质2-互换行列式的两行，行列式变号。" class="headerlink" title="性质2 互换行列式的两行，行列式变号。"></a>性质2 互换行列式的两行，行列式变号。</h3><pre><code>D = |1 2 3|  =  -D = |7 8 9|
+    |4 5 6|          |4 5 6|
+    |7 8 9|          |1 2 3|
+</code></pre><h4 id="推论性质3：如果行列式有两行完全相同，则此行列式等于零。"><a href="#推论性质3：如果行列式有两行完全相同，则此行列式等于零。" class="headerlink" title="推论性质3：如果行列式有两行完全相同，则此行列式等于零。"></a>推论性质3：如果行列式有两行完全相同，则此行列式等于零。</h4><pre><code>D = |1 2 3|  =  -D = |1 2 3| = 0
+    |4 5 6|          |4 5 6|
+    |1 2 3|          |1 2 3|
+</code></pre><h3 id="性质4-行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。"><a href="#性质4-行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。" class="headerlink" title="性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。"></a>性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。</h3><pre><code>D = |1 2 3|  =  2D = |2 4 6|
+    |4 5 6|          |4 5 6|
+    |7 8 9|          |7 8 9|
+</code></pre><h3 id="推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。"><a href="#推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。" class="headerlink" title="推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。"></a>推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。</h3><pre><code>D = |1  2   3| = k * |1 2 3|
+    |4k 5k 6k|       |4 5 6|
+    |7  8   9|       |7 8 9|
+</code></pre><h3 id="性质5-行列式中如果有两行元素成比例，则此行列式等于零。"><a href="#性质5-行列式中如果有两行元素成比例，则此行列式等于零。" class="headerlink" title="性质5 行列式中如果有两行元素成比例，则此行列式等于零。"></a>性质5 行列式中如果有两行元素成比例，则此行列式等于零。</h3><pre><code>D = |1 2 3|  =  0
+    |4 5 6|
+    |2 4 6|
+</code></pre><h3 id="推论：某一行全等于0，行列式等于0。"><a href="#推论：某一行全等于0，行列式等于0。" class="headerlink" title="推论：某一行全等于0，行列式等于0。"></a>推论：某一行全等于0，行列式等于0。</h3><pre><code>D = |1 2 3|  =  0
+    |4 5 6|
+    |0 0 0|
+</code></pre><h3 id="性质6-行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）"><a href="#性质6-行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）" class="headerlink" title="性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）"></a>性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）</h3><pre><code>D = |1 2 3|  =  |1 2 3| + |1 2 3|
+    |4 5 6|     |2 2 3|   |2 3 3|
+    |7 8 9|     |7 8 9|   |7 8 9|
+</code></pre><h3 id="性质7-行列式中某一行乘以一个数加到另一行去，行列式不变。"><a href="#性质7-行列式中某一行乘以一个数加到另一行去，行列式不变。" class="headerlink" title="性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。"></a>性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。</h3><pre><code>D = |1 2 3|  第一行乘5，加到第二行上 =   |1     2     3|
+    |4 5 6|                            |4+5 5+10 6+15|
+    |7 8 9|                            |7    8      9|
+</code></pre><p><strong>利用性质7，可以把行列式化成上三角行列式。结果就为主对角线上的元素的乘积。</strong></p>
+<h2 id="1-3-行列式按行展开"><a href="#1-3-行列式按行展开" class="headerlink" title="1.3 行列式按行展开"></a>1.3 行列式按行展开</h2><h3 id="1-3-1-代数余子式"><a href="#1-3-1-代数余子式" class="headerlink" title="1.3.1 代数余子式"></a>1.3.1 代数余子式</h3><h4 id="余子式"><a href="#余子式" class="headerlink" title="余子式"></a>余子式</h4><pre><code>|a11 a12 a13|
+|a21 a22 a23|
+|a31 a32 a33|
+</code></pre><p>把a22所在的行和列划去，剩下的元素组成的行列式称为a22的余子式，记作M22。</p>
+<pre><code>M22 = |a11 a13|
+      |a31 a33|
+</code></pre><h4 id="代数余子式"><a href="#代数余子式" class="headerlink" title="代数余子式"></a>代数余子式</h4><p>把a22的余子式乘以(-1)^(i+j)，得到a22的代数余子式，记作A22。</p>
+<pre><code>A22 = -1^(2+2) * M22
+</code></pre><h3 id="1-3-2-行列式按行或列展开（降阶）"><a href="#1-3-2-行列式按行或列展开（降阶）" class="headerlink" title="1.3.2 行列式按行或列展开（降阶）"></a>1.3.2 行列式按行或列展开（降阶）</h3><h4 id="按行展开"><a href="#按行展开" class="headerlink" title="按行展开"></a>按行展开</h4><p>任意选定一行，把这一行的每个元素与它的代数余子式的乘积相加，得到行列式的值。</p>
+<pre><code>D = |a11 a12 a13|
+    |a21 a22 a23|
+    |a31 a32 a33|
+
+D = a11 * A11 + a12 * A12 + a13 * A13
+</code></pre><h4 id="按列展开"><a href="#按列展开" class="headerlink" title="按列展开"></a>按列展开</h4><p>任意选定一列，把这一列的每个元素与它的代数余子式的乘积相加，得到行列式的值。</p>
+<pre><code>D = |a11 a12 a13|
+    |a21 a22 a23|
+    |a31 a32 a33|
+
+D = a11 * A11 + a21 * A21 + a31 * A31
+</code></pre><p>如果选定的某一行或列的0比较多（0直接不算），可以减少计算量，所以要选取0比较多的行或列。</p>
+<h2 id="1-4-异乘变零定理"><a href="#1-4-异乘变零定理" class="headerlink" title="1.4 异乘变零定理"></a>1.4 异乘变零定理</h2><p>某行的元素乘以另一行的元素的代数余子式乘积之和等于0。</p>
+<pre><code>D = |a11 a12 a13|
+    |a21 a22 a23|
+    |a31 a32 a33|
+
+a11 * A21 + a12 * A22 + a13 * A23 = 0
+</code></pre><h2 id="1-5-拉普拉斯定理"><a href="#1-5-拉普拉斯定理" class="headerlink" title="1.5 拉普拉斯定理"></a>1.5 拉普拉斯定理</h2><h3 id="1-5-1-k阶子式"><a href="#1-5-1-k阶子式" class="headerlink" title="1.5.1 k阶子式"></a>1.5.1 k阶子式</h3><p>从行列式中任意取k行，再从这k行中任意取k列，位于这些行列交叉点上的k个元素组成的行列式，称为k阶子式。</p>
+<pre><code>|a11 a12 a13|
+|a21 a22 a23|
+|a31 a32 a33|
+
+k=2
+|a11 a12|
+|a21 a22|
+</code></pre><h3 id="1-5-2-余子式"><a href="#1-5-2-余子式" class="headerlink" title="1.5.2 余子式"></a>1.5.2 余子式</h3><p>k阶子式的余子式是指把k阶子式所在的行和列划去，剩下的元素组成的行列式。</p>
+<pre><code>|a11 a12 a13|
+|a21 a22 a23|
+|a31 a32 a33|
+
+k=2
+|a33|
+</code></pre><h3 id="1-5-3-代数余子式"><a href="#1-5-3-代数余子式" class="headerlink" title="1.5.3 代数余子式"></a>1.5.3 代数余子式</h3><p>k阶子式的代数余子式是指把k阶子式的余子式乘以(-1)^(i1+j1+i2+j2+…+ik+jk)，得到的行列式。</p>
+<h3 id="1-5-4-拉普拉斯定理"><a href="#1-5-4-拉普拉斯定理" class="headerlink" title="1.5.4 拉普拉斯定理"></a>1.5.4 拉普拉斯定理</h3><p>取定k行，把这k行的每个元素与它的代数余子式的乘积相加，得到行列式的值。</p>
+<h3 id="1-5-5-同阶行列式相乘"><a href="#1-5-5-同阶行列式相乘" class="headerlink" title="1.5.5 同阶行列式相乘"></a>1.5.5 同阶行列式相乘</h3><p>每一行与另一个行列式的每一列相乘</p>
+<pre><code>|a11 a12 a13|   |b11 b12 b13|   |a11b11+a12b21+a13b31 a11b12+a12b22+a13b32 a11b13+a12b23+a13b33|
+|a21 a22 a23| * |b21 b22 b23| = |a21b11+a22b21+a23b31 a21b12+a22b22+a23b32 a21b13+a22b23+a23b33|
+|a31 a32 a33|   |b31 b32 b33|   |a31b11+a32b21+a33b31 a31b12+a32b22+a33b32 a31b13+a32b23+a33b33|
+</code></pre><h2 id="1-6-行列式的计算"><a href="#1-6-行列式的计算" class="headerlink" title="1.6 行列式的计算"></a>1.6 行列式的计算</h2><p>1) 转为上三角行列式，结果为主对角线上的元素的乘积。<br>2) 按行展开，选择0比较多的行。<br>3) 加边</p>
+<p>例1</p>
+<pre><code>D = |3 0 4 0|
+    |3 2 2 2|
+    |0 -7 0 0|
+    |5 3 -2 2|
+
+求M41+M42+M43+M44
+
+如果直接按行展开，需要计算4个4阶行列式，计算量比较大。
+
+可以化简一下，
+
+已知行列式展开是一行元素和它的代数余子式的乘积之和，所以尝试把M41+M42+M43+M44化成这样的形式。
+
+先转换为代数余子式的形式，注意正负号：
+
+M41+M42+M43+M44
+= (-1)*(-1)^(4+1) * M41 + (-1)^(4+2) * M42 + (-1)*(-1)^(4+3) * M43 + (-1)^(4+4) * M44
+
+还有“一行元素”在哪里？
+
+M41+M42+M43+M44
+= -A41 + A42 - A43 + A44
+
+此时，第4行元素替换为这个式子的系数（-1,1,-1,1），得到：
+
+D = |3 0 4 0|
+    |3 2 2 2|
+    |0 -7 0 0|
+    |-1 1 -1 1|
+
+选择最多0的行，第3行，计算量最小。
+
+D = (-7) * (-1) ^(3+2) * M32 = -56
+</code></pre><p>例2</p>
+<pre><code>| x a a a ... a|
+| a x a a ... a|
+| a a x a ... a|
+| a a a x ... a|
+| ... ... ... ...|
+| a a a a ... x|
+
+求行列式的值
+
+先把每行的元素都加到第一列上，得到：
+
+| x+(n-1)a a a a ... a|
+| x+(n-1)a x a a ... a|
+| x+(n-1)a a x a ... a|
+| x+(n-1)a a a x ... a|
+| ... ... ... ... ...|
+| x+(n-1)a a a a ... x|
+
+再把列的公因子提到行列式外面，得到：
+
+(x+(n-1)a)  *    | 1 a a a ... a|
+                 | 1 x a a ... a|
+                 | 1 a x a ... a|
+                 | 1 a a x ... a|
+                 | ... ... ... ...|
+                 | 1 a a a ... x|
+
+然后把第一列乘以-a，加到后面的元素上，
+
+| 1 0 0 0 ... 0|
+| 1 x-a 0 0 ... 0|
+| 1 0 x-a 0 ... 0|
+| 1 0 0 x-a ... 0|
+| ... ... ... ...|
+| 1 0 0 0 ... x-a|
+
+得到下三角行列式，结果为主对角线上的元素的乘积。= (n-1)(x-a)
+</code></pre><p>例3</p>
+<pre><code>| 1+a1 1 1 1 ... 1|
+| 1 1+a2 1 1 ... 1|
+| 1 1 1+a3 1 ... 1|
+|... ... ... ... ...|
+| 1 1 1 1 ... 1+an|
+
+加一行1，一列0，得到：(不会改变行列式的值)
+|1 1 1 1 ... 1|
+|0 1+a1 1 ... 1|
+|0 1 1+a2 ... 1|
+|... ... ... ... ...|
+|0 1 1 ... 1+an|
+
+用第1行*（-1）加到后面的行上，得到：
+|1 1 1 1 ... 1|
+|-1 a1 0 ... 0|
+|-1 0 a2 ... 0|
+|... ... ... ... ...|
+|-1 0 0 ... an|
+
+变为三叉形行列式，
+
+把第2列乘以1/a1，加到第1列上，第3列乘以1/a2，加到第1列上，...，最后化为上三角行列式。
+
+（1+1/a1+1/a2+...+1/an）* a1*a2*...*an
+</code></pre><p>例4</p>
+<h3 id="范德蒙行列式"><a href="#范德蒙行列式" class="headerlink" title="范德蒙行列式"></a>范德蒙行列式</h3><pre><code>| 1 1 1 1 ... 1|
+| x1 x2 x3 x4 ... xn|
+| x1^2 x2^2 x3^2 x4^2 ... xn^2|
+| ... ... ... ... ...|
+| x1^(n-1) x2^(n-1) x3^(n-1) x4^(n-1) ... xn^(n-1)|
+
+= (x2-x1) * (x3-x1) * (x4-x1) * ... * (xn-x1) * (x3-x2) * (x4-x2) * ... * (xn-x2) * ... * (xn-xn-1)
+= Π (xi-xj) (1&lt;=i&lt;j&lt;=n)
+</code></pre><h3 id="反对称行列式"><a href="#反对称行列式" class="headerlink" title="反对称行列式"></a>反对称行列式</h3><ul>
+<li>主对角线全为0</li>
+<li>上下位置对应成相反数(aij=-aji)</li>
+<li>如果为奇数阶，行列式的值为0</li>
+</ul>
+<pre><code>|0 1 2 3|
+|-1 0 -5 6|
+|-2 5 0 -8|
+|-3 -6 8 0|
+</code></pre><h3 id="对称行列式"><a href="#对称行列式" class="headerlink" title="对称行列式"></a>对称行列式</h3><ul>
+<li>上下位置对应相等(aij=aji)</li>
+</ul>
+<pre><code>|1 1 2 3|
+|1 2 5 6|
+|2 5 3 8|
+|3 6 8 4|
+</code></pre><h2 id="1-7-克莱姆法则"><a href="#1-7-克莱姆法则" class="headerlink" title="1.7 克莱姆法则"></a>1.7 克莱姆法则</h2><p>只适用于：</p>
+<blockquote>
+<p>方程的个数=未知数的个数</p>
+<p>D!=0</p>
+<p>xj=Dj/D (Dj指的是把第j列换成b1b2…bn的行列式，b指的是方程式的右边的常数项，D指的是系数行列式) ： x1 = D1/D, x2 = D2/D, x3 = D3/D, … , xn = Dn/D</p>
+</blockquote>
+<pre><code>x1+x2+x3=1
+x1-x2+5x3=6
+-x1+x2+6x3=9
+
+把系数提出来，得到系数行列式：D =
+|1 1 1|
+|1 -1 5|
+|-1 1 6|
+
+D1 = |1 1 1|
+     |6 -1 5|
+     |9 1 6|
+
+D2 = |1 1 1|
+     |1 6 5|
+     |-1 9 6|
+
+D3 = |1 1 1|
+        |1 -1 6|
+        |-1 1 9|
+</code></pre><p>如果方程组的右边都为0，这个方程叫齐次方程组，齐次方程一定有0解.</p>
+<blockquote>
+<p>如果齐次方程组的系数行列式不为0，那么齐次方程组只有0解。（Dj都为0）</p>
+<p>若齐次方程有非0解&lt;=&gt;那么齐次方程组的系数行列式必为0。</p>
+</blockquote>
+<h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><h2 id="2-1-矩阵的定义"><a href="#2-1-矩阵的定义" class="headerlink" title="2.1 矩阵的定义"></a>2.1 矩阵的定义</h2><h3 id="2-1-1-矩阵的定义"><a href="#2-1-1-矩阵的定义" class="headerlink" title="2.1.1 矩阵的定义"></a>2.1.1 矩阵的定义</h3><p>m行n列的数表称为m行n列的矩阵，简称m*n矩阵。</p>
+<pre><code>|a11 a12 ... a1n|
+|a21 a22 ... a2n|
+|... ... ... ...|
+|am1 am2 ... amn|
+
+Am*n表示一个矩阵，m行n列，a11表示第1行第1列的元素，amn表示第m行第n列的元素。
+</code></pre><h3 id="2-1-2-矩阵和行列式的区别"><a href="#2-1-2-矩阵和行列式的区别" class="headerlink" title="2.1.2 矩阵和行列式的区别"></a>2.1.2 矩阵和行列式的区别</h3><p>本质：矩阵是一个数表，行列式是一个数。<br>符号：矩阵用()或[]，行列式用||。<br>形状：矩阵行数可以不等于列数，行列式行数等于列数。</p>
+<h4 id="实矩阵"><a href="#实矩阵" class="headerlink" title="实矩阵"></a>实矩阵</h4><p>矩阵中的元素都是实数的矩阵，称为实矩阵。</p>
+<h4 id="复矩阵"><a href="#复矩阵" class="headerlink" title="*复矩阵"></a>*复矩阵</h4><h4 id="行矩阵"><a href="#行矩阵" class="headerlink" title="行矩阵"></a>行矩阵</h4><p>只有一行的矩阵，称为行矩阵。</p>
+<h4 id="列矩阵"><a href="#列矩阵" class="headerlink" title="列矩阵"></a>列矩阵</h4><p>只有一列的矩阵，称为列矩阵。</p>
+<h4 id="零矩阵"><a href="#零矩阵" class="headerlink" title="零矩阵"></a>零矩阵</h4><p>所有元素都为0的矩阵，称为零矩阵，记作O。</p>
+<h4 id="负矩阵"><a href="#负矩阵" class="headerlink" title="负矩阵"></a>负矩阵</h4><p>把矩阵中的每个元素都乘以-1，得到的矩阵，称为负矩阵。</p>
+<h4 id="n阶方阵"><a href="#n阶方阵" class="headerlink" title="n阶方阵"></a>n阶方阵</h4><p>行数等于列数的矩阵，称为n阶方阵。</p>
+<p>An*n 也可以表示为An</p>
+<blockquote>
+<p>方阵有主对角线和副对角线。</p>
+</blockquote>
+<h4 id="单位矩阵"><a href="#单位矩阵" class="headerlink" title="单位矩阵"></a>单位矩阵</h4><p>主对角线上的元素都为1，其余元素都为0的n阶方阵，称为单位矩阵，记作En。<br>一般用E,I</p>
+<pre><code>E =  |1  |
+     |  1|
+</code></pre><h4 id="只有一个元素的矩阵等于数本身"><a href="#只有一个元素的矩阵等于数本身" class="headerlink" title="只有一个元素的矩阵等于数本身"></a>只有一个元素的矩阵等于数本身</h4><pre><code>(1) = 1
+</code></pre><h4 id="同型矩阵"><a href="#同型矩阵" class="headerlink" title="同型矩阵"></a>同型矩阵</h4><p>两个行数和列数都相等的矩阵，称为同型矩阵。</p>
+<blockquote>
+<p>两个矩阵相等的前提：是同型矩阵</p>
+</blockquote>
+<h2 id="2-2-矩阵的运算"><a href="#2-2-矩阵的运算" class="headerlink" title="2.2 矩阵的运算"></a>2.2 矩阵的运算</h2><h3 id="2-2-1-矩阵的加法"><a href="#2-2-1-矩阵的加法" class="headerlink" title="2.2.1 矩阵的加法"></a>2.2.1 矩阵的加法</h3><blockquote>
+<p>矩阵的加法要求两个矩阵是同型矩阵。</p>
+</blockquote>
+<pre><code> 1 1 1  +  2 2 2  =  3 3 3 
+(1 1 1)   (2 2 2)   (3 3 3)
+</code></pre><h3 id="2-2-2-矩阵的减法"><a href="#2-2-2-矩阵的减法" class="headerlink" title="2.2.2 矩阵的减法"></a>2.2.2 矩阵的减法</h3><blockquote>
+<p>与矩阵的加法类似，要求两个矩阵是同型矩阵。</p>
+</blockquote>
+<h3 id="2-2-3-矩阵的数乘"><a href="#2-2-3-矩阵的数乘" class="headerlink" title="2.2.3 矩阵的数乘"></a>2.2.3 矩阵的数乘</h3><blockquote>
+<p>一个矩阵的每个元素都乘以一个数，等于把这个数乘以这个矩阵。（公因子提出来）</p>
+</blockquote>
+<pre><code>k(1 1 1) = (k k k)
+  1 1 1     k k k
+</code></pre><h3 id="2-2-4-矩阵的乘法"><a href="#2-2-4-矩阵的乘法" class="headerlink" title="2.2.4 矩阵的乘法"></a>2.2.4 矩阵的乘法</h3><blockquote>
+<p>矩阵的乘法要求第一个矩阵的行数等于第二个矩阵的列数，结果的行数等于第一个矩阵的行数，列数等于第二个矩阵的列数。</p>
+</blockquote>
+<p>每一行的元素与另一个矩阵的每一列的元素相乘，再相加。</p>
+<pre><code> a1 a2 a3     b1 b2 b3 
+(a4 a5 a6) * (b4 b5 b6) 
+ a7 a8 a9     b7 b8 b9
+
+= (a1b1+a2b4+a3b7+a1b2+a2b5+a3b8+a1b3+a2b6+a3b9+a4b1+a5b4+a6b7+a4b2+a5b5+a6b8+a4b3+a5b6+a6b9+a7b1+a8b4+a9b7+a7b2+a8b5+a9b8+a7b3+a8b6+a9b9)
+</code></pre><pre><code> 2 1 0     1 0 1     2 1 3
+(1 0 1) * (0 1 1) = (1 1 2)
+           0 1 1
+</code></pre><blockquote>
+<ul>
+<li><p>矩阵的乘法不满足交换律，满足结合律。</p>
+</li>
+<li><p>零矩阵与任何矩阵相乘，结果都是零矩阵。注意结果的形状：A(m<em>n) </em> O(n<em>p) = O(m</em>p)</p>
+</li>
+<li><p>与单位矩阵相乘，结果不变。A(m<em>n) </em> E(n<em>n) = A(m</em>n) = E(n<em>n) </em> A(m*n)</p>
+</li>
+</ul>
+</blockquote>
+<pre><code>例： 与A=(1 0)可交换的所有矩阵
+        （1 1）
+
+设B=(a b)
+    (c d)， AB=BA, 同阶
+
+(a c)   (1 0)   (a+b b)
+(b d) * (1 1) = (c+d d)
+
+(1 0)   (a c)   (a b)
+(1 1) * (b d) = (a+c b+d)
+
+a=a+b, b=b, a+c=c+d, b+d=d
+
+所以，B=(a 0)
+        (c a), a,c为任意常数
+</code></pre><h4 id="线性替换"><a href="#线性替换" class="headerlink" title="线性替换"></a>线性替换</h4><p>```<br>方程：<br>y1= x1 + 2x2 + 3x3<br>y2= 2x1 + 3x2 + 4x3</p>
+<p>x1= z1 + z2<br>x2= z1 + 2z2<br>x3= z1 + 3z2</p>
+<p>z1 = u1 + u2<br>z2 = -u1 + u2</p>
+<p>写成矩阵的形式：<br>|y1|   |1 2 3|   |x1|<br>|y2| = |2 3 4| * |x2|<br>                 |x3|</p>
+<p>|x1|   |1 1|   |z1|<br>|x2| = |1 2| * |z2|<br>|x3|   |1 3|</p>
+<p>|z1|   |1 1|   |u1|<br>|z2| = |1 2| * |u2|</p>
+<p>代入</p>
+<p>|y1|   |1 2 3|   |1 1|   |1 1|   |u1|<br>|y2| = |2 3 4| <em> |1 2| </em> |1 2| * |u2|<br>                 |1 3|</p>
+<h3 id="2-2-5-矩阵的幂运算"><a href="#2-2-5-矩阵的幂运算" class="headerlink" title="2.2.5 矩阵的幂运算"></a>2.2.5 矩阵的幂运算</h3>]]></content>
+      <tags>
+        <tag>math</tag>
       </tags>
   </entry>
   <entry>
