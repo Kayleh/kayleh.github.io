@@ -20,15 +20,15 @@
   <title>线性代数基础 - Kayleh</title>
 
   
-    <meta name="description" content="一、行列式1.1 行列式的定义（按行展开）一阶行列式：D = |a| = a 二阶行列式：|a b| |c d| = ad - bc 三阶行列式：|a b c| |d e f| = aei + bfg + cdh - ceg - bdi - afh |g h i| 逆序数对于一个排列，如果一对数的前面一个数大于后面一个数，那么就称这两个数构成一个逆序，一个排列中逆序的总数称为这个排列的逆序数。（冒">
+    <meta name="description" content="一、行列式1.1 行列式的定义（按行展开）一阶行列式：D = |a| = a二阶行列式：D = \begin{vmatrix} a &amp; b \\\\ c &amp; d \\\\ \end{vmatrix} = ad - bc三阶行列式：D = \begin{vmatrix} a &amp; b &amp; c \\\\ d &amp; e &amp; f \\\\ g &amp; h &amp; i \\\\ \end{vmatrix} = aei">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线性代数基础">
 <meta property="og:url" content="https://blog.kayleh.top/linear-algebra/index.html">
 <meta property="og:site_name" content="Kayleh">
-<meta property="og:description" content="一、行列式1.1 行列式的定义（按行展开）一阶行列式：D = |a| = a 二阶行列式：|a b| |c d| = ad - bc 三阶行列式：|a b c| |d e f| = aei + bfg + cdh - ceg - bdi - afh |g h i| 逆序数对于一个排列，如果一对数的前面一个数大于后面一个数，那么就称这两个数构成一个逆序，一个排列中逆序的总数称为这个排列的逆序数。（冒">
+<meta property="og:description" content="一、行列式1.1 行列式的定义（按行展开）一阶行列式：D = |a| = a二阶行列式：D = \begin{vmatrix} a &amp; b \\\\ c &amp; d \\\\ \end{vmatrix} = ad - bc三阶行列式：D = \begin{vmatrix} a &amp; b &amp; c \\\\ d &amp; e &amp; f \\\\ g &amp; h &amp; i \\\\ \end{vmatrix} = aei">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-30T20:00:05.000Z">
-<meta property="article:modified_time" content="2023-11-18T20:14:51.820Z">
+<meta property="article:modified_time" content="2023-11-19T18:35:13.948Z">
 <meta property="article:author" content="Kayleh">
 <meta property="article:tag" content="math">
 <meta name="twitter:card" content="summary">
@@ -8479,7 +8479,7 @@ img[fancybox='true'] {
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div></div></widget>
 
 
-<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">线性代数基础</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%88%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80%EF%BC%89"><span class="toc-text">1.1 行列式的定义（按行展开）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%EF%BC%9A"><span class="toc-text">一阶行列式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%EF%BC%9A"><span class="toc-text">二阶行列式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%EF%BC%9A"><span class="toc-text">三阶行列式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%86%E5%BA%8F%E6%95%B0"><span class="toc-text">逆序数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%8D%A2"><span class="toc-text">对换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#n%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%EF%BC%9A"><span class="toc-text">n阶行列式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E4%B8%89%E8%A7%92%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">下三角行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%89%E8%A7%92%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">上三角行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%A7%92%E5%BD%A2%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">对角形行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%8F%B3%E4%B8%8B%EF%BC%89%E4%B8%89%E8%A7%92%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">（右下）三角行列式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%88%E6%8C%89%E5%88%97%E5%B1%95%E5%BC%80%EF%BC%89"><span class="toc-text">1.1 行列式的定义（按列展开）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%88%E6%97%A2%E4%B8%8D%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80%E5%8F%88%E4%B8%8D%E6%8C%89%E5%88%97%E5%B1%95%E5%BC%80%EF%BC%89"><span class="toc-text">1.1 行列式的定义（既不按行展开又不按列展开）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-text">1.2 行列式的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A81-%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%8E%E5%AE%83%E7%9A%84%E8%BD%AC%E7%BD%AE%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9B%B8%E7%AD%89%E3%80%82%E5%AF%B9%E8%A1%8C%E6%88%90%E7%AB%8B%E7%9A%84%E6%80%A7%E8%B4%A8%E5%AF%B9%E5%88%97%E4%B9%9F%E6%88%90%E7%AB%8B%E3%80%82"><span class="toc-text">性质1 行列式与它的转置行列式相等。对行成立的性质对列也成立。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A82-%E4%BA%92%E6%8D%A2%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E4%B8%A4%E8%A1%8C%EF%BC%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E5%8F%98%E5%8F%B7%E3%80%82"><span class="toc-text">性质2 互换行列式的两行，行列式变号。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%E6%80%A7%E8%B4%A83%EF%BC%9A%E5%A6%82%E6%9E%9C%E8%A1%8C%E5%88%97%E5%BC%8F%E6%9C%89%E4%B8%A4%E8%A1%8C%E5%AE%8C%E5%85%A8%E7%9B%B8%E5%90%8C%EF%BC%8C%E5%88%99%E6%AD%A4%E8%A1%8C%E5%88%97%E5%BC%8F%E7%AD%89%E4%BA%8E%E9%9B%B6%E3%80%82"><span class="toc-text">推论性质3：如果行列式有两行完全相同，则此行列式等于零。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A84-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E6%9F%90%E4%B8%80%E8%A1%8C%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E5%85%83%E7%B4%A0%E9%83%BD%E4%B9%98%E4%BB%A5%E5%90%8C%E4%B8%80%E4%B8%AA%E6%95%B0k%EF%BC%8C%E7%AD%89%E4%BA%8E%E7%94%A8%E6%95%B0k%E4%B9%98%E6%AD%A4%E8%A1%8C%E5%88%97%E5%BC%8F%E3%80%82"><span class="toc-text">性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%E6%80%A7%E8%B4%A85%EF%BC%9A%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%89%E4%B8%80%E8%A1%8C%E6%9C%89%E5%85%AC%E5%9B%A0%E5%AD%90%EF%BC%8C%E5%88%99%E5%8F%AF%E4%BB%A5%E6%8A%8A%E5%9B%A0%E5%AD%90%E6%8F%90%E5%88%B0%E8%A1%8C%E5%88%97%E5%BC%8F%E5%A4%96%E9%9D%A2%E3%80%82"><span class="toc-text">推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A85-%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%89%E4%B8%A4%E8%A1%8C%E5%85%83%E7%B4%A0%E6%88%90%E6%AF%94%E4%BE%8B%EF%BC%8C%E5%88%99%E6%AD%A4%E8%A1%8C%E5%88%97%E5%BC%8F%E7%AD%89%E4%BA%8E%E9%9B%B6%E3%80%82"><span class="toc-text">性质5 行列式中如果有两行元素成比例，则此行列式等于零。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%EF%BC%9A%E6%9F%90%E4%B8%80%E8%A1%8C%E5%85%A8%E7%AD%89%E4%BA%8E0%EF%BC%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E7%AD%89%E4%BA%8E0%E3%80%82"><span class="toc-text">推论：某一行全等于0，行列式等于0。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A86-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E6%9F%90%E4%B8%80%E8%A1%8C%EF%BC%8C%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E9%83%BD%E6%98%AF%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%8A%8A%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8B%86%E6%88%90%E4%B8%A4%E4%B8%AA%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%92%8C%E3%80%82%EF%BC%88%E5%8F%AA%E6%8B%86%E5%88%86%E9%82%A3%E4%B8%80%E8%A1%8C%EF%BC%89"><span class="toc-text">性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A87-%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E6%9F%90%E4%B8%80%E8%A1%8C%E4%B9%98%E4%BB%A5%E4%B8%80%E4%B8%AA%E6%95%B0%E5%8A%A0%E5%88%B0%E5%8F%A6%E4%B8%80%E8%A1%8C%E5%8E%BB%EF%BC%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%8D%E5%8F%98%E3%80%82"><span class="toc-text">性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80"><span class="toc-text">1.3 行列式按行展开</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-%E4%BB%A3%E6%95%B0%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">1.3.1 代数余子式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">余子式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E6%95%B0%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">代数余子式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8C%89%E8%A1%8C%E6%88%96%E5%88%97%E5%B1%95%E5%BC%80%EF%BC%88%E9%99%8D%E9%98%B6%EF%BC%89"><span class="toc-text">1.3.2 行列式按行或列展开（降阶）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80"><span class="toc-text">按行展开</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E5%88%97%E5%B1%95%E5%BC%80"><span class="toc-text">按列展开</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E5%BC%82%E4%B9%98%E5%8F%98%E9%9B%B6%E5%AE%9A%E7%90%86"><span class="toc-text">1.4 异乘变零定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%AE%9A%E7%90%86"><span class="toc-text">1.5 拉普拉斯定理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-1-k%E9%98%B6%E5%AD%90%E5%BC%8F"><span class="toc-text">1.5.1 k阶子式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-2-%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">1.5.2 余子式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-3-%E4%BB%A3%E6%95%B0%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">1.5.3 代数余子式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-4-%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%AE%9A%E7%90%86"><span class="toc-text">1.5.4 拉普拉斯定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-5-%E5%90%8C%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9B%B8%E4%B9%98"><span class="toc-text">1.5.5 同阶行列式相乘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">1.6 行列式的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%BE%B7%E8%92%99%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">范德蒙行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%AF%B9%E7%A7%B0%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">反对称行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">对称行列式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-7-%E5%85%8B%E8%8E%B1%E5%A7%86%E6%B3%95%E5%88%99"><span class="toc-text">1.7 克莱姆法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1 矩阵的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1.1 矩阵的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-%E7%9F%A9%E9%98%B5%E5%92%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">2.1.2 矩阵和行列式的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%9F%A9%E9%98%B5"><span class="toc-text">实矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E7%9F%A9%E9%98%B5"><span class="toc-text">*复矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E7%9F%A9%E9%98%B5"><span class="toc-text">行矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E7%9F%A9%E9%98%B5"><span class="toc-text">列矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%B6%E7%9F%A9%E9%98%B5"><span class="toc-text">零矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9F%E7%9F%A9%E9%98%B5"><span class="toc-text">负矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#n%E9%98%B6%E6%96%B9%E9%98%B5"><span class="toc-text">n阶方阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D%E7%9F%A9%E9%98%B5"><span class="toc-text">单位矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%9F%A9%E9%98%B5%E7%AD%89%E4%BA%8E%E6%95%B0%E6%9C%AC%E8%BA%AB"><span class="toc-text">只有一个元素的矩阵等于数本身</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E5%9E%8B%E7%9F%A9%E9%98%B5"><span class="toc-text">同型矩阵</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%9F%A9%E9%98%B5%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-text">2.2 矩阵的运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8A%A0%E6%B3%95"><span class="toc-text">2.2.1 矩阵的加法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%87%8F%E6%B3%95"><span class="toc-text">2.2.2 矩阵的减法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E7%9F%A9%E9%98%B5%E7%9A%84%E6%95%B0%E4%B9%98"><span class="toc-text">2.2.3 矩阵的数乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-%E7%9F%A9%E9%98%B5%E7%9A%84%E4%B9%98%E6%B3%95"><span class="toc-text">2.2.4 矩阵的乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%9B%BF%E6%8D%A2"><span class="toc-text">线性替换</span></a></li></ol></li></ol></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">线性代数基础</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%88%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80%EF%BC%89"><span class="toc-text">1.1 行列式的定义（按行展开）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%EF%BC%9A"><span class="toc-text">一阶行列式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%EF%BC%9A"><span class="toc-text">二阶行列式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%EF%BC%9A"><span class="toc-text">三阶行列式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%86%E5%BA%8F%E6%95%B0"><span class="toc-text">逆序数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%8D%A2"><span class="toc-text">对换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#n%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%EF%BC%9A"><span class="toc-text">n阶行列式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E4%B8%89%E8%A7%92%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">下三角行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E4%B8%89%E8%A7%92%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">上三角行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%A7%92%E5%BD%A2%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">对角形行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%8F%B3%E4%B8%8B%EF%BC%89%E4%B8%89%E8%A7%92%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">（右下）三角行列式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%88%E6%8C%89%E5%88%97%E5%B1%95%E5%BC%80%EF%BC%89"><span class="toc-text">1.1 行列式的定义（按列展开）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%88%E6%97%A2%E4%B8%8D%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80%E5%8F%88%E4%B8%8D%E6%8C%89%E5%88%97%E5%B1%95%E5%BC%80%EF%BC%89"><span class="toc-text">1.1 行列式的定义（既不按行展开又不按列展开）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-text">1.2 行列式的性质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A81-%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%8E%E5%AE%83%E7%9A%84%E8%BD%AC%E7%BD%AE%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9B%B8%E7%AD%89%E3%80%82%E5%AF%B9%E8%A1%8C%E6%88%90%E7%AB%8B%E7%9A%84%E6%80%A7%E8%B4%A8%E5%AF%B9%E5%88%97%E4%B9%9F%E6%88%90%E7%AB%8B%E3%80%82"><span class="toc-text">性质1 行列式与它的转置行列式相等。对行成立的性质对列也成立。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A82-%E4%BA%92%E6%8D%A2%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E4%B8%A4%E8%A1%8C%EF%BC%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E5%8F%98%E5%8F%B7%E3%80%82"><span class="toc-text">性质2 互换行列式的两行，行列式变号。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%E6%80%A7%E8%B4%A83%EF%BC%9A%E5%A6%82%E6%9E%9C%E8%A1%8C%E5%88%97%E5%BC%8F%E6%9C%89%E4%B8%A4%E8%A1%8C%E5%AE%8C%E5%85%A8%E7%9B%B8%E5%90%8C%EF%BC%8C%E5%88%99%E6%AD%A4%E8%A1%8C%E5%88%97%E5%BC%8F%E7%AD%89%E4%BA%8E%E9%9B%B6%E3%80%82"><span class="toc-text">推论性质3：如果行列式有两行完全相同，则此行列式等于零。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A84-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E6%9F%90%E4%B8%80%E8%A1%8C%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E5%85%83%E7%B4%A0%E9%83%BD%E4%B9%98%E4%BB%A5%E5%90%8C%E4%B8%80%E4%B8%AA%E6%95%B0k%EF%BC%8C%E7%AD%89%E4%BA%8E%E7%94%A8%E6%95%B0k%E4%B9%98%E6%AD%A4%E8%A1%8C%E5%88%97%E5%BC%8F%E3%80%82"><span class="toc-text">性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%E6%80%A7%E8%B4%A85%EF%BC%9A%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%89%E4%B8%80%E8%A1%8C%E6%9C%89%E5%85%AC%E5%9B%A0%E5%AD%90%EF%BC%8C%E5%88%99%E5%8F%AF%E4%BB%A5%E6%8A%8A%E5%9B%A0%E5%AD%90%E6%8F%90%E5%88%B0%E8%A1%8C%E5%88%97%E5%BC%8F%E5%A4%96%E9%9D%A2%E3%80%82"><span class="toc-text">推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A85-%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E5%A6%82%E6%9E%9C%E6%9C%89%E4%B8%A4%E8%A1%8C%E5%85%83%E7%B4%A0%E6%88%90%E6%AF%94%E4%BE%8B%EF%BC%8C%E5%88%99%E6%AD%A4%E8%A1%8C%E5%88%97%E5%BC%8F%E7%AD%89%E4%BA%8E%E9%9B%B6%E3%80%82"><span class="toc-text">性质5 行列式中如果有两行元素成比例，则此行列式等于零。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%AE%BA%EF%BC%9A%E6%9F%90%E4%B8%80%E8%A1%8C%E5%85%A8%E7%AD%89%E4%BA%8E0%EF%BC%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E7%AD%89%E4%BA%8E0%E3%80%82"><span class="toc-text">推论：某一行全等于0，行列式等于0。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A86-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E6%9F%90%E4%B8%80%E8%A1%8C%EF%BC%8C%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E9%83%BD%E6%98%AF%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%8A%8A%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8B%86%E6%88%90%E4%B8%A4%E4%B8%AA%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%92%8C%E3%80%82%EF%BC%88%E5%8F%AA%E6%8B%86%E5%88%86%E9%82%A3%E4%B8%80%E8%A1%8C%EF%BC%89"><span class="toc-text">性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A87-%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%AD%E6%9F%90%E4%B8%80%E8%A1%8C%E4%B9%98%E4%BB%A5%E4%B8%80%E4%B8%AA%E6%95%B0%E5%8A%A0%E5%88%B0%E5%8F%A6%E4%B8%80%E8%A1%8C%E5%8E%BB%EF%BC%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E4%B8%8D%E5%8F%98%E3%80%82"><span class="toc-text">性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80"><span class="toc-text">1.3 行列式按行展开</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-%E4%BB%A3%E6%95%B0%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">1.3.1 代数余子式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">余子式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E6%95%B0%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">代数余子式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E5%88%97%E5%BC%8F%E6%8C%89%E8%A1%8C%E6%88%96%E5%88%97%E5%B1%95%E5%BC%80%EF%BC%88%E9%99%8D%E9%98%B6%EF%BC%89"><span class="toc-text">行列式按行或列展开（降阶）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E8%A1%8C%E5%B1%95%E5%BC%80"><span class="toc-text">按行展开</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%89%E5%88%97%E5%B1%95%E5%BC%80"><span class="toc-text">按列展开</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E4%B9%98%E5%8F%98%E9%9B%B6%E5%AE%9A%E7%90%86"><span class="toc-text">异乘变零定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%AE%9A%E7%90%86"><span class="toc-text">拉普拉斯定理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#k%E9%98%B6%E5%AD%90%E5%BC%8F"><span class="toc-text">k阶子式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%99%E5%AD%90%E5%BC%8F-1"><span class="toc-text">余子式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-3-%E4%BB%A3%E6%95%B0%E4%BD%99%E5%AD%90%E5%BC%8F"><span class="toc-text">1.5.3 代数余子式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-4-%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%AE%9A%E7%90%86"><span class="toc-text">1.5.4 拉普拉斯定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-5-%E5%90%8C%E9%98%B6%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9B%B8%E4%B9%98"><span class="toc-text">1.5.5 同阶行列式相乘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">1.6 行列式的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%BE%B7%E8%92%99%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">范德蒙行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%AF%B9%E7%A7%B0%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">反对称行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-text">对称行列式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-7-%E5%85%8B%E8%8E%B1%E5%A7%86%E6%B3%95%E5%88%99"><span class="toc-text">1.7 克莱姆法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1 矩阵的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1.1 矩阵的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-%E7%9F%A9%E9%98%B5%E5%92%8C%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">2.1.2 矩阵和行列式的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%9F%A9%E9%98%B5"><span class="toc-text">实矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E7%9F%A9%E9%98%B5"><span class="toc-text">*复矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E7%9F%A9%E9%98%B5"><span class="toc-text">行矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E7%9F%A9%E9%98%B5"><span class="toc-text">列矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%B6%E7%9F%A9%E9%98%B5"><span class="toc-text">零矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9F%E7%9F%A9%E9%98%B5"><span class="toc-text">负矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#n%E9%98%B6%E6%96%B9%E9%98%B5"><span class="toc-text">n阶方阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D%E7%9F%A9%E9%98%B5"><span class="toc-text">单位矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%9F%A9%E9%98%B5%E7%AD%89%E4%BA%8E%E6%95%B0%E6%9C%AC%E8%BA%AB"><span class="toc-text">只有一个元素的矩阵等于数本身</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E5%9E%8B%E7%9F%A9%E9%98%B5"><span class="toc-text">同型矩阵</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%9F%A9%E9%98%B5%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-text">2.2 矩阵的运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%8A%A0%E6%B3%95"><span class="toc-text">2.2.1 矩阵的加法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%87%8F%E6%B3%95"><span class="toc-text">2.2.2 矩阵的减法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E7%9F%A9%E9%98%B5%E7%9A%84%E6%95%B0%E4%B9%98"><span class="toc-text">2.2.3 矩阵的数乘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-%E7%9F%A9%E9%98%B5%E7%9A%84%E4%B9%98%E6%B3%95"><span class="toc-text">2.2.4 矩阵的乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%9B%BF%E6%8D%A2"><span class="toc-text">线性替换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E5%B9%82%E8%BF%90%E7%AE%97"><span class="toc-text">矩阵的幂运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E8%BD%AC%E7%BD%AE"><span class="toc-text">矩阵的转置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A"><span class="toc-text">特殊</span></a></li></ol></li></ol></li></ol></div></div></widget>
 
 
 
@@ -8499,13 +8499,7 @@ img[fancybox='true'] {
 
 <article class="md-text content post">
 <h1 class="article-title"><span>线性代数基础</span></h1>
-<h1 id="一、行列式"><a href="#一、行列式" class="headerlink" title="一、行列式"></a>一、行列式</h1><h2 id="1-1-行列式的定义（按行展开）"><a href="#1-1-行列式的定义（按行展开）" class="headerlink" title="1.1 行列式的定义（按行展开）"></a>1.1 行列式的定义（按行展开）</h2><h3 id="一阶行列式："><a href="#一阶行列式：" class="headerlink" title="一阶行列式："></a>一阶行列式：</h3><pre><code>D = |a| = a
-</code></pre><h3 id="二阶行列式："><a href="#二阶行列式：" class="headerlink" title="二阶行列式："></a>二阶行列式：</h3><pre><code>|a b|
-|c d| = ad - bc
-</code></pre><h3 id="三阶行列式："><a href="#三阶行列式：" class="headerlink" title="三阶行列式："></a>三阶行列式：</h3><pre><code>|a b c|
-|d e f| = aei + bfg + cdh - ceg - bdi - afh
-|g h i|
-</code></pre><h3 id="逆序数"><a href="#逆序数" class="headerlink" title="逆序数"></a>逆序数</h3><p>对于一个排列，如果一对数的前面一个数大于后面一个数，那么就称这两个数构成一个逆序，一个排列中逆序的总数称为这个排列的逆序数。（冒泡排序的交换次数）</p>
+<h1 id="一、行列式"><a href="#一、行列式" class="headerlink" title="一、行列式"></a>一、行列式</h1><h2 id="1-1-行列式的定义（按行展开）"><a href="#1-1-行列式的定义（按行展开）" class="headerlink" title="1.1 行列式的定义（按行展开）"></a>1.1 行列式的定义（按行展开）</h2><h3 id="一阶行列式："><a href="#一阶行列式：" class="headerlink" title="一阶行列式："></a>一阶行列式：</h3><script type="math/tex; mode=display">D = |a| = a</script><h3 id="二阶行列式："><a href="#二阶行列式：" class="headerlink" title="二阶行列式："></a>二阶行列式：</h3><script type="math/tex; mode=display">D = \begin{vmatrix} a & b \\\\ c & d \\\\ \end{vmatrix} = ad - bc</script><h3 id="三阶行列式："><a href="#三阶行列式：" class="headerlink" title="三阶行列式："></a>三阶行列式：</h3><script type="math/tex; mode=display">D = \begin{vmatrix} a & b & c \\\\ d & e & f \\\\ g & h & i \\\\ \end{vmatrix} = aei + bfg + cdh - ceg - bdi - afh</script><h3 id="逆序数"><a href="#逆序数" class="headerlink" title="逆序数"></a>逆序数</h3><p>对于一个排列，如果一对数的前面一个数大于后面一个数，那么就称这两个数构成一个逆序，一个排列中逆序的总数称为这个排列的逆序数。（冒泡排序的交换次数）</p>
 <p>例如：</p>
 <p>1.<code>2 4 3 1</code>的逆序数为3，分别是<code>2的逆序数为1（1）</code>，<code>4的逆序数为2（2，1）</code>，<code>3的逆序数为1（1）</code>，<code>1的逆序数为0（无）</code>。</p>
 <p>2.<code>1 2 ... n</code>的逆序数为0</p>
@@ -8520,18 +8514,14 @@ img[fancybox='true'] {
 <p>一个排列如果做了偶数次对换，那么它的奇偶性不变。</p>
 <p>n级排列的奇排列有n! / 2个，偶排列有n! / 2个。</p>
 </blockquote>
-<h3 id="n阶行列式："><a href="#n阶行列式：" class="headerlink" title="n阶行列式："></a>n阶行列式：</h3><pre><code>|a11 a12 ... a1n|
-|a21 a22 ... a2n|
-|... ... ... ...|
-|an1 an2 ... ann|
-</code></pre><p>取n个元素相乘，每行每列各取一个，共有n!种取法，每种取法对应一个乘积，将所有乘积相加，得到行列式的值。<br>aij<br>行标i为自然数1,2,…,n，<br>列标j为排列的所有可能的排列，即1,2,…,n的全排列。如果某一项的排列的<em>列标</em>的逆序数为奇数，则该项前面加负号，否则加正号。</p>
+<h3 id="n阶行列式："><a href="#n阶行列式：" class="headerlink" title="n阶行列式："></a>n阶行列式：</h3><script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & a_{12} & ... & a_{1n} \\\\ a_{21} & a_{22} & ... & a_{2n} \\\\ ... & ... & ... & ... \\\\ a_{n1} & a_{n2} & ... & a_{nn} \\\\ \end{vmatrix}</script><p>取n个元素相乘，每行每列各取一个，共有n!种取法，每种取法对应一个乘积，将所有乘积相加，得到行列式的值。<br>aij<br>行标i为自然数1,2,…,n，<br>列标j为排列的所有可能的排列，即1,2,…,n的全排列。如果某一项的排列的<em>列标</em>的逆序数为奇数，则该项前面加负号，否则加正号。</p>
 <h3 id="下三角行列式"><a href="#下三角行列式" class="headerlink" title="下三角行列式"></a>下三角行列式</h3><p>形如：</p>
 <pre><code>|a11 0   0   ... 0  |
 |a21 a22 0   ... 0  |
 |a31 a32 a33 ... 0  |
 |... ... ... ... ...|
 |an1 an2 an3 ... ann|
-</code></pre><p>对角线以下的元素都为0，称为下三角行列式。</p>
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & 0 & 0 & ... & 0 \\\\ a_{21} & a_{22} & 0 & ... & 0 \\\\ a_{31} & a_{32} & a_{33} & ... & 0 \\\\ ... & ... & ... & ... & ... \\\\ a_{n1} & a_{n2} & a_{n3} & ... & a_{nn} \\\\ \end{vmatrix}</script><p>对角线以下的元素都为0，称为下三角行列式。</p>
 <p>下三角行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。</p>
 <h3 id="上三角行列式"><a href="#上三角行列式" class="headerlink" title="上三角行列式"></a>上三角行列式</h3><p>形如：</p>
 <pre><code>|a11 a12 a13 ... a1n|
@@ -8539,148 +8529,74 @@ img[fancybox='true'] {
 |0   0   a33 ... a3n|
 |... ... ... ... ...|
 |0   0   ... 0   ann|
-</code></pre><p>对角线以上的元素都为0，称为上三角行列式。<br>上三角行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。</p>
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & a_{12} & a_{13} & ... & a_{1n} \\\\ 0 & a_{22} & a_{23} & ... & a_{2n} \\\\ 0 & 0 & a_{33} & ... & a_{3n} \\\\ ... & ... & ... & ... & ... \\\\ 0 & 0 & ... & 0 & a_{nn} \\\\ \end{vmatrix}</script><p>对角线以上的元素都为0，称为上三角行列式。<br>上三角行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。</p>
 <h3 id="对角形行列式"><a href="#对角形行列式" class="headerlink" title="对角形行列式"></a>对角形行列式</h3><p>形如：</p>
-<pre><code>|a11 0   0   ... 0  |
-|0   a22 0   ... 0  |
-|0   0   a33 ... 0  |
-|... ... ... ... ...|
-|0   0   ... 0   ann|
-</code></pre><p>对角线上的元素都不为0，称为对角形行列式。</p>
+<script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & 0 & 0 & ... & 0 \\\\ 0 & a_{22} & 0 & ... & 0 \\\\ 0 & 0 & a_{33} & ... & 0 \\\\ ... & ... & ... & ... & ... \\\\ 0 & 0 & ... & 0 & a_{nn} \\\\ \end{vmatrix}</script><p>对角线上的元素都不为0，称为对角形行列式。</p>
 <p>对角形行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。</p>
 <h3 id="（右下）三角行列式"><a href="#（右下）三角行列式" class="headerlink" title="（右下）三角行列式"></a>（右下）三角行列式</h3><p>形如：</p>
 <pre><code>|0   0   ... 0     a1n|
 |0   0   ... a2n-1 a2n|
 |0   ... ... ... ...  |
 |an1 an2 ... an-1  an |
-</code></pre><p>行列式的值等于副对角线（从右上角到左下角） 上的元素的乘积，符号为副对角线上的元素的排列的逆序数的奇偶性决定：<br>D = (-1)^ [ n(n-1)/2  ] <em> a1n </em> a2n-1 <em> … </em> an1</p>
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 0 & 0 & ... & 0 & a_{1n} \\\\ 0 & 0 & ... & a_{2n-1} & a_{2n} \\\\ 0 & ... & ... & ... & ... \\\\ a_{n1} & a_{n2} & ... & a_{n-1} & a_{nn} \\\\ \end{vmatrix}</script><p>行列式的值等于副对角线（从右上角到左下角） 上的元素的乘积，符号为副对角线上的元素的排列的逆序数的奇偶性决定：<br>D = (-1)^ [ n(n-1)/2  ] <em> a1n </em> a2n-1 <em> … </em> an1</p>
 <h2 id="1-1-行列式的定义（按列展开）"><a href="#1-1-行列式的定义（按列展开）" class="headerlink" title="1.1 行列式的定义（按列展开）"></a>1.1 行列式的定义（按列展开）</h2><p>和按行展开类似，只是每行每列各取一个的时候，行标和列标的排列不同。</p>
 <h2 id="1-1-行列式的定义（既不按行展开又不按列展开）"><a href="#1-1-行列式的定义（既不按行展开又不按列展开）" class="headerlink" title="1.1 行列式的定义（既不按行展开又不按列展开）"></a>1.1 行列式的定义（既不按行展开又不按列展开）</h2><blockquote>
 <p>符号由行标和列标的排列的逆序数的相加决定。</p>
 </blockquote>
-<pre><code>D = (-1)^ [ 行标的逆序数 + 列标的逆序数 ] * a11 * a22 * ... * ann
-</code></pre><p>例如：</p>
-<pre><code>(-1)^ (N(i21m) + N(1k32)) * ai1 * a2k * a13 * am2 
-
-k=4 i=3 m=4 N(3214) + N(1432) = 3 + 3 = 6 , 6为偶数，所以符号为正
+<script type="math/tex; mode=display">D = (-1) ^ { 行标的逆序数 + 列标的逆序数 } * a_{11} * a_{22} * ... * a_{nn}</script><p>例如：</p>
+<script type="math/tex; mode=display">(-1)^ { N(i21m) + N(1k32) } * a_{i1} * a_{2k} * a_{13} * a_{m2}</script><pre><code>k=4 i=3 m=4 N(3214) + N(1432) = 3 + 3 = 6 , 6为偶数，所以符号为正
 
 k=4 i=4 m=3 N(4213) + N(1432) = 4 + 3 = 7 , 7为奇数，所以符号为负
 </code></pre><h2 id="1-2-行列式的性质"><a href="#1-2-行列式的性质" class="headerlink" title="1.2 行列式的性质"></a>1.2 行列式的性质</h2><h3 id="性质1-行列式与它的转置行列式相等。对行成立的性质对列也成立。"><a href="#性质1-行列式与它的转置行列式相等。对行成立的性质对列也成立。" class="headerlink" title="性质1 行列式与它的转置行列式相等。对行成立的性质对列也成立。"></a>性质1 行列式与它的转置行列式相等。对行成立的性质对列也成立。</h3><blockquote>
 <p>转置行列式：行列式的行变成列，列变成行。</p>
 </blockquote>
-<pre><code>D = |1 2 3|  =  D^T = |1 4 7|
-    |4 5 6|           |2 5 8|
-    |7 8 9|           |3 6 9|
-</code></pre><pre><code>(D^T)^T = D
-</code></pre><h3 id="性质2-互换行列式的两行，行列式变号。"><a href="#性质2-互换行列式的两行，行列式变号。" class="headerlink" title="性质2 互换行列式的两行，行列式变号。"></a>性质2 互换行列式的两行，行列式变号。</h3><pre><code>D = |1 2 3|  =  -D = |7 8 9|
-    |4 5 6|          |4 5 6|
-    |7 8 9|          |1 2 3|
-</code></pre><h4 id="推论性质3：如果行列式有两行完全相同，则此行列式等于零。"><a href="#推论性质3：如果行列式有两行完全相同，则此行列式等于零。" class="headerlink" title="推论性质3：如果行列式有两行完全相同，则此行列式等于零。"></a>推论性质3：如果行列式有两行完全相同，则此行列式等于零。</h4><pre><code>D = |1 2 3|  =  -D = |1 2 3| = 0
+<script type="math/tex; mode=display">(D^T)^T = D</script><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix} = \begin{vmatrix} 1 & 4 & 7 \\\\ 2 & 5 & 8 \\\\ 3 & 6 & 9 \\\\ \end{vmatrix}</script><h3 id="性质2-互换行列式的两行，行列式变号。"><a href="#性质2-互换行列式的两行，行列式变号。" class="headerlink" title="性质2 互换行列式的两行，行列式变号。"></a>性质2 互换行列式的两行，行列式变号。</h3><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix} = - \begin{vmatrix} 7 & 8 & 9 \\\\ 4 & 5 & 6 \\\\ 1 & 2 & 3 \\\\ \end{vmatrix}</script><h4 id="推论性质3：如果行列式有两行完全相同，则此行列式等于零。"><a href="#推论性质3：如果行列式有两行完全相同，则此行列式等于零。" class="headerlink" title="推论性质3：如果行列式有两行完全相同，则此行列式等于零。"></a>推论性质3：如果行列式有两行完全相同，则此行列式等于零。</h4><pre><code>D = |1 2 3|  =  -D = |1 2 3| = 0
     |4 5 6|          |4 5 6|
     |1 2 3|          |1 2 3|
-</code></pre><h3 id="性质4-行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。"><a href="#性质4-行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。" class="headerlink" title="性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。"></a>性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。</h3><pre><code>D = |1 2 3|  =  2D = |2 4 6|
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 1 & 2 & 3 \\\\ \end{vmatrix} = 0</script><h3 id="性质4-行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。"><a href="#性质4-行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。" class="headerlink" title="性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。"></a>性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。</h3><pre><code>D = |1 2 3|  =  2D = |2 4 6|
     |4 5 6|          |4 5 6|
     |7 8 9|          |7 8 9|
-</code></pre><h3 id="推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。"><a href="#推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。" class="headerlink" title="推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。"></a>推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。</h3><pre><code>D = |1  2   3| = k * |1 2 3|
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix} = 2 \begin{vmatrix} 2 & 4 & 6 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix}</script><h3 id="推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。"><a href="#推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。" class="headerlink" title="推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。"></a>推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。</h3><pre><code>D = |1  2   3| = k * |1 2 3|
     |4k 5k 6k|       |4 5 6|
     |7  8   9|       |7 8 9|
-</code></pre><h3 id="性质5-行列式中如果有两行元素成比例，则此行列式等于零。"><a href="#性质5-行列式中如果有两行元素成比例，则此行列式等于零。" class="headerlink" title="性质5 行列式中如果有两行元素成比例，则此行列式等于零。"></a>性质5 行列式中如果有两行元素成比例，则此行列式等于零。</h3><pre><code>D = |1 2 3|  =  0
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4k & 5k & 6k \\\\ 7 & 8 & 9 \\\\ \end{vmatrix} = k \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix}</script><h3 id="性质5-行列式中如果有两行元素成比例，则此行列式等于零。"><a href="#性质5-行列式中如果有两行元素成比例，则此行列式等于零。" class="headerlink" title="性质5 行列式中如果有两行元素成比例，则此行列式等于零。"></a>性质5 行列式中如果有两行元素成比例，则此行列式等于零。</h3><pre><code>D = |1 2 3|  =  0
     |4 5 6|
     |2 4 6|
-</code></pre><h3 id="推论：某一行全等于0，行列式等于0。"><a href="#推论：某一行全等于0，行列式等于0。" class="headerlink" title="推论：某一行全等于0，行列式等于0。"></a>推论：某一行全等于0，行列式等于0。</h3><pre><code>D = |1 2 3|  =  0
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 2 & 4 & 6 \\\\ \end{vmatrix} = 0</script><h3 id="推论：某一行全等于0，行列式等于0。"><a href="#推论：某一行全等于0，行列式等于0。" class="headerlink" title="推论：某一行全等于0，行列式等于0。"></a>推论：某一行全等于0，行列式等于0。</h3><pre><code>D = |1 2 3|  =  0
     |4 5 6|
     |0 0 0|
-</code></pre><h3 id="性质6-行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）"><a href="#性质6-行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）" class="headerlink" title="性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）"></a>性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）</h3><pre><code>D = |1 2 3|  =  |1 2 3| + |1 2 3|
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 0 & 0 & 0 \\\\ \end{vmatrix} = 0</script><h3 id="性质6-行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）"><a href="#性质6-行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）" class="headerlink" title="性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）"></a>性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）</h3><pre><code>D = |1 2 3|  =  |1 2 3| + |1 2 3|
     |4 5 6|     |2 2 3|   |2 3 3|
     |7 8 9|     |7 8 9|   |7 8 9|
-</code></pre><h3 id="性质7-行列式中某一行乘以一个数加到另一行去，行列式不变。"><a href="#性质7-行列式中某一行乘以一个数加到另一行去，行列式不变。" class="headerlink" title="性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。"></a>性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。</h3><pre><code>D = |1 2 3|  第一行乘5，加到第二行上 =   |1     2     3|
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix} = \begin{vmatrix} 1 & 2 & 3 \\\\ 2 & 3 & 3 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix} + \begin{vmatrix} 1 & 2 & 3 \\\\ 2 & 2 & 3 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix}</script><h3 id="性质7-行列式中某一行乘以一个数加到另一行去，行列式不变。"><a href="#性质7-行列式中某一行乘以一个数加到另一行去，行列式不变。" class="headerlink" title="性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。"></a>性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。</h3><pre><code>D = |1 2 3| = 第一行乘5，加到第二行上 =   |1     2     3|
     |4 5 6|                            |4+5 5+10 6+15|
     |7 8 9|                            |7    8      9|
-</code></pre><p><strong>利用性质7，可以把行列式化成上三角行列式。结果就为主对角线上的元素的乘积。</strong></p>
-<h2 id="1-3-行列式按行展开"><a href="#1-3-行列式按行展开" class="headerlink" title="1.3 行列式按行展开"></a>1.3 行列式按行展开</h2><h3 id="1-3-1-代数余子式"><a href="#1-3-1-代数余子式" class="headerlink" title="1.3.1 代数余子式"></a>1.3.1 代数余子式</h3><h4 id="余子式"><a href="#余子式" class="headerlink" title="余子式"></a>余子式</h4><pre><code>|a11 a12 a13|
-|a21 a22 a23|
-|a31 a32 a33|
-</code></pre><p>把a22所在的行和列划去，剩下的元素组成的行列式称为a22的余子式，记作M22。</p>
-<pre><code>M22 = |a11 a13|
-      |a31 a33|
-</code></pre><h4 id="代数余子式"><a href="#代数余子式" class="headerlink" title="代数余子式"></a>代数余子式</h4><p>把a22的余子式乘以(-1)^(i+j)，得到a22的代数余子式，记作A22。</p>
-<pre><code>A22 = -1^(2+2) * M22
-</code></pre><h3 id="1-3-2-行列式按行或列展开（降阶）"><a href="#1-3-2-行列式按行或列展开（降阶）" class="headerlink" title="1.3.2 行列式按行或列展开（降阶）"></a>1.3.2 行列式按行或列展开（降阶）</h3><h4 id="按行展开"><a href="#按行展开" class="headerlink" title="按行展开"></a>按行展开</h4><p>任意选定一行，把这一行的每个元素与它的代数余子式的乘积相加，得到行列式的值。</p>
-<pre><code>D = |a11 a12 a13|
-    |a21 a22 a23|
-    |a31 a32 a33|
-
-D = a11 * A11 + a12 * A12 + a13 * A13
-</code></pre><h4 id="按列展开"><a href="#按列展开" class="headerlink" title="按列展开"></a>按列展开</h4><p>任意选定一列，把这一列的每个元素与它的代数余子式的乘积相加，得到行列式的值。</p>
-<pre><code>D = |a11 a12 a13|
-    |a21 a22 a23|
-    |a31 a32 a33|
-
-D = a11 * A11 + a21 * A21 + a31 * A31
-</code></pre><p>如果选定的某一行或列的0比较多（0直接不算），可以减少计算量，所以要选取0比较多的行或列。</p>
-<h2 id="1-4-异乘变零定理"><a href="#1-4-异乘变零定理" class="headerlink" title="1.4 异乘变零定理"></a>1.4 异乘变零定理</h2><p>某行的元素乘以另一行的元素的代数余子式乘积之和等于0。</p>
-<pre><code>D = |a11 a12 a13|
-    |a21 a22 a23|
-    |a31 a32 a33|
-
-a11 * A21 + a12 * A22 + a13 * A23 = 0
-</code></pre><h2 id="1-5-拉普拉斯定理"><a href="#1-5-拉普拉斯定理" class="headerlink" title="1.5 拉普拉斯定理"></a>1.5 拉普拉斯定理</h2><h3 id="1-5-1-k阶子式"><a href="#1-5-1-k阶子式" class="headerlink" title="1.5.1 k阶子式"></a>1.5.1 k阶子式</h3><p>从行列式中任意取k行，再从这k行中任意取k列，位于这些行列交叉点上的k个元素组成的行列式，称为k阶子式。</p>
-<pre><code>|a11 a12 a13|
-|a21 a22 a23|
-|a31 a32 a33|
-
-k=2
-|a11 a12|
-|a21 a22|
-</code></pre><h3 id="1-5-2-余子式"><a href="#1-5-2-余子式" class="headerlink" title="1.5.2 余子式"></a>1.5.2 余子式</h3><p>k阶子式的余子式是指把k阶子式所在的行和列划去，剩下的元素组成的行列式。</p>
-<pre><code>|a11 a12 a13|
-|a21 a22 a23|
-|a31 a32 a33|
-
-k=2
-|a33|
-</code></pre><h3 id="1-5-3-代数余子式"><a href="#1-5-3-代数余子式" class="headerlink" title="1.5.3 代数余子式"></a>1.5.3 代数余子式</h3><p>k阶子式的代数余子式是指把k阶子式的余子式乘以(-1)^(i1+j1+i2+j2+…+ik+jk)，得到的行列式。</p>
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix}  \xlongequal[等于]{第一行乘5，加到第二行上} \begin{vmatrix} 1 & 2 & 3 \\\\ 4+5 & 5+10 & 6+15 \\\\ 7 & 8 & 9 \\\\ \end{vmatrix}</script><p><strong>利用性质7，可以把行列式化成上三角行列式。结果就为主对角线上的元素的乘积。</strong></p>
+<h2 id="1-3-行列式按行展开"><a href="#1-3-行列式按行展开" class="headerlink" title="1.3 行列式按行展开"></a>1.3 行列式按行展开</h2><h3 id="1-3-1-代数余子式"><a href="#1-3-1-代数余子式" class="headerlink" title="1.3.1 代数余子式"></a>1.3.1 代数余子式</h3><h4 id="余子式"><a href="#余子式" class="headerlink" title="余子式"></a>余子式</h4><script type="math/tex; mode=display">\begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\\\ \end{vmatrix}</script><p>把$a<em>{22}$所在的行和列划去，剩下的元素组成的行列式称为$a</em>{22}$的余子式，记作$M_{22}$。</p>
+<script type="math/tex; mode=display">M_{22} = \begin{vmatrix} a_{11} & a_{13} \\\\ a_{31} & a_{33} \\\\ \end{vmatrix}</script><h4 id="代数余子式"><a href="#代数余子式" class="headerlink" title="代数余子式"></a>代数余子式</h4><p>把$a<em>{22}$的余子式乘以$(-1)^{i+j}$，得到$a</em>{22}$的代数余子式，记作$A<em>{22}$。(i,j为$a</em>{22}$的行列标)</p>
+<script type="math/tex; mode=display">A_{22} = (-1)^{2+2} * M_{22}</script><h3 id="行列式按行或列展开（降阶）"><a href="#行列式按行或列展开（降阶）" class="headerlink" title="行列式按行或列展开（降阶）"></a>行列式按行或列展开（降阶）</h3><h4 id="按行展开"><a href="#按行展开" class="headerlink" title="按行展开"></a>按行展开</h4><p>任意选定一行，把这一行的每个元素与它的代数余子式的乘积相加，得到行列式的值。</p>
+<script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\\\ \end{vmatrix} = a_{11} * A_{11} + a_{12} * A_{12} + a_{13} * A_{13}  = a_{11} \begin{vmatrix} a_{22} & a_{23} \\\\ a_{32} & a_{33} \\\\ \end{vmatrix} + a_{12} \begin{vmatrix} a_{21} & a_{23} \\\\ a_{31} & a_{33} \\\\ \end{vmatrix} + a_{13} \begin{vmatrix} a_{21} & a_{22} \\\\ a_{31} & a_{32} \\\\ \end{vmatrix}</script><h4 id="按列展开"><a href="#按列展开" class="headerlink" title="按列展开"></a>按列展开</h4><p>任意选定一列，把这一列的每个元素与它的代数余子式的乘积相加，得到行列式的值。</p>
+<script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\\\ \end{vmatrix} = a_{11} * A_{11} + a_{21} * A_{21} + a_{31} * A_{31}  = a_{11} \begin{vmatrix} a_{22} & a_{23} \\\\ a_{32} & a_{33} \\\\ \end{vmatrix} + a_{21} \begin{vmatrix} a_{12} & a_{13} \\\\ a_{32} & a_{33} \\\\ \end{vmatrix} + a_{31} \begin{vmatrix} a_{12} & a_{13} \\\\ a_{22} & a_{23} \\\\ \end{vmatrix}</script><p><em>如果选定的某一行或列的0比较多（0直接不算），可以减少计算量，所以要选取0比较多的行或列。</em></p>
+<h2 id="异乘变零定理"><a href="#异乘变零定理" class="headerlink" title="异乘变零定理"></a>异乘变零定理</h2><p>某行的元素乘以另一行的元素的代数余子式乘积之和等于0。</p>
+<script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\\\ \end{vmatrix} = a_{11} * A_{21} + a_{12} * A_{22} + a_{13} * A_{23}  = a_{11} \begin{vmatrix} a_{22} & a_{23} \\\\ a_{32} & a_{33} \\\\ \end{vmatrix} + a_{12} \begin{vmatrix} a_{21} & a_{23} \\\\ a_{31} & a_{33} \\\\ \end{vmatrix} + a_{13} \begin{vmatrix} a_{21} & a_{22} \\\\ a_{31} & a_{32} \\\\ \end{vmatrix} = 0</script><h2 id="拉普拉斯定理"><a href="#拉普拉斯定理" class="headerlink" title="拉普拉斯定理"></a>拉普拉斯定理</h2><h3 id="k阶子式"><a href="#k阶子式" class="headerlink" title="k阶子式"></a>k阶子式</h3><p>从行列式中任意取k行，再从这k行中任意取k列，位于这些行列交叉点上的k个元素组成的行列式，称为k阶子式。</p>
+<script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\\\ \end{vmatrix}</script><script type="math/tex; mode=display">k=2</script><script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & a_{12} \\\\ a_{21} & a_{22} \\\\ \end{vmatrix}</script><h3 id="余子式-1"><a href="#余子式-1" class="headerlink" title="余子式"></a>余子式</h3><p>k阶子式的余子式是指把k阶子式所在的行和列划去，剩下的元素组成的行列式。</p>
+<script type="math/tex; mode=display">D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\\\ \end{vmatrix}</script><script type="math/tex; mode=display">k=2</script><script type="math/tex; mode=display">D = \begin{vmatrix} a_{33}  \end{vmatrix}</script><h3 id="1-5-3-代数余子式"><a href="#1-5-3-代数余子式" class="headerlink" title="1.5.3 代数余子式"></a>1.5.3 代数余子式</h3><p>k阶子式的代数余子式是指把k阶子式的余子式乘以(-1)^(i1+j1+i2+j2+…+ik+jk)，得到的行列式。</p>
 <h3 id="1-5-4-拉普拉斯定理"><a href="#1-5-4-拉普拉斯定理" class="headerlink" title="1.5.4 拉普拉斯定理"></a>1.5.4 拉普拉斯定理</h3><p>取定k行，把这k行的每个元素与它的代数余子式的乘积相加，得到行列式的值。</p>
 <h3 id="1-5-5-同阶行列式相乘"><a href="#1-5-5-同阶行列式相乘" class="headerlink" title="1.5.5 同阶行列式相乘"></a>1.5.5 同阶行列式相乘</h3><p>每一行与另一个行列式的每一列相乘</p>
-<pre><code>|a11 a12 a13|   |b11 b12 b13|   |a11b11+a12b21+a13b31 a11b12+a12b22+a13b32 a11b13+a12b23+a13b33|
-|a21 a22 a23| * |b21 b22 b23| = |a21b11+a22b21+a23b31 a21b12+a22b22+a23b32 a21b13+a22b23+a23b33|
-|a31 a32 a33|   |b31 b32 b33|   |a31b11+a32b21+a33b31 a31b12+a32b22+a33b32 a31b13+a32b23+a33b33|
-</code></pre><h2 id="1-6-行列式的计算"><a href="#1-6-行列式的计算" class="headerlink" title="1.6 行列式的计算"></a>1.6 行列式的计算</h2><p>1) 转为上三角行列式，结果为主对角线上的元素的乘积。<br>2) 按行展开，选择0比较多的行。<br>3) 加边</p>
+<script type="math/tex; mode=display">\begin{vmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\\\ \end{vmatrix} * \begin{vmatrix} b_{11} & b_{12} & b_{13} \\\\ b_{21} & b_{22} & b_{23} \\\\ b_{31} & b_{32} & b_{33} \\\\ \end{vmatrix} = \begin{vmatrix} a_{11}b_{11}+a_{12}b_{21}+a_{13}b_{31} & a_{11}b_{12}+a_{12}b_{22}+a_{13}b_{32} & a_{11}b_{13}+a_{12}b_{23}+a_{13}b_{33} \\\\ a_{21}b_{11}+a_{22}b_{21}+a_{23}b_{31} & a_{21}b_{12}+a_{22}b_{22}+a_{23}b_{32} & a_{21}b_{13}+a_{22}b_{23}+a_{23}b_{33} \\\\ a_{31}b_{11}+a_{32}b_{21}+a_{33}b_{31} & a_{31}b_{12}+a_{32}b_{22}+a_{33}b_{32} & a_{31}b_{13}+a_{32}b_{23}+a_{33}b_{33} \\\\ \end{vmatrix}</script><h2 id="1-6-行列式的计算"><a href="#1-6-行列式的计算" class="headerlink" title="1.6 行列式的计算"></a>1.6 行列式的计算</h2><p>1) 转为上三角行列式，结果为主对角线上的元素的乘积。<br>2) 按行展开，选择0比较多的行。<br>3) 加边</p>
 <p>例1</p>
-<pre><code>D = |3 0 4 0|
-    |3 2 2 2|
-    |0 -7 0 0|
-    |5 3 -2 2|
-
-求M41+M42+M43+M44
-
-如果直接按行展开，需要计算4个4阶行列式，计算量比较大。
+<script type="math/tex; mode=display">D = \begin{vmatrix} 3 & 0 & 4 & 0 \\\\ 3 & 2 & 2 & 2 \\\\ 0 & -7 & 0 & 0 \\\\ 5 & 3 & -2 & 2 \\\\ \end{vmatrix}</script><p>求$M<em>{41}+M</em>{42}+M<em>{43}+M</em>{44}$</p>
+<pre><code>如果直接按行展开，需要计算4个4阶行列式，计算量比较大。
 
 可以化简一下，
 
 已知行列式展开是一行元素和它的代数余子式的乘积之和，所以尝试把M41+M42+M43+M44化成这样的形式。
 
 先转换为代数余子式的形式，注意正负号：
-
-M41+M42+M43+M44
-= (-1)*(-1)^(4+1) * M41 + (-1)^(4+2) * M42 + (-1)*(-1)^(4+3) * M43 + (-1)^(4+4) * M44
-
-还有“一行元素”在哪里？
-
-M41+M42+M43+M44
-= -A41 + A42 - A43 + A44
-
-此时，第4行元素替换为这个式子的系数（-1,1,-1,1），得到：
-
-D = |3 0 4 0|
-    |3 2 2 2|
-    |0 -7 0 0|
-    |-1 1 -1 1|
-
-选择最多0的行，第3行，计算量最小。
-
-D = (-7) * (-1) ^(3+2) * M32 = -56
-</code></pre><p>例2</p>
+</code></pre><script type="math/tex; mode=display">M_{41} + M_{42} + M_{43} + M_{44} = (-1)*(-1)^{4+1} * M_{41} + (-1)^{4+2} * M_{42} +(-1)* (-1)^{4+3} * M_{43} + (-1)^{4+4} * M_{44}</script><pre><code>还有“一行元素”在哪里？
+</code></pre><script type="math/tex; mode=display">M_{41} + M_{42} + M_{43} + M_{44} = -A_{41} + A_{42} - A_{43} + A_{44}</script><pre><code>此时，第4行元素替换为这个式子的系数（-1,1,-1,1），得到：
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 3 & 0 & 4 & 0 \\\\ 3 & 2 & 2 & 2 \\\\ 0 & -7 & 0 & 0 \\\\ -1 & 1 & -1 & 1 \\\\ \end{vmatrix}</script><pre><code>选择最多0的行，第3行，计算量最小。
+</code></pre><script type="math/tex; mode=display">D = (-7) * (-1) ^{3+2} * M_{32} = -56</script><p>例2</p>
 <pre><code>| x a a a ... a|
 | a x a a ... a|
 | a a x a ... a|
@@ -8753,38 +8669,24 @@ D = (-7) * (-1) ^(3+2) * M32 = -56
 
 = (x2-x1) * (x3-x1) * (x4-x1) * ... * (xn-x1) * (x3-x2) * (x4-x2) * ... * (xn-x2) * ... * (xn-xn-1)
 = Π (xi-xj) (1&lt;=i&lt;j&lt;=n)
-</code></pre><h3 id="反对称行列式"><a href="#反对称行列式" class="headerlink" title="反对称行列式"></a>反对称行列式</h3><ul>
+</code></pre><script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 1 & 1 & 1 & 1 \\\\ x_1 & x_2 & x_3 & x_4 & x_5 \\\\ x_1^2 & x_2^2 & x_3^2 & x_4^2 & x_5^2 \\\\ x_1^3 & x_2^3 & x_3^3 & x_4^3 & x_5^3 \\\\ x_1^4 & x_2^4 & x_3^4 & x_4^4 & x_5^4 \\\\ \end{vmatrix} = (x_2-x_1) * (x_3-x_1) * (x_4-x_1) * \dots * (x_n-x_1) * (x_3-x_2) * (x_4-x_2) * \dots * (x_n-x_2) * \dots * (x_n-x_{n-1}) = \prod_{1<=i<j<=n} (x_i-x_j)</script><h3 id="反对称行列式"><a href="#反对称行列式" class="headerlink" title="反对称行列式"></a>反对称行列式</h3><ul>
 <li>主对角线全为0</li>
 <li>上下位置对应成相反数(aij=-aji)</li>
 <li>如果为奇数阶，行列式的值为0</li>
 </ul>
-<pre><code>|0 1 2 3|
-|-1 0 -5 6|
-|-2 5 0 -8|
-|-3 -6 8 0|
-</code></pre><h3 id="对称行列式"><a href="#对称行列式" class="headerlink" title="对称行列式"></a>对称行列式</h3><ul>
+<script type="math/tex; mode=display">D = \begin{vmatrix} 0 & 1 & 2 & 3 \\\\ -1 & 0 & -5 & 6 \\\\ -2 & 5 & 0 & -8 \\\\ -3 & -6 & 8 & 0 \\\\ \end{vmatrix} = 0</script><h3 id="对称行列式"><a href="#对称行列式" class="headerlink" title="对称行列式"></a>对称行列式</h3><ul>
 <li>上下位置对应相等(aij=aji)</li>
 </ul>
-<pre><code>|1 1 2 3|
-|1 2 5 6|
-|2 5 3 8|
-|3 6 8 4|
-</code></pre><h2 id="1-7-克莱姆法则"><a href="#1-7-克莱姆法则" class="headerlink" title="1.7 克莱姆法则"></a>1.7 克莱姆法则</h2><p>只适用于：</p>
-<blockquote>
-<p>方程的个数=未知数的个数</p>
-<p>D!=0</p>
-<p>xj=Dj/D (Dj指的是把第j列换成b1b2…bn的行列式，b指的是方程式的右边的常数项，D指的是系数行列式) ： x1 = D1/D, x2 = D2/D, x3 = D3/D, … , xn = Dn/D</p>
-</blockquote>
-<pre><code>x1+x2+x3=1
-x1-x2+5x3=6
--x1+x2+6x3=9
-
-把系数提出来，得到系数行列式：D =
-|1 1 1|
-|1 -1 5|
-|-1 1 6|
-
-D1 = |1 1 1|
+<script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 1 & 2 & 3 \\\\ 1 & 2 & 5 & 6 \\\\ 2 & 5 & 3 & 8 \\\\ 3 & 6 & 8 & 4 \\\\ \end{vmatrix}</script><h2 id="1-7-克莱姆法则"><a href="#1-7-克莱姆法则" class="headerlink" title="1.7 克莱姆法则"></a>1.7 克莱姆法则</h2><p>只适用于：</p>
+<ol>
+<li><script type="math/tex; mode=display">方程的个数=未知数的个数</script></li>
+<li><script type="math/tex; mode=display">D!=0</script></li>
+<li><script type="math/tex; mode=display">x_j = \frac{D_j}{D} (D_j指的是把第j列换成b_1b_2...b_n的行列式，b指的是方程式的右边的常数项，D指的是系数行列式) ： x_1 = \frac{D_1}{D}, x_2 = \frac{D_2}{D}, x_3 = \frac{D_3}{D}, ... , x_n = \frac{D_n}{D}</script></li>
+</ol>
+<p>例如</p>
+<p>方程组</p>
+<script type="math/tex; mode=display">\begin{cases} x_1 + x_2 + x_3 = 1 \\\\ x_1 - x_2 + 5x_3 = 6 \\\\ -x_1 + x_2 + 6x_3 = 9 \\\\ \end{cases}</script><p>把系数提出来，得到系数行列式：</p>
+<script type="math/tex; mode=display">D = \begin{vmatrix} 1 & 1 & 1 \\\\ 1 & -1 & 5 \\\\ -1 & 1 & 6 \\\\ \end{vmatrix}</script><pre><code>D1 = |1 1 1|
      |6 -1 5|
      |9 1 6|
 
@@ -8801,12 +8703,7 @@ D3 = |1 1 1|
 <p>若齐次方程有非0解&lt;=&gt;那么齐次方程组的系数行列式必为0。</p>
 </blockquote>
 <h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><h2 id="2-1-矩阵的定义"><a href="#2-1-矩阵的定义" class="headerlink" title="2.1 矩阵的定义"></a>2.1 矩阵的定义</h2><h3 id="2-1-1-矩阵的定义"><a href="#2-1-1-矩阵的定义" class="headerlink" title="2.1.1 矩阵的定义"></a>2.1.1 矩阵的定义</h3><p>m行n列的数表称为m行n列的矩阵，简称m*n矩阵。</p>
-<pre><code>|a11 a12 ... a1n|
-|a21 a22 ... a2n|
-|... ... ... ...|
-|am1 am2 ... amn|
-
-Am*n表示一个矩阵，m行n列，a11表示第1行第1列的元素，amn表示第m行第n列的元素。
+<script type="math/tex; mode=display">A_{m*n} = \begin{bmatrix} a_{11} & a_{12} & \dots & a_{1n} \\\\ a_{21} & a_{22} & \dots & a_{2n} \\\\ \vdots & \vdots & \ddots & \vdots \\\\ a_{m1} & a_{m2} & \dots & a_{mn} \\\\ \end{bmatrix}</script><pre><code>Am*n表示一个矩阵，m行n列，a11表示第1行第1列的元素，amn表示第m行第n列的元素。
 </code></pre><h3 id="2-1-2-矩阵和行列式的区别"><a href="#2-1-2-矩阵和行列式的区别" class="headerlink" title="2.1.2 矩阵和行列式的区别"></a>2.1.2 矩阵和行列式的区别</h3><p>本质：矩阵是一个数表，行列式是一个数。<br>符号：矩阵用()或[]，行列式用||。<br>形状：矩阵行数可以不等于列数，行列式行数等于列数。</p>
 <h4 id="实矩阵"><a href="#实矩阵" class="headerlink" title="实矩阵"></a>实矩阵</h4><p>矩阵中的元素都是实数的矩阵，称为实矩阵。</p>
 <h4 id="复矩阵"><a href="#复矩阵" class="headerlink" title="*复矩阵"></a>*复矩阵</h4><h4 id="行矩阵"><a href="#行矩阵" class="headerlink" title="行矩阵"></a>行矩阵</h4><p>只有一行的矩阵，称为行矩阵。</p>
@@ -8819,39 +8716,24 @@ Am*n表示一个矩阵，m行n列，a11表示第1行第1列的元素，amn表示
 <p>方阵有主对角线和副对角线。</p>
 </blockquote>
 <h4 id="单位矩阵"><a href="#单位矩阵" class="headerlink" title="单位矩阵"></a>单位矩阵</h4><p>主对角线上的元素都为1，其余元素都为0的n阶方阵，称为单位矩阵，记作En。<br>一般用E,I</p>
-<pre><code>E =  |1  |
-     |  1|
-</code></pre><h4 id="只有一个元素的矩阵等于数本身"><a href="#只有一个元素的矩阵等于数本身" class="headerlink" title="只有一个元素的矩阵等于数本身"></a>只有一个元素的矩阵等于数本身</h4><pre><code>(1) = 1
-</code></pre><h4 id="同型矩阵"><a href="#同型矩阵" class="headerlink" title="同型矩阵"></a>同型矩阵</h4><p>两个行数和列数都相等的矩阵，称为同型矩阵。</p>
+<script type="math/tex; mode=display">E = \begin{bmatrix} 1 & 0 & \dots & 0 \\\\ 0 & 1 & \dots & 0 \\\\ \vdots & \vdots & \ddots & \vdots \\\\ 0 & 0 & \dots & 1 \\\\ \end{bmatrix}</script><h4 id="只有一个元素的矩阵等于数本身"><a href="#只有一个元素的矩阵等于数本身" class="headerlink" title="只有一个元素的矩阵等于数本身"></a>只有一个元素的矩阵等于数本身</h4><script type="math/tex; mode=display">\begin{bmatrix} 1  \end{bmatrix} = 1</script><h4 id="同型矩阵"><a href="#同型矩阵" class="headerlink" title="同型矩阵"></a>同型矩阵</h4><p>两个行数和列数都相等的矩阵，称为同型矩阵。</p>
 <blockquote>
 <p>两个矩阵相等的前提：是同型矩阵</p>
 </blockquote>
 <h2 id="2-2-矩阵的运算"><a href="#2-2-矩阵的运算" class="headerlink" title="2.2 矩阵的运算"></a>2.2 矩阵的运算</h2><h3 id="2-2-1-矩阵的加法"><a href="#2-2-1-矩阵的加法" class="headerlink" title="2.2.1 矩阵的加法"></a>2.2.1 矩阵的加法</h3><blockquote>
 <p>矩阵的加法要求两个矩阵是同型矩阵。</p>
 </blockquote>
-<pre><code> 1 1 1  +  2 2 2  =  3 3 3 
-(1 1 1)   (2 2 2)   (3 3 3)
-</code></pre><h3 id="2-2-2-矩阵的减法"><a href="#2-2-2-矩阵的减法" class="headerlink" title="2.2.2 矩阵的减法"></a>2.2.2 矩阵的减法</h3><blockquote>
+<script type="math/tex; mode=display">\begin{bmatrix} 1 & 1 & 1 \\\\ 1 & 1 & 1 \\\\ \end{bmatrix} + \begin{bmatrix} 2 & 2 & 2 \\\\ 2 & 2 & 2 \\\\ \end{bmatrix} = \begin{bmatrix} 3 & 3 & 3 \\\\ 3 & 3 & 3 \\\\ \end{bmatrix}</script><h3 id="2-2-2-矩阵的减法"><a href="#2-2-2-矩阵的减法" class="headerlink" title="2.2.2 矩阵的减法"></a>2.2.2 矩阵的减法</h3><blockquote>
 <p>与矩阵的加法类似，要求两个矩阵是同型矩阵。</p>
 </blockquote>
 <h3 id="2-2-3-矩阵的数乘"><a href="#2-2-3-矩阵的数乘" class="headerlink" title="2.2.3 矩阵的数乘"></a>2.2.3 矩阵的数乘</h3><blockquote>
 <p>一个矩阵的每个元素都乘以一个数，等于把这个数乘以这个矩阵。（公因子提出来）</p>
 </blockquote>
-<pre><code>k(1 1 1) = (k k k)
-  1 1 1     k k k
-</code></pre><h3 id="2-2-4-矩阵的乘法"><a href="#2-2-4-矩阵的乘法" class="headerlink" title="2.2.4 矩阵的乘法"></a>2.2.4 矩阵的乘法</h3><blockquote>
+<script type="math/tex; mode=display">k \begin{bmatrix} 1 & 1 & 1 \\\\ 1 & 1 & 1  \end{bmatrix} =  \begin{bmatrix} k & k & k \\\\ k & k & k  \end{bmatrix}</script><h3 id="2-2-4-矩阵的乘法"><a href="#2-2-4-矩阵的乘法" class="headerlink" title="2.2.4 矩阵的乘法"></a>2.2.4 矩阵的乘法</h3><blockquote>
 <p>矩阵的乘法要求第一个矩阵的行数等于第二个矩阵的列数，结果的行数等于第一个矩阵的行数，列数等于第二个矩阵的列数。</p>
 </blockquote>
 <p>每一行的元素与另一个矩阵的每一列的元素相乘，再相加。</p>
-<pre><code> a1 a2 a3     b1 b2 b3 
-(a4 a5 a6) * (b4 b5 b6) 
- a7 a8 a9     b7 b8 b9
-
-= (a1b1+a2b4+a3b7+a1b2+a2b5+a3b8+a1b3+a2b6+a3b9+a4b1+a5b4+a6b7+a4b2+a5b5+a6b8+a4b3+a5b6+a6b9+a7b1+a8b4+a9b7+a7b2+a8b5+a9b8+a7b3+a8b6+a9b9)
-</code></pre><pre><code> 2 1 0     1 0 1     2 1 3
-(1 0 1) * (0 1 1) = (1 1 2)
-           0 1 1
-</code></pre><blockquote>
+<script type="math/tex; mode=display">\begin{bmatrix} a_{1} & a_{2} & a_{3} \\\\ a_{4} & a_{5} & a_{6} \\\\ a_{7} & a_{8} & a_{9} \\\\ \end{bmatrix} * \begin{bmatrix} b_{1} & b_{2} & b_{3} \\\\ b_{4} & b_{5} & b_{6} \\\\ b_{7} & b_{8} & b_{9} \\\\ \end{bmatrix} = \begin{bmatrix} a_{1}b_{1}+a_{2}b_{4}+a_{3}b_{7} & a_{1}b_{2}+a_{2}b_{5}+a_{3}b_{8} & a_{1}b_{3}+a_{2}b_{6}+a_{3}b_{9} \\\\ a_{4}b_{1}+a_{5}b_{4}+a_{6}b_{7} & a_{4}b_{2}+a_{5}b_{5}+a_{6}b_{8} & a_{4}b_{3}+a_{5}b_{6}+a_{6}b_{9} \\\\ a_{7}b_{1}+a_{8}b_{4}+a_{9}b_{7} & a_{7}b_{2}+a_{8}b_{5}+a_{9}b_{8} & a_{7}b_{3}+a_{8}b_{6}+a_{9}b_{9} \\\\ \end{bmatrix}</script><script type="math/tex; mode=display">\begin{bmatrix} 2 & 1 & 0 \\\\ 1 & 0 & 1 \\\\ \end{bmatrix} * \begin{bmatrix} 1 & 0 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 1 & 1 \\\\ \end{bmatrix} = \begin{bmatrix} 2 & 1 & 3 \\\\ 1 & 1 & 2 \\\\ \end{bmatrix}</script><blockquote>
 <ul>
 <li><p>矩阵的乘法不满足交换律，满足结合律。</p>
 </li>
@@ -8861,56 +8743,16 @@ Am*n表示一个矩阵，m行n列，a11表示第1行第1列的元素，amn表示
 </li>
 </ul>
 </blockquote>
-<pre><code>例： 与A=(1 0)可交换的所有矩阵
-        （1 1）
-
-设B=(a b)
-    (c d)， AB=BA, 同阶
-
-(a c)   (1 0)   (a+b b)
-(b d) * (1 1) = (c+d d)
-
-(1 0)   (a c)   (a b)
-(1 1) * (b d) = (a+c b+d)
-
-a=a+b, b=b, a+c=c+d, b+d=d
-
-所以，B=(a 0)
-        (c a), a,c为任意常数
-</code></pre><h4 id="线性替换"><a href="#线性替换" class="headerlink" title="线性替换"></a>线性替换</h4><pre><code>方程：
-y1= x1 + 2x2 + 3x3 
-y2= 2x1 + 3x2 + 4x3
-
-x1= z1 + z2 
-x2= z1 + 2z2
-x3= z1 + 3z2
-
-z1 = u1 + u2
-z2 = -u1 + u2
-
-写成矩阵的形式：
-|y1|   |1 2 3|   |x1|
-|y2| = |2 3 4| * |x2|
-                 |x3|
-
-|x1|   |1 1|   |z1|
-|x2| = |1 2| * |z2|
-|x3|   |1 3|
-
-|z1|   |1 1|   |u1|
-|z2| = |1 2| * |u2|
-
-代入
-
-|y1|   |1 2 3|   |1 1|   |1 1|   |u1|
-|y2| = |2 3 4| * |1 2| * |1 2| * |u2|
-                 |1 3|
-
-
-
-### 2.2.5 矩阵的幂运算
-</code></pre><p>A^2 = A <em> A<br>A^k = A </em> A <em> … </em> A (k个A相乘)<br>A^0 = E (单位矩阵)<br>(A<em>B)^k != A^k </em> B^k<br>(A+B)^2 != A^2 + B^2 + 2AB<br>```</p>
-
+<p>例：<br>与$A = \begin{bmatrix} 1 &amp; 0 \\ 1 &amp; 1  \end{bmatrix}$可交换的所有矩阵</p>
+<script type="math/tex; mode=display">设B = \begin{bmatrix} a & b \\\\ c & d  \end{bmatrix}, AB = BA, 同阶</script><script type="math/tex; mode=display">\begin{bmatrix} a & c \\\\ b & d  \end{bmatrix} * \begin{bmatrix} 1 & 0 \\\\ 1 & 1  \end{bmatrix} = \begin{bmatrix} a+b & b \\\\ c+d & d  \end{bmatrix}</script><script type="math/tex; mode=display">\begin{bmatrix} 1 & 0 \\\\ 1 & 1  \end{bmatrix} * \begin{bmatrix} a & c \\\\ b & d  \end{bmatrix} = \begin{bmatrix} a & b \\\\ a+c & b+d  \end{bmatrix}</script><script type="math/tex; mode=display">a+b = a, b = 0, c+d = c, b+d = d</script><script type="math/tex; mode=display">所以, B = \begin{bmatrix} a & 0 \\\\ c & a  \end{bmatrix} (a,c为任意常数)</script><h4 id="线性替换"><a href="#线性替换" class="headerlink" title="线性替换"></a>线性替换</h4><p>方程：</p>
+<script type="math/tex; mode=display">\begin{cases} y_1 = x_1 + 2x_2 + 3x_3 \\\\ y_2 = 2x_1 + 3x_2 + 4x_3 \\\\ \end{cases}</script><script type="math/tex; mode=display">\begin{cases} x_1 = z_1 + z_2 \\\\ x_2 = z_1 + 2z_2 \\\\ x_3 = z_1 + 3z_2 \\\\ \end{cases}</script><script type="math/tex; mode=display">\begin{cases} z_1 = u_1 + u_2 \\\\ z_2 = -u_1 + u_2 \\\\ \end{cases}</script><p>写成矩阵的形式：</p>
+<script type="math/tex; mode=display">\begin{bmatrix} y_1 \\\\ y_2 \\\\ \end{bmatrix} = \begin{bmatrix} 1 & 2 & 3 \\\\ 2 & 3 & 4 \\\\ \end{bmatrix} * \begin{bmatrix} x_1 \\\\ x_2 \\\\ x_3 \\\\ \end{bmatrix}</script><script type="math/tex; mode=display">\begin{bmatrix} x_1 \\\\ x_2 \\\\ x_3 \\\\ \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\\ 1 & 2 \\\\ 1 & 3 \\\\ \end{bmatrix} * \begin{bmatrix} z_1 \\\\ z_2 \\\\ \end{bmatrix}</script><script type="math/tex; mode=display">\begin{bmatrix} z_1 \\\\ z_2 \\\\ \end{bmatrix} = \begin{bmatrix} 1 & 1 \\\\ 1 & 2 \\\\ \end{bmatrix} * \begin{bmatrix} u_1 \\\\ u_2 \\\\ \end{bmatrix}</script><p>代入</p>
+<script type="math/tex; mode=display">\begin{bmatrix} y_1 \\\\ y_2 \\\\ \end{bmatrix} = \begin{bmatrix} 1 & 2 & 3 \\\\ 2 & 3 & 4 \\\\ \end{bmatrix} * \begin{bmatrix} 1 & 1 \\\\ 1 & 2 \\\\ \end{bmatrix} * \begin{bmatrix} 1 & 1 \\\\ 1 & 2 \\\\ \end{bmatrix} * \begin{bmatrix} u_1 \\\\ u_2 \\\\ \end{bmatrix}</script><h4 id="矩阵的幂运算"><a href="#矩阵的幂运算" class="headerlink" title="矩阵的幂运算"></a>矩阵的幂运算</h4><script type="math/tex; mode=display">A^2 = A * A</script><script type="math/tex; mode=display">A^k = A * A * ... * A (k个A相乘)</script><script type="math/tex; mode=display">A^0 = E (单位矩阵)</script><script type="math/tex; mode=display">(A*B)^k != A^k * B^k</script><script type="math/tex; mode=display">(A+B)^2 != A^2 + B^2 + 2AB</script><h4 id="矩阵的转置"><a href="#矩阵的转置" class="headerlink" title="矩阵的转置"></a>矩阵的转置</h4><pre><code>Am*n的转置矩阵是n*m的矩阵，记作A^T
+</code></pre><script type="math/tex; mode=display">A = \begin{bmatrix} 1 & 2 & 3 \\ 1 & 1 & 1 \end{bmatrix}  A^T = \begin{bmatrix} 1 & 1 \\ 2 & 1 \\ 3 & 1 \end{bmatrix}</script><script type="math/tex; mode=display">A_{m*n}^T = A_{n*m}</script><p>1.A的转置矩阵的转置矩阵等于A</p>
+<script type="math/tex; mode=display">(A^T)^T = A</script><p>2.A+B的转置矩阵等于A的转置矩阵加上B的转置矩阵</p>
+<script type="math/tex; mode=display">(A+B)^T = A^T + B^T</script><p>3.A的转置矩阵的数乘等于A的数乘的转置矩阵</p>
+<script type="math/tex; mode=display">(kA)^T = kA^T</script><p>4.AB的转置矩阵等于B的转置矩阵乘以A的转置矩阵(注意顺序,倒过来)</p>
+<script type="math/tex; mode=display">(AB)^T = B^T * A^T</script><script type="math/tex; mode=display">(ABC)^T = C^T * B^T * A^T</script><h4 id="特殊"><a href="#特殊" class="headerlink" title="特殊"></a>特殊</h4>
 
 
 <div class="article-footer reveal fs14"><section id="license"><div class="header"><span>License</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>

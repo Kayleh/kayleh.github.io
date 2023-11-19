@@ -1,3 +1,4 @@
+https://blog.kayleh.top/shortest-path-algorithm-Dijkstra/
 https://blog.kayleh.top/shortest-path-algorithm-Bellman%E2%80%93Ford/
 https://blog.kayleh.top/shortest-path-algorithm-Floyd/
 https://blog.kayleh.top/linear-algebra/
@@ -7,4 +8,3 @@ https://blog.kayleh.top/ci-cd-continuous-delivery-continuous-integration-github-
 https://blog.kayleh.top/reverse-proxy-jsdelivr-with-cf-workers/
 https://blog.kayleh.top/linked-forward-star/
 https://blog.kayleh.top/jvm-tuning-practice/
-https://blog.kayleh.top/tj-horse-racing/
