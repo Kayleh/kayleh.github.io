@@ -17,18 +17,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>Tailscale实现异地组网+SSH远程连接 - Kayleh</title>
+  <title>异地组网+SSH实现 - Kayleh</title>
 
   
     <meta name="description" content="Tailscale实现异地组网+SSH远程连接1. Tailscale简介Tailscale是一个基于WireGuard的VPN软件，可以实现内网穿透，组网，远程连接等功能。它的优点是简单易用，不需要配置复杂的路由器， 只需要在每台设备上安装Tailscale客户端，就可以实现内网穿透，组网，远程连接等功能，使用起来十分简单方便。 2. Tailscale安装客户端安装登录Tailscale官网，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tailscale实现异地组网+SSH远程连接">
+<meta property="og:title" content="异地组网+SSH实现">
 <meta property="og:url" content="https://blog.kayleh.top/tailscale-ssh-remote-connection/index.html">
 <meta property="og:site_name" content="Kayleh">
 <meta property="og:description" content="Tailscale实现异地组网+SSH远程连接1. Tailscale简介Tailscale是一个基于WireGuard的VPN软件，可以实现内网穿透，组网，远程连接等功能。它的优点是简单易用，不需要配置复杂的路由器， 只需要在每台设备上安装Tailscale客户端，就可以实现内网穿透，组网，远程连接等功能，使用起来十分简单方便。 2. Tailscale安装客户端安装登录Tailscale官网，">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-09-05T00:16:33.000Z">
-<meta property="article:modified_time" content="2023-11-19T19:01:35.211Z">
+<meta property="article:modified_time" content="2023-12-03T18:21:43.630Z">
 <meta property="article:author" content="Kayleh">
 <meta property="article:tag" content="network">
 <meta name="twitter:card" content="summary">
@@ -8479,7 +8479,7 @@ img[fancybox='true'] {
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div></div></widget>
 
 
-<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Tailscale实现异地组网+SSH远程连接</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Tailscale%E7%AE%80%E4%BB%8B"><span class="toc-text">1. Tailscale简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Tailscale%E5%AE%89%E8%A3%85"><span class="toc-text">2. Tailscale安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85"><span class="toc-text">客户端安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%BD%91%E7%BB%9C%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8"><span class="toc-text">检查网络是否正常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E5%AE%89%E8%A3%85"><span class="toc-text">服务器sshd安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AFssh%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">客户端ssh连接服务器</span></a></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">异地组网+SSH实现</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Tailscale%E7%AE%80%E4%BB%8B"><span class="toc-text">1. Tailscale简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Tailscale%E5%AE%89%E8%A3%85"><span class="toc-text">2. Tailscale安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85"><span class="toc-text">客户端安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%BD%91%E7%BB%9C%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8"><span class="toc-text">检查网络是否正常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E5%AE%89%E8%A3%85"><span class="toc-text">服务器sshd安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AFssh%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">客户端ssh连接服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VSCode-Remote-SSH"><span class="toc-text">VSCode Remote SSH</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-text">免密登录</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5"><span class="toc-text">客户端生成密钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B7%BB%E5%8A%A0%E5%AF%86%E9%92%A5"><span class="toc-text">服务端添加密钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-text">客户端免密登录</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Git%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81"><span class="toc-text">Git保存用户名密码</span></a></li></ol></div></div></widget>
 
 
 
@@ -8498,7 +8498,7 @@ img[fancybox='true'] {
 <div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a><span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a></div><div id="post-meta">Posted on&nbsp;<time datetime="2023-09-05T00:16:33.000Z">2023-09-05</time></div></div>
 
 <article class="md-text content post">
-<h1 class="article-title"><span>Tailscale实现异地组网+SSH远程连接</span></h1>
+<h1 class="article-title"><span>异地组网+SSH实现</span></h1>
 <h1 id="Tailscale实现异地组网-SSH远程连接"><a href="#Tailscale实现异地组网-SSH远程连接" class="headerlink" title="Tailscale实现异地组网+SSH远程连接"></a>Tailscale实现异地组网+SSH远程连接</h1><h2 id="1-Tailscale简介"><a href="#1-Tailscale简介" class="headerlink" title="1. Tailscale简介"></a>1. Tailscale简介</h2><p><a target="_blank" rel="noopener" href="https://tailscale.com/">Tailscale</a><br>是一个基于WireGuard的VPN软件，可以实现内网穿透，组网，远程连接等功能。<br>它的优点是简单易用，不需要配置复杂的路由器， 只需要在每台设备上安装Tailscale客户端，<br>就可以实现内网穿透，组网，远程连接等功能，使用起来十分简单方便。</p>
 <h2 id="2-Tailscale安装"><a href="#2-Tailscale安装" class="headerlink" title="2. Tailscale安装"></a>2. Tailscale安装</h2><h5 id="客户端安装"><a href="#客户端安装" class="headerlink" title="客户端安装"></a>客户端安装</h5><p>登录<a target="_blank" rel="noopener" href="https://tailscale.com/">Tailscale官网</a>，注册账号，然后下载对应的客户端，安装即可。</p>
 <p>安装完成后，打开Tailscale客户端，登录账号，然后登录<a target="_blank" rel="noopener" href="https://login.tailscale.com/admin/machines">控制台</a>,就可以看到已经连接的设备了。<br>在控制台上，可以看到每台设备的IP地址，这些IP地址都是在同一个局域网内的，可以直接通过这些IP地址进行内网穿透，组网，远程连接等操作。</p>
@@ -8510,6 +8510,43 @@ sudo systemctl start sshd
 <h4 id="客户端ssh连接服务器"><a href="#客户端ssh连接服务器" class="headerlink" title="客户端ssh连接服务器"></a>客户端ssh连接服务器</h4><p>在客户端上，通过ssh连接服务器</p>
 <pre><code class="lang-shell">ssh username@server_ip
 #username是服务器上的用户名，server_ip是服务器的IP地址, 如果是默认端口，可以不用指定端口号。
+</code></pre>
+<h4 id="VSCode-Remote-SSH"><a href="#VSCode-Remote-SSH" class="headerlink" title="VSCode Remote SSH"></a>VSCode Remote SSH</h4><p>在VSCode中，安装Remote SSH插件，然后通过Remote SSH插件，连接服务器，就可以在本地编辑服务器上的文件了。</p>
+<p>安装以下插件</p>
+<blockquote>
+<p>Remote - SSH<br>Remote - SSH: Editing Configuration Files<br>Remote - SSH: Explorer</p>
+</blockquote>
+<p>在VSCode中，按下F1，输入Remote SSH，选择Remote-SSH: Open Configuration File，然后选择config文件，编辑config文件，添加以下内容</p>
+<pre><code class="lang-shell">Host server
+    HostName server_ip
+    User username
+</code></pre>
+<h4 id="免密登录"><a href="#免密登录" class="headerlink" title="免密登录"></a>免密登录</h4><p>以下操作，以客户端和服务端都为Windows为例，Linux和MacOS类似。</p>
+<h5 id="客户端生成密钥"><a href="#客户端生成密钥" class="headerlink" title="客户端生成密钥"></a>客户端生成密钥</h5><p>在客户端上，打开PowerShell，输入以下命令，生成密钥</p>
+<pre><code class="lang-shell">ssh-keygen
+</code></pre>
+<h5 id="服务端添加密钥"><a href="#服务端添加密钥" class="headerlink" title="服务端添加密钥"></a>服务端添加密钥</h5><p>拷贝客户端生成的公钥到服务端的.ssh目录下，在authorized_keys文件中追加粘贴。（如果没有authorized_keys文件，可以新建一个）</p>
+<p>然后编辑sshd_config文件，添加以下配置</p>
+<pre><code class="lang-shell">PubkeyAuthentication yes
+AuthorizedKeysFile  .ssh/authorized_keys
+PasswordAuthentication no  (需要将默认的yes改为no,很重要)
+</code></pre>
+<p>注释掉以下配置</p>
+<pre><code class="lang-shell"> #Match Group administrators
+       #AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+</code></pre>
+<p>重启sshd服务</p>
+<pre><code class="lang-shell">net stop sshd
+net start sshd
+</code></pre>
+<h5 id="客户端免密登录"><a href="#客户端免密登录" class="headerlink" title="客户端免密登录"></a>客户端免密登录</h5><p>编辑客户端的.ssh目录下的config文件，添加IdentityFile配置，内容为客户端的私钥路径。</p>
+<pre><code class="lang-shell">Host server
+    HostName server_ip
+    User username
+    IdentityFile C:\Users\username\.ssh\id_rsa
+</code></pre>
+<h4 id="Git保存用户名密码"><a href="#Git保存用户名密码" class="headerlink" title="Git保存用户名密码"></a>Git保存用户名密码</h4><p>在客户端上，打开PowerShell，输入以下命令，保存用户名密码（需要输入过一次用户名密码）</p>
+<pre><code class="lang-shell">git config --global credential.helper store
 </code></pre>
 
 
