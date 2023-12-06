@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Kayleh">
 <meta property="og:description" content="Java 多线程下载器的设计与实现应用并发的场景有很多，下载文件就是一个很常见的并发场景。 为什么会想写多线程下载器呢？不知道你用过 IDM（Internet Download Manager）没，我刚使用 IDM 时，就被它的下载方式吸引了。 用 IDM 下载文件时，能够直观地看到它的下载过程：固定用 N 个线程下载文件，一开始先将文件分为 N 段，每段用一个线程下载，当某一段下载完成之后，对应">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn4/DOWNLOAD/idm.png">
-<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn4/DOWNLOAD/downloader-one-threads.gif">
-<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn4/DOWNLOAD/downloader-ten-threads.gif">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/DOWNLOAD/idm.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/DOWNLOAD/downloader-one-threads.gif">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/DOWNLOAD/downloader-ten-threads.gif">
 <meta property="article:published_time" content="2021-03-15T17:18:07.000Z">
-<meta property="article:modified_time" content="2023-12-06T01:37:15.294Z">
+<meta property="article:modified_time" content="2023-12-06T05:44:05.577Z">
 <meta property="article:author" content="Kayleh">
 <meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn4/DOWNLOAD/idm.png">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/DOWNLOAD/idm.png">
 <meta name="twitter:creator" content="@kayleh">
   
   
@@ -8508,7 +8508,7 @@ img[fancybox='true'] {
 <p>用 IDM 下载文件时，能够直观地看到它的下载过程：固定用 N 个线程下载文件，一开始先将文件分为 N 段，每段用一个线程下载，当某一段下载完成之后，对应的线程就空闲了，此时怎么做呢？从剩余的 N - 1 段中取出最大的一段，一分为二，这样就又有了 N 段的数据，让空闲的线程去下载新划分出来的这一段。</p>
 <p>每当有一个线程完成下载任务时，就不断从剩余的部分中划分出一段给它下载，直到整个文件的所有部分都下载完毕。</p>
 <p>当然，文件并不能被无限地分段，IDM 会设定一个段的阈值，当剩余的最大段小于这个阈值的时候，就不再分段了给空闲的线程了，只等待活动中的所有线程下载完毕。</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn4/DOWNLOAD/idm.png"></div></div>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/DOWNLOAD/idm.png"></div></div>
 <p>说完 IDM 的下载策略，我们大致有了思路。不过优秀的软件不是一蹴而就的，虽然我们想写出像 IDM 的下载器，但还需要从简单的实现开始，不断迭代优化。</p>
 <p>所以我们一开始采用的策略是：固定 N 个线程，并将文件划分为 N 段，每个线程负责下载一段数据。</p>
 <h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><p><strong>判断服务器是否支持断点续传</strong></p>
@@ -8819,10 +8819,10 @@ public class HttpDownloader {
 <h3 id="下载测试"><a href="#下载测试" class="headerlink" title="下载测试"></a>下载测试</h3><p>对于单个连接限速的服务器，多线程下载才能体现其优势，如果服务器本身不对连接限速，那么单个连接也能接近带宽上限。</p>
 <p>我们来看看，对于单个连接速度远小于带宽时，单线程与多线程的对比。</p>
 <p>首先是单个线程进行下载：</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn4/DOWNLOAD/downloader-one-threads.gif"></div></div>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/DOWNLOAD/downloader-one-threads.gif"></div></div>
 <p>用时 54.133 秒，平均下载速度 42 KB/s。</p>
 <p>开启 10 个线程进行下载：</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn4/DOWNLOAD/downloader-ten-threads.gif"></div></div>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/DOWNLOAD/downloader-ten-threads.gif"></div></div>
 <p>用时 10.144 秒，平均下载速度 228 KB/s。</p>
 <p>可以看到，相比单线程下载，开启多线程之后下载速度有了巨大的提升。</p>
 <p>在实际下载时，根据网络状况不同，设置不同的超时时间，对下载速度也有不小的影响。如果超时时间设置过小，会导致线程频繁建立连接，而建立连接是相对耗时的操作，导致下载效率低下；如果超时时间设置过长，可能连接已经失效，而客户端却长时间等待，无谓地消耗时间。</p>
@@ -9081,4 +9081,4 @@ public class HttpDownloader {
     loadJS();
   });
 ;
- var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?d3811198b76f8c97c9b073a4663dce37"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+ var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?d3811198b76f8c97c9b073a4663dce37"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script></body></html>

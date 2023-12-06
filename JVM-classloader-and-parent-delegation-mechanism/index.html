@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="Kayleh">
 <meta property="og:description" content="JVM-类加载器和双亲委派机制JVMjava的六种存储地址及解释1） 寄存器(register)：这是最快的存储区，因为它位于不同于其他存储区的地方——处理器内部。但是寄存器的数量极其有限，所以寄存器由编译器根据需求进行分配。你不能直接控制，也不能在程序中感觉到寄存器存在的任何迹象。 2） 堆栈(stack)：位于通用RAM中，但通过它的“堆栈指针”可以从处理器哪里获得支持。堆栈指针若向下移动，则">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20161101164523853">
-<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JRE--JVM.png">
-<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JVM体系结构.png">
-<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/1607958651140.png">
-<meta property="og:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20160504235346278.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20161101164523853">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JRE--JVM.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JVM体系结构.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/1607958651140.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20160504235346278.png">
 <meta property="article:published_time" content="2020-12-14T13:28:57.000Z">
-<meta property="article:modified_time" content="2023-12-06T01:37:15.298Z">
+<meta property="article:modified_time" content="2023-12-06T05:44:05.577Z">
 <meta property="article:author" content="Kayleh">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20161101164523853">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20161101164523853">
 <meta name="twitter:creator" content="@kayleh">
   
   
@@ -8511,10 +8511,10 @@ img[fancybox='true'] {
 <h4 id="堆区"><a href="#堆区" class="headerlink" title="堆区:"></a>堆区:</h4><p>1.存储的全部是对象，每个对象都包含一个与之对应的class的信息。(class的目的是得到操作指令)<br>2.jvm只有一个堆区(heap)被所有线程共享，堆中不存放基本类型和对象引用，只存放对象本身 。</p>
 <h4 id="栈区"><a href="#栈区" class="headerlink" title="栈区:"></a>栈区:</h4><p>1.每个线程包含一个栈区，栈中只保存基础数据类型的值和对象以及基础数据的引用<br>2.每个栈中的数据(基础数据类型和对象引用)都是私有的，其他栈不能访问。<br>3.栈分为3个部分：基本类型变量区、执行环境上下文、操作指令区(存放操作指令)。 </p>
 <h4 id="方法区"><a href="#方法区" class="headerlink" title="方法区:"></a>方法区:</h4><p>1.又叫静态区，跟堆一样，被所有的线程共享。方法区包含所有的class和static变量。<br>2.方法区中包含的都是在整个程序中永远唯一的元素，如class，static变量。 </p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20161101164523853"></div></div>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20161101164523853"></div></div>
 <h4 id="JVM在什么位置？"><a href="#JVM在什么位置？" class="headerlink" title="JVM在什么位置？"></a>JVM在什么位置？</h4><p>在操作系统之上。</p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JRE--JVM.png" alt="JRE--JVM" style="zoom: 33%;"></p>
-<h4 id="JVM的体系结构"><a href="#JVM的体系结构" class="headerlink" title="JVM的体系结构"></a>JVM的体系结构</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JVM体系结构.png"></div></div>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JRE--JVM.png" alt="JRE--JVM" style="zoom: 33%;"></p>
+<h4 id="JVM的体系结构"><a href="#JVM的体系结构" class="headerlink" title="JVM的体系结构"></a>JVM的体系结构</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/JVM体系结构.png"></div></div>
 <p>*栈用完系统会自动释放，不会有垃圾</p>
 <ul>
 <li><p><strong>栈、本地方法栈、程序计数器</strong>：百之百没有垃圾，不会有垃圾回收</p>
@@ -8525,7 +8525,7 @@ img[fancybox='true'] {
 <h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><h4 id="类加载器的作用？"><a href="#类加载器的作用？" class="headerlink" title="类加载器的作用？"></a>类加载器的作用？</h4><blockquote>
 <p>加载Class文件</p>
 </blockquote>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/1607958651140.png" alt="1607958651140" style="zoom: 80%;"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/1607958651140.png" alt="1607958651140" style="zoom: 80%;"></p>
 <h4 id="加载器分为"><a href="#加载器分为" class="headerlink" title="加载器分为"></a>加载器分为</h4><ul>
 <li>虚拟机自带的加载器</li>
 <li>启动类（根）加载器</li>
@@ -8536,7 +8536,7 @@ img[fancybox='true'] {
 <p>这便是类加载的5个过程，而类加载器的任务是根据一个类的全限定名来读取此类的二进制字节流到JVM中，然后转换为一个与目标类对应的java.lang.Class对象实例，在虚拟机提供了3种类加载器，引导（Bootstrap）类加载器、扩展（Extension）类加载器、系统（System）类加载器（也称应用类加载器）。</p>
 <p>Class文件中的“类”从加载到JVM内存中，到卸载出内存过程有七个生命周期阶段。类加载机制包括了前五个阶段。</p>
 <p>如下图所示：</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20160504235346278.png"></div></div>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.kayleh.top/gh/kayleh/cdn2/JVM-类加载器和双亲委派机制/20160504235346278.png"></div></div>
 <p>其中，加载、验证、准备、初始化、卸载的<strong><em>\</em>开始顺序**</strong>是确定的，注意，只是按顺序开始，进行与结束的顺序并不一定。解析阶段可能在初始化之后开始。</p>
 <p>另外，类加载无需等到程序中“首次使用”的时候才开始，JVM预先加载某些类也是被允许的。（<strong><em>\</em>类加载的时机**</strong>）</p>
 <p>1、通过一个类的全限定名（包名与类名）来获取定义此类的二进制字节流（Class文件）。而获取的方式，可以通过jar包、war包、网络中获取、JSP文件生成等方式。</p>
@@ -8806,4 +8806,4 @@ img[fancybox='true'] {
     loadJS();
   });
 ;
- var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?d3811198b76f8c97c9b073a4663dce37"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+ var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?d3811198b76f8c97c9b073a4663dce37"; var s = document.getElementsByTagName("script")[0];  s.parentNode.insertBefore(hm, s); })(); </script></body></html>
