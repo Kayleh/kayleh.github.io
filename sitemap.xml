@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kayleh.top/random-weight-distribution/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/objectoriented/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.kayleh.top/google8102e2f35ce9e391.html</loc>
     
     <lastmod>2024-01-23</lastmod>
@@ -20,7 +38,25 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/create/index.html</loc>
+    <loc>https://blog.kayleh.top/about/index.html</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/categories/categories.html</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/charity/index.html</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -30,6 +66,15 @@
   
   <url>
     <loc>https://blog.kayleh.top/friends/index.html</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/create/index.html</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -65,6 +110,240 @@
   </url>
   
   <url>
+    <loc>https://blog.kayleh.top/differential/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/differential-equation/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/topoSorting/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/interface-isolation-principle/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/traffic-monetizationaccess-to-google-adsense/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/interpolation-search-algorithm/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Boyer%E2%80%93Moore-majority/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/operating-system/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/introduction-to-operating-system/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/data-structures-and-algorithms/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/infinitesimal-and-infinite/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Minimum-Spanning-Tree/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/extreme-value-and-maximum-value/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/limit/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/stack/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/bridge-mode/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/template-method/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Comparator/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Sandbox-security-mechanism/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/law-of-robida/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/test-case/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/IO/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/slidingWindow/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/state-mode/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/builder/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Graph-degree/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.kayleh.top/adjacency-matrix/</loc>
     
     <lastmod>2024-01-23</lastmod>
@@ -92,15 +371,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/series/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.kayleh.top/strategy-mode/</loc>
     
     <lastmod>2024-01-23</lastmod>
@@ -110,7 +380,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/linear-search-algorithm/</loc>
+    <loc>https://blog.kayleh.top/series/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -120,6 +390,15 @@
   
   <url>
     <loc>https://blog.kayleh.top/linear-algebra/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/linear-search-algorithm/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -263,7 +542,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/continuous/</loc>
+    <loc>https://blog.kayleh.top/program-test/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -272,7 +551,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/program-test/</loc>
+    <loc>https://blog.kayleh.top/continuous/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -299,7 +578,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/adapter-mode/</loc>
+    <loc>https://blog.kayleh.top/reverse-proxy-jsdelivr-with-cf-workers/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -308,7 +587,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/reverse-proxy-jsdelivr-with-cf-workers/</loc>
+    <loc>https://blog.kayleh.top/adapter-mode/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -353,7 +632,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/random-weight-distribution/</loc>
+    <loc>https://blog.kayleh.top/intermediary-model/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -362,7 +641,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/objectoriented/</loc>
+    <loc>https://blog.kayleh.top/chinese-and-english-switching/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -371,7 +650,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/about/index.html</loc>
+    <loc>https://blog.kayleh.top/binary-search-algorithm/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -380,7 +659,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/categories/categories.html</loc>
+    <loc>https://blog.kayleh.top/indefinite-integral/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -389,7 +668,187 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/charity/index.html</loc>
+    <loc>https://blog.kayleh.top/Transaction-isolation-level/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/binary-sort-tree/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/double-integral/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/flyweight-model/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/what-is-milk-and-why-is-group-wise/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/What-happened-from-entering-the-URL-to-displaying-the-page/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/agency-model/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/dependence-reversal-principle/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/the-cdn-acceleration-cache-of-jsdelivr-does-not-refresh/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/partial-derivative/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/function-graphing/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/About-Snowflake-and-Consumption-Degradation/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/pass-by-value/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/monotonicity-and-convexity-of-functions/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/eureka-service-registration-and-discovery/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/gateway-service-current-limit/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/ribbon-load-balancing-service-call-degradation/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud-config-distributed-configuration-center/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud-bus-message/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/springcloud-stream-message-driver/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -560,7 +1019,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/off-heap/</loc>
+    <loc>https://blog.kayleh.top/PriorityQueue/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -569,7 +1028,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/PriorityQueue/</loc>
+    <loc>https://blog.kayleh.top/off-heap/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -650,7 +1109,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/factory-design-pattern/</loc>
+    <loc>https://blog.kayleh.top/Differential-array/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -659,7 +1118,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Differential-array/</loc>
+    <loc>https://blog.kayleh.top/factory-design-pattern/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -704,7 +1163,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/differential/</loc>
+    <loc>https://blog.kayleh.top/tj-horse-racing/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -713,7 +1172,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/differential-equation/</loc>
+    <loc>https://blog.kayleh.top/use-of-springmvcmodelattribute/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -722,7 +1181,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/topoSorting/</loc>
+    <loc>https://blog.kayleh.top/steal-focus/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -731,7 +1190,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/traffic-monetizationaccess-to-google-adsense/</loc>
+    <loc>https://blog.kayleh.top/head-first-JVM(3)/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -740,7 +1199,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/interface-isolation-principle/</loc>
+    <loc>https://blog.kayleh.top/head-first-JVM(4)/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -749,7 +1208,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/interpolation-search-algorithm/</loc>
+    <loc>https://blog.kayleh.top/head-first-SpringSecurity/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -758,7 +1217,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Boyer%E2%80%93Moore-majority/</loc>
+    <loc>https://blog.kayleh.top/head-first-docker/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -767,7 +1226,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/introduction-to-operating-system/</loc>
+    <loc>https://blog.kayleh.top/Head-First-Map/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -776,7 +1235,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/operating-system/</loc>
+    <loc>https://blog.kayleh.top/Improve-Robustness-(1)/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -785,7 +1244,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/data-structures-and-algorithms/</loc>
+    <loc>https://blog.kayleh.top/Head-First-Netty/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -794,367 +1253,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/infinitesimal-and-infinite/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Minimum-Spanning-Tree/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/extreme-value-and-maximum-value/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/limit/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/stack/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/bridge-mode/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/template-method/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Comparator/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Sandbox-security-mechanism/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/law-of-robida/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/test-case/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/slidingWindow/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/state-mode/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/IO/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/builder/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Graph-degree/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/indefinite-integral/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/intermediary-model/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/chinese-and-english-switching/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Transaction-isolation-level/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/binary-search-algorithm/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/binary-sort-tree/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/double-integral/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/flyweight-model/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/what-is-milk-and-why-is-group-wise/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/What-happened-from-entering-the-URL-to-displaying-the-page/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/agency-model/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/dependence-reversal-principle/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/partial-derivative/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/the-cdn-acceleration-cache-of-jsdelivr-does-not-refresh/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/About-Snowflake-and-Consumption-Degradation/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/function-graphing/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/pass-by-value/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/monotonicity-and-convexity-of-functions/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/eureka-service-registration-and-discovery/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/gateway-service-current-limit/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/ribbon-load-balancing-service-call-degradation/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud-config-distributed-configuration-center/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud-bus-message/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/springcloud-stream-message-driver/</loc>
+    <loc>https://blog.kayleh.top/Improve-Robustness-(2)/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1172,7 +1271,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/java.lang.String/</loc>
+    <loc>https://blog.kayleh.top/automated-test-katalon/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1181,7 +1280,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/automated-test-katalon/</loc>
+    <loc>https://blog.kayleh.top/java.lang.String/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1244,7 +1343,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/shortest-path-algorithm-Dijkstra/</loc>
+    <loc>https://blog.kayleh.top/shortest-path-algorithm-Floyd/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1253,7 +1352,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/shortest-path-algorithm-Floyd/</loc>
+    <loc>https://blog.kayleh.top/shortest-path-algorithm-Dijkstra/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1307,7 +1406,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/undefined/</loc>
+    <loc>https://blog.kayleh.top/disjoint-set-union-find-technique-appreciation/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1316,7 +1415,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/disjoint-set-union-find-technique-appreciation/</loc>
+    <loc>https://blog.kayleh.top/undefined/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1370,15 +1469,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/dic-algorithm/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.kayleh.top/stack-simulation-iteration/</loc>
     
     <lastmod>2024-01-23</lastmod>
@@ -1388,7 +1478,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/tj-horse-racing/</loc>
+    <loc>https://blog.kayleh.top/dic-algorithm/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1397,7 +1487,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/use-of-springmvcmodelattribute/</loc>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-2/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1406,7 +1496,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/steal-focus/</loc>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1415,7 +1505,169 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/sentinel-realizes-fusing-and-current-limiting/</loc>
+    <loc>https://blog.kayleh.top/linux/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/lock/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/mvc/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/MYSQL-MVCC-&-LOCK/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/MYSQL-uuid-and-page-splitting/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/mysql-index-wrong/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/mysql-struct/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/mysql/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/mybatis/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/NIO-blocking-model/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/nacos-service-registration-and-configuration-center/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Nacos%EF%BC%9AConfigure-MySQL-data-source/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Native-method/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/redis/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Reflected-XSS-Vulnerability-inFont-Download-Website/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/reflection/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/sql-injection-attacks/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/SQL-injection-vulnerability/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/seata-handles-distributed-transactions/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1433,7 +1685,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/seata-handles-distributed-transactions/</loc>
+    <loc>https://blog.kayleh.top/sentinel-realizes-fusing-and-current-limiting/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1460,7 +1712,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/SpringBoot-startup-process/</loc>
+    <loc>https://blog.kayleh.top/spring/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1469,7 +1721,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/spring/</loc>
+    <loc>https://blog.kayleh.top/SpringBoot-startup-process/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1568,7 +1820,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/xml/</loc>
+    <loc>https://blog.kayleh.top/Unitest-framework/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1577,7 +1829,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Unitest-framework/</loc>
+    <loc>https://blog.kayleh.top/xml/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1595,15 +1847,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/contract/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.kayleh.top/app-test/</loc>
     
     <lastmod>2024-01-23</lastmod>
@@ -1613,7 +1856,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/cycle-structure-programming/</loc>
+    <loc>https://blog.kayleh.top/contract/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1622,7 +1865,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/gulp-compresses-static-resources/</loc>
+    <loc>https://blog.kayleh.top/cycle-structure-programming/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1649,6 +1892,15 @@
   </url>
   
   <url>
+    <loc>https://blog.kayleh.top/gulp-compresses-static-resources/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.kayleh.top/head-first-JVM(1)/</loc>
     
     <lastmod>2024-01-23</lastmod>
@@ -1658,7 +1910,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/head-first-JVM(3)/</loc>
+    <loc>https://blog.kayleh.top/01Backpack/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1667,7 +1919,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/head-first-JVM(4)/</loc>
+    <loc>https://blog.kayleh.top/file-input-and-output/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1676,7 +1928,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/head-first-SpringSecurity/</loc>
+    <loc>https://blog.kayleh.top/users-create-data-types-themselves/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1685,7 +1937,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/head-first-docker/</loc>
+    <loc>https://blog.kayleh.top/sorting-algorithms/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1694,7 +1946,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Head-First-Map/</loc>
+    <loc>https://blog.kayleh.top/array/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1703,7 +1955,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Head-First-Netty/</loc>
+    <loc>https://blog.kayleh.top/AIO-blocking-model/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1712,7 +1964,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Improve-Robustness-(1)/</loc>
+    <loc>https://blog.kayleh.top/bionioaio/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1721,7 +1973,88 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Improve-Robustness-(2)/</loc>
+    <loc>https://blog.kayleh.top/BIO-blocking-model/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/C-algorithm/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/C-programming/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/c-pointer/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/CAS-&-AQS/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/ci-cd-continuous-delivery-continuous-integration-github-action-pages/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/gc/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Download/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/Good-use-of-pointers/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/http/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1731,6 +2064,15 @@
   
   <url>
     <loc>https://blog.kayleh.top/Head-First-Nginx/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/head-first-JVM(2)/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1793,15 +2135,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/j2se/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.kayleh.top/j2ee/</loc>
     
     <lastmod>2024-01-23</lastmod>
@@ -1812,6 +2145,15 @@
   
   <url>
     <loc>https://blog.kayleh.top/jdbc/</loc>
+    
+    <lastmod>2024-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kayleh.top/j2se/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1901,7 +2243,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-3/</loc>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-4/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1910,7 +2252,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-4/</loc>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-3/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -1946,15 +2288,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-8/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-9/</loc>
     
     <lastmod>2024-01-23</lastmod>
@@ -1964,340 +2297,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-2/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/linux/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/lock/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/mvc/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/MYSQL-MVCC-&-LOCK/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/MYSQL-uuid-and-page-splitting/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/mysql-index-wrong/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/mysql/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/mysql-struct/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/mybatis/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/NIO-blocking-model/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Nacos%EF%BC%9AConfigure-MySQL-data-source/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/nacos-service-registration-and-configuration-center/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Native-method/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/reflection/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/redis/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Reflected-XSS-Vulnerability-inFont-Download-Website/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/sql-injection-attacks/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/SQL-injection-vulnerability/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/01Backpack/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/file-input-and-output/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/sorting-algorithms/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/users-create-data-types-themselves/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/array/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/AIO-blocking-model/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/bionioaio/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/BIO-blocking-model/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/C-algorithm/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/c-pointer/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/C-programming/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/CAS-&-AQS/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/ci-cd-continuous-delivery-continuous-integration-github-action-pages/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Download/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/gc/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/Good-use-of-pointers/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/http/</loc>
-    
-    <lastmod>2024-01-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.kayleh.top/head-first-JVM(2)/</loc>
+    <loc>https://blog.kayleh.top/Java-high-performance-and-high-concurrency-spike-system-8/</loc>
     
     <lastmod>2024-01-23</lastmod>
     
@@ -2373,14 +2373,14 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/tags/jvm/</loc>
+    <loc>https://blog.kayleh.top/tags/middleware/</loc>
     <lastmod>2024-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/tags/middleware/</loc>
+    <loc>https://blog.kayleh.top/tags/jvm/</loc>
     <lastmod>2024-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2450,14 +2450,14 @@
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/tags/front/</loc>
+    <loc>https://blog.kayleh.top/tags/docker/</loc>
     <lastmod>2024-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.kayleh.top/tags/docker/</loc>
+    <loc>https://blog.kayleh.top/tags/front/</loc>
     <lastmod>2024-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
