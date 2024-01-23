@@ -1,10 +1,10 @@
 https://blog.kayleh.top/shortest-path-algorithm-Dijkstra/
 https://blog.kayleh.top/shortest-path-algorithm-Bellman%E2%80%93Ford/
 https://blog.kayleh.top/shortest-path-algorithm-Floyd/
-https://blog.kayleh.top/calculus-02-differential-equations/
 https://blog.kayleh.top/calculus-01-function/
 https://blog.kayleh.top/linear-algebra/
 https://blog.kayleh.top/tailscale-ssh-remote-connection/
 https://blog.kayleh.top/disjoint-set-union-find-technique-appreciation/
 https://blog.kayleh.top/ci-cd-continuous-delivery-continuous-integration-github-action-pages/
 https://blog.kayleh.top/reverse-proxy-jsdelivr-with-cf-workers/
+https://blog.kayleh.top/linked-forward-star/
