@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ad on Kayleh's blog</title><link>https://Kayleh.com/tags/ad/</link><description>Recent content in ad on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 21 Aug 2020 15:23:22 +0800</lastBuildDate><atom:link href="https://Kayleh.com/tags/ad/index.xml" rel="self" type="application/rss+xml"/><item><title>Traffic monetization:Access to Google Adsense</title><link>https://Kayleh.com/post/traffic-monetizationaccess-to-google-adsense/</link><pubDate>Fri, 21 Aug 2020 15:23:22 +0800</pubDate><guid>https://Kayleh.com/post/traffic-monetizationaccess-to-google-adsense/</guid><description>&lt;p>流量变现: 接入谷歌广告联盟&lt;/p>
+&lt;p>&lt;a class="link" href="https://kayleh.top" target="_blank" rel="noopener"
+>https://kayleh.top&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>网站域名必须为顶级域名!!&lt;/strong>&lt;/p>
+&lt;p>按照官网的文档进行&lt;/p>
+&lt;h4 id="把adsense代码写进head标签内每个网站的head都要有这个标签">把adsense代码写进head标签内，每个网站的head都要有这个标签&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%8e%a5%e5%85%a5%e8%b0%b7%e6%ad%8c%e5%b9%bf%e5%91%8a%e8%81%94%e7%9b%9fAdsense/1.png"
+loading="lazy"
+alt="1597994802821"
+>&lt;/p>
+&lt;h4 id="提交后谷歌会进行审核一般为几天">提交后谷歌会进行审核，一般为几天&lt;/h4>
+&lt;blockquote>
+&lt;p>注意审核期间不能把代码片段删除,不要大量修改网站内容,不要随意更换域名.&lt;/p>
+&lt;/blockquote>
+&lt;p>审核标准一般认为最重要的是这几点:&lt;/p>
+&lt;ul>
+&lt;li>内容原创,原创内容对谷歌审核十分重要&lt;/li>
+&lt;li>编入谷歌索引,提交站点地图&lt;code>sitemap.xml&lt;/code>!&lt;/li>
+&lt;/ul>
+&lt;h4 id="审核通过后就可以发布广告啦">审核通过后,就可以发布广告啦!&lt;/h4>
+&lt;!-- raw HTML omitted -->
+&lt;p>进入主页,adsense提示要编写&lt;code>ads.txt&lt;/code>,下载文件,并保存到项目的根目录里.&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%8e%a5%e5%85%a5%e8%b0%b7%e6%ad%8c%e5%b9%bf%e5%91%8a%e8%81%94%e7%9b%9fAdsense/2.png"
+loading="lazy"
+alt="1597995947033"
+>&lt;/p>
+&lt;p>保存后可以测试是否写入成功,&lt;/p>
+&lt;p>如网站是&lt;code>yousite.com&lt;/code>,那么访问&lt;code>yousite.com&lt;/code>应该能访问这个文件.&lt;/p>
+&lt;h4 id="屏蔽不合适的广告内容">屏蔽不合适的广告内容&lt;/h4>
+&lt;p>点击&lt;code>内容查看中心&lt;/code>,&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%8e%a5%e5%85%a5%e8%b0%b7%e6%ad%8c%e5%b9%bf%e5%91%8a%e8%81%94%e7%9b%9fAdsense/3.png"
+loading="lazy"
+alt="1597996202881"
+>&lt;/p>
+&lt;p>这里可以屏蔽你不想投放的广告内容.(&lt;code>移动网络应用&lt;/code>等)&lt;/p></description></item></channel></rss>

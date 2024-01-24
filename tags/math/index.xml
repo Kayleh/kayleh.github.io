@@ -1,0 +1,2864 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>math on Kayleh's blog</title><link>https://Kayleh.com/tags/math/</link><description>Recent content in math on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 01 Oct 2023 02:23:57 +0000</lastBuildDate><atom:link href="https://Kayleh.com/tags/math/index.xml" rel="self" type="application/rss+xml"/><item><title>⌈微积分⌋1函数</title><link>https://Kayleh.com/post/calculus-01-function/</link><pubDate>Sun, 01 Oct 2023 02:23:57 +0000</pubDate><guid>https://Kayleh.com/post/calculus-01-function/</guid><description>&lt;h2 id="函数">函数&lt;/h2>
+&lt;p>$$ y = f(x) $$&lt;/p>
+&lt;h4 id="渐近线">渐近线&lt;/h4>
+&lt;h5 id="水平渐近线">水平渐近线&lt;/h5>
+&lt;p>求水平渐近线的步骤：&lt;/p>
+&lt;p>$$ 若 \lim_{x \to +\infty} f(x) = a_1 或 \lim_{x \to +\infty} f(x) = a_2，\\ 则 y = a_1 或 y = a_2 是 y = f(x) 的水平渐近线
+$$&lt;/p>
+&lt;blockquote>
+&lt;p>如：
+$$ y = \frac{1}{x}，\lim_{x \to +\infty} \frac{1}{x} = 0 $$
+$$ 则 y = 0 是 y = \frac{1}{x} 的水平渐近线 $$&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="垂直渐近线">垂直渐近线：&lt;/h5>
+&lt;p>求垂直渐近线的步骤：&lt;/p>
+&lt;p>$$ 若 \lim_{x \to a^{+}&lt;em>1} f(x) = \infty 或 \lim&lt;/em>{x \to a^{-}_2} f(x) = \infty，\\ 则x = a_1 或 x = a_2 是 y = f(x) 的垂直渐近线 $$&lt;/p>
+&lt;blockquote>
+&lt;p>如：
+$$ y = \frac{1}{x}，\lim_{x \to 0^{+}} \frac{1}{x} = \infty，则 x = 0 是 y = \frac{1}{x} 的垂直渐近线 $$&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="斜渐近线">斜渐近线：&lt;/h5>
+&lt;p>求函数斜渐近线的步骤：&lt;/p>
+&lt;p>$$ 如果 \lim_{x \to +\infty} \frac{f(x)}{x} 和 \lim_{x \to +\infty } [f(x) - k_1x] = b_1 同时存在，则 f(x) 存在一条斜渐近线 $$&lt;/p>
+&lt;p>$$ 如果 \lim_{x \to -\infty} \frac{f(x)}{x} 和 \lim_{x \to -\infty } [f(x) - k_2x] = b_2 同时存在，则 f(x) 存在一条斜渐近线 $$&lt;/p>
+&lt;blockquote>
+&lt;p>如:
+$$ f(x) = \frac{x^2-1}{x+1} $$&lt;/p>
+&lt;p>$$\because k_1 = \lim_{x \to +\infty} \frac{f(x)}{x} = \lim_{x \to +\infty} \frac{x^2-1}{x^2+x} = 1$$&lt;/p>
+&lt;p>$$\because b_1 \lim_{x \to +\infty} [f(x) - k_1x] \\ \\ = \lim_{x \to +\infty} \frac{x^2-1}{x+1} - x \\ \\ = \lim_{x \to +\infty} \frac{-x-1}{x+1} = -1$$&lt;/p>
+&lt;p>$$\therefore y = x - 1 是 f(x) 的斜渐近线$$&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="间断点">间断点&lt;/h5></description></item><item><title>线性代数基础</title><link>https://Kayleh.com/post/linear-algebra/</link><pubDate>Sat, 30 Sep 2023 20:00:05 +0000</pubDate><guid>https://Kayleh.com/post/linear-algebra/</guid><description>&lt;h1 id="一行列式">一、行列式&lt;/h1>
+&lt;h2 id="11-行列式的定义按行展开">1.1 行列式的定义（按行展开）&lt;/h2>
+&lt;h3 id="一阶行列式">一阶行列式：&lt;/h3>
+&lt;p>$$ D = |a| = a $$&lt;/p>
+&lt;h3 id="二阶行列式">二阶行列式：&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} a &amp;amp; b \\ c &amp;amp; d \\ \end{vmatrix} = ad - bc $$&lt;/p>
+&lt;h3 id="三阶行列式">三阶行列式：&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} a &amp;amp; b &amp;amp; c \\ d &amp;amp; e &amp;amp; f \\ g &amp;amp; h &amp;amp; i \\ \end{vmatrix} = aei + bfg + cdh - ceg - bdi - afh $$&lt;/p>
+&lt;h3 id="逆序数">逆序数&lt;/h3>
+&lt;p>对于一个排列，如果一对数的前面一个数大于后面一个数，那么就称这两个数构成一个逆序，一个排列中逆序的总数称为这个排列的逆序数。（冒泡排序的交换次数）&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;p>1.&lt;code>2 4 3 1&lt;/code>的逆序数为3，分别是&lt;code>2的逆序数为1（1）&lt;/code>，&lt;code>4的逆序数为2（2，1）&lt;/code>，&lt;code>3的逆序数为1（1）&lt;/code>，&lt;code>1的逆序数为0（无）&lt;/code>。&lt;/p>
+&lt;p>2.&lt;code>1 2 ... n&lt;/code>的逆序数为0&lt;/p>
+&lt;p>3.&lt;code>n n-1 ... 2 1&lt;/code>的逆序数为n(n-1)/2。&lt;/p>
+&lt;blockquote>
+&lt;p>奇排列：逆序数为奇数&lt;/p>
+&lt;p>偶排列：逆序数为偶数&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="对换">对换&lt;/h3>
+&lt;p>对换是指将两个数的位置对调，对换的次数称为对换数。&lt;/p>
+&lt;blockquote>
+&lt;p>一个排列对换一次，奇偶性改变一次。&lt;/p>
+&lt;p>一个排列如果做了偶数次对换，那么它的奇偶性不变。&lt;/p>
+&lt;p>n级排列的奇排列有n! / 2个，偶排列有n! / 2个。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="n阶行列式">n阶行列式：&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; &amp;hellip; &amp;amp; a_{1n} \\ a_{21} &amp;amp; a_{22} &amp;amp; &amp;hellip; &amp;amp; a_{2n} \\ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\ a_{n1} &amp;amp; a_{n2} &amp;amp; &amp;hellip; &amp;amp; a_{nn} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>取n个元素相乘，每行每列各取一个，共有n!种取法，每种取法对应一个乘积，将所有乘积相加，得到行列式的值。
+aij
+行标i为自然数1,2,&amp;hellip;,n，
+列标j为排列的所有可能的排列，即1,2,&amp;hellip;,n的全排列。如果某一项的排列的&lt;em>列标&lt;/em>的逆序数为奇数，则该项前面加负号，否则加正号。&lt;/p>
+&lt;h3 id="下三角行列式">下三角行列式&lt;/h3>
+&lt;p>形如：&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; 0 &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0 \\ a_{21} &amp;amp; a_{22} &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0 \\ a_{31} &amp;amp; a_{32} &amp;amp; a_{33} &amp;amp; &amp;hellip; &amp;amp; 0 \\ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\ a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} &amp;amp; &amp;hellip; &amp;amp; a_{nn} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>对角线以下的元素都为0，称为下三角行列式。&lt;/p>
+&lt;p>下三角行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。&lt;/p>
+&lt;h3 id="上三角行列式">上三角行列式&lt;/h3>
+&lt;p>形如：&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} &amp;amp; &amp;hellip; &amp;amp; a_{1n} \\ 0 &amp;amp; a_{22} &amp;amp; a_{23} &amp;amp; &amp;hellip; &amp;amp; a_{2n} \\ 0 &amp;amp; 0 &amp;amp; a_{33} &amp;amp; &amp;hellip; &amp;amp; a_{3n} \\ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\ 0 &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0 &amp;amp; a_{nn} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>对角线以上的元素都为0，称为上三角行列式。
+上三角行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。&lt;/p>
+&lt;h3 id="对角形行列式">对角形行列式&lt;/h3>
+&lt;p>形如：&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; 0 &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0 \\ 0 &amp;amp; a_{22} &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; a_{33} &amp;amp; &amp;hellip; &amp;amp; 0 \\ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\ 0 &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0 &amp;amp; a_{nn} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>对角线上的元素都不为0，称为对角形行列式。&lt;/p>
+&lt;p>对角形行列式的值等于主对角线（从左上角到右下角） 上的元素的乘积。&lt;/p>
+&lt;h3 id="右下三角行列式">（右下）三角行列式&lt;/h3>
+&lt;p>形如：&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} 0 &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0 &amp;amp; a_{1n} \\ 0 &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; a_{2n-1} &amp;amp; a_{2n} \\ 0 &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\ a_{n1} &amp;amp; a_{n2} &amp;amp; &amp;hellip; &amp;amp; a_{n-1} &amp;amp; a_{nn} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>行列式的值等于副对角线（从右上角到左下角） 上的元素的乘积，符号为副对角线上的元素的排列的逆序数的奇偶性决定：
+D = (-1)^ [ n(n-1)/2 ] * a1n * a2n-1 * &amp;hellip; * an1&lt;/p>
+&lt;h2 id="11-行列式的定义按列展开">1.1 行列式的定义（按列展开）&lt;/h2>
+&lt;p>和按行展开类似，只是每行每列各取一个的时候，行标和列标的排列不同。&lt;/p>
+&lt;h2 id="11-行列式的定义既不按行展开又不按列展开">1.1 行列式的定义（既不按行展开又不按列展开）&lt;/h2>
+&lt;blockquote>
+&lt;p>符号由行标和列标的排列的逆序数的相加决定。&lt;/p>
+&lt;/blockquote>
+&lt;p>$$ D = (-1) ^ { 行标的逆序数 + 列标的逆序数 } * a_{11} * a_{22} * &amp;hellip; * a_{nn} $$&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;p>$$ (-1)^ { N(i21m) + N(1k32) } * a_{i1} * a_{2k} * a_{13} * a_{m2} $$&lt;/p>
+&lt;pre tabindex="0">&lt;code>k=4 i=3 m=4 N(3214) + N(1432) = 3 + 3 = 6 , 6为偶数，所以符号为正
+k=4 i=4 m=3 N(4213) + N(1432) = 4 + 3 = 7 , 7为奇数，所以符号为负
+&lt;/code>&lt;/pre>&lt;h2 id="12-行列式的性质">1.2 行列式的性质&lt;/h2>
+&lt;h3 id="性质1-行列式与它的转置行列式相等对行成立的性质对列也成立">性质1 行列式与它的转置行列式相等。对行成立的性质对列也成立。&lt;/h3>
+&lt;blockquote>
+&lt;p>转置行列式：行列式的行变成列，列变成行。&lt;/p>
+&lt;/blockquote>
+&lt;p>$$ (D^T)^T = D $$&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} = \begin{vmatrix} 1 &amp;amp; 4 &amp;amp; 7 \\ 2 &amp;amp; 5 &amp;amp; 8 \\ 3 &amp;amp; 6 &amp;amp; 9 \\ \end{vmatrix} $$&lt;/p>
+&lt;h3 id="性质2-互换行列式的两行行列式变号">性质2 互换行列式的两行，行列式变号。&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} = - \begin{vmatrix} 7 &amp;amp; 8 &amp;amp; 9 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 1 &amp;amp; 2 &amp;amp; 3 \\ \end{vmatrix} $$&lt;/p>
+&lt;h4 id="推论性质3如果行列式有两行完全相同则此行列式等于零">推论性质3：如果行列式有两行完全相同，则此行列式等于零。&lt;/h4>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 1 &amp;amp; 2 &amp;amp; 3 \\ \end{vmatrix} = 0 $$&lt;/p>
+&lt;h3 id="性质4-行列式的某一行中所有的元素都乘以同一个数k等于用数k乘此行列式">性质4 行列式的某一行中所有的元素都乘以同一个数k，等于用数k乘此行列式。&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} = 2 \begin{vmatrix} 2 &amp;amp; 4 &amp;amp; 6 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} $$&lt;/p>
+&lt;h3 id="推论性质5行列式中如果有一行有公因子则可以把因子提到行列式外面">推论性质5：行列式中如果有一行有公因子，则可以把因子提到行列式外面。&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4k &amp;amp; 5k &amp;amp; 6k \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} = k \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} $$&lt;/p>
+&lt;h3 id="性质5-行列式中如果有两行元素成比例则此行列式等于零">性质5 行列式中如果有两行元素成比例，则此行列式等于零。&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 2 &amp;amp; 4 &amp;amp; 6 \\ \end{vmatrix} = 0 $$&lt;/p>
+&lt;h3 id="推论某一行全等于0行列式等于0">推论：某一行全等于0，行列式等于0。&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 0 &amp;amp; 0 &amp;amp; 0 \\ \end{vmatrix} = 0 $$&lt;/p>
+&lt;h3 id="性质6-行列式的某一行所有元素都是两数之和可以把行列式拆成两个行列式的和只拆分那一行">性质6 行列式的某一行，所有元素都是两数之和，可以把行列式拆成两个行列式的和。（只拆分那一行）&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 2 &amp;amp; 3 &amp;amp; 3 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} + \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 2 &amp;amp; 2 &amp;amp; 3 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} $$&lt;/p>
+&lt;h3 id="性质7-行列式中某一行乘以一个数加到另一行去行列式不变">性质7 行列式中某一行乘以一个数加到另一行去，行列式不变。&lt;/h3>
+&lt;pre tabindex="0">&lt;code>D = |1 2 3| = 第一行乘5，加到第二行上 = |1 2 3|
+|4 5 6| |4+5 5+10 6+15|
+|7 8 9| |7 8 9|
+&lt;/code>&lt;/pre>&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4 &amp;amp; 5 &amp;amp; 6 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} \xlongequal[等于]{第一行乘5，加到第二行上} \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 4+5 &amp;amp; 5+10 &amp;amp; 6+15 \\ 7 &amp;amp; 8 &amp;amp; 9 \\ \end{vmatrix} $$&lt;/p>
+&lt;p>&lt;strong>利用性质7，可以把行列式化成上三角行列式。结果就为主对角线上的元素的乘积。&lt;/strong>&lt;/p>
+&lt;h2 id="13-行列式按行展开">1.3 行列式按行展开&lt;/h2>
+&lt;h3 id="131-代数余子式">1.3.1 代数余子式&lt;/h3>
+&lt;h4 id="余子式">余子式&lt;/h4>
+&lt;p>$$ \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{32} &amp;amp; a_{33} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>把$a_{22}$所在的行和列划去，剩下的元素组成的行列式称为$a_{22}$的余子式，记作$M_{22}$。&lt;/p>
+&lt;p>$$ M_{22} = \begin{vmatrix} a_{11} &amp;amp; a_{13} \\ a_{31} &amp;amp; a_{33} \\ \end{vmatrix} $$&lt;/p>
+&lt;h4 id="代数余子式">代数余子式&lt;/h4>
+&lt;p>把$a_{22}$的余子式乘以$(-1)^{i+j}$，得到$a_{22}$的代数余子式，记作$A_{22}$。(i,j为$a_{22}$的行列标)&lt;/p>
+&lt;p>$$ A_{22} = (-1)^{2+2} * M_{22} $$&lt;/p>
+&lt;h3 id="行列式按行或列展开降阶">行列式按行或列展开（降阶）&lt;/h3>
+&lt;h4 id="按行展开">按行展开&lt;/h4>
+&lt;p>任意选定一行，把这一行的每个元素与这个元素的代数余子式的乘积相加，得到行列式的值。&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{32} &amp;amp; a_{33} \\ \end{vmatrix} = a_{11} * A_{11} + a_{12} * A_{12} + a_{13} * A_{13} = a_{11} \begin{vmatrix} a_{22} &amp;amp; a_{23} \\ a_{32} &amp;amp; a_{33} \\ \end{vmatrix} + a_{12} \begin{vmatrix} a_{21} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{33} \\ \end{vmatrix} + a_{13} \begin{vmatrix} a_{21} &amp;amp; a_{22} \\ a_{31} &amp;amp; a_{32} \\ \end{vmatrix} $$&lt;/p>
+&lt;h4 id="按列展开">按列展开&lt;/h4>
+&lt;p>任意选定一列，把这一列的每个元素与它的代数余子式的乘积相加，得到行列式的值。&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{32} &amp;amp; a_{33} \\ \end{vmatrix} = a_{11} * A_{11} + a_{21} * A_{21} + a_{31} * A_{31} = a_{11} \begin{vmatrix} a_{22} &amp;amp; a_{23} \\ a_{32} &amp;amp; a_{33} \\ \end{vmatrix} + a_{21} \begin{vmatrix} a_{12} &amp;amp; a_{13} \\ a_{32} &amp;amp; a_{33} \\ \end{vmatrix} + a_{31} \begin{vmatrix} a_{12} &amp;amp; a_{13} \\ a_{22} &amp;amp; a_{23} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>&lt;em>如果选定的某一行或列的0比较多（0直接不算），可以减少计算量，所以要选取0比较多的行或列。&lt;/em>&lt;/p>
+&lt;h2 id="异乘变零定理">异乘变零定理&lt;/h2>
+&lt;p>某行的元素乘以另一行的元素的代数余子式乘积之和等于0。&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{32} &amp;amp; a_{33} \\ \end{vmatrix} = a_{11} * A_{21} + a_{12} * A_{22} + a_{13} * A_{23} = a_{11} \begin{vmatrix} a_{22} &amp;amp; a_{23} \\ a_{32} &amp;amp; a_{33} \\ \end{vmatrix} + a_{12} \begin{vmatrix} a_{21} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{33} \\ \end{vmatrix} + a_{13} \begin{vmatrix} a_{21} &amp;amp; a_{22} \\ a_{31} &amp;amp; a_{32} \\ \end{vmatrix} = 0 $$&lt;/p>
+&lt;h2 id="拉普拉斯定理">拉普拉斯定理&lt;/h2>
+&lt;h3 id="k阶子式">k阶子式&lt;/h3>
+&lt;p>从行列式中任意取k行，再从这k行中任意取k列，位于这些行列交叉点上的k个元素组成的行列式，称为k阶子式。&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{32} &amp;amp; a_{33} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>$$ k=2 $$&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; a_{12} \\ a_{21} &amp;amp; a_{22} \\ \end{vmatrix} $$&lt;/p>
+&lt;h3 id="余子式-1">余子式&lt;/h3>
+&lt;p>k阶子式的余子式是指把k阶子式所在的行和列划去，剩下的元素组成的行列式。&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{32} &amp;amp; a_{33} \\ \end{vmatrix} $$&lt;/p>
+&lt;p>$$ k=2 $$&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} a_{33} \end{vmatrix} $$&lt;/p>
+&lt;h3 id="153-代数余子式">1.5.3 代数余子式&lt;/h3>
+&lt;p>k阶子式的代数余子式是指把k阶子式的余子式乘以(-1)^(i1+j1+i2+j2+&amp;hellip;+ik+jk)，得到的行列式。&lt;/p>
+&lt;h3 id="154-拉普拉斯定理">1.5.4 拉普拉斯定理&lt;/h3>
+&lt;p>取定k行，把这k行的每个元素与它的代数余子式的乘积相加，得到行列式的值。&lt;/p>
+&lt;h3 id="155-同阶行列式相乘">1.5.5 同阶行列式相乘&lt;/h3>
+&lt;p>每一行与另一个行列式的每一列相乘&lt;/p>
+&lt;p>$$ \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ a_{31} &amp;amp; a_{32} &amp;amp; a_{33} \\ \end{vmatrix} * \begin{vmatrix} b_{11} &amp;amp; b_{12} &amp;amp; b_{13} \\ b_{21} &amp;amp; b_{22} &amp;amp; b_{23} \\ b_{31} &amp;amp; b_{32} &amp;amp; b_{33} \\ \end{vmatrix} = \begin{vmatrix} a_{11}b_{11}+a_{12}b_{21}+a_{13}b_{31} &amp;amp; a_{11}b_{12}+a_{12}b_{22}+a_{13}b_{32} &amp;amp; a_{11}b_{13}+a_{12}b_{23}+a_{13}b_{33} \\ a_{21}b_{11}+a_{22}b_{21}+a_{23}b_{31} &amp;amp; a_{21}b_{12}+a_{22}b_{22}+a_{23}b_{32} &amp;amp; a_{21}b_{13}+a_{22}b_{23}+a_{23}b_{33} \\ a_{31}b_{11}+a_{32}b_{21}+a_{33}b_{31} &amp;amp; a_{31}b_{12}+a_{32}b_{22}+a_{33}b_{32} &amp;amp; a_{31}b_{13}+a_{32}b_{23}+a_{33}b_{33} \\ \end{vmatrix} $$&lt;/p>
+&lt;h2 id="16-行列式的计算">1.6 行列式的计算&lt;/h2>
+&lt;ol>
+&lt;li>转为上三角行列式，结果为主对角线上的元素的乘积。&lt;/li>
+&lt;li>按行展开，选择0比较多的行。&lt;/li>
+&lt;li>加边&lt;/li>
+&lt;/ol>
+&lt;p>例1&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} 3 &amp;amp; 0 &amp;amp; 4 &amp;amp; 0 \\ 3 &amp;amp; 2 &amp;amp; 2 &amp;amp; 2 \\ 0 &amp;amp; -7 &amp;amp; 0 &amp;amp; 0 \\ 5 &amp;amp; 3 &amp;amp; -2 &amp;amp; 2 \\ \end{vmatrix} $$&lt;/p>
+&lt;p>求$M_{41}+M_{42}+M_{43}+M_{44}$&lt;/p>
+&lt;pre tabindex="0">&lt;code>如果直接按行展开，需要计算4个4阶行列式，计算量比较大。
+可以化简一下，
+已知行列式展开是一行元素和它的代数余子式的乘积之和，所以尝试把M41+M42+M43+M44化成这样的形式。
+先转换为代数余子式的形式，注意正负号：
+&lt;/code>&lt;/pre>&lt;p>$$ M_{41} + M_{42} + M_{43} + M_{44} = (-1)&lt;em>(-1)^{4+1} * M_{41} + (-1)^{4+2} * M_{42} +(-1)&lt;/em> (-1)^{4+3} * M_{43} + (-1)^{4+4} * M_{44} $$&lt;/p>
+&lt;pre tabindex="0">&lt;code>还有“一行元素”在哪里？
+&lt;/code>&lt;/pre>&lt;p>$$ M_{41} + M_{42} + M_{43} + M_{44} = -A_{41} + A_{42} - A_{43} + A_{44} $$&lt;/p>
+&lt;pre tabindex="0">&lt;code>此时，第4行元素替换为这个式子的系数（-1,1,-1,1），得到：
+&lt;/code>&lt;/pre>&lt;p>$$ D = \begin{vmatrix} 3 &amp;amp; 0 &amp;amp; 4 &amp;amp; 0 \\ 3 &amp;amp; 2 &amp;amp; 2 &amp;amp; 2 \\ 0 &amp;amp; -7 &amp;amp; 0 &amp;amp; 0 \\ -1 &amp;amp; 1 &amp;amp; -1 &amp;amp; 1 \\ \end{vmatrix} $$&lt;/p>
+&lt;pre tabindex="0">&lt;code>选择最多0的行，第3行，计算量最小。
+&lt;/code>&lt;/pre>&lt;p>$$ D = (-7) * (-1) ^{3+2} * M_{32} = -56 $$&lt;/p>
+&lt;p>例2&lt;/p>
+&lt;pre tabindex="0">&lt;code>| x a a a ... a|
+| a x a a ... a|
+| a a x a ... a|
+| a a a x ... a|
+| ... ... ... ...|
+| a a a a ... x|
+求行列式的值
+先把每行的元素都加到第一列上，得到：
+| x+(n-1)a a a a ... a|
+| x+(n-1)a x a a ... a|
+| x+(n-1)a a x a ... a|
+| x+(n-1)a a a x ... a|
+| ... ... ... ... ...|
+| x+(n-1)a a a a ... x|
+再把列的公因子提到行列式外面，得到：
+(x+(n-1)a) * | 1 a a a ... a|
+| 1 x a a ... a|
+| 1 a x a ... a|
+| 1 a a x ... a|
+| ... ... ... ...|
+| 1 a a a ... x|
+然后把第一列乘以-a，加到后面的元素上，
+| 1 0 0 0 ... 0|
+| 1 x-a 0 0 ... 0|
+| 1 0 x-a 0 ... 0|
+| 1 0 0 x-a ... 0|
+| ... ... ... ...|
+| 1 0 0 0 ... x-a|
+得到下三角行列式，结果为主对角线上的元素的乘积。= (n-1)(x-a)
+&lt;/code>&lt;/pre>&lt;p>例3&lt;/p>
+&lt;pre tabindex="0">&lt;code>| 1+a1 1 1 1 ... 1|
+| 1 1+a2 1 1 ... 1|
+| 1 1 1+a3 1 ... 1|
+|... ... ... ... ...|
+| 1 1 1 1 ... 1+an|
+加一行1，一列0，得到：(不会改变行列式的值)
+|1 1 1 1 ... 1|
+|0 1+a1 1 ... 1|
+|0 1 1+a2 ... 1|
+|... ... ... ... ...|
+|0 1 1 ... 1+an|
+用第1行*（-1）加到后面的行上，得到：
+|1 1 1 1 ... 1|
+|-1 a1 0 ... 0|
+|-1 0 a2 ... 0|
+|... ... ... ... ...|
+|-1 0 0 ... an|
+变为三叉形行列式，
+把第2列乘以1/a1，加到第1列上，第3列乘以1/a2，加到第1列上，...，最后化为上三角行列式。
+（1+1/a1+1/a2+...+1/an）* a1*a2*...*an
+&lt;/code>&lt;/pre>&lt;p>例4&lt;/p>
+&lt;h3 id="范德蒙行列式">范德蒙行列式&lt;/h3>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 1 &amp;amp; 1 &amp;amp; 1 &amp;amp; 1 \\ x_1 &amp;amp; x_2 &amp;amp; x_3 &amp;amp; x_4 &amp;amp; x_5 \\ x_1^2 &amp;amp; x_2^2 &amp;amp; x_3^2 &amp;amp; x_4^2 &amp;amp; x_5^2 \\ x_1^3 &amp;amp; x_2^3 &amp;amp; x_3^3 &amp;amp; x_4^3 &amp;amp; x_5^3 \\ x_1^4 &amp;amp; x_2^4 &amp;amp; x_3^4 &amp;amp; x_4^4 &amp;amp; x_5^4 \\ \end{vmatrix} = (x_2-x_1) * (x_3-x_1) * (x_4-x_1) * \dots * (x_n-x_1) * (x_3-x_2) * (x_4-x_2) * \dots * (x_n-x_2) * \dots * (x_n-x_{n-1}) = \prod_{1&amp;lt;=i&amp;lt;j&amp;lt;=n} (x_i-x_j) $$&lt;/p>
+&lt;h3 id="反对称行列式">反对称行列式&lt;/h3>
+&lt;ul>
+&lt;li>主对角线全为0&lt;/li>
+&lt;li>上下位置对应成相反数(aij=-aji)&lt;/li>
+&lt;li>如果为奇数阶，行列式的值为0&lt;/li>
+&lt;/ul>
+&lt;p>$$ D = \begin{vmatrix} 0 &amp;amp; 1 &amp;amp; 2 &amp;amp; 3 \\ -1 &amp;amp; 0 &amp;amp; -5 &amp;amp; 6 \\ -2 &amp;amp; 5 &amp;amp; 0 &amp;amp; -8 \\ -3 &amp;amp; -6 &amp;amp; 8 &amp;amp; 0 \\ \end{vmatrix} = 0 $$&lt;/p>
+&lt;h3 id="对称行列式">对称行列式&lt;/h3>
+&lt;ul>
+&lt;li>上下位置对应相等(aij=aji)&lt;/li>
+&lt;/ul>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 1 &amp;amp; 2 &amp;amp; 3 \\ 1 &amp;amp; 2 &amp;amp; 5 &amp;amp; 6 \\ 2 &amp;amp; 5 &amp;amp; 3 &amp;amp; 8 \\ 3 &amp;amp; 6 &amp;amp; 8 &amp;amp; 4 \\ \end{vmatrix} $$&lt;/p>
+&lt;h2 id="17-克莱姆法则">1.7 克莱姆法则&lt;/h2>
+&lt;p>只适用于：&lt;/p>
+&lt;ol>
+&lt;li>$$ 方程的个数=未知数的个数 $$&lt;/li>
+&lt;li>$$ D!=0 $$&lt;/li>
+&lt;li>$$ x_j = \frac{D_j}{D} (D_j指的是把第j列换成b_1b_2&amp;hellip;b_n的行列式，b指的是方程式的右边的常数项，D指的是系数行列式) ： x_1 = \frac{D_1}{D}, x_2 = \frac{D_2}{D}, x_3 = \frac{D_3}{D}, &amp;hellip; , x_n = \frac{D_n}{D} $$&lt;/li>
+&lt;/ol>
+&lt;p>例如&lt;/p>
+&lt;p>方程组
+$$ \begin{cases} x_1 + x_2 + x_3 = 1 \\ x_1 - x_2 + 5x_3 = 6 \\ -x_1 + x_2 + 6x_3 = 9 \\ \end{cases} $$&lt;/p>
+&lt;p>把系数提出来，得到系数行列式：&lt;/p>
+&lt;p>$$ D = \begin{vmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 1 &amp;amp; -1 &amp;amp; 5 \\ -1 &amp;amp; 1 &amp;amp; 6 \\ \end{vmatrix} $$&lt;/p>
+&lt;pre tabindex="0">&lt;code>D1 = |1 1 1|
+|6 -1 5|
+|9 1 6|
+D2 = |1 1 1|
+|1 6 5|
+|-1 9 6|
+D3 = |1 1 1|
+|1 -1 6|
+|-1 1 9|
+&lt;/code>&lt;/pre>&lt;p>如果方程组的右边都为0，这个方程叫齐次方程组，齐次方程一定有0解.&lt;/p>
+&lt;blockquote>
+&lt;p>如果齐次方程组的系数行列式不为0，那么齐次方程组只有0解。（Dj都为0）&lt;/p>
+&lt;p>若齐次方程有非0解&amp;lt;=&amp;gt;那么齐次方程组的系数行列式必为0。&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="矩阵">矩阵&lt;/h1>
+&lt;h2 id="21-矩阵的定义">2.1 矩阵的定义&lt;/h2>
+&lt;h3 id="211-矩阵的定义">2.1.1 矩阵的定义&lt;/h3>
+&lt;p>m行n列的数表称为m行n列的矩阵，简称m*n矩阵。&lt;/p>
+&lt;p>$$ A_{m*n} = \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; \dots &amp;amp; a_{1n} \\ a_{21} &amp;amp; a_{22} &amp;amp; \dots &amp;amp; a_{2n} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ a_{m1} &amp;amp; a_{m2} &amp;amp; \dots &amp;amp; a_{mn} \\ \end{bmatrix} $$&lt;/p>
+&lt;pre tabindex="0">&lt;code>Am*n表示一个矩阵，m行n列，a11表示第1行第1列的元素，amn表示第m行第n列的元素。
+&lt;/code>&lt;/pre>&lt;h3 id="212-矩阵和行列式的区别">2.1.2 矩阵和行列式的区别&lt;/h3>
+&lt;p>本质：矩阵是一个数表，行列式是一个数。
+符号：矩阵用()或[]，行列式用||。
+形状：矩阵行数可以不等于列数，行列式行数等于列数。&lt;/p>
+&lt;h4 id="实矩阵">实矩阵&lt;/h4>
+&lt;p>矩阵中的元素都是实数的矩阵，称为实矩阵。&lt;/p>
+&lt;h4 id="复矩阵">*复矩阵&lt;/h4>
+&lt;h4 id="行矩阵">行矩阵&lt;/h4>
+&lt;p>只有一行的矩阵，称为行矩阵。&lt;/p>
+&lt;h4 id="列矩阵">列矩阵&lt;/h4>
+&lt;p>只有一列的矩阵，称为列矩阵。&lt;/p>
+&lt;h4 id="零矩阵">零矩阵&lt;/h4>
+&lt;p>所有元素都为0的矩阵，称为零矩阵，记作O。&lt;/p>
+&lt;h4 id="负矩阵">负矩阵&lt;/h4>
+&lt;p>把矩阵中的每个元素都乘以-1，得到的矩阵，称为负矩阵。&lt;/p>
+&lt;h4 id="n阶方阵">n阶方阵&lt;/h4>
+&lt;p>行数等于列数的矩阵，称为n阶方阵。&lt;/p>
+&lt;p>An*n 也可以表示为An&lt;/p>
+&lt;blockquote>
+&lt;p>方阵有主对角线和副对角线。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="单位矩阵">单位矩阵&lt;/h4>
+&lt;p>主对角线上的元素都为1，其余元素都为0的n阶方阵，称为单位矩阵，记作En。
+一般用E,I&lt;/p>
+&lt;p>$$ E = \begin{bmatrix} 1 &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; 1 &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; 1 \\ \end{bmatrix} $$&lt;/p>
+&lt;h4 id="只有一个元素的矩阵等于数本身">只有一个元素的矩阵等于数本身&lt;/h4>
+&lt;p>$$ \begin{bmatrix} 1 \end{bmatrix} = 1 $$&lt;/p>
+&lt;h4 id="同型矩阵">同型矩阵&lt;/h4>
+&lt;p>两个行数和列数都相等的矩阵，称为同型矩阵。&lt;/p>
+&lt;blockquote>
+&lt;p>两个矩阵相等的前提：是同型矩阵&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="22-矩阵的运算">2.2 矩阵的运算&lt;/h2>
+&lt;h3 id="221-矩阵的加法">2.2.1 矩阵的加法&lt;/h3>
+&lt;blockquote>
+&lt;p>矩阵的加法要求两个矩阵是同型矩阵。&lt;/p>
+&lt;/blockquote>
+&lt;p>$$ \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 1 &amp;amp; 1 &amp;amp; 1 \\ \end{bmatrix} + \begin{bmatrix} 2 &amp;amp; 2 &amp;amp; 2 \\ 2 &amp;amp; 2 &amp;amp; 2 \\ \end{bmatrix} = \begin{bmatrix} 3 &amp;amp; 3 &amp;amp; 3 \\ 3 &amp;amp; 3 &amp;amp; 3 \\ \end{bmatrix} $$&lt;/p>
+&lt;h3 id="222-矩阵的减法">2.2.2 矩阵的减法&lt;/h3>
+&lt;blockquote>
+&lt;p>与矩阵的加法类似，要求两个矩阵是同型矩阵。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="223-矩阵的数乘">2.2.3 矩阵的数乘&lt;/h3>
+&lt;blockquote>
+&lt;p>一个矩阵的每个元素都乘以一个数，等于把这个数乘以这个矩阵。（公因子提出来）&lt;/p>
+&lt;/blockquote>
+&lt;p>$$ k \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 1 &amp;amp; 1 &amp;amp; 1 \end{bmatrix} = \begin{bmatrix} k &amp;amp; k &amp;amp; k \\ k &amp;amp; k &amp;amp; k \end{bmatrix} $$&lt;/p>
+&lt;h3 id="224-矩阵的乘法">2.2.4 矩阵的乘法&lt;/h3>
+&lt;blockquote>
+&lt;p>矩阵的乘法要求第一个矩阵的行数等于第二个矩阵的列数，结果的行数等于第一个矩阵的行数，列数等于第二个矩阵的列数。&lt;/p>
+&lt;p>$$ A_{m&lt;em>p} * B_{p&lt;/em>n} = C_{m*n} $$&lt;/p>
+&lt;/blockquote>
+&lt;p>每一行的元素与另一个矩阵的每一列的元素相乘，再相加。&lt;/p>
+&lt;p>$$ \begin{bmatrix} a_{1} &amp;amp; a_{2} &amp;amp; a_{3} \\ a_{4} &amp;amp; a_{5} &amp;amp; a_{6} \\ a_{7} &amp;amp; a_{8} &amp;amp; a_{9} \\ \end{bmatrix} * \begin{bmatrix} b_{1} &amp;amp; b_{2} &amp;amp; b_{3} \\ b_{4} &amp;amp; b_{5} &amp;amp; b_{6} \\ b_{7} &amp;amp; b_{8} &amp;amp; b_{9} \\ \end{bmatrix} = \begin{bmatrix} a_{1}b_{1}+a_{2}b_{4}+a_{3}b_{7} &amp;amp; a_{1}b_{2}+a_{2}b_{5}+a_{3}b_{8} &amp;amp; a_{1}b_{3}+a_{2}b_{6}+a_{3}b_{9} \\ a_{4}b_{1}+a_{5}b_{4}+a_{6}b_{7} &amp;amp; a_{4}b_{2}+a_{5}b_{5}+a_{6}b_{8} &amp;amp; a_{4}b_{3}+a_{5}b_{6}+a_{6}b_{9} \\ a_{7}b_{1}+a_{8}b_{4}+a_{9}b_{7} &amp;amp; a_{7}b_{2}+a_{8}b_{5}+a_{9}b_{8} &amp;amp; a_{7}b_{3}+a_{8}b_{6}+a_{9}b_{9} \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \begin{bmatrix} 2 &amp;amp; 1 &amp;amp; 0 \\ 1 &amp;amp; 0 &amp;amp; 1 \\ \end{bmatrix} * \begin{bmatrix} 1 &amp;amp; 0 &amp;amp; 1 \\ 0 &amp;amp; 1 &amp;amp; 1 \\ 0 &amp;amp; 1 &amp;amp; 1 \\ \end{bmatrix} = \begin{bmatrix} 2 &amp;amp; 1 &amp;amp; 3 \\ 1 &amp;amp; 1 &amp;amp; 2 \\ \end{bmatrix} $$&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>矩阵的乘法不满足交换律，满足结合律。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>零矩阵与任何矩阵相乘，结果都是零矩阵。注意结果的形状：A(m&lt;em>n) * O(n&lt;/em>p) = O(m*p)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>与单位矩阵相乘，结果不变。A(m&lt;em>n) * E(n&lt;/em>n) = A(m&lt;em>n) = E(n&lt;/em>n) * A(m*n)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>例：
+与$A = \begin{bmatrix} 1 &amp;amp; 0 \\ 1 &amp;amp; 1 \end{bmatrix}$可交换的所有矩阵&lt;/p>
+&lt;p>$$ 设B = \begin{bmatrix} a &amp;amp; b \\ c &amp;amp; d \end{bmatrix}, AB = BA, 同阶 $$&lt;/p>
+&lt;p>$$\begin{bmatrix} a &amp;amp; c \\ b &amp;amp; d \end{bmatrix} * \begin{bmatrix} 1 &amp;amp; 0 \\ 1 &amp;amp; 1 \end{bmatrix} = \begin{bmatrix} a+b &amp;amp; b \\ c+d &amp;amp; d \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \begin{bmatrix} 1 &amp;amp; 0 \\ 1 &amp;amp; 1 \end{bmatrix} * \begin{bmatrix} a &amp;amp; c \\ b &amp;amp; d \end{bmatrix} = \begin{bmatrix} a &amp;amp; b \\ a+c &amp;amp; b+d \end{bmatrix} $$&lt;/p>
+&lt;p>$$ a+b = a, b = 0, c+d = c, b+d = d $$&lt;/p>
+&lt;p>$$ 所以, B = \begin{bmatrix} a &amp;amp; 0 \\ c &amp;amp; a \end{bmatrix} (a,c为任意常数) $$&lt;/p>
+&lt;h4 id="线性替换">线性替换&lt;/h4>
+&lt;p>方程：
+$$ \begin{cases} y_1 = x_1 + 2x_2 + 3x_3 \\ y_2 = 2x_1 + 3x_2 + 4x_3 \\ \end{cases} $$&lt;/p>
+&lt;p>$$ \begin{cases} x_1 = z_1 + z_2 \\ x_2 = z_1 + 2z_2 \\ x_3 = z_1 + 3z_2 \\ \end{cases} $$&lt;/p>
+&lt;p>$$ \begin{cases} z_1 = u_1 + u_2 \\ z_2 = -u_1 + u_2 \\ \end{cases} $$&lt;/p>
+&lt;p>写成矩阵的形式：&lt;/p>
+&lt;p>$$ \begin{bmatrix} y_1 \\ y_2 \\ \end{bmatrix} = \begin{bmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 2 &amp;amp; 3 &amp;amp; 4 \\ \end{bmatrix} * \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ \end{bmatrix} = \begin{bmatrix} 1 &amp;amp; 1 \\ 1 &amp;amp; 2 \\ 1 &amp;amp; 3 \\ \end{bmatrix} * \begin{bmatrix} z_1 \\ z_2 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \begin{bmatrix} z_1 \\ z_2 \\ \end{bmatrix} = \begin{bmatrix} 1 &amp;amp; 1 \\ 1 &amp;amp; 2 \\ \end{bmatrix} * \begin{bmatrix} u_1 \\ u_2 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>代入&lt;/p>
+&lt;p>$$ \begin{bmatrix} y_1 \\ y_2 \\ \end{bmatrix} = \begin{bmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 2 &amp;amp; 3 &amp;amp; 4 \\ \end{bmatrix} * \begin{bmatrix} 1 &amp;amp; 1 \\ 1 &amp;amp; 2 \\ \end{bmatrix} * \begin{bmatrix} 1 &amp;amp; 1 \\ 1 &amp;amp; 2 \\ \end{bmatrix} * \begin{bmatrix} u_1 \\ u_2 \\ \end{bmatrix} $$&lt;/p>
+&lt;h4 id="矩阵的幂运算">矩阵的幂运算&lt;/h4>
+&lt;p>$$ A^2 = A * A $$
+$$ A^k = A * A * &amp;hellip; * A (k个A相乘) $$
+$$ A^0 = E (单位矩阵) $$
+$$ (A*B)^k != A^k * B^k $$
+$$ (A+B)^2 != A^2 + B^2 + 2AB $$&lt;/p>
+&lt;h4 id="矩阵的转置">矩阵的转置&lt;/h4>
+&lt;pre tabindex="0">&lt;code>Am*n的转置矩阵是n*m的矩阵，记作A^T
+&lt;/code>&lt;/pre>&lt;p>$$ A = \begin{bmatrix} 1 &amp;amp; 2 &amp;amp; 3 \ 1 &amp;amp; 1 &amp;amp; 1 \end{bmatrix} A^T = \begin{bmatrix} 1 &amp;amp; 1 \ 2 &amp;amp; 1 \ 3 &amp;amp; 1 \end{bmatrix} $$&lt;/p>
+&lt;p>$$ A_{m&lt;em>n}^T = A_{n&lt;/em>m} $$&lt;/p>
+&lt;p>1.A的转置矩阵的转置矩阵等于A&lt;/p>
+&lt;p>$$ (A^T)^T = A $$&lt;/p>
+&lt;p>2.A+B的转置矩阵等于A的转置矩阵加上B的转置矩阵&lt;/p>
+&lt;p>$$ (A+B)^T = A^T + B^T $$&lt;/p>
+&lt;p>3.A的转置矩阵的数乘等于A的数乘的转置矩阵&lt;/p>
+&lt;p>$$ (kA)^T = kA^T $$&lt;/p>
+&lt;p>4.AB的转置矩阵等于B的转置矩阵乘以A的转置矩阵(注意顺序,倒过来)&lt;/p>
+&lt;p>$$ (AB)^T = B^T * A^T $$
+$$ (ABC)^T = C^T * B^T * A^T $$&lt;/p>
+&lt;h3 id="特殊矩阵">特殊矩阵&lt;/h3>
+&lt;h4 id="数量矩阵">数量矩阵&lt;/h4>
+&lt;p>主对角线上的元素都相等，其余元素都为0的n阶方阵，称为数量矩阵，记作kEn。&lt;/p>
+&lt;p>$$ kE = \begin{bmatrix} k &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; k &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; k \\ \end{bmatrix} $$&lt;/p>
+&lt;blockquote>
+&lt;p>零矩阵和单位矩阵都是特殊的数量矩阵。&lt;/p>
+&lt;/blockquote>
+&lt;p>两个数量矩阵相加，结果还是数量矩阵。&lt;/p>
+&lt;p>$$ \begin{bmatrix} k &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; k &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; k \\ \end{bmatrix} + \begin{bmatrix} k &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; k &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; k \\ \end{bmatrix} = \begin{bmatrix} 2k &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; 2k &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; 2k \\ \end{bmatrix} $$&lt;/p>
+&lt;p>两个数量矩阵相乘，结果还是数量矩阵。&lt;/p>
+&lt;p>$$ \begin{bmatrix} k &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; k &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; k \\ \end{bmatrix} * \begin{bmatrix} k &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; k &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; k \\ \end{bmatrix} = \begin{bmatrix} k^2 &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; k^2 &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; k^2 \\ \end{bmatrix} $$&lt;/p>
+&lt;h4 id="对角形矩阵">对角形矩阵&lt;/h4>
+&lt;p>主对角线上的元素都不为0，其余元素都为0的n阶方阵，称为对角形矩阵。&lt;/p>
+&lt;p>$$ D = \begin{bmatrix} a_{11} &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; a_{22} &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; a_{nn} \\ \end{bmatrix} = diag(a_{11},a_{22},\dots,a_{nn}) $$&lt;/p>
+&lt;h4 id="对称矩阵">对称矩阵&lt;/h4>
+&lt;p>主对角线上的元素都不为0，且关于主对角线对称的矩阵，称为对称矩阵。&lt;/p>
+&lt;p>$$ A = \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; \dots &amp;amp; a_{1n} \\ a_{12} &amp;amp; a_{22} &amp;amp; \dots &amp;amp; a_{2n} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ a_{1n} &amp;amp; a_{2n} &amp;amp; \dots &amp;amp; a_{nn} \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ a_{ij} = a_{ji} $$
+$$ A^T = A $$
+$$ (A+B)^T = A^T + B^T = A + B $$
+$$ (kA)^T = kA^T = kA $$
+$$ (AB)^T = B^T * A^T = BA != AB $$&lt;/p>
+&lt;h5 id="定理1ab为n阶对称矩阵则ab为对称矩阵的充要条件是abbaab可交换abt--bt--at--ba--ab">定理1：A，B为n阶对称矩阵，则AB为对称矩阵的充要条件是AB=BA（AB可交换）。$(AB)^T = B^T * A^T = BA = AB$&lt;/h5>
+&lt;p>证明：$AA^T 与 A^TA 都是对称矩阵$&lt;/p>
+&lt;p>如果是对称矩阵，那么$A^T = A$,所以&lt;/p>
+&lt;p>$(AA^T)^T = (A^T)^T * A^T = AA^T$&lt;/p>
+&lt;p>$(A^TA)^T = A^T * (A^T)^T = A^TA$&lt;/p>
+&lt;h4 id="反对称矩阵">反对称矩阵&lt;/h4>
+&lt;p>主对角线上的元素都为0，且关于主对角线对称的矩阵，称为反对称矩阵。&lt;/p>
+&lt;p>$$ A = \begin{bmatrix} 0 &amp;amp; a_{12} &amp;amp; \dots &amp;amp; a_{1n} \\ -a_{12} &amp;amp; 0 &amp;amp; \dots &amp;amp; a_{2n} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ -a_{1n} &amp;amp; -a_{2n} &amp;amp; \dots &amp;amp; 0 \\ \end{bmatrix} $$
+$$ a_{ij} = -a_{ji} $$
+$$ A^T = -A $$&lt;/p>
+&lt;h3 id="逆矩阵">逆矩阵&lt;/h3>
+&lt;h4 id="方阵的行列式">方阵的行列式&lt;/h4>
+&lt;p>矩阵
+$$ A = \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; \dots &amp;amp; a_{1n} \\ a_{21} &amp;amp; a_{22} &amp;amp; \dots &amp;amp; a_{2n} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ a_{n1} &amp;amp; a_{n2} &amp;amp; \dots &amp;amp; a_{nn} \\ \end{bmatrix} $$
+的行列式，记作$|A|$
+$$ |A| = \begin{vmatrix} a_{11} &amp;amp; a_{12} &amp;amp; \dots &amp;amp; a_{1n} \\ a_{21} &amp;amp; a_{22} &amp;amp; \dots &amp;amp; a_{2n} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ a_{n1} &amp;amp; a_{n2} &amp;amp; \dots &amp;amp; a_{nn} \\ \end{vmatrix} $$&lt;/p>
+&lt;h5 id="性质1行列式转置值不变">性质1：行列式转置值不变&lt;/h5>
+&lt;p>$$ |A| = |A^T| $$&lt;/p>
+&lt;h5 id="性质2行列式的某一行列的公因子可以提到行列式外面">性质2⭐：行列式的某一行（列）的公因子可以提到行列式外面&lt;/h5>
+&lt;p>$$ |kA| = k^n|A| $$&lt;/p>
+&lt;h5 id="性质3ab--a--b">性质3：|AB| = |A| * |B|&lt;/h5>
+&lt;h4 id="伴随矩阵">伴随矩阵&lt;/h4>
+&lt;blockquote>
+&lt;p>只有方阵才有伴随矩阵。&lt;/p>
+&lt;/blockquote>
+&lt;p>求伴随矩阵的步骤：&lt;/p>
+&lt;p>$$ A = \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; \dots &amp;amp; a_{1n} \\ a_{21} &amp;amp; a_{22} &amp;amp; \dots &amp;amp; a_{2n} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ a_{n1} &amp;amp; a_{n2} &amp;amp; \dots &amp;amp; a_{nn} \\ \end{bmatrix} $$&lt;/p>
+&lt;ol>
+&lt;li>求A所有元素的代数余子式&lt;/li>
+&lt;/ol>
+&lt;p>$$ A_{ij} = (-1)^{i+j}M_{ij} $$&lt;/p>
+&lt;ol start="2">
+&lt;li>按行求的代数余子式按列放（第一行放在第一列，第二行放在第二列，&amp;hellip;）&lt;/li>
+&lt;/ol>
+&lt;p>$$ A^* = \begin{bmatrix} A_{11} &amp;amp; A_{21} &amp;amp; \dots &amp;amp; A_{n1} \\ A_{12} &amp;amp; A_{22} &amp;amp; \dots &amp;amp; A_{n2} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ A_{1n} &amp;amp; A_{2n} &amp;amp; \dots &amp;amp; A_{nn} \\ \end{bmatrix} $$&lt;/p>
+&lt;h5 id="定理1aa--aa--ae总是成立">定理1：$AA^* = A^*A = |A|E$（总是成立）&lt;/h5>
+&lt;p>证明：根据异乘变换零，&lt;/p>
+&lt;p>$$ A * A^* = \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; \dots &amp;amp; a_{1n} \\ a_{21} &amp;amp; a_{22} &amp;amp; \dots &amp;amp; a_{2n} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ a_{n1} &amp;amp; a_{n2} &amp;amp; \dots &amp;amp; a_{nn} \\ \end{bmatrix} * \begin{bmatrix} A_{11} &amp;amp; A_{21} &amp;amp; \dots &amp;amp; A_{n1} \\ A_{12} &amp;amp; A_{22} &amp;amp; \dots &amp;amp; A_{n2} \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ A_{1n} &amp;amp; A_{2n} &amp;amp; \dots &amp;amp; A_{nn} \\ \end{bmatrix} = \begin{bmatrix} a_{11}A_{11}+a_{12}A_{12}+\dots+a_{1n}A_{1n} &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; a_{21}A_{21}+a_{22}A_{22}+\dots+a_{2n}A_{2n} &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; a_{n1}A_{n1}+a_{n2}A_{n2}+\dots+a_{nn}A_{nn} \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ = \begin{bmatrix} |A| &amp;amp; 0 &amp;amp; \dots &amp;amp; 0 \\ 0 &amp;amp; |A| &amp;amp; \dots &amp;amp; 0 \\ \vdots &amp;amp; \vdots &amp;amp; \ddots &amp;amp; \vdots \\ 0 &amp;amp; 0 &amp;amp; \dots &amp;amp; |A| \\ \end{bmatrix} = |A|E $$&lt;/p>
+&lt;h5 id="定理2a--an-1">定理2：$|A^{*}| = |A|^{n-1}$&lt;/h5>
+&lt;h4 id="逆矩阵-1">逆矩阵&lt;/h4>
+&lt;blockquote>
+&lt;p>设A是n阶方阵，如果存在一个n阶方阵B，使得AB=BA=E（AB或BA等于单位矩阵）
+，那么称B是A的逆矩阵，记作$A^{-1}=B$，A称为可逆矩阵。&lt;/p>
+&lt;/blockquote>
+&lt;p>$$ |A^{-1}| = \frac{1}{|A|} $$
+$$ (A^T)^{-1} = (A^{-1})^T $$
+$$ (A^&lt;em>)^{-1} = (A^{-1})^&lt;/em> $$&lt;/p>
+&lt;h5 id="定理1未必所有的方阵都有逆矩阵">定理1：未必所有的方阵都有逆矩阵&lt;/h5>
+&lt;p>0矩阵没有逆矩阵，因为0矩阵乘以任何矩阵都是0矩阵。&lt;/p>
+&lt;h5 id="定理2如果a有逆矩阵那么a的逆矩阵是唯一的">定理2：如果A有逆矩阵，那么A的逆矩阵是唯一的&lt;/h5>
+&lt;p>$$设B和C都是A的逆矩阵，那么AB=BA=E,AC=CA=E$$&lt;/p>
+&lt;p>$$B=BE=B(AC)=(BA)C=EC=C$$&lt;/p>
+&lt;h5 id="定理3a可逆的充要条件是a0且a-1--fracaa">定理3：A可逆的充要条件是$|A|!=0$，且$A^{-1} = \frac{A^*}{|A|}$&lt;/h5>
+&lt;p>如果A可逆，那么$|A&lt;em>A^{-1}| = |A|&lt;/em>|A^{-1}| = |E| = 1(|A|!=0)$&lt;/p>
+&lt;h5 id="求逆矩阵方法">求逆矩阵方法&lt;/h5>
+&lt;ol>
+&lt;li>伴随矩阵法&lt;/li>
+&lt;li>初等变换法（一般使用）&lt;/li>
+&lt;/ol>
+&lt;p>$例：A = \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 2 &amp;amp; 1 &amp;amp; 3 \\ 1 &amp;amp; 1 &amp;amp; 4 \\ \end{bmatrix},求A^{-1}$&lt;/p>
+&lt;p>&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;速通&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&lt;/p>
+&lt;h4 id="矩阵的初等变换">矩阵的初等变换&lt;/h4>
+&lt;h5 id="1行交换">1.行交换&lt;/h5>
+&lt;p>矩阵的两行交换&lt;/p>
+&lt;p>$$ \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 2 &amp;amp; 1 &amp;amp; 3 \\ 1 &amp;amp; 1 &amp;amp; 4 \\ \end{bmatrix} \xrightarrow{r_1 &amp;lt;=&amp;gt; r_3} \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 4 \\ 2 &amp;amp; 1 &amp;amp; 3 \\ 1 &amp;amp; 1 &amp;amp; 1 \\ \end{bmatrix} $$&lt;/p>
+&lt;h5 id="2行乘以一个非零数">2.行乘以一个非零数&lt;/h5>
+&lt;p>矩阵的某一行乘以一个非零数&lt;/p>
+&lt;p>$$ \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 2 &amp;amp; 1 &amp;amp; 3 \\ 1 &amp;amp; 1 &amp;amp; 4 \\ \end{bmatrix} \xrightarrow{r_2 * 2} \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 4 &amp;amp; 2 &amp;amp; 6 \\ 1 &amp;amp; 1 &amp;amp; 4 \\ \end{bmatrix} $$&lt;/p>
+&lt;h5 id="3一行乘以一个非零数加到另一行">3.一行乘以一个非零数加到另一行&lt;/h5>
+&lt;p>矩阵的某一行乘以一个非零数加到另一行&lt;/p>
+&lt;p>$$ \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 2 &amp;amp; 1 &amp;amp; 3 \\ 1 &amp;amp; 1 &amp;amp; 4 \\ \end{bmatrix} \xrightarrow{r_2 - 2r_1} \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 0 &amp;amp; -1 &amp;amp; 1 \\ 1 &amp;amp; 1 &amp;amp; 4 \\ \end{bmatrix} $$&lt;/p>
+&lt;h6 id="初等变换求逆矩阵">初等变换求逆矩阵&lt;/h6>
+&lt;p>初等变换求逆矩阵的步骤如下：&lt;/p>
+&lt;ol>
+&lt;li>首先，将矩阵A和单位矩阵E写在一起，形成一个2x2的矩阵。即$(A,E)$。&lt;/li>
+&lt;li>对矩阵A进行初等行变换，即对矩阵A进行&lt;strong>行变换&lt;/strong>，每次变换的结果都记录在新的矩阵中。&lt;/li>
+&lt;li>当矩阵A变为单位矩阵E时，即完成了所有的初等行变换。此时，矩阵A的逆矩阵就求出来了，记为$(E,A^{-1})$&lt;/li>
+&lt;li>最后，将$(E,A^{-1})$拆分为单独的矩阵$E$和$A^{-1}$，即可得到A的逆矩阵$A^{-1}$。&lt;/li>
+&lt;/ol>
+&lt;p>注意：这个方法仅适用于可逆矩阵，如果矩阵A不可逆，那么该方法可能会失效。&lt;/p>
+&lt;p>例：求矩阵$A = \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 2 &amp;amp; 1 &amp;amp; 3 \\ 1 &amp;amp; 1 &amp;amp; 4 \\ \end{bmatrix}$的逆矩阵。&lt;/p>
+&lt;p>$$ (A,E) = \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 &amp;amp; 1 &amp;amp; 0 &amp;amp; 0 \\ 2 &amp;amp; 1 &amp;amp; 3 &amp;amp; 0 &amp;amp; 1 &amp;amp; 0 \\ 1 &amp;amp; 1 &amp;amp; 4 &amp;amp; 0 &amp;amp; 0 &amp;amp; 1 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>将第一行乘以-2加到第二行&lt;/p>
+&lt;p>$$ \xrightarrow{r_2 - 2r_1} \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 &amp;amp; 1 &amp;amp; 0 &amp;amp; 0 \\ 0 &amp;amp; -1 &amp;amp; 1 &amp;amp; -2 &amp;amp; 1 &amp;amp; 0 \\ 1 &amp;amp; 1 &amp;amp; 4 &amp;amp; 0 &amp;amp; 0 &amp;amp; 1 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ &amp;hellip; $$&lt;/p>
+&lt;p>$$ \xrightarrow{} \begin{bmatrix} 1 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 1 \\ 0 &amp;amp; 1 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; 1 &amp;amp; -\frac{1}{3} &amp;amp; 0 &amp;amp; \frac{1}{3} \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ (E,A^{-1}) = \begin{bmatrix} 1 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 1 \\ 0 &amp;amp; 1 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; 1 &amp;amp; -\frac{1}{3} &amp;amp; 0 &amp;amp; \frac{1}{3} \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ A^{-1} = \begin{bmatrix} 0 &amp;amp; 0 &amp;amp; 1 \\ 0 &amp;amp; 0 &amp;amp; 0 \\ -\frac{1}{3} &amp;amp; 0 &amp;amp; \frac{1}{3} \\ \end{bmatrix} $$&lt;/p>
+&lt;p>例2：已知矩阵$A = \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 1 \\ 2 &amp;amp; 1 &amp;amp; 3 \\ 1 &amp;amp; 1 &amp;amp; 4 \\ \end{bmatrix}$，矩阵$B = \begin{bmatrix} 1 &amp;amp; 0 &amp;amp; 0 \\ 0 &amp;amp; 1 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; 1 \\ \end{bmatrix}$，$A*X = B$，求X。&lt;/p>
+&lt;p>$$ \xlongequal{左乘} A^{-1} * A * X = A^{-1} * B $$
+$$ \xrightarrow{} EX = A^{-1} * B $$
+$$ \xrightarrow{} X = A^{-1} * B $$
+$$ &amp;hellip; $$&lt;/p>
+&lt;p>例3：A为3阶矩阵，$|A| = \frac{1}{2}$，求则$|(2A)^{-1}-5A^*|$&lt;/p>
+&lt;p>$$ |(2A)^{-1}-5A^&lt;em>| $$
+$$ \xlongequal{根据A^{-1} = \frac{A^&lt;/em>}{|A|}} |(2A)^{-1}- \frac{5}{2}A^{-1}|$$
+$$ \xlongequal{根据( kA )^{-1} = \frac{1}{k}A^{-1}} | \frac{1}{2}A^{-1}- \frac{5}{2}A^{-1}| $$
+$$ = | -2A^{-1} |$$&lt;/p>
+&lt;p>$$ \because |A^{-1}| = \frac{1}{|A|} = \frac{1}{\frac{1}{2}} = 2 $$&lt;/p>
+&lt;p>$$ \xlongequal{根据|kA| = k^n|A|} |(-2)^3|A^{-1}| = -8* \frac{1}{|A|} = -8*2 = -16 $$&lt;/p>
+&lt;h4 id="分块矩阵">分块矩阵&lt;/h4>
+&lt;ol>
+&lt;li>拉普拉斯展开法&lt;/li>
+&lt;/ol>
+&lt;p>A-m阶，B-n阶，O为零矩阵，*为任意矩阵&lt;/p>
+&lt;p>$$ \begin{vmatrix} A &amp;amp; * \\ O &amp;amp; B \end{vmatrix} = \begin{vmatrix} A &amp;amp; O \\ * &amp;amp; B \end{vmatrix} = |A|*|B| $$&lt;/p>
+&lt;p>$$ \begin{vmatrix} A &amp;amp; O \\* &amp;amp; B \end{vmatrix} = \begin{vmatrix} A &amp;amp; * \\ O &amp;amp; B \end{vmatrix} = (-1)^{mn}|A|*|B| $$&lt;/p>
+&lt;p>如：&lt;/p>
+&lt;p>$$ \begin{vmatrix} 1 &amp;amp; 2 &amp;amp; 0 &amp;amp; 0 \\ 3 &amp;amp; 4 &amp;amp; 0 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; -1 &amp;amp; 1 \\ 0 &amp;amp; 0 &amp;amp; 2 &amp;amp; 1 \\ \end{vmatrix} = \begin{vmatrix} 1 &amp;amp; 2 \\ 3 &amp;amp; 4 \\ \end{vmatrix} * \begin{vmatrix} -1 &amp;amp; 1 \\ 2 &amp;amp; 1 \\ \end{vmatrix} $$&lt;/p>
+&lt;ol start="2">
+&lt;li>分块对角矩阵的逆矩阵&lt;/li>
+&lt;/ol>
+&lt;p>$$ \begin{bmatrix} A &amp;amp; O \\ O &amp;amp; B \end{bmatrix}^{-1} = \begin{bmatrix} A^{-1} &amp;amp; O \\ O &amp;amp; B^{-1} \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \begin{bmatrix} O&amp;amp;A \\ B&amp;amp;O \end{bmatrix}^{-1} = \begin{bmatrix} O &amp;amp; B^{-1} \\ A^{-1} &amp;amp; O \end{bmatrix} (注意顺序) $$&lt;/p>
+&lt;p>$$ \begin{bmatrix} \lambda_1 &amp;amp; 0&amp;amp; 0 \\ 0 &amp;amp; \lambda_2 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; \lambda_3 \end{bmatrix}^{n} = \begin{bmatrix} \lambda_1^n &amp;amp; 0&amp;amp; 0 \\ 0 &amp;amp; \lambda_2^n &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; \lambda_3^n \end{bmatrix} $$&lt;/p>
+&lt;p>如：
+$$ \begin{bmatrix} 0 &amp;amp; 1 &amp;amp; 0 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; 2 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 3 \\ 4 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \end{bmatrix}^{-1} = \begin{bmatrix} 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; \frac{1}{4} \\ 1 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \\ 0&amp;amp;\frac{1}{2} &amp;amp; 0 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; \frac{1}{3} &amp;amp; 0 \end{bmatrix} $$&lt;/p>
+&lt;h1 id="向量与线性方程组">向量与线性方程组&lt;/h1>
+&lt;h2 id="方程组">方程组&lt;/h2>
+&lt;h3 id="解方程组">解方程组&lt;/h3>
+&lt;p>$$ \begin{cases} x_1 + 2x_2 = 3 \\ 2x_1 - x_2 = 1 \end{cases} $$&lt;/p>
+&lt;p>$$ \leftrightarrow \begin{bmatrix} x_1 + 2x_2 \\ 2x_1 - x_2 \end{bmatrix} = \begin{bmatrix} 3 \\ 1 \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \leftrightarrow \begin{bmatrix} 1 &amp;amp; 2 \\ 2 &amp;amp; -1 \end{bmatrix} * \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix} 3 \\ 1 \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \leftrightarrow A * X = \beta $$&lt;/p>
+&lt;blockquote>
+&lt;p>A-系数矩阵&lt;/p>
+&lt;p>$(A, \beta)$-增广矩阵&lt;/p>
+&lt;/blockquote>
+&lt;p>$$ \begin{cases} 当 \beta = 0 时,A * X = 0,称为齐次方程组 \\ 当 \beta \neq 0 时,A * X = \beta,称为非齐次方程组 \\ \end{cases} $$&lt;/p>
+&lt;h5 id="行阶梯形矩阵">行阶梯形矩阵&lt;/h5>
+&lt;ol>
+&lt;li>在矩阵上画出一条阶梯线，使得阶梯线以下的所有元素都为0&lt;/li>
+&lt;li>每级阶梯仅占一行，不仅一列&lt;/li>
+&lt;/ol>
+&lt;p>$$ \begin{bmatrix} 1 &amp;amp; 2 &amp;amp; 3 \\ 0 &amp;amp; 1 &amp;amp; 2 \\ 0 &amp;amp; 0 &amp;amp; 1 \\ \end{bmatrix} $$&lt;/p>
+&lt;h5 id="行最简阶梯形矩阵">行最简阶梯形矩阵&lt;/h5>
+&lt;p>1.是行阶梯形矩阵
+2.每级阶梯右边的&lt;strong>第一个元素&lt;/strong>为1，且&lt;strong>这个元素所在列的其他元素&lt;/strong>都为0&lt;/p>
+&lt;h5 id="解方程组通解的步骤">解方程组通解的步骤&lt;/h5>
+&lt;blockquote>
+&lt;p>齐次方程组的解法：&lt;/p>
+&lt;ol>
+&lt;li>利用初等变换化将A化为行最简阶梯形矩阵&lt;/li>
+&lt;/ol>
+&lt;p>非齐次方程组的解法：&lt;/p>
+&lt;ol>
+&lt;li>利用初等变换化将(A,β)化为行最简阶梯形矩阵&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>①齐次方程组：
+$$ \begin{cases} x_1 + x_2 - x_4 = 0 \\ 2x_1+x_2+2x_3 -2x_4 = 0 \\ 3x_1+2x_2+2x_3-3x_4 = 0 \\ \end{cases} $$&lt;/p>
+&lt;p>$$ \because 系数矩阵A = \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 0 &amp;amp; -1 \\ 2 &amp;amp; 1 &amp;amp; 2 &amp;amp; -2 \\ 3 &amp;amp; 2 &amp;amp; 2 &amp;amp; -3 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ 初等变换： \begin{bmatrix} 1 &amp;amp; 0 &amp;amp; 2 &amp;amp; -1 \\ 0 &amp;amp; 1 &amp;amp; -2 &amp;amp; 0 \\ 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \therefore \begin{cases} x_1 + 2x_3 - x_4 = 0 \\ x_2 - 2x_3 = 0 \\ \end{cases} = \begin{cases} x_1 = -2x_3 + x_4 \\ x_2 = 2x_3 \\ \end{cases} $$&lt;/p>
+&lt;p>$$ 令x_3 = k_1,x_4 = k_2$$&lt;/p>
+&lt;p>$$ \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \\ \end{bmatrix} = \begin{bmatrix} -2k_1 + k_2 \\ 2k_1 \\ k_1 \\ k_2 \\ \end{bmatrix} = k_1 * \begin{bmatrix} -2 \\ 2 \\ 1 \\ 0 \\ \end{bmatrix} + k_2 * \begin{bmatrix} 1 \\ 0 \\ 0 \\ 1 \\ \end{bmatrix} (\forall k_1,k_2 \in R) $$&lt;/p>
+&lt;p>k后面的向量称为齐次方程组的基础解系，记作$\alpha_1,\alpha_2$。$(-2,2,1,0)^T,(1,0,0,1)^T$
+$$A_{m*n} X = 0 基础解系的向量个数为n-r(A)，n为未知数个数，r(A)为A的秩$$&lt;/p>
+&lt;p>②非齐次方程组：
+$$ \begin{cases} x_1 + x_2 - x_4 = 2 \\ 2x_1+x_2+2x_3 -2x_4 = 5 \\ 3x_1+2x_2+2x_3-3x_4 = 5 \\ \end{cases} $$&lt;/p>
+&lt;p>$$ \because 增广矩阵(A,\beta) = \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 0 &amp;amp; -1 &amp;amp; 2 \\ 2 &amp;amp; 1 &amp;amp; 2 &amp;amp; -2 &amp;amp; 5 \\ 3 &amp;amp; 2 &amp;amp; 2 &amp;amp; -3 &amp;amp; 5 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ 初等变换： \begin{bmatrix} 1 &amp;amp; 0 &amp;amp; 2 &amp;amp; -1 &amp;amp; 3 \\ 0 &amp;amp; 1 &amp;amp; -2 &amp;amp; 0 &amp;amp; -1 \\ 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \\ \end{bmatrix} $$&lt;/p>
+&lt;p>$$ \therefore \begin{cases} x_1 + 2x_3 - x_4 = 3 \\ x_2 - 2x_3 = -1 \\ \end{cases} = \begin{cases} x_1 = -2x_3 + x_4 + 3 \\ x_2 = 2x_3 - 1 \\ \end{cases} $$&lt;/p>
+&lt;p>$$ 令x_3 = k_1,x_4 = k_2$$&lt;/p>
+&lt;p>$$ \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \\ \end{bmatrix} = \begin{bmatrix} -2k_1 + k_2 + 3 \\ 2k_1 - 1 \\ k_1 \\ k_2 \\ \end{bmatrix} = k_1 * \begin{bmatrix} -2 \\ 2 \\ 1 \\ 0 \\ \end{bmatrix} + k_2 * \begin{bmatrix} 1 \\ 0 \\ 0 \\ 1 \\ \end{bmatrix} + \begin{bmatrix} 3 \\ -1 \\ 0 \\ 0 \\ \end{bmatrix} (\forall k_1,k_2 \in R) $$&lt;/p>
+&lt;p>$$ k_1 * \begin{bmatrix} -2 \\ 2 \\ 1 \\ 0 \\ \end{bmatrix} + k_2 * \begin{bmatrix} 1 \\ 0 \\ 0 \\ 1 \\ \end{bmatrix} 称为齐次方程组的通解,\begin{bmatrix} 3 \\ -1 \\ 0 \\ 0 \\ \end{bmatrix} 是自身的一个解，称为非齐次方程组的一个特解 $$&lt;/p>
+&lt;h2 id="向量组的线性表示与线性相关性">向量组的线性表示与线性相关性&lt;/h2>
+&lt;h3 id="向量组的线性表示">向量组的线性表示&lt;/h3>
+&lt;p>$$ \exists x_1,x_2,x_3, 使得x_1 * \alpha_1 + x_2 * \alpha_2 + x_3 * \alpha_3 = \beta \\ \Leftrightarrow \beta 可以由 \alpha_1,\alpha_2,\alpha_3 线性表示 \\ \Leftrightarrow \begin{bmatrix} \alpha_1 &amp;amp; \alpha_2 &amp;amp; \alpha_3 \end{bmatrix} * \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ \end{bmatrix} = \beta 有解
+\\ \Leftrightarrow A * X = \beta 有解 $$&lt;/p>
+&lt;p>$$ \begin{cases} 代数上：\beta 由A的列向量组线性表示的系数就是A*X = \beta 的解 \\ 几何上：\beta由A的列向量组线性表示 \rightarrow \beta 与\a_1,\a_2,\a_3在同一n维空间内 \\ \end{cases} $$&lt;/p></description></item><item><title>微分方程</title><link>https://Kayleh.com/post/differential-equation/</link><pubDate>Mon, 05 Oct 2020 22:55:36 +0800</pubDate><guid>https://Kayleh.com/post/differential-equation/</guid><description>&lt;h1 id="微分方程">微分方程&lt;/h1>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601913199716.png"
+loading="lazy"
+alt="1601913199716"
+>&lt;/p>
+&lt;h4 id="定义">定义：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601913450223.png"
+loading="lazy"
+alt="1601913450223"
+>&lt;/p>
+&lt;h4 id="微分方程的阶">微分方程的阶：&lt;/h4>
+&lt;p>导数的最高阶数&lt;/p>
+&lt;p>二阶：&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="通解">通解&lt;/h4>
+&lt;p>独立常数的个数=阶数，比如二阶的最终的解里有c1，c2两个独立的常数&lt;/p>
+&lt;h4 id="特解">特解&lt;/h4>
+&lt;p>如果常数都确定的解叫特解&lt;/p>
+&lt;h4 id="初始条件">初始条件&lt;/h4>
+&lt;h5 id="解题过程">解题过程&lt;/h5>
+&lt;p>一般把初始条件代入到通解里，确定常数的值，得到的就是特解&lt;/p>
+&lt;h1 id="一阶微分方程">一阶微分方程&lt;/h1>
+&lt;h3 id="可分离变量">可分离变量&lt;/h3>
+&lt;blockquote>
+&lt;p>分离变量，同时积分&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="例题">例题：&lt;/h4>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601974381957.png"
+loading="lazy"
+alt="1601974381957"
+>&lt;/p>
+&lt;h3 id="齐次方程">齐次方程&lt;/h3>
+&lt;p>dy/dx=f(y/x)&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601974805152.png"
+loading="lazy"
+alt="1601974805152"
+>&lt;/p>
+&lt;h4 id="例题-1">例题&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601975659287.png"
+loading="lazy"
+alt="1601975659287"
+>&lt;/p>
+&lt;p>​ ↓&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601975852227.png"
+loading="lazy"
+alt="1601975852227"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601976189378.png"
+loading="lazy"
+alt="1601976189378"
+>&lt;/p>
+&lt;h3 id="一阶线性方程">一阶线性方程&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601976400936.png"
+loading="lazy"
+alt="1601976400936"
+>&lt;/p>
+&lt;p>一阶线性齐次微分方程：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601976462021.png"
+loading="lazy"
+alt="1601976462021"
+>&lt;/p>
+&lt;p>齐次方程的解&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601976680970.png"
+loading="lazy"
+alt="1601976680970"
+>&lt;/p>
+&lt;p>非齐次方程的解：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601977077686.png"
+loading="lazy"
+alt="1601977077686"
+>&lt;/p>
+&lt;h4 id="例题-2">例题&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601977447388.png"
+loading="lazy"
+alt="1601977447388"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601978340530.png"
+loading="lazy"
+alt="1601978340530"
+>&lt;/p>
+&lt;h3 id="伯努利方程">#伯努利方程&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn2/%e5%be%ae%e5%88%86%e6%96%b9%e7%a8%8b/1601978484353.png"
+loading="lazy"
+alt="1601978484353"
+>&lt;/p></description></item><item><title>级数</title><link>https://Kayleh.com/post/series/</link><pubDate>Sun, 04 Oct 2020 13:24:36 +0800</pubDate><guid>https://Kayleh.com/post/series/</guid><description>&lt;h2 id="无穷级数">无穷级数&lt;/h2>
+&lt;p>等比数列&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601790764370.png"
+loading="lazy"
+alt="1601790764370"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601790914893.png"
+loading="lazy"
+alt="1601790914893"
+>&lt;/p>
+&lt;p>例题&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601791340789.png"
+loading="lazy"
+alt="1601791340789"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601791680034.png"
+loading="lazy"
+alt="1601791680034"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601792414977.png"
+loading="lazy"
+alt="1601792414977"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601793241870.png"
+loading="lazy"
+alt="1601793241870"
+>&lt;/p>
+&lt;h5 id="调和级数">调和级数&lt;/h5>
+&lt;blockquote>
+&lt;p>调和级数是发散的&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601793542661.png"
+loading="lazy"
+alt="1601793542661"
+>&lt;/p>
+&lt;h4 id="性质">性质&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601793732086.png"
+loading="lazy"
+alt="1601793732086"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601793936645.png"
+loading="lazy"
+alt="1601793936645"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>相反则未必&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601794096106.png"
+loading="lazy"
+alt="1601794096106"
+>&lt;/p>
+&lt;p>敛散性不变&lt;/p>
+&lt;p>如果级数收敛，通项是趋于0的。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601794310032.png"
+loading="lazy"
+alt="1601794310032"
+>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>通项趋于0，未必是收敛的，&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>通项不趋于0，一定是不收敛的。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601794730888.png"
+loading="lazy"
+alt="1601794730888"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601795245209.png"
+loading="lazy"
+alt="1601795245209"
+>&lt;/p>
+&lt;p>通项不趋于0必发散&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601795312952.png"
+loading="lazy"
+alt="1601795312952"
+>&lt;/p>
+&lt;p>去掉了第一项，敛散性不变&lt;/p>
+&lt;h2 id="正项级数">正项级数&lt;/h2>
+&lt;p>大收必小收 小散必大散&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601804217057.png"
+loading="lazy"
+alt="1601804217057"
+>&lt;/p>
+&lt;p>例题&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601804688577.png"
+loading="lazy"
+alt="1601804688577"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601805099865.png"
+loading="lazy"
+alt="1601805099865"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601805233170.png"
+loading="lazy"
+alt="1601805233170"
+>&lt;/p>
+&lt;p>公式&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601825215690.png"
+loading="lazy"
+alt="1601825215690"
+>&lt;/p>
+&lt;h4 id="例题">例题&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601825904805.png"
+loading="lazy"
+alt="1601825904805"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>等于1说明分子分母有相同的敛散性,1/n是发散的&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601826789198.png"
+loading="lazy"
+alt="1601826789198"
+>&lt;/p>
+&lt;h3 id="达朗贝尔判别法">达朗贝尔判别法&lt;/h3>
+&lt;p>1&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601827007419.png"
+loading="lazy"
+alt="1601827007419"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601827327209.png"
+loading="lazy"
+alt="1601827327209"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601827440373.png"
+loading="lazy"
+alt="1601827440373"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601828186038.png"
+loading="lazy"
+alt="1601828186038"
+>2&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601828466075.png"
+loading="lazy"
+alt="1601828466075"
+>&lt;/p>
+&lt;p>解题过程：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601828887182.png"
+loading="lazy"
+alt="1601828887182"
+>&lt;/p>
+&lt;h2 id="任意项级数">任意项级数&lt;/h2>
+&lt;p>和调和级数相比，这个是收敛的(“交错调和级数”)&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601829465113.png"
+loading="lazy"
+alt="1601829465113"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601829594795.png"
+loading="lazy"
+alt="1601829594795"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>证明$U^n$是递减的&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601871650150.png"
+loading="lazy"
+alt="1601871650150"
+>&lt;/p>
+&lt;h2 id="绝对值级数">绝对值级数&lt;/h2>
+&lt;h4 id="定理">定理：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601872096360.png"
+loading="lazy"
+alt="1601872096360"
+>&lt;/p>
+&lt;h4 id="绝对收敛">绝对收敛&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601872183627.png"
+loading="lazy"
+alt="1601872183627"
+>&lt;/p>
+&lt;ul>
+&lt;li>例题：&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;blockquote>
+&lt;p>先取绝对值，p级数是收敛的，这个就是绝对收敛的。&lt;/p>
+&lt;/blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;blockquote>
+&lt;p>取绝对值，是调和级数发散的，但是原来的是交错调和级数是收敛的，所以是条件收敛&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="定理-1">定理&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601872739222.png"
+loading="lazy"
+alt="1601872739222"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601872820329.png"
+loading="lazy"
+alt="1601872820329"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601872908387.png"
+loading="lazy"
+alt="1601872908387"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601873036417.png"
+loading="lazy"
+alt="1601873036417"
+>&lt;/p>
+&lt;h3 id="总结">总结&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601873460780.png"
+loading="lazy"
+alt="1601873460780"
+>&lt;/p>
+&lt;h4 id="例题-1">例题：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601908365663.png"
+loading="lazy"
+alt="1601908365663"
+>&lt;/p>
+&lt;h4 id="性质-1">性质：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e7%ba%a7%e6%95%b0/1601909335329.png"
+loading="lazy"
+alt="1601909335329"
+>&lt;/p></description></item><item><title>二重积分</title><link>https://Kayleh.com/post/double-integral/</link><pubDate>Fri, 02 Oct 2020 14:43:15 +0800</pubDate><guid>https://Kayleh.com/post/double-integral/</guid><description>&lt;h3 id="概念">概念&lt;/h3>
+&lt;p>体积&lt;/p>
+&lt;h3 id="几何含义">几何含义&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601621561773.png"
+loading="lazy"
+alt="1601621561773"
+>&lt;/p>
+&lt;h3 id="性质">性质&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601621872570.png"
+loading="lazy"
+alt="1601621872570"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601622019111.png"
+loading="lazy"
+alt="1601622019111"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601622207780.png"
+loading="lazy"
+alt="1601622207780"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601622538512.png"
+loading="lazy"
+alt="1601622538512"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601622624030.png"
+loading="lazy"
+alt="1601622624030"
+>&lt;/p>
+&lt;h2 id="直角坐标系的计算">直角坐标系的计算&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601628194665.png"
+loading="lazy"
+alt="1601628194665"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601628177270.png"
+loading="lazy"
+alt="1601628177270"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601628338192.png"
+loading="lazy"
+alt="1601628338192"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601628391367.png"
+loading="lazy"
+alt="1601628391367"
+>&lt;/p>
+&lt;h4 id="例题">例题：&lt;/h4>
+&lt;blockquote>
+&lt;p>x型是从左到右走&lt;/p>
+&lt;p>上边的函数写成上限，下边的函数写成下限&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601628609123.png"
+loading="lazy"
+alt="1601628609123"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>y型是从下到上走&lt;/p>
+&lt;p>左边的函数写成下限，右边的函数写成上限&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601629244702.png"
+loading="lazy"
+alt="1601629244702"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601629522050.png"
+loading="lazy"
+alt="1601629522050"
+>&lt;/p>
+&lt;h4 id="特殊">特殊&lt;/h4>
+&lt;p>矩形&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601629887174.png"
+loading="lazy"
+alt="1601629887174"
+>&lt;/p>
+&lt;p>分成两部分的：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601630012904.png"
+loading="lazy"
+alt="1601630012904"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601630687632.png"
+loading="lazy"
+alt="1601630687632"
+>&lt;/p>
+&lt;h2 id="极坐标的计算">极坐标的计算&lt;/h2>
+&lt;p>极坐标&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601661252410.png"
+loading="lazy"
+alt="1601661252410"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601661564115.png"
+loading="lazy"
+alt="1601661564115"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601662210072.png"
+loading="lazy"
+alt="1601662210072"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601778511764.png"
+loading="lazy"
+alt="1601778511764"
+>&lt;/p>
+&lt;h4 id="二重积分写成极坐标的表达方式">二重积分写成极坐标的表达方式&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601779046075.png"
+loading="lazy"
+alt="1601779046075"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601780186870.png"
+loading="lazy"
+alt="1601780186870"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601780625791.png"
+loading="lazy"
+alt="1601780625791"
+>&lt;/p>
+&lt;p>$-e^{-x}$求导是$e^{-x}$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%ba%8c%e9%87%8d%e7%a7%af%e5%88%86/1601782073282.png"
+loading="lazy"
+alt="1601782073282"
+>&lt;/p></description></item><item><title>偏导数</title><link>https://Kayleh.com/post/partial-derivative/</link><pubDate>Wed, 30 Sep 2020 13:38:35 +0800</pubDate><guid>https://Kayleh.com/post/partial-derivative/</guid><description>&lt;h3 id="在某点偏导的定义">在某点偏导的定义&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601445508700.png"
+loading="lazy"
+alt="1601445508700"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601445566320.png"
+loading="lazy"
+alt="1601445566320"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>对y求导时，是把x看作常数，对y求导&lt;/p>
+&lt;p>对x求导时，是把y看作常数，对x求导&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601445908951.png"
+loading="lazy"
+alt="1601445908951"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601483632915.png"
+loading="lazy"
+alt="1601483632915"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601484198275.png"
+loading="lazy"
+alt="1601484198275"
+>&lt;/p>
+&lt;h4 id="多元函数可导不连续">多元函数可导不连续&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601484542681.png"
+loading="lazy"
+alt="1601484542681"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601485323277.png"
+loading="lazy"
+alt="1601485323277"
+>&lt;/p>
+&lt;h4 id="几何意义">几何意义&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601486051149.png"
+loading="lazy"
+alt="1601486051149"
+>&lt;/p>
+&lt;h4 id="二阶偏导数和混合偏导">二阶偏导数和混合偏导&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601486294681.png"
+loading="lazy"
+alt="1601486294681"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>先求x再求y跟先求y再求x时一样的&lt;/p>
+&lt;/blockquote>
+&lt;p>如果两个混合二阶偏导数在区域d上是连续的。&lt;/p>
+&lt;h3 id="全微分">全微分&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601519540974.png"
+loading="lazy"
+alt="1601519540974"
+>&lt;/p>
+&lt;p>x，y都发生的变化引起了z的变化&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601521286233.png"
+loading="lazy"
+alt="1601521286233"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601521299461.png"
+loading="lazy"
+alt="1601521299461"
+>&lt;/p>
+&lt;h4 id="定义">定义：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601522781003.png"
+loading="lazy"
+alt="1601522781003"
+>&lt;/p>
+&lt;h4 id="可微必要条件">可微必要条件&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601522951253.png"
+loading="lazy"
+alt="1601522951253"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601524573062.png"
+loading="lazy"
+alt="1601524573062"
+>&lt;/p>
+&lt;p>偏导存在只是可微的必要条件。&lt;/p>
+&lt;h4 id="可微的充分条件">可微的充分条件&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601537220332.png"
+loading="lazy"
+alt="1601537220332"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;blockquote>
+&lt;p>一个全微分等于两个偏微分之和。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601538273461.png"
+loading="lazy"
+alt="1601538273461"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601538416772.png"
+loading="lazy"
+alt="1601538416772"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601539670990.png"
+loading="lazy"
+alt="1601539670990"
+>&lt;/p>
+&lt;h2 id="多元复合函数求导">多元复合函数求导&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601543140863.png"
+loading="lazy"
+alt="1601543140863"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601544657228.png"
+loading="lazy"
+alt="1601544657228"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>x对x求导=1&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="例题">例题：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601546031624.png"
+loading="lazy"
+alt="1601546031624"
+>&lt;/p>
+&lt;h2 id="隐函数求导">隐函数求导&lt;/h2>
+&lt;h3 id="定理1">定理1&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="例题-1">例题：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601556049588.png"
+loading="lazy"
+alt="1601556049588"
+>&lt;/p>
+&lt;h3 id="定理2">定理2：&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601556490422.png"
+loading="lazy"
+alt="1601556490422"
+>&lt;/p>
+&lt;h4 id="例题-2">例题&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601556789370.png"
+loading="lazy"
+alt="1601556789370"
+>&lt;/p>
+&lt;h3 id="定理3">定理3&lt;/h3>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601570240705.png"
+loading="lazy"
+alt="1601570240705"
+>&lt;/p>
+&lt;p>###################&lt;/p>
+&lt;h3 id="克莱姆法则">克莱姆法则&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%81%8f%e5%af%bc%e6%95%b0/1601571263222.png"
+loading="lazy"
+alt="1601571263222"
+>&lt;/p>
+&lt;h3 id="二元函数的极值">二元函数的极值&lt;/h3></description></item><item><title>多元函数</title><link>https://Kayleh.com/post/multi-function/</link><pubDate>Tue, 29 Sep 2020 01:10:02 +0800</pubDate><guid>https://Kayleh.com/post/multi-function/</guid><description>&lt;h1 id="空间解析几何">空间解析几何&lt;/h1>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601354294435.png"
+loading="lazy"
+alt="1601354294435"
+>&lt;/p>
+&lt;p>两点之间距离&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601354442692.png"
+loading="lazy"
+alt="1601354442692"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601354799490.png"
+loading="lazy"
+alt="1601354799490"
+>&lt;/p>
+&lt;h3 id="平面方程">&lt;strong>平面方程&lt;/strong>&lt;/h3>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601354842773.png"
+loading="lazy"
+alt="1601354842773"
+>&lt;/p>
+&lt;h3 id="球面方程">球面方程&lt;/h3>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601354949365.png"
+loading="lazy"
+alt="1601354949365"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601355067816.png"
+loading="lazy"
+alt="1601355067816"
+>&lt;/p>
+&lt;p>z是正的表示求的上半部分，负的表示下半部分。&lt;/p>
+&lt;p>旋转抛物面：&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601355316536.png"
+loading="lazy"
+alt="1601355316536"
+>&lt;/p>
+&lt;p>双曲抛物面：&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601355447432.png"
+loading="lazy"
+alt="1601355447432"
+>&lt;/p>
+&lt;h1 id="多元函数">多元函数&lt;/h1>
+&lt;p>邻域&lt;/p>
+&lt;p>开集：所有的点都是内点&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601398417032.png"
+loading="lazy"
+alt="1601398417032"
+>&lt;/p>
+&lt;p>闭区域：既包含内点和边界点&lt;/p>
+&lt;h3 id="二元函数的极限">二元函数的极限&lt;/h3>
+&lt;blockquote>
+&lt;p>证明极限不存在&lt;/p>
+&lt;p>找两种不同的逼近方式&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601399459395.png"
+loading="lazy"
+alt="1601399459395"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601399650482.png"
+loading="lazy"
+alt="1601399650482"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601399792399.png"
+loading="lazy"
+alt="1601399792399"
+>&lt;/p>
+&lt;p>求极限&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601400065760.png"
+loading="lazy"
+alt="1601400065760"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601400252209.png"
+loading="lazy"
+alt="1601400252209"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601400533096.png"
+loading="lazy"
+alt="1601400533096"
+>&lt;/p>
+&lt;h3 id="连续">连续&lt;/h3>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e5%a4%9a%e5%85%83%e5%87%bd%e6%95%b0%5c1601400850590.png"
+loading="lazy"
+alt="1601400850590"
+>&lt;/p></description></item><item><title>广义积分和瑕积分</title><link>https://Kayleh.com/post/generalized-integral/</link><pubDate>Mon, 28 Sep 2020 21:58:19 +0800</pubDate><guid>https://Kayleh.com/post/generalized-integral/</guid><description>&lt;h1 id="广义积分">广义积分&lt;/h1>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601302982305.png"
+loading="lazy"
+alt="1601302982305"
+>&lt;/p>
+&lt;h3 id="无穷限积分">无穷限积分&lt;/h3>
+&lt;p>①上限是无穷的，就对b求导&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601303240702.png"
+loading="lazy"
+alt="1601303240702"
+>&lt;/p>
+&lt;p>如果极限存在，就是收敛的，如果不存在，就是发散的。&lt;/p>
+&lt;p>②下限是无穷的，就对a求导&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601303277989.png"
+loading="lazy"
+alt="1601303277989"
+>&lt;/p>
+&lt;p>③上下限都是无穷&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601303420141.png"
+loading="lazy"
+alt="1601303420141"
+>&lt;/p>
+&lt;p>结合①和②来求。&lt;/p>
+&lt;h4 id="例题">例题：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601303693780.png"
+loading="lazy"
+alt="1601303693780"
+>&lt;/p>
+&lt;p>广义的牛顿-莱布尼茨公式&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601303809560.png"
+loading="lazy"
+alt="1601303809560"
+>&lt;/p>
+&lt;h5 id="总结">总结：&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601303899003.png"
+loading="lazy"
+alt="1601303899003"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601304242138.png"
+loading="lazy"
+alt="1601304242138"
+>&lt;/p>
+&lt;h3 id="性质">性质&lt;/h3>
+&lt;blockquote>
+&lt;p>-也收敛&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601304752667.png"
+loading="lazy"
+alt="1601304752667"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>2）第二个性质。反之，不一定&lt;/p>
+&lt;/blockquote>
+&lt;p>分部积分和换元积分也成立。&lt;/p>
+&lt;h3 id="收敛判定">收敛判定&lt;/h3>
+&lt;p>定理：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601305473068.png"
+loading="lazy"
+alt="1601305473068"
+>&lt;/p>
+&lt;h4 id="比较判别法">★★★比较判别法&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601305670196.png"
+loading="lazy"
+alt="1601305670196"
+>&lt;/p>
+&lt;p>大敛则小敛，小散大必散&lt;/p>
+&lt;blockquote>
+&lt;p>找一个比被积函数大的易比函数进行比较&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601306623507.png"
+loading="lazy"
+alt="1601306623507"
+>&lt;/p>
+&lt;hr>
+&lt;h3 id="绝对收敛条件收敛">绝对收敛、条件收敛&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601307238632.png"
+loading="lazy"
+alt="1601307238632"
+>&lt;/p>
+&lt;p>绝对收敛必收敛&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%b9%bf%e4%b9%89%e7%a7%af%e5%88%86/1601308675891.png"
+loading="lazy"
+alt="1601308675891"
+>&lt;/p>
+&lt;h2 id="瑕积分">#瑕积分&lt;/h2></description></item><item><title>定积分</title><link>https://Kayleh.com/post/definite-integral/</link><pubDate>Sat, 26 Sep 2020 20:38:49 +0800</pubDate><guid>https://Kayleh.com/post/definite-integral/</guid><description>&lt;h1 id="定积分">定积分&lt;/h1>
+&lt;h3 id="性质">性质&lt;/h3>
+&lt;blockquote>
+&lt;p>插入分点，区间内取任意值，求任意值的函数值，$△x_n$小区间的长度&lt;/p>
+&lt;p>拉姆达是最大的区间&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601053742391.png"
+loading="lazy"
+alt="1601053742391"
+>&lt;/p>
+&lt;h3 id="定义">定义&lt;/h3>
+&lt;p>$f(x)$在$[a,b]$有界，在$[a,b]$任意插入分点&lt;/p>
+&lt;p>分成n个区间，△x_1,△x_2&amp;hellip;.△x_n,任取一点 $\xi_i$&lt;/p>
+&lt;p>$$\int_a^b{f(x)dx}=\lim_{\lambda \to 0} \sum_{i=1}^n{f(\xi_i)△x_i}$$&lt;/p>
+&lt;p>$$\lambda=max{△x_1&amp;hellip;△x_n}$$&lt;/p>
+&lt;h4 id="注意">注意：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601055940188.png"
+loading="lazy"
+alt="1601055940188"
+>&lt;/p>
+&lt;p>两个图像都是一样的&lt;/p>
+&lt;h3 id="定理">定理&lt;/h3>
+&lt;p>1）连续就可积&lt;/p>
+&lt;p>2）有界，有限个间断点，可积&lt;/p>
+&lt;h3 id="几何意义">几何意义&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601056351353.png"
+loading="lazy"
+alt="1601056351353"
+>&lt;/p>
+&lt;p>②积分等于面积的相反数&lt;/p>
+&lt;h3 id="例题">例题&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601056797153.png"
+loading="lazy"
+alt="1601056797153"
+>&lt;/p>
+&lt;h2 id="定积分的近似计算">定积分的近似计算&lt;/h2>
+&lt;h4 id="矩形法">矩形法&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601089155704.png"
+loading="lazy"
+alt="1601089155704"
+>&lt;/p>
+&lt;h4 id="梯形法">梯形法&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601090462955.png"
+loading="lazy"
+alt="1601090462955"
+>&lt;/p>
+&lt;h4 id="抛物线法">抛物线法&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601090743620.png"
+loading="lazy"
+alt="1601090743620"
+>&lt;/p>
+&lt;h2 id="性质-1">性质&lt;/h2>
+&lt;p>1）当b=a时，&lt;/p>
+&lt;p>$$\int_a^a{f(x)=0}$$&lt;/p>
+&lt;p>2）$$\int_a^b{f(x)dx}= - \int_b^a{f(x)dx}$$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601100327822.png"
+loading="lazy"
+alt="1601100327822"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>不管是a&amp;lt;c&amp;lt;b还是a&amp;lt;b&amp;lt;c,性质2公式都成立&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601100611938.png"
+loading="lazy"
+alt="1601100611938"
+>&lt;/p>
+&lt;h4 id="推论">推论&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601100749415.png"
+loading="lazy"
+alt="1601100749415"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601101052364.png"
+loading="lazy"
+alt="1601101052364"
+>&lt;/p>
+&lt;p>性质6&lt;/p>
+&lt;h3 id="定积分中值定理">定积分中值定理&lt;/h3>
+&lt;blockquote>
+&lt;p>f(x)必须是连续的&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601101655002.png"
+loading="lazy"
+alt="1601101655002"
+>&lt;/p>
+&lt;p>在最小值和最大值之间一定能找到一点$\xi$&lt;/p>
+&lt;p>函数值$f(\xi)$就是&lt;strong>平均值&lt;/strong>。&lt;/p>
+&lt;h1 id="微积分的基本原理">微积分的基本原理&lt;/h1>
+&lt;h2 id="积分上限函数">积分上限函数&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601110706936.png"
+loading="lazy"
+alt="1601110706936"
+>&lt;/p>
+&lt;p>x是变化的&lt;/p>
+&lt;hr>
+&lt;h3 id="定义-1">定义&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601110816738.png"
+loading="lazy"
+alt="1601110816738"
+>&lt;/p>
+&lt;p>积分上限函数p(x)是连续的&lt;/p>
+&lt;hr>
+&lt;h3 id="定理-1">定理&lt;/h3>
+&lt;p>如果f(x)在[a,b]上连续，那么p(x)在积分区域上&lt;strong>可导&lt;/strong>&lt;/p>
+&lt;p>$$p&amp;rsquo;(x)=f(x)$$&lt;/p>
+&lt;p>1)如果上限是x，直接将x代入被积函数&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601111539113.png"
+loading="lazy"
+alt="1601111539113"
+>&lt;/p>
+&lt;p>2)如果x是下限，取相反数，再直接将x代入被积函数&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601111632965.png"
+loading="lazy"
+alt="1601111632965"
+>&lt;/p>
+&lt;p>3）如果上限是x的函数g(x)&lt;/p>
+&lt;p>复合函数求导——链式法则&lt;/p>
+&lt;p>1.把上限g(x)直接代入被积函数&lt;/p>
+&lt;p>2.对上限求导g&amp;rsquo;(x)&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601111926046.png"
+loading="lazy"
+alt="1601111926046"
+>&lt;/p>
+&lt;p>4）如果上限是x的函数h(x)&lt;/p>
+&lt;p>1.把上限h(x)直接代入被积函数&lt;/p>
+&lt;p>2.对上限求导h&amp;rsquo;(x)&lt;/p>
+&lt;p>3.取相反数，加负号&lt;/p>
+&lt;p>5）上下都是x的函数，&lt;/p>
+&lt;p>可以根据积分的性质，在h(x)和g(x)之间任取一点C，求h(x)到c的积分和c到g(x)的积分。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601112251309.png"
+loading="lazy"
+alt="1601112251309"
+>&lt;/p>
+&lt;hr>
+&lt;h4 id="例题-1">例题&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601112870379.png"
+loading="lazy"
+alt="1601112870379"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601139602455.png"
+loading="lazy"
+alt="1601139602455"
+>&lt;/p>
+&lt;hr>
+&lt;h3 id="牛顿莱布尼茨公式">牛顿莱布尼茨公式&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601140289642.png"
+loading="lazy"
+alt="1601140289642"
+>&lt;/p>
+&lt;p>例题：&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601141863229.png"
+loading="lazy"
+alt="1601141863229"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601142031603.png"
+loading="lazy"
+alt="1601142031603"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601142825530.png"
+loading="lazy"
+alt="1601142825530"
+>&lt;/p>
+&lt;h2 id="定积分的换元积分法">定积分的换元积分法&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601183156945.png"
+loading="lazy"
+alt="1601183156945"
+>&lt;/p>
+&lt;h4 id="例题-2">例题：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601184315091.png"
+loading="lazy"
+alt="1601184315091"
+>&lt;/p>
+&lt;p>3ln3&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601185910499.png"
+loading="lazy"
+alt="1601185910499"
+>&lt;/p>
+&lt;p>sin的值是1到-1来回波动，在因为a是正的，所以就是从0到1的范围&lt;/p>
+&lt;p>又可以这么写：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601186045641.png"
+loading="lazy"
+alt="1601186045641"
+>&lt;/p>
+&lt;hr>
+&lt;h4 id="heading">★&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601186556806.png"
+loading="lazy"
+alt="1601186556806"
+>&lt;/p>
+&lt;p>&lt;strong>积分区间关于原点对称&lt;/strong>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601187310285.png"
+loading="lazy"
+alt="1601187310285"
+>&lt;/p>
+&lt;p>$1+x^2$分之1是arctanx的导数，提出去所以是对$(arctanx)^2$求导&lt;/p>
+&lt;p>证明：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601187747971.png"
+loading="lazy"
+alt="1601187747971"
+>&lt;/p>
+&lt;p>sin（派/2-X）= cosx&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601189272798.png"
+loading="lazy"
+alt="1601189272798"
+>&lt;/p>
+&lt;p>同时求导&lt;/p>
+&lt;h2 id="定积分的分部积分法">定积分的分部积分法&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601190092256.png"
+loading="lazy"
+alt="1601190092256"
+>&lt;/p>
+&lt;p>例题：&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601190921495.png"
+loading="lazy"
+alt="1601190921495"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601191359757.png"
+loading="lazy"
+alt="1601191359757"
+>&lt;/p>
+&lt;p>=1/2&lt;/p>
+&lt;p>优先级：反对幂三指&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601192056564.png"
+loading="lazy"
+alt="1601192056564"
+>&lt;/p>
+&lt;h1 id="应用">应用&lt;/h1>
+&lt;h2 id="求面积">求面积&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601224434165.png"
+loading="lazy"
+alt="1601224434165"
+>&lt;/p>
+&lt;p>x型：垂直于x轴&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601225369727.png"
+loading="lazy"
+alt="1601225369727"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601225743031.png"
+loading="lazy"
+alt="1601225743031"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601226092741.png"
+loading="lazy"
+alt="1601226092741"
+>&lt;/p>
+&lt;h2 id="求体积">求体积&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601226647106.png"
+loading="lazy"
+alt="1601226647106"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601226802688.png"
+loading="lazy"
+alt="1601226802688"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601226875100.png"
+loading="lazy"
+alt="1601226875100"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%ae%9a%e7%a7%af%e5%88%86/1601227123788.png"
+loading="lazy"
+alt="1601227123788"
+>&lt;/p>
+&lt;h2 id="经济问题">经济问题&lt;/h2></description></item><item><title>不定积分</title><link>https://Kayleh.com/post/indefinite-integral/</link><pubDate>Wed, 23 Sep 2020 17:06:12 +0800</pubDate><guid>https://Kayleh.com/post/indefinite-integral/</guid><description>&lt;p>$F&amp;rsquo;(x)=f(x)$&lt;/p>
+&lt;p>$F(x)$是$f(x)$的&lt;strong>一个&lt;/strong>原函数.&lt;/p>
+&lt;blockquote>
+&lt;p>F(x)是f(x)的一个原函数，F(x)+c也是f(x)的原函数&lt;/p>
+&lt;/blockquote>
+&lt;p>$f(x)$是$F&amp;rsquo;(x)$的导函数.&lt;/p>
+&lt;p>知道$F&amp;rsquo;(x)$,$f(x)$只有唯一一个&lt;/p>
+&lt;p>知道$f(x)$,$F&amp;rsquo;(x)$可以有无穷多个&lt;/p>
+&lt;h1 id="不定积分">不定积分&lt;/h1>
+&lt;p>$f(x)$的原函数的全体&lt;/p>
+&lt;p>&lt;strong>$\int_{}{}f(x) \text{d}x$&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>$\int_{}{}$: sum,积分符号&lt;/p>
+&lt;p>$x$: 积分变量&lt;/p>
+&lt;p>$f(x)$: 被积函数&lt;/p>
+&lt;/blockquote>
+&lt;p>$\int_{}{}f(x) \text{d}x = F(x)+c$&lt;/p>
+&lt;h4 id="例题">例题&lt;/h4>
+&lt;ol>
+&lt;li>$\int_{}{}x^2 \text{d}x = \frac{1}{3}x^3+c$&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600870737910.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="几何意义">几何意义&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600871376478.png"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="性质">性质&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600871618223.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>$$\int_{}{}kf(x)\text{d}x=k\int_{}{}f(x)\text{d}x$$&lt;/p>
+&lt;p>k可以朝外拿：&lt;/p>
+&lt;p>①k是常数&lt;/p>
+&lt;p>②k是与x无关的另变量&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600874436855.png"
+loading="lazy"
+alt="1600874436855.png"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>有限个可以，但无限个不能&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="基本积分公式">基本积分公式&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600875099212.png"
+loading="lazy"
+alt="1600875099212.png"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600880107488.png"
+loading="lazy"
+alt="1600880107488.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600880350925.png"
+loading="lazy"
+alt="1600880350925.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600880532801.png"
+loading="lazy"
+alt="1600880532801"
+>&lt;/p>
+&lt;h1 id="积分法">积分法&lt;/h1>
+&lt;h2 id="第一换元积分法凑微分法">第一换元积分法(凑微分法)&lt;/h2>
+&lt;blockquote>
+&lt;p>求原函数&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600959600842.png"
+loading="lazy"
+alt="1600959600842"
+>&lt;/p>
+&lt;p>1）把d外面的某项拿到d里面(变成原函数)&lt;/p>
+&lt;p>2）凑基本积分公式&lt;/p>
+&lt;h3 id="例题-1">例题：&lt;/h3>
+&lt;p>dk()=kd()&lt;/p>
+&lt;p>d()里面的项可以随意&lt;strong>加减&lt;/strong>常数&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600964019281.png"
+loading="lazy"
+alt="1600964019281"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1.png"
+loading="lazy"
+alt="1600965342157"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600966288346.png"
+loading="lazy"
+alt="1600966288346"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600966889415.png"
+loading="lazy"
+alt="1600966889415"
+>&lt;/p>
+&lt;h2 id="第二换元积分">第二换元积分&lt;/h2>
+&lt;blockquote>
+&lt;p>求导&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600968183522.png"
+loading="lazy"
+alt="1600968183522"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600968762395.png"
+loading="lazy"
+alt="1600968762395"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600969286878.png"
+loading="lazy"
+alt="1600969286878"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600969564112.png"
+loading="lazy"
+alt="1600969564112"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600969724741.png"
+loading="lazy"
+alt="1600969724741"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600969833171.png"
+loading="lazy"
+alt="1600969833171"
+>&lt;/p>
+&lt;h6 id="公式">公式&lt;/h6>
+&lt;h2 id="分部积分法">分部积分法&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600996506632.png"
+loading="lazy"
+alt="1600996506632.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600997159717.png"
+loading="lazy"
+alt="1600997159717.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600997865246.png"
+loading="lazy"
+alt="1600997865246.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600998084405.png"
+loading="lazy"
+alt="1600998084405"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600998742526.png"
+loading="lazy"
+alt="1600998742526"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600999265802.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1600999440603.png"
+loading="lazy"
+alt="1601020665712.png"
+>&lt;/p>
+&lt;p>优先：&lt;/p>
+&lt;blockquote>
+&lt;p>$e^x,sinx,cosx,x(x^n),lnx,arctanx$&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="有理函数积分">有理函数积分&lt;/h1>
+&lt;p>分子的最高次数比较高：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601020665712.png"
+loading="lazy"
+alt="1601020665712.png"
+>&lt;/p>
+&lt;p>最高次数相等(最终使分母次数高)：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601020930143.png"
+loading="lazy"
+alt="1601020930143"
+>&lt;/p>
+&lt;p>所有方法都要化成分母次数比分子次数高。&lt;/p>
+&lt;h3 id="真分式">真分式&lt;/h3>
+&lt;p>分母次数比分子次数高的叫做&lt;strong>真分式&lt;/strong>&lt;/p>
+&lt;h4 id="第一类题目">第一类题目&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601021927432.png"
+loading="lazy"
+alt="1601021927432"
+>&lt;/p>
+&lt;p>1）$b^2-4ac=0$ $ax^2+bx+c=0$&lt;/p>
+&lt;p>$a(x-x_1)^2=0$&lt;/p>
+&lt;p>例如：&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601022001083.png"
+loading="lazy"
+alt="1601022001083"
+>&lt;/p>
+&lt;p>2）$b^2-4ac&amp;gt;0$ $ax^2+bx+c=0$有两个不等的根&lt;/p>
+&lt;p>$a(x-x_1)(x-x_2)=0$&lt;/p>
+&lt;p>待定系数法：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601022253671.png"
+loading="lazy"
+alt="1601022253671"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601022327199.png"
+loading="lazy"
+alt="1601022327199"
+>&lt;/p>
+&lt;p>3）$b^2-4ac&amp;lt;0$ $ax^2+bx+c=0$没有实根&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601022751842.png"
+loading="lazy"
+alt="1601022751842"
+>&lt;/p>
+&lt;h4 id="第二类题目">第二类题目&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601022980770.png"
+loading="lazy"
+alt="1601022980770"
+>&lt;/p>
+&lt;p>1）$b^2-4ac=0$ $ax^2+bx+c=0$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601023694401.png"
+loading="lazy"
+alt="1601023694401"
+>&lt;/p>
+&lt;p>2）$b^2-4ac&amp;gt;0$&lt;/p>
+&lt;p>待定系数法：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601023802367.png"
+loading="lazy"
+alt="1601023802367"
+>&lt;/p>
+&lt;p>3）$b^2-4ac&amp;lt;0$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601024256435.png"
+loading="lazy"
+alt="1601024256435"
+>&lt;/p>
+&lt;h4 id="第三类题目">第三类题目&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601028039597.png"
+loading="lazy"
+alt="1601028039597"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601030780920.png"
+loading="lazy"
+alt="1601030780920"
+>&lt;/p>
+&lt;p>第一类表达式&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601030922466.png"
+loading="lazy"
+alt="1601030922466"
+>&lt;/p>
+&lt;p>比如：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601030765738.png"
+loading="lazy"
+alt="1601030765738"
+>&lt;/p>
+&lt;p>3）&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601031708083.png"
+loading="lazy"
+alt="1601031708083"
+>&lt;/p>
+&lt;p>第二类&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601030987071.png"
+loading="lazy"
+alt="1601030987071"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601031354989.png"
+loading="lazy"
+alt="1601031354989"
+>&lt;/p>
+&lt;p>解法：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601032503258.png"
+loading="lazy"
+alt="1601032503258"
+>&lt;/p>
+&lt;p>左右相等：&lt;/p>
+&lt;p>$A_1+2A_2=0$平方项&lt;/p>
+&lt;p>$A_2+2A_3=0$1次项&lt;/p>
+&lt;p>$A_1+A_3=1$常数项&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601035938562.png"
+loading="lazy"
+alt="1601035938562"
+>&lt;/p>
+&lt;p>或者：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e4%b8%8d%e5%ae%9a%e7%a7%af%e5%88%86/1601036063786.png"
+loading="lazy"
+alt="1601036063786"
+>&lt;/p></description></item><item><title>函数作图</title><link>https://Kayleh.com/post/function-graphing/</link><pubDate>Wed, 23 Sep 2020 13:41:02 +0800</pubDate><guid>https://Kayleh.com/post/function-graphing/</guid><description>&lt;h2 id="渐近线">渐近线&lt;/h2>
+&lt;blockquote>
+&lt;p>水平、垂直、斜&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="水平渐近线">水平渐近线&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600844913776.png"
+loading="lazy"
+alt="1600844913776"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600845192751.png"
+loading="lazy"
+alt="1600845192751"
+>&lt;/p>
+&lt;h3 id="垂直渐近线">垂直渐近线&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600845395147.png"
+loading="lazy"
+alt="1600845395147"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600845415524.png"
+loading="lazy"
+alt="1600845415524"
+>&lt;/p>
+&lt;h3 id="斜渐近线">斜渐近线&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600845708818.png"
+loading="lazy"
+alt="1600845708818"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600846462394.png"
+loading="lazy"
+alt="1600846462394"
+>&lt;/p>
+&lt;p>分子次数比分母高，取无穷&lt;/p>
+&lt;p>分子与分母次数一样，极限等于最高次的系数之比&lt;/p>
+&lt;h2 id="微分法作图-导数">微分法作图 “导数”&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600847435593.png"
+loading="lazy"
+alt="1600847435593"
+>&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600850081188.png"
+loading="lazy"
+alt="1600850081188"
+>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e4%bd%9c%e5%9b%be/1600851679622.png"
+loading="lazy"
+alt="1600851679622"
+>&lt;/p></description></item><item><title>极值和最值</title><link>https://Kayleh.com/post/extreme-value-and-maximum-value/</link><pubDate>Sun, 20 Sep 2020 23:04:06 +0800</pubDate><guid>https://Kayleh.com/post/extreme-value-and-maximum-value/</guid><description>&lt;h2 id="极值和最值">极值和最值&lt;/h2>
+&lt;h4 id="定理">定理：&lt;/h4>
+&lt;p>f(x)在$x_0$可导，且在$x_0$取极值。$f&amp;rsquo;(x_0)=0$&lt;/p>
+&lt;p>证明：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600782477572.png"
+loading="lazy"
+alt="1600782477572"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600782713732.png"
+loading="lazy"
+alt="1600782713732"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600782897701.png"
+loading="lazy"
+alt="1600782897701"
+>&lt;/p>
+&lt;h2 id="求极值">求极值&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600783007899.png"
+loading="lazy"
+alt="1600783007899"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600783465855.png"
+loading="lazy"
+alt="1600783465855"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600783793596.png"
+loading="lazy"
+alt="1600783793596"
+>&lt;/p>
+&lt;h4 id="定理-1">定理：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600784625648.png"
+loading="lazy"
+alt="1600784625648"
+>&lt;/p>
+&lt;p>f(x)的二阶导数也等于0的时候，不能判断：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600784848861.png"
+loading="lazy"
+alt="1600784848861"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600785712089.png"
+loading="lazy"
+alt="1600785712089"
+>&lt;/p>
+&lt;h2 id="最值">最值&lt;/h2>
+&lt;p>极值是局部区域的，最值是全部区域&lt;/p>
+&lt;h3 id="求最值">求最值&lt;/h3>
+&lt;p>找到这几个点：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600794952240.png"
+loading="lazy"
+alt="1600794952240"
+>&lt;/p>
+&lt;p>连续并单调的函数，最值就是端点；&lt;/p>
+&lt;p>在区间内的极值就是最值。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e5%80%bc%e5%92%8c%e6%9c%80%e5%80%bc/1600795107694.png"
+loading="lazy"
+alt="1600795107694"
+>&lt;/p></description></item><item><title>函数的单调性和凸凹性</title><link>https://Kayleh.com/post/monotonicity-and-convexity-of-functions/</link><pubDate>Sun, 20 Sep 2020 13:00:16 +0800</pubDate><guid>https://Kayleh.com/post/monotonicity-and-convexity-of-functions/</guid><description>&lt;h2 id="单调性">单调性&lt;/h2>
+&lt;p>增f&amp;rsquo;(x)&amp;gt;0减f&amp;rsquo;(x)&amp;lt;0&lt;/p>
+&lt;p>f&amp;rsquo;(x)≥0，等号在个别点上成立，仍然也是增函数&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600590092595.png"
+loading="lazy"
+alt="1600590092595"
+>&lt;/p>
+&lt;p>f&amp;rsquo;(0)不存在,左右导数&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600590517124.png"
+loading="lazy"
+alt="1600590517124"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600590714485.png"
+loading="lazy"
+alt="1600590714485"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600591157427.png"
+loading="lazy"
+alt="1600591157427"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600591335926.png"
+loading="lazy"
+alt="1600591335926"
+>&lt;/p>
+&lt;h2 id="凸凹性">凸凹性&lt;/h2>
+&lt;p>定义：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600591695747.png"
+loading="lazy"
+alt="1600591695747"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600592034891.png"
+loading="lazy"
+alt="1600592034891"
+>&lt;/p>
+&lt;p>利用拉格朗日中值定理：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600593230688.png"
+loading="lazy"
+alt="1600593230688"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600593545557.png"
+loading="lazy"
+alt="1600593545557"
+>&lt;/p>
+&lt;p>求凸凹区间和拐点：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600593697583.png"
+loading="lazy"
+alt="1600593697583"
+>&lt;/p>
+&lt;p>f‘’不存在：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600593903938.png"
+loading="lazy"
+alt="1600593903938"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%87%bd%e6%95%b0%e7%9a%84%e5%8d%95%e8%b0%83%e6%80%a7%e5%92%8c%e5%87%b8%e5%87%b9%e6%80%a7/1600594115945.png"
+loading="lazy"
+alt="1600594115945"
+>&lt;/p></description></item><item><title>洛必达法则</title><link>https://Kayleh.com/post/law-of-robida/</link><pubDate>Sat, 19 Sep 2020 22:31:17 +0800</pubDate><guid>https://Kayleh.com/post/law-of-robida/</guid><description>&lt;h1 id="洛必达法则">洛必达法则&lt;/h1>
+&lt;h3 id="两种形式">两种形式：&lt;/h3>
+&lt;p>$$\frac{0}{0}$$&lt;/p>
+&lt;p>$$\frac{\infty}{\infty}$$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600529727634.png"
+loading="lazy"
+alt="1600529727634"
+>&lt;/p>
+&lt;h3 id="frac00">$$\frac{0}{0}$$&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600529882424.png"
+loading="lazy"
+alt="1600529882424"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600534332058.png"
+loading="lazy"
+alt="1600534332058"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600534495973.png"
+loading="lazy"
+alt="1600534495973"
+>&lt;/p>
+&lt;p>重要极限也可以用洛必达法则证明：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600534564326.png"
+loading="lazy"
+alt="1600534564326"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>必须是$\frac{0}{0}$型或$\frac{\infty}{\infty}$型才可以再次求导。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600535683379.png"
+loading="lazy"
+alt="1600535683379"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600535923847.png"
+loading="lazy"
+alt="1600535923847"
+>&lt;/p>
+&lt;h3 id="fracinftyinfty">$$\frac{\infty}{\infty}$$&lt;/h3>
+&lt;p>其实和$\frac{0}{0}$没区别：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600536068546.png"
+loading="lazy"
+alt="1600536068546"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600536513889.png"
+loading="lazy"
+alt="1600536513889"
+>&lt;/p>
+&lt;p>趋于正无穷的速度：&lt;/p>
+&lt;p>对数&amp;lt;幂函数&amp;lt;指数函数&lt;/p>
+&lt;h2 id="洛必达法则注意">洛必达法则注意&lt;/h2>
+&lt;p>1)只有$\frac{0}{0}$或$\frac{\infty}{\infty}$才用&lt;/p>
+&lt;p>2)不要一味求导，与重要极限、等价无穷小替换结合&lt;/p>
+&lt;p>3)&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600536878642.png"
+loading="lazy"
+alt="1600536878642"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600537030481.png"
+loading="lazy"
+alt="1600537030481"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600537514365.png"
+loading="lazy"
+alt="1600537514365"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600537595187.png"
+loading="lazy"
+alt="1600537595187"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%b4%9b%e5%bf%85%e8%be%be%e6%b3%95%e5%88%99/1600537822232.png"
+loading="lazy"
+alt="1600537822232"
+>&lt;/p></description></item><item><title>微分</title><link>https://Kayleh.com/post/differential/</link><pubDate>Thu, 17 Sep 2020 23:39:06 +0800</pubDate><guid>https://Kayleh.com/post/differential/</guid><description>&lt;h1 id="微分">微分&lt;/h1>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600361375405.png"
+loading="lazy"
+alt="1600361375405"
+>&lt;/p>
+&lt;h2 id="微分的定义">微分的定义：&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600361823824.png"
+loading="lazy"
+alt="1600361823824"
+>&lt;/p>
+&lt;p>&lt;strong>充要条件&lt;/strong>&lt;/p>
+&lt;p>可微就可导，可导就可微&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600362288099.png"
+loading="lazy"
+alt="1600362288099"
+>&lt;/p>
+&lt;p>A就是$x_0$上的导数&lt;/p>
+&lt;p>$$dy=f^{&amp;rsquo;}(x)△x=f^{&amp;rsquo;}(x)dx$$&lt;/p>
+&lt;p>$△x=dx$是精确值，$△y≈dy$是近似值&lt;/p>
+&lt;p>导数也叫微商 ，导数定义的dy是对dx求导，可以看做一个整体：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600363016711.png"
+loading="lazy"
+alt="1600363016711"
+>&lt;/p>
+&lt;h3 id="例题">例题：&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600363590738.png"
+loading="lazy"
+alt="1600363590738"
+>&lt;/p>
+&lt;h3 id="微分的几何意义">微分的几何意义&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="基本公式">基本公式&lt;/h2>
+&lt;p>$dc=c&amp;rsquo;dx=0$&lt;/p>
+&lt;p>略&lt;/p>
+&lt;h2 id="四则运算">四则运算&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600394726408.png"
+loading="lazy"
+alt="1600394726408"
+>&lt;/p>
+&lt;h3 id="例题-1">例题：&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600395225067.png"
+loading="lazy"
+alt="1600395225067"
+>&lt;/p>
+&lt;p>不变性：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600396809213.png"
+loading="lazy"
+alt="1600396809213"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600396977930.png"
+loading="lazy"
+alt="1600396977930"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600397139589.png"
+loading="lazy"
+alt="1600397139589"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600398508737.png"
+loading="lazy"
+alt="1600398508737"
+>&lt;/p>
+&lt;h2 id="微分应用">微分应用&lt;/h2>
+&lt;blockquote>
+&lt;p>近似计算&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600398647225.png"
+loading="lazy"
+alt="1600398647225"
+>&lt;/p>
+&lt;p>$$f(x_0+△x)≈f(x_0)+f&amp;rsquo;(x_0)△x$$ ，|△x|取很小&lt;/p>
+&lt;h4 id="例题-2">例题：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600400532839.png"
+loading="lazy"
+alt="1600400532839"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600401937159.png"
+loading="lazy"
+alt="1600401937159"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600403890381.png"
+loading="lazy"
+alt="1600403890381"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600404415925.png"
+loading="lazy"
+alt="1600404415925"
+>&lt;/p>
+&lt;h2 id="微分中值定理">微分中值定理&lt;/h2>
+&lt;h3 id="费马定理">费马定理&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600413540338.png"
+loading="lazy"
+alt="1600413540338"
+>&lt;/p>
+&lt;p>左导数和右导数要想相等，只能等于0&lt;/p>
+&lt;p>∴$f^{&amp;rsquo;}(x_0)=0$&lt;/p>
+&lt;h4 id="驻点">驻点：&lt;/h4>
+&lt;p>导数为0的点就叫驻点。&lt;/p>
+&lt;h3 id="罗尔定理">罗尔定理&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600418546474.png"
+loading="lazy"
+alt="1600418546474"
+>&lt;/p>
+&lt;h3 id="拉姆朗日中值定理">拉姆朗日中值定理&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600418973628.png"
+loading="lazy"
+alt="1600418973628"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600419102500.png"
+loading="lazy"
+alt="1600419102500"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>f(x)在区间I连续，I内可导且导数恒为0。f(x)=C&lt;/p>
+&lt;p>证明：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600419285714.png"
+loading="lazy"
+alt="1600419285714"
+>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="柯西中值定理">柯西中值定理&lt;/h3>
+&lt;p>由拉姆朗日中值定理推出：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600420461707.png"
+loading="lazy"
+alt="1600420461707"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600420576192.png"
+loading="lazy"
+alt="1600420576192"
+>&lt;/p>
+&lt;p>柯西能推出拉格朗日定理，拉格朗日能推出罗尔&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600421270529.png"
+loading="lazy"
+alt="1600421270529"
+>&lt;/p>
+&lt;h3 id="泰勒定理">#泰勒定理&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600522802705.png"
+loading="lazy"
+alt="1600522802705"
+>&lt;/p>
+&lt;p>定理：$f(x)$表示成$x-x_0$的n次多项式+$R_n (x)$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600524775977.png"
+loading="lazy"
+alt="1600524775977"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600525026726.png"
+loading="lazy"
+alt="1600525026726"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600525632036.png"
+loading="lazy"
+alt="1600525632036"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%be%ae%e5%88%86/1600525747934.png"
+loading="lazy"
+alt="1600525747934"
+>&lt;/p></description></item><item><title>导数</title><link>https://Kayleh.com/post/derivative/</link><pubDate>Wed, 16 Sep 2020 00:20:05 +0800</pubDate><guid>https://Kayleh.com/post/derivative/</guid><description>&lt;h4 id="变化率">变化率&lt;/h4>
+&lt;p>$x_0 \to x_0+△x$.&lt;/p>
+&lt;p>$f(x_0) \to f(x_0+△x)$&lt;/p>
+&lt;p>$\frac{f(x_0+△x)-f(x_0)}{△x}$&lt;/p>
+&lt;p>从x_0到x_0+△x的平均变化率&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600188583801.png"
+loading="lazy"
+alt="1600188583801"
+>&lt;/p>
+&lt;p>导数的四个符号&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600188748075.png"
+loading="lazy"
+alt="1600188748075"
+>&lt;/p>
+&lt;p>导数的三种表达方式&lt;/p>
+&lt;h3 id="例题">例题：&lt;/h3>
+&lt;ol>
+&lt;li>&lt;/li>
+&lt;/ol>
+&lt;p>$y=x^2$&lt;/p>
+&lt;p>$y'$&lt;/p>
+&lt;p>$y&amp;rsquo;|_{x=2}$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600189489349.png"
+loading="lazy"
+alt="1600189489349"
+>&lt;/p>
+&lt;p>=4;&lt;/p>
+&lt;h3 id="求导">求导&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600189764709.png"
+loading="lazy"
+alt="1600189764709"
+>&lt;/p>
+&lt;h3 id="导数意义">导数意义&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600221028096.png"
+loading="lazy"
+alt="1600221028096"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>求$y=x^3$在(1,1)的切线和法线&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600250579429.png"
+loading="lazy"
+alt="1600250579429"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600234017440.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>左右导数，左右导数都存在并相等&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600235099441.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600235529621.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600235803697.png"
+loading="lazy"
+>&lt;/p>
+&lt;h2 id="求导法则">求导法则：&lt;/h2>
+&lt;p>(1)$u(x)、v(x)$可导，$(u(x)+v(x))&amp;rsquo;=u&amp;rsquo;(x)+v&amp;rsquo;(x)$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600252000327.png"
+loading="lazy"
+alt="1600252000327"
+>&lt;/p>
+&lt;p>(2)$(uv)&amp;rsquo;=u&amp;rsquo;v+uv'$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600252779790.png"
+loading="lazy"
+alt="1600252779790"
+>&lt;/p>
+&lt;p>(3)$\frac{u}{v}=\frac{u&amp;rsquo;v+uv&amp;rsquo;}{v^2}$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600253704886.png"
+loading="lazy"
+alt="1600253704886"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600253831993.png"
+loading="lazy"
+alt="1600253831993"
+>&lt;/p>
+&lt;h3 id="反函数求导法则">反函数求导法则：&lt;/h3>
+&lt;p>$y=f(x)$ . $x=\phi(y)$&lt;/p>
+&lt;p>反函数=导数的倒数 $\phi(y)=\frac{1}{f&amp;rsquo;(x)}$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600255372014.png"
+loading="lazy"
+alt="1600255372014"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="复合函数">复合函数：&lt;/h3>
+&lt;h4 id="链式法则">链式法则：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600256472549.png"
+loading="lazy"
+alt="1600256472549"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600257193054.png"
+loading="lazy"
+alt="1600257193054"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600257319985.png"
+loading="lazy"
+alt="1600257319985"
+>&lt;/p>
+&lt;p>剥洋葱解法，从外往里剥。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600257524549.png"
+loading="lazy"
+alt="1600257524549"
+>&lt;/p>
+&lt;h2 id="高阶函数">高阶函数&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600271203725.png"
+loading="lazy"
+alt="1600271203725"
+>&lt;/p>
+&lt;p>对$y$求两次导数，记作$y^{&amp;rsquo;&amp;rsquo;}$,二阶导数&lt;/p>
+&lt;p>或者$\frac{d^2y}{dx^2}$&lt;/p>
+&lt;p>从4阶开始用数字表示:$y^{(4)}$&lt;/p>
+&lt;h4 id="例题-1">例题：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e5%af%bc%e6%95%b0/1600272928789.png"
+loading="lazy"
+alt="1600272928789"
+>&lt;/p></description></item><item><title>连续</title><link>https://Kayleh.com/post/continuous/</link><pubDate>Mon, 14 Sep 2020 23:53:48 +0800</pubDate><guid>https://Kayleh.com/post/continuous/</guid><description>&lt;h4 id="增量改变量">增量(改变量)&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600101409179.png"
+loading="lazy"
+alt="1600101409179"
+>&lt;/p>
+&lt;p>△x是自变量的增量，△y是因变量的增量&lt;/p>
+&lt;p>定义：&lt;/p>
+&lt;p>f(x)在$x_0$的邻域内有定义，$△x\to 0$,$△y\to 0$&lt;/p>
+&lt;p>$$\lim_{x\to 0}△y=\lim_{x\to 0} [f(x_0+△x)-f(x_0)]=0$$&lt;/p>
+&lt;p>&amp;amp;或者&lt;/p>
+&lt;p>$$\lim_{x\to x_0} f(x) = f(x_0)$$&lt;/p>
+&lt;p>那么就叫这个函数在这点$x_0$上是连续的&lt;/p>
+&lt;p>1)在$x_0$处有定义&lt;/p>
+&lt;p>2)$x\to x_0 f(x)$有极限&lt;/p>
+&lt;p>3)极限=在$x_0$处的定义，$f(x_0)$&lt;/p>
+&lt;h4 id="左连续-x_0-deltax_0">左连续 $(x_0-\delta,x_0]$&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600103890373.png"
+loading="lazy"
+alt="1600103890373"
+>&lt;/p>
+&lt;p>在x_0处连续的充要条件是既是左连续也是右连续&lt;/p>
+&lt;h4 id="在区间上连续">在区间上连续&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600141661421.png"
+loading="lazy"
+alt="1600141661421"
+>&lt;/p>
+&lt;h4 id="间断点">间断点&lt;/h4>
+&lt;p>连续的条件&lt;/p>
+&lt;p>1)在$x_0$处有定义&lt;/p>
+&lt;p>2)$x\to x_0 f(x)$有极限&lt;/p>
+&lt;p>3)极限=定义&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>无穷间断&lt;/p>
+&lt;p>在$x_0$处没有定义&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600142602334.png"
+loading="lazy"
+alt="1600142602334"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>振荡&lt;/p>
+&lt;p>$x\to x_0 f(x)$没有极限&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600142774007.png"
+loading="lazy"
+alt="1600142774007"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>跳跃&lt;/p>
+&lt;p>左右极限不相等&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;/li>
+&lt;li>
+&lt;p>可去&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600143079362.png"
+loading="lazy"
+alt="1600143079362"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="第一类间断点">第一类间断点：&lt;/h3>
+&lt;p>左右极限均存在，&lt;strong>跳跃&lt;/strong>、&lt;strong>可去&lt;/strong>间断点&lt;/p>
+&lt;h3 id="第二类间断点">第二类间断点：&lt;/h3>
+&lt;p>左右极限不存在，&lt;strong>无穷间断&lt;/strong>、&lt;strong>振荡&lt;/strong>&lt;/p>
+&lt;h4 id="例题">例题：&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600144334745.png"
+loading="lazy"
+alt="1600144334745"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600144487842.png"
+loading="lazy"
+alt="1600144487842"
+>&lt;/p>
+&lt;p>左右极限都存在但不相等&lt;/p>
+&lt;h2 id="运算法则">运算法则&lt;/h2>
+&lt;p>四则运算 $f(x)±g(x).g(x)f(x).\frac{f(x)}{g(x)} (g(x)≠0)$ 依然连续&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600145522288.png"
+loading="lazy"
+alt="1600145522288"
+>&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600161636813.png"
+loading="lazy"
+alt="1600161636813"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600162013682.png"
+loading="lazy"
+alt="1600162013682"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600164950987.png"
+loading="lazy"
+alt="1600164950987"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600167044079.png"
+loading="lazy"
+alt="1600167044079"
+>&lt;/p>
+&lt;p>$f(x)= e^{lnf(x)}$、两个重要极限&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600167548596.png"
+loading="lazy"
+alt="1600167548596"
+>&lt;/p>
+&lt;h2 id="闭区间上连续性质">闭区间上连续性质&lt;/h2>
+&lt;p>(有界性) 如果在$[a,b]$上是连续的，有界&lt;/p>
+&lt;p>(最值性) 如果在$[a,b]$上是连续的，b有最大最小值&lt;/p>
+&lt;p>(介值性) 如果在$[a,b]$上是连续的，最小值m，最大值M，介于m和M之间的任意一个取值：m&amp;lt;c&amp;lt;M&lt;/p>
+&lt;p>必存在一点$\xi$: $f(\xi)=c$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600168581142.png"
+loading="lazy"
+alt="1600168581142"
+>&lt;/p>
+&lt;h3 id="零点存在定理">零点存在定理&lt;/h3>
+&lt;p>[a,b]上是连续的，f(a)f(b)&amp;lt;0 异号&lt;/p>
+&lt;p>在(a,b)存在一点$\xi$，$f(\xi)=0$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e8%bf%9e%e7%bb%ad/1600169591606.png"
+loading="lazy"
+alt="1600169591606"
+>&lt;/p></description></item><item><title>无穷小与无穷大</title><link>https://Kayleh.com/post/infinitesimal-and-infinite/</link><pubDate>Sat, 12 Sep 2020 16:33:41 +0800</pubDate><guid>https://Kayleh.com/post/infinitesimal-and-infinite/</guid><description>&lt;h1 id="无穷小量">无穷小量&lt;/h1>
+&lt;h3 id="定义">定义：&lt;/h3>
+&lt;p>极限为0的变量称为无穷小量，简称无穷小.&lt;/p>
+&lt;p>f(x)→0&lt;/p>
+&lt;p>常用希腊字母 $\alpha$ ,$\beta$ ,$\gamma$&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>$$\lim_{x\to0}x^2=0 极限为0$$&lt;/p>
+&lt;p>$$\lim_{x\to1}x^2=1 极限为1$$&lt;/p>
+&lt;p>$$\lim_{x\to\infty}x^2=0 极限为\infty$$&lt;/p>
+&lt;h3 id="定理">定理:&lt;/h3>
+&lt;p>1.无穷小 × 有界 是无穷小&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;p>另一个例题&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>分解后面的ardtanx，加上绝对值|ardtanx|，说明是有界的。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599986528426.png"
+loading="lazy"
+alt="1599986528426"
+>&lt;/p>
+&lt;p>2.&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599986676909.png"
+loading="lazy"
+alt="1599986676909"
+>&lt;/p>
+&lt;h1 id="无穷大">无穷大&lt;/h1>
+&lt;p>$f(x)-&amp;gt;+\infty 或-\infty$&lt;/p>
+&lt;p>1)两个无穷大相乘=无穷大&lt;/p>
+&lt;p>2)无穷大+有界-&amp;gt;无穷大&lt;/p>
+&lt;h3 id="定理-1">定理：&lt;/h3>
+&lt;ol start="3">
+&lt;li>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>f(x)无穷大 $\frac{1}{f(x)}$无穷小 (同一变化过程)&lt;/li>
+&lt;li>f(x)无穷小 $\frac{1}{f(x)}$无穷小(同一变化过程)&lt;/li>
+&lt;/ul>
+&lt;h1 id="极限的运算法则">极限的运算法则&lt;/h1>
+&lt;p>定理(四则运算) 若$\lim f(x)=a , \lim g(x)=b$（前提是每个函数极限存在,项是有限个的）&lt;/p>
+&lt;p>1)$\lim (f(x)+g(x))=\lim f(x) ± \lim g(x)=a ± b$&lt;/p>
+&lt;p>2)$\lim f(x)g(x)=\lim f(x) · \lim g(x)$&lt;/p>
+&lt;p>3)$\lim \frac{f(x)}{g(x)}=\frac {\lim f(x)}{\lim g(x)}(b≠0)$&lt;/p>
+&lt;p>其实就是把极限带进去&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599989272603.png"
+loading="lazy"
+alt="1599989272603"
+>&lt;/p>
+&lt;p>$\lim f(x)^n=(\lim f(x))^n$&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599991572302.png"
+loading="lazy"
+alt="1599991572302"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599991769614.png"
+loading="lazy"
+alt="1599991769614"
+>&lt;/p>
+&lt;h3 id="fracinftyinfty">$\frac{\infty}{\infty}$&lt;/h3>
+&lt;p>分子、分母同次，最高次的系数之比（分子分母都趋于无穷）&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599992066326.png"
+loading="lazy"
+alt="1599992066326"
+>&lt;/p>
+&lt;p>分母次数高，0&lt;/p>
+&lt;p>分子次数高，$\infty$&lt;/p>
+&lt;p>分子有理化&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599992521008.png"
+loading="lazy"
+alt="1599992521008"
+>&lt;/p>
+&lt;h3 id="无限个项多项式">无限个项：多项式&lt;/h3>
+&lt;p>$ \frac{n(a_1+a_n)}{2}$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599992622470.png"
+loading="lazy"
+alt="1599992622470"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599993150129.png"
+loading="lazy"
+alt="1599993150129"
+>&lt;/p>
+&lt;p>=1&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1599993401288.png"
+loading="lazy"
+alt="1599993401288"
+>&lt;/p>
+&lt;h1 id="极限存在准则-两个重要极限">极限存在准则 两个重要极限&lt;/h1>
+&lt;p>一、夹逼定理：存在三个函数f(x).g(x).h(x)&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600002658181.png"
+loading="lazy"
+alt="1600002658181"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600003472051.png"
+loading="lazy"
+alt="1600003472051"
+>&lt;/p>
+&lt;p>中间的一堆乘起来小于1，当n趋于无穷时，左边趋于0，右边趋于0&lt;/p>
+&lt;p>二、单调有界数列必有极限&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600005635112.png"
+loading="lazy"
+alt="1600005635112"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600009971627.png"
+loading="lazy"
+alt="1600009971627"
+>&lt;/p>
+&lt;p>∴单调递增&lt;/p>
+&lt;h2 id="两个重要极限">两个重要极限&lt;/h2>
+&lt;p>$$\lim_{x\to0} \frac{sinx}{x}=1$$&lt;/p>
+&lt;p>例题1&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600011716508.png"
+loading="lazy"
+alt="1600011716508"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>例题2&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600011828835.png"
+loading="lazy"
+alt="1600011828835"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>例题3&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600012406004.png"
+loading="lazy"
+alt="1600012406004"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600013433140.png"
+loading="lazy"
+alt="1600013433140"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600054647972.png"
+loading="lazy"
+alt="1600054647972"
+>&lt;/p>
+&lt;p>利用反函数：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600054832389.png"
+loading="lazy"
+alt="1600054832389"
+>&lt;/p>
+&lt;p>题型：&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600055150818.png"
+loading="lazy"
+alt="1600055150818"
+>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600055302965.png"
+loading="lazy"
+alt="1600055302965"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600055402981.png"
+loading="lazy"
+alt="1600055402981"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600056574474.png"
+loading="lazy"
+alt="1600056574474"
+>&lt;/p>
+&lt;/li>
+&lt;li>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600060254757.png"
+loading="lazy"
+alt="1600060254757"
+>&lt;/p>
+&lt;h1 id="无穷小的比较">无穷小的比较&lt;/h1>
+&lt;p>$\lim f(x)=0$ ,$\lim$ $g(x)=0$ ,$g(x)≠0$&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>$\lim \frac{f(x)}{g(x)}=0$ .$f(x)$比$g(x)$高阶无穷小，$f(x)=o(g(x))$&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>$\lim \frac{f(x)}{g(x)}=\infty$ .$f(x)$比$g(x)$低阶无穷小，没有符号&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>如: $x\to 0$ , $\frac{x}{x^2}$ ,分母的趋0速度更快， $\frac{1}{x}$&lt;/p>
+&lt;ul>
+&lt;li>$\lim \frac{f(x)}{g(x)}=c≠0$，同阶无穷小；&lt;/li>
+&lt;/ul>
+&lt;p>如：$x&amp;gt;0$ , $\frac{4x}{2x}=2$&lt;/p>
+&lt;ul>
+&lt;li>$\lim \frac{f(x)}{g(x)}=c=1$ , 等价无穷小$f(x)$~$g(x)$&lt;/li>
+&lt;/ul>
+&lt;p>例题：&lt;/p>
+&lt;p>1)$ln(1+x)$~$x$ $x\to0$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600086990031.png"
+loading="lazy"
+alt="1600086990031"
+>&lt;/p>
+&lt;p>2)$e^x-1$~$x$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600087533941.png"
+loading="lazy"
+alt="1600087533941"
+>&lt;/p>
+&lt;p>有个结论：&lt;/p>
+&lt;p>$a^x-1$~$xlna$&lt;/p>
+&lt;p>3)$\sqrt[n]{1+x}-1$~$\frac{1}{n}x$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600088081673.png"
+loading="lazy"
+alt="1600088081673"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600088599482.png"
+loading="lazy"
+alt="1600088599482"
+>&lt;/p>
+&lt;p>可以直接用的公式：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600088819483.png"
+loading="lazy"
+alt="1600088819483"
+>&lt;/p>
+&lt;p>$f_1(x)$~$f_2(x)$,$g_1(x)$~$g_2(x)$ , $\lim \frac{f_2(x)}{g_2(x)}$存在极限&lt;/p>
+&lt;p>$\lim \frac{f_1(x)}{g_1(x)}$ = $\lim \frac{f_2(x)}{g_2(x)}$&lt;/p>
+&lt;p>1）两个无穷小之比才用&lt;/p>
+&lt;p>2）分子或分母是因子的乘积，选部分因替换&lt;/p>
+&lt;p>$\frac{(●)×(●)×(■)}{(●)×(■)}$&lt;/p>
+&lt;p>只保留■。&lt;/p>
+&lt;p>例题：&lt;/p>
+&lt;p>∵ $sinx$~$x$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600094985483.png"
+loading="lazy"
+alt="1600094985483"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%97%a0%e7%a9%b7%e5%b0%8f%e4%b8%8e%e6%97%a0%e7%a9%b7%e5%a4%a7/1600095161294.png"
+loading="lazy"
+alt="1600095161294"
+>&lt;/p></description></item><item><title>极限</title><link>https://Kayleh.com/post/limit/</link><pubDate>Sat, 12 Sep 2020 10:30:50 +0800</pubDate><guid>https://Kayleh.com/post/limit/</guid><description>&lt;h1 id="极限">极限&lt;/h1>
+&lt;blockquote>
+&lt;p>[“极限”是数学中的分支——微积分的基础概念，广义的“极限”是指“无限靠近而永远不能到达”的意思。数学中的“极限”指：某一个函数中的某一个变量，此变量在变大（或者变小）的永远变化的过程中，逐渐向某一个确定的数值A不断地逼近而“永远不能够重合到A”（“永远不能够等于A，但是取等于A‘已经足够取得高精度计算结果）的过程中，此变量的变化，被人为规定为“永远靠近而不停止”、其有一个“不断地极为靠近A点的趋势”。极限是一种“变化状态”的描述。此变量永远趋近的值A叫做“极限值”（当然也可以用其他符号表示）。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：1=0.9999·····？&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599927106892.png"
+loading="lazy"
+alt="1599927106892"
+>&lt;/p>
+&lt;p>比如&lt;/p>
+&lt;p>假设有一圆&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1.png"
+loading="lazy"
+alt="1599879927815"
+>&lt;/p>
+&lt;p>有内接圆面积$A_1$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/2.png"
+loading="lazy"
+alt="1599880274448"
+>&lt;/p>
+&lt;p>记内接十二边形的面积为$A_2$&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/3.png"
+loading="lazy"
+alt="1599880425245"
+>&lt;/p>
+&lt;p>24边形&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599880485257.png"
+loading="lazy"
+alt="1599880485257"
+>&lt;/p>
+&lt;p>就可以得到一个数列{$A_n$}&lt;/p>
+&lt;h2 id="数列的极限">数列的极限&lt;/h2>
+&lt;p>当n→$\infty$时，{$A_n$}也无限接近于某一确定的数值，这个数值称为数列{$A_n$}当n→$\infty$时的极限。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599880801602.png"
+loading="lazy"
+alt="1599880801602"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599928047079.png"
+loading="lazy"
+alt="1599928047079"
+>&lt;/p>
+&lt;p>后面的值都落在这个邻域里面&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599928641478.png"
+loading="lazy"
+alt="1599928641478"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599930175659.png"
+loading="lazy"
+alt="1599930175659"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599930952171.png"
+loading="lazy"
+alt="1599930952171"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599931509911.png"
+loading="lazy"
+alt="1599931509911"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>n一定是 &amp;gt; ???&lt;/p>
+&lt;/blockquote>
+&lt;p>要求 $\lvert x_n -1 \rvert$=$\frac{1}{n}$&amp;lt;$\epsilon$,只要n&amp;gt;[$\frac{1}{\epsilon} $],以后的一切项均满足 $\lvert x_n -1 \rvert$&amp;lt;$\epsilon$.&lt;/p>
+&lt;p>对于任意给定的正数$\epsilon$，总存在着一个正整数N(比如取N=[$\frac{1}{\epsilon}$]),当n&amp;gt;N时，&lt;/p>
+&lt;p>$$\lvert x_n -1 \rvert&amp;lt;\epsilon$$&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>记作&lt;/p>
+&lt;p>$$\lim_{n\to \infty} x_n = a或x_n→a(n→\infty)$$&lt;/p>
+&lt;p>如果上述a不存在，则称数列 $${x_n}$$没有极限,或者说数列 $${x_n}$$ 是发散的，也说 $\lim_{n\to \infty} x_n$ 不存在.&lt;/p>
+&lt;h3 id="注意">注意：&lt;/h3>
+&lt;p>1.$\epsilon$的“任意给定”性极其重要；&lt;/p>
+&lt;p>2.N与$\epsilon$有关，有$\epsilon$的给定而确定；&lt;/p>
+&lt;p>3.$\forall$表示“任意给定”，$\exists$表示“存在”&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599882486761.png"
+loading="lazy"
+alt="1599882486761"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599882565625.png"
+loading="lazy"
+alt="1599882565625"
+>&lt;/p>
+&lt;h5 id="例子">例子：&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599882657525.png"
+loading="lazy"
+alt="1599882657525"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599882730949.png"
+loading="lazy"
+alt="1599882730949"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599882888658.png"
+loading="lazy"
+alt="1599882888658"
+>&lt;/p>
+&lt;h3 id="性质">性质&lt;/h3>
+&lt;p>性质1：{$x_n$}收敛 ，极限唯一.&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599972015185.png"
+loading="lazy"
+alt="1599972015185"
+>&lt;/p>
+&lt;p>性质2：{$x_n$}收敛 ，有界&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599972553113.png"
+loading="lazy"
+alt="1599972553113"
+>&lt;/p>
+&lt;ul>
+&lt;li>有界是收敛的必要，不是充分条件&lt;/li>
+&lt;li>单调有界，则有极限&lt;/li>
+&lt;/ul>
+&lt;p>性质3：保号性$\lim_{x_n} = a$ , a&amp;gt;0(a&amp;lt;0) ,$\exists$N, n&amp;gt;N ,$x_n$&amp;gt;0&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599973321254.png"
+loading="lazy"
+alt="1599973321254"
+>&lt;/p>
+&lt;p>性质4：{$x_n$}收敛于a，子数列{$x_kn$}收敛于a.&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599974407571.png"
+loading="lazy"
+alt="1599974407571"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599974801668.png"
+loading="lazy"
+alt="1599974801668"
+>&lt;/p>
+&lt;h2 id="函数极限">函数极限：&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599975390882.png"
+loading="lazy"
+alt="1599975390882"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599975713115.png"
+loading="lazy"
+alt="1599975713115"
+>&lt;/p>
+&lt;p>&amp;lt; $\epsilon$&lt;/p>
+&lt;blockquote>
+&lt;p>取 X&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599976461869.png"
+loading="lazy"
+alt="1599976461869"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599978196708.png"
+loading="lazy"
+alt="1599978196708"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599978312714.png"
+loading="lazy"
+alt="1599978312714"
+>&lt;/p>
+&lt;h4 id="xx_0时函数fx的极限">x→$x_0$时函数f(x)的极限&lt;/h4>
+&lt;p>(1)x→$x_0^-$,表示x从点$x_0$的左侧无限接近于$x_0$,此时x&amp;lt;$x_0$;&lt;/p>
+&lt;p>(2)x→$x_0^+$,表示x从点$x_0$的右侧无限接近于$x_0$,此时x&amp;gt;$x_0$;&lt;/p>
+&lt;p>(3)x→$x_0$,表示x从点$x_0$的左右两侧无限接近于$x_0$.&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599894351689.png"
+loading="lazy"
+alt="1599894351689"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599978599316.png"
+loading="lazy"
+alt="1599978599316"
+>&lt;/p>
+&lt;p>注意：&lt;/p>
+&lt;p>(1)$x_0$是一个常数，而x是动点，是变化的量.&lt;/p>
+&lt;p>(2)在上述x的三个变化过程中，x无限地接近$x_0$,但永远不等于$x_0$.&lt;/p>
+&lt;h4 id="左极限">左极限：&lt;/h4>
+&lt;p>$$f(x_0^-)=\lim_{x\to x_0^-} f(x) = A$$&lt;/p>
+&lt;p>称函数f(x)当x→$x_0^-$时以A为极限，简称f(x)在$x_0$点处左极限为A；&lt;/p>
+&lt;h4 id="右极限">右极限：&lt;/h4>
+&lt;p>$$f(x_0^+)=\lim_{x\to x_0^+} f(x) = A$$&lt;/p>
+&lt;p>称函数f(x)当x→$x_0^+$时以A为极限，简称f(x)在$x_0$点处右极限为A；&lt;/p>
+&lt;h4 id="极限-1">极限：&lt;/h4>
+&lt;p>$$\lim_{x\to x_0^-}f(x)=\lim_{x\to x_0^+}f(x)=\lim_{x\to x_0}f(x)=A$$&lt;/p>
+&lt;p>称函数f(x)当x→$x_0$时以A为极限，简称f(x)在$x_0$点处极限为A；&lt;/p>
+&lt;p>函数y=f(x)在$x_0$处的极限与$f(x_0)$的取值、是否存在毫无关系!&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="性质-1">性质：&lt;/h4>
+&lt;p>1.$\limf(x)$存在，是唯一的&lt;/p>
+&lt;p>2.局部有界性&lt;/p>
+&lt;p>3.局部保号性&lt;/p>
+&lt;ol start="4">
+&lt;li>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%e6%9e%81%e9%99%90/1599984624615.png"
+loading="lazy"
+alt="1599984624615"
+>&lt;/p></description></item></channel></rss>

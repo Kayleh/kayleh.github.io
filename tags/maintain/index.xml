@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>maintain on Kayleh's blog</title><link>https://Kayleh.com/tags/maintain/</link><description>Recent content in maintain on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 20 Aug 2020 14:20:58 +0800</lastBuildDate><atom:link href="https://Kayleh.com/tags/maintain/index.xml" rel="self" type="application/rss+xml"/><item><title>jsdelivr的CDN加速缓存不刷新问题</title><link>https://Kayleh.com/post/the-cdn-acceleration-cache-of-jsdelivr-does-not-refresh/</link><pubDate>Thu, 20 Aug 2020 14:20:58 +0800</pubDate><guid>https://Kayleh.com/post/the-cdn-acceleration-cache-of-jsdelivr-does-not-refresh/</guid><description>&lt;hr>
+&lt;h3 id="the-cdn-acceleration-cache-of-jsdelivr-does-not-refresh">The CDN acceleration cache of jsdelivr does not refresh&lt;/h3>
+&lt;p>访问链接即可解决&lt;/p>
+&lt;p>具体：&lt;/p>
+&lt;p>把链接中的 &lt;a class="link" href="https://cdn.kayleh.top" target="_blank" rel="noopener"
+>https://cdn.kayleh.top&lt;/a>替换成 &lt;a class="link" href="https://purge.jsdelivr.net" target="_blank" rel="noopener"
+>https://purge.jsdelivr.net&lt;/a>访问即可实时刷新&lt;/p></description></item></channel></rss>

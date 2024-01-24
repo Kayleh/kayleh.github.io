@@ -1,0 +1,1628 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on Kayleh's blog</title><link>https://Kayleh.com/tags/linux/</link><description>Recent content in linux on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 13 Nov 2020 23:23:35 +0800</lastBuildDate><atom:link href="https://Kayleh.com/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>ubuntu fixed IP setting method</title><link>https://Kayleh.com/post/ubuntu-set-ip/</link><pubDate>Fri, 13 Nov 2020 23:23:35 +0800</pubDate><guid>https://Kayleh.com/post/ubuntu-set-ip/</guid><description>&lt;h1 id="ubuntu固定ip设置方法">ubuntu固定IP设置方法&lt;/h1>
+&lt;h2 id="确认你要修改的网卡号">确认你要修改的网卡号&lt;/h2>
+&lt;p>先确认你要修改的网卡号，假设你的服务器有多张网卡：&lt;/p>
+&lt;pre tabindex="0">&lt;code>`ubuntu1804:~$ ip addr`
+&lt;/code>&lt;/pre>&lt;p>我的服务器配置如下：&lt;/p>
+&lt;pre tabindex="0">&lt;code>`1: lo: mtu 65536 qdisc noqueue state UNKNOWN ``group` `default` `qlen 1000``link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00``inet 127.0.0.1/8 scope host lo``valid_lft forever preferred_lft forever``inet6 ::1/128 scope host``valid_lft forever preferred_lft forever``2: ens33: mtu 1500 qdisc fq_codel state UP ``group` `default` `qlen 1000``link/ether 00:0c:29:f1:b5:e1 brd ff:ff:ff:ff:ff:ff``inet 172.16.87.140/24 brd 172.16.87.255 scope global dynamic ens33``valid_lft 1500sec preferred_lft 1500sec``inet6 fe80::20c:29ff:fef1:b5e1/64 scope link``valid_lft forever preferred_lft forever`
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://img2018.cnblogs.com/blog/1024482/201909/1024482-20190926195311926-778081344.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h2 id="3-默认的网卡配置文件">3. 默认的网卡配置文件&lt;/h2>
+&lt;p>默认情况下，网络使用DHCP&lt;/p>
+&lt;pre tabindex="0">&lt;code>`ubuntu1804:~$ cat /etc/netplan/50-cloud-init.yaml``配置文件内容如下` `network:`` ``ethernets:`` ``ens33:`` ``dhcp4: yes`` ``addresses: []` ` ``version: 2`
+&lt;/code>&lt;/pre>&lt;h2 id="4-设置静态ip">4. 设置静态IP&lt;/h2>
+&lt;p>需要把配置文件修改为以下内容：&lt;/p>
+&lt;pre tabindex="0">&lt;code>`ubuntu1804:~$ sudo vi /etc/netplan/50-cloud-init.yaml`
+&lt;/code>&lt;/pre>&lt;p>假设IP地址修改为192.168.1.100，子网掩码24位即255.255.255.0，网关设置为192.168.1.1，DNS1：223.5.5.5，DNS2：223.6.6.6&lt;/p>
+&lt;pre tabindex="0">&lt;code>`network:`` ``ethernets:`` ``ens33:`` ``dhcp4: no`` ``addresses: [192.168.1.100/24]`` ``optional: ``true`` ``gateway4: 192.168.1.1`` ``nameservers:`` ``addresses: [223.5.5.5,223.6.6.6]` ` ``version: 2`
+&lt;/code>&lt;/pre>&lt;p>　　&lt;/p>
+&lt;p>&lt;img src="https://img2018.cnblogs.com/blog/1024482/201909/1024482-20190926195125025-1367860921.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h2 id="5-应用新配置">5. 应用新配置&lt;/h2>
+&lt;pre tabindex="0">&lt;code>`ubuntu1804:~$ sudo netplan apply`
+&lt;/code>&lt;/pre>&lt;p>使用&lt;code>ip addr&lt;/code>检查新地址&lt;/p>
+&lt;pre tabindex="0">&lt;code>`ubuntu1804:~$ ip addr`
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://img2018.cnblogs.com/blog/1024482/201909/1024482-20190926195452363-191570303.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h2 id="6-测试网络连通性">6. 测试网络连通性&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ubuntu1804:~$ ping 192.168.1.100
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://img2018.cnblogs.com/blog/1024482/201909/1024482-20190926195509927-312010988.png"
+loading="lazy"
+alt="img"
+>&lt;/p></description></item><item><title>ubuntu.deb安装包</title><link>https://Kayleh.com/post/deb/</link><pubDate>Tue, 06 Oct 2020 21:16:50 +0800</pubDate><guid>https://Kayleh.com/post/deb/</guid><description>&lt;pre tabindex="0">&lt;code class="language-linux" data-lang="linux">dkpg -i xxxx.deb
+&lt;/code>&lt;/pre>&lt;p>需要超级用户权限&lt;/p>
+&lt;pre tabindex="0">&lt;code>sudo dkpg -i xxxx.deb
+&lt;/code>&lt;/pre></description></item><item><title>Linux</title><link>https://Kayleh.com/post/linux/</link><pubDate>Thu, 02 Jul 2020 21:26:15 +0800</pubDate><guid>https://Kayleh.com/post/linux/</guid><description>&lt;h2 id="虚拟机">虚拟机&lt;/h2>
+&lt;p>下载中文支持&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593837102375.png"
+loading="lazy"
+alt="1593837102375"
+>&lt;/p>
+&lt;p>网络连接的三种形式&lt;/p>
+&lt;p>&lt;strong>桥连接&lt;/strong>：Linux可以和其他系统通信，但是会造成IP冲突&lt;/p>
+&lt;p>&lt;strong>NAT&lt;/strong>：网络地址转换方式，Linux可以访问外网，不会造成IP冲突&lt;/p>
+&lt;p>&lt;strong>主机模式&lt;/strong>：你的Linux是一个独立的主机，不能访问外网&lt;/p>
+&lt;p>分区：&lt;/p>
+&lt;p>boot分区：200M&lt;/p>
+&lt;p>swap分区：交换分区，虚拟内存，没有挂载点，2048M&lt;/p>
+&lt;p>根分区/：使用全部剩余空间&lt;/p>
+&lt;p>安装VMTool复制到/opt下&lt;/p>
+&lt;p>tar -zxvf VM&amp;hellip;&amp;hellip; .tar.gz&lt;/p>
+&lt;p>解压,进去文件夹，执行 /vmware-install.pl&lt;/p>
+&lt;p>设置共享文件夹，在/mnt/hgfs下&lt;/p>
+&lt;p>Linux文件系统采用的是级层式的树状结构，最上层的是根目录“/”。&lt;/p>
+&lt;p>/bin 是Binary的缩写，这个目录存放着最经常使用的命令&lt;/p>
+&lt;p>/dev 管理设备&lt;/p>
+&lt;p>/etc管理配置文件&lt;/p>
+&lt;p>/home 存放普通用户的主目录，在Linux中每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的&lt;/p>
+&lt;p>/lib 系统开机需要&lt;/p>
+&lt;p>/media dvd相关&lt;/p>
+&lt;p>/mnt 挂载文件夹&lt;/p>
+&lt;p>/opt 安装的软件&lt;/p>
+&lt;p>/proc 内核&lt;/p>
+&lt;p>/root 系统管理员，超级权限者的用户主目录&lt;/p>
+&lt;p>/sbin Super user系统管理员使用的系统管理程序&lt;/p>
+&lt;p>/selinux 安全加强&lt;/p>
+&lt;p>/sys 系统&lt;/p>
+&lt;p>/tmp 临时文件&lt;/p>
+&lt;p>/usr 用户，安装的程序&lt;/p>
+&lt;p>/var 变量，日志&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/clip_image004.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/clip_image0014.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h3 id="远程登陆">远程登陆&lt;/h3>
+&lt;p>XShell&lt;/p>
+&lt;ul>
+&lt;li>需要Linux开启一个sshd服务22&lt;/li>
+&lt;/ul>
+&lt;p>终端打开setup，打开系统服务，找到sshd，空格键打开服务。tab键退出。&lt;/p>
+&lt;p>该服务会监听22端口。&lt;/p>
+&lt;p>&lt;strong>ubuntu方法：&lt;/strong>&lt;/p>
+&lt;p>先试着开启SSH服务&lt;/p>
+&lt;p>在使用SSH之前，可以先检查SSH服务有没有开启。使用命令：sudo ps -e | grep ssh来查看，如果返回的结果是“xxxx? 00:00:00 sshd”,代表服务开启。那个四个x代表四位数字，每台机数字不一样的，如图：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/894368-20181110064124048-505138018.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>如果没有反应或者其他结果，再试着开启SSH服务。使用命令sudo /etc/init.d/ssh start来开启服务，如图：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/894368-20181110064515920-1613146923.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>如果是图中结果，说明没有安装SSH服务，此时需要安装 SSH服务，为了能提高安装成功率，建议先更新源：sudo apt-get update更新安装源，如图：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/894368-20181110065024263-2090018697.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>然后安装SSH服务，使用命令：sudo apt-get install openssh-server。如图：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/894368-20181110065349975-237913277.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>等待安装结束即可。然后再次查看服务有没有启动：sudo ps -e | grep ssh：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/894368-20181110065558878-1157322075.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>有sshd那个东西，说明服务启动了，如果需要再次确认或者没有图中的结果，使用命令来启动:sudo /etc/init.d/ssh start:&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/894368-20181110065759521-304903884.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>看到服务starting了，服务成功开启。另外，还有几条命令需要记住：&lt;/p>
+&lt;p>sudo service ssh status 查看服务状态：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/894368-20181110070229962-1792308008.png"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>sudo service ssh stop 关闭服务：&lt;/p>
+&lt;p>sudo service ssh restart 重启服务&lt;/p>
+&lt;p>Xshell新建会话，先查看linux的ip地址。&lt;/p>
+&lt;pre tabindex="0">&lt;code>ipconfig
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593769665771.png"
+loading="lazy"
+alt="1593769665771"
+>&lt;/p>
+&lt;p>箭头指向的是ip地址。&lt;/p>
+&lt;p>填写到xshell&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593769808715.png"
+loading="lazy"
+alt="1593769808715"
+>&lt;/p>
+&lt;p>Ubuntu需要配置sshd服务&lt;/p>
+&lt;p>输入Linux的用户名和密码。成功连接。&lt;/p>
+&lt;p>如果远程使用命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">reboot
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>服务器也会重启&lt;/p>
+&lt;h3 id="文件的上传下载xftp">文件的上传下载XFTP&lt;/h3>
+&lt;p>协议选择SFTP&lt;/p>
+&lt;p>端口号选择22&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593782048647.png"
+loading="lazy"
+alt="1593782048647"
+>&lt;/p>
+&lt;p>&lt;strong>乱码解决&lt;/strong>：&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593782224041.png"
+loading="lazy"
+alt="1593782224041"
+>&lt;/p>
+&lt;p>选择要传输的文件，右键传输就可以了。&lt;/p>
+&lt;h3 id="vi和vim编辑器">Vi和Vim编辑器&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/078207F0-B204-4464-AAEF-982F45EDDAE9.jpg"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h4 id="正常模式">正常模式&lt;/h4>
+&lt;p>在正常模式下，我们可以使用快捷键。&lt;/p>
+&lt;p>以 vim 打开一个档案就直接进入一般模式了(这是默认的模式)。在这个模式中， 你可以使用『上下左右』按键来移动光标，你可以使用『删除字符』或『删除整行』来处理档案内容， 也可以使用『复制、贴上』来处理你的文件数据。&lt;/p>
+&lt;h4 id="插入模式编辑模式">插入模式/编辑模式&lt;/h4>
+&lt;p>在模式下，程序员可以输入内容。&lt;/p>
+&lt;p>按下 i, I 等任何一个字母之后才会进入编辑模式, 一般来说按 i 即可&lt;/p>
+&lt;h4 id="命令行模式">命令行模式&lt;/h4>
+&lt;p>在这个模式当中， 可以提供你相关指令，完成读取、存盘、替换、离开 vim 、显示行号等的动作则是在此模式中达成的！&lt;/p>
+&lt;h4 id="各模式之间的互相转换">各模式之间的互相转换&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593783036444.png"
+loading="lazy"
+alt="1593783036444"
+>&lt;/p>
+&lt;h4 id="快捷键的使用案例">快捷键的使用案例&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>拷贝当前行 yy , 拷贝当前行向下的 5 行 5yy，并粘贴（p）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>删除当前行 dd , 删除当前行向下的 5 行 5dd&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在文件中查找某个单词 [命令行下 /关键字 ， 回车 查找 , 输入 n 就是查找下一个 ],查询&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>hello.&lt;/p>
+&lt;ol start="4">
+&lt;li>
+&lt;p>设置文件的行号，取消文件的行号.[命令行下 : set nu 和 :set nonu]&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>编辑 /etc/profile 文件，使用快捷键到底文档的最末行[G]和最首行[gg],注意这些都是在正常模式下执行的。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在一个文件中输入 &amp;ldquo;hello&amp;rdquo; ,然后又撤销这个动作，再正常模式下输入 u&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>编辑 /etc/profile 文件，并将光标移动到 第 20 行 shift+g&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>第一步：显示行号 :set nu&lt;/p>
+&lt;p>第二步：输入 20 这个数&lt;/p>
+&lt;p>第三步: 输入 shift+g&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/vi-vim-cheat-sheet-sch.gif"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h3 id="关机重启命令">关机&amp;amp;重启命令&lt;/h3>
+&lt;h4 id="基本介绍">基本介绍&lt;/h4>
+&lt;p>shutdown&lt;/p>
+&lt;p>shutdown -h now : 表示立即关机&lt;/p>
+&lt;p>shutdown -h 1 : 表示 1 分钟后关机&lt;/p>
+&lt;p>shutdown -r now: 立即重启&lt;/p>
+&lt;p>halt&lt;/p>
+&lt;p>就是直接使用，效果等价于关机&lt;/p>
+&lt;p>reboot&lt;/p>
+&lt;p>就是重启系统。&lt;/p>
+&lt;p>sync： 把内存的数据同步到磁盘&lt;/p>
+&lt;h4 id="注意细节">注意细节&lt;/h4>
+&lt;p>当我们关机或者重启时，都应该先执行以下 sync 指令，把内存的数据写入磁盘，防止数据丢失。&lt;/p>
+&lt;h3 id="用户登录和注销">用户登录和注销&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>登录时尽量少用 root 帐号登录，因为它是系统管理员，最大的权限，避免操作失误。可以利用普通用户登录，登录后再用”su - 用户名’命令来切换成系统管理员身份.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在提示符下输入 logout 即可注销用户&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="使用细节">使用细节&lt;/h4>
+&lt;p>1)logout 注销指令在图形运行级别无效，在 运行级别 3 下有效.&lt;/p>
+&lt;h3 id="用户管理">用户管理&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/clip_image003.gif"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>&lt;strong>说明&lt;/strong>&lt;/p>
+&lt;p>Linux 系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号&lt;/p>
+&lt;h4 id="添加用户">添加用户&lt;/h4>
+&lt;h5 id="基本语法">基本语法&lt;/h5>
+&lt;p>useradd [选项] 用户名&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>当创建用户成功后，会自动的创建和用户同名的家目录&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>也可以通过 useradd -d 指定目录 新的用户名，给新创建的用户指定家目录&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="设置密码">&lt;strong>设置密码&lt;/strong>&lt;/h4>
+&lt;p>基本语法&lt;/p>
+&lt;p>passwd 用户名&lt;/p>
+&lt;h4 id="删除用户">删除用户&lt;/h4>
+&lt;h5 id="基本语法-1">基本语法&lt;/h5>
+&lt;p>userdel 用户名&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;pre>&lt;code> 删除用户 xm，但是要保留家目录
+&lt;/code>&lt;/pre>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">userdel xm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>删除用户 xh 以及用户主目录&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>userdel xh -r
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>在删除用户时，我们一般不会将家目录删除。&lt;/strong>&lt;/p>
+&lt;h4 id="查询用户信息">查询用户信息&lt;/h4>
+&lt;h5 id="基本语法-2">基本语法&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">id 用户名
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">uid&lt;/span>&lt;span class="o">=&lt;/span>0&lt;span class="o">(&lt;/span>root&lt;span class="o">)&lt;/span> &lt;span class="nv">gid&lt;/span>&lt;span class="o">=&lt;/span>0&lt;span class="o">(&lt;/span>root&lt;span class="o">)&lt;/span> &lt;span class="nv">组&lt;/span>&lt;span class="o">=&lt;/span>0&lt;span class="o">(&lt;/span>root&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> V V V
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">用户id号 所在组的id号 组名
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="切换用户">切换用户&lt;/h4>
+&lt;p>在操作 Linux 中，如果当前用户的权限不够，可以通过 su - 指令，切换到高权限用户，比如 root&lt;/p>
+&lt;p>&lt;strong>基本语法&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">su – 切换用户名
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">//高权限用户向低权限用户不需要密码
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exit&lt;/span> //可以回到原来的用户
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>1)从权限高的用户切换到权限低的用户，不需要输入密码，反之需要。&lt;/p>
+&lt;p>2)当需要返回到原来用户时，使用 exit 指令&lt;/p>
+&lt;pre tabindex="0">&lt;code>whoami //查看当前用户
+&lt;/code>&lt;/pre>&lt;h4 id="用户组">用户组&lt;/h4>
+&lt;p>类似于角色，系统可以对有共性的多个用户进行统一的管理。&lt;/p>
+&lt;p>&lt;strong>增加组&lt;/strong>&lt;/p>
+&lt;p>groupadd 组 名&lt;/p>
+&lt;p>&lt;strong>删除组&lt;/strong>&lt;/p>
+&lt;p>groupdel 组 名&lt;/p>
+&lt;p>&lt;strong>增加用户时直接加上组&lt;/strong>&lt;/p>
+&lt;p>useradd -g 用户组 用户名&lt;/p>
+&lt;p>&lt;strong>修改用户的组&lt;/strong>&lt;/p>
+&lt;p>usermod -g 用户组 用户名&lt;/p>
+&lt;h4 id="用户和组的相关文件">&lt;strong>用户和组的相关文件&lt;/strong>&lt;/h4>
+&lt;p>&lt;strong>/etc/passwd 文件&lt;/strong>&lt;/p>
+&lt;p>用户（user）的配置文件，记录用户的各种信息&lt;/p>
+&lt;p>每行的含义：&lt;/p>
+&lt;p>用户名 : 口令 : 用户标识号 : 组标识号 : 注释性描述 : 主目录 : 登录 Shell&lt;/p>
+&lt;p>&lt;strong>/etc/shadow 文件&lt;/strong>&lt;/p>
+&lt;p>口令的配置文件
+每行的含义：&lt;/p>
+&lt;p>登录名 : 加密口令 : 最后一次修改时间 : 最小时间间隔 : 最大时间间隔 : 警告时间 : 不活动时间 : 失效时间 : 标志&lt;/p>
+&lt;p>&lt;strong>/etc/group 文件&lt;/strong>
+组(group)的配置文件，记录 Linux 包含的组的信息每行含义：&lt;/p>
+&lt;p>组名:口令:组标识号:组内用户列表&lt;/p>
+&lt;h3 id="运行级别">运行级别&lt;/h3>
+&lt;p>运行级别说明：
+0：关机
+1：单用户【找回丢失密码】
+2：多用户状态没有网络服务
+3：多用户状态有网络服务
+4：系统未使用保留给用户
+5：图形界面
+6：系统重启&lt;/p>
+&lt;p>常用运行级别是 3 和 5 ，要修改默认的运行级别可改文件&lt;/p>
+&lt;p>/etc/inittab 的 &lt;code>id:5:initdefault:&lt;/code> 这一行中的数字&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593838451860.png"
+loading="lazy"
+alt="1593838451860"
+>&lt;/p>
+&lt;h4 id="指定运行级别">指定运行级别&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/clip_image001.gif"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>init [012356]&lt;/p>
+&lt;p>int 3&lt;/p>
+&lt;p>init [012356]&lt;/p>
+&lt;h5 id="如何找回-root-密码">如何找回 root 密码&lt;/h5>
+&lt;p>进入到 单用户模式，然后修改 root 密码。因为进入单用户模式，root 不需要密码就可以登录。&lt;/p>
+&lt;p>开机在引导期间使用enter进入页面，按e进入选择第二行的内核kenral再按e进入，输入1告诉内核进入单用户模式，再按回车回去上一级按b启动。&lt;/p>
+&lt;p>启动后使用passwd root就可以重置密码了。reboot重启。&lt;/p>
+&lt;h3 id="获得帮助信息">获得帮助信息&lt;/h3>
+&lt;h4 id="man">man&lt;/h4>
+&lt;p>man [命令或配置文件]（功能描述：获得帮助信息）&lt;/p>
+&lt;p>man ls&lt;/p>
+&lt;h4 id="help-指令">help 指令&lt;/h4>
+&lt;p>help 命令 （功能描述：获得 shell 内置命令的帮助信息）&lt;/p>
+&lt;p>help cd&lt;/p>
+&lt;h3 id="文件目录类">文件目录类&lt;/h3>
+&lt;h4 id="pwd-指令">pwd 指令&lt;/h4>
+&lt;p>pwd (功能描述：显示当前工作目录的绝对路径)&lt;/p>
+&lt;h4 id="ls-指令">ls 指令&lt;/h4>
+&lt;p>ls [ 选 项] [目录或是文件]&lt;/p>
+&lt;h4 id="cd-指令">cd 指令&lt;/h4>
+&lt;p>cd .当前目录(不变)&lt;/p>
+&lt;p>cd [参数] (功能描述：切换到指定目录)&lt;/p>
+&lt;p>cd ~ 或者 cd ：回到自己的家目录&lt;/p>
+&lt;p>cd .. 回到当前目录的上一级目录&lt;/p>
+&lt;p>cd /root 使用绝对路径切换到 root 目录&lt;/p>
+&lt;p>cd ../../root 使用相对路径到/root 目录&lt;/p>
+&lt;h4 id="mkdir-指令">mkdir 指令&lt;/h4>
+&lt;p>mkdir 指令用于创建目录(make directory)&lt;/p>
+&lt;p>mkdir [选项] 要创建的目录&lt;/p>
+&lt;p>-p ：创建多级目录&lt;/p>
+&lt;pre tabindex="0">&lt;code>mkdir -p /aaa/bbb/ccc
+&lt;/code>&lt;/pre>&lt;h4 id="rmdir-指令">rmdir 指令&lt;/h4>
+&lt;p>rmdir 指令删除空目录&lt;/p>
+&lt;p>rmdir [选项] 要删除的空目录&lt;/p>
+&lt;p>&lt;code>rmdir &lt;/code>删除的是空目录，如果目录下有内容时无法删除的。
+提示：如果需要删除非空目录，需要使用&lt;code>rm -rf &lt;/code>要删除的目录&lt;/p>
+&lt;h4 id="touch-指令">touch 指令&lt;/h4>
+&lt;p>touch 指令创建空文件&lt;/p>
+&lt;p>touch 文件名称&lt;/p>
+&lt;h4 id="cp-指令">cp 指令[*]&lt;/h4>
+&lt;p>cp 指令拷贝文件到指定目录&lt;/p>
+&lt;p>cp [选项] source dest&lt;/p>
+&lt;p>-r ：递归复制整个文件夹&lt;/p>
+&lt;p>cp -r 源目录 目标目录&lt;/p>
+&lt;h4 id="rm-指令">rm 指令&lt;/h4>
+&lt;p>rm 指令移除【删除】文件或目录&lt;/p>
+&lt;p>rm [选项] 要删除的文件或目录&lt;/p>
+&lt;p>-r ：递归删除整个文件夹&lt;/p>
+&lt;p>-f ： 强制删除不提示&lt;/p>
+&lt;h4 id="mv-指令">mv 指令&lt;/h4>
+&lt;p>mv 移动文件与目录或重命名&lt;/p>
+&lt;p>mv oldNameFile newNameFile (功能描述：重命名)&lt;/p>
+&lt;p>mv /temp/movefile /targetFolder (功能描述：移动文件)&lt;/p>
+&lt;h4 id="cat-指令">cat 指令&lt;/h4>
+&lt;p>cat 查看文件内容，是以只读的方式打开。&lt;/p>
+&lt;p>cat [选项] 要查看的文件&lt;/p>
+&lt;p>-n ：显示行号&lt;/p>
+&lt;p>cat 只能浏览文件，而不能修改文件，为了浏览方便，一般会带上 管道命令 | more&lt;/p>
+&lt;p>cat 文件名 | more [分页浏览]&lt;/p>
+&lt;h4 id="more-指令">more 指令&lt;/h4>
+&lt;p>more 指令是一个基于 VI 编辑器的文本过滤器，它以全屏幕的方式按页显示文本文件的内容&lt;/p>
+&lt;p>快捷键：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593843318484.png"
+loading="lazy"
+alt="1593843318484"
+>&lt;/p>
+&lt;h4 id="less-指令">less 指令&lt;/h4>
+&lt;p>less 指令用来分屏查看文件内容，它的功能与 more 指令类似，但是比 more 指令更加强大，支持各种显示终端。less 指令在显示文件内容时，并不是一次将整个文件加载之后才显示，而是根据显示需要加载内容，对于显示大型文件具有较高的效率。&lt;/p>
+&lt;pre tabindex="0">&lt;code>less 要查看的文件
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593843382522.png"
+loading="lazy"
+alt="1593843382522"
+>&lt;/p>
+&lt;h4 id="-指令-和--指令">&amp;gt; 指令 和 &amp;raquo; 指令&lt;/h4>
+&lt;p>&amp;gt; 输出重定向 : 会将原来的文件的内容覆盖&lt;/p>
+&lt;p>&amp;gt;&amp;gt; 追加： 不会覆盖原来文件的内容，而是追加到文件的尾部。&lt;/p>
+&lt;pre tabindex="0">&lt;code>ls -l &amp;gt;文件 （功能描述：列表的内容写入文件 a.txt 中（覆盖写））
+ls -al &amp;gt;&amp;gt;文件 （功能描述：列表的内容追加到文件 aa.txt 的末尾）
+cat 文件 1 &amp;gt; 文件 2 （功能描述：将文件 1 的内容覆盖到文件 2）
+cal &amp;gt;&amp;gt; /home/mycal 将当前日历信息 追加到 /home/mycal 文件中 [提示 cal ]
+&lt;/code>&lt;/pre>&lt;h4 id="echo-指令">echo 指令&lt;/h4>
+&lt;p>echo 输出内容到控制台。&lt;/p>
+&lt;p>echo [选项] [输出内容]&lt;/p>
+&lt;pre tabindex="0">&lt;code>echo $PATH 使用 echo 指令输出环境变量,输出当前的环境路径。
+&lt;/code>&lt;/pre>&lt;h4 id="head-指令">head 指令&lt;/h4>
+&lt;p>head 用于显示文件的开头部分内容，默认情况下 head 指令显示文件的前 10 行内容&lt;/p>
+&lt;pre tabindex="0">&lt;code>head 文件 (功能描述：查看文件头 10 行内容)
+head -n 5 文件 (功能描述：查看文件头 5 行内容，5 可以是任意行数)
+&lt;/code>&lt;/pre>&lt;h4 id="tail-指令">tail 指令&lt;/h4>
+&lt;p>tail 用于输出文件中尾部的内容，默认情况下 tail 指令显示文件的后 10 行内容。&lt;/p>
+&lt;pre tabindex="0">&lt;code>tail 文件 （功能描述：查看文件后 10 行内容）
+tail -n 5 文件 （功能描述：查看文件后 5 行内容，5 可以是任意行数）
+tail -f 文件 （功能描述：实时追踪该文档的所有更新，工作经常使用）
+&lt;/code>&lt;/pre>&lt;h4 id="ln-指令">ln 指令&lt;/h4>
+&lt;p>软链接也叫符号链接，类似于 windows 里的快捷方式，主要存放了链接其他文件的路径&lt;/p>
+&lt;pre tabindex="0">&lt;code>ln -s [原文件或目录] [软链接名] （功能描述：给原文件创建一个软链接）
+ln -s /root linkToRoot 在/home 目录下创建一个软连接 linkToRoot，连接到 /root 目录
+rm -rf linkToRoot 删除软连接
+ln 硬链接
+##软链接可以跨文件系统，硬链接不可以；软链接可以对一个不存在的文件名（filename）进行链接（当然此时如果你vi这个软链接文件，linux会自动新建一个文件名为filename的文件），硬链接不可以（其文件必须存在，inode必须存在）；软链接可以对目录进行连接，硬链接不可以。两种链接都可以通过命令 ln 来创建。ln 默认创建的是硬链接。使用 -s 开关可以创建软链接。
+&lt;/code>&lt;/pre>&lt;p>当我们使用 pwd 指令查看目录时，仍然看到的是软链接所在目录。&lt;/p>
+&lt;h4 id="history-指令">history 指令&lt;/h4>
+&lt;p>查看已经执行过历史命令,也可以执行历史指令&lt;/p>
+&lt;pre tabindex="0">&lt;code>history （功能描述：查看已经执行过历史命令）
+history 10 显示最近使用过的 10 个指令。
+!10 执行编号为10的指令
+&lt;/code>&lt;/pre>&lt;h3 id="时间日期类">时间日期类&lt;/h3>
+&lt;h4 id="date-指令-显示当前日期">date 指令-显示当前日期&lt;/h4>
+&lt;pre tabindex="0">&lt;code>1) date （功能描述：显示当前时间）
+2) date +%Y （功能描述：显示当前年份）
+3) date +%m （功能描述：显示当前月份）
+4) date +%d （功能描述：显示当前是哪一天）
+5) date &amp;#34;+%Y-%m-%d %H:%M:%S&amp;#34;（功能描述：显示年月日时分秒）
+&lt;/code>&lt;/pre>&lt;h4 id="date-指令-设置日期">date 指令-设置日期&lt;/h4>
+&lt;pre tabindex="0">&lt;code>date -s 字符串时间
+设置系统当前时间 ， 比如设置成 2018-10-10 11:22:22
+date -s &amp;#34;2018-10-10 11:22:22&amp;#34;
+&lt;/code>&lt;/pre>&lt;h4 id="查看日历指令">查看日历指令&lt;/h4>
+&lt;pre tabindex="0">&lt;code>cal [选项] （功能描述：不加选项，显示本月日历）
+cal
+cal 2021
+&lt;/code>&lt;/pre>&lt;h3 id="搜索查找类">搜索查找类&lt;/h3>
+&lt;h4 id="find-指令">find 指令&lt;/h4>
+&lt;p>find 指令将从指定目录向下递归地遍历其各个子目录，将满足条件的文件或者目录显示在终端&lt;/p>
+&lt;p>find [搜索范围] [选项]&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593844669367.png"
+loading="lazy"
+alt="1593844669367"
+>&lt;/p>
+&lt;pre tabindex="0">&lt;code>按文件名：根据名称查找/home 目录下的 hello.txt 文件
+find /home -name hello.txt
+按拥有者：查找/opt 目录下，用户名称为 nobody 的文件
+find /opt -user nobody
+查找整个 linux 系统下大于 20m 的文件（+n 大于 -n 小于 n 等于）
+find / -size +20M
+find / -size +20480K
+查询 / 目录下，所有 .txt 的文件
+find / -name *.txt
+&lt;/code>&lt;/pre>&lt;h4 id="locate-指令">locate 指令&lt;/h4>
+&lt;p>locaate 指令可以快速定位文件路径。locate 指令利用事先建立的系统中所有文件名称及路径的locate 数据库实现快速定位给定的文件。Locate 指令无需遍历整个文件系统，查询速度较快。为了保证查询结果的准确度，管理员必须定期更新 locate 时刻。&lt;/p>
+&lt;pre tabindex="0">&lt;code>updatedb
+locate 搜索文件
+&lt;/code>&lt;/pre>&lt;p>由于 locate 指令基于数据库进行查询，所以第一次运行前，必须使用 updatedb 指令创建 locate 数据库。&lt;/p>
+&lt;h4 id="grep-指令和-管道符号-">grep 指令和 管道符号 |&lt;/h4>
+&lt;p>grep 过滤查找 ， 管道符，“|”，表示将前一个命令的处理结果输出传递给后面的命令处理。&lt;/p>
+&lt;pre tabindex="0">&lt;code>grep [选项] 查找内容 源文件
+&lt;/code>&lt;/pre>&lt;p>-n 显示匹配行及行号&lt;/p>
+&lt;p>-i 忽略字母大小写&lt;/p>
+&lt;pre tabindex="0">&lt;code>请在 hello.txt 文件中，查找 &amp;#34;yes&amp;#34; 所在行，并且显示行号
+cat hello.txt | grep -n yes
+&lt;/code>&lt;/pre>&lt;h3 id="压缩和解压类">压缩和解压类&lt;/h3>
+&lt;h4 id="gzipgunzip-指令">gzip/gunzip 指令&lt;/h4>
+&lt;p>gzip 用于压缩文件， gunzip 用于解压的&lt;/p>
+&lt;p>gzip 文件 （功能描述：压缩文件，只能将文件压缩为*.gz 文件）&lt;/p>
+&lt;p>gunzip 文 件.gz （功能描述：解压缩文件命令）&lt;/p>
+&lt;pre tabindex="0">&lt;code>gzip 压缩， 将 /home 下的 hello.txt 文件进行压缩
+gzip hello.txt
+gunzip 压缩， 将 /home 下的 hello.txt.gz 文件进行解压缩
+gunzip hello.txt.gz
+&lt;/code>&lt;/pre>&lt;p>当我们使用 gzip 对文件进行压缩后，不会保留原来的文件。&lt;/p>
+&lt;h4 id="zipunzip-指令">zip/unzip 指令&lt;/h4>
+&lt;p>zip 用于压缩文件， unzip 用于解压的，这个在项目打包发布中很有用的&lt;/p>
+&lt;pre tabindex="0">&lt;code>zip [选项] XXX.zip 将要压缩的内容（功能描述：压缩文件和目录的命令）
+unzip [选项] XXX.zip （功能描述：解压缩文件）
+&lt;/code>&lt;/pre>&lt;p>zip -r：递归压缩，即压缩目录&lt;/p>
+&lt;p>unzip -d&amp;lt;目录&amp;gt; ：指定解压后文件的存放目录&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">将 /home 下的 所有文件进行压缩成 mypackage.zip
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">zip -r mypackage.zip /home/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">将 mypackge.zip 解压到 /opt/tmp 目录下
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unzip -d /opt/tmp/ mypackage.zip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="tar-指令">tar 指令&lt;/h4>
+&lt;p>tar 指令 是打包指令，最后打包后的文件是 .tar.gz 的文件。&lt;/p>
+&lt;pre tabindex="0">&lt;code>tar [选项] XXX.tar.gz 打包的内容 (功能描述：打包目录，压缩后的文件格式.tar.gz)
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593845537786.png"
+loading="lazy"
+alt="1593845537786"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">压缩多个文件，将 /home/a1.txt 和 /home/a2.txt 压缩成 a.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -zcvf a.tar.gz a1.txt a2.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">将/home 的文件夹 压缩成 myhome.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -zcvf myhome.tar.gz /home/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">将 a.tar.gz 解压到当前目录
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -zxvf a.tar.gz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">将 myhome.tar.gz 解压到 /opt/ 目录下
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#指定解压到的那个目录，事先要存在才能成功，否则会报错。&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tar -zxvf myhome.tar.gz -C /opt/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="组管理和权限管理">组管理和权限管理&lt;/h3>
+&lt;h4 id="linux-组基本介绍">Linux 组基本介绍&lt;/h4>
+&lt;p>在 linux 中的每个用户必须属于一个组，不能独立于组外。在 linux 中每个文件有所有者、所在组、其它组的概念。&lt;/p>
+&lt;ol>
+&lt;li>所有者&lt;/li>
+&lt;li>所在组&lt;/li>
+&lt;li>其它组&lt;/li>
+&lt;li>改变用户所在的组&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593864434878.png"
+loading="lazy"
+alt="1593864434878"
+>&lt;/p>
+&lt;h4 id="文件目录-所有者">文件/目录 所有者&lt;/h4>
+&lt;p>一般为文件的创建者,谁创建了该文件，就自然的成为该文件的所有者。&lt;/p>
+&lt;h3 id="查看文件的所有者">查看文件的所有者&lt;/h3>
+&lt;p>指令：ls -ahl&lt;/p>
+&lt;p>创建一个组 police,再创建一个用户 tom,将 tom 放在 police 组 ,然后使用 tom 来创建一个文件 ok.txt&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593864576338.png"
+loading="lazy"
+alt="1593864576338"
+>&lt;/p>
+&lt;p>所有者👆&lt;/p>
+&lt;h4 id="修改文件所有者">修改文件所有者&lt;/h4>
+&lt;p>指令：chown 用户名 文件名&lt;/p>
+&lt;p>使用 root 创建一个文件 apple.txt ，然后将其所有者修改成 tom&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593864639589.png"
+loading="lazy"
+alt="1593864639589"
+>&lt;/p>
+&lt;h4 id="组的创建">组的创建&lt;/h4>
+&lt;p>groupadd 组 名&lt;/p>
+&lt;p>创建一个组, ,monster&lt;/p>
+&lt;p>创建一个用户 fox ，并放入到 monster 组中&lt;/p>
+&lt;pre tabindex="0">&lt;code>groupadd monster
+useradd -g monster fox
+id fox //查看
+&lt;/code>&lt;/pre>&lt;h4 id="文件目录-所在组">文件/目录 所在组&lt;/h4>
+&lt;p>当某个用户创建了一个文件后，默认这个文件的所在组就是该用户所在的组。&lt;/p>
+&lt;h4 id="查看文件目录所在组">查看文件/目录所在组&lt;/h4>
+&lt;p>ls –ahl&lt;/p>
+&lt;h4 id="修改文件所在的组">修改文件所在的组&lt;/h4>
+&lt;p>chgrp 组名 文件名&lt;/p>
+&lt;p>使用 root 用户创建文件 orange.txt ,看看当前这个文件属于哪个组，然后将这个文件所在组，修改到 police 组 。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593865387296.png"
+loading="lazy"
+alt="1593865387296"
+>&lt;/p>
+&lt;h4 id="其它组">其它组&lt;/h4>
+&lt;p>除文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组.&lt;/p>
+&lt;h4 id="改变用户所在组">改变用户所在组&lt;/h4>
+&lt;p>在添加用户时，可以指定将该用户添加到哪个组中，同样的用 root 的管理权限可以改变某个用户所在的组。&lt;/p>
+&lt;pre tabindex="0">&lt;code>usermod –g 组名 用户名
+usermod –d 目录名 用户名 改变该用户
+&lt;/code>&lt;/pre>&lt;p>创建一个土匪组（bandit）将 tom 这个用户从原来所在的 police 组，修改到 bandit(土匪) 组&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593865717951.png"
+loading="lazy"
+alt="1593865717951"
+>&lt;/p>
+&lt;h3 id="权限的基本介绍">权限的基本介绍&lt;/h3>
+&lt;p>ls -l 中显示的内容如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">-rwxrw-r-- &lt;span class="m">1&lt;/span> root root &lt;span class="m">1213&lt;/span> Feb &lt;span class="m">2&lt;/span> 09:39 abc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>0-9 位说明&lt;/p>
+&lt;p>1)第 0 位确定文件类型(d, - , l , c , b)&lt;/p>
+&lt;p>2)第 1-3 位确定所有者（该文件的所有者）拥有该文件的权限。&amp;mdash;User&lt;/p>
+&lt;p>3)第 4-6 位确定所属组（同用户组的）拥有该文件的权限，&amp;mdash;Group&lt;/p>
+&lt;p>4)第 7-9 位确定其他用户拥有该文件的权限 &amp;mdash;Other&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593865847037.png"
+loading="lazy"
+alt="1593865847037"
+>&lt;/p>
+&lt;h3 id="rwx权限详解">rwx权限详解&lt;/h3>
+&lt;h4 id="rwx作用到文件">rwx作用到文件&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>[ r ]代表可读(read): 可以读取,查看&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>[ w ]代表可写(write): 可以修改,但是不代表可以删除该文件,删除一个文件的前提条件是对该文件所在的目录有写权限，才能删除该文件.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>[ x ]代表可执行(execute):可以被执行&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="rwx作用到目录">rwx作用到目录&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>[ r ]代表可读(read): 可以读取，ls 查看目录内容&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>[ w ]代表可写(write): 可以修改,目录内创建+删除+重命名目录&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>[ x ]代表可执行(execute):可以进入该目录&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="文件及目录权限实际案例">文件及目录权限实际案例&lt;/h3>
+&lt;p>ls -l 中显示的内容如下：&lt;/p>
+&lt;p>-rwxrw-r&amp;ndash; 1 root root 1213 Feb 2 09:39 abc&lt;/p>
+&lt;p>10 个字符确定不同用户能对文件干什么&lt;/p>
+&lt;p>第一个字符代表文件类型： 文件 (-),目录(d),链接(l)
+其余字符每 3 个一组(rwx) 读(r) 写(w) 执行(x)
+第一组 rwx : 文件拥有者的权限是读、写和执行
+第二组 rw- : 与文件拥有者同一组的用户的权限是读、写但不能执行&lt;/p>
+&lt;p>第三组 r&amp;ndash; : 不与文件拥有者同组的其他用户的权限是读不能写和执行&lt;/p>
+&lt;p>可用数字表示为: r=4,w=2,x=1 因此 rwx=4+2+1=7&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;strong>1&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>文件：硬连接数或 目录：子目录数&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>root&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>用户&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>root&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>组&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>1213&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>文件大小(字节)，如果是文件夹，显示 4096 字节&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Feb 2 09:39&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>最后修改日期&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>abc&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>文件名&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>​&lt;/p>
+&lt;h4 id="修改权限-chmod">修改权限-chmod&lt;/h4>
+&lt;p>通过 chmod 指令，可以修改文件或者目录的权限&lt;/p>
+&lt;h4 id="第一种方式---变更权限">第一种方式：+ 、-、= 变更权限&lt;/h4>
+&lt;p>u:所有者 g:所有组 o:其他人 a:所有人(u、g、o 的总和)&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>chmod u=rwx,g=rx,o=x 文件目录名&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>chmod o+w 文件目录名&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>chmod a-x 文件目录名&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>给 abc 文件 的所有者读写执行的权限，给所在组读执行权限，给其它组读执行权限。
+&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593866461439.png"
+loading="lazy"
+alt="1593866461439"
+>&lt;/p>
+&lt;p>给 abc 文件的所有者除去执行的权限，增加组写的权限&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593866504885.png"
+loading="lazy"
+alt="1593866504885"
+>&lt;/p>
+&lt;p>给 abc 文件的所有用户添加读的权限&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593866558942.png"
+loading="lazy"
+alt="1593866558942"
+>&lt;/p>
+&lt;h4 id="第二种方式通过数字变更权限">第二种方式：通过数字变更权限&lt;/h4>
+&lt;p>规则：r=4 w=2 x=1,rwx=4+2+1=7&lt;/p>
+&lt;p>chmod u=rwx,g=rx,o=x 文件目录名&lt;/p>
+&lt;p>相当于 chmod 751 文件目录名&lt;/p>
+&lt;p>将 /home/abc.txt 文件的权限修改成 rwxr-xr-x, 使用给数字的方式实现：&lt;/p>
+&lt;p>rwx = 4+2+1 = 7&lt;/p>
+&lt;p>r-x = 4+1=5&lt;/p>
+&lt;p>r-x = 4+1 =5&lt;/p>
+&lt;p>指令：chmod 755 /home/abc.txt&lt;/p>
+&lt;h4 id="修改文件所有者-chown">修改文件所有者-chown&lt;/h4>
+&lt;p>chown newowner file 改变文件的所有者&lt;/p>
+&lt;p>chown newowner:newgroup file 改变用户的所有者和所有组&lt;/p>
+&lt;p>-R 如果是目录 则使其下所有子文件或目录递归生效&lt;/p>
+&lt;p>请将 /home/abc .txt 文件的所有者修改成 tom&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593866819855.png"
+loading="lazy"
+alt="1593866819855"
+>&lt;/p>
+&lt;p>请将 /home/kkk 目录下所有的文件和目录的所有者都修改成 tom&lt;/p>
+&lt;p>首选我们应该使用 root 操作。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593866872283.png"
+loading="lazy"
+alt="1593866872283"
+>&lt;/p>
+&lt;h4 id="修改文件所在组-chgrp">修改文件所在组-chgrp&lt;/h4>
+&lt;p>chgrp newgroup file 改变文件的所有组&lt;/p>
+&lt;ol>
+&lt;li>请将 /home/abc .txt 文件的所在组修改成 bandit (土匪)&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">chgrp bandit /home/abc.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>请将 /home/kkk 目录下所有的文件和目录的所在组都修改成 bandit(土匪)&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>chgrp -R bandit /home/kkk
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593866984875.png"
+loading="lazy"
+alt="1593866984875"
+>&lt;/p>
+&lt;h3 id="最佳实践-警察和土匪游戏">最佳实践-警察和土匪游戏&lt;/h3>
+&lt;p>police警察 bandit土匪&lt;/p>
+&lt;p>jack, jerry: 警 察&lt;/p>
+&lt;p>xh, xq: 土 匪&lt;/p>
+&lt;p>(1) 创建组&lt;/p>
+&lt;p>bash&amp;gt; groupadd police&lt;/p>
+&lt;p>bash&amp;gt; groupadd bandit&lt;/p>
+&lt;p>(2) 创建用户&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593867122713.png"
+loading="lazy"
+alt="1593867122713"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593867129607.png"
+loading="lazy"
+alt="1593867129607"
+>&lt;/p>
+&lt;p>(3) jack 创建一个文件，自己可以读写，本组人可以读，其它组没人任何权限&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593867173773.png"
+loading="lazy"
+alt="1593867173773"
+>&lt;/p>
+&lt;p>(4) jack 修改该文件，让其它组人可以读, 本组人可以读写&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593867219396.png"
+loading="lazy"
+alt="1593867219396"
+>&lt;/p>
+&lt;p>(5) xh 投靠 警察，看看是否可以读写.&lt;/p>
+&lt;p>先用 root 修改 xh 的组 ：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593867266232.png"
+loading="lazy"
+alt="1593867266232"
+>&lt;/p>
+&lt;p>使用 jack 给他的家目录 /home/jack 的所在组一个 rx 的权限&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593867293834.png"
+loading="lazy"
+alt="1593867293834"
+>&lt;/p>
+&lt;p>xh 需要重新注销在到 jack 目录就可以操作 jack 的文件&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593867344404.png"
+loading="lazy"
+alt="1593867344404"
+>&lt;/p>
+&lt;h2 id="crond-任务调度">crond 任务调度&lt;/h2>
+&lt;h3 id="原理">原理&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593948751281.png"
+loading="lazy"
+alt="1593948751281"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593948778770.png"
+loading="lazy"
+alt="1593948778770"
+>&lt;/p>
+&lt;p>&lt;strong>crontab 进行 定时任务的设置&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>任务调度&lt;/strong>：是指系统在某个时间执行的特定的命令或程序。&lt;/p>
+&lt;p>任务调度分类：&lt;/p>
+&lt;p>1.系统工作：有些重要的工作必须周而复始地执行。如病毒扫描等&lt;/p>
+&lt;p>2.个别用户工作：个别用户可能希望执行某些程序，比如对 mysql 数据库的备份。&lt;/p>
+&lt;h4 id="基本语法-3">基本语法&lt;/h4>
+&lt;pre tabindex="0">&lt;code>crontab [选项]
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593948881827.png"
+loading="lazy"
+alt="1593948881827"
+>&lt;/p>
+&lt;h4 id="要求">要求&lt;/h4>
+&lt;p>设置任务调度文件：/etc/crontab&lt;/p>
+&lt;p>设置个人任务调度。执行 crontab –e 命令。&lt;/p>
+&lt;p>接着输入任务到调度文件&lt;/p>
+&lt;p>如：*/1 * * * * ls –l /etc/ &amp;gt; /tmp/to.txt&lt;/p>
+&lt;p>意思说每小时的每分钟执行 ls –l /etc/ &amp;gt; /tmp/to.txt 命令&lt;/p>
+&lt;h4 id="步骤如下">步骤如下&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>cron -e&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>*/ 1 * * * * ls -l /etc &amp;raquo; /tmp/to.txt&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>当保存退出后就程序。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在每一分钟都会自动的调用 ls -l /etc &amp;raquo; /tmp/to.txt&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="参数细节说明">参数细节说明&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593949018840.png"
+loading="lazy"
+alt="1593949018840"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593949051397.png"
+loading="lazy"
+alt="1593949051397"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593949079188.png"
+loading="lazy"
+alt="1593949079188"
+>&lt;/p>
+&lt;h5 id="案例-1每隔-1-分钟就将当前的日期信息追加到-tmpmydate-文件中">&lt;strong>案例 1&lt;/strong>：每隔 1 分钟，就将当前的日期信息，追加到 /tmp/mydate 文件中&lt;/h5>
+&lt;ol>
+&lt;li>先编写一个文件 /home/mytask1.sh&lt;/li>
+&lt;/ol>
+&lt;p>date &amp;raquo; /tmp/mydate&lt;/p>
+&lt;ol start="2">
+&lt;li>给 mytask1.sh 一个可以执行权限&lt;/li>
+&lt;/ol>
+&lt;p>chmod 744 /home/mytask1.sh&lt;/p>
+&lt;ol start="3">
+&lt;li>
+&lt;p>crontab -e&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>*/1 * * * * /home/mytask1.sh&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>成功&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h5 id="案例-2每隔-1-分钟-将当前日期和日历都追加到-homemycal-文件中">&lt;strong>案例 2&lt;/strong>：每隔 1 分钟， 将当前日期和日历都追加到 /home/mycal 文件中&lt;/h5>
+&lt;ol>
+&lt;li>先编写一个文件&lt;/li>
+&lt;/ol>
+&lt;p>/home/mytask2.sh&lt;/p>
+&lt;p>date &amp;raquo; /tmp/mycal&lt;/p>
+&lt;p>cal &amp;raquo; /tmp/mycal&lt;/p>
+&lt;ol start="2">
+&lt;li>给 mytask1.sh 一个可以执行权限&lt;/li>
+&lt;/ol>
+&lt;p>chmod 744 /home/mytask2.sh&lt;/p>
+&lt;ol start="3">
+&lt;li>
+&lt;p>crontab -e&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>*/1 * * * * /home/mytask2.sh&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>成功&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h5 id="案例-3-----每天凌晨-200-将-mysql-数据库-testdb-备份到文件中mydbbak">&lt;strong>案例 3:&lt;/strong> 每天凌晨 2:00 将 mysql 数据库 testdb ，备份到文件中mydb.bak。&lt;/h5>
+&lt;ol>
+&lt;li>先编写一个文件 /home/mytask3.sh&lt;/li>
+&lt;/ol>
+&lt;p>/usr/local/mysql/bin/mysqldump -u root -proot testdb &amp;gt; /tmp/mydb.bak&lt;/p>
+&lt;ol start="2">
+&lt;li>给 mytask3.sh 一个可以执行权限&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>chmod 744 /home/mytask3.sh
+&lt;/code>&lt;/pre>&lt;ol start="3">
+&lt;li>&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>crontab -e
+&lt;/code>&lt;/pre>&lt;ol start="4">
+&lt;li>&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>0 2 * * * /home/mytask3.sh
+&lt;/code>&lt;/pre>&lt;ol start="5">
+&lt;li>成功&lt;/li>
+&lt;/ol>
+&lt;h4 id="crond-相关指令">crond 相关指令:&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>conrtab –r：终止任务调度。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>crontab –l：列出当前有那些任务调度&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>service crond restart [重启任务调度]&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="linux-磁盘分区挂载">Linux 磁盘分区、挂载&lt;/h2>
+&lt;h3 id="分区基础知识">分区基础知识&lt;/h3>
+&lt;h5 id="windows-下的磁盘分区">windows 下的磁盘分区&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593951062587.png"
+loading="lazy"
+alt="1593951062587"
+>&lt;/p>
+&lt;h4 id="分区的方式">分区的方式：&lt;/h4>
+&lt;ol>
+&lt;li>mbr 分区:&lt;/li>
+&lt;/ol>
+&lt;p>1.最多支持四个主分区&lt;/p>
+&lt;p>2.系统只能安装在主分区&lt;/p>
+&lt;p>3.扩展分区要占一个主分区&lt;/p>
+&lt;p>4.MBR 最大只支持 2TB，但拥有最好的兼容性&lt;/p>
+&lt;ol start="2">
+&lt;li>gtp 分区:&lt;/li>
+&lt;/ol>
+&lt;p>1.支持无限多个主分区（但操作系统可能限制，比如 windows 下最多 128 个分区）&lt;/p>
+&lt;p>2.最大支持 18EB 的大容量（1EB=1024 PB，1PB=1024 TB ）&lt;/p>
+&lt;p>3.windows7 64 位以后支持&lt;/p>
+&lt;h4 id="windows-下的磁盘分区-1">windows 下的磁盘分区&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593950528566.png"
+loading="lazy"
+alt="1593950528566"
+>&lt;/p>
+&lt;h3 id="linux-分区">Linux 分区&lt;/h3>
+&lt;h4 id="原理介绍">原理介绍&lt;/h4>
+&lt;p>1)Linux 来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构 , Linux 中每个分区都是用来组成整个文件系统的一部分。&lt;/p>
+&lt;p>2)Linux 采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录， 且将一个分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593950575312.png"
+loading="lazy"
+alt="1593950575312"
+>&lt;/p>
+&lt;h4 id="硬盘说明">硬盘说明&lt;/h4>
+&lt;p>1)Linux 硬盘分 IDE 硬盘和 SCSI 硬盘，目前基本上是 SCSI 硬盘&lt;/p>
+&lt;p>2)对于 IDE 硬盘，驱动器标识符为“hdx~”,其中“hd”表明分区所在设备的类型，这里是指 IDE 硬盘了。“x”为盘号（a 为基本盘，b 为基本从属盘，c 为辅助主盘，d 为辅助从属盘）,“~”代表分区，前四个分区用数字 1 到 4 表示，它们是主分区或扩展分区，从 5 开始就是逻辑分区。例，hda3 表示为第一个 IDE 硬盘上的第三个主分区或扩展分区,hdb2 表示为第二个 IDE 硬盘上的第二个主分区或扩展分区。&lt;/p>
+&lt;p>3)对于 SCSI 硬盘则标识为“sdx~”，SCSI 硬盘是用“sd”来表示分区所在设备的类型的，其余则和 IDE 硬盘的表示方法一样 .&lt;/p>
+&lt;h5 id="使用-lsblk-指令查看当前系统的分区情况">使用 lsblk 指令查看当前系统的分区情况&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593950651437.png"
+loading="lazy"
+alt="1593950651437"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593950681315.png"
+loading="lazy"
+alt="1593950681315"
+>&lt;/p>
+&lt;h4 id="挂载的经典案例">挂载的经典案例&lt;/h4>
+&lt;p>需求是给我们的 Linux 系统增加一个新的硬盘，并且挂载到/home/newdisk&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593950721662.png"
+loading="lazy"
+alt="1593950721662"
+>&lt;/p>
+&lt;h3 id="如何增加一块硬盘">如何增加一块硬盘&lt;/h3>
+&lt;p>1)虚拟机添加硬盘&lt;/p>
+&lt;p>2)分区 fdisk /dev/sdb&lt;/p>
+&lt;p>3)格式化 mkfs -t ext4 /dev/sdb1&lt;/p>
+&lt;p>4)挂载 先创建一个 /home/newdisk , 挂 载 mount /dev/sdb1 /home/newdisk&lt;/p>
+&lt;p>5)设置可以自动挂载(永久挂载，当你重启系统，仍然可以挂载到 /home/newdisk) 。&lt;/p>
+&lt;p>vim /etc/fstab&lt;/p>
+&lt;p>/dev/sdb1 /home/newdisk ext4 defaults 0 0&lt;/p>
+&lt;h4 id="具体的操作步骤整理">具体的操作步骤整理&lt;/h4>
+&lt;h5 id="虚拟机增加硬盘步骤-1">虚拟机增加硬盘步骤 1&lt;/h5>
+&lt;p>在【虚拟机】菜单中，选择【设置】，然后设备列表里添加硬盘，然后一路【下一步】，中间只有选择磁盘大小的地方需要修改，至到完成。然后重启系统（才能识别）！&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593953351911.png"
+loading="lazy"
+alt="1593953351911"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593953412730.png"
+loading="lazy"
+alt="1593953412730"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593953444288.png"
+loading="lazy"
+alt="1593953444288"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593953468858.png"
+loading="lazy"
+alt="1593953468858"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593953495297.png"
+loading="lazy"
+alt="1593953495297"
+>&lt;/p>
+&lt;p>重启虚拟机reboot&lt;/p>
+&lt;p>重启后使用 lsblk -f&lt;/p>
+&lt;p>可以看见多了个sdb&lt;/p>
+&lt;h5 id="虚拟机增加硬盘步骤-2">虚拟机增加硬盘步骤 2&lt;/h5>
+&lt;p>使用分区命令&lt;/p>
+&lt;pre tabindex="0">&lt;code> fdisk /dev/sdb
+&lt;/code>&lt;/pre>&lt;p>开始对/sdb 分区&lt;/p>
+&lt;p>输入m可以看到帮助&lt;/p>
+&lt;p>m 显示命令列表&lt;/p>
+&lt;p>p 显示磁盘分区 同 fdisk –l&lt;/p>
+&lt;p>n 新增分区&lt;/p>
+&lt;p>d 删除分区&lt;/p>
+&lt;p>w 写入并退出&lt;/p>
+&lt;pre tabindex="0">&lt;code>输入n
+显示 e extended
+p primary partition(1-4)
+选择p
+&lt;/code>&lt;/pre>&lt;p>说明： 开始分区后输入 n，新增分区，然后选择 p ，分区类型为主分区。两次回车默认剩余全部空间。最后输入 w 写入分区并退出，若不保存退出输入 q。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/clip_image005.jpg"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h5 id="虚拟机增加硬盘步骤-3">虚拟机增加硬盘步骤 3&lt;/h5>
+&lt;p>格式化磁盘&lt;/p>
+&lt;p>分区命令:&lt;/p>
+&lt;pre tabindex="0">&lt;code>mkfs -t ext4 /dev/sdb1
+&lt;/code>&lt;/pre>&lt;p>其中 ext4 是分区类型&lt;/p>
+&lt;h5 id="虚拟机增加硬盘步骤-4">虚拟机增加硬盘步骤 4&lt;/h5>
+&lt;p>&lt;strong>挂载&lt;/strong>: 将一个分区与一个目录联系起来，&lt;/p>
+&lt;p>•mount 设备名称 挂载目录&lt;/p>
+&lt;p>•例如： mount /dev/sdb1 /home/newdisk&lt;/p>
+&lt;p>•umount 设备名称 或者 挂载目录&lt;/p>
+&lt;p>•例如： umount /dev/sdb1 或者 umount /newdisk&lt;/p>
+&lt;h5 id="虚拟机增加硬盘步骤-5">虚拟机增加硬盘步骤 5&lt;/h5>
+&lt;p>vim /etc/fstab&lt;/p>
+&lt;p>在UUID上面一行插入&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">/dev/sdb1 /home/newdisk ext4 defaults &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这句话可以使开机后能自动挂载&lt;/p>
+&lt;p>使用命令mount -a立即生效&lt;/p>
+&lt;p>永久挂载通过修改实现挂载添加完成后 执行 –即刻生效&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1593950964217.png"
+loading="lazy"
+alt="1593950964217"
+>&lt;/p>
+&lt;h3 id="磁盘情况查询">磁盘情况查询&lt;/h3>
+&lt;h4 id="查询系统整体磁盘使用情况">查询系统整体磁盘使用情况&lt;/h4>
+&lt;pre tabindex="0">&lt;code>df -h
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594016323677.png"
+loading="lazy"
+alt="1594016323677"
+>&lt;/p>
+&lt;h4 id="查询指定目录的磁盘占用情况">查询指定目录的磁盘占用情况&lt;/h4>
+&lt;pre tabindex="0">&lt;code>du -h /目录
+&lt;/code>&lt;/pre>&lt;p>查询指定目录的磁盘占用情况，默认为当前目录&lt;/p>
+&lt;pre tabindex="0">&lt;code>-s 指定目录占用大小汇总
+-h 带计量单位
+-a 含文件
+--max-depth=1 子目录深度
+-c 列出明细的同时，增加汇总值
+&lt;/code>&lt;/pre>&lt;h4 id="查询-opt-目录的磁盘占用情况深度为-1">查询 /opt 目录的磁盘占用情况，深度为 1&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594016421875.png"
+loading="lazy"
+alt="1594016421875"
+>&lt;/p>
+&lt;h4 id="磁盘情况-工作实用指令">磁盘情况-工作实用指令&lt;/h4>
+&lt;ol>
+&lt;li>统计/home 文件夹下文件的个数&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>^- 表示以&amp;#34;-&amp;#34;打头的，表示文件
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594016824199.png"
+loading="lazy"
+alt="1594016824199"
+>&lt;/p>
+&lt;ol start="2">
+&lt;li>统计/home 文件夹下目录的个数&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594016885378.png"
+loading="lazy"
+alt="1594016885378"
+>&lt;/p>
+&lt;p>3)统计计/home 文件夹下文件的个数，包括子文件夹里的&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594016923222.png"
+loading="lazy"
+alt="1594016923222"
+>&lt;/p>
+&lt;ol start="4">
+&lt;li>统计文件夹下目录的个数，包括子文件夹里的&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594016946230.png"
+loading="lazy"
+alt="1594016946230"
+>&lt;/p>
+&lt;p>5)以树状显示目录结构&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594016968695.png"
+loading="lazy"
+alt="1594016968695"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594017008507.png"
+loading="lazy"
+alt="1594017008507"
+>&lt;/p>
+&lt;h3 id="网络配置">网络配置&lt;/h3>
+&lt;p>Linux 网络配置原理图(含虚拟机)&lt;/p>
+&lt;p>目前我们的网络配置采用的是 NAT。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594018740806.png"
+loading="lazy"
+alt="1594018740806"
+>&lt;/p>
+&lt;h4 id="查看网络-ip-和网关">查看网络 IP 和网关&lt;/h4>
+&lt;p>查看虚拟网络编辑器&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594018794841.png"
+loading="lazy"
+alt="1594018794841"
+>&lt;/p>
+&lt;h4 id="修改-ip-地址修改虚拟网络的-ip">修改 ip 地址(修改虚拟网络的 ip)&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594018819402.png"
+loading="lazy"
+alt="1594018819402"
+>&lt;/p>
+&lt;h4 id="查看网关">查看网关&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594018857189.png"
+loading="lazy"
+alt="1594018857189"
+>&lt;/p>
+&lt;h4 id="查看-windows-环境的中-vmnet8-网络配置-ipconfig-指令">查看 windows 环境的中 VMnet8 网络配置 (ipconfig 指令)&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>使用 ipconfig 查看&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>界面查看&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594018892385.png"
+loading="lazy"
+alt="1594018892385"
+>&lt;/p>
+&lt;h4 id="ping-测试主机之间网络连通">ping 测试主机之间网络连通&lt;/h4>
+&lt;p>ping 目的主机 （功能描述：测试当前服务器是否可以连接目的主机）&lt;/p>
+&lt;p>&lt;strong>测试当前服务器是否可以连接百度&lt;/strong>&lt;/p>
+&lt;p>[root@hadoop100 桌面]# ping &lt;a class="link" href="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/http://www.baidu.com/" target="_blank" rel="noopener"
+>www.baidu.com&lt;/a>&lt;/p>
+&lt;h4 id="linux-网络环境配置">linux 网络环境配置&lt;/h4>
+&lt;p>&lt;strong>第一种方法(自动获取)&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594018974152.png"
+loading="lazy"
+alt="1594018974152"
+>&lt;/p>
+&lt;p>缺点: linux 启动后会自动获取 IP,缺点是每次自动获取的 ip 地址可能不一样。这个不适用于做服务器，因为我们的服务器的 ip 需要时固定的。&lt;/p>
+&lt;p>&lt;strong>第二种方法(指定固定的 ip)&lt;/strong>&lt;/p>
+&lt;p>直 接 修 改 配 置 文 件 来 指 定 IP, 并 可 以 连 接 到 外 网 ( 程 序 员 推 荐 ) ， 编 辑 vi /etc/sysconfig/network-scripts/ifcfg-eth0&lt;/p>
+&lt;p>要求：将 ip 地址配置的静态的，ip 地址为 192.168.184.130&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594019066944.png"
+loading="lazy"
+alt="1594019066944"
+>&lt;/p>
+&lt;p>修改后，一定要 重启服务&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>service network restart&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>reboot 重启系统&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594019131820.png"
+loading="lazy"
+alt="1594019131820"
+>&lt;/p>
+&lt;h2 id="进程管理">进程管理&lt;/h2>
+&lt;h4 id="进程的基本介绍">进程的基本介绍&lt;/h4>
+&lt;p>1)在 LINUX 中，每个执行的程序（代码）都称为一个进程。每一个进程都分配一个 ID 号。&lt;/p>
+&lt;p>2)每一个进程，都会对应一个父进程，而这个父进程可以复制多个子进程。例如 www 服务器。&lt;/p>
+&lt;p>3)每个进程都可能以两种方式存在的。前台与后台，所谓前台进程就是用户目前的屏幕上可以进行操作的。后台进程则是实际在操作，但由于屏幕上无法看到的进程，通常使用后台方式执行。&lt;/p>
+&lt;p>4)一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中。直到关机才才结束。&lt;/p>
+&lt;h4 id="显示系统执行的进程">显示系统执行的进程&lt;/h4>
+&lt;p>查看进行使用的指令是 ps ,一般来说使用的参数是 ps -aux&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594038649910.png"
+loading="lazy"
+alt="1594038649910"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594038680528.png"
+loading="lazy"
+alt="1594038680528"
+>&lt;/p>
+&lt;h4 id="ps-指令详解">ps 指令详解&lt;/h4>
+&lt;p>1)指令：ps –aux|grep xxx ，比如我看看有没有 sshd 服务&lt;/p>
+&lt;p>指令说明&lt;/p>
+&lt;p>• System V 展示风格&lt;/p>
+&lt;p>• USER：用户名称&lt;/p>
+&lt;p>• PID：进程号&lt;/p>
+&lt;p>• %CPU：进程占用 CPU 的百分比&lt;/p>
+&lt;p>• %MEM：进程占用物理内存的百分比&lt;/p>
+&lt;p>• VSZ：进程占用的虚拟内存大小（单位：KB）&lt;/p>
+&lt;p>• RSS：进程占用的物理内存大小（单位：KB）&lt;/p>
+&lt;p>• TT：终端名称,缩写 .&lt;/p>
+&lt;p>• STAT：进程状态，其中 S-睡眠，s-表示该进程是会话的先导进程，N-表示进程拥有比普通优先级更低的优先级，R-正在运行，D-短期等待，Z-僵死进程，T-被跟踪或者被停止等等&lt;/p>
+&lt;p>• STARTED：进程的启动时间&lt;/p>
+&lt;p>• TIME：CPU 时间，即进程使用 CPU 的总时间&lt;/p>
+&lt;p>• COMMAND：启动进程所用的命令和参数，如果过长会被截断显示&lt;/p>
+&lt;p>&lt;strong>要求：以全格式显示当前所有的进程，查看进程的父进程。&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594038857538.png"
+loading="lazy"
+alt="1594038857538"
+>&lt;/p>
+&lt;p>&lt;strong>•&lt;/strong> ps -ef 是以全格式显示当前所有的进程&lt;/p>
+&lt;p>&lt;strong>•&lt;/strong> -e 显示所有进程。-f 全格式。&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> ps -ef|grep xxx&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> 是 BSD 风格&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> UID：用户 ID&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> PID：进程 ID&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> PPID：父进程 ID&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> C：CPU 用于计算执行优先级的因子。数值越大，表明进程是 CPU 密集型运算，执行优先级会降低；数值越小，表明进程是 I/O 密集型运算，执行优先级会提高&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> STIME：进程启动的时间&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> TTY：完整的终端名称&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> TIME：CPU 时间&lt;/p>
+&lt;p>​ &lt;strong>•&lt;/strong> CMD：启动进程所用的命令和参数&lt;/p>
+&lt;p>如果我们希望查看 sshd 进程的父进程号是多少，应该怎样查询 ？&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594038908719.png"
+loading="lazy"
+alt="1594038908719"
+>&lt;/p>
+&lt;p>可以看到是1.&lt;/p>
+&lt;h4 id="终止进程-kill-和-killall">终止进程 kill 和 killall&lt;/h4>
+&lt;p>若是某个进程执行一半需要停止时，或是已消了很大的系统资源时，此时可以考虑停止该进程。使用 kill 命令来完成此项任务。&lt;/p>
+&lt;pre tabindex="0">&lt;code>kill [选项] 进程号（功能描述：通过进程号杀死进程）
+killall 进程名称（功能描述：通过进程名称杀死进程，也支持通配符，这在系统因负载过大而变得很慢时很有用）
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>选项:&lt;/strong>&lt;/p>
+&lt;p>-9 :表示强迫进程立即停止&lt;/p>
+&lt;p>&lt;strong>踢掉某个非法登录用户&lt;/strong>&lt;/p>
+&lt;p>xshell用jack登录&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039007134.png"
+loading="lazy"
+alt="1594039007134"
+>&lt;/p>
+&lt;p>&lt;strong>终止远程登录服务 sshd, 在适当时候再次重启 sshd 服务&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039036135.png"
+loading="lazy"
+alt="1594039036135"
+>&lt;/p>
+&lt;p>&lt;strong>终止多个 gedit 编辑器 【killall , 通过进程名称来终止进程】&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039077859.png"
+loading="lazy"
+alt="1594039077859"
+>&lt;/p>
+&lt;p>&lt;strong>强制杀掉一个终端&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039104006.png"
+loading="lazy"
+alt="1594039104006"
+>&lt;/p>
+&lt;h4 id="查看进程树-pstree">查看进程树 pstree&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">pstree &lt;span class="o">[&lt;/span>选项&lt;span class="o">]&lt;/span> ,可以更加直观的来看进程信息
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>-p :显示进程的 PID&lt;/p>
+&lt;p>-u :显示进程的所属用户&lt;/p>
+&lt;p>&lt;strong>树状的形式显示进程的 pid&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039184688.png"
+loading="lazy"
+alt="1594039184688"
+>&lt;/p>
+&lt;p>&lt;strong>树状的形式进程的用户 id pstree -u 即可。&lt;/strong>&lt;/p>
+&lt;h2 id="服务service管理">服务(Service)管理&lt;/h2>
+&lt;p>服务(service) 本质就是进程，但是是运行在后台的，通常都会监听某个端口，等待其它程序的请求，比如(mysql , sshd 防火墙等)，因此我们又称为守护进程，是 Linux 中非常重要的知识点。&lt;/p>
+&lt;p>在 CentOS7.0 后 不再使用 service ,而是 systemctl&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039258444.png"
+loading="lazy"
+alt="1594039258444"
+>&lt;/p>
+&lt;h4 id="service-管理指令">service 管理指令：&lt;/h4>
+&lt;pre tabindex="0">&lt;code>service 服务名 [start | stop | restart | reload | status]
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>查看当前防火墙的状况，关闭防火墙和重启防火墙。&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039305238.png"
+loading="lazy"
+alt="1594039305238"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039336933.png"
+loading="lazy"
+alt="1594039336933"
+>&lt;/p>
+&lt;p>CentOS用firewalld: systemctl status firewalld&lt;/p>
+&lt;ol>
+&lt;li>关闭或者启用防火墙后，立即生效。[telnet 测试 某个端口即可]&lt;/li>
+&lt;/ol>
+&lt;p>在window下&lt;/p>
+&lt;p>telnet不是命令的，是因为没有telnet客户端&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039381169.png"
+loading="lazy"
+alt="1594039381169"
+>&lt;/p>
+&lt;p>2)这种方式只是临时生效，当重启系统后，还是回归以前对服务的设置。&lt;/p>
+&lt;p>如果希望设置某个服务自启动或关闭永久生效，要使用 chkconfig 指令&lt;/p>
+&lt;h4 id="查看服务名">查看服务名:&lt;/h4>
+&lt;p>方式 1：使用 setup -&amp;gt; 系统服务 就可以看到。(空格选中，回车确认，tab切换)&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039460191.png"
+loading="lazy"
+alt="1594039460191"
+>&lt;/p>
+&lt;p>方式 2: /etc/init.d/服务名称&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039571261.png"
+loading="lazy"
+alt="1594039571261"
+>&lt;/p>
+&lt;h4 id="服务的运行级别runlevel">服务的运行级别(runlevel):&lt;/h4>
+&lt;p>查看或者修改默认级别：&lt;/p>
+&lt;pre tabindex="0">&lt;code> vi /etc/inittab
+&lt;/code>&lt;/pre>&lt;p>Linux 系统有 7 种运行级别(runlevel)：常用的是级别 3 和 5&lt;/p>
+&lt;p>• 运行级别 0：系统停机状态，系统默认运行级别不能设为 0，否则不能正常启动&lt;/p>
+&lt;p>• 运行级别 1：单用户工作状态，root 权限，用于系统维护，禁止远程登陆&lt;/p>
+&lt;p>• 运行级别 2：多用户状态(没有 NFS)，不支持网络&lt;/p>
+&lt;p>• 运行级别 3：完全的多用户状态(有 NFS)，登陆后进入控制台命令行模式&lt;/p>
+&lt;p>• 运行级别 4：系统未使用，保留&lt;/p>
+&lt;p>• 运行级别 5：X11 控制台，登陆后进入图形 GUI 模式&lt;/p>
+&lt;p>• 运行级别 6：系统正常关闭并重启，默认运行级别不能设为 6，否则不能正常启动&lt;/p>
+&lt;h4 id="开机的流程说明">开机的流程说明&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039668145.png"
+loading="lazy"
+alt="1594039668145"
+>&lt;/p>
+&lt;p>开机、BIOS自检、boot引导、init进程、判断运行级别、&lt;/p>
+&lt;h4 id="chkconfig-指令">chkconfig 指令&lt;/h4>
+&lt;p>通过 chkconfig 命令可以给每个服务的各个运行级别设置自启动/关闭&lt;/p>
+&lt;pre tabindex="0">&lt;code>查看服务 chkconfig --list|grep xxx
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039757144.png"
+loading="lazy"
+alt="1594039757144"
+>&lt;/p>
+&lt;p>chkconfig 服务名 &amp;ndash;list&lt;/p>
+&lt;p>chkconfig &amp;ndash;level 5 服务名 on/off&lt;/p>
+&lt;p>&lt;strong>将 sshd 服务在运行级别为 5 的情况下，不要自启动&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039797350.png"
+loading="lazy"
+alt="1594039797350"
+>&lt;/p>
+&lt;p>&lt;strong>请显示当前系统所有服务的各个运行级别的运行状态&lt;/strong>&lt;/p>
+&lt;p>bash&amp;gt; chkconfig &amp;ndash;list&lt;/p>
+&lt;p>&lt;strong>查看 sshd 服务的运行状态&lt;/strong>**&lt;/p>
+&lt;p>bash&amp;gt; service sshd status&lt;/p>
+&lt;p>&lt;strong>将 sshd 服务在运行级别 5 下设置为不自动启动，看看有什么效果？&lt;/strong>&lt;/p>
+&lt;p>bash&amp;gt; chkconfig &amp;ndash;level 5 sshd off&lt;/p>
+&lt;p>&lt;strong>当运行级别为 5 时，关闭防火墙。&lt;/strong>&lt;/p>
+&lt;p>bash&amp;gt; chkconfig &amp;ndash;level 5 iptables off&lt;/p>
+&lt;p>&lt;strong>在所有运行级别下，关闭防火墙&lt;/strong>&lt;/p>
+&lt;p>bash&amp;gt; chkconfig iptables off&lt;/p>
+&lt;p>&lt;strong>在所有运行级别下，开启防火墙&lt;/strong>&lt;/p>
+&lt;p>bash&amp;gt; chkconfig iptables on&lt;/p>
+&lt;h4 id="动态监控进程">动态监控进程&lt;/h4>
+&lt;blockquote>
+&lt;p>top 与 ps 命令很相似。它们都用来显示正在执行的进程。Top 与 ps 最大的不同之处，在于 top 在执行一段时间可以更新正在运行的的进程。&lt;/p>
+&lt;/blockquote>
+&lt;pre tabindex="0">&lt;code>top [选项]
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594039987313.png"
+loading="lazy"
+alt="1594039987313"
+>&lt;/p>
+&lt;p>&lt;strong>监视特定用户&lt;/strong>&lt;/p>
+&lt;p>top：输入此命令，按回车键，查看执行的进程。&lt;/p>
+&lt;p>u：然后输入“u”回车，再输入用户名，即可&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594040023371.png"
+loading="lazy"
+alt="1594040023371"
+>&lt;/p>
+&lt;p>&lt;strong>终止指定的进程&lt;/strong>&lt;/p>
+&lt;p>top：输入此命令，按回车键，查看执行的进程。&lt;/p>
+&lt;p>k：然后输入“k”回车，再输入要结束的进程 ID 号&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594040063985.png"
+loading="lazy"
+alt="1594040063985"
+>&lt;/p>
+&lt;p>&lt;strong>指定系统状态更新的时间(每隔 10 秒自动更新， 默认是 3 秒)：&lt;/strong>&lt;/p>
+&lt;p>bash&amp;gt; top -d 10&lt;/p>
+&lt;h4 id="查看系统网络情况-netstat重要">查看系统网络情况 netstat(重要)&lt;/h4>
+&lt;pre tabindex="0">&lt;code>netstat [选项]
+netstat -anp
+-an 按一定顺序排列输出
+-p 显示哪个进程在调用
+&lt;/code>&lt;/pre>&lt;p>查看系统所有的网络服务&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594040174174.png"
+loading="lazy"
+alt="1594040174174"
+>&lt;/p>
+&lt;p>查看服务名为 sshd 的服务的信息。&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594040196413.png"
+loading="lazy"
+alt="1594040196413"
+>&lt;/p>
+&lt;h3 id="rpm---和-yum">RPM 和 YUM&lt;/h3>
+&lt;h4 id="rpm-包的管理">rpm 包的管理&lt;/h4>
+&lt;blockquote>
+&lt;p>一种用于互联网下载包的打包及安装工具，它包含在某些 Linux 分发版中。它生成具有.RPM 扩展名的文件。RPM 是 RedHat Package Manager（RedHat 软件包管理工具）的缩写，类似 windows 的 setup.exe，这一文件格式名称虽然打上了 RedHat 的标志，但理念是通用的。&lt;/p>
+&lt;p>Linux 的分发版本都有采用（suse,redhat, centos 等等），可以算是公认的行业标准了。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="rpm-包的简单查询指令">rpm 包的简单查询指令&lt;/h4>
+&lt;p>查询已安装的 rpm 列表 rpm –qa|grep xx&lt;/p>
+&lt;p>请查询看一下，当前的 Linux 有没有安装 firefox .&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089056566.png"
+loading="lazy"
+alt="1594089056566"
+>&lt;/p>
+&lt;h3 id="rpm-包名基本格式">rpm 包名基本格式：&lt;/h3>
+&lt;p>一个 rpm 包名：firefox-45.0.1-1.el6.centos.x86_64.rpm 名称:firefox&lt;/p>
+&lt;p>版本号：45.0.1-1&lt;/p>
+&lt;p>适用操作系统: el6.centos.x86_64&lt;/p>
+&lt;p>表示 centos6.x 的 64 位系统&lt;/p>
+&lt;p>如果是 i686i386 32 noarch&lt;/p>
+&lt;h4 id="rpm-包的其它查询指令">rpm 包的其它查询指令：&lt;/h4>
+&lt;p>rpm -qa :查询所安装的所有 rpm 软件包&lt;/p>
+&lt;p>rpm -qa | more [分页显示]&lt;/p>
+&lt;p>rpm -qa | grep X [rpm -qa | grep firefox ]&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089139190.png"
+loading="lazy"
+alt="1594089139190"
+>&lt;/p>
+&lt;p>rpm -q 软件包名 :查询软件包是否安装&lt;/p>
+&lt;p>rpm -q firefox&lt;/p>
+&lt;p>rpm -qi 软件包名 ：查询软件包信息&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089158445.png"
+loading="lazy"
+alt="1594089158445"
+>&lt;/p>
+&lt;p>rpm -qi file&lt;/p>
+&lt;p>rpm -ql 软件包名 :查询软件包中的文件&lt;/p>
+&lt;p>rpm -ql firefox&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089191772.png"
+loading="lazy"
+alt="1594089191772"
+>&lt;/p>
+&lt;p>rpm -qf 文件全路径名 查询文件所属的软件包&lt;/p>
+&lt;p>rpm -qf /etc/passwd&lt;/p>
+&lt;p>rpm -qf /root/install.log&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/clip_image001.jpg"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;h4 id="卸载-rpm-包">卸载 rpm 包：&lt;/h4>
+&lt;pre tabindex="0">&lt;code>rpm -e RPM 包的名称
+&lt;/code>&lt;/pre>&lt;p>删除 firefox 软件包&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089294137.png"
+loading="lazy"
+alt="1594089294137"
+>&lt;/p>
+&lt;ol>
+&lt;li>如果其它软件包依赖于您要卸载的软件包，卸载时则会产生错误信息。如： $ rpm -e foo&lt;/li>
+&lt;/ol>
+&lt;p>removing these packages would break dependencies:foo is needed by bar-1.0-1&lt;/p>
+&lt;ol start="2">
+&lt;li>如果我们就是要删除 foo 这个 rpm 包，可以增加参数 &amp;ndash;nodeps ,就可以强制删除，但是一般不推荐这样做，因为依赖于该软件包的程序可能无法运行&lt;/li>
+&lt;/ol>
+&lt;p>如：$ rpm -e &amp;ndash;nodeps foo&lt;/p>
+&lt;p>带上 &amp;ndash;nodeps 就是强制删除。&lt;/p>
+&lt;h4 id="安装-rpm-包">安装 rpm 包：&lt;/h4>
+&lt;pre tabindex="0">&lt;code>rpm -ivh RPM 包全路径名称
+&lt;/code>&lt;/pre>&lt;p>i=install 安 装&lt;/p>
+&lt;p>v=verbose 提 示&lt;/p>
+&lt;p>h=hash 进度条&lt;/p>
+&lt;ol>
+&lt;li>演示安装 firefox 浏览器&lt;/li>
+&lt;/ol>
+&lt;p>步骤先找到 firefox 的安装 rpm 包,你需要挂载上我们安装 centos 的 iso 文件，然后到/media/下去找 rpm 找 。&lt;/p>
+&lt;pre tabindex="0">&lt;code>cp firefox-45.0.1-1.el6.centos.x86_64.rpm /opt/
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089388980.png"
+loading="lazy"
+alt="1594089388980"
+>&lt;/p>
+&lt;h3 id="yum">yum&lt;/h3>
+&lt;blockquote>
+&lt;p>Yum 是一个 &lt;a class="link" href="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/https://baike.baidu.com/item/Shell" target="_blank" rel="noopener"
+>Shell &lt;/a>前端软件包管理器。基于 &lt;a class="link" href="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/https://baike.baidu.com/item/RPM" target="_blank" rel="noopener"
+>RPM &lt;/a>包管理，能够从指定的服务器自动下载 RPM 包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包。使用 yum 的前提是可以联网。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089423920.png"
+loading="lazy"
+alt="1594089423920"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">查询 yum 服务器是否有需要安装的软件
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum list&lt;span class="p">|&lt;/span>grep xx 软件列表
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">安装指定的 yum 包
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yum install xxx 下载安装
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="heading">&lt;/h3>
+&lt;p>&lt;strong>使用 yum 的方式来安装 firefox&lt;/strong>&lt;/p>
+&lt;p>先查看一下 firefox rpm 在 yum 服务器有没有&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089517271.png"
+loading="lazy"
+alt="1594089517271"
+>&lt;/p>
+&lt;ol>
+&lt;li>安装&lt;/li>
+&lt;/ol>
+&lt;p>yum install firefox&lt;/p>
+&lt;h2 id="搭建-javaee-环境">搭建 JavaEE 环境&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089578388.png"
+loading="lazy"
+alt="1594089578388"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089603193.png"
+loading="lazy"
+alt="1594089603193"
+>&lt;/p>
+&lt;h4 id="安装-jdk">安装 JDK&lt;/h4>
+&lt;ol start="0">
+&lt;li>
+&lt;p>先将软件通过 xftp5 上传到 /opt 下&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>解压缩到 /opt&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>配置环境变量的配置文件 vim /etc/profile&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089685175.png"
+loading="lazy"
+alt="1594089685175"
+>&lt;/p>
+&lt;p>JAVA_HOME=/opt/jdk1.7.0_79&lt;/p>
+&lt;p>PATH=/opt/jdk1.7.0_79/bin:$PATH&lt;/p>
+&lt;p>export JAVA_HOME PATH&lt;/p>
+&lt;p>&lt;strong>3)需要注销用户，环境变量才能生效&lt;/strong>&lt;/p>
+&lt;p>如果是在 3 运行级别， logout&lt;/p>
+&lt;p>如果是在 5 运行级别，&lt;/p>
+&lt;ol start="4">
+&lt;li>在任何目录下就可以使用 java 和 javac&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089893452.png"
+loading="lazy"
+alt="1594089893452"
+>&lt;/p>
+&lt;p>测试是否安装成功&lt;/p>
+&lt;p>​ &lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/clip_imag1e001.jpg"
+loading="lazy"
+alt="img"
+> &lt;br>
+编写一个简单的 输出&lt;/p>
+&lt;p>Hello.java 输出&amp;quot;hello,world!&amp;quot;&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089954309.png"
+loading="lazy"
+alt="1594089954309"
+>&lt;/p>
+&lt;h4 id="安装-tomcat">安装 tomcat&lt;/h4>
+&lt;ol>
+&lt;li>解压缩到/opt&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594089990057.png"
+loading="lazy"
+alt="1594089990057"
+>&lt;/p>
+&lt;p>2)启动 tomcat ./startup.sh&lt;/p>
+&lt;p>先进入到 tomcat 的 bin 目录&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594090017998.png"
+loading="lazy"
+alt="1594090017998"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594090025822.png"
+loading="lazy"
+alt="1594090025822"
+>&lt;/p>
+&lt;p>使用 Linux 本地的浏览是可以访问到 tomcat&lt;/p>
+&lt;p>开放端口 8080 ,这样外网才能访问到 tomcat vim /etc/sysconfig/iptables&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594090060315.png"
+loading="lazy"
+alt="1594090060315"
+>&lt;/p>
+&lt;p>重启防火墙&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594090082996.png"
+loading="lazy"
+alt="1594090082996"
+>&lt;/p>
+&lt;p>测试是否安装成功：&lt;/p>
+&lt;p>在 windows、Linux 下 访问 http://linuxip:8080&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594090112721.png"
+loading="lazy"
+alt="1594090112721"
+>&lt;/p>
+&lt;h4 id="eclipse-的安装">Eclipse 的安装&lt;/h4>
+&lt;ol>
+&lt;li>解压缩到/opt&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594090161102.png"
+loading="lazy"
+alt="1594090161102"
+>&lt;/p>
+&lt;p>2)启动 eclipse，配置 jre 和 server&lt;/p>
+&lt;p>启动方法 1: 创建一个快捷方式&lt;/p>
+&lt;p>启动方式 2: 进入到 eclipse 解压后的文件夹，然后执行 ./eclipse 即可&lt;/p>
+&lt;p>3)编写 jsp 页面,并测试成功!&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/1594090202684.png"
+loading="lazy"
+alt="1594090202684"
+>&lt;/p>
+&lt;h4 id="mysql-的安装和配置">mysql 的安装和配置&lt;/h4>
+&lt;pre tabindex="0">&lt;code>rpm -ivh MYSQL-server-***.rpm
+rpm -ivh MYSQL-client-***.rpm
+&lt;/code>&lt;/pre>&lt;p>查看是否启动&lt;/p>
+&lt;pre tabindex="0">&lt;code>ps -ef|grep mysql
+&lt;/code>&lt;/pre>&lt;p>查看是否安装成功&lt;/p>
+&lt;pre tabindex="0">&lt;code>mysqladmin --version
+&lt;/code>&lt;/pre>&lt;p>启动服务&lt;/p>
+&lt;pre tabindex="0">&lt;code>service mysql start
+&lt;/code>&lt;/pre>&lt;p>连接&lt;/p>
+&lt;pre tabindex="0">&lt;code>mysql
+&lt;/code>&lt;/pre>&lt;p>改密码&lt;/p>
+&lt;pre tabindex="0">&lt;code>/usr/bin/mysqladmin -u root password 123456
+&lt;/code>&lt;/pre>&lt;p>连接&lt;/p>
+&lt;pre tabindex="0">&lt;code>mysql -uroot -p
+&lt;/code>&lt;/pre>&lt;p>设置开机自启动&lt;/p>
+&lt;pre tabindex="0">&lt;code>chkconfig mysql on
+&lt;/code>&lt;/pre>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Linux/D:%5cBlog%5csource%5c_posts%5cLinux%5c1595838101340.png"
+loading="lazy"
+alt="1595838101340"
+>&lt;/p>
+&lt;p>拷贝配置文件&lt;/p>
+&lt;pre tabindex="0">&lt;code>cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
+&lt;/code>&lt;/pre>&lt;h4 id="解决编码已创建的数据库不影响">解决编码(已创建的数据库不影响)&lt;/h4>
+&lt;p>显示字符集&lt;/p>
+&lt;pre tabindex="0">&lt;code>show variables like &amp;#39;%char%&amp;#39;
+&lt;/code>&lt;/pre>&lt;p>修改客户端和服务器的字符集&lt;/p>
+&lt;pre tabindex="0">&lt;code>vim /etc/my.cnf
+//在[client]的socket的下方插入
+//在光标的下一行插入 使用o
+default-character-set=utf-8
+//在[mysqld]的port下插入
+character_set_server=utf8
+character_set_client=utf8
+collation-server=utf8_general_ci
+//在[mysql]的no-auto-rehash下插入
+default-character-set=utf8
+&lt;/code>&lt;/pre>&lt;h2 id="linux中常用到的命令">Linux中常用到的命令&lt;/h2>
+&lt;p>显示文件目录命令ls 如ls
+改变当前目录命令cd 如cd /home
+建立子目录mkdir 如mkdir xiong
+删除子目录命令rmdir 如rmdir /mnt/cdrom
+删除文件命令rm 如rm /ucdos.bat
+文件复制命令cp 如cp /ucdos /fox
+获取帮助信息命令man 如man ls
+显示文件的内容less 如less mwm.lx&lt;/p>
+&lt;p>Linux文件属性有哪些？（共十位）
+-rw-r&amp;ndash;r&amp;ndash;那个是权限符号，总共是- &amp;mdash; &amp;mdash; &amp;mdash;这几个位。&lt;/p>
+&lt;p>第一个短横处是文件类型识别符：-表示普通文件；c表示字符设备（character）；b表示块设备（block）；d表示目录（directory）；l表示链接文件（link）；&lt;/p>
+&lt;p>第一个三个连续的短横是用户权限位（User）&lt;/p>
+&lt;p>第二个三个连续短横是组权限位（Group）&lt;/p>
+&lt;p>第三个三个连续短横是其他权限位（Other）。
+每个权限位有三个权限，r（读权限），w（写权限），x（执行权限）。&lt;/p>
+&lt;p>如果每个权限位都有权限存在，那么满权限的情况就是：-rwxrwxrwx；权限为空的情况就是- &amp;mdash; &amp;mdash; &amp;mdash;。
+权限的设定可以用chmod命令，其格式位：chmod ugoa+/-/=rwx filename/directory。例如：
+一个文件aaa具有完全空的权限- &amp;mdash; &amp;mdash; &amp;mdash;。
+chmod u+rw aaa（给用户权限位设置（增加）读写权限，其权限表示为：- rw- &amp;mdash; &amp;mdash;）
+chmod g+r aaa（给组设置权限为可读，其权限表示为：- &amp;mdash; r&amp;ndash; &amp;mdash;）
+chmod ugo+rw aaa（给用户、组、其它用户或组设置权限为读写，权限表示为：- rw- rw- rw-）
+如果aaa具有满权限- rwx rwx rwx。
+chmod u-x aaa（去掉用户可执行权限，权限表示为：- rw- rwx rwx）
+如果要给aaa赋予制定权限- rwx r-x r-x，命令为：
+chmod u=rwx，go=rx aaa&lt;/p></description></item></channel></rss>

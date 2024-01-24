@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bug on Kayleh's blog</title><link>https://Kayleh.com/tags/bug/</link><description>Recent content in bug on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 10 Nov 2022 23:31:11 +0000</lastBuildDate><atom:link href="https://Kayleh.com/tags/bug/index.xml" rel="self" type="application/rss+xml"/><item><title>一次应用程序窃取焦点问题排查经历</title><link>https://Kayleh.com/post/steal-focus/</link><pubDate>Thu, 10 Nov 2022 23:31:11 +0000</pubDate><guid>https://Kayleh.com/post/steal-focus/</guid><description>&lt;h2 id="一问题背景">一、问题背景&lt;/h2>
+&lt;p>忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。&lt;/p>
+&lt;p>此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口&amp;hellip;..&lt;/p>
+&lt;p>周而复始几次后，我终于忍不住了。。&lt;/p>
+&lt;h2 id="二问题确认">二、问题确认&lt;/h2>
+&lt;p>问题具有随机性、可复现，在排除了“可能不小心按错键导致失焦”的可能性后。&lt;/p>
+&lt;p>我就把问题的关键词确认在 &lt;code>“window11”&lt;/code> &lt;code>“窗口失焦”&lt;/code>。&lt;/p>
+&lt;h2 id="三sfwseach-in-fxxking-web方法">三、SFW(Seach in Fxxking Web)方法&lt;/h2>
+&lt;p>得到了的关键词，开始了从互联网找答案。&lt;/p>
+&lt;p>&lt;img src="https://s1.ax1x.com/2022/11/11/z95LUP.png"
+loading="lazy"
+alt="z95LUP.png"
+>&lt;/p>
+&lt;p>通过一番操作后，仍然得不到任何有用的信息。&lt;/p>
+&lt;h2 id="四问题重新分析猜测">四、问题重新分析、猜测&lt;/h2>
+&lt;p>互联网找不到答案，从问题根源入手。&lt;/p>
+&lt;p>由我目前的前置知识得知：&lt;/p>
+&lt;pre tabindex="0">&lt;code>Force Window to Always Be in Focus
+// window必然会有一个窗口焦点
+&lt;/code>&lt;/pre>&lt;p>但从我的现象来看，失焦的时刻并没有其他页面弹出，所以猜测焦点可能被后台程序获取了？传说中的&lt;code>&amp;quot;焦点窃取&amp;quot;&lt;/code>?&lt;/p>
+&lt;p>经过重新分析后，我确定下一步方向：找到窃取焦点的进程。&lt;/p>
+&lt;p>去Web查询窗口焦点的资料，发现了一个软件&lt;code>ViewWizard&lt;/code>,不仅可以捕捉到窗口的句柄，还能捕捉到窗口的pid。&lt;/p>
+&lt;p>但是使用起来没有那么理想：失去焦点时并没有捕捉到。&lt;/p>
+&lt;p>所以我找到了一篇博客：用亲切的C#实现的window api 获取 当前焦点窗口的信息，根据博客提供的思路和window API ，写出获取窗口句柄的代码。&lt;/p>
+&lt;pre>&lt;code>https://www.cnblogs.com/mq0036/p/12575627.html
+&lt;/code>&lt;/pre>
+&lt;p>代码完成后，执行程序，尝试复现问题。果不其然，窗口被一个叫TscShellContainerClass的窗口捕捉了。&lt;/p>
+&lt;p>&lt;img src="https://s1.ax1x.com/2022/11/11/z95Tud.jpg"
+loading="lazy"
+alt="z95Tud.jpg"
+>&lt;/p>
+&lt;p>再用回软件&lt;code>ViewWizard&lt;/code>根据句柄查询PID。&lt;/p>
+&lt;p>知道了PID后，再通过命令查询线程的信息：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">taskList&lt;span class="p">|&lt;/span>findstr XXXX
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;a class="link" href="https://imgse.com/i/z95jC8" target="_blank" rel="noopener"
+>&lt;img src="https://s1.ax1x.com/2022/11/11/z95jC8.md.png"
+loading="lazy"
+alt="z95jC8.md.png"
+>&lt;/a>&lt;/p>
+&lt;p>?这不是远程桌面的应用程序吗？他捕捉我焦点干嘛捏？&lt;/p>
+&lt;h2 id="五问题怎么产生根源">五、问题怎么产生、根源&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>通过process Manage，定位问题发生瞬间的调用信息&lt;/p>
+&lt;p>从mstu.exe的调用树已经几乎可以确认是WSL的锅了。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://imgse.com/i/z95v8S" target="_blank" rel="noopener"
+>&lt;img src="https://s1.ax1x.com/2022/11/11/z95v8S.md.png"
+loading="lazy"
+alt="z95v8S.md.png"
+>&lt;/a>&lt;/p>
+&lt;p>自己平时也不会去用远程桌面，这个功能也是我前段时间为了能使用WSLg才打开的。&lt;/p>
+&lt;p>并且问题发生的时刻，我没有主动去开启远程桌面程序，不过我WSLg默认是启动的，还是不明白问题的原因。&lt;/p>
+&lt;p>于是在确定了导致问题发生的mstsc,开始&lt;code>SFW&lt;/code>。&lt;/p>
+&lt;h2 id="六问题追溯">六、问题追溯&lt;/h2>
+&lt;h4 id="线索一mstscexe">线索一：mstsc.exe&lt;/h4>
+&lt;h1 id="mstscexe-stealing-focusmstscexe窃取了焦点">mstsc.exe stealing focus(mstsc.exe窃取了焦点)&lt;/h1>
+&lt;pre tabindex="0">&lt;code>https://answers.microsoft.com/en-us/windows/forum/all/mstscexe-stealing-focus/f9acb6fd-3c95-4e22-8f40-dc41dffbb178
+&lt;/code>&lt;/pre>&lt;p>&lt;a class="link" href="https://imgse.com/i/z95xgg" target="_blank" rel="noopener"
+>&lt;img src="https://s1.ax1x.com/2022/11/11/z95xgg.md.png"
+loading="lazy"
+alt="z95xgg.md.png"
+>&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://imgse.com/i/z95zvQ" target="_blank" rel="noopener"
+>&lt;img src="https://s1.ax1x.com/2022/11/11/z95zvQ.png"
+loading="lazy"
+alt="z95zvQ.png"
+>&lt;/a>&lt;/p>
+&lt;p>帖子最终结果为官方也不知道。。当事人自己删除了wslg才临时解决问题。。&lt;/p>
+&lt;p>不过通过这一线索，基本可以确认问题出现在window 和 SubSystem linux 之间&lt;/p>
+&lt;h4 id="线索二windows-subsystem-for-linux-gui和mstscexe之间的联系">线索二：Windows Subsystem for Linux GUI和mstsc.exe之间的联系&lt;/h4>
+&lt;p>&lt;img src="https://s1.ax1x.com/2022/11/11/z9IwVI.jpg"
+loading="lazy"
+alt="z9IwVI.jpg"
+>&lt;/p>
+&lt;p>通过搜索得知，微软在&lt;code>WSLg System Distro&lt;/code>里加了远程桌面服务套件——&lt;code>FreeRDP&lt;/code>，一个支持Windows远程桌面协议（RDP）的服务端.&lt;/p>
+&lt;blockquote>
+&lt;p>整个&lt;code>WSLg System Distro&lt;/code>、Windows远程桌面客户端（mstsc.exe）的窗口都是对用户隐藏的，猜测是用户开启WSL或者敲完Linux GUI程序名的时候，这些隐藏的组件就已经在后台运行了。具体来说就是上图的&lt;code>WSLGd&lt;/code>，微软解释说一个类似守护进程的程序，负责启动&lt;code>Weston&lt;/code>、建立RDP通信等工作，如果它们挂了的话还要负责重启它们。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="线索三问题在于window通过rdp向wsl通信时">线索三、问题在于window通过RDP向WSL通信时&lt;/h3>
+&lt;p>&lt;img src="https://s1.ax1x.com/2022/11/11/z9IrPf.png"
+loading="lazy"
+alt="z9IrPf.png"
+>&lt;/p>
+&lt;p>通过这一线索和开源的信息得知，当一些内容到shot（剪切板）时，负责RDP的线程发生崩溃。&lt;/p>
+&lt;p>最后发现了这个问题的issue：&lt;/p>
+&lt;p>&lt;a class="link" href="https://imgse.com/i/z9Ipuj" target="_blank" rel="noopener"
+>&lt;img src="https://s1.ax1x.com/2022/11/11/z9Ipuj.png"
+loading="lazy"
+alt="z9Ipuj.png"
+>&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://imgse.com/i/z9I9Ds" target="_blank" rel="noopener"
+>&lt;img src="https://s1.ax1x.com/2022/11/11/z9I9Ds.png"
+loading="lazy"
+alt="z9I9Ds.png"
+>&lt;/a>&lt;/p>
+&lt;h3 id="官方解释和结论">官方解释和结论&lt;/h3>
+&lt;p>由于从 FreeRDP 线程到 wayland 显示循环线程的多线程切换而导致事件源为 NULL，导致崩溃。&lt;/p>
+&lt;p>&lt;a class="link" href="https://imgse.com/i/z9oAeA" target="_blank" rel="noopener"
+>&lt;img src="https://s1.ax1x.com/2022/11/11/z9oAeA.png"
+loading="lazy"
+alt="z9oAeA.png"
+>&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>提供了临时解决的方案—关闭WSLg :)&lt;/li>
+&lt;/ul></description></item></channel></rss>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>front on Kayleh's blog</title><link>https://Kayleh.com/tags/front/</link><description>Recent content in front on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 25 Sep 2020 20:45:24 +0800</lastBuildDate><atom:link href="https://Kayleh.com/tags/front/index.xml" rel="self" type="application/rss+xml"/><item><title>图床</title><link>https://Kayleh.com/post/pictrue-bed/</link><pubDate>Fri, 25 Sep 2020 20:45:24 +0800</pubDate><guid>https://Kayleh.com/post/pictrue-bed/</guid><description>&lt;p>原地址https://www.jianshu.com/u/e68ebf1b004c&lt;/p>
+&lt;h2 id="github-repo图床">Github repo图床&lt;/h2>
+&lt;p>Github的repo也可以储存东西，最直接的就是程序的版本控制，当然也可以用来当作备份储存，用来储存图片（github官方回复是：该行为不构成abuse，如果把github当图床算滥用，那么那么多人把微博当图床怎么就理所应当捏）。其实github对于国内的响应速度并不快，而且时不时被block，所以用github当图床完全是出于储存个人用途的自创图片，并不能当CDN使用。github自从被微软收购后，我对github的信心大增，代码以前只敢用git管理保存在本地，现在可以放心大胆上传到github了（很多是private，所以不可见），github图床主要就是图个稳定，也并不是想恶意刷github服务器的流量，恶意影响大家的体验。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>新建repo，名称任意&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>打开账户/Settings/Developer settings/Personal access tokens,点击Generate new token&lt;/p>
+&lt;p>&lt;img src="https:////upload-images.jianshu.io/upload_images/17029678-88e1807b0a33255e.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/233/format/webp"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>image&lt;/p>
+&lt;p>&lt;img src="https:////upload-images.jianshu.io/upload_images/17029678-7656c08d619ed359.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/1002/format/webp"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>image&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在弹出的产生token页面，Token description随意填写，但是一定要勾选上这几项&lt;/p>
+&lt;p>&lt;img src="https:////upload-images.jianshu.io/upload_images/17029678-55b2842f6875b416.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/784/format/webp"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>image&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下载PicGo客户端对应的版本并安装，github地址：&lt;a class="link" href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FMolunerfinn%2FPicGo%2Freleases" target="_blank" rel="noopener"
+>https://github.com/Molunerfinn/PicGo/releases&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>启动PicGo后，打开设置界面，点击&lt;/p>
+&lt;p>&lt;img src="https:////upload-images.jianshu.io/upload_images/17029678-3ed6d235f87629c4.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/800/format/webp"
+loading="lazy"
+alt="img"
+>&lt;/p>
+&lt;p>image&lt;/p>
+&lt;p>在第一栏填入你的github名称/repo名称；在第二栏填入你的分支名称，默认为master；在第三栏填入你刚才申请到的Token；第四栏填入你的repo中的储存路径；最后点击确认，再点击设为默认图床&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用QQ截图Ctrl+Alt+A或者微信的Alt+A截图后，按下Ctrl+Shiht+P快捷键即可自动上传到github对应的repo中，上传完成后，会有提示，自动将对应的图片地址送入剪贴板中，直接Ctrl+V即可粘贴对应的地址出来了~~&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>gulp压缩静态资源</title><link>https://Kayleh.com/post/gulp-compresses-static-resources/</link><pubDate>Mon, 24 Aug 2020 11:28:18 +0800</pubDate><guid>https://Kayleh.com/post/gulp-compresses-static-resources/</guid><description>&lt;p>hexo&lt;/p>
+&lt;p>Gulp基于Node.js的前端构建工具，通过Gulp的插件可以实现前端代码的编译（sass、less）、压缩、测试；图片的压缩；浏览器自动刷新;&lt;/p>
+&lt;h3 id="安装依赖">安装依赖&lt;/h3>
+&lt;h4 id="在根目录下">在根目录下:&lt;/h4>
+&lt;pre tabindex="0">&lt;code class="language-linux" data-lang="linux">npm install gulp --save
+npm install gulp-minify-css --save
+npm install gulp-uglify --save
+npm install gulp-htmlmin --save
+npm install gulp-htmlclean --save
+npm install gulp-imagemin --save
+&lt;/code>&lt;/pre>&lt;h4 id="创建文件gulpfilejs">创建文件gulpfile.js:&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 引入需要的模块
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">gulp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;gulp&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">minifycss&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;gulp-minify-css&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">uglify&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;gulp-uglify&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">htmlmin&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;gulp-htmlmin&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">htmlclean&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;gulp-htmlclean&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">imagemin&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;gulp-imagemin&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 压缩public目录下所有html文件, minify-html是任务名, 设置为default，启动gulp压缩的时候可以省去任务名
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">task&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;minify-html&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">src&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./public/**/*.html&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 压缩文件所在的目录
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">htmlclean&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">htmlmin&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">removeComments&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">minifyJS&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">minifyCSS&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">minifyURLs&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./public&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1">// 输出的目录
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 压缩css
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">task&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;minify-css&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">src&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./public/**/*.css&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">minifycss&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">compatibility&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;ie8&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./public&amp;#39;&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 压缩js
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">task&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;minify-js&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">src&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;./public/**/.js&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;!./public/js/**/*min.js&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">uglify&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./public&amp;#39;&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 压缩图片
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">task&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;minify-images&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">src&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;./public/**/*.png&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;./public/**/*.jpg&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;./public/**/*.gif&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">imagemin&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">[&lt;/span>&lt;span class="nx">imagemin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">gifsicle&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s1">&amp;#39;optimizationLevel&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">}),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//imagemin.mozjpeg({&amp;#39;progressive&amp;#39;: true}),
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">imagemin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">jpegtran&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s1">&amp;#39;progressive&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">}),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">imagemin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">optipng&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s1">&amp;#39;optimizationLevel&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">}),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">imagemin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">svgo&lt;/span>&lt;span class="p">()],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="s1">&amp;#39;verbose&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">}))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">pipe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./public&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// gulp 4.0 适用的方式
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">task&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;default&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">gulp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">parallel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;minify-html&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;minify-css&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;minify-js&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;minify-images&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//build the website
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行&lt;/p>
+&lt;pre tabindex="0">&lt;code>hexo clean &amp;amp;&amp;amp; hexo g &amp;amp;&amp;amp; gulp default &amp;amp;&amp;amp; hexo s
+&lt;/code>&lt;/pre>&lt;p>完成对静态资源的压缩。&lt;/p>
+&lt;h2 id="注意">注意：&lt;/h2>
+&lt;p>压缩静态资源时，CPU占用率会很高。&lt;/p>
+&lt;p>如果出现一下错误：&lt;/p>
+&lt;pre tabindex="0">&lt;code>TypeError: imagemin.jpegtran is not a function at D:\Blog\gulpfile.js:41:18 at minify-images (D:\Blog\node_modules\undertaker\lib\set-task.js:13:15) at bound (domain.js:419:14) at runBound (domain.js:432:12) at asyncRunner (D:\Blog\node_modules\async-done\index.js:55:18) at processTicksAndRejections (internal/process/task_queues.js:76:11)
+&lt;/code>&lt;/pre>&lt;p>修改文件&lt;code>gulpfile.js&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">imagemin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">jpegtran&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s1">&amp;#39;progressive&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">修改为&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">imagemin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mozjpeg&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s1">&amp;#39;progressive&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>中英文切换</title><link>https://Kayleh.com/post/chinese-and-english-switching/</link><pubDate>Fri, 21 Aug 2020 11:28:18 +0800</pubDate><guid>https://Kayleh.com/post/chinese-and-english-switching/</guid><description>&lt;p>hexo&lt;/p>
+&lt;p>感谢[&lt;a class="link" href="https://chenyxmr.github.io/2016/08/04/hexo-bilingual/" target="_blank" rel="noopener"
+>陈年沉念]&lt;/a> 的博文分享。&lt;/p>
+&lt;p>具体操作请参阅&lt;a class="link" href="https://chenyxmr.github.io/2016/08/04/hexo-bilingual/" target="_blank" rel="noopener"
+>陈年沉念的博文&lt;/a> 。&lt;/p>
+&lt;p>本文只提出几点需要特别注意的事项。&lt;/p>
+&lt;p>*&lt;em>第一&lt;/em>, 有两个“点号” 在“/public/en” 的前面:&lt;/p>
+&lt;pre tabindex="0">&lt;code>修改/en/_config.yml，修改内容如下：
+language: en &amp;lt;/br&amp;gt;
+root: /en/ &amp;lt;/br&amp;gt;
+public_dir: ../public/en &amp;lt;/br&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>第二&lt;/strong>, 也有两个“点号” 在 “commonweal:” 的前面:&lt;/p>
+&lt;pre tabindex="0">&lt;code>接下来在英文网站中添加中文入口。编辑/en/_config.yml，修改menu:中如下内容：
+commonweal: ../
+&lt;/code>&lt;/pre>&lt;p>顺便说一句, [&lt;a class="link" href="https://chenyxmr.github.io/2016/08/04/hexo-bilingual/" target="_blank" rel="noopener"
+>陈年沉念]&lt;/a>写的”/update.bat” 很方便且实用。&lt;/p>
+&lt;p>最后，我自己再补充一点，就是在完全Copy完Hexo网站跟目录的内容后，在新建的/en/文件夹下，node_modules文件夹里面的代码可能不能被完全复制粘贴，此时需要在/en/文件夹下运行以下代码方可顺利发布/en/到网络端：&lt;/p>
+&lt;p>先 鼠标右键 git bash here，然后运行&lt;/p>
+&lt;pre tabindex="0">&lt;code>npm install hexo --save
+npm install
+npm install hexo-generator-index --save
+npm install hexo-generator-archive --save
+npm install hexo-generator-category --save
+npm install hexo-generator-tag --save
+npm install hexo-server --save
+npm install hexo-deployer-git --save
+npm install hexo-deployer-heroku --save
+npm install hexo-deployer-rsync --save
+npm install hexo-deployer-openshift --save
+npm install hexo-renderer-marked@0.2 --save
+npm install hexo-renderer-stylus@0.2 --save
+npm install hexo-generator-feed@1 --save
+npm install hexo-generator-sitemap@1 --save
+&lt;/code>&lt;/pre>&lt;p>完成上述附加的必要操作后，就可以顺利推送双语或多语博客到网络端啦。&lt;/p>
+&lt;hr>
+&lt;p>转载来源： &lt;a class="link" href="https://chenyxmr.github.io/2016/08/04/hexo-bilingual/" target="_blank" rel="noopener"
+>https://chenyxmr.github.io/2016/08/04/hexo-bilingual/&lt;/a>&lt;/p>
+&lt;p>前言
+搭建个人博客时采用的hexo非常方便，但由于本人比较喜欢英语所以希望能搭建一个双语网站同步更新内容，hexo官方有提供国际化解决方案，具体参见链接https://hexo.io/zh-cn/docs/internationalization.html 。 但本人由于悟性比较低没有看明白这个插件应该怎么用，就索性自己用一个非常简单粗暴的方式实现了中英文双语网站。&lt;/p>
+&lt;p>首先，最终效果见本站。菜单栏中点击-&amp;gt;English切换到英文网站，英文网站中点击-&amp;gt;简体中文即切换回中文。当然每篇博文都需要自己翻译。&lt;/p>
+&lt;p>搭建教程
+完整复制网站&lt;/p>
+&lt;p>首先，将网站根目录全部复制，然后在网站根目录下建立en/文件夹并将所复制的内容粘贴至此。此时en/文件夹下有一份完整的网站文件，也就是说这是一个独立的hexo博客。&lt;/p>
+&lt;p>en即为English的缩写，代表英文网站，当然也可以添加其它语言，文件夹名字随个人喜好。&lt;/p>
+&lt;p>更改英文网站配置&lt;/p>
+&lt;p>修改/en/_config.yml，修改内容如下：&lt;/p>
+&lt;p>language: en
+root: /en/
+public_dir: ../public/en&lt;/p>
+&lt;p>这里的public_dir代表最终生成静态文件的位置，由于最后要将英文网站静态网页跟中文静态网页放到同一根目录下，所以要进行修改。&lt;/p>
+&lt;p>添加语言切换入口&lt;/p>
+&lt;p>首先在中文网站中添加切换英文入口。语言切换入口对应网站的menu，编辑/_config.yml，修改menu:中如下内容：&lt;/p>
+&lt;p>commonweal: /en&lt;/p>
+&lt;p>这个键值对应所建立的英文网站文件夹的名称。&lt;/p>
+&lt;p>此处应该添加一个新的入口，但由于我的添加一直不正常所以直接将原有的公益菜单改成切换语言了~&lt;/p>
+&lt;p>再编辑/themes/next/languages/zh-Hans.yml，在menu:中修改如下字段：&lt;/p>
+&lt;p>commonweal: -&amp;gt;English&lt;/p>
+&lt;p>这个键值对应切换语言选项显示的内容。&lt;/p>
+&lt;p>接下来在英文网站中添加中文入口。编辑/en/_config.yml，修改menu:中如下内容：&lt;/p>
+&lt;p>commonweal: ../&lt;/p>
+&lt;p>再编辑/en/themes/next/languages/en.yml，在menu:中修改如下字段：&lt;/p>
+&lt;p>commonweal: -&amp;gt;简体中文&lt;/p>
+&lt;p>至此中英文站点即配置完成,如果英文网站需要更改细节直接更改en/下对应的文件就可以，和修改中文网站完全一样~&lt;/p>
+&lt;p>新建博文&lt;/p>
+&lt;p>每次在中文站点下新建博文并写好后，将博文复制到英文网站对应的目录下并修改成英文博文。&lt;/p>
+&lt;hr>
+&lt;p>关于Hexo的中英文语言配置，我的做法是，在菜单栏添加一个按键，通过按键切换到中/英文界面，让中文文章只显示在中文页面，英文显示在英文页面。&lt;/p>
+&lt;h2 id="插件安装">插件安装&lt;/h2>
+&lt;p>首先，安装hexo-generator-i18n插件&lt;/p>
+&lt;pre tabindex="0">&lt;code> npm install hexo-generator-i18n --save
+&lt;/code>&lt;/pre>&lt;p>然后修改*_config.yml*&lt;/p>
+&lt;pre tabindex="0">&lt;code>language: [zh-CN,en]# hexo-generator-i18n 选项（可选，默认使用如下设置）i18n: type: [page, post] generator: [index, archive, category, tag]
+&lt;/code>&lt;/pre>&lt;p>&lt;em>这里并没有明白tyte和generator的作用，但是似乎不影响&lt;/em>&lt;/p>
+&lt;p>之后是*&lt;strong>在主题languages目录下添加对应的语言.yml文件(如zh.yml, en.yml)*&lt;/strong>&lt;/p>
+&lt;p>但是由于我使用的主题并不支持多语言，我也懒得弄，所有暂时没有管这一项&lt;/p>
+&lt;p>插件安装完成后，执行&lt;code>hexo clean &amp;amp; hexo g&lt;/code>&lt;/p>
+&lt;p>会生成&lt;code>public/en&lt;/code>目录，对于_post内的所有博文，都会在public里存放一份，en下存放一份。&lt;/p>
+&lt;p>那么就需要根据页面的语言，显示不同的博文。&lt;/p>
+&lt;h2 id="博文配置">博文配置&lt;/h2>
+&lt;p>对于所有的markdown文章，都需要在文章内添加属性&lt;code>lang:zh-CN&lt;/code> or &lt;code>lang:en&lt;/code>，来区分中英文&lt;/p>
+&lt;h2 id="网页配置">网页配置&lt;/h2>
+&lt;p>我通过url来区分中英文页面，对于中文，url是&lt;code>www.yoursite.com&lt;/code>，英文，url是&lt;code>www.yoursite.com/en/&lt;/code>,&lt;/p>
+&lt;p>这样，在js中检索url是否包含en，来判断显示中文还是英文界面。&lt;/p>
+&lt;p>&lt;strong>修改主题&lt;/strong>, 我的主题路径是&lt;em>themes/vexo/layout/index.ejs&lt;/em>&lt;/p>
+&lt;p>获取当前html的路径，并判断路径内是否存在&lt;code>en&lt;/code>&lt;/p>
+&lt;pre tabindex="0">&lt;code>&amp;lt;main class=&amp;#34;app-body&amp;#34;&amp;gt;
+&amp;lt;% var currentURL = page.path.split(&amp;#39;/&amp;#39;) %&amp;gt;
+&amp;lt;% if (currentURL.length === 1) { %&amp;gt;
+&amp;lt;% var lang = page.lang %&amp;gt;
+&amp;lt;% } else { %&amp;gt;
+&amp;lt;% var lang = currentURL.shift() %&amp;gt;
+&amp;lt;% } %&amp;gt;
+&amp;lt;% page.posts.each(function(post) { %&amp;gt;
+&amp;lt;% if (lang == post.lang) { %&amp;gt;
+&amp;lt;article class=&amp;#34;article-card&amp;#34;&amp;gt;
+&amp;lt;h2 class=&amp;#34;article-head&amp;#34;&amp;gt;
+&amp;lt;a href=&amp;#34;&amp;lt;%- url_for(post.path) %&amp;gt;&amp;#34;&amp;gt;&amp;lt;%- post.title %&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;/h2&amp;gt;
+&amp;lt;p class=&amp;#34;article-date&amp;#34;&amp;gt;&amp;lt;%- date(post.date, &amp;#34;LL&amp;#34;) %&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;% if (post.tags &amp;amp;&amp;amp; post.tags.length) { %&amp;gt;
+[ &amp;lt;%- partial(&amp;#39;_partial/tag&amp;#39;, { tags: post.tags }) %&amp;gt;]
+&amp;lt;% } %&amp;gt;
+&amp;lt;div class=&amp;#34;article-summary&amp;#34;&amp;gt;
+&amp;lt;% if (post.excerpt) { %&amp;gt;
+&amp;lt;%- post.excerpt %&amp;gt;
+&amp;lt;% } else { %&amp;gt;
+&amp;lt;%- truncate(strip_html(post.content), { length: 150, omission: &amp;#39; ...&amp;#39; }) %&amp;gt;
+&amp;lt;% } %&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;a class=&amp;#34;more&amp;#34; href=&amp;#34;&amp;lt;%- url_for(post.path) %&amp;gt;&amp;#34;&amp;gt;&amp;lt;%- theme.excerpt_link %&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;/article&amp;gt;
+&amp;lt;% } %&amp;gt;
+&amp;lt;% }) %&amp;gt;
+&amp;lt;% if (page.total &amp;gt; 1){ %&amp;gt;
+&amp;lt;%- partial(&amp;#39;_partial/pager&amp;#39;) %&amp;gt;
+&amp;lt;% } %&amp;gt;
+&amp;lt;/main&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>上述都完成，就可以通过&lt;code>www.yoursite.com/en&lt;/code>进入英文网页，且该网页只有英文文章&lt;/p>
+&lt;h2 id="添加切换语言按钮">添加切换语言按钮&lt;/h2>
+&lt;p>修改theme下的_config.yml文件, 添加一个EN的按钮，跳转到英文界面&lt;/p>
+&lt;pre tabindex="0">&lt;code>menu: Home: / Tags: /tags/ Archives: /archives/ Projects: /project/ About: /about/ EN: /en/
+&lt;/code>&lt;/pre>&lt;p>这里为了简单，没有动态修改EN这个按钮，提供从英文网页，跳转回中文网页的方式(实际上，点击Home按键，就跳转回中文了)&lt;/p>
+&lt;h2 id="部署测试">部署测试&lt;/h2>
+&lt;pre tabindex="0">&lt;code>hexo clean &amp;amp; hexo ghexo d
+&lt;/code>&lt;/pre>&lt;p>&lt;em>这里只配置了主页，其他页面暂时没有修改&lt;/em>&lt;/p></description></item></channel></rss>

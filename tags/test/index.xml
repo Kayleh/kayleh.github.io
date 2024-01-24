@@ -1,0 +1,1596 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>test on Kayleh's blog</title><link>https://Kayleh.com/tags/test/</link><description>Recent content in test on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 14 Apr 2021 00:50:01 +0800</lastBuildDate><atom:link href="https://Kayleh.com/tags/test/index.xml" rel="self" type="application/rss+xml"/><item><title>Web Test Combat</title><link>https://Kayleh.com/post/web-test-combat/</link><pubDate>Wed, 14 Apr 2021 00:50:01 +0800</pubDate><guid>https://Kayleh.com/post/web-test-combat/</guid><description>&lt;h2 id="web测试要点">Web测试要点&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>功能测试 -(最基本)&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>链接测试&lt;/p>
+&lt;p>1.所有链接是否链接到该链接的页面&lt;/p>
+&lt;p>2.页面是否存在&lt;/p>
+&lt;p>3.不存在孤立页面&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>表单测试&lt;/p>
+&lt;p>1提交数据&amp;mdash;-&amp;gt;注册(数据库 新增), 修改订单(数据库 改)&lt;/p>
+&lt;h5 id="常用控件输入框下拉框上传文件图片exceltxt等提交按钮单选多选">常用控件:输入框,下拉框,上传文件(图片,Excel,txt等),提交按钮,单选多选&lt;/h5>
+&lt;ul>
+&lt;li>输入框:长度,数据类型,必填,重复 空格和业务约束&lt;/li>
+&lt;li>下拉框:默认信息,数据完整性/正确性,第一条最后一条&lt;/li>
+&lt;li>上传文件(图片,Excel,txt等):大小,格式,尺寸,数量等. 文件本身的内容规则验证&lt;/li>
+&lt;li>提交按钮:支持回车/单击;弱网测试 ,快速点击是否重复提交,提交内容是否涉及加密&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>搜索测试&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>输入框(按时间搜索),下拉框&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>假设:搜索条件A,B,C,D&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>任单个条件查询:下拉框,输入框(模糊搜索,超长搜索,不存在条件,为空)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>时间搜索&lt;/p>
+&lt;p>开始时间,结束时间&lt;/p>
+&lt;p>开始时间=结束时间 ( 同一天数据)&lt;/p>
+&lt;p>开始时间&amp;lt;结束时间(造跨年 跨天 跨月的数据)&lt;/p>
+&lt;p>开始时间&amp;gt;结束时间(异常)&lt;/p>
+&lt;p>手动输入,格式&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>删除测试&lt;/p>
+&lt;ul>
+&lt;li>没有数据,删除&lt;/li>
+&lt;li>选择一条数据/批量选择/全选,删除. 删除二次确认.且删除后合理提示&lt;/li>
+&lt;li>删除数据关联性&lt;/li>
+&lt;li>数据库角度,删,确认数据库是否及时更新&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>cookie,session测试&lt;/p>
+&lt;ul>
+&lt;li>存储用户信息的,记录用户身份给予后续操作通行证&lt;/li>
+&lt;li>确认浏览器存储cookie目录有无cookie相关信息&lt;/li>
+&lt;li>保存时间之外,cookie是否正常&lt;/li>
+&lt;li>删除浏览器所有的cookie文件,再次登录,会怎么处理&lt;/li>
+&lt;li>鉴权&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>数据库测试&lt;/p>
+&lt;ul>
+&lt;li>搭建测试环境,初始化sql脚本&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>界面/可用性测试&lt;/p>
+&lt;ul>
+&lt;li>是否跟产品原型/ui效果图一致&lt;/li>
+&lt;li>功能测试同步测试&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>兼容性测试&lt;/p>
+&lt;ul>
+&lt;li>主要考虑浏览器&lt;/li>
+&lt;li>主流浏览器+内核(ie,firefox,Chrome,opera)&lt;/li>
+&lt;li>浏览器测试工具IEtest&lt;/li>
+&lt;li>功能测试同步关注&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>接口测试&lt;/p>
+&lt;ul>
+&lt;li>确保后端代码的功能实现&lt;/li>
+&lt;li>jmeter&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>安全测试&lt;/p>
+&lt;ul>
+&lt;li>sql注入，跨站攻击&lt;/li>
+&lt;li>漏洞扫描appscan&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>性能测试&lt;/p>
+&lt;ul>
+&lt;li>jmeter/loadrunner&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>app test</title><link>https://Kayleh.com/post/app-test/</link><pubDate>Thu, 04 Mar 2021 00:49:54 +0800</pubDate><guid>https://Kayleh.com/post/app-test/</guid><description>&lt;h2 id="移动端测试要点">移动端测试要点&lt;/h2>
+&lt;h3 id="安装测试卸载测试">安装测试、卸载测试&lt;/h3>
+&lt;h3 id="ui测试">UI测试&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="功能测试">功能测试&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="运行app">运行app&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615134963504.png"
+loading="lazy"
+alt="1615134963504"
+>&lt;/p>
+&lt;h4 id="应用的前后台切换">应用的前后台切换&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615134979917.png"
+loading="lazy"
+alt="1615134979917"
+>&lt;/p>
+&lt;h4 id="免登陆">免登陆&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615135150085.png"
+loading="lazy"
+alt="1615135150085"
+>&lt;/p>
+&lt;h4 id="数据更新">数据更新&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615135195319.png"
+loading="lazy"
+alt="1615135195319"
+>&lt;/p>
+&lt;h4 id="离线浏览">离线浏览&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615135394779.png"
+loading="lazy"
+alt="1615135394779"
+>&lt;/p>
+&lt;h4 id="app更新">app更新&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615135456332.png"
+loading="lazy"
+alt="1615135456332"
+>&lt;/p>
+&lt;h4 id="定位照相机服务">定位、照相机服务&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615135477942.png"
+loading="lazy"
+alt="1615135477942"
+>&lt;/p>
+&lt;h4 id="时间测试">时间测试&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615135504852.png"
+loading="lazy"
+alt="1615135504852"
+>&lt;/p>
+&lt;h4 id="push测试">PUSH测试&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615135520679.png"
+loading="lazy"
+alt="1615135520679"
+>&lt;/p>
+&lt;h3 id="性能测试">性能测试&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="交叉事件测试">交叉事件测试&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615136213904.png"
+loading="lazy"
+alt="1615136213904"
+>&lt;/p>
+&lt;p>例如：微信视频和来电&lt;/p>
+&lt;h3 id="兼容性测试">兼容性测试&lt;/h3>
+&lt;h3 id="升级更新测试">升级、更新测试&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="用户体验测试">用户体验测试&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="硬件环境测试">硬件环境测试&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="接口测试">接口测试&lt;/h3>
+&lt;h3 id="客户端数据库测试">客户端数据库测试&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615137461874.png"
+loading="lazy"
+alt="1615137461874"
+>&lt;/p>
+&lt;h3 id="安全测试">安全测试&lt;/h3>
+&lt;!-- raw HTML omitted -->
+&lt;h1 id="android测试">Android测试&lt;/h1>
+&lt;p>Android系统的基本结构&lt;/p>
+&lt;blockquote>
+&lt;p>linux内核层&lt;/p>
+&lt;p>Android函数库和Android运行的虚拟机&lt;/p>
+&lt;p>应用程序框架&lt;/p>
+&lt;p>应用程序&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615140074133.png"
+loading="lazy"
+alt="1615140074133"
+>&lt;/p>
+&lt;h4 id="测试术语">测试术语&lt;/h4>
+&lt;ul>
+&lt;li>系 统碎片化&lt;/li>
+&lt;li>屏幕尺寸&lt;/li>
+&lt;li>分辨率&lt;/li>
+&lt;li>像素&lt;/li>
+&lt;li>网络制式&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;h5 id="像素">像素&lt;/h5>
+&lt;p>一位=8字节&lt;/p>
+&lt;p>大小 1156*634 = 732904&lt;/p>
+&lt;p>732904/8=9291613=92K&lt;/p>
+&lt;p>9291613/1024=89.&lt;/p>
+&lt;h5 id="网络制式">网络制式&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;h3 id="android四大组件">Android四大组件&lt;/h3>
+&lt;blockquote>
+&lt;p>缺一不可&lt;/p>
+&lt;/blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>活动&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>服务&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>内容提供者&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>广播接受者&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="android测试环境搭建">Android测试环境搭建&lt;/h2>
+&lt;h4 id="one真机测试">:one:真机测试&lt;/h4>
+&lt;p>使用真实的手机测试&lt;/p>
+&lt;h4 id="two安卓模拟器">:two:安卓模拟器&lt;/h4>
+&lt;h4 id="threeandroid自带的模拟器">:three:Android自带的模拟器&lt;/h4>
+&lt;h4 id="four云真机测试">:four:云真机测试&lt;/h4>
+&lt;h3 id="android开发环境">Android开发环境&lt;/h3>
+&lt;ul>
+&lt;li>安装java, jdk&lt;/li>
+&lt;li>ADT工具包&lt;!-- raw HTML omitted -->&lt;/li>
+&lt;/ul>
+&lt;h4 id="环境配置">环境配置&lt;/h4>
+&lt;!-- raw HTML omitted -->
+&lt;p>打开eclipse&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="adb命令">ADB命令&lt;/h4>
+&lt;ul>
+&lt;li>
+&lt;h5 id="启动和关闭服务">启动和关闭服务&lt;/h5>
+&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>adb kill-server&lt;/p>
+&lt;p>adb start server&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>adb.exe connect 127.0.0.1:62001&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;h5 id="查看设备连接情况">查看设备连接情况&lt;/h5>
+&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>安装和卸载APK程序&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>列出当前设备上的程序包&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>adb shell pm list packages&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>上传和下载&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;/blockquote>
+&lt;ul>
+&lt;li>日志&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;blockquote>
+&lt;p>过滤&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615396478274.png"
+loading="lazy"
+alt="1615396478274"
+>&lt;/p>
+&lt;/blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>其他&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;blockquote>
+&lt;p>adb bugreport&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="monkey命令">monkey命令&lt;/h4>
+&lt;h5 id="是什么">&lt;strong>是什么？&lt;/strong>&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;ul>
+&lt;li>
+&lt;p>所有的操作事件都是随机发生的。不以让人的意志为变化。 由于事件都是随机的、无序的，所以不做功能方面的测试，只对APP进行性能、稳定性方面的测试。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>monkey测试的时候，需要长时间、大量的操作事件&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h5 id="特征">&lt;strong>特征&lt;/strong>&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;h5 id="monkey的停止条件">Monkey的停止条件&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;h5 id="进入monkey">进入Monkey&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;h5 id="命令">命令&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;/blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615486953589.png"
+loading="lazy"
+alt="1615486953589"
+>&lt;/p>
+&lt;h5 id="使用案例">使用案例&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615487083624.png"
+loading="lazy"
+alt="1615487083624"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ndash;pct&lt;/p>
+&lt;/blockquote>
+&lt;p>monkey命令的参数,没有特别强制性的顺序,可以按照monkey命令的帮助列表的参数顺序记忆和使用.&lt;/p>
+&lt;h5 id="monkey异常log分析">Monkey异常log分析&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615487991940.png"
+loading="lazy"
+alt="1615487991940"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;h1 id="appium">Appium&lt;/h1>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://github.com/appium/appium-desktop/releases/tag/v1.20.2" target="_blank" rel="noopener"
+>https://github.com/appium/appium-desktop/releases/tag/v1.20.2&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="元素识别">元素识别&lt;/h2>
+&lt;blockquote>
+&lt;p>使用ADT环境中的sdk目录下,tools目录中的uiautomatorviewer.bat&lt;/p>
+&lt;/blockquote>
+&lt;p>启动uiautomatorviewer.bat&lt;/p>
+&lt;p>点击device Screenshot&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615560081753.png"
+loading="lazy"
+alt="1615560081753"
+>&lt;/p>
+&lt;h2 id="操作">操作&lt;/h2>
+&lt;!-- raw HTML omitted -->
+&lt;h5 id="模拟键盘手机操作">模拟键盘手机操作&lt;/h5>
+&lt;blockquote>
+&lt;p>输入操作: sendkeys()&lt;/p>
+&lt;p>点击操作: click()&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="模拟手势操作">模拟手势操作&lt;/h5>
+&lt;blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;/blockquote>
+&lt;h5 id="移动设备相关操作">移动设备相关操作&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="appium脚本编写">Appium脚本编写&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">TestAppium&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">[]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">throws&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Exception&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">//定义DesiredCapabilities对象&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">DesiredCapabilities&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">dc&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">DesiredCapabilities&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">//设定DesiredCapabilities的属性&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">dc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setCapability&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;deviceName&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;127.0.0.1:56001&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//adb命令查出的设备的编号&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">dc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setCapability&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;automationName&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;Appium&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//设置自动化测试工具名称&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">dc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setCapability&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;platformName&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;Android&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//设置平台系统名称&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">dc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setCapability&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;platformVersion&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;4.4.4&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//设置Android系统版本号&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">dc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setCapability&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;appPackage&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;com.youba.calculate&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//设置目标app包名&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">dc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setCapability&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;appActivity&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s">&amp;#34;.MainActivity&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//设置目标app的启动界面&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * url:指的是本地appium服务的IP地址及对应的端口号(appium的默认端口号是4723)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * 通过该地址可以使appium连接Android设备
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> *
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * Capabilities:就是DesiredCapabilities对象
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> **/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">//定义appium驱动对象 打开本地app驱动(appium)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">AppiumDriver&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">appd&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">AppiumDriver&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">URL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;http://127.0.0.1/wd/hub&amp;#34;&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="n">dc&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">//写脚本,让计算器计算54+68&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;com.youba.calculate:id/btn_five&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">click&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;com.youba.calculate:id/btn_four&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">click&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;com.youba.calculate:id/btn_plus&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">click&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;com.youba.calculate:id/btn_six&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">click&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;com.youba.calculate:id/btn_eight&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">click&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;com.youba.calculate:id/btn_equal&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">click&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appd&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">closeApp&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="junit">Junit&lt;/h1>
+&lt;h5 id="一次单元测试用例设计的过程">一次单元测试用例设计的过程&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615652206629.png"
+loading="lazy"
+alt="1615652206629"
+>&lt;/p>
+&lt;h4 id="junit环境">Junit环境&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615652373832.png"
+loading="lazy"
+alt="1615652373832"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615652610537.png"
+loading="lazy"
+alt="1615652610537"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615653557718.png"
+loading="lazy"
+alt="1615653557718"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/app-test/1615662647821.png"
+loading="lazy"
+alt="1615662647821"
+>&lt;/p>
+&lt;h2 id="编写测试">编写测试&lt;/h2>
+&lt;p>在这里你将会看到一个应用 POJO 类，Business logic 类和在 test runner 中运行的 test 类的 JUnit 测试的例子。&lt;/p>
+&lt;p>在 &lt;strong>C:\ &amp;gt; JUNIT_WORKSPACE&lt;/strong> 路径下创建一个名为 &lt;strong>EmployeeDetails.java&lt;/strong> 的 POJO 类。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-JAVA" data-lang="JAVA">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">EmployeeDetails&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">monthlySalary&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">private&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">age&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @return the name
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">getName&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param name the name to set
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">setName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @return the monthlySalary
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">getMonthlySalary&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">monthlySalary&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param monthlySalary the monthlySalary to set
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">setMonthlySalary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">monthlySalary&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">monthlySalary&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">monthlySalary&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @return the age
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">getAge&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">age&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="cm">/**
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param age the age to set
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">setAge&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">age&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">age&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">age&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>EmployeeDetails&lt;/strong> 类被用于&lt;/p>
+&lt;ul>
+&lt;li>取得或者设置雇员的姓名的值&lt;/li>
+&lt;li>取得或者设置雇员的每月薪水的值&lt;/li>
+&lt;li>取得或者设置雇员的年龄的值&lt;/li>
+&lt;/ul>
+&lt;p>在 &lt;strong>C:\ &amp;gt; JUNIT_WORKSPACE&lt;/strong> 路径下创建一个名为 &lt;strong>EmpBusinessLogic.java&lt;/strong> 的 business logic 类&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-JAVA" data-lang="JAVA">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">EmpBusinessLogic&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">// Calculate the yearly salary of employee&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">calculateYearlySalary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EmployeeDetails&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">employeeDetails&lt;/span>&lt;span class="p">){&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">yearlySalary&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">yearlySalary&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">employeeDetails&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getMonthlySalary&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">12&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">yearlySalary&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">// Calculate the appraisal amount of employee&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">calculateAppraisal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">EmployeeDetails&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">employeeDetails&lt;/span>&lt;span class="p">){&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">appraisal&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">employeeDetails&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getMonthlySalary&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">10000&lt;/span>&lt;span class="p">){&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appraisal&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">500&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">appraisal&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">1000&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">appraisal&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>EmpBusinessLogic&lt;/strong> 类被用来计算&lt;/p>
+&lt;ul>
+&lt;li>雇员每年的薪水&lt;/li>
+&lt;li>雇员的评估金额&lt;/li>
+&lt;/ul>
+&lt;p>在 &lt;strong>C:\ &amp;gt; JUNIT_WORKSPACE&lt;/strong> 路径下创建一个名为 &lt;strong>TestEmployeeDetails.java&lt;/strong> 的准备被测试的测试案例类&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.junit.Test&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.junit.Assert.assertEquals&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">TestEmployeeDetails&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">EmpBusinessLogic&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">empBusinessLogic&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">EmpBusinessLogic&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">EmployeeDetails&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">EmployeeDetails&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">//test to check appraisal&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Test&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">testCalculateAppriasal&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Rajeev&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setAge&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">25&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setMonthlySalary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">8000&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">appraisal&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">empBusinessLogic&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">calculateAppraisal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">assertEquals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">500&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">appraisal&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">0&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">// test to check yearly salary&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@Test&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">testCalculateYearlySalary&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Rajeev&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setAge&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">25&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setMonthlySalary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">8000&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kt">double&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">salary&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">empBusinessLogic&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">calculateYearlySalary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">employee&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">assertEquals&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">96000&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">salary&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">0&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>TestEmployeeDetails&lt;/strong> 是用来测试 &lt;strong>EmpBusinessLogic&lt;/strong> 类的方法的，它&lt;/p>
+&lt;ul>
+&lt;li>测试雇员的每年的薪水&lt;/li>
+&lt;li>测试雇员的评估金额&lt;/li>
+&lt;/ul>
+&lt;p>现在让我们在 &lt;strong>C:\ &amp;gt; JUNIT_WORKSPACE&lt;/strong> 路径下创建一个名为 &lt;strong>TestRunner.java&lt;/strong> 的类来执行测试案例类&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.junit.runner.JUnitCore&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.junit.runner.Result&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kn">import&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.junit.runner.notification.Failure&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">TestRunner&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="o">[]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">Result&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">JUnitCore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">runClasses&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">TestEmployeeDetails&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">class&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">for&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Failure&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">failure&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getFailures&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">System&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">failure&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">toString&lt;/span>&lt;span class="p">());&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">System&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">out&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">wasSuccessful&lt;/span>&lt;span class="p">());&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>用javac编译 Test case 和 Test Runner 类&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="nl">C&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="n">JUNIT_WORKSPACE&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="n">javac&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">EmployeeDetails&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">java&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">EmpBusinessLogic&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">java&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TestEmployeeDetails&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">java&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TestRunner&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">java&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在运行将会运行 Test Case 类中定义和提供的测试案例的 Test Runner&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="nl">C&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="err">\&lt;/span>&lt;span class="n">JUNIT_WORKSPACE&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="n">java&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">TestRunner&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>检查运行结果&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>interface test</title><link>https://Kayleh.com/post/interface-test/</link><pubDate>Sun, 21 Feb 2021 01:49:12 +0800</pubDate><guid>https://Kayleh.com/post/interface-test/</guid><description>&lt;h1 id="接口测试">接口测试&lt;/h1>
+&lt;blockquote>
+&lt;p>测试系统内部各个组件间接口,以及系统与外部系统之间的交互点&lt;/p>
+&lt;/blockquote>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1613928423300.png"
+loading="lazy"
+alt="1613928423300"
+>&lt;/p>
+&lt;h4 id="接口的必要条件">接口的必要条件&lt;/h4>
+&lt;!-- raw HTML omitted -->
+&lt;h4 id="接口用例设计">接口用例设计&lt;/h4>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1613930059453.png"
+loading="lazy"
+alt="1613930059453"
+>&lt;/p>
+&lt;h4 id="http协议">HTTP协议&lt;/h4>
+&lt;!-- raw HTML omitted -->
+&lt;h5 id="http响应状态码分类">HTTP响应状态码分类&lt;/h5>
+&lt;!-- raw HTML omitted -->
+&lt;h1 id="postman">POSTMAN&lt;/h1>
+&lt;h4 id="发送不带参数的get请求">发送不带参数的GET请求&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614103022980.png"
+loading="lazy"
+alt="1614103022980"
+>&lt;/p>
+&lt;h4 id="发送带参数的get请求">发送带参数的GET请求&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614102472739.png"
+loading="lazy"
+alt="1614102472739"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614103130379.png"
+loading="lazy"
+alt="1614103130379"
+>&lt;/p>
+&lt;h4 id="参数化运行">参数化运行&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614450840486.png"
+loading="lazy"
+alt="1614450840486"
+>&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;p>csv文件&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;h1 id="json">JSON&lt;/h1>
+&lt;h1 id="postman中的断言">Postman中的断言&lt;/h1>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614450747385.png"
+loading="lazy"
+alt="1614450747385"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614451204413.png"
+loading="lazy"
+alt="1614451204413"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614451174084.png"
+loading="lazy"
+alt="1614451174084"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614710982803.png"
+loading="lazy"
+alt="1614710982803"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614711029433.png"
+loading="lazy"
+alt="1614711029433"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Interface-test/1614711672676.png"
+loading="lazy"
+alt="1614711672676"
+>&lt;/p>
+&lt;p>450&lt;/p></description></item><item><title>Unitest framework</title><link>https://Kayleh.com/post/unitest-framework/</link><pubDate>Sat, 13 Feb 2021 00:00:57 +0800</pubDate><guid>https://Kayleh.com/post/unitest-framework/</guid><description>&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613147342997.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613147496034.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613149415607.png"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613149552674.png"
+loading="lazy"
+>&lt;/p>
+&lt;h4 id="多条测试用例">多条测试用例&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613149845499.png"
+loading="lazy"
+>&lt;/p>
+&lt;h4 id="注解方法">注解方法&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613199579426.png"
+loading="lazy"
+alt="1613199579426"
+>&lt;/p>
+&lt;h4 id="五个方法">五个方法&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613199693463.png"
+loading="lazy"
+alt="1613199693463"
+>&lt;/p>
+&lt;h4 id="测试用例testcase">测试用例testcase&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613201703588.png"
+loading="lazy"
+alt="1613201703588"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613202112317.png"
+loading="lazy"
+alt="1613202112317"
+>&lt;/p>
+&lt;h4 id="测试集合testsuite">测试集合testsuite&lt;/h4>
+&lt;h5 id="追加单个测试对象">追加单个测试对象&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613207825662.png"
+loading="lazy"
+alt="1613207825662"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>print(re.__dict__)&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="追加多个测试对象">追加多个测试对象&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613209390861.png"
+loading="lazy"
+alt="1613209390861"
+>&lt;/p>
+&lt;h4 id="testloder">TestLoder&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613231860846.png"
+loading="lazy"
+alt="1613231860846"
+>&lt;/p>
+&lt;p>第一个参数path：指定存放测试用例的目录（单元测试用例，用unittest框架写的测试用例）&lt;/p>
+&lt;p>第二个参数pattern：指定匹配规则&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613233980464.png"
+loading="lazy"
+alt="1613233980464"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613234000816.png"
+loading="lazy"
+alt="1613234000816"
+>&lt;/p>
+&lt;h4 id="testrunner">TestRunner&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613318481043.png"
+loading="lazy"
+alt="1613318481043"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613319975732.png"
+loading="lazy"
+alt="1613319975732"
+>&lt;/p>
+&lt;h5 id="状态1">状态1&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613320910898.png"
+loading="lazy"
+alt="1613320910898"
+>&lt;/p>
+&lt;h5 id="状态2大于1即可详细报告">状态2（大于1即可）详细报告&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613320887518.png"
+loading="lazy"
+alt="1613320887518"
+>&lt;/p>
+&lt;h5 id="1613321695363httpscdnkaylehtopghkaylehcdn3unitest-framework1613321695363png">&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613321695363.png"
+loading="lazy"
+alt="1613321695363"
+>&lt;/h5>
+&lt;h5 id="断言">断言&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613382483121.png"
+loading="lazy"
+alt="1613382483121"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">mymath&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">jia&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">jian&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">b&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">changfa&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;error&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">b&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#代码功能验证&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mm&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mymath&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">actualValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">jia&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expectValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">actualValue&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="n">expectValue&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;加法功能实现正确&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">actualValue&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">jia&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">Exception&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;该方法功能实现正确&amp;#34;&lt;/span>&lt;span class="err">，&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-----------------------------------------------------------&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#导包&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">unittest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">myMath&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">mymath&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#创建单元测试类(继承自unittest.testcase)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">myMathTest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TestCase&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#测试用例资源初始化方法&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">setUp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mm&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mymath&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#测试用例方法&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">test_add_1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">actualValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">jia&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expectValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#断言&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">assertEqual&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">actualValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">expectValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;预期结果不一致&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">test_add_2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">actualValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">jia&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;abc&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;def&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expectValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;abcdef&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">assertEqual&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">actualValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">expectValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;预期结果不一致&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">test_floor_1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">actualValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mm&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">chufa&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expectValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;abcdef&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">assertEqual&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">actualValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">expectValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;预期结果不一致&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#测试用例的资源释放&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">tearDown&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#unittest.main()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#直接使用discover&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">discover&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">defaultTestLoader&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">discover&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;./20200408/&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;myMathTest.py&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#使用runner运行器运行测试集 &amp;#34;a&amp;#34;追加模式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;./20200408/re.txt&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">runner&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TextTestRunner&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;用于测试math类的用例执行&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">verbosity&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">runner&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">discover&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>maintest.py&lt;/p>
+&lt;blockquote>
+&lt;p>主测试文件,不是用来写测试用的,而是用来组织测试用来执行的&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613396353835.png"
+loading="lazy"
+alt="1613396353835"
+>&lt;/p>
+&lt;h3 id="html测试文档">HTML测试文档&lt;/h3>
+&lt;h5 id="htmltestrunner模块">HTMLTestRunner模块&lt;/h5>
+&lt;p>安装HTMLTestRunner.py到python的安装目录下/lib中&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">pip install html-TestRunner
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="使用">使用&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">HTMLTestRunner&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">HTMLTestRunner&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#path=os.path.dirname(__file__)当前目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dirname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="vm">__file__&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filename&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;%Y-%m-&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2">-%H-%M-%S&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;.html&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filename&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">path&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">filename&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#修改代码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;./20200408/result.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;wb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">runner&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">HTMLTestRunner&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">verbosity&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;单元测试报告&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;第一次运行的结果&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">runner&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">discover&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注释&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613572049278.png"
+loading="lazy"
+alt="1613572049278"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613572027235.png"
+loading="lazy"
+alt="1613572027235"
+>&lt;/p>
+&lt;h3 id="邮件自动化">邮件自动化&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613574779605.png"
+loading="lazy"
+alt="1613574779605"
+>&lt;/p>
+&lt;h3 id="项目">项目&lt;/h3>
+&lt;p>项目目录结构&lt;/p>
+&lt;pre tabindex="0">&lt;code>---public(模块,例如注册,登录,退出)
+---test_cases(测试用例)
+---test_datas(测试数据,例如csv文件)
+---test_report(测试报告)
+&lt;/code>&lt;/pre>&lt;p>电商系统/public/loginModule.py&lt;/p>
+&lt;blockquote>
+&lt;p>登录模块&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">webdriver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.action_chains&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ActionChains&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">very_login&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">login&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">driver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">implicitly_wait&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;http://localhost/verydows/&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#点击登录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_link_text&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;登录&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">click&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#输入用户名密码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;//*[@id=&amp;#34;username&amp;#34;]&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;kayleh&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;//*[@id=&amp;#34;password&amp;#34;]&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;123456&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#点击登录按钮&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;//*[@id=&amp;#34;login-form&amp;#34;]/div/a&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">click&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#退出登录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">logout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">driver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ele&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;//*[@id=&amp;#34;top-userbar&amp;#34;]/a&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ActionChains&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">move_to_element&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ele&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">perform&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_link_text&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;退出&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">click&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#退出浏览器对象&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">quitB&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">driver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">webdriver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Chrome&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>电商系统/testcases/verydows_user_update.py&lt;/p>
+&lt;blockquote>
+&lt;p>更新用户信息&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">unittest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">webdriver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#os.path.dirname(os.path.dirname(__file__))是这个文件的目录的上一级目录(电商系统)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dirname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dirname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="vm">__file__&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;/public&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#添加到环境变量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">path1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">sys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">path1&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">loginModule&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">very_login&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">verydows_user_update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TestCase&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">setUp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ll&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">very_login&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">webdriver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Chrome&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ll&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">login&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">test_user_01&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">click&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">clear&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;petter&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">clear&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#修改完验证&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">tearDown&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ll&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">logout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ll&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quitB&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">actualValue&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_attribute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;value&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expectValue&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;peter&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">assertEqual&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">actualValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">expectValue&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>电商系统/testcases/verydows_reg_true.py&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">unittest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">webdriver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">csv&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filename&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dirname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dirname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="vm">__file__&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;/test_datas/data_csv.csv&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">verydows_reg_true&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TestCase&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">setUp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">test_reg_01&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;r&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">csv&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reader&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;http://localhost/verydows/&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_link_text&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;免费注册&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">click&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;username&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;email&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;password&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;repassword&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_link_text&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;立即注册&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">click&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#因为有一个中间页面的跳转，此处要强制等待一下，让他跳转过去&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#断言&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#expectUrl=&amp;#34;http://localhost/verydows/index.php?c=user&amp;amp;a=index&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#actualUrl=driver.current_url&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expectValue&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">actualValue&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_xpath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;//....&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#if expectValue==actualValue:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># print(&amp;#34;注册username反向测试用例通过&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#else:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># print(&amp;#34;注册username反向用例不通过&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">assertEqual&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expectValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">actualValue&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#关闭浏览器对象&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">tearDown&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>电商系统/maintest.py&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#在此文件中调度测试用例执行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">unittest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">HTMLTestRunner&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">HTMLTestRunner&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pathCase&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dirname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="vm">__file__&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;/test_cases/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pathReport&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dirname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="vm">__file__&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;/test_cases/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filename&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strname&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;%Y-%m-&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2">-%H-%M-%S&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;.html&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filename&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">pathReport&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">filename&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">discover&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">defaultTestLoader&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">discover&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;verydows*.py&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;wb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">runner&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">unittest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">HTMLTestRunner&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">verbosity&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;自动化测试用例报告&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;XX&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">runner&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">discover&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="unittest下的数据驱动测试">Unittest下的数据驱动测试&lt;/h2>
+&lt;p>数据存储&lt;/p>
+&lt;blockquote>
+&lt;p>测试脚本与测试数据分离&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613756103321.png"
+loading="lazy"
+alt="1613756103321"
+>&lt;/p>
+&lt;p>不导入ddt模块，字典只会形成一条测试用例&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613756685341.png"
+loading="lazy"
+alt="1613756685341"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613756748533.png"
+loading="lazy"
+alt="1613756748533"
+>&lt;/p>
+&lt;h4 id="excel">excel&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613756844713.png"
+loading="lazy"
+alt="1613756844713"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613756873832.png"
+loading="lazy"
+alt="1613756873832"
+>&lt;/p>
+&lt;p>xldr&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613757056609.png"
+loading="lazy"
+alt="1613757056609"
+>&lt;/p>
+&lt;p>excelutil.py&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/Unitest-framework/1613757341191.png"
+loading="lazy"
+alt="1613757341191"
+>&lt;/p></description></item><item><title>Katalon Recorder (Selenium tests generator)</title><link>https://Kayleh.com/post/automated-test-katalon/</link><pubDate>Tue, 02 Feb 2021 02:42:57 +0800</pubDate><guid>https://Kayleh.com/post/automated-test-katalon/</guid><description>&lt;p>和Selenium IDE类似的工具&lt;/p>
+&lt;h4 id="katalon-recorder-selenium-tests-generator">Katalon Recorder (Selenium tests generator)&lt;/h4></description></item><item><title>automated test：selenium</title><link>https://Kayleh.com/post/automated-test-selenium/</link><pubDate>Mon, 01 Feb 2021 02:52:47 +0800</pubDate><guid>https://Kayleh.com/post/automated-test-selenium/</guid><description>&lt;h1 id="selenium">Selenium&lt;/h1>
+&lt;blockquote>
+&lt;p>浏览器插件Selenium IDE&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612201844386.png"
+loading="lazy"
+alt="1612201844386"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Selenium 3.0没有RC&lt;/p>
+&lt;/blockquote>
+&lt;p>使用：&lt;/p>
+&lt;ul>
+&lt;li>Record a new test in a new project
+&lt;ul>
+&lt;li>在新项目中录制一个新测试&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Open an existing project
+&lt;ul>
+&lt;li>打开一个现有项目&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Create a new project
+&lt;ul>
+&lt;li>创建一个新项目&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Close Selenium IDE
+&lt;ul>
+&lt;li>关闭Selenium IDE&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="脚本录制">脚本录制&lt;/h4>
+&lt;p>在浏览器中手动操作，就可以selenium录制出来&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612203333723.png"
+loading="lazy"
+alt="1612203333723"
+>&lt;/p>
+&lt;h4 id="断言">断言&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612203983826.png"
+loading="lazy"
+alt="1612203983826"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612204051810.png"
+loading="lazy"
+alt="1612204051810"
+>&lt;/p>
+&lt;h4 id="导出">导出&lt;/h4>
+&lt;p>Export&lt;/p>
+&lt;p>python pytest&lt;/p>
+&lt;h3 id="在python环境下使用selenium">在python环境下使用selenium&lt;/h3>
+&lt;p>1&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612205559810.png"
+loading="lazy"
+alt="1612205559810"
+>&lt;/p>
+&lt;p>2&lt;/p>
+&lt;p>浏览器驱动webdriver&lt;/p>
+&lt;p>&lt;a class="link" href="http://chromedriver.storage.googleapis.com/index.html" target="_blank" rel="noopener"
+>http://chromedriver.storage.googleapis.com/index.html&lt;/a>&lt;/p>
+&lt;p>放到python目录下（python已添加进系统变量）&lt;/p>
+&lt;h1 id="webdriver-api">webdriver API&lt;/h1>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612545316429.png"
+loading="lazy"
+alt="1612545316429"
+>&lt;/p>
+&lt;h4 id="键盘事件">键盘事件&lt;/h4>
+&lt;h5 id="key包提供按键方法">key包提供按键方法&lt;/h5>
+&lt;p>使用必须先引用key包：from selenium.webdriver.common.keys import Keys&lt;/p>
+&lt;p>键盘事件，在现实操作中我们习惯性的按tab见切换到写一个输入或者元素，Key()类几乎提供所有按键的方法：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>引用方法&lt;/th>
+&lt;th>对应键盘&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>send_keys(Keys.BACK_SPACE)&lt;/td>
+&lt;td>删除键（BackSpace）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.SPACE)&lt;/td>
+&lt;td>空格键(Space)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.TAB)&lt;/td>
+&lt;td>制表键(Tab)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.ESCAPE)&lt;/td>
+&lt;td>回退键（Esc）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.ENTER)&lt;/td>
+&lt;td>回车键（Enter）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.CONTROL,&amp;lsquo;a&amp;rsquo;)&lt;/td>
+&lt;td>全选（Ctrl+A）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.CONTROL,&amp;lsquo;c&amp;rsquo;)&lt;/td>
+&lt;td>复制（Ctrl+C）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.CONTROL,&amp;lsquo;x&amp;rsquo;)&lt;/td>
+&lt;td>剪切（Ctrl+X）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.CONTROL,&amp;lsquo;v&amp;rsquo;)&lt;/td>
+&lt;td>粘贴（Ctrl+V）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.F1)&lt;/td>
+&lt;td>键盘 F1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>send_keys(Keys.F12)&lt;/td>
+&lt;td>键盘 F12&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#coding=utf-8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">webdriver&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver.common.keys&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Keys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">webdriver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Chrome&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://www.baidu.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;kw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;seleniumm&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;kw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Keys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">BACK_SPACE&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 和前面的拼接&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;kw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;seleniumm&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ctrl+a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;kw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Keys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CONTROL&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;kw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Keys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CONTROL&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;x&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;kw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">send_keys&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Keys&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CONTROL&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;v&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_element_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;su&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">click&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="操作alter">操作alter&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612290819266.png"
+loading="lazy"
+alt="1612290819266"
+>&lt;/p>
+&lt;p>记得加延时,把样式显示出来&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612291040232.png"
+loading="lazy"
+alt="1612291040232"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612291459443.png"
+loading="lazy"
+alt="1612291459443"
+>&lt;/p>
+&lt;p>版本问题,&lt;strong>switch_to.alert&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612291772707.png"
+loading="lazy"
+alt="1612291772707"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612291951410.png"
+loading="lazy"
+alt="1612291951410"
+>&lt;/p>
+&lt;h4 id="多表单处理">多表单处理&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612372404933.png"
+loading="lazy"
+alt="1612372404933"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612372992770.png"
+loading="lazy"
+alt="1612372992770"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612373068712.png"
+loading="lazy"
+alt="1612373068712"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612373570630.png"
+loading="lazy"
+alt="1612373570630"
+>&lt;/p>
+&lt;h4 id="元素等待">元素等待&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612373947759.png"
+loading="lazy"
+alt="1612373947759"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612375105716.png"
+loading="lazy"
+alt="1612375105716"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612375984593.png"
+loading="lazy"
+alt="1612375984593"
+>&lt;/p>
+&lt;p>可以设置抛出的信息：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612376006321.png"
+loading="lazy"
+alt="1612376006321"
+>&lt;/p>
+&lt;p>判断：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612376670647.png"
+loading="lazy"
+alt="1612376670647"
+>&lt;/p>
+&lt;p>注意：&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612376761036.png"
+loading="lazy"
+alt="1612376761036"
+>&lt;/p>
+&lt;h5 id="系统等待">系统等待&lt;/h5>
+&lt;p>time.sleep(5)&lt;/p>
+&lt;h2 id="自动化测试用例设计">自动化测试用例设计&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612546256022.png"
+loading="lazy"
+alt="1612546256022"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612455083120.png"
+loading="lazy"
+alt="1612455083120"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612458657522.png"
+loading="lazy"
+alt="1612458657522"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612458617545.png"
+loading="lazy"
+alt="1612458617545"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612458302921.png"
+loading="lazy"
+alt="1612458302921"
+>&lt;/p>
+&lt;h2 id="自动化测试模型">自动化测试模型&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612540746961.png"
+loading="lazy"
+alt="1612540746961"
+>&lt;/p>
+&lt;h4 id="线性测试">线性测试&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1613234642404.png"
+loading="lazy"
+alt="1613234642404"
+>&lt;/p>
+&lt;h4 id="模块化驱动测试">模块化驱动测试&lt;/h4>
+&lt;p>class very_login():&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612547219237.png"
+loading="lazy"
+alt="1612547219237"
+>&lt;/p>
+&lt;p>悬浮&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612547421180.png"
+loading="lazy"
+alt="1612547421180"
+>&lt;/p>
+&lt;h4 id="数据驱动测试">数据驱动测试&lt;/h4>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612628515235.png"
+loading="lazy"
+alt="1612628515235"
+>&lt;/p>
+&lt;ul>
+&lt;li>字典&lt;/li>
+&lt;li>csv文件（excel文件）&lt;/li>
+&lt;li>数据库&lt;/li>
+&lt;li>配置文件&lt;/li>
+&lt;li>数据的参数化&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612628547080.png"
+loading="lazy"
+alt="1612628547080"
+>&lt;/p>
+&lt;h5 id="one字典">:one:字典：&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612633589340.png"
+loading="lazy"
+alt="1612633589340"
+>&lt;/p>
+&lt;h5 id="twocsv文件">:two:csv文件&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612635083102.png"
+loading="lazy"
+alt="1612635083102"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612635099344.png"
+loading="lazy"
+alt="1612635099344"
+>&lt;/p>
+&lt;p>import csv&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612635490538.png"
+loading="lazy"
+alt="1612635490538"
+>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="添加xlrd模块excel文件">&lt;strong>添加xlrd模块&lt;/strong>（excel文件）&lt;/h5>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/1612637116599.png"
+loading="lazy"
+alt="1612637116599"
+>&lt;/p></description></item><item><title>Test case</title><link>https://Kayleh.com/post/test-case/</link><pubDate>Mon, 25 Jan 2021 01:51:10 +0800</pubDate><guid>https://Kayleh.com/post/test-case/</guid><description>&lt;h1 id="测试用例">测试用例&lt;/h1>
+&lt;h4 id="什么是测试用例">什么是测试用例&lt;/h4>
+&lt;p>测试用例(Test Case)是指对一项特定的软件产品进行测试任务的描述，体现测试方案、方法、技术和策略。其内容包括测试目标、测试环境、输入数据、测试步骤、预期结果、测试脚本等，最终形成文档。简单地认为，测试用例是为某个特殊目标而编制的一组测试输入、执行条件以及预期结果，用于核实是否满足某个特定软件需求。&lt;/p>
+&lt;h5 id="回归测试">回归测试&lt;/h5>
+&lt;h5 id="模板excel">模板：（excel）&lt;/h5>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>测试用例编号&lt;/th>
+&lt;th>测试项&lt;/th>
+&lt;th>依赖用例&lt;/th>
+&lt;th>测试步骤&lt;/th>
+&lt;th>输入数据&lt;/th>
+&lt;th>预期结果&lt;/th>
+&lt;th>测试结果&lt;/th>
+&lt;th>测试人&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>1、2、&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>标识符(用例编号)，一般编号规则：TestCase_____项目名称_____模块名称_____功能名称_____0001&lt;/td>
+&lt;td>测试用例的测试目的。一般情况下，用一句话表明目的。（用谷歌浏览器打开百度首页）&lt;/td>
+&lt;td>一般功能流程上，下游的功能测试依赖于上游的功能测试的用例&lt;/td>
+&lt;td>用最朴实的语言，写出来软件的操作步骤，要尽量详细（在文本框输入xxx）&lt;/td>
+&lt;td>测试数据&lt;/td>
+&lt;td>准确，在重要的步骤之后，设定预期结果，一般和测试目的密切相关&lt;/td>
+&lt;td>只有两个，通过/失败（和预期结果）&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="测试用例编写注意事项">测试用例编写注意事项&lt;/h4>
+&lt;h4 id="黑盒测试用例设计方法">黑盒测试用例设计方法&lt;/h4></description></item><item><title>Software testing process</title><link>https://Kayleh.com/post/program-test/</link><pubDate>Sat, 16 Jan 2021 01:17:42 +0800</pubDate><guid>https://Kayleh.com/post/program-test/</guid><description>&lt;h1 id="软件测试流程">软件测试流程&lt;/h1>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b/1610797689455.png"
+loading="lazy"
+alt="1610797689455"
+>&lt;/p>
+&lt;h2 id="过程模型">过程模型&lt;/h2>
+&lt;h3 id="v模型">★V模型&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b/1610798317382.png"
+loading="lazy"
+alt="1610798317382"
+>&lt;/p>
+&lt;h3 id="w模型">★W模型&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b/1610799034052.png"
+loading="lazy"
+alt="1610799034052"
+>&lt;/p>
+&lt;h3 id="h模型">H模型&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b/1610800924088.png"
+loading="lazy"
+alt="1610800924088"
+>&lt;/p>
+&lt;h3 id="x模型">X模型&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b/1610801339901.png"
+loading="lazy"
+alt="1610801339901"
+>&lt;/p>
+&lt;h2 id="测试过程理念">测试过程理念&lt;/h2>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b/1610802495380.png"
+loading="lazy"
+alt="1610802495380"
+>&lt;/p>
+&lt;h3 id="软件测试的分类">软件测试的分类&lt;/h3>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b/1610811373564.png"
+loading="lazy"
+alt="1610811373564"
+>&lt;/p>
+&lt;p>&lt;img src="https://cdn.kayleh.top/gh/kayleh/cdn3/%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b/1610811498245.png"
+loading="lazy"
+alt="1610811498245"
+>&lt;/p>
+&lt;h1 id="测试需求分析">测试需求分析&lt;/h1>
+&lt;p>1.列出待测需求&lt;/p>
+&lt;p>2.设定需求优先级&lt;/p>
+&lt;p>3.详细描述测试需求内容&lt;/p>
+&lt;p>4.经过评审并通过&lt;/p>
+&lt;p>5.需求统计及分析&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>测试需求编号&lt;/th>
+&lt;th>测试需求名称&lt;/th>
+&lt;th>质量特性&lt;/th>
+&lt;th>所在模块&lt;/th>
+&lt;th>所在页面&lt;/th>
+&lt;th>优先级&lt;/th>
+&lt;th>负责人&lt;/th>
+&lt;th>版本号&lt;/th>
+&lt;th>需求详情描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>JXC-SRS-GN-XT-JBXX-001&lt;/td>
+&lt;td>公司名称&lt;/td>
+&lt;td>功能特性&lt;/td>
+&lt;td>系统设置模块&lt;/td>
+&lt;td>基本信息设置模块&lt;/td>
+&lt;td>低级&lt;/td>
+&lt;td>张三&lt;/td>
+&lt;td>v2.1&lt;/td>
+&lt;td>1.内容:文本 2.约束:非空&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="测试用例">测试用例&lt;/h4>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611773740638.png"
+loading="lazy"
+alt="1611773740638"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611817748756.png"
+loading="lazy"
+alt="1611817748756"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611818572479.png"
+loading="lazy"
+alt="1611818572479"
+>&lt;/p>
+&lt;h4 id="缺陷报告">缺陷报告&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>缺陷编号&lt;/th>
+&lt;th>缺陷标题&lt;/th>
+&lt;th>状态(new新提交,open确认修改,fixed修改完成,closed回归通过,reopen回归不通过)&lt;/th>
+&lt;th>优先级(高,中,低)&lt;/th>
+&lt;th>严重程度(致命,严重,一般,轻微,建议)&lt;/th>
+&lt;th>提交人&lt;/th>
+&lt;th>缺陷描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611818765336.png"
+loading="lazy"
+alt="1611818765336"
+>&lt;/p>
+&lt;h3 id="qc">QC&lt;/h3>
+&lt;p>需求&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858108421.png"
+loading="lazy"
+alt="1611858108421"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858126637.png"
+loading="lazy"
+alt="1611858126637"
+>&lt;/p>
+&lt;p>text plan&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858334019.png"
+loading="lazy"
+alt="1611858334019"
+>&lt;/p>
+&lt;p>步骤:&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858411788.png"
+loading="lazy"
+alt="1611858411788"
+>&lt;/p>
+&lt;p>test lab&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858561200.png"
+loading="lazy"
+alt="1611858561200"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858628802.png"
+loading="lazy"
+alt="1611858628802"
+>&lt;/p>
+&lt;p>有缺陷时,立即提交缺陷&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858681020.png"
+loading="lazy"
+alt="1611858681020"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858797611.png"
+loading="lazy"
+alt="1611858797611"
+>&lt;/p>
+&lt;h5 id="自定义">自定义&lt;/h5>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611858911944.png"
+loading="lazy"
+alt="1611858911944"
+>&lt;/p>
+&lt;h3 id="入库数量用例分析">入库数量用例分析&lt;/h3>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611861921070.png"
+loading="lazy"
+alt="1611861921070"
+>&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1611862130739.png"
+loading="lazy"
+alt="1611862130739"
+>&lt;/p>
+&lt;h3 id="组合测试">组合测试&lt;/h3>
+&lt;p>判定表&lt;/p>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1612106566517.png"
+loading="lazy"
+alt="1612106566517"
+>&lt;/p>
+&lt;h3 id="删除测试">删除测试&lt;/h3>
+&lt;p>&lt;img src="D:%5cBlog%5csource%5c_posts%5c%e8%bd%af%e4%bb%b6%e6%b5%8b%e8%af%95%e6%b5%81%e7%a8%8b%5c1612107740235.png"
+loading="lazy"
+alt="1612107740235"
+>&lt;/p>
+&lt;h3 id="安全测试">安全测试&lt;/h3>
+&lt;p>XSS、SQL注入&lt;/p></description></item></channel></rss>
