@@ -1,4 +1,91 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>algorithm on Kayleh's blog</title><link>https://Kayleh.com/tags/algorithm/</link><description>Recent content in algorithm on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 19 Nov 2023 16:24:09 +0000</lastBuildDate><atom:link href="https://Kayleh.com/tags/algorithm/index.xml" rel="self" type="application/rss+xml"/><item><title>shortest path algorithm —— Dijkstra</title><link>https://Kayleh.com/post/shortest-path-algorithm-dijkstra/</link><pubDate>Sun, 19 Nov 2023 16:24:09 +0000</pubDate><guid>https://Kayleh.com/post/shortest-path-algorithm-dijkstra/</guid><description>&lt;h3 id="dijkstra">Dijkstra&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>algorithm on Kayleh's blog</title><link>https://Kayleh.com/tags/algorithm/</link><description>Recent content in algorithm on Kayleh's blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 27 Feb 2024 01:50:06 +0000</lastBuildDate><atom:link href="https://Kayleh.com/tags/algorithm/index.xml" rel="self" type="application/rss+xml"/><item><title>kmp-字符串匹配算法</title><link>https://Kayleh.com/post/kmp-string-matching-algorithm/</link><pubDate>Tue, 27 Feb 2024 01:50:06 +0000</pubDate><guid>https://Kayleh.com/post/kmp-string-matching-algorithm/</guid><description>&lt;h2 id="1-算法简介">1. 算法简介&lt;/h2>
+&lt;p>KMP（Knuth-Morris-Pratt）算法是一种改进的字符串搜索算法，由Donald Knuth、Vaughan Pratt 和 James H. Morris 在 1970 年提出。与传统的暴力搜索不同，KMP 算法在模式字符串(搜索词)中预处理得到一个前缀函数（或部分匹配表），从而在搜索过程中避免了大量的回溯操作，极大地提高了搜索效率。&lt;/p>
+&lt;h2 id="2-前缀函数与部分匹配表">2. 前缀函数与部分匹配表&lt;/h2>
+&lt;p>前缀函数 $p_i$ 定义为：对于模式字符串 &lt;code>P&lt;/code> 的任意非空前缀 $P[0&amp;hellip;i-1]$
+，$p_i[i]$ 是最长的相等真前缀与真后缀的长度。基于此定义，我们可以构建模式字符串的 &lt;strong>部分匹配表&lt;/strong>。&lt;/p>
+&lt;p>例如，对于模式字符串 &lt;code>P = &amp;quot;ABCDABD&amp;quot;&lt;/code>：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>搜索词&lt;/th>
+&lt;th>A&lt;/th>
+&lt;th>B&lt;/th>
+&lt;th>C&lt;/th>
+&lt;th>D&lt;/th>
+&lt;th>A&lt;/th>
+&lt;th>B&lt;/th>
+&lt;th>D&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>部分匹配值&lt;/td>
+&lt;td>0&lt;/td>
+&lt;td>0&lt;/td>
+&lt;td>0&lt;/td>
+&lt;td>0&lt;/td>
+&lt;td>1&lt;/td>
+&lt;td>2&lt;/td>
+&lt;td>0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>详细的，
+&amp;ldquo;A&amp;quot;的前缀和后缀都为空集，共有元素的长度为&lt;code>0&lt;/code>；&lt;/p>
+&lt;p>&amp;ldquo;AB&amp;quot;的前缀为[A]，后缀为[B]，共有元素的长度为&lt;code>0&lt;/code>；&lt;/p>
+&lt;p>&amp;ldquo;ABC&amp;quot;的前缀为[A, AB]，后缀为[BC, C]，共有元素的长度&lt;code>0&lt;/code>；&lt;/p>
+&lt;p>&amp;ldquo;ABCD&amp;quot;的前缀为[A, AB, ABC]，后缀为[BCD, CD, D]，共有元素的长度为&lt;code>0&lt;/code>；&lt;/p>
+&lt;p>&amp;ldquo;ABCDA&amp;quot;的前缀为[A, AB, ABC, ABCD]，后缀为[BCDA, CDA, DA, A]，共有元素为&amp;quot;A&amp;rdquo;，长度为&lt;code>1&lt;/code>；&lt;/p>
+&lt;p>&amp;ldquo;ABCDAB&amp;quot;的前缀为[A, AB, ABC, ABCD, ABCDA]，后缀为[BCDAB, CDAB, DAB, AB, B]，共有元素为&amp;quot;AB&amp;rdquo;，长度为&lt;code>2&lt;/code>；&lt;/p>
+&lt;p>&amp;ldquo;ABCDABD&amp;quot;的前缀为[A, AB, ABC, ABCD, ABCDA, ABCDAB]，后缀为[BCDABD, CDABD, DABD, ABD, BD, D]，共有元素的长度为&lt;code>0&lt;/code>。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="部分匹配表的实际作用">部分匹配表的实际作用&lt;/h3>
+&lt;p>通过预先计算出的部分匹配表，解决字符串模式匹配中的无效回溯问题。在朴素的字符串匹配算法中，如果一个字符不匹配，则需要将模式串整体回退一位，重新开始比较。而KMP算法通过部分匹配表，可以在发生不匹配时，利用这部分信息直接跳过已知的匹配前缀，避免无谓的重复比较。&lt;/p>
+&lt;p>部分匹配表记录了模式串中每个位置i之前已经确定的最长相同前后缀长度。当匹配失败时，不需要移动文本串（主串），而是移动模式串到对应的部分匹配值所指示的位置继续进行比较，这样就可以大大提高字符串匹配的效率。&lt;/p>
+&lt;p>举个例子，假设我们有一个模式串 &amp;ldquo;ABCDABD&amp;rdquo; 及其部分匹配表 [0, 0, 1, 2, 3, 1, 0]：&lt;/p>
+&lt;p>当我们在文本串中搜索该模式串时：
+假设当前已经匹配到 &amp;ldquo;ABCD&amp;rdquo; 和下一个字符不匹配时，按照朴素算法我们会退回模式串的第一个字符重新开始匹配。
+而使用KMP算法和部分匹配表，我们可以得知当前位置 &amp;ldquo;D&amp;rdquo; 的部分匹配值是2，这意味着从模式串开头数到第4个字符（包括第4个字符“C”）为止的子串是一个与前面某段相同的后缀，因此我们可以直接将模式串向右滑动2位，对齐到 &amp;ldquo;AB&amp;rdquo; 开始继续匹配，而不是退回至开头。&lt;/p>
+&lt;h2 id="3-kmp-算法实现">3. KMP 算法实现&lt;/h2>
+&lt;p>以下是 KMP 算法的 Python 实现，包括构建部分匹配表以及进行字符串匹配的过程：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">build_prefix_table&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">prefix_table&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">pattern&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">pattern&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">prefix_table&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">k&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">pattern&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">pattern&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">k&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">prefix_table&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">k&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">prefix_table&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">kmp_search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pattern&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">prefix_table&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">build_prefix_table&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">text_index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="c1"># 文本串的匹配位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pattern_index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="c1"># 模式串的匹配位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="n">text_index&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">pattern_index&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">pattern_index&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="n">text&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">text_index&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">pattern&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">pattern_index&lt;/span>&lt;span class="p">]:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">text_index&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pattern_index&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pattern_index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">prefix_table&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">pattern_index&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">pattern_index&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">text_index&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">pattern_index&lt;/span> &lt;span class="c1"># 返回匹配开始的位置 = 已匹配的字符个数 - 已匹配的字符个数的对应的部分匹配值&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="c1"># 没有找到匹配项&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 示例使用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;ABC ABCDAB ABCDABCDABDE&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pattern&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;ABCDABD&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">kmp_search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">pattern&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># 输出: 15&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>KMP 字符串匹配算法利用了模式字符串本身的性质，在实际应用中能够有效提高字符串匹配的速度，尤其在文本处理、数据压缩等领域有着广泛的应用。&lt;/p></description></item><item><title>shortest path algorithm —— Dijkstra</title><link>https://Kayleh.com/post/shortest-path-algorithm-dijkstra/</link><pubDate>Sun, 19 Nov 2023 16:24:09 +0000</pubDate><guid>https://Kayleh.com/post/shortest-path-algorithm-dijkstra/</guid><description>&lt;h3 id="dijkstra">Dijkstra&lt;/h3>
 &lt;p>Dijkstra 算法是一种单源最短路径算法，用于计算一个顶点到其他所有顶点的最短路径。Dijkstra 算法不能处理负权边，可以处理负权边的
 单源最短路径算法见 &lt;a class="link" href="https://Kayleh.com/shortest-path-algorithm-Bellman%E2%80%93Ford/" >shortest path algorithm —— Bellman–Ford&lt;/a>&lt;/p>
 &lt;p>相比BFS，Dijkstra算法最大的不同是，在于考虑了成本。&lt;/p>
