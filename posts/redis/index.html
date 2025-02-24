@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-center-atom.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="Redis">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="https://blog.kayleh.top/posts/redis/index.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="Redis">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/1.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/2.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/3.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/pubsub1.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/pubsub2.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/1593434346091.png">
+<meta property="article:published_time" content="2020-06-27T01:30:29.000Z">
+<meta property="article:modified_time" content="2025-02-24T11:16:28.868Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="middleware">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/1.png">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/posts/redis/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.kayleh.top/posts/redis/","path":"posts/redis/","title":"Redis"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis | Kayleh's Blog</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">247</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">34</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-sitemap"><a href="/rss.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-number">1.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8Linux%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="nav-number">1.0.1.</span> <span class="nav-text">在Linux下安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.0.1.0.1.</span> <span class="nav-text">启动方法：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KEY%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.0.2.</span> <span class="nav-text">KEY关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E4%BA%94%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.0.3.</span> <span class="nav-text">redis五种数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#String%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">String：字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#List%EF%BC%9A%E5%88%97%E8%A1%A8"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">List：列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Set%EF%BC%9A%E9%9B%86%E5%90%88"><span class="nav-number">1.0.3.0.3.</span> <span class="nav-text">Set：集合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hash-%EF%BC%9A%E5%93%88%E5%B8%8C"><span class="nav-number">1.0.3.0.4.</span> <span class="nav-text">Hash ：哈希</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Zset%EF%BC%88sorted-set%EF%BC%89%EF%BC%9A%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="nav-number">1.0.3.0.5.</span> <span class="nav-text">Zset（sorted set）：有序集合</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.4.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Units"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">Units</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INCLUDES"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">INCLUDES</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GENERAL"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">GENERAL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SECURITY"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">SECURITY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT"><span class="nav-number">1.0.4.5.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">1.0.4.6.</span> <span class="nav-text">常用配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E6%8C%81%E4%B9%85%E5%8C%96RDB"><span class="nav-number">1.1.</span> <span class="nav-text">Redis持久化RDB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fork"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">Fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">配置文件的位置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.1.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.1.2.</span> <span class="nav-text">劣势</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E6%8C%81%E4%B9%85%E5%8C%96%E4%B9%8BAOF"><span class="nav-number">1.2.</span> <span class="nav-text">Redis持久化之AOF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rewrite"><span class="nav-number">1.2.1.</span> <span class="nav-text">rewrite</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF-1"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">能做什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A3%E5%B8%B8%E6%89%A7%E8%A1%8C"><span class="nav-number">1.3.0.2.1.</span> <span class="nav-text">正常执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%BE%E5%BC%83%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.3.0.2.2.</span> <span class="nav-text">放弃事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E4%BD%93%E8%BF%9E%E5%9D%90"><span class="nav-number">1.3.0.2.3.</span> <span class="nav-text">全体连坐</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%A4%E5%A4%B4%E5%80%BA%E4%B8%BB"><span class="nav-number">1.3.0.2.4.</span> <span class="nav-text">冤头债主</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#watch%E7%9B%91%E6%8E%A7"><span class="nav-number">1.3.0.2.5.</span> <span class="nav-text">watch监控</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%B6%E6%AE%B5"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E6%80%A7%EF%BC%9A"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">特性：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83"><span class="nav-number">1.4.</span> <span class="nav-text">消息订阅发布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-number">1.5.</span> <span class="nav-text">主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8-myredis%E4%B8%8B%EF%BC%9A"><span class="nav-number">1.5.0.0.1.</span> <span class="nav-text">在&#x2F;myredis下：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%96%AA%E7%81%AB%E7%9B%B8%E4%BC%A0"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">薪火相传</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%AE%A2%E4%B8%BA%E4%B8%BB"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">反客为主</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86"><span class="nav-number">1.5.1.</span> <span class="nav-text">复制原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">哨兵模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">1.5.3.</span> <span class="nav-text">复制的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jedis"><span class="nav-number">1.5.4.</span> <span class="nav-text">Jedis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-number">1.5.5.</span> <span class="nav-text">缓存雪崩</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">247</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/lib/@creativecommons/vocabulary/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/posts/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/mygo.jpg">
+      <meta itemprop="name" content="Kayleh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kayleh's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis | Kayleh's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvX3Bvc3RzL1JlZGlzLm1k" title="Edit this post"><i class="fa fa-pen-nib"></i></span>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-06-27 09:30:29" itemprop="dateCreated datePublished" datetime="2020-06-27T09:30:29+08:00">2020-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-02-24 19:16:28" itemprop="dateModified" datetime="2025-02-24T19:16:28+08:00">2025-02-24</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><span id="more"></span>
+
+<h3 id="在Linux下安装"><a href="#在Linux下安装" class="headerlink" title="在Linux下安装"></a>在Linux下安装</h3><p> <span class="exturl" data-url="aHR0cHM6Ly9yZWRpcy5pby8=">https://redis.io/<i class="fa fa-external-link-alt"></i></span> 官网下载，移动到<code>/opt</code> 目录下. 在终端使用命令解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar -zxvf redis-XXXXXX.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<p>进入解压后的目录,运行make指令(需要GCC编译器)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd redis.XXX</span><br><span class="line">$ make</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
+
+<p>进入默认安装的目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd usr/local/bin</span><br></pre></td></tr></table></figure>
+
+<p>在根目录创建一个文件夹&#x2F;myredis，把安装目录下的redis.conf复制到&#x2F;myredis，复制的目的是不影响出厂的设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp redis.conf /myredis</span><br></pre></td></tr></table></figure>
+
+<p>要把myredis的权限修改,否则会出现redis无法SHUTDOWN的问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 777 /myredis</span><br></pre></td></tr></table></figure>
+
+<p>修改复制过来的conf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改为为yes</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原来的：</span><br><span class="line">##########GENERAL###################</span><br><span class="line">XXX</span><br><span class="line">daemonzie no</span><br><span class="line"></span><br><span class="line">修改为:</span><br><span class="line">daemonize yes</span><br></pre></td></tr></table></figure>
+
+<p>检查有没有启动Redis</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ef|gref redis</span><br></pre></td></tr></table></figure>
+
+<p>检查端口是否启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :6379</span><br></pre></td></tr></table></figure>
+
+<p>结果是没有启动的</p>
+<h5 id="启动方法："><a href="#启动方法：" class="headerlink" title="启动方法："></a>启动方法：</h5><p>在&#x2F;usr&#x2F;local&#x2F;bin下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-server /myredis/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p>默认端口是6379</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -p 6379</span><br></pre></td></tr></table></figure>
+
+<p>检查是否连接成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ping</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PONG</span><br></pre></td></tr></table></figure>
+
+<p>返回PONG表示成功</p>
+<p>退出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; SHUTDOWN</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h3 id="KEY关键字"><a href="#KEY关键字" class="headerlink" title="KEY关键字"></a>KEY关键字</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DBSIZE //当前数据库的key的数量</span><br><span class="line">select db //切换数据库</span><br><span class="line">Flushdb  //清空当前库</span><br><span class="line">Flushall //清空所有库</span><br><span class="line">key * 当前库所有的key</span><br><span class="line">exists key //判断key是否存在，有返回1，无则0</span><br><span class="line">move key db //移动到目标库，当前库的移除</span><br><span class="line">expire key 秒钟 //给key设置过期时间，过期后查询到的是nid空值</span><br><span class="line">ttl key //查看还有多久过期，-1表示永不过期，-2表示已过期</span><br><span class="line">type key //查看key是什么类型</span><br></pre></td></tr></table></figure>
+
+<h3 id="redis五种数据结构"><a href="#redis五种数据结构" class="headerlink" title="redis五种数据结构"></a>redis五种数据结构</h3><h5 id="String：字符串"><a href="#String：字符串" class="headerlink" title="String：字符串"></a>String：字符串</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">set key value</span><br><span class="line">get key</span><br><span class="line">del key</span><br><span class="line">append key value //在value后追加</span><br><span class="line">strlen //String长度</span><br><span class="line">INCR/DECR KEY//一定要是数字，自增自减</span><br><span class="line">INCRBY/DECRBY KEY 步长  //多步递增递减</span><br><span class="line">getrange/setrange key index index  //根据索引取值设置值</span><br><span class="line">setex key 秒钟 value   //设置值的时候设置过期时间</span><br><span class="line">setnx  //set if not exist</span><br><span class="line">mset key1 value1 key2 value2 // 设置多个值</span><br><span class="line">mget/msetnx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="List：列表"><a href="#List：列表" class="headerlink" title="List：列表"></a>List：列表</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LPUSH list1 1 2 3 4 5 (类似栈)</span><br><span class="line">LRANGE list1 0 -1</span><br><span class="line">5</span><br><span class="line">4</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">lpop list1</span><br><span class="line">&quot;5&quot;</span><br><span class="line">rpop list1</span><br><span class="line">&quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RPUSH list2 1 2 3 4 5</span><br><span class="line">LRANGE list2 0 -1</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">lpop list2</span><br><span class="line">&quot;1&quot;</span><br><span class="line">rpop list2</span><br><span class="line">&quot;5&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lindex //按照索引下标获得元素，（从上到下）</span><br><span class="line">llen  //长度</span><br><span class="line">LREM KEY N Value  //删除key数组中的N个Value</span><br><span class="line">LTRIM KEY 开始index 结束index //截取指定范围的值后在赋值给key</span><br><span class="line">rpoplpush 源列表 目的列表  //把源列表的最底的值移动到目的列表的最上面</span><br><span class="line">lset key index value //根据数组下标设置成value</span><br><span class="line">linsert key before/after 值1 值2  //把值2的值插入到key数组值1的前面/后面</span><br></pre></td></tr></table></figure>
+
+<h5 id="Set：集合"><a href="#Set：集合" class="headerlink" title="Set：集合"></a>Set：集合</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sadd  key value1，value1，value2  //只会进去不重复的值 </span><br><span class="line">smembers key value 0 -1 //打印全部</span><br><span class="line">sismember key value //判断value是否在key里</span><br><span class="line">scard  //获取集合里面的元素</span><br><span class="line">srem key value //删除集合中元素</span><br><span class="line">srandmember key //随机出几个数</span><br><span class="line">spop key //随机出栈</span><br><span class="line">smove key1 key2 在key1里某个值  //将key1里的某个值赋给key2</span><br><span class="line">sdiff set1 set2  //差集，set1里有的，set2没有的</span><br><span class="line">sinter set1 set2 //交集，都有的</span><br><span class="line">sunion set1 set2 //并集</span><br></pre></td></tr></table></figure>
+
+<h5 id="Hash-：哈希"><a href="#Hash-：哈希" class="headerlink" title="Hash ：哈希"></a>Hash ：哈希</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">value是一个键值对</span><br><span class="line">hset key &lt;key1,value1&gt;</span><br><span class="line">hget key key1</span><br><span class="line">hmset KEY1 keyA valueA KEY2 keyB valueB</span><br><span class="line">hmgetall  </span><br><span class="line">hdel KEY1 keyA</span><br><span class="line">HEXISTS KEY1 keyA //判断是否存在</span><br><span class="line">hkeys/kvals KEY1</span><br><span class="line">hincrby/hincrbyfloat KEY1  keyA  步长/浮点数    //自增自减</span><br><span class="line">hsetnx</span><br></pre></td></tr></table></figure>
+
+<h5 id="Zset（sorted-set）：有序集合"><a href="#Zset（sorted-set）：有序集合" class="headerlink" title="Zset（sorted set）：有序集合"></a>Zset（sorted set）：有序集合</h5><p>在set基础上，加一个score值</p>
+<p>set是 k1 v1 v2 v3 </p>
+<p>zset是 k1  score1  v1  score2  v2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">zadd  key  k1  score1  v1  score2  v2</span><br><span class="line">zrange key 0 -1  //只会打印value</span><br><span class="line">zrange key 0 -1 withscores  //会打印v1，score，v2，score</span><br><span class="line">zrangebyscore key 开始score 结束score //  &quot;（&quot; 表示不包含， a（ b  表示大于等于a，小于b </span><br><span class="line">zrangebyscore key 开始score 结束score withscore</span><br><span class="line">zrangebyscore key 开始score 结束score limit 开始下标步 多少步  </span><br><span class="line">zrem key score对应的value  //删除元素</span><br><span class="line">zacard  key  //统计key里value的个数</span><br><span class="line">zcount key score区间</span><br><span class="line">zrank key value  //获取下标</span><br><span class="line">zrevrank  key value //获取反转后的下标</span><br><span class="line">zrevrange key 0 -1//反转集合</span><br><span class="line">zrevrangebyscore key 结束score 开始score   //反转集合，index也要反转</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="Units"><a href="#Units" class="headerlink" title="Units"></a>Units</h4><p>1.配置大小单位，开头定义了一些基本的度量单位，只支持bytes，不支持bit</p>
+<p>2.对大小写不敏感</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/1.png" alt="1593308699248"></p>
+<h4 id="INCLUDES"><a href="#INCLUDES" class="headerlink" title="INCLUDES"></a>INCLUDES</h4><p>可以通过includes包含，redis.conf可以作为总闸,包含其他</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/2.png" alt="1593308936736"></p>
+<h4 id="GENERAL"><a href="#GENERAL" class="headerlink" title="GENERAL"></a>GENERAL</h4><p>daemonize 默认为no</p>
+<p>pidfile 进程管道id文件</p>
+<p>port 默认端口</p>
+<p>tcp-backlog,backlog  511是一个连接队列,在高并发环境下你需要一个高backlog值来避免慢客户端连接问题</p>
+<p>bind 端口及网卡的绑定</p>
+<p>timeout 0 当系统空闲一段时间后中断</p>
+<p>Tcp-keepalive 单位为秒,设置为0则不会进行Keepalive检测</p>
+<p>loglevel notice 日志级别</p>
+<p>logfile 日志文件</p>
+<p>syslog-enabled 是否把日志输出到syslog中</p>
+<p>syslog-ident 指定syslog里的日志标志</p>
+<p>syslog-facility 指定syslog设备,值可以是USER或LOCAL0-LOCAL7</p>
+<p>databases 默认有16个库</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/3.png" alt="1593309132453"></p>
+<h4 id="SECURITY"><a href="#SECURITY" class="headerlink" title="SECURITY"></a>SECURITY</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config get requirepass</span><br><span class="line">config set requirepass &quot;123456&quot;   //立即生效</span><br><span class="line">访问任何命令前使用 auth 123456</span><br></pre></td></tr></table></figure>
+
+<h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4><p>maxclients 10000   允许10000人连接</p>
+<p>maxmemory <bytes></p>
+<p>maxmemory-policy  noexiction  缓存过期清洁策略 ,默认永不过期</p>
+<ul>
+<li>volatile-lru:使用LRU算法移除key,只对设置了过期时间的键</li>
+<li>allkeys-lru:使用LRU算法移除key</li>
+<li>volatile-random:在过期集合中移除随机的key,只对设置了过期时间的键</li>
+<li>allkeys-random:移除随机的key</li>
+<li>volatile-ttl:移除那些TTL值最小的key,即那些最近要过期的key</li>
+<li>noexiction :不进行移除.针对写操作,只是返回错误信息</li>
+</ul>
+<p>LRU算法:最近最少使用的</p>
+<p>Maxmemory-samples  设置样本数量,LRU算法和最小TTL算法都并非是精确的算法,而是估算值,所以你可以设置样本的大小,redis默认会检查这么多个key并选择其中LRU的那个;</p>
+<h4 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h4><ul>
+<li><p>redis默认不是以守护进程的方式运行,可以通过该配置项修改,使用yes启动守护进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">daemonize no</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当Redis以守护进程方式运行时,Redis默认会把pid写入&#x2F;var&#x2F;run&#x2F;redis.pid文件,可以通过pidfile指定</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pid /var/run/redis.pid</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定redis监听端口,默认端口为6379</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">port 6379</span><br></pre></td></tr></table></figure>
+<ul>
+<li>绑定的主机地址</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blind 127.0.0.1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当客户端闲置多长时间后关闭连接,如果指定为0,表示关闭该功能</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timeout 300</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定日志记录级别,Redis总共支持四个级别,debug、verbose、notice、warning，默认为verbose</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loglevel verbose</span><br></pre></td></tr></table></figure>
+<ul>
+<li>日志记录方式，默认为标准输出，如果配置Redis为守护进程方式，而这里又配置为日志记录方式为标准输出，则日志将会发送给&#x2F;dev&#x2F;null</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logfile stdout</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置数据库的数量，默认数据库为0，可以使用<dbid>命令在连接上指定数据库id</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">databases 16</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">save &lt;seconds&gt; &lt;changes&gt;</span><br><span class="line">Redis默认配置文件中提供了三个条件:</span><br><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定存储至本地数据库时是否压缩数据，默认为yes，Redis采用LZF压缩，如果为了节省CPU时间，可以关闭该选项，但会导致数据库文件变的巨大</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rdbcompression yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定本地数据库文件名，默认为dump.rdb</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbfilename dump.rdb</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定本地数据库存放目录</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir ./</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置当本机为slav服务时，设置master服务的IP地址及端口，在Redis启动时，它会自动从master进行数据同步</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof &lt;masterip&gt; &lt;masterport&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当master服务先设置了密码保护，slav服务连接master的密码</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">masterauth &lt;master-password&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH <password>命令提供密码，默认关闭</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requirepass foobared</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符，如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端返回max numbers of clients reached 错误信息</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxclients 128</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，redis会先尝试清除已到期或即将到期的Key，当此方法处理后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把key存放内存，value会存放在swap区。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxmemory &lt;bytes&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定是否在每次更新操作后进行日志记录。Redis在默认情况下时异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。因为redis本身同步数据文件时按save条件来同步的，所以有的数据会在一段时间内只存在内存中。默认为no</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendonly no</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定更新日志文件名，默认为appendonly.aof</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendfilename appendonly.aof</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定更新日志条件，共有3个可选值：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">appendfsync everysec</span><br><span class="line">no: 表示等操作系统进行数据缓存同步到磁盘（快）</span><br><span class="line">always：表示每次更新操作后手动调用fsync()将数据写到磁盘（慢，安全）</span><br><span class="line">everysec：表示每秒同步一次（折中，默认值）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定是否启用虚拟内存机制，默认为no。VM机制将数据分页存放，有Redis将访问量较少的页即冷数据swap到磁盘上，访问多的页面由磁盘换出到内存中</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm-enabled no</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>虚拟内存文件路径,默认值为&#x2F;tmp&#x2F;redis.swap</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm-swap-file /tmp/redis.swap</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将所有大于vm-max-memory的数据存入虚拟内存，无论vm-max-memory设置多小，所有索引数据都是内存存储的(Redis的索引数据 就是keys)，也就是说，当vm-max-memory设置为0的时候，其实是所有value都存在于磁盘。默认为0</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm-max-memory 0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Redis swap文件分成了很多page，一个对象可以保存在多个page上面，但一个page上不能被多个对象共享，vm-page-size是要根据存储的数据大小来设定的，作者建议如果存储很多小对象，page大小最好设置为32或者64bytes;如果存储很大的对象，则可以使用更大的page，如果不确定，就使用默认值</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm-page-size 32</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置swap文件中的page数量，由于页表(一种表示页面空闲或使用的bitmap)是放在内存中的，在磁盘上每8个page将消耗1bytes的内存</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm-pages 134217728</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置访问swap文件的线程数，最好不要超过机器的核数，如果设置为0，那么所有对swap文件的操作都是串行的，可能会造成比较长时间的延迟。默认值为4</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm-max-threads 4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置在向客户端应答时，是否把较小的包含并为一个包发送，默认为开启</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glueoutputbuf yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定在超过一定的数量或者最大的元素超过某一临界值时，采用一种特殊的哈希算法</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hash-max-zipmap-entries 64</span><br><span class="line">hash-max-zipmap-value 512</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定是否激活重置哈希，默认为开启</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activerehashing yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>指定包含其他的配置文件，可以在同一主机上多个Redis实例之间同一份配置文件，而同时各个实例又拥有自己的特定配置文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inclue /path/to.local,conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis持久化RDB"><a href="#Redis持久化RDB" class="headerlink" title="Redis持久化RDB"></a>Redis持久化RDB</h2><blockquote>
+<p>在指定的时间间隔内将内存中的数据集快照写入磁盘，即Snapshot快照，它恢复时是将快照文件直接读到内存里</p>
+</blockquote>
+<h4 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h4><p>Redis会单独创建(fork)一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个临时文件，替换上次持久化好的文件。</p>
+<p>整个过程中，主进程是不进行任何IO操作的，这就确保了极高的性能。</p>
+<p>如果需要进行大规模数据的恢复，且对于数据恢复的完整性不是非常敏感，那RDB方法要比AOF方式更加的高效。</p>
+<p>RDB的缺点是最后一次持久化后的数据可能丢失。</p>
+<h4 id="Fork"><a href="#Fork" class="headerlink" title="Fork"></a>Fork</h4><blockquote>
+<p>Fork的作用是复制一个与当前进程一样的进程。新进程的所有数据（变量、环境变量、程序计数器等）</p>
+<p>数值都和原进程一致，但是是一个全新的进程，并作为原进程的子进程</p>
+</blockquote>
+<p>RDB保存的是dump.rdb文件,</p>
+<p>先拷贝一份rdb，删除原rdb，再重命名为dump.rdb，即可恢复</p>
+<h4 id="配置文件的位置"><a href="#配置文件的位置" class="headerlink" title="配置文件的位置"></a>配置文件的位置</h4><p>##########SNAPSHOT###########</p>
+<p>save 秒钟 写操作次数</p>
+<p>禁用 save “”</p>
+<p>指定存储至本地数据库时是否压缩数据，默认为yes，Redis采用LZF压缩，如果为了节省CPU时间，可以关闭该选项，但会导致数据库文件变的巨大</p>
+<p>rdbcompression yes</p>
+<p>stop-writes-on-bgsave-error   yes</p>
+<p>如果后台在save操作出现错误的时候，停止写入</p>
+<p>如果配置为no，表示你不在乎数据不一致或者有其他的手段发现和控制</p>
+<p>rgbchecksum  yes    ##是否校验rdb文件</p>
+<p>在存储快照后，还可以让Redis使用CRC算法来进行数据校验，但是这样做会增加大约10%的性能消耗，</p>
+<p>如果希望获取到最大的性能提升，可以关闭此功能。</p>
+<p><strong>触发RDB快照</strong></p>
+<p>命令</p>
+<p><code>save</code> 手动保存 <code>save</code>只管保存，其他不管，全部阻塞</p>
+<p><code>bgsave</code> Redis会在后台异步进行快照操作，快照同时还可以响应客户端请求，可以通过lastsave命令获得最后一次成功执行快照的时间</p>
+<p>执行flushall命令，也会产生dump.rdb文件，但里面是空的，无意义。</p>
+<p>config get dir获取目录</p>
+<p>停止</p>
+<p>动态所有停止RDB保存规则的方法：redis-cli config set save “”</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>1.适合大规模的数据恢复</p>
+<p>2.对数据完整性和一致性要求不高</p>
+<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><p>1.在一定间隔时间做一次备份，所有如果redis意外down掉的话，就会丢失最后一次快照后的所有修改</p>
+<p>2.fork的时候，内存中的数据被克隆了一份，大致2倍的膨胀性需要考虑</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">内存中的      rdbSave     磁盘中的</span><br><span class="line">数据对象   ----------》    RDB文件</span><br><span class="line">            rdbload                </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>RDB是一个非常紧凑的文件</p>
+</li>
+<li><p>RDB在保存文件时父进程唯一要做的就是fork出一个子进程来做，接下来的工作全部由子进程来做，</p>
+<p>父进程不需要再做其他IO操作，所以RDB持久化方式可以最大化redis的性能</p>
+</li>
+<li><p>与AOF相比，在恢复大的数据集的时候，RDB方式会更快一些。</p>
+</li>
+<li><p>数据丢失风险大</p>
+</li>
+<li><p>RDB需要经常fork子进程来保存数据集到硬盘上，当数据集比较大的时候，fork的过程是非常耗时的，可能会导致Redis在一些毫秒级不能响应客户端的请求。</p>
+</li>
+</ul>
+<h2 id="Redis持久化之AOF"><a href="#Redis持久化之AOF" class="headerlink" title="Redis持久化之AOF"></a>Redis持久化之AOF</h2><blockquote>
+<p>以日志的形式来记录每个写操作，将Redis执行过的所有写指令记录下来（读操作不记录），只许追加文件但不可以改写文件，redis启动之初会读取该文件重新构建数据，换言之，redis重启的话就根据日志文件的内容将写指令从前到后执行一次以完成数据的恢复工作</p>
+</blockquote>
+<p>AOF保存的是appendonly.aof文件</p>
+<p>###########appendonly##########</p>
+<p>恢复：删除dump.rdb，vim  appendonly.aof，删除末尾行的FLUSHALL，再次连接数据库即可访问。</p>
+<p>两者可以共存，优先找aof，如果aof有修改为不能识别的字符，开启redis时会被拒绝。</p>
+<p>这时，当前文件夹下有一个redis-check-aof，使用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-check-aof --fix appendonly.aof</span><br><span class="line">continue?[y/N]:y</span><br></pre></td></tr></table></figure>
+
+<p>命令会删除不符合语法规范的字段。</p>
+<h3 id="rewrite"><a href="#rewrite" class="headerlink" title="rewrite"></a>rewrite</h3><p>AOF采用文件追加方式，文件会越来越大为避免出现此种情况，新增了重写机制，当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩，只保留可以恢复数据的最小指令集.可以使用bgrewriteaof</p>
+<p>重写原理：</p>
+<p>AOF文件持续增长而过大时，会fork出一条新进程来将文件重写（也是先写临时文件最后再rename），遍历新进程的内存中数据，每条记录有一条的set 语句。重写aof文件的操作，并没有读取旧的aof文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的aof文件，这点和快照有点类似。</p>
+<p>触发机制：</p>
+<p>Redis会记录上次重写时的AOF大小，默认配置是当AOF文件大小是上次rewrite后大小的一倍且文件大于64M时触发。</p>
+<p>auto-aof-rewrite-percentage 100  一倍</p>
+<p>auto-aof-rewrite-min-size 64mb</p>
+<h4 id="优势-1"><a href="#优势-1" class="headerlink" title="优势"></a>优势</h4><p>每秒同步：appendfsync always 同步持久化 每次发生数据变更会被立即记录到磁盘  性能较差但数据完整比较好</p>
+<p>每修改同步：appendfsync  everysec  异步操作，每秒记录  如果一秒内宕机，有数据丢失。</p>
+<p>不同步：appendfsync  no 从不同步</p>
+<h4 id="劣势-1"><a href="#劣势-1" class="headerlink" title="劣势"></a>劣势</h4><p>相同数据集的数据而言aof文件要远大于rdb文件，恢复速度慢与rdb</p>
+<p>aof运行效率要慢与rdb，每秒同步策略较好，不同步效率和rdb相同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                             AOF                   网络协议格式</span><br><span class="line"> _________________   命令请求     ________________   的命令内容   ____________________</span><br><span class="line">|      客户端      | __________&gt; |     服务器      | __________&gt;|       AOF文件      |</span><br><span class="line">|_________________|             |________________|            |___________________|</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>aof文件时一个只进行追加的日志文件</p>
+</li>
+<li><p>Redis可以在AoF文件体积变得过大时，自动地在后台对AOF进行重写</p>
+</li>
+<li><p>对于相同的数据集来说，AOF文件的体积通常要大于RDB文件的体积</p>
+</li>
+<li><p>根据所使用的fsync策略，AOF的速度可能会慢于RDB</p>
+</li>
+</ul>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><ul>
+<li><p>RDB持久化方式能够在指定的时间间隔能对你的数据进行快照存储</p>
+</li>
+<li><p>AOP持久化方式记录每次对服务器写的操作，当服务器重启的时候回重新执行这些命令来回复原始的数据，AOP命令以redis协议追加保存每次写的操作到文件末尾.</p>
+</li>
+<li><p>Redis还能对AOF文件进行后台重写，使得AOF文件的体积不至于过大</p>
+</li>
+<li><p>只做缓存：如果你只希望你的数据在服务器运行的时候存在，你也可以不使用任何持久化方式.</p>
+</li>
+<li><p>同时开启两种持久化方式.在这种情况下,当redis重启的时候会优先载入AOF文件来恢复原始的数据,因为在通常情况下AOF文件保存的数据集要比RDB文件保存的数据集要完整. </p>
+</li>
+<li><p>RDB的数据不实时,同时使用两者时服务器重启也只会找AOF文件, 建议不要只使用AOF,因为RDB更适合于备份数据库(AOF在不断变化不好备份),</p>
+<p>快速重启,而且不会有AOF可能存在的bug,留着作为一个万一的手段.</p>
+</li>
+</ul>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><blockquote>
+<p>可以一次执行多个命令，本质是一组命令的集合。一个事务中的所有命令都会序列化，按顺序地串行化执行而不会被其他命令插入，不许加塞</p>
+</blockquote>
+<h4 id="能做什么？"><a href="#能做什么？" class="headerlink" title="能做什么？"></a>能做什么？</h4><p>一个队列中，一次性的、顺序性、排他性的执行一系列命令</p>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><table>
+<thead>
+<tr>
+<th><strong>DISCARD</strong></th>
+<th><strong>取消事务，放弃执行事务块内的所有命令。</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>EXEC</strong></td>
+<td><strong>执行所有事务块内的命令。</strong></td>
+</tr>
+<tr>
+<td><strong>MULTI</strong></td>
+<td><strong>标记一个事务块的开始。</strong></td>
+</tr>
+<tr>
+<td><strong>UNWATCH</strong></td>
+<td><strong>取消 WATCH 命令对所有 key 的监视。</strong></td>
+</tr>
+<tr>
+<td><strong>WATCH key [key …]</strong></td>
+<td><strong>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。</strong></td>
+</tr>
+</tbody></table>
+<h5 id="正常执行"><a href="#正常执行" class="headerlink" title="正常执行"></a>正常执行</h5><p>MULTI 相当与 一个新的购物车，每输入一条命令返回QUEUED相当于加入购物车，EXEC执行命令相当于结账。</p>
+<h5 id="放弃事务"><a href="#放弃事务" class="headerlink" title="放弃事务"></a>放弃事务</h5><p>在事务没有EXEC之前调用DISCARD</p>
+<h5 id="全体连坐"><a href="#全体连坐" class="headerlink" title="全体连坐"></a>全体连坐</h5><p>如果有一个指令不能正常运行（编译出错），事务EXEC会报错</p>
+<h5 id="冤头债主"><a href="#冤头债主" class="headerlink" title="冤头债主"></a>冤头债主</h5><p><strong>运行时出错的命令</strong>不会执行，而其他命令仍然会放行。</p>
+<blockquote>
+<p>Redis是否支持事务？ 是部分支持。</p>
+</blockquote>
+<h5 id="watch监控"><a href="#watch监控" class="headerlink" title="watch监控"></a>watch监控</h5><ul>
+<li><p>悲观锁(Pessimistic Lock)</p>
+<blockquote>
+<p>我对这个事情的发展很悲观，每次去拿数据的时候都认为别人会修改，为了避免出事，把整张表锁了，</p>
+<p>表锁，并发性最差，一致性最好。</p>
+</blockquote>
+</li>
+<li><p><strong>乐观锁(Optimistic Lock)</strong></p>
+<blockquote>
+<p>我认为这个事没有人会去干，不会上锁，乐观锁在每条记录的后面加一个version版本号字段。</p>
+<p>乐观锁策略：提交版本必须大于记录当前版本才能执行。</p>
+</blockquote>
+</li>
+</ul>
+<p>在调用MULTI之前，先调用  WATCH  + KEY</p>
+<p><strong>UNWATCH取消所有key的监控</strong></p>
+<p>有加塞篡改，监控了key，key被修改了，事务将被打断，调用UNWATCH再执行一次</p>
+<h4 id="阶段"><a href="#阶段" class="headerlink" title="阶段"></a>阶段</h4><p>开启：以MULTI开始一个事务</p>
+<p>入队：将多个命令入队到事务中，接到这些命令并不会立即执行，而是放到等待执行的事务队列里面。</p>
+<p>执行：由EXEC命令触发事务</p>
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>watch指令，类似乐观锁，事务提交时，如果key的值已被别的客户端改变，比如某个list已被别的客户端push&#x2F;pop过了，整个事务队列都不会执行。</p>
+<p>通过watch命令在事务执行之前监控了多个keys，倘若在watch之后有任何key的值发生了变化，EXEC命令执行的事务都将被放弃，同时返回Nullmulti-bulk应答以通知调用者事务执行失败。</p>
+<h4 id="特性："><a href="#特性：" class="headerlink" title="特性："></a>特性：</h4><p>单独的隔离操作：事务中的所有命令都会序列化、按顺序的执行。事务在执行的过程中，不会被其他客户端发送来的请求所打断。</p>
+<p>没有隔离级别的概念：队列中的命令没有提交之前都不会实际的被执行，因为事务提交前任何指令都不会被实际执行，也就不存在“事务内的查询要看到事务里的更新，在事务外查询不能看到”这个问题。</p>
+<p>不保证原子性：redis同一个事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚。</p>
+<h2 id="消息订阅发布"><a href="#消息订阅发布" class="headerlink" title="消息订阅发布"></a>消息订阅发布</h2><p>是什么？</p>
+<blockquote>
+<p>进程间的一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息</p>
+</blockquote>
+<p>下图展示了频道channel1，以及订阅这个频道的三个客户端—client2和client5、client1之间的关系</p>
+<p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/pubsub1.png" alt="img"> </p>
+<p>当有新消息通过PUBLISH命令发送给频道channel1时，这个消息就会发送给订阅它的三个客户端</p>
+<p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/pubsub2.png" alt="img"> </p>
+<p>下表列出了 redis 发布订阅常用命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>命令</strong></th>
+<th align="left"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>PSUBSCRIBE pattern [pattern …]</strong></td>
+<td align="left"><strong>订阅一个或多个符合给定模式的频道。</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>PUBSUB subcommand [argument [argument …]]</strong></td>
+<td align="left"><strong>查看订阅与发布系统状态。</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>PUBLISH channel message</strong></td>
+<td align="left"><strong>将信息发送到指定的频道。</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>PUNSUBSCRIBE [pattern [pattern …]]</strong></td>
+<td align="left"><strong>退订所有给定模式的频道。</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>SUBSCRIBE channel[channel …]</strong></td>
+<td align="left"><strong>订阅给定的一个或多个频道的信息。</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>UNSUBSCRIBE[channel [channel …]]</strong></td>
+<td align="left"><strong>指退订给定的频道。</strong></td>
+</tr>
+</tbody></table>
+<p>SUBSCRIBE   c1 c2 </p>
+<p>PULISH c1 message</p>
+<p>PSUBSCRIBE  new*  </p>
+<p>PULISH  new4  message</p>
+<h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><blockquote>
+<p>主机数据更新后根据配置和策略，自动同步到备机的master&#x2F;slave机制，Master以写为主，Slave以读为主。</p>
+</blockquote>
+<h5 id="在-myredis下："><a href="#在-myredis下：" class="headerlink" title="在&#x2F;myredis下："></a>在&#x2F;myredis下：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp redis.conf  redis6379.conf</span><br><span class="line">cp redis.conf  redis6380.conf</span><br><span class="line">cp redis.conf  redis6381.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim redis6379.conf</span><br><span class="line">pidfile  /var/run/redis.pid  -&gt;  /var/run/redis6379.pid</span><br><span class="line">port 6379</span><br><span class="line">logfile &quot;&quot;  -&gt;   logfile &quot;6379.log&quot;</span><br><span class="line">备份</span><br><span class="line">dbfilename  dump.rdb   -&gt;    dump6379.rdb</span><br><span class="line"></span><br><span class="line">6380,6381 以此为例</span><br></pre></td></tr></table></figure>
+
+<p>分别启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-server /myredis/redis6379.conf</span><br><span class="line">redis-cli -p 6379</span><br></pre></td></tr></table></figure>
+
+<p>检查是否启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef|gref redis</span><br></pre></td></tr></table></figure>
+
+<p>使用命令 info replication查看信息,他们的角色都是master</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">role:master</span><br></pre></td></tr></table></figure>
+
+<p>在主机（6379）下往数据库设值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set k1 v1</span><br><span class="line">set k2 v2</span><br><span class="line">set k3 v3</span><br></pre></td></tr></table></figure>
+
+<p>在从机（6380,6381）分别使用SLAVEOF命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SLAVEOF 127.0.0.1  6379</span><br></pre></td></tr></table></figure>
+
+<p>这时再往主机6379设值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set k4 v4</span><br></pre></td></tr></table></figure>
+
+<p>从机可以获取值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get k4</span><br><span class="line">&quot;v4&quot;</span><br><span class="line">get k1</span><br><span class="line">&quot;v1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>再次使用命令 info replication查看信息</p>
+<p>6379主机下多了两个奴隶：6380,6381</p>
+<p>6780、6781的角色变成了奴隶。</p>
+<ul>
+<li><p><strong>如果从机尝试写入数据。会出错。因为Master以写为主，Slave以读为主</strong></p>
+</li>
+<li><p>如果主机SHUTDOWN死了，调用从机的 info replication</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">master_link_status: 由up变成了down</span><br></pre></td></tr></table></figure>
+
+<p>从机在原地待命</p>
+<ul>
+<li>如果主机重新连接回来了，并设值</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set k7 v7</span><br></pre></td></tr></table></figure>
+
+<p>从机依然可以获取k7的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">get k7</span><br><span class="line">&quot;v7&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果从机退出并重新连接role角色会变成master，并且会丢失退出期间的数据,</p>
+<p>调用SLAVEOF 127.0.0.1  6379就可以恢复连接并获取到原来丢失的值</p>
+<p><strong>每次与master断开之后，都需要重新连接，除非配置进redis.conf</strong></p>
+</li>
+</ul>
+<h4 id="薪火相传"><a href="#薪火相传" class="headerlink" title="薪火相传"></a>薪火相传</h4><blockquote>
+<p>去中心化</p>
+<p>上一个Slave可以是下一个slave的Master，Slave同样可以接收其他slaves的连接和同步请求，那么该slave作为了链条中的下一个的master，可以有效减轻master的写压力。</p>
+</blockquote>
+<p>中途变更转向：会清除之前的数据，重新建立拷贝最新的</p>
+<p>Slaveof 新主库IP 新主库端口</p>
+<p>例如81是80的从机，80是79的从机，那么80是79的奴隶，80还是奴隶，81是80的奴隶。</p>
+<h4 id="反客为主"><a href="#反客为主" class="headerlink" title="反客为主"></a>反客为主</h4><p>一主二仆里，主机挂了，从机使用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SLAVEOF no one</span><br></pre></td></tr></table></figure>
+
+<p>当前从机的角色就变成了主机，其他从机需要调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Slaveof 新主库IP 新主库端口</span><br><span class="line">//使当前数据库停止与其他数据库同步，转成组数据库。</span><br></pre></td></tr></table></figure>
+
+<p>才能跟随新主机。</p>
+<h3 id="复制原理"><a href="#复制原理" class="headerlink" title="复制原理"></a>复制原理</h3><ul>
+<li><p>Slave启动成功连接到master后会发送一个sync命令</p>
+</li>
+<li><p>Master接到命令启动后台的存盘进程，同时收集所有接受到的用于修改数据集命令，在后台进程执行完毕之后，master将传送整个数据文件到slave，以完成一次完全同步</p>
+</li>
+<li><p>全量复制：而slave服务在接收到数据库文件数据后，将其存盘并加载到内存中。</p>
+</li>
+<li><p>增量复制：Master继续将新的所有收集到的修改命令依次传给slave，完成同步</p>
+<p>但是只要是重新连接master，一次完全同步（全量复制）将会被自动执行。</p>
+</li>
+</ul>
+<h3 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h3><blockquote>
+<p>反客为主的自动版，能够后台监控主机是否故障，如果故障了根据投票数自动将从库转换为主库</p>
+</blockquote>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>在&#x2F;myredis下面创建一个sentinel.conf文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch sentinel.conf</span><br><span class="line">vim sentinel.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改为以下内容：</p>
+<p><em>一组 sentinel.conf 可以监控多个Master</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sentinel monitor 被监控数据库名字(自己起名字)  127.0.0.1  6379  1</span><br><span class="line"></span><br><span class="line">//数字1 表示主机挂掉后salve投票看让谁接替成为主机，得票数多少后成为主机</span><br></pre></td></tr></table></figure>
+
+<p>启动redis：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel  /myredis/sentinel.conf </span><br></pre></td></tr></table></figure>
+
+<p>主机断开之后，哨兵监控到了，就开始投票，如果两个从机一人一票，就会重新投票，</p>
+<p>票数高的从机替换主机，其他从机都跟随这个新主机。</p>
+<p>断开的主机回来之后变成了从机，并跟随新主机。</p>
+<h3 id="复制的缺点"><a href="#复制的缺点" class="headerlink" title="复制的缺点"></a>复制的缺点</h3><p>由于所有的写操作都是先在Master上操作，然后同步更新到Slave上，所以从Master同步带Slave机器有一定的延迟，当系统很繁忙的时候，延迟问题会更加严重，Slave机器数量的增加也会使这个问题更加严重。</p>
+<h3 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h3><p>测试联通</p>
+<p>先启动</p>
+<p>在&#x2F;usr&#x2F;local&#x2F;bin下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-server /myredis/redis.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -p 6379</span><br></pre></td></tr></table></figure>
+
+<p>Java：</p>
+<p>依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: Wizard</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/6/29 18:33</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestPing</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>);</span><br><span class="line">        System.out.println(jedis.ping());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">------</span><br><span class="line">PONG</span><br></pre></td></tr></table></figure>
+
+<p>API</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: Wizard</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/6/29 18:33</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestAPI</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>);</span><br><span class="line">        jedis.set(<span class="string">&quot;k1&quot;</span>, <span class="string">&quot;v2&quot;</span>);</span><br><span class="line">        jedis.get(<span class="string">&quot;k1&quot;</span>);</span><br><span class="line">        Set&lt;String&gt; keys = jedis.keys(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//事务</span></span><br><span class="line">        <span class="type">Transaction</span> <span class="variable">multi</span> <span class="operator">=</span> jedis.multi();</span><br><span class="line">        multi.set(<span class="string">&quot;k2&quot;</span>, <span class="string">&quot;v2&quot;</span>);</span><br><span class="line"><span class="comment">//        multi.exec();</span></span><br><span class="line">        multi.discard();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>事务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: Wizard</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/6/29 20:04</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestTX</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">TestTX</span> <span class="variable">test</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TestTX</span>();</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> test.transMethod();</span><br><span class="line">        System.out.println(b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">transMethod</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>);</span><br><span class="line">        <span class="type">int</span> balance;<span class="comment">//可用余额</span></span><br><span class="line">        <span class="type">int</span> debt;<span class="comment">//欠额</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">amtToSubtract</span> <span class="operator">=</span> <span class="number">10</span>;<span class="comment">//实刷额度</span></span><br><span class="line">        jedis.watch(<span class="string">&quot;balance&quot;</span>);</span><br><span class="line">        <span class="comment">//其他程序执行</span></span><br><span class="line">        <span class="comment">// Thread.sleep(3000);</span></span><br><span class="line">        <span class="comment">//jedis.set(&quot;balance&quot;, &quot;5&quot;);</span></span><br><span class="line">        balance = Integer.parseInt(jedis.get(<span class="string">&quot;balance&quot;</span>));</span><br><span class="line">        <span class="keyword">if</span> (balance &lt; amtToSubtract) &#123;</span><br><span class="line">            jedis.unwatch();</span><br><span class="line">            System.out.println(<span class="string">&quot;modify&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主从</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: Wizard</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/6/29 20:04</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestMS</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis_M</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>);</span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis_S</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6380</span>);</span><br><span class="line"></span><br><span class="line">        jedis_S.slaveof(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>);</span><br><span class="line">        jedis_M.set(<span class="string">&quot;class&quot;</span>, <span class="string">&quot;1&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(jedis_S.get(<span class="string">&quot;class&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>池</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: Wizard</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/6/29 20:29</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JedisPoolUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="type">JedisPool</span> <span class="variable">jedisPool</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">JedisPoolUtils</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> JedisPool <span class="title function_">getJedisPoolInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">null</span> == jedisPool) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (JedisPoolUtils.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="literal">null</span> == jedisPool) &#123;</span><br><span class="line">                    <span class="type">JedisPoolConfig</span> <span class="variable">jedisPoolConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JedisPoolConfig</span>();</span><br><span class="line">                    jedisPoolConfig.setMaxActive();</span><br><span class="line">                    jedisPoolConfig.setMaxIdle(<span class="number">32</span>);</span><br><span class="line">                    jedisPoolConfig.setMaxWaitMillis(<span class="number">100</span>*<span class="number">1000</span>);</span><br><span class="line">                    jedisPoolConfig.setTestOnBorrow(<span class="literal">true</span>);</span><br><span class="line">                    jedisPool = <span class="keyword">new</span> <span class="title class_">JedisPool</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jedisPool;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JedisPoolConfig:</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/Redis/1593434346091.png" alt="1593434346091"></p>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Kayleh
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://blog.kayleh.top/posts/redis/" title="Redis">https://blog.kayleh.top/posts/redis/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/middleware/" rel="tag"><i class="fa fa-tag"></i> middleware</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/operating-system/" rel="prev" title="Operating Systems">
+                  <i class="fa fa-angle-left"></i> Operating Systems
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/c-pointer/" rel="next" title="C pointer">
+                  C pointer <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/ribbon.js/dist/ribbon.min.js"></script>
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="/lib/medium-zoom/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="/js/third-party/chat/tidio.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="/lib/gitalk/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"/lib/gitalk/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"548fb9ee1bc553421f0d6994590541f0"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

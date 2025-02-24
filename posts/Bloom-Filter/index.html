@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-center-atom.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="如果想要判断一个元素是不是在一个集合里，一般想到的是将所有元素保存起来，然后通过比较确定。链表，树等等数据结构都是这种思路. 但是随着集合中元素的增加，我们需要的存储空间越来越大，检索速度也越来越慢(O(n),O(logn))。不过世界上还有一种叫作散列表（又叫哈希表，Hash table）的数据结构。它可以通过一个Hash函数将一个元素映射成一个位阵列（Bit array）中的一个点。这样一来，">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="布隆过滤器的理论基础及Redisson实现">
+<meta property="og:url" content="https://blog.kayleh.top/posts/Bloom-Filter/index.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="如果想要判断一个元素是不是在一个集合里，一般想到的是将所有元素保存起来，然后通过比较确定。链表，树等等数据结构都是这种思路. 但是随着集合中元素的增加，我们需要的存储空间越来越大，检索速度也越来越慢(O(n),O(logn))。不过世界上还有一种叫作散列表（又叫哈希表，Hash table）的数据结构。它可以通过一个Hash函数将一个元素映射成一个位阵列（Bit array）中的一个点。这样一来，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/1217384-20190612174853403-1591242748.png">
+<meta property="article:published_time" content="2021-09-26T05:18:41.000Z">
+<meta property="article:modified_time" content="2025-02-24T11:16:28.885Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="sql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/1217384-20190612174853403-1591242748.png">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/posts/Bloom-Filter/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.kayleh.top/posts/Bloom-Filter/","path":"posts/Bloom-Filter/","title":"布隆过滤器的理论基础及Redisson实现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>布隆过滤器的理论基础及Redisson实现 | Kayleh's Blog</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">247</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">34</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-sitemap"><a href="/rss.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">布隆过滤器的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BB%91%E5%90%8D%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="nav-number">1.1.</span> <span class="nav-text">黑名单校验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">解决缓存穿透的问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redisson%E5%AE%9E%E7%8E%B0%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%9C%A8%E4%BA%BF%E7%BA%A7%E6%B5%81%E9%87%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Redisson实现布隆过滤器在亿级流量系统的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E6%94%BB%E5%87%BB%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">缓存穿透攻击：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%A2%84%E9%98%B2%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%EF%BC%9F%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">如何预防缓存穿透？布隆过滤器。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E8%AF%AF%E5%88%A4%E7%9A%84%E6%8E%AA%E6%96%BD%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">减少误判的措施：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redisson"><span class="nav-number">3.</span> <span class="nav-text">Redisson</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">247</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/lib/@creativecommons/vocabulary/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/posts/Bloom-Filter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/mygo.jpg">
+      <meta itemprop="name" content="Kayleh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kayleh's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="布隆过滤器的理论基础及Redisson实现 | Kayleh's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          布隆过滤器的理论基础及Redisson实现<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvX3Bvc3RzL+W4g+mahui/h+a7pOWZqOeahOeQhuiuuuWfuuehgC5tZA==" title="Edit this post"><i class="fa fa-pen-nib"></i></span>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-09-26 13:18:41" itemprop="dateCreated datePublished" datetime="2021-09-26T13:18:41+08:00">2021-09-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-02-24 19:16:28" itemprop="dateModified" datetime="2025-02-24T19:16:28+08:00">2025-02-24</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>如果想要判断一个元素是不是在一个集合里，一般想到的是将所有元素保存起来，然后通过比较确定。<code>链表</code>，树等等数据结构都是这种思路. 但是随着集合中元素的增加，我们需要的存储空间越来越大，检索速度也越来越慢(O(n),O(logn))。不过世界上还有一种叫作散列表（又叫<code>哈希表</code>，Hash table）的数据结构。它可以通过一个<code>Hash函数</code>将一个元素映射成一个位阵列（Bit array）中的一个点。这样一来，我们只要看看这个点是不是1就可以知道集合中有没有它了。这就是布隆过滤器的基本思想。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS9IYXNoLzM5MDMxMA==">Hash<i class="fa fa-external-link-alt"></i></span>面临的问题就是冲突。假设Hash函数是良好的，如果我们的位阵列长度为m个点，那么如果我们想将冲突率降低到例如 1%, 这个散列表就只能容纳m &#x2F; 100个元素。显然这就不叫空间效率了（Space-efficient）了。解决方法也简单，就是使用多个Hash，如果它们有一个说元素不在集合中，那肯定就不在。如果它们都说在，虽然也有一定可能性它们在说谎，不过直觉上判断这种事情的<code>概率</code>是比较低的。</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn4/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/1217384-20190612174853403-1591242748.png" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.BitSet;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BloomFilter</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_SIZE</span> <span class="operator">=</span> <span class="number">2</span> &lt;&lt; <span class="number">24</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span>[] seeds = <span class="keyword">new</span> <span class="title class_">int</span>[] &#123; <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">31</span>, <span class="number">37</span>, <span class="number">61</span> &#125;;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">BitSet</span> <span class="variable">bits</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BitSet</span>(DEFAULT_SIZE);</span><br><span class="line">    <span class="keyword">private</span> SimpleHash[] func = <span class="keyword">new</span> <span class="title class_">SimpleHash</span>[seeds.length];</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BloomFilter</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; seeds.length; i++) &#123;</span><br><span class="line">            func[i] = <span class="keyword">new</span> <span class="title class_">SimpleHash</span>(DEFAULT_SIZE, seeds[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String value)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (SimpleHash f : func) &#123;</span><br><span class="line">            bits.set(f.hash(value), <span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">contains</span><span class="params">(String value)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (value == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">ret</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (SimpleHash f : func) &#123;</span><br><span class="line">            ret = ret &amp;&amp; bits.get(f.hash(value));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 内部类，simpleHash</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SimpleHash</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span> cap;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span> seed;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">SimpleHash</span><span class="params">(<span class="type">int</span> cap, <span class="type">int</span> seed)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.cap = cap;</span><br><span class="line">            <span class="built_in">this</span>.seed = seed;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(String value)</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> value.length();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">                result = seed * result + value.charAt(i);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> (cap - <span class="number">1</span>) &amp; result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">BloomFilter</span> <span class="variable">bf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BloomFilter</span>();</span><br><span class="line">        List&lt;String&gt; strs = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">        strs.add(<span class="string">&quot;123456&quot;</span>);</span><br><span class="line">        strs.add(<span class="string">&quot;hello word&quot;</span>);</span><br><span class="line">        strs.add(<span class="string">&quot;transDocId&quot;</span>);</span><br><span class="line">        strs.add(<span class="string">&quot;123456&quot;</span>);</span><br><span class="line">        strs.add(<span class="string">&quot;transDocId&quot;</span>);</span><br><span class="line">        strs.add(<span class="string">&quot;hello word&quot;</span>);</span><br><span class="line">        strs.add(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;strs.size();i++) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> strs.get(i);</span><br><span class="line">            <span class="type">boolean</span> <span class="variable">bl</span> <span class="operator">=</span> bf.contains(s);</span><br><span class="line">            <span class="keyword">if</span>(bl)&#123;</span><br><span class="line">                System.out.println(i+<span class="string">&quot;,&quot;</span>+s);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                bf.add(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="布隆过滤器的应用"><a href="#布隆过滤器的应用" class="headerlink" title="布隆过滤器的应用"></a>布隆过滤器的应用</h4><h5 id="黑名单校验"><a href="#黑名单校验" class="headerlink" title="黑名单校验"></a>黑名单校验</h5><p>发现存在黑名单中的，就执行特定操作。比如：识别垃圾邮件，只要是邮箱在黑名单中的邮件，就识别为垃圾邮件。假设黑名单的数量是数以亿计的，存放起来就是非常耗费存储空间的，布隆过滤器则是一个较好的解决方案。把所有黑名单都放在布隆过滤器中，再收到邮件时，判断邮件地址是否在布隆过滤器中即可。</p>
+<h5 id="解决缓存穿透的问题"><a href="#解决缓存穿透的问题" class="headerlink" title="解决缓存穿透的问题"></a>解决缓存穿透的问题</h5><p>一般情况下，先查询缓存是否有该条数据，缓存中没有时，再查询数据库。当数据库也不存在该条数据时，每次查询都要访问数据库，这就是缓存穿透。缓存穿透带来的问题是，当有大量请求查询数据库不存在的数据时，就会给数据库带来压力，甚至会拖垮数据库。</p>
+<p>可以使用布隆过滤器解决缓存穿透的问题，把已存在数据的key存在布隆过滤器中。当有新的请求时，先到布隆过滤器中查询是否存在，如果不存在该条数据直接返回；如果存在该条数据再查询缓存查询数据库。</p>
+<h4 id="Redisson实现布隆过滤器在亿级流量系统的应用"><a href="#Redisson实现布隆过滤器在亿级流量系统的应用" class="headerlink" title="Redisson实现布隆过滤器在亿级流量系统的应用"></a>Redisson实现布隆过滤器在亿级流量系统的应用</h4><p>**场景：**正常redis有1000条缓存数据，忽然遭到爬虫&#x2F;流量攻击攻击，大量不存在的于redis的数据批量查询，<br>由于redis不存在这些数据，会到数据库进行查询。由于数据库对于瞬时高并发访问的承载能力弱，所以可能<br>对数据库造成影响，甚至崩溃。<br>绕过redis服务器进入数据库查询的方式叫做缓存穿透。</p>
+<h5 id="缓存穿透攻击："><a href="#缓存穿透攻击：" class="headerlink" title="缓存穿透攻击："></a>缓存穿透攻击：</h5><p>指恶意用户在短时间内大量查询不存在的数据，导致大量请求在被送达数据库进行查询，<br>当请求数量超过数据库负载上限时，使系统响应出现高延迟甚至瘫痪的行为。</p>
+<h5 id="如何预防缓存穿透？布隆过滤器。"><a href="#如何预防缓存穿透？布隆过滤器。" class="headerlink" title="如何预防缓存穿透？布隆过滤器。"></a>如何预防缓存穿透？布隆过滤器。</h5><p>布隆过滤器：由一个很长的二进制向量和一系列随机映射函数组成，可以用于检索一个元素是否在一个集合中。<br>特点：<br>1.一定的误识别率（即某一元素存在于某集合中，但是实际上该元素并不在集合中）<br>2.但是没有识别错误的情形（即如果某个元素确实没有在该集合中，那么Bloom Filter 是不会报告该元素存在于集合中的，所以不会漏报）。<br>也就是：我说你不在你就一定不在，我说在，可能不在。<br>3.删除困难</p>
+<p>了解hash:<br>Hash （散列函数）：是把任意长度的输入通过散列算法变换成固定长度的输出，该输出就是散列值。<br>由于这种转换，可能存在 不同的输入可能会散列成相同的输出。<br>Hash算法可以将一个数据转换为一个标志，这个标志，就是视频说的hash，hash后若不存在，就由0变为1。存在，不变。</p>
+<p>视频hash1（858），hash2（858），hash3（858）的原理是：<br>Hash面临的问题就是冲突。假设 Hash 函数是良好的，如果我们的位阵列长度为 m 个点，那么如果我们想将冲突率降低到例如 1%, 这个散列表就只能容纳 m&#x2F;100 个元素。显然这就不叫空间有效了（Space-efficient）。<br>解决方法也简单，就是使用多个 Hash，如果它们有一个说元素不在集合中，那肯定就不在。如果它们都说在，虽然也有一定可能性它们在说谎，不过直觉上判断这种事情的概率是比较低的。<br>（我搬运的，前半句我看不懂，只看懂后半句，理解就是：hash有冲突的可能，多个hash减少冲突率。原来1个说在，但可能不在。若2个，1个说在，另一个说不在，就肯定不在）</p>
+<h5 id="减少误判的措施："><a href="#减少误判的措施：" class="headerlink" title="减少误判的措施："></a>减少误判的措施：</h5><p>1.增加二进制数组位数。<br>2.增加Hash次数。</p>
+<p>开发中如何使用？<br>redisson组件内置布隆过滤器，导入直接使用。</p>
+<p>项目中如何使用：<br>应用启动时初始化布隆过滤器（将商品在布隆过滤器中先从0转换成1）<br>用户请求时判断布隆过滤器是否有编号，若布隆过滤器有，读取redis，若redis没有，则读取数据库，载入redis缓存。<br>若布隆过滤器没有，返回数据不存在消息。</p>
+<p>假如布隆过滤器初始化后，有商品被删除了， 怎么办？<br>布隆过滤器某一位二进制可能被多个编号hash引用（看hash的特点：不同的输入可能会散列成相同的输出）<br>所以，不能直接处理删除布隆过滤器的数据。<br>解决方案：<br>1.定时异步重建布隆过滤器<br>2.计数BloomFilter（可以知道该位被几个引用）</p>
+<p>我一开始觉得，删就删了呗，管他干嘛，但是不管他，冲突率会高，处理后，这个数据就不会再引起冲突。<br>即：A商品被删后，当你查询A商品时，布隆过滤器说他在（布隆过滤器特点：我说你不在你就一定不在，我说在，可能不在），那我就要去redis查，但实际数据库查不到这个A商品，redis也没有。<br>这就存在冲突了。如果处理之后，布隆过滤器说不在就不在。</p>
+<h4 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h4><p>1.引入maven依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.redisson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>redisson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.13.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、关于redis的配置</p>
+<p>redis配置：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#客户端超时时间单位是毫秒 默认是2000</span></span><br><span class="line"><span class="attr">redis.timeout</span>=<span class="string">10000</span></span><br><span class="line"><span class="comment">#最大空闲数</span></span><br><span class="line"><span class="attr">redis.maxIdle</span>=<span class="string">300</span></span><br><span class="line"><span class="comment">#连接池的最大数据库连接数。设为0表示无限制,如果是jedis 2.4以后用redis.maxTotal</span></span><br><span class="line"><span class="comment">#redis.maxActive=600</span></span><br><span class="line"><span class="comment">#控制一个pool可分配多少个jedis实例,用来替换上面的redis.maxActive,如果是jedis 2.4以后用该属性</span></span><br><span class="line"><span class="attr">redis.maxTotal</span>=<span class="string">2000</span></span><br><span class="line"><span class="comment">#最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。</span></span><br><span class="line"><span class="attr">redis.maxWaitMillis</span>=<span class="string">1000</span></span><br><span class="line"></span><br><span class="line"><span class="attr">redis.nodes</span>=<span class="string">192.168.25.128:7000,192.168.25.128:7001,192.168.25.128:7002,192.168.25.128:7003,192.168.25.128:7004,192.168.25.128:7005,192.168.25.128:7006,192.168.25.128:7007</span></span><br></pre></td></tr></table></figure>
+
+<p>3、配置文件的书写</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@PropertySource(&quot;classpath:conf/redis.properties&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;redis.nodes&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String clusterNodes;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">getBloomFilter</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        <span class="type">ClusterServersConfig</span> <span class="variable">clusterServersConfig</span> <span class="operator">=</span> config.useClusterServers();</span><br><span class="line">        String[] cNodes = clusterNodes.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">        <span class="comment">//分割出集群节点</span></span><br><span class="line">        <span class="keyword">for</span> (String node : cNodes) &#123;</span><br><span class="line">            clusterServersConfig.addNodeAddress(<span class="string">&quot;redis://&quot;</span> + node);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、service的的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">RedissonBloomFilterService</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化一个布隆过滤器</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key        key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> expireDate 过期时间长度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> timeUnit   过期时间单位</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否创建成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">initNewFilter</span><span class="params">(String key, Long expireDate, TimeUnit timeUnit, <span class="type">long</span> expectedInsertions, <span class="type">double</span> falseProbability)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加value到今天布隆过滤器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key  key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value  需要添加到过滤器的值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  是否添加成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(<span class="keyword">final</span> String key, <span class="keyword">final</span> String value)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加value到今天布隆过滤器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key  key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> list  需要添加到过滤器的值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  是否添加成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(<span class="keyword">final</span> String key, <span class="keyword">final</span> List&lt;String&gt; list)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断对应key是否有value值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key  key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value 对应key的value值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 应key是否有value值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">containsValue</span><span class="params">(<span class="keyword">final</span> String key, <span class="keyword">final</span> String value)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查看是否存在key值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key  key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否有key值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">containKey</span><span class="params">(<span class="keyword">final</span> String key)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedissonBloomServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">RedissonBloomFilterService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">prefix</span> <span class="operator">=</span> <span class="string">&quot;redission_bf_&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(<span class="string">&quot;yyyyMMdd&quot;</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TIME_FORMAT_LENGTH</span> <span class="operator">=</span> <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> RedissonClient redissonClient;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1、第一层的key为传入key值</span></span><br><span class="line"><span class="comment">     * 2、第二次key为  prefix + key+20200718</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, ConcurrentHashMap&lt;String, RBloomFilter&gt;&gt; bloomFilterMap = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">boolean</span> <span class="title function_">initNewFilter</span><span class="params">(String key, Long expireDate, TimeUnit timeUnit, <span class="type">long</span> expectedInsertions, <span class="type">double</span> falseProbability)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">timeFormatter</span> <span class="operator">=</span> formatter.format(LocalDateTime.now());</span><br><span class="line">        RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(prefix + timeFormatter + key);</span><br><span class="line">        <span class="comment">//初始化布隆过滤器</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isSuccess</span> <span class="operator">=</span> bloomFilter.tryInit(expectedInsertions, falseProbability);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isSuccess) &#123;</span><br><span class="line">            <span class="comment">//设置过期时间</span></span><br><span class="line">            bloomFilter.expire(expireDate, timeUnit);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//设置过期监听器</span></span><br><span class="line">            bloomFilter.addListener(<span class="keyword">new</span> <span class="title class_">ExpiredObjectListener</span>() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onExpired</span><span class="params">(String key)</span> &#123;</span><br><span class="line">                    log.info(<span class="string">&quot;onExpired callback running key is &#123;&#125;&quot;</span>, key);</span><br><span class="line">                    <span class="keyword">if</span> (key.startsWith(prefix)) &#123;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">firstKey</span> <span class="operator">=</span> key.substring(prefix.length() + TIME_FORMAT_LENGTH);</span><br><span class="line">                        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(firstKey);</span><br><span class="line">                        <span class="keyword">if</span> (Objects.isNull(map)) &#123;</span><br><span class="line">                            log.warn(<span class="string">&quot;listener callback key is empty key is &#123;&#125;&quot;</span>, key);</span><br><span class="line">                            <span class="keyword">return</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        map.remove(key);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.computeIfAbsent(key, (k) -&gt; &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;String, RBloomFilter&gt;(<span class="number">4</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">            map.put(prefix + timeFormatter + key, bloomFilter);</span><br><span class="line">            isSuccess = <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            log.error(<span class="string">&quot;initNewFilter fail key is &#123;&#125;&quot;</span>, key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> isSuccess;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(String key, String value)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">timeFormatter</span> <span class="operator">=</span> formatter.format(LocalDateTime.now());</span><br><span class="line">        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(map)) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;add name key one value is null, name is &#123;&#125;,value is &#123;&#125;&quot;</span>, key, value);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">RBloomFilter</span> <span class="variable">rBloomFilter</span> <span class="operator">=</span> map.get(prefix + timeFormatter + key);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(rBloomFilter)) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;add name key one value is null, name is &#123;&#125;,redis key is &#123;&#125;,value is &#123;&#125;&quot;</span>, key, prefix + timeFormatter + key, value);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rBloomFilter.add(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(String key, List&lt;String&gt; list)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">timeFormatter</span> <span class="operator">=</span> formatter.format(LocalDateTime.now());</span><br><span class="line">        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(map)) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;add name key list value is null, name is &#123;&#125;&quot;</span>, key);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">RBloomFilter</span> <span class="variable">rBloomFilter</span> <span class="operator">=</span> map.get(prefix + timeFormatter + key);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(rBloomFilter)) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;add name key list value is null, name is &#123;&#125;,redis key is &#123;&#125;&quot;</span>, key,prefix + timeFormatter + key);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        list.forEach(value -&gt; rBloomFilter.add(value));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">containsValue</span><span class="params">(String key, String value)</span> &#123;</span><br><span class="line">        ConcurrentHashMap&lt;String, RBloomFilter&gt; map = bloomFilterMap.get(key);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(map)) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;containsValue key is exist, key is &#123;&#125;&quot;</span>, key);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, RBloomFilter&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (entry.getValue().contains(value)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">containKey</span><span class="params">(String key)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> bloomFilterMap.containsKey(key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRedissonBloom</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">       <span class="comment">//创建过滤器</span></span><br><span class="line">       redissonBloomFilterService.initNewFilter(<span class="string">&quot;bloomkey1&quot;</span>, <span class="number">60L</span>, SECONDS, <span class="number">50</span>, <span class="number">0.1</span>);</span><br><span class="line">       redissonBloomFilterService.initNewFilter(<span class="string">&quot;bloomkey2&quot;</span>, <span class="number">60L</span>, SECONDS, <span class="number">50</span>, <span class="number">0.1</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">           redissonBloomFilterService.add(<span class="string">&quot;bloomkey1&quot;</span>, <span class="string">&quot;&quot;</span> + i);</span><br><span class="line">           <span class="keyword">if</span> (i &gt; <span class="number">30</span>) &#123;</span><br><span class="line">               redissonBloomFilterService.add(<span class="string">&quot;bloomkey2&quot;</span>, <span class="string">&quot;&quot;</span> + i);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="type">int</span> <span class="variable">j1</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">       <span class="type">int</span> <span class="variable">j2</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">           <span class="type">boolean</span> <span class="variable">exists</span> <span class="operator">=</span> redissonBloomFilterService.containsValue(<span class="string">&quot;bloomkey1&quot;</span>, <span class="string">&quot;&quot;</span> + i);</span><br><span class="line">           <span class="keyword">if</span> (exists) &#123;</span><br><span class="line">               System.out.println(<span class="string">&quot;bloomkey1有误判&quot;</span> + (++j1) + <span class="string">&quot;i是&quot;</span> + i);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="type">boolean</span> <span class="variable">exists2</span> <span class="operator">=</span> redissonBloomFilterService.containsValue(<span class="string">&quot;bloomkey2&quot;</span>, <span class="string">&quot;&quot;</span> + i);</span><br><span class="line">           <span class="keyword">if</span> (exists2) &#123;</span><br><span class="line">               System.out.println(<span class="string">&quot;bloomkey2&quot;</span> +</span><br><span class="line">                       <span class="string">&quot;有误判&quot;</span> + (++j2) + <span class="string">&quot;i是&quot;</span> + i);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="type">CountDownLatch</span> <span class="variable">beginCount</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CountDownLatch</span>(<span class="number">1</span>);</span><br><span class="line">       beginCount.await();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Kayleh
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://blog.kayleh.top/posts/Bloom-Filter/" title="布隆过滤器的理论基础及Redisson实现">https://blog.kayleh.top/posts/Bloom-Filter/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/sql/" rel="tag"><i class="fa fa-tag"></i> sql</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/cache/" rel="prev" title="缓存一致性方案">
+                  <i class="fa fa-angle-left"></i> 缓存一致性方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/mysql-index-wrong/" rel="next" title="MYSQL 索引选择性陷阱">
+                  MYSQL 索引选择性陷阱 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/ribbon.js/dist/ribbon.min.js"></script>
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="/lib/medium-zoom/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="/js/third-party/chat/tidio.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="/lib/gitalk/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"/lib/gitalk/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"4c592c9ce67180849e2015dadb23fc89"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

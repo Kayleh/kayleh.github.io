@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/ui/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-center-atom.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="Selenium 浏览器插件Selenium IDE">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="automated test：selenium">
+<meta property="og:url" content="https://blog.kayleh.top/posts/automated-test-selenium/index.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="Selenium 浏览器插件Selenium IDE">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612201844386.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612203333723.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612203983826.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612204051810.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612205559810.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612545316429.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612290819266.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612291040232.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612291459443.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612291772707.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612291951410.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612372404933.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612372992770.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612373068712.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612373570630.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612373947759.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612375105716.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612375984593.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612376006321.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612376670647.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612376761036.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612546256022.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612455083120.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612458657522.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612458617545.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612458302921.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612540746961.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1613234642404.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612547219237.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612547421180.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612628515235.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612628547080.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612633589340.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612635083102.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612635099344.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612635490538.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612637116599.png">
+<meta property="article:published_time" content="2021-01-31T10:52:47.000Z">
+<meta property="article:modified_time" content="2025-02-24T11:16:28.888Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612201844386.png">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/posts/automated-test-selenium/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.kayleh.top/posts/automated-test-selenium/","path":"posts/automated-test-selenium/","title":"automated test：selenium"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>automated test：selenium | Kayleh's Blog</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">247</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">34</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-sitemap"><a href="/rss.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Selenium"><span class="nav-number">1.</span> <span class="nav-text">Selenium</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E5%BD%95%E5%88%B6"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">脚本录制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%AD%E8%A8%80"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">断言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">导出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8python%E7%8E%AF%E5%A2%83%E4%B8%8B%E4%BD%BF%E7%94%A8selenium"><span class="nav-number">1.0.1.</span> <span class="nav-text">在python环境下使用selenium</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webdriver-API"><span class="nav-number">2.</span> <span class="nav-text">webdriver API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">键盘事件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#key%E5%8C%85%E6%8F%90%E4%BE%9B%E6%8C%89%E9%94%AE%E6%96%B9%E6%B3%95"><span class="nav-number">2.0.0.1.1.</span> <span class="nav-text">key包提供按键方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9Calter"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">操作alter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E8%A1%A8%E5%8D%95%E5%A4%84%E7%90%86"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">多表单处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E7%AD%89%E5%BE%85"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">元素等待</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%AD%89%E5%BE%85"><span class="nav-number">2.0.0.4.1.</span> <span class="nav-text">系统等待</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.1.</span> <span class="nav-text">自动化测试用例设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">自动化测试模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%B5%8B%E8%AF%95"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">线性测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E9%A9%B1%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">模块化驱动测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">数据驱动测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#one-%E5%AD%97%E5%85%B8%EF%BC%9A"><span class="nav-number">2.2.0.3.1.</span> <span class="nav-text">:one:字典：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#two-csv%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.0.3.2.</span> <span class="nav-text">:two:csv文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0xlrd%E6%A8%A1%E5%9D%97%EF%BC%88excel%E6%96%87%E4%BB%B6%EF%BC%89"><span class="nav-number">2.2.0.3.3.</span> <span class="nav-text">添加xlrd模块（excel文件）</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">247</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/lib/@creativecommons/vocabulary/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/posts/automated-test-selenium/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/mygo.jpg">
+      <meta itemprop="name" content="Kayleh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kayleh's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="automated test：selenium | Kayleh's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          automated test：selenium<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvX3Bvc3RzL+iHquWKqOWMlua1i+ivlS5tZA==" title="Edit this post"><i class="fa fa-pen-nib"></i></span>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-01-31 18:52:47" itemprop="dateCreated datePublished" datetime="2021-01-31T18:52:47+08:00">2021-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-02-24 19:16:28" itemprop="dateModified" datetime="2025-02-24T19:16:28+08:00">2025-02-24</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Selenium"><a href="#Selenium" class="headerlink" title="Selenium"></a>Selenium</h1><blockquote>
+<p>浏览器插件Selenium IDE</p>
+</blockquote>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612201844386.png" alt="1612201844386"></p>
+<blockquote>
+<p>Selenium 3.0没有RC</p>
+</blockquote>
+<p>使用：</p>
+<ul>
+<li>Record a new test in a new project<ul>
+<li>在新项目中录制一个新测试</li>
+</ul>
+</li>
+<li>Open an existing project<ul>
+<li>打开一个现有项目</li>
+</ul>
+</li>
+<li>Create a new project<ul>
+<li>创建一个新项目</li>
+</ul>
+</li>
+<li>Close Selenium IDE<ul>
+<li>关闭Selenium IDE</li>
+</ul>
+</li>
+</ul>
+<h4 id="脚本录制"><a href="#脚本录制" class="headerlink" title="脚本录制"></a>脚本录制</h4><p>在浏览器中手动操作，就可以selenium录制出来</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612203333723.png" alt="1612203333723"></p>
+<h4 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612203983826.png" alt="1612203983826"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612204051810.png" alt="1612204051810"></p>
+<h4 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h4><p>Export</p>
+<p>python pytest</p>
+<h3 id="在python环境下使用selenium"><a href="#在python环境下使用selenium" class="headerlink" title="在python环境下使用selenium"></a>在python环境下使用selenium</h3><p>1</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612205559810.png" alt="1612205559810"></p>
+<p>2</p>
+<p>浏览器驱动webdriver</p>
+<p><span class="exturl" data-url="aHR0cDovL2Nocm9tZWRyaXZlci5zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2luZGV4Lmh0bWw=">http://chromedriver.storage.googleapis.com/index.html<i class="fa fa-external-link-alt"></i></span></p>
+<p>放到python目录下（python已添加进系统变量）</p>
+<h1 id="webdriver-API"><a href="#webdriver-API" class="headerlink" title="webdriver API"></a>webdriver API</h1><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612545316429.png" alt="1612545316429"></p>
+<h4 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h4><h5 id="key包提供按键方法"><a href="#key包提供按键方法" class="headerlink" title="key包提供按键方法"></a>key包提供按键方法</h5><p>使用必须先引用key包：from selenium.webdriver.common.keys import Keys</p>
+<p>键盘事件，在现实操作中我们习惯性的按tab见切换到写一个输入或者元素，Key()类几乎提供所有按键的方法：</p>
+<table>
+<thead>
+<tr>
+<th>引用方法</th>
+<th>对应键盘</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>send_keys(Keys.BACK_SPACE)</td>
+<td>删除键（BackSpace）</td>
+</tr>
+<tr>
+<td>send_keys(Keys.SPACE)</td>
+<td>空格键(Space)</td>
+</tr>
+<tr>
+<td>send_keys(Keys.TAB)</td>
+<td>制表键(Tab)</td>
+</tr>
+<tr>
+<td>send_keys(Keys.ESCAPE)</td>
+<td>回退键（Esc）</td>
+</tr>
+<tr>
+<td>send_keys(Keys.ENTER)</td>
+<td>回车键（Enter）</td>
+</tr>
+<tr>
+<td>send_keys(Keys.CONTROL,’a’)</td>
+<td>全选（Ctrl+A）</td>
+</tr>
+<tr>
+<td>send_keys(Keys.CONTROL,’c’)</td>
+<td>复制（Ctrl+C）</td>
+</tr>
+<tr>
+<td>send_keys(Keys.CONTROL,’x’)</td>
+<td>剪切（Ctrl+X）</td>
+</tr>
+<tr>
+<td>send_keys(Keys.CONTROL,’v’)</td>
+<td>粘贴（Ctrl+V）</td>
+</tr>
+<tr>
+<td>send_keys(Keys.F1)</td>
+<td>键盘 F1</td>
+</tr>
+<tr>
+<td>send_keys(Keys.F12)</td>
+<td>键盘 F12</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line">driver.get(<span class="string">&quot;https://www.baidu.com&quot;</span>)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(<span class="string">&quot;kw&quot;</span>).send_keys(<span class="string">&quot;seleniumm&quot;</span>)</span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">&quot;kw&quot;</span>).send_keys(Keys.BACK_SPACE) </span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line"><span class="comment"># 和前面的拼接</span></span><br><span class="line">driver.find_element_by_id(<span class="string">&quot;kw&quot;</span>).send_keys(<span class="string">&quot;seleniumm&quot;</span>)</span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ctrl+a</span></span><br><span class="line">driver.find_element_by_id(<span class="string">&quot;kw&quot;</span>).send_keys(Keys.CONTROL,<span class="string">&quot;a&quot;</span>) </span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(<span class="string">&quot;kw&quot;</span>).send_keys(Keys.CONTROL,<span class="string">&quot;x&quot;</span>) </span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line"> </span><br><span class="line">driver.find_element_by_id(<span class="string">&quot;kw&quot;</span>).send_keys(Keys.CONTROL,<span class="string">&quot;v&quot;</span>) </span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">driver.find_element_by_id(<span class="string">&quot;su&quot;</span>).click()</span><br><span class="line"></span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
+
+<h4 id="操作alter"><a href="#操作alter" class="headerlink" title="操作alter"></a>操作alter</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612290819266.png" alt="1612290819266"></p>
+<p> 记得加延时,把样式显示出来<img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612291040232.png" alt="1612291040232"></p>
+<p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612291459443.png" alt="1612291459443"></p>
+<p> 版本问题,<strong>switch_to.alert</strong></p>
+<p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612291772707.png" alt="1612291772707"></p>
+<p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612291951410.png" alt="1612291951410"></p>
+<h4 id="多表单处理"><a href="#多表单处理" class="headerlink" title="多表单处理"></a>多表单处理</h4><p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612372404933.png" alt="1612372404933"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612372992770.png" alt="1612372992770"></p>
+<p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612373068712.png" alt="1612373068712"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612373570630.png" alt="1612373570630"></p>
+<h4 id="元素等待"><a href="#元素等待" class="headerlink" title="元素等待"></a>元素等待</h4><p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612373947759.png" alt="1612373947759"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612375105716.png" alt="1612375105716"></p>
+<p> <img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612375984593.png" alt="1612375984593"></p>
+<p>可以设置抛出的信息：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612376006321.png" alt="1612376006321"> </p>
+<p>判断：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612376670647.png" alt="1612376670647"></p>
+<p>注意：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612376761036.png" alt="1612376761036"></p>
+<h5 id="系统等待"><a href="#系统等待" class="headerlink" title="系统等待"></a>系统等待</h5><p>time.sleep(5)</p>
+<h2 id="自动化测试用例设计"><a href="#自动化测试用例设计" class="headerlink" title="自动化测试用例设计"></a>自动化测试用例设计</h2><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612546256022.png" alt="1612546256022"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612455083120.png" alt="1612455083120"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612458657522.png" alt="1612458657522"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612458617545.png" alt="1612458617545"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612458302921.png" alt="1612458302921"></p>
+<h2 id="自动化测试模型"><a href="#自动化测试模型" class="headerlink" title="自动化测试模型"></a>自动化测试模型</h2><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612540746961.png" alt="1612540746961"></p>
+<h4 id="线性测试"><a href="#线性测试" class="headerlink" title="线性测试"></a>线性测试</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1613234642404.png" alt="1613234642404"></p>
+<h4 id="模块化驱动测试"><a href="#模块化驱动测试" class="headerlink" title="模块化驱动测试"></a>模块化驱动测试</h4><p>class very_login():</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612547219237.png" alt="1612547219237"></p>
+<p>悬浮</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612547421180.png" alt="1612547421180"></p>
+<h4 id="数据驱动测试"><a href="#数据驱动测试" class="headerlink" title="数据驱动测试"></a>数据驱动测试</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612628515235.png" alt="1612628515235"></p>
+<ul>
+<li>字典</li>
+<li>csv文件（excel文件）</li>
+<li>数据库</li>
+<li>配置文件</li>
+<li>数据的参数化</li>
+</ul>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612628547080.png" alt="1612628547080"></p>
+<h5 id="one-字典："><a href="#one-字典：" class="headerlink" title=":one:字典："></a>:one:字典：</h5><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612633589340.png" alt="1612633589340"></p>
+<h5 id="two-csv文件"><a href="#two-csv文件" class="headerlink" title=":two:csv文件"></a>:two:csv文件</h5><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612635083102.png" alt="1612635083102"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612635099344.png" alt="1612635099344"></p>
+<p>import csv</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612635490538.png" alt="1612635490538"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> d <span class="keyword">in</span> data:</span><br><span class="line">    <span class="built_in">print</span>(d)</span><br></pre></td></tr></table></figure>
+
+<h5 id="添加xlrd模块（excel文件）"><a href="#添加xlrd模块（excel文件）" class="headerlink" title="添加xlrd模块（excel文件）"></a><strong>添加xlrd模块</strong>（excel文件）</h5><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/1612637116599.png" alt="1612637116599"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Kayleh
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://blog.kayleh.top/posts/automated-test-selenium/" title="automated test：selenium">https://blog.kayleh.top/posts/automated-test-selenium/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/test/" rel="tag"><i class="fa fa-tag"></i> test</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/test-case/" rel="prev" title="Test case">
+                  <i class="fa fa-angle-left"></i> Test case
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/dynamic-programming/" rel="next" title="统筹学——动态规划（Dynamic programming）">
+                  统筹学——动态规划（Dynamic programming） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/ribbon.js/dist/ribbon.min.js"></script>
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/ui/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="/lib/medium-zoom/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="/js/third-party/chat/tidio.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"/lib/mathjax/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="/lib/gitalk/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"/lib/gitalk/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"136965af3262e1e866c584aff8ca72ba"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
