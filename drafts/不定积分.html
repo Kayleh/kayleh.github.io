@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://cdn.kayleh.top" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/pace-js@1.2.4/themes/blue/pace-theme-center-atom.css">
+  <script src="https://cdn.kayleh.top/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/config.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="$F’(x)&#x3D;f(x)$ $F(x)$是$f(x)$的一个原函数.  F(x)是f(x)的一个原函数，F(x)+c也是f(x)的原函数  $f(x)$是$F’(x)$的导函数. 知道$F’(x)$,$f(x)$只有唯一一个 知道$f(x)$,$F’(x)$可以有无穷多个 不定积分$f(x)$的原函数的全体 $\int_{}{}f(x) \text{d}x$   $\int_{}{}$:">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="不定积分">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="$F’(x)&#x3D;f(x)$ $F(x)$是$f(x)$的一个原函数.  F(x)是f(x)的一个原函数，F(x)+c也是f(x)的原函数  $f(x)$是$F’(x)$的导函数. 知道$F’(x)$,$f(x)$只有唯一一个 知道$f(x)$,$F’(x)$可以有无穷多个 不定积分$f(x)$的原函数的全体 $\int_{}{}f(x) \text{d}x$   $\int_{}{}$:">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600870737910.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600871376478.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600871618223.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600874436855.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600875099212.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600880107488.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600880350925.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600880532801.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600959600842.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600964019281.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600966288346.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600966889415.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600968183522.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600968762395.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600969286878.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600969564112.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600969724741.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600969833171.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600996506632.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600997159717.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600997865246.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600998084405.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600998742526.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600999265802.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600999440603.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601020665712.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601020930143.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601021927432.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022001083.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022253671.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Kayleh/Picture_bed/master/hexo/1601022285476.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022327199.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Kayleh/Picture_bed/master/hexo/1601022770780.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022751842.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022980770.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601023694401.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601023802367.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601024256435.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601028039597.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601030780920.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601030922466.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601030765738.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601031708083.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601030987071.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601031354989.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601032503258.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601035938562.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601036063786.png">
+<meta property="article:published_time" content="2020-09-23T01:06:12.000Z">
+<meta property="article:modified_time" content="2025-05-12T14:02:15.380Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600870737910.png">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/drafts/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"en","comments":true,"permalink":"https://blog.kayleh.top/drafts/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86.html","path":"drafts/不定积分.html","title":"不定积分"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>不定积分 | Kayleh's Blog
+</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">32</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-rss"><a href="/rss.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Rss</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">不定积分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">例题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">几何意义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">基本积分公式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%AF%E5%88%86%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">积分法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%8D%A2%E5%85%83%E7%A7%AF%E5%88%86%E6%B3%95-%E5%87%91%E5%BE%AE%E5%88%86%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">第一换元积分法(凑微分法)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A"><span class="nav-number">2.1.1.</span> <span class="nav-text">例题：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%8D%A2%E5%85%83%E7%A7%AF%E5%88%86"><span class="nav-number">2.2.</span> <span class="nav-text">第二换元积分</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%AC%E5%BC%8F"><span class="nav-number">2.2.0.0.0.1.</span> <span class="nav-text">公式</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%83%A8%E7%A7%AF%E5%88%86%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">分部积分法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%89%E7%90%86%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">有理函数积分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E5%88%86%E5%BC%8F"><span class="nav-number">3.0.1.</span> <span class="nav-text">真分式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%B1%BB%E9%A2%98%E7%9B%AE"><span class="nav-number">3.0.1.1.</span> <span class="nav-text">第一类题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E9%A2%98%E7%9B%AE"><span class="nav-number">3.0.1.2.</span> <span class="nav-text">第二类题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%B1%BB%E9%A2%98%E7%9B%AE"><span class="nav-number">3.0.1.3.</span> <span class="nav-text">第三类题目</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="https://cdn.kayleh.top/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="en"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">不定积分<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvZHJhZnRzL+S4jeWumuenr+WIhi5tZA==" title="Edit this post"><i class="fa fa-pen-nib"></i></span>
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>$F’(x)&#x3D;f(x)$</p>
+<p>$F(x)$是$f(x)$的<strong>一个</strong>原函数.</p>
+<blockquote>
+<p>F(x)是f(x)的一个原函数，F(x)+c也是f(x)的原函数</p>
+</blockquote>
+<p>$f(x)$是$F’(x)$的导函数.</p>
+<p>知道$F’(x)$,$f(x)$只有唯一一个</p>
+<p>知道$f(x)$,$F’(x)$可以有无穷多个</p>
+<h1 id="不定积分"><a href="#不定积分" class="headerlink" title="不定积分"></a>不定积分</h1><p>$f(x)$的原函数的全体</p>
+<p><strong>$\int_{}{}f(x) \text{d}x$</strong> </p>
+<blockquote>
+<p>$\int_{}{}$:	sum,积分符号</p>
+<p>$x$:	积分变量</p>
+<p>$f(x)$:	被积函数</p>
+</blockquote>
+<p>$\int_{}{}f(x) \text{d}x &#x3D; F(x)+c$</p>
+<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><ol>
+<li>$\int_{}{}x^2 \text{d}x &#x3D; \frac{1}{3}x^3+c$</li>
+</ol>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600870737910.png"></p>
+<h2 id="几何意义"><a href="#几何意义" class="headerlink" title="几何意义"></a>几何意义</h2><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600871376478.png"></p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600871618223.png"></p>
+<p>$$\int_{}{}kf(x)\text{d}x&#x3D;k\int_{}{}f(x)\text{d}x$$</p>
+<p>k可以朝外拿：</p>
+<p>①k是常数</p>
+<p>②k是与x无关的另变量</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600874436855.png" alt="1600874436855.png"></p>
+<blockquote>
+<p>有限个可以，但无限个不能</p>
+</blockquote>
+<h2 id="基本积分公式"><a href="#基本积分公式" class="headerlink" title="基本积分公式"></a>基本积分公式</h2><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600875099212.png" alt="1600875099212.png"></p>
+<p>例题：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600880107488.png" alt="1600880107488.png"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600880350925.png" alt="1600880350925.png"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600880532801.png" alt="1600880532801"></p>
+<h1 id="积分法"><a href="#积分法" class="headerlink" title="积分法"></a>积分法</h1><h2 id="第一换元积分法-凑微分法"><a href="#第一换元积分法-凑微分法" class="headerlink" title="第一换元积分法(凑微分法)"></a>第一换元积分法(凑微分法)</h2><blockquote>
+<p>求原函数</p>
+</blockquote>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600959600842.png" alt="1600959600842"></p>
+<p>1）把d外面的某项拿到d里面(变成原函数)</p>
+<p>2）凑基本积分公式</p>
+<h3 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h3><p>dk()&#x3D;kd()</p>
+<p>d()里面的项可以随意<strong>加减</strong>常数</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600964019281.png" alt="1600964019281"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1.png" alt="1600965342157"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600966288346.png" alt="1600966288346"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600966889415.png" alt="1600966889415"></p>
+<h2 id="第二换元积分"><a href="#第二换元积分" class="headerlink" title="第二换元积分"></a>第二换元积分</h2><blockquote>
+<p>求导</p>
+</blockquote>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600968183522.png" alt="1600968183522"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600968762395.png" alt="1600968762395"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600969286878.png" alt="1600969286878"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600969564112.png" alt="1600969564112"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600969724741.png" alt="1600969724741"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600969833171.png" alt="1600969833171"></p>
+<h6 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h6><h2 id="分部积分法"><a href="#分部积分法" class="headerlink" title="分部积分法"></a>分部积分法</h2><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600996506632.png" alt="1600996506632.png"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600997159717.png" alt="1600997159717.png"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600997865246.png" alt="1600997865246.png"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600998084405.png" alt="1600998084405"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600998742526.png" alt="1600998742526"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600999265802.png"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1600999440603.png" alt="1601020665712.png"></p>
+<p>优先：</p>
+<blockquote>
+<p>$e^x,sinx,cosx,x(x^n),lnx,arctanx$</p>
+</blockquote>
+<h1 id="有理函数积分"><a href="#有理函数积分" class="headerlink" title="有理函数积分"></a>有理函数积分</h1><p>分子的最高次数比较高：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601020665712.png" alt="1601020665712.png"></p>
+<p>最高次数相等(最终使分母次数高)：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601020930143.png" alt="1601020930143"></p>
+<p>所有方法都要化成分母次数比分子次数高。</p>
+<h3 id="真分式"><a href="#真分式" class="headerlink" title="真分式"></a>真分式</h3><p>分母次数比分子次数高的叫做<strong>真分式</strong></p>
+<h4 id="第一类题目"><a href="#第一类题目" class="headerlink" title="第一类题目"></a>第一类题目</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601021927432.png" alt="1601021927432"></p>
+<p>1）$b^2-4ac&#x3D;0$ $ax^2+bx+c&#x3D;0$</p>
+<p>$a(x-x_1)^2&#x3D;0$</p>
+<p>例如：<img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022001083.png" alt="1601022001083"></p>
+<p>2）$b^2-4ac&gt;0$ $ax^2+bx+c&#x3D;0$有两个不等的根</p>
+<p>$a(x-x_1)(x-x_2)&#x3D;0$</p>
+<p>待定系数法：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022253671.png" alt="1601022253671"></p>
+<img data-src="https://raw.githubusercontent.com/Kayleh/Picture_bed/master/hexo/1601022285476.png" alt="1601022285476" style="zoom:33%;" />
+
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022327199.png" alt="1601022327199"></p>
+<p>3）$b^2-4ac&lt;0$ $ax^2+bx+c&#x3D;0$没有实根</p>
+<img data-src="https://raw.githubusercontent.com/Kayleh/Picture_bed/master/hexo/1601022770780.png" alt="1601022770780" style="zoom:33%;" />
+
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022751842.png" alt="1601022751842"></p>
+<h4 id="第二类题目"><a href="#第二类题目" class="headerlink" title="第二类题目"></a>第二类题目</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601022980770.png" alt="1601022980770"></p>
+<p>1）$b^2-4ac&#x3D;0$ $ax^2+bx+c&#x3D;0$</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601023694401.png" alt="1601023694401"></p>
+<p>2）$b^2-4ac&gt;0$</p>
+<p>待定系数法：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601023802367.png" alt="1601023802367"></p>
+<p>3）$b^2-4ac&lt;0$</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601024256435.png" alt="1601024256435"></p>
+<h4 id="第三类题目"><a href="#第三类题目" class="headerlink" title="第三类题目"></a>第三类题目</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601028039597.png" alt="1601028039597"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601030780920.png" alt="1601030780920"></p>
+<p>第一类表达式</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601030922466.png" alt="1601030922466"></p>
+<p>比如：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601030765738.png" alt="1601030765738"></p>
+<p>3）<img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601031708083.png" alt="1601031708083"></p>
+<p>第二类</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601030987071.png" alt="1601030987071"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601031354989.png" alt="1601031354989"></p>
+<p>解法：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601032503258.png" alt="1601032503258"></p>
+<p>左右相等：</p>
+<p>$A_1+2A_2&#x3D;0$平方项</p>
+<p>$A_2+2A_3&#x3D;0$1次项</p>
+<p>$A_1+A_3&#x3D;1$常数项</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601035938562.png" alt="1601035938562"></p>
+<p>或者：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/1601036063786.png" alt="1601036063786"></p>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.kayleh.top/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/comments.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/utils.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/motion.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/sidebar.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/next-boot.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/pjax.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/search/local-search.min.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/chat/tidio.min.js"></script>
+
+
+
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/fancybox.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/pace.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/addtoany.min.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.kayleh.top/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/math/mathjax.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"a8cd985472eb4e8354856b9933d0ba2e"}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/comments/gitalk.min.js"></script>
+
+</body>
+</html>

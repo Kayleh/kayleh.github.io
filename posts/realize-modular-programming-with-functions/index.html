@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://cdn.kayleh.top" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/pace-js@1.2.4/themes/blue/pace-theme-center-atom.css">
+  <script src="https://cdn.kayleh.top/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/config.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="用函数实现模块化程序设计 Realize modular programming with functions  用函数输出以下结果：">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="realize modular programming with functions">
+<meta property="og:url" content="https://blog.kayleh.top/posts/realize-modular-programming-with-functions/index.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="用函数实现模块化程序设计 Realize modular programming with functions  用函数输出以下结果：">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-25T09:17:42.000Z">
+<meta property="article:modified_time" content="2025-05-12T14:02:15.362Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/posts/realize-modular-programming-with-functions/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://blog.kayleh.top/posts/realize-modular-programming-with-functions/","path":"posts/realize-modular-programming-with-functions/","title":"realize modular programming with functions"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>realize modular programming with functions | Kayleh's Blog</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">198</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">32</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-rss"><a href="/rss.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Rss</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0%E6%A8%A1%E5%9D%97%E5%8C%96%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">用函数实现模块化程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">怎么定义函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%97%A0%E5%8F%82%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">定义无参函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%9C%89%E5%8F%82%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">定义有参函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%A9%BA%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">定义空函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">调用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%9A%84%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">函数调用的形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">函数调用方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%97%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="nav-number">1.2.1.</span> <span class="nav-text">函数调用时的数据传递</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F%E5%8F%82%E6%95%B0%E5%92%8C%E5%AE%9E%E9%99%85%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">形式参数和实际参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E5%8F%82%E5%92%8C%E5%BD%A2%E5%8F%82%E9%97%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">实参和形参间的数据传递</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E4%B8%A4%E4%B8%AA%E6%95%B4%E6%95%B0-%E8%A6%81%E6%B1%82%E8%BE%93%E5%87%BA%E5%85%B6%E4%B8%AD%E5%80%BC%E8%BE%83%E5%A4%A7%E8%80%85-%E8%A6%81%E6%B1%82%E7%94%A8%E5%87%BD%E6%95%B0%E6%9D%A5%E6%89%BE%E5%88%B0%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">输入两个整数,要求输出其中值较大者,要求用函数来找到最大值.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%9A%84%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.2.</span> <span class="nav-text">函数调用的执行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.2.3.</span> <span class="nav-text">函数的返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%A2%AB%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.2.4.</span> <span class="nav-text">对被调用函数的声明和函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">函数声明的两种形式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%B5%8C%E5%A5%97%E8%B0%83%E7%94%A8"><span class="nav-number">1.2.5.</span> <span class="nav-text">函数的嵌套调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A54%E4%B8%AA%E6%95%B4%E6%95%B0-%E6%89%BE%E5%87%BA%E5%85%B6%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E6%95%B0"><span class="nav-number">1.2.5.0.1.</span> <span class="nav-text">输入4个整数,找出其中最大的数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">函数的递归调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E9%80%92%E5%BD%92%E7%9A%84%E6%96%B9%E6%B3%95%E6%B1%82n"><span class="nav-number">1.3.0.0.1.</span> <span class="nav-text">用递归的方法求n! .</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.0.0.2.</span> <span class="nav-text">汉诺塔问题</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BD%9C%E4%B8%BA%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">数组作为函数参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%85%A510%E4%B8%AA%E6%95%B0-%E8%A6%81%E6%B1%82%E8%BE%93%E5%87%BA%E5%85%B6%E4%B8%AD%E5%80%BC%E6%9C%80%E5%A4%A7%E7%9A%84%E5%85%83%E7%B4%A0%E5%92%8C%E8%AF%A5%E6%95%B0%E6%98%AF%E7%AC%AC%E5%87%A0%E4%B8%AA%E6%95%B0"><span class="nav-number">1.4.0.0.1.</span> <span class="nav-text">输入10个数,要求输出其中值最大的元素和该数是第几个数.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%90%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">一维数组名作函数参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84score-%E5%86%85%E6%94%BE10%E4%B8%AA%E5%AD%A6%E7%94%9F%E6%88%90%E7%BB%A9-%E6%B1%82%E5%B9%B3%E5%9D%87%E6%88%90%E7%BB%A9"><span class="nav-number">1.4.1.0.1.</span> <span class="nav-text">有一个一维数组score,内放10个学生成绩,求平均成绩.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E4%B8%A4%E4%B8%AA%E7%8F%AD%E7%BA%A7-%E5%88%86%E5%88%AB%E6%9C%8935%E5%90%8D%E5%92%8C39%E5%90%8D%E5%AD%A6%E7%94%9F-%E8%B0%83%E7%94%A8%E4%B8%80%E4%B8%AAaverage%E5%87%BD%E6%95%B0-%E5%88%86%E5%88%AB%E6%B1%82%E4%B8%A4%E4%B8%AA%E7%8F%AD%E7%9A%84%E5%AD%A6%E7%94%9F%E7%9A%84%E5%B9%B3%E5%9D%87%E6%88%90%E7%BB%A9"><span class="nav-number">1.4.1.0.2.</span> <span class="nav-text">有两个班级,分别有35名和39名学生,调用一个average函数,分别求两个班的学生的平均成绩.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%80%89%E6%8B%A9%E6%B3%95%E5%AF%B910%E4%B8%AA%E6%95%B4%E6%95%B0%E4%BB%8E%E5%B0%8F%E5%88%B0%E5%A4%A7%E6%8E%92%E5%BA%8F"><span class="nav-number">1.4.1.0.3.</span> <span class="nav-text">使用选择法对10个整数从小到大排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84%E5%90%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="nav-number">1.4.2.</span> <span class="nav-text">多维数组名作函数参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA3%C3%974%E7%9A%84%E7%9F%A9%E9%98%B5-%E6%B1%82%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">1.4.2.0.1.</span> <span class="nav-text">有一个3×4的矩阵,求所有元素的最大值.</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">局部变量和全局变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">2.0.1.</span> <span class="nav-text">局部变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">说明:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">2.0.2.</span> <span class="nav-text">全局变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E5%BF%85%E8%A6%81%E4%B8%8D%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">2.0.2.0.1.</span> <span class="nav-text">非必要不建议使用全局变量:</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%E5%92%8C%E7%94%9F%E5%AD%98%E6%9C%9F"><span class="nav-number">3.</span> <span class="nav-text">变量的存储方式和生存期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%E5%92%8C%E9%9D%99%E6%80%81%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">动态存储方式和静态存储方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%B1%BB%E5%88%AB"><span class="nav-number">3.1.</span> <span class="nav-text">局部变量的存储类别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8F%98%E9%87%8F-auto%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">自动变量(auto变量)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F-static%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">静态局部变量(static局部变量)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BE%93%E5%87%BA1%E5%88%B05%E7%9A%84%E9%98%B6%E4%B9%98%E5%80%BC-%E5%B1%80%E9%83%A8%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.0.2.1.</span> <span class="nav-text">输出1到5的阶乘值.(局部静态变量)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%8F%98%E9%87%8F-register%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">寄存器变量(register变量)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">全局变量的存储类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%86%85%E6%89%A9%E5%B1%95%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">在一个文件内扩展外部变量的作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%EF%BC%8C%E6%B1%823%E4%B8%AA%E6%95%B4%E6%95%B0%E4%B8%AD%E7%9A%84%E5%A4%A7%E8%80%85%E3%80%82"><span class="nav-number">3.2.0.1.1.</span> <span class="nav-text">调用函数，求3个整数中的大者。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%86%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%89%A9%E5%B1%95%E5%88%B0%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">将外部变量的作用域扩展到其他文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%99%E5%AE%9Ab%E7%9A%84%E5%80%BC%EF%BC%8C%E8%BE%93%E5%85%A5a%E5%92%8Cm%EF%BC%8C%E6%B1%82a-b%E5%92%8C-a-m-%E7%9A%84%E5%80%BC"><span class="nav-number">3.2.0.2.1.</span> <span class="nav-text">给定b的值，输入a和m，求a*b和$a^m$的值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%86%E5%A4%96%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%99%90%E5%88%B6%E5%9C%A8%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="nav-number">3.2.0.3.</span> <span class="nav-text">将外部变量的作用域限制在本文件中</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">3.2.0.3.1.</span> <span class="nav-text">注意:</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%8F%98%E9%87%8F%E7%9A%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89"><span class="nav-number">4.</span> <span class="nav-text">关于变量的声明和定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0%E5%92%8C%E5%A4%96%E9%83%A8%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">内部函数和外部函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0"><span class="nav-number">5.0.1.</span> <span class="nav-text">内部函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%87%BD%E6%95%B0"><span class="nav-number">5.0.2.</span> <span class="nav-text">外部函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E5%86%85%E6%9C%89%E8%8B%A5%E5%B9%B2%E4%B8%AA%E5%AD%97%E7%AC%A6%EF%BC%8C%E7%8E%B0%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%EF%BC%8C%E8%A6%81%E6%B1%82%E7%A8%8B%E5%BA%8F%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E8%AF%A5%E5%AD%97%E7%AC%A6%E5%88%A0%E5%8E%BB%E3%80%82"><span class="nav-number">5.0.2.0.1.</span> <span class="nav-text">有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="https://cdn.kayleh.top/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.kayleh.top/posts/realize-modular-programming-with-functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/mygo.jpg">
+      <meta itemprop="name" content="Kayleh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kayleh's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="realize modular programming with functions | Kayleh's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          realize modular programming with functions<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvX3Bvc3RzL3JlYWxpemUtbW9kdWxhci1wcm9ncmFtbWluZy13aXRoLWZ1bmN0aW9ucy5tZA==" title="Edit this post"><i class="fa fa-pen-nib"></i></span>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-10-25 17:17:42" itemprop="dateCreated datePublished" datetime="2020-10-25T17:17:42+08:00">2020-10-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-05-12 22:02:15" itemprop="dateModified" datetime="2025-05-12T22:02:15+08:00">2025-05-12</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="用函数实现模块化程序设计"><a href="#用函数实现模块化程序设计" class="headerlink" title="用函数实现模块化程序设计"></a>用函数实现模块化程序设计</h1><blockquote>
+<p>Realize modular programming with functions</p>
+</blockquote>
+<p>用函数输出以下结果：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*****************</span><br><span class="line">How <span class="keyword">do</span> you <span class="keyword">do</span>!</span><br><span class="line">*****************</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span> <span class="title function_">print_star</span><span class="params">()</span>;<span class="comment">//函数的声明</span></span><br><span class="line">    <span class="type">void</span> <span class="title function_">print_message</span><span class="params">()</span>;<span class="comment">//函数的声明</span></span><br><span class="line">    print_star();</span><br><span class="line">    print_message();</span><br><span class="line">    print_star();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">print_star</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;*****************\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">print_message</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;How do you do!\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>函数声明的作用是把有关函数的信息(函数名,函数类型,函数参数的个数与类型)通知编译系统,以便在编译系统对程序进行编译时,在进行到main函数调用print_star()和print_message()时知道它们是函数而不是变量或其他对象,还对调用函数的正确性进行检查.</p>
+<p>函数间可以互相调用,但不能调用main函数,main函数是被操作系统调用的.</p>
+<p>函数从用户使用的角度看分为:</p>
+<ul>
+<li>库函数</li>
+<li>用户自己定义的函数</li>
+</ul>
+<p>从函数形式分为:</p>
+<ul>
+<li>无参函数</li>
+<li>有参函数</li>
+</ul>
+</blockquote>
+<h2 id="怎么定义函数"><a href="#怎么定义函数" class="headerlink" title="怎么定义函数"></a>怎么定义函数</h2><p>定义函数应包括哪些内容:</p>
+<ul>
+<li>函数的名字,方便按名调用</li>
+<li>函数的类型,即函数返回值的类型</li>
+<li>函数的参数的名字和类型,调用函数时需要传递的数据</li>
+<li>函数的功能,函数体</li>
+</ul>
+<h4 id="定义无参函数"><a href="#定义无参函数" class="headerlink" title="定义无参函数"></a>定义无参函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">类型名	函数名()</span><br><span class="line">&#123;</span><br><span class="line">    函数体</span><br><span class="line">&#125;</span><br><span class="line">或</span><br><span class="line">类型名	函数名(<span class="type">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数体包括声明部分(变量)和语句部分.</p>
+<h4 id="定义有参函数"><a href="#定义有参函数" class="headerlink" title="定义有参函数"></a>定义有参函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">类型名	函数名(形式参数表列)</span><br><span class="line">&#123;</span><br><span class="line">    函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="定义空函数"><a href="#定义空函数" class="headerlink" title="定义空函数"></a>定义空函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">类型名	函数名()</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h2><h4 id="函数调用的形式"><a href="#函数调用的形式" class="headerlink" title="函数调用的形式"></a>函数调用的形式</h4><blockquote>
+<p>函数名(实参表列)</p>
+</blockquote>
+<h4 id="函数调用方式"><a href="#函数调用方式" class="headerlink" title="函数调用方式"></a>函数调用方式</h4><ul>
+<li><p>调用语句</p>
+</li>
+<li><p>函数表达式</p>
+<p>要求函数带回一个确定的值以参加表达式的运算</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=<span class="number">2</span>*max(a,b);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数参数</p>
+<p>函数调用作为另一个函数调用时的实参,如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m=max(a,max(b,c));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="函数调用时的数据传递"><a href="#函数调用时的数据传递" class="headerlink" title="函数调用时的数据传递"></a>函数调用时的数据传递</h3><h4 id="形式参数和实际参数"><a href="#形式参数和实际参数" class="headerlink" title="形式参数和实际参数"></a>形式参数和实际参数</h4><blockquote>
+<p><code>形式参数</code></p>
+<p>在定义函数时函数名后面括号中的变量名称为<code>形式参数</code></p>
+</blockquote>
+<blockquote>
+<p><code>实际参数</code></p>
+<p>在主调函数调用一个函数时,函数名后面括号中的变量名称为<code>实际参数</code></p>
+</blockquote>
+<h4 id="实参和形参间的数据传递"><a href="#实参和形参间的数据传递" class="headerlink" title="实参和形参间的数据传递"></a>实参和形参间的数据传递</h4><blockquote>
+<p>在调用函数过程中,系统会把实参中的值传递给被调函数的形参.</p>
+</blockquote>
+<h5 id="输入两个整数-要求输出其中值较大者-要求用函数来找到最大值"><a href="#输入两个整数-要求输出其中值较大者-要求用函数来找到最大值" class="headerlink" title="输入两个整数,要求输出其中值较大者,要求用函数来找到最大值."></a>输入两个整数,要求输出其中值较大者,要求用函数来找到最大值.</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span>;</span><br><span class="line">    <span class="type">int</span> a, b, c;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;please enter 2 integer numbers:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">    c = max(a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;max is %d&quot;</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;c</span><br><span class="line">    <span class="type">int</span> z;</span><br><span class="line">    z = x &gt; y ? x : y;</span><br><span class="line">    <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数调用的执行过程"><a href="#函数调用的执行过程" class="headerlink" title="函数调用的执行过程"></a>函数调用的执行过程</h3><p>1)在定义函数中指定的形参,在未出现函数调用的时,它们并不占内存中的存储单元,在发生函数调用时,函数max的形参才被临时分配内存单元.</p>
+<p>2)将实参的值传递给对应形参</p>
+<p>3)在执行max函数期间,由于形参已经有值,就可以利用形参进行有关的运算</p>
+<p>4)通过return语句将函数值带回到主调函数.</p>
+<p>5)调用结束,形参单元被释放. 注意:实参单元仍保留并维持原值.没有改变.如果在执行一个被调函数时,形参的值发生改变,不会改变主调函数的实参的值.如:在执行max函数时,x和y的值变为10和15,但a和b仍为2和3,这是因为形参和实参是两个不同的存储单元.</p>
+<h3 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h3><ul>
+<li><p>函数的返回值是通过return语句中获得的.</p>
+</li>
+<li><p>函数返回值的类型是函数的类型.</p>
+</li>
+<li><p>在定义函数时指定的函数类型一般应该和return语句中的表达式类型一致.</p>
+</li>
+</ul>
+<p>将在max函数中定义的变量z改为float型,函数返回值与指定的函数类型不同</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max</span><span class="params">(<span class="type">float</span> x, <span class="type">float</span> y)</span>;</span><br><span class="line">    <span class="type">float</span> a, b;</span><br><span class="line">    <span class="type">int</span> c;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%f,%f&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">    c = max(a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;max is %d&quot;</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max</span><span class="params">(<span class="type">float</span> x, <span class="type">float</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> z;</span><br><span class="line">    z = x &gt; y ? x : y;</span><br><span class="line">    <span class="keyword">return</span> (z);</span><br><span class="line">&#125;</span><br><span class="line">---------</span><br><span class="line"><span class="number">1.5</span>,<span class="number">2.6</span></span><br><span class="line">max is <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="对被调用函数的声明和函数原型"><a href="#对被调用函数的声明和函数原型" class="headerlink" title="对被调用函数的声明和函数原型"></a>对被调用函数的声明和函数原型</h3><p>输入两个实数,用一个函数求它们之和.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> <span class="title function_">add</span><span class="params">(<span class="type">float</span> x, <span class="type">float</span> y)</span>;</span><br><span class="line">    <span class="type">float</span> a, b, c;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%f,%f&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">    c = add(a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;sum is %d&quot;</span>, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">add</span><span class="params">(<span class="type">float</span> x, <span class="type">float</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> z;</span><br><span class="line">    z = x + y;</span><br><span class="line">    <span class="keyword">return</span> (z);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="函数声明的两种形式"><a href="#函数声明的两种形式" class="headerlink" title="函数声明的两种形式"></a>函数声明的两种形式</h4><p>1)函数类型	函数名(参数类型1	参数名1,参数类型2	参数名2,…参数类型n	参数名n)</p>
+<p>2)函数类型	函数名(参数类型1,参数类型2,…,参数类型n)</p>
+<p>编译系统只关心和检查参数个数和参数类型,而不检查参数名,因为在调用函数时只要求保证实参类型与形参类型一致,而不必考虑形参名是什么.因此在函数声明中</p>
+<blockquote>
+<p><code>函数原型</code>函数的首部称为函数原型</p>
+</blockquote>
+<h3 id="函数的嵌套调用"><a href="#函数的嵌套调用" class="headerlink" title="函数的嵌套调用"></a>函数的嵌套调用</h3><h5 id="输入4个整数-找出其中最大的数"><a href="#输入4个整数-找出其中最大的数" class="headerlink" title="输入4个整数,找出其中最大的数"></a>输入4个整数,找出其中最大的数</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max4</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c, <span class="type">int</span> d)</span>;</span><br><span class="line">    <span class="type">int</span> a, b, c, d, max;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;please enter 4 integer numbers:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d&quot;</span>, &amp;a, &amp;b, &amp;c, &amp;d);</span><br><span class="line">    max = max4(a, b, c, d);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;max:%d&quot;</span>, max);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (a &gt;= b)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max4</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c, <span class="type">int</span> d)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max2</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;<span class="comment">//函数声明</span></span><br><span class="line">    <span class="type">int</span> m;</span><br><span class="line">    m = max2(a, b);</span><br><span class="line">    m = max2(m, c);</span><br><span class="line">    m = max2(m, d);</span><br><span class="line">    <span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改进:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max4</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c, <span class="type">int</span> d)</span>;</span><br><span class="line">    <span class="type">int</span> a, b, c, d, max;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;please enter 4 integer numbers:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d&quot;</span>, &amp;a, &amp;b, &amp;c, &amp;d);</span><br><span class="line">    max = max4(a, b, c, d);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;max:%d&quot;</span>, max);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt;= b ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max4</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c, <span class="type">int</span> d)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max2</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span>;<span class="comment">//函数声明</span></span><br><span class="line">    <span class="keyword">return</span> max2(max2(max2(a, b), c), d);;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数的递归调用"><a href="#函数的递归调用" class="headerlink" title="函数的递归调用"></a>函数的递归调用</h2><blockquote>
+<p>一个递归的问题可以分为”回溯”和”递推”两个阶段.</p>
+</blockquote>
+<h5 id="用递归的方法求n"><a href="#用递归的方法求n" class="headerlink" title="用递归的方法求n! ."></a>用递归的方法求n! .</h5><blockquote>
+<p>n!&#x3D;1				(n&#x3D;0,1)</p>
+<p>n!&#x3D;n×(n-1)	 (n&gt;1)</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">fac</span><span class="params">(<span class="type">int</span> n)</span>;</span><br><span class="line">    <span class="type">int</span> n, y;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;please enter an integer number:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    y = fac(n);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d!=%d&quot;</span>, n,y);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">fac</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> f;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;n&lt;0.data error!&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">0</span> || n == <span class="number">1</span>)</span><br><span class="line">        f = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> f = fac(n - <span class="number">1</span>) * n;</span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span> <span class="title function_">hanoi</span><span class="params">(<span class="type">int</span> n, <span class="type">char</span> one, <span class="type">char</span> two, <span class="type">char</span> three)</span>;</span><br><span class="line">    <span class="type">int</span> m;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;input the number of diskes:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;m);</span><br><span class="line">    hanoi(m, <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">hanoi</span><span class="params">(<span class="type">int</span> n, <span class="type">char</span> one, <span class="type">char</span> two, <span class="type">char</span> three)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//将n个盘从one座借助two座移动到three座</span></span><br><span class="line">    <span class="type">void</span> <span class="title function_">move</span><span class="params">(<span class="type">char</span> x, <span class="type">char</span> y)</span>;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>)</span><br><span class="line">        move(one, three);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        hanoi(n - <span class="number">1</span>, one, three, two);</span><br><span class="line">        move(one, three);</span><br><span class="line">        hanoi(n - <span class="number">1</span>, two, one, three);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">move</span><span class="params">(<span class="type">char</span> x, <span class="type">char</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c --&gt; %c\n&quot;</span>, x, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组作为函数参数"><a href="#数组作为函数参数" class="headerlink" title="数组作为函数参数"></a>数组作为函数参数</h2><blockquote>
+<p>在用数组元素作函数实参时,把实参的值传给形参,是**”值传递”<strong>方式,数据的传递是由</strong>形参传到实参,单向传递.**</p>
+</blockquote>
+<h5 id="输入10个数-要求输出其中值最大的元素和该数是第几个数"><a href="#输入10个数-要求输出其中值最大的元素和该数是第几个数" class="headerlink" title="输入10个数,要求输出其中值最大的元素和该数是第几个数."></a>输入10个数,要求输出其中值最大的元素和该数是第几个数.</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span>;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">10</span>], i, m, n;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;please enter 10 integer numbers:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>, n = <span class="number">0</span>, m = a[<span class="number">0</span>]; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (max(m, a[i]) &gt; m)</span><br><span class="line">        &#123;</span><br><span class="line">            m = max(m, a[i]);</span><br><span class="line">            n = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;the large number is %d\nit is the %dth number.&quot;</span>, m, n + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> x &gt; y ? x : y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="一维数组名作函数参数"><a href="#一维数组名作函数参数" class="headerlink" title="一维数组名作函数参数"></a>一维数组名作函数参数</h3><h5 id="有一个一维数组score-内放10个学生成绩-求平均成绩"><a href="#有一个一维数组score-内放10个学生成绩-求平均成绩" class="headerlink" title="有一个一维数组score,内放10个学生成绩,求平均成绩."></a>有一个一维数组score,内放10个学生成绩,求平均成绩.</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> <span class="title function_">average</span><span class="params">(<span class="type">float</span> <span class="built_in">array</span>[<span class="number">10</span>])</span>;</span><br><span class="line">    <span class="type">float</span> score[<span class="number">10</span>], aver;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;input 10 scores:\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%f&quot;</span>, &amp;score[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    aver = average(score);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;average score is %5.2f\n&quot;</span>, aver);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">average</span><span class="params">(<span class="type">float</span> <span class="built_in">array</span>[<span class="number">10</span>])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">float</span> aver, sum = <span class="built_in">array</span>[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">        sum = sum + <span class="built_in">array</span>[i];</span><br><span class="line">    aver = sum / <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span> aver;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>形参数组可以不指定大小,在定义数组时在数组名后加上空括号,如</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> <span class="title function_">average</span><span class="params">(<span class="type">float</span> <span class="built_in">array</span>[])</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="有两个班级-分别有35名和39名学生-调用一个average函数-分别求两个班的学生的平均成绩"><a href="#有两个班级-分别有35名和39名学生-调用一个average函数-分别求两个班的学生的平均成绩" class="headerlink" title="有两个班级,分别有35名和39名学生,调用一个average函数,分别求两个班的学生的平均成绩."></a>有两个班级,分别有35名和39名学生,调用一个average函数,分别求两个班的学生的平均成绩.</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> <span class="title function_">average</span><span class="params">(<span class="type">float</span> <span class="built_in">array</span>[], <span class="type">int</span> n)</span>;</span><br><span class="line">    <span class="type">float</span> score1[<span class="number">5</span>] = &#123;<span class="number">89</span>, <span class="number">99.5</span>, <span class="number">99</span>, <span class="number">45</span>, <span class="number">78</span>&#125;;</span><br><span class="line">    <span class="type">float</span> score2[<span class="number">10</span>] = &#123;<span class="number">85.5</span>, <span class="number">10.5</span>, <span class="number">87.5</span>, <span class="number">78.5</span>, <span class="number">67.5</span>, <span class="number">90.5</span>, <span class="number">99.5</span>, <span class="number">87.5</span>, <span class="number">88</span>, <span class="number">78.5</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//用数组名作实参</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The average of class A is %6.2f\n&quot;</span>, average(score1, <span class="number">5</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The average of class B is %6.2f\n&quot;</span>, average(score2, <span class="number">10</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">average</span><span class="params">(<span class="type">float</span> <span class="built_in">array</span>[], <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">float</span> aver, sum = <span class="built_in">array</span>[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; n; i++)</span><br><span class="line">        sum = sum + <span class="built_in">array</span>[i];</span><br><span class="line">    aver = sum / n;</span><br><span class="line">    <span class="keyword">return</span> (aver);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="使用选择法对10个整数从小到大排序"><a href="#使用选择法对10个整数从小到大排序" class="headerlink" title="使用选择法对10个整数从小到大排序"></a>使用选择法对10个整数从小到大排序</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[], <span class="type">int</span> n)</span>;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">10</span>], i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;please enter array:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    sort(a, <span class="number">10</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;the sorted array:&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;/n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">sort</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[], <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, j, k, t;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        k = i;</span><br><span class="line">        <span class="keyword">for</span> (j = i + <span class="number">1</span>; j &lt; n; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[j] &lt; <span class="built_in">array</span>[k])</span><br><span class="line">                k = j;</span><br><span class="line">            t = <span class="built_in">array</span>[k];</span><br><span class="line">            <span class="built_in">array</span>[k] = <span class="built_in">array</span>[i];</span><br><span class="line">            <span class="built_in">array</span>[i] = t;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="多维数组名作函数参数"><a href="#多维数组名作函数参数" class="headerlink" title="多维数组名作函数参数"></a>多维数组名作函数参数</h3><p>可以使用多维函数数组名作为函数的实参和形参.</p>
+<blockquote>
+<p>形参数组和实参数组都是由相同类型和大小的一维数组组成的.C语言编译系统<strong>不检查第一维</strong>的大小.</p>
+</blockquote>
+<h5 id="有一个3×4的矩阵-求所有元素的最大值"><a href="#有一个3×4的矩阵-求所有元素的最大值" class="headerlink" title="有一个3×4的矩阵,求所有元素的最大值."></a>有一个3×4的矩阵,求所有元素的最大值.</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max_value</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[][<span class="number">4</span>])</span>;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">3</span>][<span class="number">4</span>] = &#123;&#123;<span class="number">1</span>,  <span class="number">3</span>,  <span class="number">5</span>,  <span class="number">7</span>&#125;,</span><br><span class="line">                   &#123;<span class="number">2</span>,  <span class="number">4</span>,  <span class="number">6</span>,  <span class="number">8</span>&#125;,</span><br><span class="line">                   &#123;<span class="number">15</span>, <span class="number">17</span>, <span class="number">34</span>, <span class="number">12</span>&#125;&#125;;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;max value is %d&quot;</span>, max_value(a));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max_value</span><span class="params">(<span class="type">int</span> <span class="built_in">array</span>[][<span class="number">4</span>])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> max, i, j;</span><br><span class="line">    max = <span class="built_in">array</span>[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">3</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[i][j] &gt; max)</span><br><span class="line">                max = <span class="built_in">array</span>[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意:</p>
+<p>1.形参数组array第一维的大小省略,第2维大小不能省略,而且要和实参数组a的第2维大小相同.</p>
+<p>2.在主函数调用max_value函数时,把实参二维数组a的第1行的起始地址传递给形参数组array.因此array数组第一行的起始地址与a数组的第一行起始地址相同.</p>
+</blockquote>
+<h1 id="局部变量和全局变量"><a href="#局部变量和全局变量" class="headerlink" title="局部变量和全局变量"></a>局部变量和全局变量</h1><p><strong>作用域</strong></p>
+<p>每个变量都有作用域问题,即它们在什么范围内有效.</p>
+<h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>定义变量有3种情况:</p>
+<p>(1)在函数的开头定义</p>
+<p>(2)在函数内的复合语句内定义</p>
+<p>(3)在函数的外部定义</p>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明:"></a>说明:</h4><p>1.主函数中定义的变量也只在主函数中有效</p>
+<p>2.不同函数中可以使用同名的变量</p>
+<p>3.形式参数也是局部变量</p>
+<p>4.在一个函数内部,可以在复合语句中定义变量,这些变量只在本复合语句中有效,这种复合语句也称为”分程序”或”程序块”.离开复合语句,变量就无效,系统会把占用的内存资源释放.</p>
+<h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><blockquote>
+<p>程序的编译单位是源程序文件.</p>
+</blockquote>
+<p>在函数之内定义的变量是局部变量,</p>
+<p>在函数之外定义的变量是外部变量,是<strong>全局变量</strong>.它的有效范围为从定义变量的位置开始到本源程序文件结束.</p>
+<h5 id="非必要不建议使用全局变量"><a href="#非必要不建议使用全局变量" class="headerlink" title="非必要不建议使用全局变量:"></a>非必要不建议使用全局变量:</h5><p>1.在全部执行过程中都占用存储单元,而不是仅在需要时才开辟单元.</p>
+<p>2.减低程序的清晰性,不易维护</p>
+<h1 id="变量的存储方式和生存期"><a href="#变量的存储方式和生存期" class="headerlink" title="变量的存储方式和生存期"></a>变量的存储方式和生存期</h1><h4 id="动态存储方式和静态存储方式"><a href="#动态存储方式和静态存储方式" class="headerlink" title="动态存储方式和静态存储方式"></a>动态存储方式和静态存储方式</h4><p>从变量值的存在时间(即生存期)来分:</p>
+<blockquote>
+<p>静态存储方式:程序在运行期间由系统分配固定的存储空间的方式</p>
+<p>动态存储方式:程序运行期间根据需要进行动态的分配存储空间的方式.</p>
+</blockquote>
+<p>数据分别存放在静态存储区和动态存储区,全局变量全部存放在静态存储区中.</p>
+<blockquote>
+<p>在<strong>动态存储区</strong>中存放以下数据:</p>
+<p>①函数形式参数。在调用函数时给形参分配存储空间。</p>
+<p>②函数中定义的没有用关键字static声明的变量,即自动变量.</p>
+<p>③函数调用时的现场保护和返回地址.</p>
+</blockquote>
+<p>如果在一个程序中两次调用同一函数,而在此函数中定义了局部变量,在两次调用时分配给这些局部变量的存储空间的地址可能不一样.  </p>
+<p>每个变量和函数都有两个属性,<strong>数据类型</strong>(如整型,浮点型)和<strong>数据的存储类型</strong>(静态存储,动态存储).</p>
+<blockquote>
+<p>在定义和声明变量和函数时,一般应同时指定其数据数据类型和存储类型,也可以以默认的方式指定(即如果用户不指定,系统会隐含地指定为某一种存储类型).</p>
+</blockquote>
+<p>C的存储类别:</p>
+<ul>
+<li>自动的(auto)</li>
+<li>静态的(static)</li>
+<li>寄存器的(register)</li>
+<li>外部的(extern)</li>
+</ul>
+<h2 id="局部变量的存储类别"><a href="#局部变量的存储类别" class="headerlink" title="局部变量的存储类别"></a>局部变量的存储类别</h2><h4 id="自动变量-auto变量"><a href="#自动变量-auto变量" class="headerlink" title="自动变量(auto变量)"></a>自动变量(auto变量)</h4><p>函数中的局部变量,如果不专门声明为static(静态)存储类型,都是动态地分配存储空间的,数据存储在动态存储区中.程序运行期间根据需要进行动态的分配存储空间的方式.因此这类局部变量称为自动变量.</p>
+<p>自动变量用关键字auto作存储类别的声明.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">f</span><span class="params">(<span class="type">int</span> a)</span> <span class="comment">//定义f函数，a为形参</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> <span class="type">int</span> b, c = <span class="number">3</span>; <span class="comment">//定义b，c为自动变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行完后自动释放a,b,c所占的存储单元.</p>
+<blockquote>
+<p>auto关键字可以省略,不写auto则隐含指定为”自动存储类别”,属于动态存储方式.</p>
+</blockquote>
+<h4 id="静态局部变量-static局部变量"><a href="#静态局部变量-static局部变量" class="headerlink" title="静态局部变量(static局部变量)"></a>静态局部变量(static局部变量)</h4><p>有时希望函数中的局部变量的值在函数调用结束后不消失而继续保留原值,即其占用的存储空间不释放,在下一次再调用该函数时,该变量已有值(就是上一次函数调用结束的值)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">f</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">2</span>, i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, f(a));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="type">int</span> <span class="title function_">f</span><span class="params">(<span class="type">int</span> a)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> <span class="type">int</span> b = <span class="number">0</span>;</span><br><span class="line">    <span class="type">static</span> c = <span class="number">3</span>;</span><br><span class="line">    b = b + <span class="number">1</span>;</span><br><span class="line">    c = c + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> (a + b + c);</span><br><span class="line">&#125;</span><br><span class="line">--------</span><br><span class="line"><span class="number">7</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对静态局部变量是在编译时赋初值的,即只赋值一次,在程序运行时它已有初值.</p>
+<p>而对自动变量是在函数调用时进行的,每调用一次函数重新给一次初值.</p>
+</blockquote>
+<blockquote>
+<p>在定义局部变量时不赋初值的话,则对静态变量来说,编译时自动赋初值0(对数值型变量)或空字符’\0’(对字符变量).</p>
+<p>而对自动变量来说,它的值是一个不确定的值.由于每次函数调用结束后存储单元已释放,下次调用时又重新另分配存储单元,而所分配的单元内容是不可知的.</p>
+</blockquote>
+<h5 id="输出1到5的阶乘值-局部静态变量"><a href="#输出1到5的阶乘值-局部静态变量" class="headerlink" title="输出1到5的阶乘值.(局部静态变量)"></a>输出1到5的阶乘值.(局部静态变量)</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">fac</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d!=%d\n&quot;</span>, i, fac(i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">fac</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> f = <span class="number">1</span>;<span class="comment">//f保留了上次函数调用结束的值</span></span><br><span class="line">    f = f * n;</span><br><span class="line">    <span class="keyword">return</span> (f);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不建议使用静态存储,长期占用不释放.</p>
+</blockquote>
+<h4 id="寄存器变量-register变量"><a href="#寄存器变量-register变量" class="headerlink" title="寄存器变量(register变量)"></a>寄存器变量(register变量)</h4><blockquote>
+<p>为提高执行效率，允许将局部变量的值放在CPU中的寄存器中，需要用时直接从寄存器取出参加运算，不必再到内存中取存取。</p>
+</blockquote>
+<p>优化的编译系统能够识别使用频繁的变量，从而自动地将这些变量放在寄存器中。因此实际上用register声明变量的必要性不大。</p>
+<blockquote>
+<p>三种局部变量的存储位置是不同的：</p>
+<p>自动变量是存储在动态存储区；</p>
+<p>静态局部变量是存储在静态存储区；</p>
+<p>寄存器存储在CPU中的寄存器中。</p>
+</blockquote>
+<h2 id="全局变量的存储类型"><a href="#全局变量的存储类型" class="headerlink" title="全局变量的存储类型"></a>全局变量的存储类型</h2><h4 id="在一个文件内扩展外部变量的作用域"><a href="#在一个文件内扩展外部变量的作用域" class="headerlink" title="在一个文件内扩展外部变量的作用域"></a>在一个文件内扩展外部变量的作用域</h4><blockquote>
+<p>如果由于某种考虑，在定义点之前的函数需要引用该外部变量，则在引用之前用关键字<code>extern</code>对该变量作**“外部变量声明”**，表示把该外部变量的作用域扩展到此位置。</p>
+</blockquote>
+<h5 id="调用函数，求3个整数中的大者。"><a href="#调用函数，求3个整数中的大者。" class="headerlink" title="调用函数，求3个整数中的大者。"></a><strong>调用函数，求3个整数中的大者。</strong></h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">max</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">extern</span> <span class="type">int</span> A, B, C;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;please enter three integer numbers:&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>, &amp;A, &amp;B, &amp;C);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;max is %d\n&quot;</span>, max());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> A, B, C;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">max</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> m;</span><br><span class="line">    m = A &gt; B ? A : B;</span><br><span class="line">    <span class="keyword">if</span> (C &gt; m)m = C;</span><br><span class="line">    <span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="将外部变量的作用域扩展到其他文件"><a href="#将外部变量的作用域扩展到其他文件" class="headerlink" title="将外部变量的作用域扩展到其他文件"></a>将外部变量的作用域扩展到其他文件</h4><h5 id="给定b的值，输入a和m，求a-b和-a-m-的值"><a href="#给定b的值，输入a和m，求a-b和-a-m-的值" class="headerlink" title="给定b的值，输入a和m，求a*b和$a^m$的值"></a>给定b的值，输入a和m，求a*b和$a^m$的值</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//file1.c</span></span><br><span class="line"><span class="type">int</span> A;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">power</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">3</span>, c, d, m;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;please enter the number a and its power m:\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>, &amp;A, &amp;m);</span><br><span class="line">    c = A * b;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d*%d=%d\n&quot;</span>, A, b, c);</span><br><span class="line">    d = power(m);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d**%d=%d\n&quot;</span>, A, m, d);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//file2.c</span></span><br><span class="line"><span class="keyword">extern</span>  A;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">power</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, y = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        y *= A;</span><br><span class="line">    <span class="keyword">return</span> y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>extern既可以用来扩展外部变量在本文件的作用域,又可以使外部变量的作用域从一个文件扩展到程序中的其他文件,那么系统怎么区别处理呢?</p>
+<p>在编译时遇到extern时,先在本文件中找外部变量的定义,如果找到,则在本文件中扩展作用域;</p>
+<p>如果找不到,就在连接时从其他文件找到外部变量的定义,如果从其他文件中找到了,就将作用域扩展到本文件;如果再找不到,就按出错处理.</p>
+</blockquote>
+<h4 id="将外部变量的作用域限制在本文件中"><a href="#将外部变量的作用域限制在本文件中" class="headerlink" title="将外部变量的作用域限制在本文件中"></a>将外部变量的作用域限制在本文件中</h4><p>有时在程序设计中希望某些外部变量只限于被本文件引用,而不能被其他文件引用,这时可以在定义外部变量时加一个<code>static</code>声明.</p>
+<p>加上<code>static</code>声明,只能用于本文件的外部变量称为<code>静态外部变量</code>.这就为程序的模块化,通用性提供方便.</p>
+<p>如果已确认其他文件不需要引用本文件的外部变量,就可以对本文件的外部变量都加上static,成为静态外部变量,以免被其他文件误用.这就相当于把本文件的外部变量对外界”屏蔽起来”,从其他文件的角度看,这个<code>静态外部变量</code>是”看不见的,不能用的”.</p>
+<blockquote>
+<p>用<code>static</code>声明一个变量的作用:</p>
+<ul>
+<li>对局部变量使用:</li>
+</ul>
+<p>把它分配在静态存储区,该变量在整个程序执行期间不释放,其所分配的空间始终存在.</p>
+<ul>
+<li>对全局变量使用:</li>
+</ul>
+<p>则该变量的作用域只限于本文件模块(即被声明的文件中).</p>
+</blockquote>
+<h5 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h5><p>auto,static,register声明变量时,是在定义变量的基础上加上这些关键字,不能<strong>单独使用</strong></p>
+<p>如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="type">static</span> a; <span class="comment">//企图将变量a声明为静态变量</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>编译时会被认为”重新定义”.</p>
+<h1 id="关于变量的声明和定义"><a href="#关于变量的声明和定义" class="headerlink" title="关于变量的声明和定义"></a>关于变量的声明和定义</h1><ul>
+<li>定义:建立存储空间的声明(“int a;”),定义性声明</li>
+<li>声明:不建立存储空间的声明(“extern a;”),引用性声明</li>
+</ul>
+<p>声明包括定义,但并非所有的声明都是定义.</p>
+<h1 id="内部函数和外部函数"><a href="#内部函数和外部函数" class="headerlink" title="内部函数和外部函数"></a>内部函数和外部函数</h1><h3 id="内部函数"><a href="#内部函数" class="headerlink" title="内部函数"></a>内部函数</h3><p>如果一个函数只能被本文件中的其他函数所调用，它称为<strong>内部函数</strong>，在定义内部函数时，在函数名和函数类型的前面加static，即：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> 类型名 函数名(形参表)</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">fun</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>内部函数又被称为静态函数，因为它是用static声明的。使用内部函数，可以使函数的作用域只局限于所在文件。这样，在不同的文件中即使有同名的内部函数，也互不干扰，不必担心所用函数是否会与其他文件中的模块中的函数同名。</p>
+<h3 id="外部函数"><a href="#外部函数" class="headerlink" title="外部函数"></a>外部函数</h3><p>如果在定义函数时，在函数首部的最左端加关键字extern，则此函数是外部函数，可供其他文件使用。</p>
+<p>如函数首部可以为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">fun</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样，函数fun就可以为其他文件调用。c语言规定，如果在定义函数时省略extern，则默认为<strong>外部函数</strong>。</p>
+<h5 id="有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。"><a href="#有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。" class="headerlink" title="有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。"></a>有一个字符串，内有若干个字符，现输入一个字符，要求程序将字符串中该字符删去。</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//file1.c</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">enter_string</span><span class="params">(<span class="type">char</span> str[<span class="number">80</span>])</span>;</span><br><span class="line">    <span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">delete_string</span><span class="params">(<span class="type">char</span> str[], <span class="type">char</span> ch)</span>;</span><br><span class="line">    <span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">print_string</span><span class="params">(<span class="type">char</span> str[])</span>;</span><br><span class="line">    <span class="type">char</span> c, str[<span class="number">80</span>];</span><br><span class="line">    enter_string(str);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>, &amp;c);<span class="comment">//输入需要删除的字符</span></span><br><span class="line">    delete_string(str, c);</span><br><span class="line">    print_string(str);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//file2.c</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">enter_string</span><span class="params">(<span class="type">char</span> str[<span class="number">80</span>])</span></span><br><span class="line">&#123;</span><br><span class="line">    gets(str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//file3.c</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">delete_string</span><span class="params">(<span class="type">char</span> str[], <span class="type">char</span> ch)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = j = <span class="number">0</span>; str[i] != <span class="string">&#x27;\0&#x27;</span>; i++)</span><br><span class="line">        <span class="keyword">if</span> (str[i] != ch)</span><br><span class="line">            str[j++] = str[i];</span><br><span class="line">    str[j] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//file4.c</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">print_string</span><span class="params">(<span class="type">char</span> str[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>extern可以省略</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Kayleh
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://blog.kayleh.top/posts/realize-modular-programming-with-functions/" title="realize modular programming with functions">https://blog.kayleh.top/posts/realize-modular-programming-with-functions/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/use-arrays-to-process-batch-data/" rel="prev" title="use-arrays-to-process-batch-data">
+                  <i class="fa fa-angle-left"></i> use-arrays-to-process-batch-data
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/Good-use-of-pointers/" rel="next" title="Good use of pointers">
+                  Good use of pointers <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.kayleh.top/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/comments.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/utils.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/motion.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/sidebar.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/next-boot.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/pjax.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/search/local-search.min.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/chat/tidio.min.js"></script>
+
+
+
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/fancybox.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/pace.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/addtoany.min.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.kayleh.top/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/math/mathjax.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"217cb8aada0a29251508bed1ce83980a"}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/comments/gitalk.min.js"></script>
+
+</body>
+</html>
