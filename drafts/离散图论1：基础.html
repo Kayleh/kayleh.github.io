@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://cdn.kayleh.top" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.kayleh.top/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/config.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="基础理论度：对于无向图  度指的是该节点与相邻节点的总边数  对于有向图:  节点（顶点）的入度是指进入该节点的边的条数； 节点（顶点）的出度是指从该节点出发的边的条数。    度为0的顶点称为孤立顶点。 度为1的顶点称为叶节点或端点，与该顶点相关联的边称为悬挂边。在右图中，{3,5}是一条悬挂边。这个术语在数据结构与图论中对树的研究中很常见。 有n个顶点的图中度为n-1的顶点称为全连接顶点。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="离散图论1：基础">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E7%A6%BB%E6%95%A3%E5%9B%BE%E8%AE%BA1%EF%BC%9A%E5%9F%BA%E7%A1%80.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="基础理论度：对于无向图  度指的是该节点与相邻节点的总边数  对于有向图:  节点（顶点）的入度是指进入该节点的边的条数； 节点（顶点）的出度是指从该节点出发的边的条数。    度为0的顶点称为孤立顶点。 度为1的顶点称为叶节点或端点，与该顶点相关联的边称为悬挂边。在右图中，{3,5}是一条悬挂边。这个术语在数据结构与图论中对树的研究中很常见。 有n个顶点的图中度为n-1的顶点称为全连接顶点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-19T12:41:10.000Z">
+<meta property="article:modified_time" content="2025-06-19T04:57:47.342Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/drafts/%E7%A6%BB%E6%95%A3%E5%9B%BE%E8%AE%BA1%EF%BC%9A%E5%9F%BA%E7%A1%80">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.kayleh.top/drafts/%E7%A6%BB%E6%95%A3%E5%9B%BE%E8%AE%BA1%EF%BC%9A%E5%9F%BA%E7%A1%80.html","path":"drafts/离散图论1：基础.html","title":"离散图论1：基础"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>离散图论1：基础 | Kayleh's Blog
+</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-rss"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>RSS</a></li><li class="menu-item menu-item-travelling"><span class="exturl" data-url="aHR0cHM6Ly93d3cudHJhdmVsbGluZ3MuY24vZ28uaHRtbA=="><i class="fa fa-train-subway fa-fw"></i>开往</span></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">基础理论</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%A6%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">度：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">遍历：</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="https://cdn.kayleh.top/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">离散图论1：基础<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvZHJhZnRzL+emu+aVo+WbvuiuujHvvJrln7rnoYAubWQ=" title="编辑"><i class="fa fa-pen-nib"></i></span>
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h4 id="基础理论"><a href="#基础理论" class="headerlink" title="基础理论"></a>基础理论</h4><h5 id="度："><a href="#度：" class="headerlink" title="度："></a>度：</h5><p>对于<code>无向图</code></p>
+<ul>
+<li>度指的是该节点与相邻节点的总边数</li>
+</ul>
+<p>对于<code>有向图</code>:</p>
+<ul>
+<li>节点（顶点）的<strong>入度</strong>是指进入该节点的边的条数；</li>
+<li>节点（顶点）的<strong>出度</strong>是指从该节点出发的边的条数。</li>
+</ul>
+<blockquote>
+<ul>
+<li>度为0的顶点称为<span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvJUU5JUExJUI2JUU3JTgyJUI5XyglRTUlOUIlQkUlRTglQUUlQkEp">孤立顶点<i class="fa fa-external-link-alt"></i></span>。</li>
+<li>度为1的顶点称为叶节点或端点，与该顶点相关联的边称为悬挂边。在右图中，{3,5}是一条悬挂边。这个术语在<span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvJUU2JTk1JUIwJUU2JThEJUFFJUU3JUJCJTkzJUU2JTlFJTg0">数据结构<i class="fa fa-external-link-alt"></i></span>与<span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvJUU1JTlCJUJFJUU4JUFFJUJB">图论<i class="fa fa-external-link-alt"></i></span>中对<span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvJUU2JUEwJTkxXyglRTYlOTUlQjAlRTYlOEQlQUUlRTclQkIlOTMlRTYlOUUlODQp">树<i class="fa fa-external-link-alt"></i></span>的研究中很常见。</li>
+<li>有n个顶点的图中度为n-1的顶点称为<span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3cvaW5kZXgucGhwP3RpdGxlPSVFNSU4NSVBOCVFOCVCRiU5RSVFNiU4RSVBNSVFOSVBMSVCNiVFNyU4MiVCOSZhY3Rpb249ZWRpdCZyZWRsaW5rPTE=">全连接顶点<i class="fa fa-external-link-alt"></i></span>。</li>
+</ul>
+</blockquote>
+<p>算法应用：</p>
+<blockquote>
+<p>在一个小镇里，按从 1 到 n 为 n 个人进行编号。传言称，这些人中有一个是小镇上的秘密法官。</p>
+<p>如果小镇的法官真的存在，那么：</p>
+<p>小镇的法官不相信任何人。<br>每个人（除了小镇法官外）都信任小镇的法官。<br>只有一个人同时满足条件 1 和条件 2 。<br>给定数组 trust，该数组由信任对 trust[i] &#x3D; [a, b] 组成，表示编号为 a 的人信任编号为 b 的人。</p>
+<p>如果小镇存在秘密法官并且可以确定他的身份，请返回该法官的编号。否则，返回 -1。</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 2, trust = [[1,2]]</span><br><span class="line">输出：2</span><br></pre></td></tr></table></figure></blockquote>
+</blockquote>
+<p>在此场景中，可以把a对b的信任表示为<code>a指向b</code>的有向边，小镇的信任关系表示为一个有向图。</p>
+<p>统计所有的顶点的度（每个人对其他人的信任关系）：出度包含所有顶点并且入度为0的顶点则为法官。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findJudge</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] trust)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] in = <span class="keyword">new</span> <span class="title class_">int</span>[n + <span class="number">1</span>],</span><br><span class="line">                out = <span class="keyword">new</span> <span class="title class_">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] t : trust) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> t[<span class="number">0</span>], b = t[<span class="number">1</span>];</span><br><span class="line">            in[b]++;</span><br><span class="line">            out[a]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (in[i] == n - <span class="number">1</span> &amp;&amp; out[i] == <span class="number">0</span>) <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="遍历："><a href="#遍历：" class="headerlink" title="遍历："></a>遍历：</h5><p>图是可能包含环的，你从图的某一个节点开始遍历，有可能走了一圈又回到这个节点。</p>
+<p>所以，如果图包含环，遍历框架就要一个visited数组进行辅助：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Graph graph;</span><br><span class="line">    <span class="type">boolean</span>[] visited;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 图遍历框架 */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(Graph graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (visited[s]) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 经过节点 s</span></span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (TreeNode neighbor : graph.neighbors(s))</span><br><span class="line">    traverse(neighbor);</span><br><span class="line">    <span class="comment">// 离开节点 s</span></span><br><span class="line">    visited[s] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.kayleh.top/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/comments.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/utils.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/motion.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/sidebar.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/next-boot.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/pjax.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/search/local-search.min.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/chat/tidio.min.js"></script>
+
+
+
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/fancybox.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/pace.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/addtoany.min.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.kayleh.top/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/math/mathjax.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"bd3a8aab4ba5771258aff6d0af04f662"}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/comments/gitalk.min.js"></script>
+
+</body>
+</html>

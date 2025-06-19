@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://cdn.kayleh.top" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.kayleh.top/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/config.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="顺序程序设计求摄氏度 12345678910#include&lt;stdio.h&gt;int main()&#123;    float f, c;    f &#x3D; 64.0;    c &#x3D; (5.0 &#x2F; 9) * (f - 32);    printf(&quot;f&#x3D;%f\nc&#x3D;%f\n&quot;, f, c);    return 0;&#125;  常量 整型常量  实性常量(有小数点">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="sequential programming">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/sequential-programming.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="顺序程序设计求摄氏度 12345678910#include&lt;stdio.h&gt;int main()&#123;    float f, c;    f &#x3D; 64.0;    c &#x3D; (5.0 &#x2F; 9) * (f - 32);    printf(&quot;f&#x3D;%f\nc&#x3D;%f\n&quot;, f, c);    return 0;&#125;  常量 整型常量  实性常量(有小数点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-25T09:16:00.000Z">
+<meta property="article:modified_time" content="2025-06-19T04:57:47.335Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/drafts/sequential-programming">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.kayleh.top/drafts/sequential-programming.html","path":"drafts/sequential-programming.html","title":"sequential programming"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>sequential programming | Kayleh's Blog
+</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-rss"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>RSS</a></li><li class="menu-item menu-item-travelling"><span class="exturl" data-url="aHR0cHM6Ly93d3cudHJhdmVsbGluZ3MuY24vZ28uaHRtbA=="><i class="fa fa-train-subway fa-fw"></i>开往</span></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">顺序程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F"><span class="nav-number">1.0.1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.0.2.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E5%8F%98%E9%87%8F"><span class="nav-number">1.0.3.</span> <span class="nav-text">常变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">1.0.4.</span> <span class="nav-text">标识符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.1.</span> <span class="nav-text">整型数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%92%8C%E5%80%BC%E7%9A%84%E8%8C%83%E5%9B%B4"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">整数数据存储空间和值的范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.2.</span> <span class="nav-text">字符型数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.3.</span> <span class="nav-text">浮点型数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">运算符和表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.3.</span> <span class="nav-text">语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.3.1.</span> <span class="nav-text">赋值语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">1.4.</span> <span class="nav-text">数据的输入输出</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="https://cdn.kayleh.top/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">sequential programming<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvZHJhZnRzL3NlcXVlbnRpYWwtcHJvZ3JhbW1pbmcubWQ=" title="编辑"><i class="fa fa-pen-nib"></i></span>
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="顺序程序设计"><a href="#顺序程序设计" class="headerlink" title="顺序程序设计"></a>顺序程序设计</h1><p>求摄氏度</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> f, c;</span><br><span class="line">    f = <span class="number">64.0</span>;</span><br><span class="line">    c = (<span class="number">5.0</span> / <span class="number">9</span>) * (f - <span class="number">32</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;f=%f\nc=%f\n&quot;</span>, f, c);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><ul>
+<li><p>整型常量</p>
+</li>
+<li><p>实性常量(有小数点)</p>
+<ul>
+<li>十进制小数形式</li>
+<li>指数形式:如12.34e3(e或E之前必须有数字,e或E之后必须为整数)</li>
+</ul>
+</li>
+<li><p>字符常量</p>
+<ul>
+<li>普通字符,用单撇号括起来的一个字符</li>
+</ul>
+<blockquote>
+<p>字符常量存储在计算机存储单元中时,并不是存储字符本身,而是以其代码(一般采用ASCII码)存储的</p>
+</blockquote>
+<ul>
+<li>转义字符</li>
+</ul>
+</li>
+<li><p>字符串常量</p>
+</li>
+</ul>
+<blockquote>
+<p>用双撇号括起来的全部字符,双撇号内可以只有一个字符</p>
+</blockquote>
+<ul>
+<li>符号常量</li>
+</ul>
+<p>用#define指令,指定用一个符号名称代表一个常量</p>
+<blockquote>
+<p>在预编译后,符号变量会全部被置换,</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> PI 3.1415   <span class="comment">//注意行末没有分号</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p><code>变量</code>代表一个有名字,具有特定属性的一个存储单元,它用来存放数据,在程序运行期间,变量的值时可以改变的.</p>
+<p>变量必须<strong>先定义,后使用</strong>. 在定义时指定该变量的名字和类型.</p>
+<p>从变量中取值,实际上时通过变量名找到相应的内存地址,从该存储单元中读取数据.</p>
+<h3 id="常变量"><a href="#常变量" class="headerlink" title="常变量"></a>常变量</h3><p>在定义变量时,前面加一个关键字<code>const</code></p>
+<blockquote>
+<p>常变量与处理的异同?</p>
+<p>有类型,占存储单元,不允许改变其值</p>
+<p>常变量时有名字的不变量(便于在程序中被引用),而常量时没有名字的不变量</p>
+</blockquote>
+<h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><p>一个对象的名字</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><blockquote>
+<p>基本类型</p>
+<ul>
+<li>整型类型<ul>
+<li>基本整型(int)</li>
+<li>短整型(short int)</li>
+<li>长整型(long int)</li>
+<li>双长整型(long long int)</li>
+<li>字符型(char)</li>
+<li>布尔型(bool)</li>
+</ul>
+</li>
+<li>浮点类型<ul>
+<li>单精度浮点型(float)</li>
+<li>双精度浮点型(double)</li>
+<li>复数浮点型(float_complex,double_complex,long long_complex)</li>
+</ul>
+</li>
+</ul>
+<p>枚举类型(enum)</p>
+<p>空类型(void)</p>
+<p>派生类型</p>
+<ul>
+<li>指针类型(*)</li>
+<li>数组类型([ ])</li>
+<li>结构体类型(struct)</li>
+<li>共用体类型(union)</li>
+<li>函数类型</li>
+</ul>
+</blockquote>
+<h3 id="整型数据"><a href="#整型数据" class="headerlink" title="整型数据"></a>整型数据</h3><h4 id="整数数据存储空间和值的范围"><a href="#整数数据存储空间和值的范围" class="headerlink" title="整数数据存储空间和值的范围"></a>整数数据存储空间和值的范围</h4><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">字节数</th>
+<th align="center">取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">int</td>
+<td align="center">2</td>
+<td align="center">- 32768 ~ 32767 （5位十进制数）</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">4</td>
+<td align="center">- 2147483648 ~ 2147483647 （10位十进制数）</td>
+</tr>
+<tr>
+<td align="center">unsignde int</td>
+<td align="center">2</td>
+<td align="center">0 ~ 65535 （5位十进制数）</td>
+</tr>
+<tr>
+<td align="center">unsignde int</td>
+<td align="center">4</td>
+<td align="center">0 ~ 4294967295 （10位十进制数）</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">2</td>
+<td align="center">- 32768 ~ 32767 （5位十进制数）</td>
+</tr>
+<tr>
+<td align="center">unsigned short</td>
+<td align="center">2</td>
+<td align="center">0 ~ 65535 （5位十进制数）</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">4</td>
+<td align="center">- 2147483648 ~ 2147483647 （10位十进制数）</td>
+</tr>
+<tr>
+<td align="center">usigned long</td>
+<td align="center">4</td>
+<td align="center">0 ~ 4294967295 （10位十进制数）</td>
+</tr>
+<tr>
+<td align="center">long long</td>
+<td align="center">8</td>
+<td align="center">- 9223372036854775808 ~ 9223372036854775807（20位十进制数）</td>
+</tr>
+<tr>
+<td align="center">unsigned long long</td>
+<td align="center">8</td>
+<td align="center">0 ~ 18446744073709551615 （20位十进制数）</td>
+</tr>
+</tbody></table>
+<h3 id="字符型数据"><a href="#字符型数据" class="headerlink" title="字符型数据"></a>字符型数据</h3><h3 id="浮点型数据"><a href="#浮点型数据" class="headerlink" title="浮点型数据"></a>浮点型数据</h3><blockquote>
+<p>c编译系统把浮点型常量都按双精度处理,分配8个字节</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> a = <span class="number">3.14159f</span>;   <span class="comment">//把此3.14159按单精度浮点常量处理,编译时不出现&quot;警告&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="type">double</span> a = <span class="number">1.23L</span>;  <span class="comment">//把此,1.23作为long double型处理</span></span><br></pre></td></tr></table></figure></blockquote>
+<h2 id="运算符和表达式"><a href="#运算符和表达式" class="headerlink" title="运算符和表达式"></a>运算符和表达式</h2><table>
+<thead>
+<tr>
+<th align="left">算术运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">+</td>
+<td align="left">把两个操作数相加</td>
+<td align="left">A + B 将得到 30</td>
+</tr>
+<tr>
+<td align="left">-</td>
+<td align="left">从第一个操作数中减去第二个操作数</td>
+<td align="left">A - B 将得到 -10</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">把两个操作数相乘</td>
+<td align="left">A * B 将得到 200</td>
+</tr>
+<tr>
+<td align="left">&#x2F;</td>
+<td align="left">分子除以分母</td>
+<td align="left">B &#x2F; A 将得到 2</td>
+</tr>
+<tr>
+<td align="left">%</td>
+<td align="left">取模运算符，整除后的余数</td>
+<td align="left">B % A 将得到 0</td>
+</tr>
+<tr>
+<td align="left">++</td>
+<td align="left">自增运算符，整数值增加 1</td>
+<td align="left">A++ 将得到 11</td>
+</tr>
+<tr>
+<td align="left">–</td>
+<td align="left">自减运算符，整数值减少 1</td>
+<td align="left">A– 将得到 9</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">关系运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&#x3D;&#x3D;</td>
+<td align="left">检查两个操作数的值是否相等，如果相等则条件为真。</td>
+<td align="left">(A &#x3D;&#x3D; B) 为假。</td>
+</tr>
+<tr>
+<td align="left">!&#x3D;</td>
+<td align="left">检查两个操作数的值是否相等，如果不相等则条件为真。</td>
+<td align="left">(A !&#x3D; B) 为真。</td>
+</tr>
+<tr>
+<td align="left">&gt;</td>
+<td align="left">检查左操作数的值是否大于右操作数的值，如果是则条件为真。</td>
+<td align="left">(A &gt; B) 为假。</td>
+</tr>
+<tr>
+<td align="left">&lt;</td>
+<td align="left">检查左操作数的值是否小于右操作数的值，如果是则条件为真。</td>
+<td align="left">(A &lt; B) 为真。</td>
+</tr>
+<tr>
+<td align="left">&gt;&#x3D;</td>
+<td align="left">检查左操作数的值是否大于或等于右操作数的值，如果是则条件为真。</td>
+<td align="left">(A &gt;&#x3D; B) 为假。</td>
+</tr>
+<tr>
+<td align="left">&lt;&#x3D;</td>
+<td align="left">检查左操作数的值是否小于或等于右操作数的值，如果是则条件为真。</td>
+<td align="left">(A &lt;&#x3D; B) 为真。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">逻辑运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&amp;&amp;</td>
+<td align="left">称为逻辑与运算符。如果两个操作数都非零，则条件为真。</td>
+<td align="left">(A &amp;&amp; B) 为假。</td>
+</tr>
+<tr>
+<td align="left">||</td>
+<td align="left">称为逻辑或运算符。如果两个操作数中有任意一个非零，则条件为真。</td>
+<td align="left">(A || B) 为真。</td>
+</tr>
+<tr>
+<td align="left">!</td>
+<td align="left">称为逻辑非运算符。用来逆转操作数的逻辑状态。如果条件为真则逻辑非运算符将使其为假。</td>
+<td align="left">!(A &amp;&amp; B) 为真。</td>
+</tr>
+</tbody></table>
+<p><strong>位运算符</strong></p>
+<p>位运算符作用于位，并逐位执行操作。&amp;、 | 和 ^ 的真值表如下所示：</p>
+<table>
+<thead>
+<tr>
+<th align="left">p</th>
+<th align="left">q</th>
+<th align="left">p &amp; q</th>
+<th align="left">p | q</th>
+<th align="left">p ^ q</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">位运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&amp;</td>
+<td align="left">按位与操作，按二进制位进行”与”运算。运算规则：<code>0&amp;0=0;    0&amp;1=0;     1&amp;0=0;      1&amp;1=1;</code></td>
+<td align="left">(A &amp; B) 将得到 12，即为 0000 1100</td>
+</tr>
+<tr>
+<td align="left">|</td>
+<td align="left">按位或运算符，按二进制位进行”或”运算。运算规则：&#96;0</td>
+<td align="left">0&#x3D;0;    0</td>
+</tr>
+<tr>
+<td align="left">^</td>
+<td align="left">异或运算符，按二进制位进行”异或”运算。运算规则：<code>0^0=0;    0^1=1;    1^0=1;   1^1=0;</code></td>
+<td align="left">(A ^ B) 将得到 49，即为 0011 0001</td>
+</tr>
+<tr>
+<td align="left">~</td>
+<td align="left">取反运算符，按二进制位进行”取反”运算。运算规则：<code>~1=0;    ~0=1;</code></td>
+<td align="left">(~A ) 将得到 -61，即为 1100 0011，一个有符号二进制数的补码形式。</td>
+</tr>
+<tr>
+<td align="left">&lt;&lt;</td>
+<td align="left">二进制左移运算符。将一个运算对象的各二进制位全部左移若干位（左边的二进制位丢弃，右边补0）。</td>
+<td align="left">A &lt;&lt; 2 将得到 240，即为 1111 0000</td>
+</tr>
+<tr>
+<td align="left">&gt;&gt;</td>
+<td align="left">二进制右移运算符。将一个数的各二进制位全部右移若干位，正数左补0，负数左补1，右边丢弃。</td>
+<td align="left">A &gt;&gt; 2 将得到 15，即为 0000 1111</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">赋值运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&#x3D;</td>
+<td align="left">简单的赋值运算符，把右边操作数的值赋给左边操作数</td>
+<td align="left">C &#x3D; A + B 将把 A + B 的值赋给 C</td>
+</tr>
+<tr>
+<td align="left">+&#x3D;</td>
+<td align="left">加且赋值运算符，把右边操作数加上左边操作数的结果赋值给左边操作数</td>
+<td align="left">C +&#x3D; A 相当于 C &#x3D; C + A</td>
+</tr>
+<tr>
+<td align="left">-&#x3D;</td>
+<td align="left">减且赋值运算符，把左边操作数减去右边操作数的结果赋值给左边操作数</td>
+<td align="left">C -&#x3D; A 相当于 C &#x3D; C - A</td>
+</tr>
+<tr>
+<td align="left">*&#x3D;</td>
+<td align="left">乘且赋值运算符，把右边操作数乘以左边操作数的结果赋值给左边操作数</td>
+<td align="left">C *&#x3D; A 相当于 C &#x3D; C * A</td>
+</tr>
+<tr>
+<td align="left">&#x2F;&#x3D;</td>
+<td align="left">除且赋值运算符，把左边操作数除以右边操作数的结果赋值给左边操作数</td>
+<td align="left">C &#x2F;&#x3D; A 相当于 C &#x3D; C &#x2F; A</td>
+</tr>
+<tr>
+<td align="left">%&#x3D;</td>
+<td align="left">求模且赋值运算符，求两个操作数的模赋值给左边操作数</td>
+<td align="left">C %&#x3D; A 相当于 C &#x3D; C % A</td>
+</tr>
+<tr>
+<td align="left">&lt;&lt;&#x3D;</td>
+<td align="left">左移且赋值运算符</td>
+<td align="left">C &lt;&lt;&#x3D; 2 等同于 C &#x3D; C &lt;&lt; 2</td>
+</tr>
+<tr>
+<td align="left">&gt;&gt;&#x3D;</td>
+<td align="left">右移且赋值运算符</td>
+<td align="left">C &gt;&gt;&#x3D; 2 等同于 C &#x3D; C &gt;&gt; 2</td>
+</tr>
+<tr>
+<td align="left">&amp;&#x3D;</td>
+<td align="left">按位与且赋值运算符</td>
+<td align="left">C &amp;&#x3D; 2 等同于 C &#x3D; C &amp; 2</td>
+</tr>
+<tr>
+<td align="left">^&#x3D;</td>
+<td align="left">按位异或且赋值运算符</td>
+<td align="left">C ^&#x3D; 2 等同于 C &#x3D; C ^ 2</td>
+</tr>
+<tr>
+<td align="left">|&#x3D;</td>
+<td align="left">按位或且赋值运算符</td>
+<td align="left">C |&#x3D; 2 等同于 C &#x3D; C | 2</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">杂项运算符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sizeof()</td>
+<td align="left">返回变量的大小。</td>
+<td align="left">sizeof(a) 将返回 4，其中 a 是整数。</td>
+</tr>
+<tr>
+<td align="left">&amp;</td>
+<td align="left">返回变量的地址。</td>
+<td align="left">&a; 将给出变量的实际地址。</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">指向一个变量。</td>
+<td align="left">*a; 将指向一个变量。</td>
+</tr>
+<tr>
+<td align="left">? :</td>
+<td align="left">条件表达式</td>
+<td align="left">如果条件为真 ? 则值为 X : 否则值为 Y</td>
+</tr>
+</tbody></table>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><h3 id="赋值语句"><a href="#赋值语句" class="headerlink" title="赋值语句"></a>赋值语句</h3><p>赋值运算符</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=</span><br></pre></td></tr></table></figure></blockquote>
+<p>复合的赋值运算符</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a+=<span class="number">3</span>	等价于a=a+<span class="number">3</span>;</span><br><span class="line">x*=y+<span class="number">8</span>	等价于x=x*(y+<span class="number">8</span>);</span><br><span class="line">x%=<span class="number">3</span>	等价于x=x%<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>赋值表达式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">变量	赋值运算符	表达式</span><br></pre></td></tr></table></figure>
+
+<p>赋值过程中的类型转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1将浮点型数据(包括单,双精度)赋给整型变量时,先对浮点数取整,即舍弃小数部分,然后赋予整型变量;</span><br><span class="line">2将整型数据赋值给单,双精度变量时,数值不变,但以浮点数形式存储到变量中.</span><br><span class="line">3将一个double型赋给一float变量时,先将双精度数转换为单精度,即只取6~7位有效数字,存储到float型变量的4个字节中.</span><br><span class="line">4字符型数据赋给整型变量时,将字符的ASCII代码赋给整型变量</span><br><span class="line">5将一个占字节多的整型数据赋给一个占字节少的整型变量或字符变量(例如把占4个字节的int型数据赋给占2个字节的short变量或占1个字节的char变量)时,只将其低字节原封不动地送到被赋值的变量(即发生&quot;截断&quot;),如:</span><br><span class="line">int i=289;</span><br><span class="line">char c =&#x27;a&#x27;;</span><br><span class="line">c=i;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据的输入输出"><a href="#数据的输入输出" class="headerlink" title="数据的输入输出"></a>数据的输入输出</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>();</span><br><span class="line"><span class="built_in">scanf</span>();</span><br><span class="line"><span class="built_in">putchar</span>();</span><br><span class="line">getchar();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.kayleh.top/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/comments.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/utils.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/motion.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/sidebar.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/next-boot.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/pjax.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/search/local-search.min.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/chat/tidio.min.js"></script>
+
+
+
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/fancybox.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/pace.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/addtoany.min.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.kayleh.top/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/math/mathjax.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"51235c5b7fbc2ece20f1f187d4359c88"}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/comments/gitalk.min.js"></script>
+
+</body>
+</html>

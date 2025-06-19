@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://cdn.kayleh.top" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.kayleh.top/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/config.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="高精算法解决了什么问题？在利用计算机作数值计算的时候，有时候会遇到这样的问题：  希望计算的数的位数可达几十位甚至几百位，虽然计算机的计算精度也算较高了，但因受到硬件的限制，往往达不到实际问题所要求的精度。  所以，往往在处理对超大精度计算时，都会通过巧妙的算法设计实现。 本算法使用字符串实现，防止数据溢出。 12345678910111213141516171819202122232425262">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="超高精度计算">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E3%80%8CBug%E3%80%8D%E6%96%9C%E7%8E%87%E4%B8%8E%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="高精算法解决了什么问题？在利用计算机作数值计算的时候，有时候会遇到这样的问题：  希望计算的数的位数可达几十位甚至几百位，虽然计算机的计算精度也算较高了，但因受到硬件的限制，往往达不到实际问题所要求的精度。  所以，往往在处理对超大精度计算时，都会通过巧妙的算法设计实现。 本算法使用字符串实现，防止数据溢出。 12345678910111213141516171819202122232425262">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-09T07:12:23.000Z">
+<meta property="article:modified_time" content="2025-06-19T04:57:47.336Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/drafts/%E3%80%8CBug%E3%80%8D%E6%96%9C%E7%8E%87%E4%B8%8E%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.kayleh.top/drafts/%E3%80%8CBug%E3%80%8D%E6%96%9C%E7%8E%87%E4%B8%8E%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98.html","path":"drafts/「Bug」斜率与精度丢失问题.html","title":"超高精度计算"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>超高精度计算 | Kayleh's Blog
+</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-rss"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>RSS</a></li><li class="menu-item menu-item-travelling"><span class="exturl" data-url="aHR0cHM6Ly93d3cudHJhdmVsbGluZ3MuY24vZ28uaHRtbA=="><i class="fa fa-train-subway fa-fw"></i>开往</span></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E7%B2%BE%E7%AE%97%E6%B3%95%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">高精算法解决了什么问题？</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="https://cdn.kayleh.top/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">超高精度计算<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvZHJhZnRzL+OAjEJ1Z+OAjeaWnOeOh+S4jueyvuW6puS4ouWksemXrumimC5tZA==" title="编辑"><i class="fa fa-pen-nib"></i></span>
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="高精算法解决了什么问题？"><a href="#高精算法解决了什么问题？" class="headerlink" title="高精算法解决了什么问题？"></a>高精算法解决了什么问题？</h1><p>在利用计算机作数值计算的时候，有时候会遇到这样的问题：</p>
+<blockquote>
+<p>希望计算的数的位数可达几十位甚至几百位，虽然计算机的计算精度也算较高了，但因受到硬件的限制，往往达不到实际问题所要求的精度。</p>
+</blockquote>
+<p>所以，往往在处理对超大精度计算时，都会通过巧妙的算法设计实现。</p>
+<p>本算法使用字符串实现，防止数据溢出。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * tCompare  高精比较</span></span><br><span class="line"><span class="comment"> * 设定a&gt;b返回1 a&lt;b返回-1 a=b返回0</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">tCompare</span><span class="params">(string a, string b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a.<span class="built_in">size</span>() != b.<span class="built_in">size</span>()) <span class="comment">//如果字符串长度不同那么长度大的那个就是更大的大数</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (a.<span class="built_in">size</span>() &gt; b.<span class="built_in">size</span>())</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">//如果字符串长度相同我们通过直接比较字符串的字典序来判断大小</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (a &gt; b)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a == b)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * tAdd  高精加法</span></span><br><span class="line"><span class="comment"> * 通过字符串的形式来实现高精度的加法</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">string <span class="title">tadd</span><span class="params">(string a, string b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="built_in">max</span>(a.<span class="built_in">size</span>(), b.<span class="built_in">size</span>()) + <span class="number">1</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n, <span class="number">0</span>)</span></span>;                             <span class="comment">//开辟一个足够存储结果的数组，结果的位数最多为 位数最多的那个数的位数加一(考虑进位)</span></span><br><span class="line">    <span class="type">int</span> i = a.<span class="built_in">size</span>() - <span class="number">1</span>, j = b.<span class="built_in">size</span>() - <span class="number">1</span>, k = n - <span class="number">1</span>; <span class="comment">//从个位开始通过模拟竖式进行大数加法</span></span><br><span class="line">    <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; j &gt;= <span class="number">0</span>)                           <span class="comment">//当两数均未加完时</span></span><br><span class="line">    &#123;</span><br><span class="line">        ans[k--] = (a[i--] - <span class="string">&#x27;0&#x27;</span>) + (b[j--] - <span class="string">&#x27;0&#x27;</span>); <span class="comment">//我们让我们的数组存储每一位相加的结果注意将字符串转为整型数字</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//检测是否有某个数的高位未加完将其直接存入数组中</span></span><br><span class="line">    <span class="keyword">while</span> (j &gt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ans[k--] = (b[j--] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &gt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ans[k--] = (a[i--] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    string c = <span class="string">&quot;&quot;</span>;                  <span class="comment">//创建一个字符串去存储答案</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) <span class="comment">//因为之前的竖式加每一位都没考虑进位所以我们从最后开始检查进位</span></span><br><span class="line">    &#123;                               <span class="comment">//因为是加法如果有进位最多也就进一</span></span><br><span class="line">        <span class="keyword">if</span> (ans[i] &gt;= <span class="number">10</span>)           <span class="comment">//如果大于10说明应该进位那么我们让此位减10它的高一位加1</span></span><br><span class="line">        &#123;</span><br><span class="line">            ans[i] -= <span class="number">10</span>;</span><br><span class="line">            ans[i - <span class="number">1</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line">        c.<span class="built_in">insert</span>(<span class="number">0</span>, <span class="number">1</span>, ans[i] + <span class="string">&#x27;0&#x27;</span>); <span class="comment">//处理后的结果转化为字符插入结果字符的首位</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ans[<span class="number">0</span>] &gt; <span class="number">0</span>) <span class="comment">//检查最最高位是否大于0如果两数相加没有进位那么这一位就是0我们就不必存储它否则则放入字符串</span></span><br><span class="line">    &#123;</span><br><span class="line">        c.<span class="built_in">insert</span>(<span class="number">0</span>, <span class="number">1</span>, ans[<span class="number">0</span>] + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c; <span class="comment">//返回答案</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * tSub  高精减法</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">string <span class="title">tSub</span><span class="params">(string a, string b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string c = <span class="string">&quot;&quot;</span>;           <span class="comment">//创建一个字符串去存储答案</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">tCompare</span>(a, b) == <span class="number">0</span>) <span class="comment">//先比较一下两数大小如果相等我们直接返回0即可</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">tCompare</span>(a, b) == <span class="number">-1</span>) <span class="comment">//如果a&lt;b那么我们交换两数的值同时在答案字符串中先放入一个负号</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">swap</span>(a, b);</span><br><span class="line">        c.<span class="built_in">push_back</span>(<span class="string">&#x27;-&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line">    <span class="comment">//开辟一个足够存储结果的数组  减法结果的位数最多为位数最多的那个数的位数我们保证了a为的大数所以就是a的位数</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="type">int</span> i = a.<span class="built_in">size</span>() - <span class="number">1</span>, j = b.<span class="built_in">size</span>() - <span class="number">1</span>, k = n - <span class="number">1</span>; <span class="comment">//从个位开始模拟竖式减法</span></span><br><span class="line">    <span class="type">int</span> t = <span class="number">0</span>;                                         <span class="comment">//表示低位的借位情况  0:无借位   1:有借位</span></span><br><span class="line">    <span class="keyword">while</span> (i &gt;= <span class="number">0</span>)                                     <span class="comment">//同加法一样模拟运算我们知道a是大数所以a遍历完竖式才完成</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">char</span> nowb; <span class="comment">//被减数当前位有数就正常减 没有数说明就是0</span></span><br><span class="line">        <span class="keyword">if</span> (j &gt;= <span class="number">0</span>)</span><br><span class="line">            nowb = b[j];</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            nowb = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        ans[k] = a[i] - nowb - t; <span class="comment">//对应位相减同时减去低位的借位</span></span><br><span class="line">        <span class="keyword">if</span> (ans[k] &lt; <span class="number">0</span>)           <span class="comment">//如果结果小于0 则向高位借一位</span></span><br><span class="line">        &#123;</span><br><span class="line">            t = <span class="number">1</span>;</span><br><span class="line">            ans[k] += <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            t = <span class="number">0</span>;     <span class="comment">//否则向高位无借位</span></span><br><span class="line">        k--, i--, j--; <span class="comment">//继续判断高一位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">bool</span> flag = <span class="literal">true</span>; <span class="comment">//这里与加法不同高位可能出现多个零开头的情况我们需要找到第一不是零的地方再存数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (flag &amp;&amp; ans[i] == <span class="number">0</span>) <span class="comment">//如果当前数为0且未存数则不执行存数操作</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        flag = <span class="literal">false</span>; <span class="comment">//一旦存入数更改标志位</span></span><br><span class="line">        c.<span class="built_in">push_back</span>(ans[i] + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c; <span class="comment">//返回结果</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * tMul  高精乘法</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">string <span class="title">tMul</span><span class="params">(string a, string b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a == <span class="string">&quot;0&quot;</span> || b == <span class="string">&quot;0&quot;</span>) <span class="comment">//其中有一个为0时直接返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; ans; <span class="comment">//开辟一个足够存储结果的数组</span></span><br><span class="line">    <span class="type">int</span> n = a.<span class="built_in">size</span>(), m = b.<span class="built_in">size</span>();</span><br><span class="line">    ans.<span class="built_in">resize</span>(n + m, <span class="number">0</span>);       <span class="comment">//乘法结果的位数最多为两数的位数之和</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="comment">//这里从高位开始和从低位开始无所谓我们将两数相乘的结果不考虑放到对应位上最后去检测进位即可</span></span><br><span class="line">    &#123;                           <span class="comment">//例如个位乘百位的结果 以及十位乘十位的结果 都放到百位上</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            ans[i + j + <span class="number">1</span>] += (a[i] - <span class="string">&#x27;0&#x27;</span>) * (b[j] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = n + m - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) <span class="comment">//我们从低位开始检查进位</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (ans[i] &gt;= <span class="number">10</span>) <span class="comment">//如果大于10说明有进位但乘法的进位不一定只进1</span></span><br><span class="line">        &#123;</span><br><span class="line">            ans[i - <span class="number">1</span>] += (ans[i] / <span class="number">10</span>); <span class="comment">//高位加地位的高于个位部分</span></span><br><span class="line">            ans[i] %= <span class="number">10</span>;                <span class="comment">//低位对十求余</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    string c = <span class="string">&quot;&quot;</span>;    <span class="comment">//创建字符串存储答案</span></span><br><span class="line">    <span class="type">bool</span> flag = <span class="literal">true</span>; <span class="comment">//同减法一样找到第一个不是0的位置开始存数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> t = <span class="number">0</span>; t &lt; n + m; t++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (flag &amp;&amp; ans[t] == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        flag = <span class="literal">false</span>;</span><br><span class="line">        c.<span class="built_in">push_back</span>(ans[t] + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c; <span class="comment">//返回答案</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * tDiv  高精除法</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">vector&lt;string&gt; <span class="title">tDiv</span><span class="params">(string a, string b)</span> <span class="comment">//高精除法</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">ans</span><span class="params">(<span class="number">2</span>, <span class="string">&quot;0&quot;</span>)</span></span>; <span class="comment">//先创建两个字符串空间去存储答案一个存商一个存余数</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">tCompare</span>(a, b) == <span class="number">-1</span>)   <span class="comment">//如果被除数比除数小商为0余数为a返回答案即可</span></span><br><span class="line">    &#123;</span><br><span class="line">        ans[<span class="number">1</span>] = a;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">tCompare</span>(a, b) == <span class="number">0</span>) <span class="comment">//如果被除数与除数相等商为1余数为0返回答案即可</span></span><br><span class="line">    &#123;</span><br><span class="line">        ans[<span class="number">0</span>] = <span class="string">&quot;1&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">//否则我们需要模拟除法的竖式来进行计算</span></span><br><span class="line">    &#123;</span><br><span class="line">        string res = <span class="string">&quot;&quot;</span>; <span class="comment">//创建存储商的字符串</span></span><br><span class="line">        <span class="type">int</span> m1 = a.<span class="built_in">size</span>(), m2 = b.<span class="built_in">size</span>();</span><br><span class="line">        string a1 = a.<span class="built_in">substr</span>(<span class="number">0</span>, m2 - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = m2 - <span class="number">1</span>; i &lt; m1; i++) <span class="comment">//模拟竖式从高位开始依次取数减去除数能减几个该位商的当前位就是几</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (a1 == <span class="string">&quot;0&quot;</span>) <span class="comment">//如果a1为0为了防止a1出现0开头的情况我们将它清空</span></span><br><span class="line">                a1 = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            a<span class="number">1.</span><span class="built_in">push_back</span>(a[i]); <span class="comment">//我们从被除数中取一个数放入a1继续减</span></span><br><span class="line">            <span class="type">int</span> e = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (<span class="built_in">tCompare</span>(a1, b) &gt;= <span class="number">0</span>) <span class="comment">//当a1大于等于除数时便一直减同时e累加</span></span><br><span class="line">            &#123;</span><br><span class="line">                e++;</span><br><span class="line">                a1 = <span class="built_in">tSub</span>(a1, b);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (res.<span class="built_in">size</span>() || e) <span class="comment">//如果res不为空或者e不为0我们存储他</span></span><br><span class="line">                res.<span class="built_in">push_back</span>(e + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        ans[<span class="number">0</span>] = res; <span class="comment">//最后res就是商</span></span><br><span class="line">        ans[<span class="number">1</span>] = a1;  <span class="comment">// a1就是余数</span></span><br><span class="line">        <span class="keyword">return</span> ans;   <span class="comment">//返回答案</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * tfac  高精阶乘</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">string <span class="title">tfac</span><span class="params">(string a)</span> <span class="comment">//高精阶乘</span></span></span><br><span class="line"><span class="function"></span>&#123;                     <span class="comment">/*我们还可以利用高精度减法和乘法实现大数的阶乘(最大可运行出10000左右的阶乘)*/</span></span><br><span class="line">    <span class="keyword">if</span> (a == <span class="string">&quot;1&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">tMul</span>(a, <span class="built_in">tfac</span>(<span class="built_in">tSub</span>(a, <span class="string">&quot;1&quot;</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 高精度快速幂</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">string <span class="title">tPow</span><span class="params">(string a, string b)</span> <span class="comment">//高精快速幂</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="string">&quot;0&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;1&quot;</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (b == <span class="string">&quot;1&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        string ans = <span class="built_in">tPow</span>(a, <span class="built_in">tDiv</span>(b, <span class="string">&quot;2&quot;</span>)[<span class="number">0</span>]);</span><br><span class="line">        ans = <span class="built_in">tMul</span>(ans, ans);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">tDiv</span>(b, <span class="string">&quot;2&quot;</span>)[<span class="number">1</span>] == <span class="string">&quot;1&quot;</span>)</span><br><span class="line">            ans = <span class="built_in">tMul</span>(ans, a);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 高精度快速幂取模</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> * @param c</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">string <span class="title">tPowMod</span><span class="params">(string a, string b, string c)</span> <span class="comment">//高精快速幂取模</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="string">&quot;0&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;1&quot;</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (b == <span class="string">&quot;1&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">tDiv</span>(<span class="built_in">tMul</span>(a, <span class="string">&quot;1&quot;</span>), c)[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        string ans = <span class="built_in">tPowMod</span>(a, <span class="built_in">tDiv</span>(b, <span class="string">&quot;2&quot;</span>)[<span class="number">0</span>], c);</span><br><span class="line">        ans = <span class="built_in">tDiv</span>(<span class="built_in">tMul</span>(ans, ans), c)[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">tDiv</span>(b, <span class="string">&quot;2&quot;</span>)[<span class="number">1</span>] == <span class="string">&quot;1&quot;</span>)</span><br><span class="line">            ans = <span class="built_in">tDiv</span>(<span class="built_in">tMul</span>(ans, a), c)[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 高精度欧拉函数</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">string <span class="title">tEuler</span><span class="params">(string a)</span> <span class="comment">//高精欧拉函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string ans = a;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= <span class="built_in">sqrt</span>(<span class="built_in">stoi</span>(a)); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">tDiv</span>(a, <span class="built_in">to_string</span>(i))[<span class="number">1</span>] == <span class="string">&quot;0&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = <span class="built_in">tMul</span>(ans, <span class="built_in">to_string</span>(i - <span class="number">1</span>));</span><br><span class="line">            ans = <span class="built_in">tDiv</span>(ans, <span class="built_in">to_string</span>(i))[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">while</span> (<span class="built_in">tDiv</span>(a, <span class="built_in">to_string</span>(i))[<span class="number">1</span>] == <span class="string">&quot;0&quot;</span>)</span><br><span class="line">                a = <span class="built_in">tDiv</span>(a, <span class="built_in">to_string</span>(i))[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (a != <span class="string">&quot;1&quot;</span>)</span><br><span class="line">        ans = <span class="built_in">tMul</span>(ans, <span class="built_in">tSub</span>(a, <span class="string">&quot;1&quot;</span>));</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 高精度取模</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param a</span></span><br><span class="line"><span class="comment"> * @param b</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">string <span class="title">tMod</span><span class="params">(string a, string b)</span> <span class="comment">//高精取模</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">tDiv</span>(a, b)[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string a, b;</span><br><span class="line">    string add_ans, subtract_ans, multiply_ans, factorial_ans;</span><br><span class="line">    vector&lt;string&gt; divide_ans;</span><br><span class="line">    <span class="type">int</span> compare_ans;</span><br><span class="line">    cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line"></span><br><span class="line">    compare_ans = <span class="built_in">tCompare</span>(a, b);</span><br><span class="line">    cout &lt;&lt; compare_ans &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    add_ans = <span class="built_in">tadd</span>(a, b);</span><br><span class="line">    cout &lt;&lt; add_ans &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    subtract_ans = <span class="built_in">tSubtract</span>(a, b);</span><br><span class="line">    cout &lt;&lt; subtract_ans &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    multiply_ans = <span class="built_in">tMultiply</span>(a, b);</span><br><span class="line">    cout &lt;&lt; multiply_ans &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    divide_ans = <span class="built_in">tDivide</span>(a, b);</span><br><span class="line">    cout &lt;&lt; divide_ans[<span class="number">0</span>] &lt;&lt; endl</span><br><span class="line">         &lt;&lt; divide_ans[<span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//    factorial_ans=myFactorial(a);</span></span><br><span class="line">    <span class="comment">//    cout&lt;&lt;factorial_ans&lt;&lt;endl;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//......................................................................................</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.kayleh.top/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/comments.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/utils.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/motion.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/sidebar.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/next-boot.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/pjax.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/search/local-search.min.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/chat/tidio.min.js"></script>
+
+
+
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/fancybox.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/pace.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/addtoany.min.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.kayleh.top/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/math/mathjax.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"8d77662f59f2a8e06db0f013d1d9d70c"}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/comments/gitalk.min.js"></script>
+
+</body>
+</html>

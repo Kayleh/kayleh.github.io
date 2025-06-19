@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://cdn.kayleh.top" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.kayleh.top/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/config.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="页面缓存和对象缓存">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Java高性能高并发秒杀系统(6)">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%20-%20%E5%89%AF%E6%9C%AC%20(5).html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="页面缓存和对象缓存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:\Blog\source_posts\Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F\20200714171300573.png">
+<meta property="og:image" content="d:\Blog\source_posts\Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F\20200714222548967.png">
+<meta property="og:image" content="d:\Blog\source_posts\Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F\20200714222755538.png">
+<meta property="og:image" content="d:\Blog\source_posts\Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F\20200714223101420.png">
+<meta property="og:image" content="d:\Blog\source_posts\Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F\20200715211412343.png">
+<meta property="article:published_time" content="2020-11-08T04:14:45.000Z">
+<meta property="article:modified_time" content="2025-06-19T04:57:47.329Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:\Blog\source_posts\Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F\20200714171300573.png">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/drafts/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%20-%20%E5%89%AF%E6%9C%AC%20(5)">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.kayleh.top/drafts/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%20-%20%E5%89%AF%E6%9C%AC%20(5).html","path":"drafts/Java高性能高并发秒杀系统 - 副本 (5).html","title":"Java高性能高并发秒杀系统(6)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java高性能高并发秒杀系统(6) | Kayleh's Blog
+</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-rss"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>RSS</a></li><li class="menu-item menu-item-travelling"><span class="exturl" data-url="aHR0cHM6Ly93d3cudHJhdmVsbGluZ3MuY24vZ28uaHRtbA=="><i class="fa fa-train-subway fa-fw"></i>开往</span></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">1. 页面缓存优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%9C%AA%E7%BB%8F%E4%BC%98%E5%8C%96%E4%B9%8B%E5%89%8D%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 未经优化之前的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BC%98%E5%8C%96%E4%BA%A7%E7%94%9F%E7%9A%84%E6%94%B9%E5%8F%98"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 优化产生的改变</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AF%B9%E8%B1%A1%E7%BC%93%E5%AD%98%E4%B8%8E%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0"><span class="nav-number">2.</span> <span class="nav-text">2. 对象缓存与缓存更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%AF%B9%E8%B1%A1%E7%BC%93%E5%AD%98"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 对象缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 缓存更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%A1%B5%E9%9D%A2%E9%9D%99%E6%80%81%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">3. 页面静态化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%B0%86%E5%95%86%E5%93%81%E8%AF%A6%E6%83%85%E9%A1%B5%E8%BF%9B%E8%A1%8C%E9%9D%99%E6%80%81%E5%8C%96%E5%A4%84%E7%90%86%EF%BC%88%E8%AE%A2%E5%8D%95%E8%AF%A6%E6%83%85%E4%B9%9F%E5%81%9A%E4%BA%86%E9%9D%99%E6%80%81%E5%8C%96%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 将商品详情页进行静态化处理（订单详情也做了静态化）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-%E5%AF%B9%E5%90%8E%E7%AB%AF%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 对后端代码进行处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-%E5%AF%B9%E5%89%8D%E7%AB%AF%E8%B7%B3%E8%BD%AC%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 对前端跳转的修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-3-%E5%9C%A8application-properties%E4%B8%AD%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 在application.properties中配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-POST%E8%AF%B7%E6%B1%82%E5%92%8CGET%E8%AF%B7%E6%B1%82%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">4. POST请求和GET请求的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E8%A7%A3%E5%86%B3%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">5. 解决超卖问题</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="https://cdn.kayleh.top/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Java高性能高并发秒杀系统(6)<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvZHJhZnRzL0phdmHpq5jmgKfog73pq5jlubblj5Hnp5LmnYDns7vnu58gLSDlia/mnKwgKDUpLm1k" title="编辑"><i class="fa fa-pen-nib"></i></span>
+</h1>
+
+<div class="post-meta-container">
+    <div class="post-description">页面缓存和对象缓存</div>
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h2 id="1-页面缓存优化"><a href="#1-页面缓存优化" class="headerlink" title="1. 页面缓存优化"></a>1. 页面缓存优化</h2><h3 id="1-1-未经优化之前的代码"><a href="#1-1-未经优化之前的代码" class="headerlink" title="1.1 未经优化之前的代码"></a>1.1 未经优化之前的代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@RequestMapping(&quot;/to_list&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toList</span><span class="params">(Model model,MiaoShaUser user)</span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line">        List&lt;GoodsVo&gt; goodsVos = goodsService.listGoodsVo();</span><br><span class="line">        model.addAttribute(<span class="string">&quot;goodsList&quot;</span>,goodsVos);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;goods_list&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="number">1234567</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-优化产生的改变"><a href="#1-2-优化产生的改变" class="headerlink" title="1.2 优化产生的改变"></a>1.2 优化产生的改变</h3><p><img data-src="D:\Blog\source_posts\Java高性能高并发秒杀系统\20200714171300573.png" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value = &quot;/to_list&quot;,produces = &quot;text/html&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">toList</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Model model, MiaoShaUser user)</span>&#123;</span><br><span class="line">    model.addAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line">    <span class="comment">//在有缓存的情况下，取出缓存</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">html</span> <span class="operator">=</span> redisService.get(GoodsKey.goodsKeyPrefix, <span class="string">&quot;&quot;</span>, String.class);</span><br><span class="line">    <span class="keyword">if</span>(! StringUtils.isEmpty(html)) <span class="keyword">return</span> html;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在没有缓存的时候，手动渲染，添加缓存</span></span><br><span class="line">    List&lt;GoodsVo&gt; goodsVos = goodsService.listGoodsVo();</span><br><span class="line">    model.addAttribute(<span class="string">&quot;goodsList&quot;</span>,goodsVos);</span><br><span class="line">    <span class="type">IWebContext</span> <span class="variable">ctx</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">WebContext</span>(request,response,request.getServletContext(),request.getLocale(),model.asMap());</span><br><span class="line">    html = thymeleafViewResolver.getTemplateEngine().process(<span class="string">&quot;goods_list&quot;</span>,ctx);<span class="comment">//这里需要注入IContext</span></span><br><span class="line">    <span class="keyword">if</span>(!StringUtils.isEmpty(html))&#123;</span><br><span class="line">        redisService.set(GoodsKey.goodsKeyPrefix,<span class="string">&quot;&quot;</span>,html);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> html;</span><br><span class="line">    <span class="comment">//return &quot;goods_list&quot;;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>首先，我们应用缓存，一定要引入RedisService</li>
+</ul>
+<ol>
+<li>@RequestMapping(value &#x3D; “&#x2F;to_list”,<code>produces = &quot;text/html&quot;</code>)produces标注了返回值的类型，必须与@ResponseBody搭配使用</li>
+<li>手动渲染过程中，我们要注入<code>ThymeleafViewResolver</code>，这个是框架给我们准备好的Bean，利用它来渲染页面，其中第二个参数，需要注入<code>IContext</code></li>
+<li>在<code>Spring5</code>版本中，<code>SpringWebContext</code>已经没有了，我们需要使用<code>WebContext</code>来代替。它剔除了之前对ApplicationContext 过多的依赖，现在thymeleaf渲染不再过多依赖spring容器</li>
+<li>再者，我们对Redis缓存的时间设置了<code>60秒</code>的限制，超过60秒过期，这个时间不宜过长。在60秒内我们看到的网页一直一样是暂且可以接受的</li>
+</ol>
+<hr>
+<h2 id="2-对象缓存与缓存更新"><a href="#2-对象缓存与缓存更新" class="headerlink" title="2. 对象缓存与缓存更新"></a>2. 对象缓存与缓存更新</h2><h3 id="2-1-对象缓存"><a href="#2-1-对象缓存" class="headerlink" title="2.1 对象缓存"></a>2.1 对象缓存</h3><p>对象缓存，我们之前已经做过了一个，就是在MiaoshaService中的<code>getByToken</code>方法，通过token值，从Redis中获取对象信息。<br>这次，我们实现一个getById()方法，即通过Id值，从Redis中获取user对象。（对象缓存<code>没有设置过期时间</code>，而且对象缓存是<code>粒度最小</code>的缓存）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> MiaoShaUser <span class="title function_">getById</span><span class="params">(<span class="type">long</span> id)</span>&#123;</span><br><span class="line">        <span class="comment">//先从缓存中取</span></span><br><span class="line">        <span class="type">MiaoShaUser</span> <span class="variable">user</span> <span class="operator">=</span> redisService.get(MiaoShaUserKey.idPrefix, <span class="string">&quot;&quot;</span> + id, MiaoShaUser.class);</span><br><span class="line">        <span class="keyword">if</span>(user != <span class="literal">null</span>) <span class="keyword">return</span> user;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//缓存中没有，从数据库中取，并且把它添加到缓存中</span></span><br><span class="line">        user = miaoShaUserDao.getById(id);</span><br><span class="line">        <span class="keyword">if</span>(user != <span class="literal">null</span>) redisService.set(MiaoShaUserKey.idPrefix,<span class="string">&quot;&quot;</span> + id,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="number">1234567891011</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-缓存更新"><a href="#2-2-缓存更新" class="headerlink" title="2.2 缓存更新"></a>2.2 缓存更新</h3><p>我们模拟一个场景，我们要对密码进行修改，那么缓存也需要修改，现在先列出视频中给的方法，通过Id值取出用户，修改数据库，之后，对token-user缓存进行修改，id-user缓存进行删除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">updatePassword</span><span class="params">(<span class="type">long</span> id,String formPass,String token)</span>&#123;</span><br><span class="line">        <span class="comment">//取出user</span></span><br><span class="line">        <span class="type">MiaoShaUser</span> <span class="variable">user</span> <span class="operator">=</span> getById(id);</span><br><span class="line">        <span class="comment">//没有这个用户</span></span><br><span class="line">        <span class="keyword">if</span>(user == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">GlobalException</span>(CodeMsg.MOBILE_NOT_EXIST);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//修改密码，更新数据库</span></span><br><span class="line">        user.setPassword(MD5Util.formPassToDBPass(formPass,user.getSalt()));</span><br><span class="line">        miaoShaUserDao.update(user);</span><br><span class="line">        <span class="comment">//更新缓存,token-user缓存（登陆用的）这个不能删除，id-user缓存删除</span></span><br><span class="line">        redisService.set(MiaoShaUserKey.getTokenPrefix,token,user);</span><br><span class="line">        redisService.delete(MiaoShaUserKey.idPrefix,id);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="number">123456789101112131415</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>个人理解</strong>：我们上网时的多数场景，修改完密码之后都要我们进行重新登录，而且在我们这个项目中，登录的过程中会对token-user缓存进行重新添加，那么我们在修改密码的时候，可以直接将token-user和id-user全部都删除，而不需要对其中的缓存进行值的修改。</li>
+</ul>
+<hr>
+<h2 id="3-页面静态化"><a href="#3-页面静态化" class="headerlink" title="3. 页面静态化"></a>3. 页面静态化</h2><h3 id="3-1-将商品详情页进行静态化处理（订单详情也做了静态化）"><a href="#3-1-将商品详情页进行静态化处理（订单详情也做了静态化）" class="headerlink" title="3.1 将商品详情页进行静态化处理（订单详情也做了静态化）"></a>3.1 将商品详情页进行静态化处理（订单详情也做了静态化）</h3><p>通常情况下，页面不采用第一种缓存的方式实现优化，而是通过静态化处理，比较常用的技术有Vue。通过静态化处理，我们将页面缓存在客户端浏览器中，不需要与服务器交互就能访问到页面。</p>
+<p>以下，我们用JQuery实现。</p>
+<h4 id="3-1-1-对后端代码进行处理"><a href="#3-1-1-对后端代码进行处理" class="headerlink" title="3.1.1 对后端代码进行处理"></a>3.1.1 对后端代码进行处理</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@RequestMapping(value = &quot;/detail/&#123;goodsId&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> Result&lt;GoodsDetailVo&gt; <span class="title function_">toDetail</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Model model, MiaoShaUser user, <span class="meta">@PathVariable(&quot;goodsId&quot;)</span> <span class="type">long</span> goodsId)</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">GoodsVo</span> <span class="variable">goodsVo</span> <span class="operator">=</span> goodsService.getGoodsVoByGoodsId(goodsId);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//秒杀开始、结束时间，当前时间</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">startDate</span> <span class="operator">=</span> goodsVo.getStartDate().getTime();</span><br><span class="line">        <span class="type">long</span> <span class="variable">endDate</span> <span class="operator">=</span> goodsVo.getEndDate().getTime();</span><br><span class="line">        <span class="type">long</span> <span class="variable">now</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//秒杀状态，0为没开始，1为正在进行，2为秒杀已经结束</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">miaoshaStatus</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//距离秒杀剩余的时间</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">remainSeconds</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(now &lt; startDate)&#123;</span><br><span class="line">            <span class="comment">//秒杀没开始，进行倒计时</span></span><br><span class="line">            remainSeconds = (<span class="type">int</span>) (startDate - now) / <span class="number">1000</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(now &gt; endDate)&#123;</span><br><span class="line">            <span class="comment">//秒杀已经结束</span></span><br><span class="line">            miaoshaStatus = <span class="number">2</span>;</span><br><span class="line">            remainSeconds = -<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//秒杀进行时</span></span><br><span class="line">            remainSeconds = <span class="number">0</span>;</span><br><span class="line">            miaoshaStatus = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">GoodsDetailVo</span> <span class="variable">goodsDetailVo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GoodsDetailVo</span>();</span><br><span class="line">        goodsDetailVo.setGoods(goodsVo);</span><br><span class="line">        goodsDetailVo.setUser(user);</span><br><span class="line">        goodsDetailVo.setMiaoshaStatus(miaoshaStatus);</span><br><span class="line">        goodsDetailVo.setRemainSeconds(remainSeconds);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Result.success(goodsDetailVo);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="number">123456789101112131415161718192021222324252627282930313233343536</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>@RequestMapping中，去掉produces属性</li>
+<li><code>去掉Model向前端传值的逻辑</code>，只留下业务处理过程，并将所需要的的值封装在<code>GoodsDetailVo</code>对象中</li>
+<li><code>注意事项</code>在GoodsDetailVo中的属性字段要与前端所需要的字段名保持一致，如下所示，这样才能获取</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GoodsDetailVo</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> miaoshaStatus;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> remainSeconds;</span><br><span class="line">    <span class="keyword">private</span> GoodsVo goods;</span><br><span class="line">    <span class="keyword">private</span> MiaoShaUser user;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">12345678</span></span><br></pre></td></tr></table></figure>
+
+<p>对应前端<br><img data-src="D:\Blog\source_posts\Java高性能高并发秒杀系统\20200714222548967.png" alt="在这里插入图片描述"></p>
+<h4 id="3-1-2-对前端跳转的修改"><a href="#3-1-2-对前端跳转的修改" class="headerlink" title="3.1.2 对前端跳转的修改"></a>3.1.2 对前端跳转的修改</h4><p>我们从商品列表页面跳转到商品详情页，修改为如下<br><img data-src="D:\Blog\source_posts\Java高性能高并发秒杀系统\20200714222755538.png" alt="在这里插入图片描述"><br>注意其中<code>/goods_detail.htm</code>，它是放在static目录下的静态资源，为了防止视图解析器的跳转，将<code>html写为htm</code><br><img data-src="D:\Blog\source_posts\Java高性能高并发秒杀系统\20200714223101420.png" alt="在这里插入图片描述"></p>
+<h4 id="3-1-3-在application-properties中配置"><a href="#3-1-3-在application-properties中配置" class="headerlink" title="3.1.3 在application.properties中配置"></a>3.1.3 在application.properties中配置</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">static</span></span><br><span class="line">spring.resources.add-mappings=<span class="literal">true</span></span><br><span class="line">spring.resources.cache.period= <span class="number">3600</span> #缓存时间</span><br><span class="line">spring.resources.chain.cache=<span class="literal">true</span> </span><br><span class="line">spring.resources.chain.enabled=<span class="literal">true</span></span><br><span class="line">#spring.resources.chain.gzipped=<span class="literal">true</span></span><br><span class="line">spring.resources.chain.html-application-cache=<span class="literal">true</span></span><br><span class="line">spring.resources.<span class="keyword">static</span>-locations=classpath:/<span class="keyword">static</span>/</span><br><span class="line"><span class="number">12345678</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-POST请求和GET请求的区别"><a href="#4-POST请求和GET请求的区别" class="headerlink" title="4. POST请求和GET请求的区别"></a>4. POST请求和GET请求的区别</h2><ul>
+<li>GET：这个请求是幂等的，从服务端获取数据，反复获取不会对数据有影响。因为GET因为是读取，就可以对GET请求的数据做缓存。这个缓存可以做到浏览器本身上（彻底避免浏览器发请求），也可以做到代理上（如nginx），或者做到server端（用Etag，至少可以减少带宽消耗）</li>
+<li>POST：该请求是不幂等的，它会在页面表单上提交数据，请求服务器的响应，往往会对数据进行修改</li>
+</ul>
+<h2 id="5-解决超卖问题"><a href="#5-解决超卖问题" class="headerlink" title="5. 解决超卖问题"></a>5. 解决超卖问题</h2><ol>
+<li>当多个线程同时读取到同一个库存数量时，防止超卖，修改SQL语句</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#添加stock_count <span class="operator">&gt;</span> <span class="number">0</span>的条件</span><br><span class="line"><span class="keyword">update</span> miaosha_goods <span class="keyword">set</span> stock_count <span class="operator">=</span> stock_count <span class="operator">-</span> <span class="number">1</span> <span class="keyword">where</span> goods_id <span class="operator">=</span> #&#123;goodsId&#125; <span class="keyword">and</span> stock_count <span class="operator">&gt;</span> <span class="number">0</span></span><br><span class="line"><span class="number">12</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>防止同一个用户秒杀多个，添加唯一索引，绑定user_id和goods_id，这样同一个用户对同一个商品的秒杀订单是唯一的</li>
+</ol>
+<p><img data-src="D:\Blog\source_posts\Java高性能高并发秒杀系统\20200715211412343.png" alt="在这里插入图片描述"></p>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.kayleh.top/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/comments.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/utils.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/motion.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/sidebar.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/next-boot.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/pjax.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/search/local-search.min.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/chat/tidio.min.js"></script>
+
+
+
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/fancybox.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/pace.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/addtoany.min.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.kayleh.top/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/math/mathjax.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"a1fb38392f030db8d2afb14d5058131e"}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/comments/gitalk.min.js"></script>
+
+</body>
+</html>

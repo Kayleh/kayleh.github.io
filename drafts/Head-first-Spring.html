@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://cdn.kayleh.top" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.kayleh.top/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/config.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="SpringBeanDefinitionBeanDefinition表示Bean定义，Spring根据BeanDefinition来创建Bean对象，BeanDefinition有很多的属性来描述Bean，BeanDefinition是Spring中非常核心的概念。 BeanDefinition中重要的属性   beanClass  表示一个Bean的类型，比如UserService.class,">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Head first Spring">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/Head-first-Spring.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="SpringBeanDefinitionBeanDefinition表示Bean定义，Spring根据BeanDefinition来创建Bean对象，BeanDefinition有很多的属性来描述Bean，BeanDefinition是Spring中非常核心的概念。 BeanDefinition中重要的属性   beanClass  表示一个Bean的类型，比如UserService.class,">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.javazhiyin.com/wp-content/uploads/2019/05/java10-1558500659.jpg">
+<meta property="article:published_time" content="2021-08-01T15:18:53.000Z">
+<meta property="article:modified_time" content="2025-06-19T04:57:47.327Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="framework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.javazhiyin.com/wp-content/uploads/2019/05/java10-1558500659.jpg">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/drafts/Head-first-Spring">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.kayleh.top/drafts/Head-first-Spring.html","path":"drafts/Head-first-Spring.html","title":"Head first Spring"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Head first Spring | Kayleh's Blog
+</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-rss"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>RSS</a></li><li class="menu-item menu-item-travelling"><span class="exturl" data-url="aHR0cHM6Ly93d3cudHJhdmVsbGluZ3MuY24vZ28uaHRtbA=="><i class="fa fa-train-subway fa-fw"></i>开往</span></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring"><span class="nav-number">1.</span> <span class="nav-text">Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BeanDefinition"><span class="nav-number">1.1.</span> <span class="nav-text">BeanDefinition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BeanFactory"><span class="nav-number">1.2.</span> <span class="nav-text">BeanFactory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FactoryBean"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">FactoryBean</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.3.</span> <span class="nav-text">Bean的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%9E%E4%BE%8B%E5%8C%96Bean"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">1. 实例化Bean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AE%BE%E7%BD%AE%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%EF%BC%88%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">2. 设置对象属性（依赖注入）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B3%A8%E5%85%A5Aware%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">3. 注入Aware接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-BeanPostProcessor"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">4. BeanPostProcessor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-InitializingBean%E4%B8%8Einit-method"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">5. InitializingBean与init-method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-DisposableBean%E5%92%8Cdestroy-method"><span class="nav-number">1.3.0.6.</span> <span class="nav-text">6. DisposableBean和destroy-method</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ApplicationContext"><span class="nav-number">1.4.</span> <span class="nav-text">ApplicationContext</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-EnvironmentCapable"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">1. EnvironmentCapable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ListableBeanFactory-%E5%92%8C-HierarchicalBeanFactory"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">2. ListableBeanFactory 和 HierarchicalBeanFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-MessageSource"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">3. MessageSource</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-ApplicationEventPublisher"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">4. ApplicationEventPublisher</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-ResourcePatternResolver"><span class="nav-number">1.4.0.5.</span> <span class="nav-text">5. ResourcePatternResolver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Spring%E5%BA%94%E7%94%A8%E5%92%8CBean%E5%AE%B9%E5%99%A8"><span class="nav-number">1.4.0.6.</span> <span class="nav-text">6. Spring应用和Bean容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E5%BA%94%E7%94%A8%E6%9E%84%E6%88%90"><span class="nav-number">1.4.0.7.</span> <span class="nav-text">7. 应用构成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E7%BB%A7%E6%89%BF%E4%BD%93%E7%B3%BB%E6%A0%B8%E5%BF%83"><span class="nav-number">1.4.0.8.</span> <span class="nav-text">8. 继承体系核心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-ApplicationContext%E6%9B%B4%E5%85%B7%E4%BD%93%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.0.9.</span> <span class="nav-text">9. ApplicationContext更具体的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E4%BB%8EJava%E7%B1%BB%E5%8A%A0%E8%BD%BD%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.0.10.</span> <span class="nav-text">10. 从Java类加载配置的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E4%BD%BF%E7%94%A8%E6%B3%A8%E8%A7%A3%E9%85%8D%E7%BD%AEbean%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.0.11.</span> <span class="nav-text">11. 使用注解配置bean原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E6%89%AB%E6%8F%8F%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.0.12.</span> <span class="nav-text">12. 扫描配置的原理</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="https://cdn.kayleh.top/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Head first Spring<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvZHJhZnRzL0hlYWQtZmlyc3QtU3ByaW5nLm1k" title="编辑"><i class="fa fa-pen-nib"></i></span>
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="BeanDefinition"><a href="#BeanDefinition" class="headerlink" title="BeanDefinition"></a>BeanDefinition</h2><p>BeanDefinition表示Bean定义，Spring根据BeanDefinition来创建Bean对象，<br>BeanDefinition有很多的属性来描述Bean，BeanDefinition是Spring中非常核心<br>的概念。</p>
+<p>BeanDefinition中重要的属性</p>
+<blockquote>
+<ul>
+<li>beanClass</li>
+</ul>
+<p>表示一个Bean的类型，比如UserService.class,Spring在创建Bean的过程中会根据此属性来实例化得到对象。</p>
+<ul>
+<li>scope</li>
+</ul>
+<p>表示一个bean的作用域，</p>
+<p>scope等于singleton，该bean就是一个单例bean</p>
+<p>scope等于prototype，该bean就是一个原型bean</p>
+<ul>
+<li>isLazy</li>
+</ul>
+<p>表示一个bean是不是需要懒加载，原型bean的isLazy属性不起作用，懒加载的单例的Bean，会在第一次getBean的时候生成该bean，非懒加载的单例bean，则会在Spring启动过程中直接生成好。</p>
+<ul>
+<li>dependsOn</li>
+</ul>
+<p>表示一个bean在创建之前所依赖的，它所依赖的这些bean得先全部创建好。</p>
+<ul>
+<li>primary</li>
+</ul>
+<p>表示一个bean是主bean，在Spring中一个类型可以有多个bean对象，在进行依赖注入时，如果根据类型找到了多个bean，此时会判断这些bean中是否存在一个主bean，如果存在，则直接将这个bean注入给属性</p>
+<ul>
+<li>initMethodName</li>
+</ul>
+<p>表示一个bean的初始化方法，一个bean的生命周期过程中有一个步骤叫初始化。Spring会在这个步骤中去调用bean的初始化方法，初始化逻辑由程序员自己控制，表示程序员可以自定义逻辑对bean进行加工。</p>
+</blockquote>
+<h2 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h2><p>它可以用来创建bean、获取bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BeanDefinition -----------&gt; BeanFactory -----------&gt; Bean</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>BeanFactory将利用BeanDefinition来生成Bean对象，BeanDefinition就相当于BeanFactory的原材料，Bean对象就相当于BeanFactory所生产的出来的产品。</p>
+<p><strong>定义方法：</strong></p>
+<ul>
+<li>getBean(String name): Spring容器中获取对应Bean对象的方法，如存在，则返回该对象</li>
+<li>containsBean(String name)：Spring容器中是否存在该对象</li>
+<li>isSingleton(String name)：通过beanName是否为单例对象</li>
+<li>isPrototype(String name)：判断bean对象是否为多例对象</li>
+<li>isTypeMatch(String name, ResolvableType typeToMatch):判断name值获取出来的bean与typeToMath是否匹配</li>
+<li>getType(String name)：获取Bean的Class类型</li>
+<li>getAliases(String name):获取name所对应的所有的别名</li>
+</ul>
+<p><strong>主要的实现类(包括抽象类)：</strong></p>
+<ul>
+<li>AbstractBeanFactory：抽象Bean工厂，绝大部分的实现类，都是继承于他</li>
+<li><strong>DefaultListableBeanFactory</strong>:Spring默认的工厂类</li>
+<li>XmlBeanFactory：前期使用XML配置用的比较多的时候用的Bean工厂</li>
+<li>AbstractXmlApplicationContext:抽象应用容器上下文对象</li>
+<li>ClassPathXmlApplicationContext:XML解析上下文对象，用户创建Bean对象我们早期写Spring的时候用的就是他</li>
+</ul>
+<h4 id="FactoryBean"><a href="#FactoryBean" class="headerlink" title="FactoryBean"></a>FactoryBean</h4><p>该类是SpringIOC容器是创建Bean的一种形式，这种方式创建Bean会有加成方式，融合了简单的工厂设计模式于装饰器模式。</p>
+<p>FactoryBean是一个工厂Bean，可以生成某一个类型Bean实例，它最大的一个作用是：可以让我们自定义Bean的创建过程。</p>
+<p>而BeanFactory是Spring容器中的一个基本类也是很重要的一个类，在BeanFactory中可以创建和管理Spring容器中的Bean，它对于Bean的创建有一个统一的流程。</p>
+<blockquote>
+<p>有些人就要问了，我直接使用Spring默认方式创建Bean不香么，为啥还要用FactoryBean做啥，</p>
+<p>在某些情况下，对于实例Bean对象比较复杂的情况下，使用传统方式创建bean会比较复杂，例如（使用xml配置），这样就出现了FactoryBean接口，可以让用户通过实现该接口来自定义该Bean接口的实例化过程。即包装一层，将复杂的初始化过程包装，让调用者无需关系具体实现细节。</p>
+</blockquote>
+<p><strong>方法：</strong></p>
+<ul>
+<li>T getObject()：返回实例</li>
+<li>Class&lt;?&gt; getObjectType();:返回该装饰对象的Bean的类型</li>
+<li>default boolean isSingleton():Bean是否为单例</li>
+</ul>
+<p><strong>常用类：</strong></p>
+<ul>
+<li>ProxyFactoryBean :Aop代理Bean</li>
+<li>GsonFactoryBean:Gson</li>
+</ul>
+<h2 id="Bean的生命周期"><a href="#Bean的生命周期" class="headerlink" title="Bean的生命周期"></a>Bean的生命周期</h2><p><img data-src="https://www.javazhiyin.com/wp-content/uploads/2019/05/java10-1558500659.jpg" alt="深究Spring中Bean的生命周期"></p>
+<p><strong>Bean 完整的生命周期</strong></p>
+<p>文字解释如下：</p>
+<p>————————————初始化————————————</p>
+<ul>
+<li>BeanNameAware.setBeanName() 在创建此bean的bean工厂中设置bean的名称，在普通属性设置之后调用，在InitializinngBean.afterPropertiesSet()方法之前调用</li>
+<li><code>BeanClassLoaderAware.setBeanClassLoader()</code>: 在普通属性设置之后，InitializingBean.afterPropertiesSet()之前调用</li>
+<li>BeanFactoryAware.setBeanFactory() : 回调提供了自己的bean实例工厂，在普通属性设置之后，在InitializingBean.afterPropertiesSet()或者自定义初始化方法之前调用</li>
+<li><code>EnvironmentAware.setEnvironment()</code>: 设置environment在组件使用时调用</li>
+<li><code>EmbeddedValueResolverAware.setEmbeddedValueResolver()</code>: 设置StringValueResolver 用来解决嵌入式的值域问题</li>
+<li><code>ResourceLoaderAware.setResourceLoader()</code>: 在普通bean对象之后调用，在afterPropertiesSet 或者自定义的init-method 之前调用，在 ApplicationContextAware 之前调用。</li>
+<li><code>ApplicationEventPublisherAware.setApplicationEventPublisher()</code>: 在普通bean属性之后调用，在初始化调用afterPropertiesSet 或者自定义初始化方法之前调用。在 ApplicationContextAware 之前调用。</li>
+<li><code>MessageSourceAware.setMessageSource()</code>: 在普通bean属性之后调用，在初始化调用afterPropertiesSet 或者自定义初始化方法之前调用，在 ApplicationContextAware 之前调用。</li>
+<li>ApplicationContextAware.setApplicationContext(): 在普通Bean对象生成之后调用，在InitializingBean.afterPropertiesSet之前调用或者用户自定义初始化方法之前。在ResourceLoaderAware.setResourceLoader，ApplicationEventPublisherAware.setApplicationEventPublisher，MessageSourceAware之后调用。</li>
+<li><code>ServletContextAware.setServletContext()</code>: 运行时设置ServletContext，在普通bean初始化后调用，在InitializingBean.afterPropertiesSet之前调用，在 ApplicationContextAware 之后调用<strong>注：是在WebApplicationContext 运行时</strong></li>
+<li>BeanPostProcessor.postProcessBeforeInitialization() : 将此BeanPostProcessor 应用于给定的新bean实例 在任何bean初始化回调方法(像是InitializingBean.afterPropertiesSet或者自定义的初始化方法）之前调用。这个bean将要准备填充属性的值。返回的bean示例可能被普通对象包装，默认实现返回是一个bean。</li>
+<li>BeanPostProcessor.postProcessAfterInitialization() : 将此BeanPostProcessor 应用于给定的新bean实例 在任何bean初始化回调方法(像是InitializingBean.afterPropertiesSet或者自定义的初始化方法)之后调用。这个bean将要准备填充属性的值。返回的bean示例可能被普通对象包装</li>
+<li>InitializingBean.afterPropertiesSet(): 被BeanFactory在设置所有bean属性之后调用(并且满足BeanFactory 和 ApplicationContextAware)。</li>
+</ul>
+<p>————————————销毁————————————</p>
+<p>在BeanFactory 关闭的时候，Bean的生命周期会调用如下方法:</p>
+<ul>
+<li><code>DestructionAwareBeanPostProcessor.postProcessBeforeDestruction()</code>: 在销毁之前将此BeanPostProcessor 应用于给定的bean实例。能够调用自定义回调，像是DisposableBean 的销毁和自定义销毁方法，这个回调仅仅适用于工厂中的单例bean(包括内部bean)</li>
+<li>实现了自定义的destory()方法</li>
+</ul>
+<h4 id="1-实例化Bean"><a href="#1-实例化Bean" class="headerlink" title="1. 实例化Bean"></a>1. 实例化Bean</h4><p>对于BeanFactory容器，当客户向容器请求一个尚未初始化的bean时，或初始化bean的时候需要注入另一个尚未初始化的依赖时，容器就会调用createBean进行实例化。<br>对于ApplicationContext容器，当容器启动结束后，便实例化所有的bean。<br>容器通过获取BeanDefinition对象中的信息进行实例化。并且这一步仅仅是简单的实例化，并未进行依赖注入。<br>实例化对象被包装在BeanWrapper对象中，BeanWrapper提供了设置对象属性的接口，从而避免了使用反射机制设置属性。</p>
+<h4 id="2-设置对象属性（依赖注入）"><a href="#2-设置对象属性（依赖注入）" class="headerlink" title="2. 设置对象属性（依赖注入）"></a>2. 设置对象属性（依赖注入）</h4><p>实例化后的对象被封装在BeanWrapper对象中，并且此时对象仍然是一个原生的状态，并没有进行依赖注入。<br>紧接着，Spring根据BeanDefinition中的信息进行依赖注入。<br>并且通过BeanWrapper提供的设置属性的接口完成依赖注入。</p>
+<h4 id="3-注入Aware接口"><a href="#3-注入Aware接口" class="headerlink" title="3. 注入Aware接口"></a>3. 注入Aware接口</h4><p>紧接着，Spring会检测该对象是否实现了xxxAware接口，并将相关的xxxAware实例注入给bean。</p>
+<h4 id="4-BeanPostProcessor"><a href="#4-BeanPostProcessor" class="headerlink" title="4. BeanPostProcessor"></a>4. BeanPostProcessor</h4><p>当经过上述几个步骤后，bean对象已经被正确构造，但如果你想要对象被使用前再进行一些自定义的处理，就可以通过BeanPostProcessor接口实现。<br>该接口提供了两个函数：</p>
+<ul>
+<li>postProcessBeforeInitialzation( Object bean, String beanName )<br>当前正在初始化的bean对象会被传递进来，我们就可以对这个bean作任何处理。<br>这个函数会先于InitialzationBean执行，因此称为前置处理。<br>所有Aware接口的注入就是在这一步完成的。</li>
+<li>postProcessAfterInitialzation( Object bean, String beanName )<br>当前正在初始化的bean对象会被传递进来，我们就可以对这个bean作任何处理。<br>这个函数会在InitialzationBean完成后执行，因此称为后置处理。</li>
+</ul>
+<h4 id="5-InitializingBean与init-method"><a href="#5-InitializingBean与init-method" class="headerlink" title="5. InitializingBean与init-method"></a>5. InitializingBean与init-method</h4><p>当BeanPostProcessor的前置处理完成后就会进入本阶段。<br>InitializingBean接口只有一个函数：</p>
+<ul>
+<li>afterPropertiesSet()</li>
+</ul>
+<p>这一阶段也可以在bean正式构造完成前增加我们自定义的逻辑，但它与前置处理不同，由于该函数并不会把当前bean对象传进来，因此在这一步没办法处理对象本身，只能增加一些额外的逻辑。<br>若要使用它，我们需要让bean实现该接口，并把要增加的逻辑写在该函数中。然后Spring会在前置处理完成后检测当前bean是否实现了该接口，并执行afterPropertiesSet函数。</p>
+<p>当然，Spring为了降低对客户代码的侵入性，给bean的配置提供了init-method属性，该属性指定了在这一阶段需要执行的函数名。Spring便会在初始化阶段执行我们设置的函数。init-method本质上仍然使用了InitializingBean接口。</p>
+<h4 id="6-DisposableBean和destroy-method"><a href="#6-DisposableBean和destroy-method" class="headerlink" title="6. DisposableBean和destroy-method"></a>6. DisposableBean和destroy-method</h4><p>和init-method一样，通过给destroy-method指定函数，就可以在bean销毁前执行指定的逻辑。</p>
+<h2 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ApplicationContext</span></span><br><span class="line"><span class="keyword">extends</span> </span><br><span class="line"><span class="title class_">EnvironmentCapable</span>,  <span class="comment">// 继承环境对象容器接口</span></span><br><span class="line">ListableBeanFactory,  </span><br><span class="line">HierarchicalBeanFactory, <span class="comment">// 继承beanFactory</span></span><br><span class="line">MessageSource,  <span class="comment">// 集成消息解析器</span></span><br><span class="line">ApplicationEventPublisher, <span class="comment">// 继承应用事件发布器</span></span><br><span class="line">ResourcePatternResolver <span class="comment">// 继承模式资源解析器</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-EnvironmentCapable"><a href="#1-EnvironmentCapable" class="headerlink" title="1. EnvironmentCapable"></a>1. EnvironmentCapable</h4><p>首先，一个应用应该有自己的环境上下文。<code>ApplicationContext</code>继承了EnvironmentCapable。非常简单一接口, 但能为应用提供统一的配置入口。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public interface EnvironmentCapable &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Return the &#123;@link Environment&#125; associated with this component.</span><br><span class="line">     */</span><br><span class="line">    Environment getEnvironment();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>环境对象<code>Environment</code>是应用配置的核心。主要有两个方面的功能，一个是关于应用Property的配置，另一方面是关于Profile的配置。</p>
+<p>这层抽象的作用是，无论配置从何而来，只要通过Environment对象实例就能获得。</p>
+<p>在Environment类之下，还有一层<code>PropertySource</code>。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public abstract class PropertySource&lt;T&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>Property</code>不是Bean Property。仅管它们在概念上有共通之处，但应用属性只是一个更简单的键值对，不包含额外的上下文。更准确的说，Property是一个键到一个值的映射，键是字符串，值可以是任何类型的对象（大部分情况下也是字符串）。</p>
+<p>例如，从实现类<code>SystemEnvironmentPropertySource</code>将读取系统的环境变量。</p>
+<p>同样，可以无限继承PropertySource，实现不同来源的配置读取。Spring默认读取系统的环境变量和运行jvm时提供的变量。所有这些PropertySource被<code>Environment</code>放入一个队列中，逐个读取，直至提供的键获得了对应的值。因此，在队列前端的PropertySource提供的属性优先级比后面的高。例如，通过Environment对象，要求一个”password”属性时，如果在第一个PropertySource里查找到了这个值，就不会再找下一个值。</p>
+<p>Profile 功能是环境的运行描述。例如，如果当前是在test环境下运行，则将profile设置为”test”，应用可以根据这个值来调整自己的行为。</p>
+<h4 id="2-ListableBeanFactory-和-HierarchicalBeanFactory"><a href="#2-ListableBeanFactory-和-HierarchicalBeanFactory" class="headerlink" title="2. ListableBeanFactory 和 HierarchicalBeanFactory"></a>2. ListableBeanFactory 和 HierarchicalBeanFactory</h4><p>这两个是组件容器的核心接口。 注意，<code>ApplicationContext</code>是直接继承了<code>ListableBeanFactory</code>, 而不是<code>BeanFactory</code>。后者比前者少了一些枚举接口。</p>
+<p>继承这两个接口也就是意味着，我们的应用是一个组件容器。</p>
+<p>而众所周知，ApplicationContext不仅是一个组件容器，还是一个Ioc容器，提供依赖注入功能。什么是依赖注入呢？这与类的实例化有关。假如有一个类A, 它有一个依赖类B。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line">    private B b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果类B的实例是在类A外实例化的话，则称之为依赖反转。显然，在这种情况下，我们需要通过某种方式，使B的实例能顺利赋值给b，于是——</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line">    private B b;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">    * 构造器可以赋值一个b。</span><br><span class="line">    */</span><br><span class="line">    public A(B b)&#123;</span><br><span class="line">        this.b = b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">    * setter也可以。</span><br><span class="line">    */</span><br><span class="line">    public setB(B b)&#123;</span><br><span class="line">        this.b = b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>反之，在传统情况下，B是在A中实例化的。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class A&#123;</span><br><span class="line">    private B b;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">    * 构造器可以赋值一个b。</span><br><span class="line">    */</span><br><span class="line">    public A()&#123;</span><br><span class="line">        this.b = new B();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们把前面那种注入依赖，而不是实例化依赖的方法称为依赖注入。Spring 就像是一个按照菜谱做菜的厨师，我们声明这个类的依赖是什么，那个类的依赖又是什么，然后Spring帮我们把每个依赖实例化好，然后注入到对应的bean中。</p>
+<h4 id="3-MessageSource"><a href="#3-MessageSource" class="headerlink" title="3. MessageSource"></a>3. MessageSource</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public interface MessageSource &#123;</span><br><span class="line"></span><br><span class="line">    @Nullable</span><br><span class="line">    String getMessage(String code, @Nullable Object[] args, @Nullable String defaultMessage, Locale locale);</span><br><span class="line"></span><br><span class="line">    String getMessage(String code, @Nullable Object[] args, Locale locale) throws NoSuchMessageException;</span><br><span class="line"></span><br><span class="line">    String getMessage(MessageSourceResolvable resolvable, Locale locale) throws NoSuchMessageException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>应用还是应该是一个消息解析器。这玩意乍看之下似乎和<code>Environment</code>的功能没什么区别。实际上，形式上确实也没多少区别，只是应用的场景下不太一样，<code>MessageSource</code>提供跨语言环境的支撑。</p>
+<p>例如我们需要一段文本，这段文本提供了更新信息。 但不巧的是， 我们是个跨国公司，需要提供不同语言的版本。硬编码是一个方法。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(inChinese)&#123;</span><br><span class="line">    text = &quot;版本3.2&quot;;</span><br><span class="line">&#125;else(inEnglish)&#123;</span><br><span class="line">    text = &quot;Version3.2&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>MessageSource</code>提供了不同的思路。所谓消息就是文本的代号。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">code = &quot;application.version&quot;;</span><br><span class="line">Locale locale = getCurrentLocale(); // Locale对象标定了当前使用哪种语言</span><br><span class="line">text = messageSource.getMessage(code, locale);</span><br></pre></td></tr></table></figure>
+
+<p>想想一些国外游戏的所谓“中文资源包”，就是这些code到中文翻译文本的映射，游戏本身只是编码上这个code，提供什么资源包，就显示什么语言。</p>
+<h4 id="4-ApplicationEventPublisher"><a href="#4-ApplicationEventPublisher" class="headerlink" title="4. ApplicationEventPublisher"></a>4. ApplicationEventPublisher</h4><p>Spring应用提供发布事件功能。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public interface ApplicationEventPublisher &#123;</span><br><span class="line"></span><br><span class="line">    default void publishEvent(ApplicationEvent event) &#123;</span><br><span class="line">        publishEvent((Object) event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void publishEvent(Object event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>事件发布是一种编程模式，是回调编程的一个变种。具体而言，就是我们可以在Spring上发布一个事件，然后Spring会寻找这个容器的监听器，然后调用监听器的代码。</p>
+<p>例如，Spring 应用关闭后，会发布一个应用关闭事件。 应用代码可以注册这个事件的监听器， 处理一些资源关闭事件。</p>
+<p>但这个模式最强的地方在于，它能把业务逻辑流程高度抽象起来，然后在这些抽象的流程中间插入事件发布。例如一个订单业务，遵循下单-付款-发货-收货，即可以抽象出对应的事件，如果我们想在用户下单时，弹出一些优惠提示，我们就可以注册一个下单事件的监听器来进行这个工作。一旦优惠截止，只需要卸载这个监听器即可。</p>
+<p>有意无意的，事件流描述了一个应用逻辑流程的生命周期各个重要的节点。所以经常的，当你发现只要是涉及生命周期这个话题时，事件出镜率总是非常高。事实上，对于这个模式强编码出类似于”publish”和”event”的描述，确实有些过度抽象的嫌疑。这种命名方式对于业务逻辑代码的自说明性并不友好，不过意思就只是这么个意思。</p>
+<h4 id="5-ResourcePatternResolver"><a href="#5-ResourcePatternResolver" class="headerlink" title="5. ResourcePatternResolver"></a>5. ResourcePatternResolver</h4><p>这是一个有趣的话题。一个<code>ResourcePatternResolver</code>是一个<code>ResourceLoader</code>。但前者比后者比多一个模式匹配的接口。通常，我们认为一个资源位置字符串代表了一个资源，但一个模式字符串可以匹配多个资源。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Resource[] getResources(String locationPattern) throws IOException;</span><br></pre></td></tr></table></figure>
+
+<p>所谓资源，在java的定义中，是一段字节流。文件是一段命名字节流，网络消息是一段字节流，内存是一块大字节数组……诸如此类，Resource接口抽象出这些来源，提供共同的操作接口。即从应用代码的角度出发，你不再需要管它是一个File还是一个URI，只需要老实调用<code>getInputStream()</code>或<code>readableChannel()</code>方法就可以了。</p>
+<p>Spring的配置文件就是通过<code>ResourcePatternResolver</code>读取的。触类旁通，你当然也可以通过它来获得你想要的文件，无论它在classpath下、一个本地文件还是一个网络位置。</p>
+<h4 id="6-Spring应用和Bean容器"><a href="#6-Spring应用和Bean容器" class="headerlink" title="6. Spring应用和Bean容器"></a>6. Spring应用和Bean容器</h4><p>Bean 即应用组件。Spring的容器功能是由BeanFactory提供的。BeanFactory不预设任何关于应用的信息。总得说来，它只做三件事情：</p>
+<ol>
+<li>管理BeanDefinition。</li>
+<li>响应获得某个特定组件的请求</li>
+<li>在各个组件的生命周期事件里调用相应的回调</li>
+</ol>
+<p>应用(application)当然是由组件(component)组成的，所以无疑BeanFactory是一个非常重要的部分。</p>
+<p>但我们觉得application应该是可定制的。因此，对于BeanFactory，应用提供了<code>BeanFactoryPostProcessor</code>接口。application从beanFactory中查找<code>BeanFactoryPostProcessor</code>，然后用这个接口来完成诸如注册额外bean的功能。</p>
+<p>另外，application还在组件容器注册了一些特殊的bean，即Environment，ApplicationEventPublisher等。这意味着，这些对象在应用的任意组件中是可用的。</p>
+<p>由于组件容器的特殊性质，application常做的事情就是查找bean容器里的bean，然后用这些bean来配置应用，甚至是bean容器本身。例如，bean容器不预设关于应用的信息，它甚至不会配置bean的生命周期回调类，需要appliction帮它从容器中查到关于<code>BeanPostProcessor</code>的信息，然后注册到bean容器上。此外，application常用到一种风格，即提前注册<code>BeanPostProcessor</code>去处理某一种实现了某种接口的对象，例如<code>ApplicationListenerDetector</code>, 注册所有<code>ApplicationListener</code>，而<code>ApplicationContextAwareProcessor</code>处理<code>EmbeddedValueResolverAware</code>,<code>ResourceLoaderAware</code>在内的多个接口。</p>
+<h4 id="7-应用构成"><a href="#7-应用构成" class="headerlink" title="7. 应用构成"></a>7. 应用构成</h4><p>实际上的应用构成就只是上面实现的接口。但值得注意的是，spring并不直接实现这些接口，应用就好像一个超级代理类，虽然它声称自己实现了这些接口，但实际上却是派发到其它类去执行这个工作。</p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public Object getBean(String name) throws BeansException &#123;</span><br><span class="line">    assertBeanFactoryActive();</span><br><span class="line">    return getBeanFactory().getBean(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显然，application没有打算自己去获得bean，而是派发这个任务给内部的beanFactory。</p>
+<p>这直接导致了spring应用是强组装性的，你可以任意替换一些组件完成自己的工作。不过，对于beanFactory并不推荐如此做（不妨碍它可以这么干），因为里面涉及大量的接口协定，如果你不是spring的开发人员，很容易在一些细微的地方搞出问题。</p>
+<h4 id="8-继承体系核心"><a href="#8-继承体系核心" class="headerlink" title="8. 继承体系核心"></a>8. 继承体系核心</h4><p><code>AbstractApplicationContext</code>是spring应用继承体系的核心。这个类实现了应用的一般流程，一方面，它实现了ApplicationContext接口本身的内容，诸如id,displayname之类的描述性信息，另一方面，它通过或者代理或者继承的方式实现了父接口的内容。</p>
+<p>在重点方法<code>AbstractApplicationContext.refresh</code>方法实现了：</p>
+<ol>
+<li>初始化应用状态</li>
+<li>调用refreshBeanFactory（由子类实现）刷新内部的beanFactory。此时，它假设beanfacotry已经加载了配置好的bean组件。</li>
+<li>向beanFacotry中注入通用组件，注入environment，注册通用beanPostProcessor等等。</li>
+<li>调用子类的beanFactory处理方法（在调用beanFactoryPostProcessor时给子类一个机会介入）。</li>
+<li>调用beanFactoryPostProcessor。注意，对于Configuration类定义的配置，或者扫描实现的配置，是在这个时期把bean定义加载入beanFactory的。此外，spring会在beanFactory中自动寻找beanFactoryPostProcessor，但也可以通过<code>ConfigurableApplicationContext</code>接口手动注册。</li>
+<li>在beanFactory其它配置完成后，注册所有其它的beanPostProcessor。</li>
+<li>完成其它如messageSource, ApplicationEventMulticaster组件的初始化工作。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException &#123;</span><br><span class="line"> <span class="keyword">synchronized</span> (<span class="built_in">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line"> <span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line"> prepareRefresh();</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line"> <span class="type">ConfigurableListableBeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line"> prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line"> <span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line"> postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line"> invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line"> registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Initialize message source for this context.</span></span><br><span class="line"> initMessageSource();</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line"> initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line"> onRefresh();</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Check for listener beans and register them.</span></span><br><span class="line"> registerListeners();</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line"> finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line"> finishRefresh();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line"> <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line"> logger.warn(<span class="string">&quot;Exception encountered during context initialization - &quot;</span> +</span><br><span class="line"> <span class="string">&quot;cancelling refresh attempt: &quot;</span> + ex);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line"> destroyBeans();</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Reset &#x27;active&#x27; flag.</span></span><br><span class="line"> cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Propagate exception to caller.</span></span><br><span class="line"> <span class="keyword">throw</span> ex;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">finally</span> &#123;</span><br><span class="line"> <span class="comment">// Reset common introspection caches in Spring&#x27;s core, since we</span></span><br><span class="line"> <span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line"> resetCommonCaches();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以说 AbstractApplicationContext 已经将高层的应用逻辑抽象得十分完备，现在只剩下加载初始化的bean组件到beanFactory这一件事了。</p>
+<p>因此，AbstractApplicationContext只留下了三个接口给子类实现，它们分别是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">protected abstract void refreshBeanFactory() throws BeansException, IllegalStateException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">protected abstract void closeBeanFactory();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public abstract ConfigurableListableBeanFactory getBeanFactory() throws IllegalStateException;</span><br></pre></td></tr></table></figure>
+
+<p>其中，refreshBeanFactory要做的事情就是加载所有初始化的bean组件。</p>
+<h4 id="9-ApplicationContext更具体的实现"><a href="#9-ApplicationContext更具体的实现" class="headerlink" title="9. ApplicationContext更具体的实现"></a>9. ApplicationContext更具体的实现</h4><p>针对<code>AbstractApplicationContext</code>这一设定，spring又提供了两个分支的子类型。</p>
+<p>一方面，在前者的基础上，重新提供了<code>AbstractRefreshableApplicationContext</code>子类型。此类型继承<code>AbstractApplicationContext</code>，为<code>refreshBeanFactory</code>方法提供了一个逻辑实现——如果已有beanFactory刷新过了，则先关闭它，然后重建一个，并且为它加载bean定义。它提供了一个<code>loadBeanDefinitions</code>方法给子类实现。至于子类从哪加载，如何加载，并不过问。</p>
+<p>另一方面<code>GenericApplicationContext</code>则是直接实现了<code>AbstractApplicationContext</code>。这也是我们目前看到的第一个非抽象类。它的刷新方法<code>refreshBeanFactory</code>非常简单, 只是判断是否刷新过，如果刷新过就抛异常。在加载bean定义这件事上，它并不交给子类去做，而是自己实现了一个<code>BeanDefinitionRegistry</code>，也就是说将bean定义从哪里来的事情交给了外部类来考虑。</p>
+<p>回到<code>AbstractRefreshableApplicationContext</code>类的这条线上。<code>loadBeanDefinitions</code>方法没有提到如何加载bean定义，<code>AbstractRefreshableConfigApplicationContext</code>补上了这个缺陷，它认为所有的bean定义应该从configLocations处加载。但是，美中不足的是，这个类仍然没有说明configLocations应该是什么，从代码来看，它仅仅只是个字符串数组。</p>
+<p>每个location可以解释为一个xml的位置，于是<code>AbstractXmlApplicationContext</code>应运而生。它将location解释为xml，并将xml的内容加载为beanDefinition注册到beanFactory中。此外，它提供了额外的Resource数组（内容必须是xml），使已经构建好的Resource对象不必再拆封装一次。然而，虽然这个类依然被声明为abstract，但它并没有提供更多的抽象方法。</p>
+<p>秘密在<code>AbstractApplicationContext</code>上。<code>AbstractApplicationContext</code>继承了<code>DefaultResourceLoader</code>以实现<code>ResourceLoader</code>接口。这个类在实现<code>getResource</code>方法的时候，提供了一个<code>getResourceByPath</code>方法。具体而言，逻辑是这样的，如果location以”&#x2F;“开头，则调用<code>getResourceByPath</code>方法，如果以”classpath:”开头，则搜索类路径，否则视作URL资源。</p>
+<p>于是，所有<code>AbstractApplicationContext</code>都可以覆盖<code>getResourceByPath</code>来实现自己的默认路径类型（也就是不带前缀，仅仅是以”&#x2F;“开头的路径，默认是classpath）。而在<code>AbstractXmlApplicationContext</code>中，this对象被用来加载资源。所以<code>AbstractXmlApplicationContext</code>只需要实现<code>getResourceByPath</code>来实现自己的特殊资源位置需求。</p>
+<p>例如<code>FileSystemXmlApplicationContext</code>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected Resource getResourceByPath(String path) &#123;</span><br><span class="line">    if (path.startsWith(&quot;/&quot;)) &#123;</span><br><span class="line">        path = path.substring(1);</span><br><span class="line">    &#125;</span><br><span class="line">    return new FileSystemResource(path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而<code>ClassPathXmlApplicationContext</code>会更简单，因为classpath是默认值，无须对此做任何覆盖。因此<code>ClassPathXmlApplicationContext</code>只做了一些简单的构造器重载，覆盖了<code>getConfigResources</code>方法。</p>
+<h4 id="10-从Java类加载配置的原理"><a href="#10-从Java类加载配置的原理" class="headerlink" title="10. 从Java类加载配置的原理"></a>10. 从Java类加载配置的原理</h4><p>加载Configuration类的原理在于，向beanFactory注册一个<code>ConfigurationClassPostProcessor</code>。这个类会循环加载Configuration定义。</p>
+<p>我们重新看一下在<code>AbstractApplicationContext</code>中，bean定义加载分成几个阶段。</p>
+<ol>
+<li>指示子类刷新BeanFactory，此时会加载bean的初始化定义。xml配置在这里读取。</li>
+<li>加载应用通用组件</li>
+<li>调用<code>BeanFacotryPostProcessor</code>，可能会发生bean的注册。</li>
+</ol>
+<p>顺便一说，有细心的同学可能会发现，这里有一个问题，如果说一个beanFacotryPostProcessor又加载了一个BeanFacotryPostProcessor定义应该怎么办？Spring定义了BeanFacotryPostProcessor的一个子接口BeanDefinitionRegistryPostProcessor，注册bean定义应该通过这个子接口来实现，spring首先会不断循环调用这个接口，直至没有新的BeanDefinitionRegistryPostProcessor注入，然后再调用一般的BeanFacotryPostProcessor。将一个主接口分成不同子接口的这种技巧在BeanPostProcessor也有体现。</p>
+<p>那么对于应用程序客户端来说最终的bean来源即可能有两个——通用组件没办法控制。所以，一方面，我们可以直接通过xml直接注册，另一方面，我们可以在初始注册的bean中加入一个<code>BeanFacotryPostProcessor</code>，然后这个<code>BeanFacotryPostProcessor</code>会注册bean定义。</p>
+<p>显然，我们可以首先注入一个<code>ConfigurationClassPostProcessor</code>实例，然后由<code>ConfigurationClassPostProcessor</code>提取beanFacotry中的Configuration。</p>
+<h4 id="11-使用注解配置bean原理"><a href="#11-使用注解配置bean原理" class="headerlink" title="11. 使用注解配置bean原理"></a>11. 使用注解配置bean原理</h4><p>前面说到的<code>BeanFacotryPostProcessor</code>可以注册bean。然而针对单个bean的配置时，我们需要用到<code>BeanPostProcessor</code>。ApplicationContext会自动注册<code>BeanPostProcessor</code>。在每个bean实例化的时候，<code>BeanPostProcessor</code>都会被调用。</p>
+<p>例如，<code>CommonAnnotationBeanPostProcessor</code>注册后，每次在bean创建的时候，就会识别并使用JSR-250注解。而<code>AutowiredAnnotationBeanPostProcessor</code>则识别和使用<code>@Autowired</code>注解。</p>
+<h4 id="12-扫描配置的原理"><a href="#12-扫描配置的原理" class="headerlink" title="12. 扫描配置的原理"></a>12. 扫描配置的原理</h4><p>在spring framework 中扫描的利用方式有三种。一种是在xml文件中配置扫描包，另一种则是调用<code>AnnotationConfigApplicationContext.scan()</code>方法，最后一种是在@Configuration类上提供@ComponentScan注解。</p>
+<p><code>ComponentScanBeanDefinitionParser</code>被用来在xml中配置扫描组件类，即配置了<code>@Component</code>的类，例如，在xml中配置了：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;component-scan/&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>ComponentScanBeanDefinitionParser.parse()</code>就会被调用。最后，这个parse方法会把真正的扫描工作分派给<code>ClassPathBeanDefinitionScanner</code>去完成扫描。</p>
+<p>显然，由于读取的是xml的配置，这里的bean扫描进的是初始化配置。</p>
+<p><code>AnnotationConfigApplicationContext</code>读取则是直接依赖<code>ClassPathBeanDefinitionScanner</code>来实现。前面提到<code>GenericApplicationContext</code>依靠自己读取bean定义，<code>AnnotationConfigApplicationContext</code>则是对它的增强，把注册方法聚拢在<code>scan</code>和<code>register</code>方法&#96;上。</p>
+<p>@ComponentScan 是与 @Configuration 一并被处理的标签。最终也是分派给ClassPathBeanDefinitionScanner完成任务。</p>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.kayleh.top/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/comments.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/utils.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/motion.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/sidebar.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/next-boot.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/pjax.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/search/local-search.min.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/chat/tidio.min.js"></script>
+
+
+
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/fancybox.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/pace.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/addtoany.min.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.kayleh.top/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/math/mathjax.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"b8cb8b9add30e28d7ee485dd23369eb1"}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/comments/gitalk.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://cdn.kayleh.top" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/mygo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/mygo.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.kayleh.top/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.kayleh.top/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.kayleh.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/config.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+    <meta name="description" content="增量(改变量) △x是自变量的增量，△y是因变量的增量 定义： f(x)在$x_0$的邻域内有定义，$△x\to 0$,$△y\to 0$ $$\lim_{x\to 0}△y&#x3D;\lim_{x\to 0} [f(x_0+△x)-f(x_0)]&#x3D;0$$ &amp;或者 $$\lim_{x\to x_0} f(x) &#x3D; f(x_0)$$ 那么就叫这个函数在这点$x_0$上是">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="连续">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E8%BF%9E%E7%BB%AD.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="增量(改变量) △x是自变量的增量，△y是因变量的增量 定义： f(x)在$x_0$的邻域内有定义，$△x\to 0$,$△y\to 0$ $$\lim_{x\to 0}△y&#x3D;\lim_{x\to 0} [f(x_0+△x)-f(x_0)]&#x3D;0$$ &amp;或者 $$\lim_{x\to x_0} f(x) &#x3D; f(x_0)$$ 那么就叫这个函数在这点$x_0$上是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600101409179.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600103890373.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600141661421.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600142602334.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600142774007.png">
+<meta property="og:image" content="https://blog.kayleh.top/drafts/1600142892062.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600143079362.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600144334745.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600144487842.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600145522288.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600161636813.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600162013682.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600164950987.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600167044079.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600167548596.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600168581142.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600169591606.png">
+<meta property="article:published_time" content="2020-09-14T07:53:48.000Z">
+<meta property="article:modified_time" content="2025-06-19T04:57:47.343Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600101409179.png">
+
+
+<link rel="canonical" href="https://blog.kayleh.top/drafts/%E8%BF%9E%E7%BB%AD">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://blog.kayleh.top/drafts/%E8%BF%9E%E7%BB%AD.html","path":"drafts/连续.html","title":"连续"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>连续 | Kayleh's Blog
+</title>
+  
+
+
+
+
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q44a4p85n0");
+</script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Kayleh's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-friends"><a href="/friends" rel="section"><i class="fa fa-heartbeat fa-fw"></i>friends</a></li><li class="menu-item menu-item-rss"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>RSS</a></li><li class="menu-item menu-item-travelling"><span class="exturl" data-url="aHR0cHM6Ly93d3cudHJhdmVsbGluZ3MuY24vZ28uaHRtbA=="><i class="fa fa-train-subway fa-fw"></i>开往</span></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F-%E6%94%B9%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">增量(改变量)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A6%E8%BF%9E%E7%BB%AD-x-0-delta-x-0"><span class="nav-number">2.</span> <span class="nav-text">左连续 $(x_0-\delta,x_0]$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%8C%BA%E9%97%B4%E4%B8%8A%E8%BF%9E%E7%BB%AD"><span class="nav-number">3.</span> <span class="nav-text">在区间上连续</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%B4%E6%96%AD%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">间断点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%B1%BB%E9%97%B4%E6%96%AD%E7%82%B9%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">第一类间断点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E9%97%B4%E6%96%AD%E7%82%B9%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">第二类间断点：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">例题：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="nav-number"></span> <span class="nav-text">运算法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AD%E5%8C%BA%E9%97%B4%E4%B8%8A%E8%BF%9E%E7%BB%AD%E6%80%A7%E8%B4%A8"><span class="nav-number"></span> <span class="nav-text">闭区间上连续性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%B6%E7%82%B9%E5%AD%98%E5%9C%A8%E5%AE%9A%E7%90%86"><span class="nav-number"></span> <span class="nav-text">零点存在定理</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kayleh"
+      src="/images/mygo.jpg">
+  <p class="site-author-name" itemprop="name">Kayleh</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaA==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kayleh"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlYnNpdGVAa2F5bGVoLnRvcA==" title="E-Mail → mailto:website@kayleh.top"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="https://cdn.kayleh.top/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">连续<span class="exturl post-edit-link" data-url="aHR0cHM6Ly9naXRodWIuY29tL2theWxlaC9rYXlsZWguZ2l0aHViLmlvMi9lZGl0L21hc3Rlci9zb3VyY2UvZHJhZnRzL+i/nue7rS5tZA==" title="编辑"><i class="fa fa-pen-nib"></i></span>
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h4 id="增量-改变量"><a href="#增量-改变量" class="headerlink" title="增量(改变量)"></a>增量(改变量)</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600101409179.png" alt="1600101409179"></p>
+<p>△x是自变量的增量，△y是因变量的增量</p>
+<p>定义：</p>
+<p>f(x)在$x_0$的邻域内有定义，$△x\to 0$,$△y\to 0$</p>
+<p>$$\lim_{x\to 0}△y&#x3D;\lim_{x\to 0} [f(x_0+△x)-f(x_0)]&#x3D;0$$</p>
+<p>&amp;或者</p>
+<p>$$\lim_{x\to x_0} f(x) &#x3D; f(x_0)$$</p>
+<p>那么就叫这个函数在这点$x_0$上是连续的</p>
+<p>1)在$x_0$处有定义</p>
+<p>2)$x\to x_0  f(x)$有极限</p>
+<p>3)极限&#x3D;在$x_0$处的定义，$f(x_0)$</p>
+<h4 id="左连续-x-0-delta-x-0"><a href="#左连续-x-0-delta-x-0" class="headerlink" title="左连续 $(x_0-\delta,x_0]$"></a>左连续 $(x_0-\delta,x_0]$</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600103890373.png" alt="1600103890373"></p>
+<p>在x_0处连续的充要条件是既是左连续也是右连续</p>
+<h4 id="在区间上连续"><a href="#在区间上连续" class="headerlink" title="在区间上连续"></a>在区间上连续</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600141661421.png" alt="1600141661421"></p>
+<h4 id="间断点"><a href="#间断点" class="headerlink" title="间断点"></a>间断点</h4><p>连续的条件</p>
+<p>1)在$x_0$处有定义</p>
+<p>2)$x\to x_0  f(x)$有极限</p>
+<p>3)极限&#x3D;定义</p>
+<ul>
+<li><p>无穷间断</p>
+<p>在$x_0$处没有定义</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600142602334.png" alt="1600142602334"></p>
+</li>
+<li><p>振荡</p>
+<p>$x\to x_0  f(x)$没有极限</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600142774007.png" alt="1600142774007"></p>
+</li>
+<li><p>跳跃</p>
+<p>左右极限不相等</p>
+<img data-src="1600142892062.png" alt="1600142892062" style="zoom:50%;" />
+</li>
+<li><p>可去</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600143079362.png" alt="1600143079362"></p>
+</li>
+</ul>
+<h3 id="第一类间断点："><a href="#第一类间断点：" class="headerlink" title="第一类间断点："></a>第一类间断点：</h3><p>左右极限均存在，<strong>跳跃</strong>、<strong>可去</strong>间断点</p>
+<h3 id="第二类间断点："><a href="#第二类间断点：" class="headerlink" title="第二类间断点："></a>第二类间断点：</h3><p>左右极限不存在，<strong>无穷间断</strong>、<strong>振荡</strong></p>
+<h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600144334745.png" alt="1600144334745"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600144487842.png" alt="1600144487842"></p>
+<p>左右极限都存在但不相等</p>
+<h2 id="运算法则"><a href="#运算法则" class="headerlink" title="运算法则"></a>运算法则</h2><p>四则运算 $f(x)±g(x).g(x)f(x).\frac{f(x)}{g(x)} (g(x)≠0)$ 依然连续</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600145522288.png" alt="1600145522288"></p>
+<p>例题：</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600161636813.png" alt="1600161636813"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600162013682.png" alt="1600162013682"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600164950987.png" alt="1600164950987"></p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600167044079.png" alt="1600167044079"></p>
+<p>$f(x)&#x3D; e^{lnf(x)}$、两个重要极限</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600167548596.png" alt="1600167548596"></p>
+<h2 id="闭区间上连续性质"><a href="#闭区间上连续性质" class="headerlink" title="闭区间上连续性质"></a>闭区间上连续性质</h2><p>(有界性) 如果在$[a,b]$上是连续的，有界</p>
+<p>(最值性) 如果在$[a,b]$上是连续的，b有最大最小值</p>
+<p>(介值性) 如果在$[a,b]$上是连续的，最小值m，最大值M，介于m和M之间的任意一个取值：m&lt;c&lt;M</p>
+<p>必存在一点$\xi$:  	$f(\xi)&#x3D;c$</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600168581142.png" alt="1600168581142"></p>
+<h3 id="零点存在定理"><a href="#零点存在定理" class="headerlink" title="零点存在定理"></a>零点存在定理</h3><p>[a,b]上是连续的，f(a)f(b)&lt;0 异号</p>
+<p>在(a,b)存在一点$\xi$，$f(\xi)&#x3D;0$</p>
+<p><img data-src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E8%BF%9E%E7%BB%AD/1600169591606.png" alt="1600169591606"></p>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kayleh</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.kayleh.top/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.kayleh.top/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/comments.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/utils.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/motion.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/sidebar.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/next-boot.min.js"></script><script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/pjax.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/search/local-search.min.js"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js"></script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/chat/tidio.min.js"></script>
+
+
+
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/fancybox.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/pace.min.js"></script>
+
+  <script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/addtoany.min.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.kayleh.top/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/math/mathjax.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Kayleh","repo":"kayleh.top.giscus","client_id":"Ov23ctwqy9CWIr2Blvye","client_secret":"d52582c3d76059c270aa5032bcb10106aaa0e3b9","admin_user":"Kayleh","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.kayleh.top/npm/gitalk@1.8.0/dist/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"91b3d8c26fdf975d654d01a0f6c6b730"}</script>
+<script src="https://cdn.kayleh.top/npm/hexo-theme-next@8.22.0/source/js/third-party/comments/gitalk.min.js"></script>
+
+</body>
+</html>
