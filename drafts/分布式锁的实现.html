@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="分布式锁的实现方式1 数据库乐观锁利用表的唯一索引行级锁进行加解锁，加锁： 1insert into methodLock(method_name,desc) values (‘method_name’,‘desc’)  释放锁，需要执行以下Sql: 1delete from methodLock where method_name &#x3D;&#x27;method_nam  另外还可以使用数据的排他锁">
+<meta property="og:type" content="website">
+<meta property="og:title" content="分布式锁的实现">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="分布式锁的实现方式1 数据库乐观锁利用表的唯一索引行级锁进行加解锁，加锁： 1insert into methodLock(method_name,desc) values (‘method_name’,‘desc’)  释放锁，需要执行以下Sql: 1delete from methodLock where method_name &#x3D;&#x27;method_nam  另外还可以使用数据的排他锁">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0/v2-1fd39e13d153b51d76efe2ba2a0170a1_720w.jpg">
+<meta property="article:published_time" content="2021-09-25T09:28:21.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.526Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="sql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0/v2-1fd39e13d153b51d76efe2ba2a0170a1_720w.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>分布式锁的实现</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h1 id="分布式锁的实现方式"><a href="#分布式锁的实现方式" class="headerlink" title="分布式锁的实现方式"></a>分布式锁的实现方式</h1><h2 id="1-数据库乐观锁"><a href="#1-数据库乐观锁" class="headerlink" title="1 数据库乐观锁"></a><strong>1 数据库乐观锁</strong></h2><p>利用表的唯一索引<strong>行级锁</strong>进行加解锁，加锁：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into methodLock(method_name,desc) values (‘method_name’,‘desc’)</span><br></pre></td></tr></table></figure>
+
+<p>释放锁，需要执行以下Sql:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete from methodLock where method_name =&#x27;method_nam</span><br></pre></td></tr></table></figure>
+
+<p>另外还可以使用数据的<strong>排他锁的形式加锁</strong>，例如加上 for update:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = select * from methodLock where method_name=xxx for update</span><br></pre></td></tr></table></figure>
+
+<p>在查询语句后面增加for update，数据库会在查询过程中给数据库表增加排他锁。当某条记录被加上排他锁之后，其他线程无法再在该行记录上增加排他锁。</p>
+<p><strong>DB锁存在的问题：</strong></p>
+<ul>
+<li>数据库单点故障，会导致业务系统不可用。</li>
+<li>这把锁没有失效时间，一旦解锁操作失败，就会导致锁记录一直在数据库中，其他线程无法再获得到锁。</li>
+<li>这把锁只能是非阻塞的，因为数据的insert操作，一旦插入失败就会直接报错。没有获得锁的线程并不会进入排队队列，要想再次获得锁就要再次触发获得锁操作。</li>
+<li>这把锁是不可重入的，同一个线程在没有释放锁之前无法再次获得该锁。因为数据中数据已经存在了。</li>
+</ul>
+<p><strong>DB锁问题解决方案：</strong></p>
+<ul>
+<li>数据库是单点？搞两个数据库，数据之前双向同步。一旦挂掉快速切换到备库上。</li>
+<li>没有失效时间？只要做一个定时任务，每隔一定时间把数据库中的超时数据清理一遍</li>
+<li>非阻塞的？搞一个while循环，直到insert成功再返回成功。</li>
+<li>非重入的？在数据库表中加个字段，记录当前获得锁的<strong>机器的主机信息和线程信息</strong>，那么下次再获取锁的时候先查询数据库，如果当前机器的主机信息和线程信息在数据库可以查到的话，直接把锁分配给他就可以了</li>
+</ul>
+<h2 id="2-redis-分布式锁"><a href="#2-redis-分布式锁" class="headerlink" title="2 redis 分布式锁"></a><strong>2 redis 分布式锁</strong></h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jedis.setnx(String key, String value, String nxxx, String expx, int time)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>· 第一个为key，我们使用key来当锁，因为key是唯一的。</li>
+<li>· 第二个为value，我们传的是requestId，分布式锁要满足第四个条件解铃还须系铃人，通过给value赋值为requestId，我们就知道这把锁是哪个请求加的了，在解锁的时候就可以有依据。requestId可以使用<code>UUID.randomUUID().toString()</code>方法生成。</li>
+<li>· 第三个为nxxx，这个参数我们填的是NX，意思是SET IF NOT EXIST，即当key不存在时，我们进行set操作；若key已经存在，则不做任何操作；</li>
+<li>· 第四个为expx，这个参数我们传的是PX，意思是我们要给这个key加一个过期的设置，具体时间由第五个参数决定。</li>
+<li>· 第五个为time，与第四个参数相呼应，代表key的过期时间。</li>
+</ul>
+<p>加锁还可以采用lua脚本形式：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String script = &quot;if redis.call(&#x27;get&#x27;, KEYS[1]) == ARGV[1] then return redis.call(&#x27;del&#x27;, KEYS[1]) else return 0 end&quot;;</span><br><span class="line">Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));</span><br></pre></td></tr></table></figure>
+
+<p><strong>错误加锁示例</strong>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void wrongGetLock1(Jedis jedis, String lockKey, String requestId, int expireTime) &#123;</span><br><span class="line">   Long result = jedis.setnx(lockKey, requestId);</span><br><span class="line">     if (result == 1) &#123;</span><br><span class="line">      // 若在这里程序突然崩溃，则无法设置过期时间，将发生死锁</span><br><span class="line">      jedis.expire(lockKey, expireTime);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>**原因：**两条Redis命令，不具有原子性，如果程序在执行完setnx()之后突然崩溃，导致锁没有设置过期时间。那么将会发生死锁。网上之所以有人这样实现，是因为低版本的jedis并不支持多参数的set()方法。</p>
+<p>释放锁的正确方式：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* 释放分布式锁</span><br><span class="line">* @param jedis Redis客户端</span><br><span class="line">* @param lockKey 锁</span><br><span class="line">* @param requestId 请求标识</span><br><span class="line">* @return 是否释放成功</span><br><span class="line">*/</span><br><span class="line">public static boolean releaseDistributedLock(Jedis jedis, String lockKey, String requestId) &#123;</span><br><span class="line"></span><br><span class="line">String script = &quot;if redis.call(&#x27;get&#x27;, KEYS[1]) == ARGV[1] then return redis.call(&#x27;del&#x27;, KEYS[1]) else return 0 end&quot;;</span><br><span class="line">Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));</span><br><span class="line"></span><br><span class="line">if (RELEASE_SUCCESS.equals(result)) &#123;</span><br><span class="line">return true;</span><br><span class="line">&#125;</span><br><span class="line">return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>释放锁错误示例1</strong></p>
+<p>最常见的解锁代码就是直接使用jedis.del()方法删除锁，这种不先判断锁的拥有者而直接解锁的方式，会导致任何客户端都可以随时进行解锁，即使这把锁不是它的。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static void wrongReleaseLock1(Jedis jedis, String lockKey) &#123;</span><br><span class="line"> jedis.del(lockKey);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>释放锁错误示例2</strong></p>
+<p>这种解锁代码乍一看也是没问题，与正确姿势差不多，唯一区别的是分成两条命令去执行，代码如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void wrongReleaseLock2(Jedis jedis, String lockKey, String requestId) &#123;</span><br><span class="line">// 判断加锁与解锁是不是同一个客户端</span><br><span class="line"> if (requestId.equals(jedis.get(lockKey))) &#123;</span><br><span class="line"> // 若在此时，这把锁突然不是这个客户端的，则会误解锁</span><br><span class="line"> jedis.del(lockKey);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-zookeeper-分布式锁"><a href="#3-zookeeper-分布式锁" class="headerlink" title="3 zookeeper 分布式锁"></a><strong>3 zookeeper 分布式锁</strong></h2><p>zk 是一种提供配置管理、分布式协同以及命名的中心化服务，用于集群配置中心管理，服务的注册监听等。zookeeper 分布式锁的实现利用zookeeper 管理配置中心的watcher机制（观察者模式），对竞争分布式锁的客户端维护了一张临时顺序表。表中每个节点代表一个客户端。</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0/v2-1fd39e13d153b51d76efe2ba2a0170a1_720w.jpg" alt="img"></p>
+<p>注意，某个客户端节点在会话结束或者会话超时后，zookeeper会自动删除该节点。</p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

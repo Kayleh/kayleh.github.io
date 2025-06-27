@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="实现分布式Session">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Java高性能高并发秒杀系统(3)">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%20-%20%E5%89%AF%E6%9C%AC%20(2).html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="实现分布式Session">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200710172401826.png">
+<meta property="article:published_time" content="2020-11-07T04:12:45.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.512Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200710172401826.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>Java高性能高并发秒杀系统(3)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h2 id="1-实现分布式Session"><a href="#1-实现分布式Session" class="headerlink" title="1. 实现分布式Session"></a>1. 实现分布式Session</h2><h3 id="1-1-原理图解"><a href="#1-1-原理图解" class="headerlink" title="1.1 原理图解"></a>1.1 原理图解</h3><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200710172401826.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><strong>作用</strong>：用<code>Redis存储Session值</code>，在Redis中<code>通过token值来获取用户信息</code></li>
+</ul>
+<h3 id="1-2-每次登陆，将Session的过期时间进行修正"><a href="#1-2-每次登陆，将Session的过期时间进行修正" class="headerlink" title="1.2 每次登陆，将Session的过期时间进行修正"></a>1.2 每次登陆，将Session的过期时间进行修正</h3><ul>
+<li>怎么说呢？我们的Session值固定过期时间为30min，要在每次登陆的时候，<code>以当前时间继续顺延30分钟</code></li>
+<li>我们的<code>解决方法</code>就是，每次登陆时，重新再添加一次Cookie，则能够完成时间延长</li>
+</ul>
+<p>以下是<code>封装addCookie()</code>的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">addCookie</span><span class="params">(HttpServletResponse response, MiaoShaUser user, String token)</span> &#123;</span><br><span class="line">    	<span class="comment">//首次登陆的时候，需要将Cookie存入Redis</span></span><br><span class="line">        redisService.set(MiaoShaUserKey.getTokenPrefix,token,user);</span><br><span class="line">        <span class="type">Cookie</span> <span class="variable">cookie</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cookie</span>(COOKIE_NAME_TOKEN, token);</span><br><span class="line">        cookie.setMaxAge(MiaoShaUserKey.getTokenPrefix.expireSeconds());</span><br><span class="line">        <span class="comment">//设置为根目录，则可以在整个应用范围内使用cookie</span></span><br><span class="line">        cookie.setPath(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">        response.addCookie(cookie);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="number">123456789</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-Cookie有什么用？"><a href="#1-3-Cookie有什么用？" class="headerlink" title="1.3 Cookie有什么用？"></a>1.3 Cookie有什么用？</h3><p>在我们这个项目中，Cookie中存储的是token值。而这个token值是和用户信息是一一绑定的，将会存储在Redis中。我们从Cookie中获取到token，从而就可以获取到用户，下面简化代码的过程，便是对这一过程的演示。</p>
+<h3 id="1-4-分布式Session的理解"><a href="#1-4-分布式Session的理解" class="headerlink" title="1.4 分布式Session的理解"></a>1.4 分布式Session的理解</h3><p>服务器中的原生session是无法满足需求的，因为用户的请求有可能随机落入到不同的服务器中，这样的结果将会导致用户的session丢失，传统做法中有解决方案，是进行session同步，将一个服务器上的session进行同步到另一个服务器上，在一个集群中无论你访问哪个服务器都可以共享，但是这种方法有个明显缺陷，就是性能问题，传输有时延问题，其次这样每台服务器的session重复拥有，这样其内存必然受到影响，如果只有几台服务器还好，如果是十台，二十台服务器呢？这种恐怖的场景会是什么样的体验呢，我就无法得知了。</p>
+<p>那么我们应该如何有效的解决这样的问题呢，我们可以使用传说中的token来解决，简单明了的说就是用户每次登陆的时候生成一个类似sessionId的东西（也就是所谓的token，这将是全局的唯一标识，如UUID，作用类似于（sessionId）），将其写到cookie当中传送给客户端，客户端对数据库访问过程中不断上传这个token，而我们服务端拿到这个token就可以获取用户的信息，这个道理其实在很多地方是相通的，比如我们容器中实现原生session，也是将生成的id写入cookie当中。</p>
+<hr>
+<h2 id="2-解决注解获取参数造成的代码冗余"><a href="#2-解决注解获取参数造成的代码冗余" class="headerlink" title="2. 解决注解获取参数造成的代码冗余"></a>2. 解决注解获取参数造成的代码冗余</h2><p><strong>我们看一下，如下代码</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@RequestMapping(&quot;/to_list&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toList</span><span class="params">(Model model,</span></span><br><span class="line"><span class="params">                         <span class="meta">@CookieValue(value = MiaoShaUserService.COOKIE_NAME_TOKEN,required = false)</span> String cookieToken,</span></span><br><span class="line"><span class="params">                         <span class="meta">@RequestParam(value = MiaoShaUserService.COOKIE_NAME_TOKEN,required = false)</span> String paramToken,</span></span><br><span class="line"><span class="params">                         )</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(cookieToken) &amp;&amp; StringUtils.isEmpty(paramToken))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;login&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> StringUtils.isEmpty(paramToken) ? cookieToken : paramToken;</span><br><span class="line">        <span class="type">MiaoShaUser</span> <span class="variable">user</span> <span class="operator">=</span> miaoShaUserService.getByToken(response,token);</span><br><span class="line">        model.addAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;goods_list&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="number">123456789101112131415</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>@CookieValue</code>：这个注解能够根据参数value在Cookie中获取值</li>
+<li><code>@RequestParam</code>：该注解让我们在Request中能获取参数，解决的主要是，移动手机端不使用Cookie存值的问题</li>
+</ul>
+<p>我们在如上代码中，可以发现，注解标记获取参数，使得代码很厚重，若我们每次想从Cookie中获取token值时，都需要复现如上代码，所以我们要把它剖离出来</p>
+<h3 id="2-1-WebMvcConfigurerAdapter"><a href="#2-1-WebMvcConfigurerAdapter" class="headerlink" title="2.1 WebMvcConfigurerAdapter"></a>2.1 WebMvcConfigurerAdapter</h3><p>在这个项目中，我们采用的是继承<code>WebMvcConfigurerAdapter</code>，重写其中<code>addArgumentResolvers()方法</code>，该方法实现的是<code>参数解析的功能</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebConfig</span> <span class="keyword">extends</span> <span class="title class_">WebMvcConfigurerAdapter</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserArgumentResolver userArgumentResolver;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addArgumentResolvers</span><span class="params">(List&lt;HandlerMethodArgumentResolver&gt; argumentResolvers)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.addArgumentResolvers(argumentResolvers);</span><br><span class="line">        argumentResolvers.add(userArgumentResolver);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">123456789101112</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-1-该方法在Spring5-0之后就过时了"><a href="#2-1-1-该方法在Spring5-0之后就过时了" class="headerlink" title="2.1.1 该方法在Spring5.0之后就过时了"></a>2.1.1 该方法在Spring5.0之后就过时了</h4><ul>
+<li><strong>现用方式</strong></li>
+</ul>
+<ol>
+<li>实现WebMvcConfigurer</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebMvcConfg</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">	<span class="comment">//TODO</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="number">1234</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>继承WebMVCConfigurationSupport</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebMvcConfg</span> <span class="keyword">extends</span> <span class="title class_">WebMvcConfigurationSupport</span> &#123;</span><br><span class="line">	<span class="comment">//TODO</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="number">1234</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-在argumentResolvers中添加我们的参数解析逻辑"><a href="#2-2-在argumentResolvers中添加我们的参数解析逻辑" class="headerlink" title="2.2 在argumentResolvers中添加我们的参数解析逻辑"></a>2.2 在argumentResolvers中添加我们的参数解析逻辑</h3><ul>
+<li>首先，我们应该搞清楚，我们想要的参数是什么？回看代码冗余的问题，最终我们想获取的是<code>MiaoShaUser</code>，这下我们进行代码的编写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserArgumentResolver</span> <span class="keyword">implements</span> <span class="title class_">HandlerMethodArgumentResolver</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    MiaoShaUserService miaoShaUserService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">supportsParameter</span><span class="params">(MethodParameter methodParameter)</span> &#123;</span><br><span class="line">        <span class="comment">//这个方法判断参数类型是否支持</span></span><br><span class="line">        Class&lt;?&gt; clazz = methodParameter.getParameterType();</span><br><span class="line">        <span class="keyword">return</span> clazz == MiaoShaUser.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">resolveArgument</span><span class="params">(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,</span></span><br><span class="line"><span class="params">                                  NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">//这个方法实现对参数的处理</span></span><br><span class="line">        <span class="type">HttpServletRequest</span> <span class="variable">request</span> <span class="operator">=</span> nativeWebRequest.getNativeRequest(HttpServletRequest.class);</span><br><span class="line">        <span class="type">HttpServletResponse</span> <span class="variable">response</span> <span class="operator">=</span> nativeWebRequest.getNativeResponse(HttpServletResponse.class);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">paramToken</span> <span class="operator">=</span> request.getParameter(miaoShaUserService.COOKIE_NAME_TOKEN);</span><br><span class="line">        <span class="type">String</span> <span class="variable">cookieToken</span> <span class="operator">=</span> getCookieValue(request, miaoShaUserService.COOKIE_NAME_TOKEN);</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(paramToken) &amp;&amp; StringUtils.isEmpty(cookieToken))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> StringUtils.isEmpty(paramToken) ? cookieToken : paramToken;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> miaoShaUserService.getByToken(response,token);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">getCookieValue</span><span class="params">(HttpServletRequest request,String cookieName)</span>&#123;</span><br><span class="line">        Cookie[] cookies = request.getCookies();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Cookie cookie : cookies)&#123;</span><br><span class="line">            <span class="keyword">if</span>(cookie.getName().equals(cookieName))&#123;</span><br><span class="line">                <span class="keyword">return</span> cookie.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>实现<code>HandlerMethodArgumentResolver接口</code>，必须重写其中的两个方法，<code>supportsParameter()</code>和<code>resolveArgument()</code></li>
+<li>前者是对我们要进行解析的<code>参数类型</code>进行判断，符合才执行后者</li>
+<li>后者是我们对<code>参数的处理逻辑</code>，两种情况，一是从request中获取token值，二是从cookie中拿取token值，根据token值来获取到对应的user</li>
+</ul>
+<p>以上就将我们需要的参数的处理逻辑实现了，在Mvc配置中，用<code>argumentResolvers.add(userArgumentResolver)</code>方法进行添加即可，这样我们再想获取user的时候就简单多了，如下</p>
+<h3 id="2-3-如此清爽的代码"><a href="#2-3-如此清爽的代码" class="headerlink" title="2.3 如此清爽的代码"></a>2.3 如此清爽的代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">@RequestMapping(&quot;/to_list&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toList</span><span class="params">(Model model,MiaoShaUser user)</span>&#123;</span><br><span class="line">        model.addAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;goods_list&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="number">12345</span></span><br></pre></td></tr></table></figure>
+
+<p>省去了@CookieValue和@RequestParam注解的冗余，而且我们对user的获取也方便多了</p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

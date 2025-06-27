@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="装饰器模式 动态地给一个对象添加一些额外的职责。就增加功能来说，相比生成子类更为灵活。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="装饰器模式">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="装饰器模式 动态地给一个对象添加一些额外的职责。就增加功能来说，相比生成子类更为灵活。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-08T23:10:41.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.533Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="DesignPatterns">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>装饰器模式</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h3 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h3><blockquote>
+<p>动态地给一个对象添加一些额外的职责。就增加功能来说，相比生成子类更为灵活。</p>
+<span id="more"></span></blockquote>
+<p>**装饰器（Decorator）**模式，是一种在运行期动态给某个对象的实例增加功能的方法。</p>
+<p>我们在IO的Filter模式一节中其实已经讲过装饰器模式了。在Java标准库中，<code>InputStream</code>是抽象类，<code>FileInputStream</code>、<code>ServletInputStream</code>、<code>Socket.getInputStream()</code>这些<code>InputStream</code>都是最终数据源。</p>
+<p>现在，如果要给不同的最终数据源增加缓冲功能、计算签名功能、加密解密功能，那么，3个最终数据源、3种功能一共需要9个子类。如果继续增加最终数据源，或者增加新功能，子类会爆炸式增长，这种设计方式显然是不可取的。</p>
+<p>Decorator模式的目的就是把一个一个的附加功能，用Decorator的方式给一层一层地累加到原始数据源上，最终，通过组合获得我们想要的功能。</p>
+<p>例如：给<code>FileInputStream</code>增加缓冲和解压缩功能，用Decorator模式写出来如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建原始的数据源:</span></span><br><span class="line"><span class="type">InputStream</span> <span class="variable">fis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;test.gz&quot;</span>);</span><br><span class="line"><span class="comment">// 增加缓冲功能:</span></span><br><span class="line"><span class="type">InputStream</span> <span class="variable">bis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(fis);</span><br><span class="line"><span class="comment">// 增加解压缩功能:</span></span><br><span class="line"><span class="type">InputStream</span> <span class="variable">gis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GZIPInputStream</span>(bis);</span><br></pre></td></tr></table></figure>
+
+<p>或者一次性写成这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">InputStream</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GZIPInputStream</span>( <span class="comment">// 第二层装饰</span></span><br><span class="line">                        <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>( <span class="comment">// 第一层装饰</span></span><br><span class="line">                            <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;test.gz&quot;</span>) <span class="comment">// 核心功能</span></span><br><span class="line">                        ));</span><br></pre></td></tr></table></figure>
+
+<p>观察<code>BufferedInputStream</code>和<code>GZIPInputStream</code>，它们实际上都是从<code>FilterInputStream</code>继承的，这个<code>FilterInputStream</code>就是一个抽象的Decorator。我们用图把Decorator模式画出来如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">             ┌───────────┐</span><br><span class="line">             │ Component │</span><br><span class="line">             └───────────┘</span><br><span class="line">                   ▲</span><br><span class="line">      ┌────────────┼─────────────────┐</span><br><span class="line">      │            │                 │</span><br><span class="line">┌───────────┐┌───────────┐     ┌───────────┐</span><br><span class="line">│ComponentA ││ComponentB │...  │ Decorator │</span><br><span class="line">└───────────┘└───────────┘     └───────────┘</span><br><span class="line">                                     ▲</span><br><span class="line">                              ┌──────┴──────┐</span><br><span class="line">                              │             │</span><br><span class="line">                        ┌───────────┐ ┌───────────┐</span><br><span class="line">                        │DecoratorA │ │DecoratorB │...</span><br><span class="line">                        └───────────┘ └───────────┘</span><br></pre></td></tr></table></figure>
+
+<p>最顶层的Component是接口，对应到IO的就是<code>InputStream</code>这个抽象类。ComponentA、ComponentB是实际的子类，对应到IO的就是<code>FileInputStream</code>、<code>ServletInputStream</code>这些数据源。Decorator是用于实现各个附加功能的抽象装饰器，对应到IO的就是<code>FilterInputStream</code>。而从Decorator派生的就是一个一个的装饰器，它们每个都有独立的功能，对应到IO的就是<code>BufferedInputStream</code>、<code>GZIPInputStream</code>等。</p>
+<p>Decorator模式有什么好处？它实际上把核心功能和附加功能给分开了。核心功能指<code>FileInputStream</code>这些真正读数据的源头，附加功能指加缓冲、压缩、解密这些功能。如果我们要新增核心功能，就增加Component的子类，例如<code>ByteInputStream</code>。如果我们要增加附加功能，就增加Decorator的子类，例如<code>CipherInputStream</code>。两部分都可以独立地扩展，而具体如何附加功能，由调用方自由组合，从而极大地增强了灵活性。</p>
+<p>如果我们要自己设计完整的Decorator模式，应该如何设计？</p>
+<p>我们还是举个栗子：假设我们需要渲染一个HTML的文本，但是文本还可以附加一些效果，比如加粗、变斜体、加下划线等。为了实现动态附加效果，可以采用Decorator模式。</p>
+<p>首先，仍然需要定义顶层接口<code>TextNode</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TextNode</span> &#123;</span><br><span class="line">    <span class="comment">// 设置text:</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">setText</span><span class="params">(String text)</span>;</span><br><span class="line">    <span class="comment">// 获取text:</span></span><br><span class="line">    String <span class="title function_">getText</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于核心节点，例如&#96;&#96;，它需要从<code>TextNode</code>直接继承：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpanNode</span> <span class="keyword">implements</span> <span class="title class_">TextNode</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String text;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setText</span><span class="params">(String text)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.text = text;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getText</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&lt;span&gt;&quot;</span> + text + <span class="string">&quot;&lt;/span&gt;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>紧接着，为了实现Decorator模式，需要有一个抽象的Decorator类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">NodeDecorator</span> <span class="keyword">implements</span> <span class="title class_">TextNode</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> TextNode target;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">NodeDecorator</span><span class="params">(TextNode target)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.target = target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setText</span><span class="params">(String text)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.target.setText(text);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个<code>NodeDecorator</code>类的核心是持有一个<code>TextNode</code>，即将要把功能附加到的<code>TextNode</code>实例。接下来就可以写一个加粗功能：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BoldDecorator</span> <span class="keyword">extends</span> <span class="title class_">NodeDecorator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BoldDecorator</span><span class="params">(TextNode target)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(target);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getText</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&lt;b&gt;&quot;</span> + target.getText() + <span class="string">&quot;&lt;/b&gt;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类似的，可以继续加<code>ItalicDecorator</code>、<code>UnderlineDecorator</code>等。客户端可以自由组合这些Decorator：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextNode</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SpanNode</span>();</span><br><span class="line"><span class="type">TextNode</span> <span class="variable">n2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BoldDecorator</span>(<span class="keyword">new</span> <span class="title class_">UnderlineDecorator</span>(<span class="keyword">new</span> <span class="title class_">SpanNode</span>()));</span><br><span class="line"><span class="type">TextNode</span> <span class="variable">n3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ItalicDecorator</span>(<span class="keyword">new</span> <span class="title class_">BoldDecorator</span>(<span class="keyword">new</span> <span class="title class_">SpanNode</span>()));</span><br><span class="line">n1.setText(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">n2.setText(<span class="string">&quot;Decorated&quot;</span>);</span><br><span class="line">n3.setText(<span class="string">&quot;World&quot;</span>);</span><br><span class="line">System.out.println(n1.getText());</span><br><span class="line"><span class="comment">// 输出&lt;span&gt;Hello&lt;/span&gt;</span></span><br><span class="line"></span><br><span class="line">System.out.println(n2.getText());</span><br><span class="line"><span class="comment">// 输出&lt;b&gt;&lt;u&gt;&lt;span&gt;Decorated&lt;/span&gt;&lt;/u&gt;&lt;/b&gt;</span></span><br><span class="line"></span><br><span class="line">System.out.println(n3.getText());</span><br><span class="line"><span class="comment">// 输出&lt;i&gt;&lt;b&gt;&lt;span&gt;World&lt;/span&gt;&lt;/b&gt;&lt;/i&gt;</span></span><br></pre></td></tr></table></figure>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="微分 微分的定义： 充要条件 可微就可导，可导就可微  A就是$x_0$上的导数 $$dy&#x3D;f^{‘}(x)△x&#x3D;f^{‘}(x)dx$$ $△x&#x3D;dx$是精确值，$△y≈dy$是近似值 导数也叫微商 ，导数定义的dy是对dx求导，可以看做一个整体：  例题： 微分的几何意义  基本公式$dc&#x3D;c’dx&#x3D;0$ 略 四则运算 例题： 不变性：">
+<meta property="og:type" content="website">
+<meta property="og:title" content="微分">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E5%BE%AE%E5%88%86.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="微分 微分的定义： 充要条件 可微就可导，可导就可微  A就是$x_0$上的导数 $$dy&#x3D;f^{‘}(x)△x&#x3D;f^{‘}(x)dx$$ $△x&#x3D;dx$是精确值，$△y≈dy$是近似值 导数也叫微商 ，导数定义的dy是对dx求导，可以看做一个整体：  例题： 微分的几何意义  基本公式$dc&#x3D;c’dx&#x3D;0$ 略 四则运算 例题： 不变性：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600361375405.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600361823824.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600362288099.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600363016711.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600363590738.png">
+<meta property="og:image" content="https://blog.kayleh.top/drafts/1600363809382.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600394726408.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600395225067.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600396809213.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600396977930.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600397139589.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600398508737.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600398647225.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600400532839.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600401937159.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600403890381.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600404415925.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600413540338.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600418546474.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600418973628.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600419102500.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600419285714.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600420461707.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600420576192.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600421270529.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600522802705.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600524775977.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600525026726.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600525632036.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600525747934.png">
+<meta property="article:published_time" content="2020-09-17T07:39:06.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.529Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600361375405.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>微分</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h1 id="微分"><a href="#微分" class="headerlink" title="微分"></a>微分</h1><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600361375405.png" alt="1600361375405"></p>
+<h2 id="微分的定义："><a href="#微分的定义：" class="headerlink" title="微分的定义："></a>微分的定义：</h2><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600361823824.png" alt="1600361823824"></p>
+<p><strong>充要条件</strong></p>
+<p>可微就可导，可导就可微</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600362288099.png" alt="1600362288099"></p>
+<p>A就是$x_0$上的导数</p>
+<p>$$dy&#x3D;f^{‘}(x)△x&#x3D;f^{‘}(x)dx$$</p>
+<p>$△x&#x3D;dx$是精确值，$△y≈dy$是近似值</p>
+<p>导数也叫微商 ，导数定义的dy是对dx求导，可以看做一个整体：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600363016711.png" alt="1600363016711"></p>
+<h3 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h3><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600363590738.png" alt="1600363590738"></p>
+<h3 id="微分的几何意义"><a href="#微分的几何意义" class="headerlink" title="微分的几何意义"></a>微分的几何意义</h3><img src="1600363809382.png" alt="1600363809382" style="zoom:50%;" />
+
+<h2 id="基本公式"><a href="#基本公式" class="headerlink" title="基本公式"></a>基本公式</h2><p>$dc&#x3D;c’dx&#x3D;0$</p>
+<p>略</p>
+<h2 id="四则运算"><a href="#四则运算" class="headerlink" title="四则运算"></a>四则运算</h2><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600394726408.png" alt="1600394726408"></p>
+<h3 id="例题：-1"><a href="#例题：-1" class="headerlink" title="例题："></a>例题：</h3><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600395225067.png" alt="1600395225067"></p>
+<p>不变性：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600396809213.png" alt="1600396809213"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600396977930.png" alt="1600396977930"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600397139589.png" alt="1600397139589"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600398508737.png" alt="1600398508737"></p>
+<h2 id="微分应用"><a href="#微分应用" class="headerlink" title="微分应用"></a>微分应用</h2><blockquote>
+<p>近似计算</p>
+</blockquote>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600398647225.png" alt="1600398647225"></p>
+<p>$$f(x_0+△x)≈f(x_0)+f’(x_0)△x$$ ，|△x|取很小</p>
+<h4 id="例题：-2"><a href="#例题：-2" class="headerlink" title="例题："></a>例题：</h4><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600400532839.png" alt="1600400532839"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600401937159.png" alt="1600401937159"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600403890381.png" alt="1600403890381"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600404415925.png" alt="1600404415925"></p>
+<h2 id="微分中值定理"><a href="#微分中值定理" class="headerlink" title="微分中值定理"></a>微分中值定理</h2><h3 id="费马定理"><a href="#费马定理" class="headerlink" title="费马定理"></a>费马定理</h3><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600413540338.png" alt="1600413540338"></p>
+<p>左导数和右导数要想相等，只能等于0</p>
+<p>∴$f^{‘}(x_0)&#x3D;0$</p>
+<h4 id="驻点："><a href="#驻点：" class="headerlink" title="驻点："></a>驻点：</h4><p>导数为0的点就叫驻点。</p>
+<h3 id="罗尔定理"><a href="#罗尔定理" class="headerlink" title="罗尔定理"></a>罗尔定理</h3><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600418546474.png" alt="1600418546474"> </p>
+<h3 id="拉姆朗日中值定理"><a href="#拉姆朗日中值定理" class="headerlink" title="拉姆朗日中值定理"></a>拉姆朗日中值定理</h3><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600418973628.png" alt="1600418973628"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600419102500.png" alt="1600419102500"></p>
+<blockquote>
+<p>f(x)在区间I连续，I内可导且导数恒为0。f(x)&#x3D;C</p>
+<p>证明：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600419285714.png" alt="1600419285714"></p>
+</blockquote>
+<h3 id="柯西中值定理"><a href="#柯西中值定理" class="headerlink" title="柯西中值定理"></a>柯西中值定理</h3><p>由拉姆朗日中值定理推出：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600420461707.png" alt="1600420461707"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600420576192.png" alt="1600420576192"></p>
+<p>柯西能推出拉格朗日定理，拉格朗日能推出罗尔</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600421270529.png" alt="1600421270529"></p>
+<h3 id="泰勒定理"><a href="#泰勒定理" class="headerlink" title="#泰勒定理"></a>#泰勒定理</h3><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600522802705.png" alt="1600522802705"></p>
+<p>定理：$f(x)$表示成$x-x_0$的n次多项式+$R_n (x)$</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600524775977.png" alt="1600524775977"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600525026726.png" alt="1600525026726"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600525632036.png" alt="1600525632036"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%BE%AE%E5%88%86/1600525747934.png" alt="1600525747934"></p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

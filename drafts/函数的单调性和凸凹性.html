@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="单调性 增f’(x)&gt;0减f’(x)&lt;0 f’(x)≥0，等号在个别点上成立，仍然也是增函数  f’(0)不存在,左右导数     凸凹性定义：   利用拉格朗日中值定理：  例题：  求凸凹区间和拐点：  f‘’不存在：">
+<meta property="og:type" content="website">
+<meta property="og:title" content="函数的单调性和凸凹性">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="单调性 增f’(x)&gt;0减f’(x)&lt;0 f’(x)≥0，等号在个别点上成立，仍然也是增函数  f’(0)不存在,左右导数     凸凹性定义：   利用拉格朗日中值定理：  例题：  求凸凹区间和拐点：  f‘’不存在：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600590092595.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600590517124.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600590714485.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600591157427.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600591335926.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600591695747.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600592034891.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600593230688.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600593545557.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600593697583.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600593903938.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600594115945.png">
+<meta property="article:published_time" content="2020-09-19T21:00:16.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.525Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600590092595.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>函数的单调性和凸凹性</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h2 id="单调性"><a href="#单调性" class="headerlink" title="单调性"></a>单调性</h2><p> 增f’(x)&gt;0减f’(x)&lt;0</p>
+<p>f’(x)≥0，等号在个别点上成立，仍然也是增函数</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600590092595.png" alt="1600590092595"></p>
+<p>f’(0)不存在,左右导数</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600590517124.png" alt="1600590517124"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600590714485.png" alt="1600590714485"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600591157427.png" alt="1600591157427"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600591335926.png" alt="1600591335926"></p>
+<h2 id="凸凹性"><a href="#凸凹性" class="headerlink" title="凸凹性"></a>凸凹性</h2><p>定义：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600591695747.png" alt="1600591695747"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600592034891.png" alt="1600592034891"></p>
+<p>利用拉格朗日中值定理：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600593230688.png" alt="1600593230688"></p>
+<p>例题：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600593545557.png" alt="1600593545557"></p>
+<p>求凸凹区间和拐点：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600593697583.png" alt="1600593697583"></p>
+<p>f‘’不存在：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600593903938.png" alt="1600593903938"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8D%95%E8%B0%83%E6%80%A7%E5%92%8C%E5%87%B8%E5%87%B9%E6%80%A7/1600594115945.png" alt="1600594115945"></p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

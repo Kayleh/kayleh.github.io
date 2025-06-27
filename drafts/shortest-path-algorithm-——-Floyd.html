@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="FloydFloyd算法是一种动态规划算法，用于求解任意两点间的最短路径。 算法思想Floyd算法的基本思想是： 每次考虑一个顶点作为中间顶点，看看从起点到这个顶点再到终点的路径是否比起点到终点的路径短。 算法步骤 初始化：创建一个二维数组dis，用于存储任意两点间的最短路径长度，初始化为图中各边的权值，若两点之间没有边，则权值为无穷大。  三层循环：k为中间顶点，i为起点，j为终点，dis[i]">
+<meta property="og:type" content="website">
+<meta property="og:title" content="shortest path algorithm —— Floyd">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/shortest-path-algorithm-%E2%80%94%E2%80%94-Floyd.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="FloydFloyd算法是一种动态规划算法，用于求解任意两点间的最短路径。 算法思想Floyd算法的基本思想是： 每次考虑一个顶点作为中间顶点，看看从起点到这个顶点再到终点的路径是否比起点到终点的路径短。 算法步骤 初始化：创建一个二维数组dis，用于存储任意两点间的最短路径长度，初始化为图中各边的权值，若两点之间没有边，则权值为无穷大。  三层循环：k为中间顶点，i为起点，j为终点，dis[i]">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-18T17:05:31.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.522Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>shortest path algorithm —— Floyd</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><p>Floyd算法是一种动态规划算法，用于求解任意两点间的最短路径。</p>
+<h4 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h4><p>Floyd算法的基本思想是： <strong>每次考虑一个顶点作为中间顶点，看看从起点到这个顶点再到终点的路径是否比起点到终点的路径短。</strong></p>
+<h4 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li><p>初始化：创建一个二维数组<code>dis</code>，用于存储任意两点间的最短路径长度，初始化为图中各边的权值，若两点之间没有边，则权值为无穷大。</p>
+</li>
+<li><p>三层循环：<code>k</code>为中间顶点，<code>i</code>为起点，<code>j</code>为终点，<code>dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j])</code>。</p>
+</li>
+</ol>
+<blockquote>
+<p>为什么第一层循环是中间顶点？<br>这是因为Floyd算法是一种动态规划算法，它通过逐步扩展中间节点的集合来计算最短路径。在每一轮循环中，我们考虑所有可能的中间节点，并更新当前已&gt; 知的最短路径。通过逐步增加中间节点，我们最终可以找到所有顶点之间的最短路径。这种选择中间节点的方式使得Floyd算法能够逐步逼近最优解。<br>如果第一层循环是起点或终点，那么就无法逐步逼近最优解，因为起点和终点的集合都是固定的，无法逐步扩展。</p>
+</blockquote>
+<ol start="3">
+<li>返回结果：<code>dis[i][j]</code>即为起点到终点的最短路径长度。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> main&#123;</span><br><span class="line">    <span class="type">int</span> n, m; <span class="comment">// n个顶点，m条边</span></span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m; </span><br><span class="line">    <span class="type">int</span> dis[n][n];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    <span class="built_in">memset</span>(dis, <span class="number">0x3f</span>, <span class="built_in">sizeof</span>(dis)); <span class="comment">// 初始化为无穷大</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) dis[i][i] = <span class="number">0</span>; <span class="comment">// 自己到自己的距离为0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读入边</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="type">int</span> a, b, w;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b &gt;&gt; w;</span><br><span class="line">        dis[a][b] = w; <span class="comment">// 默认的最短路径为边的权值</span></span><br><span class="line">        <span class="comment">// dis[b][a] = w; // 无向图</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Floyd算法核心语句</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;n;k++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">                dis[i][j]=<span class="built_in">min</span>(dis[i][j],dis[i][k]+dis[k][j]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">            cout &lt;&lt; dis[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><ul>
+<li><p>时间复杂度：$O(n^3)$ </p>
+<p>  三层循环，每层循环的次数都是$n$，所以时间复杂度为$O(n^3)$。</p>
+</li>
+<li><p>空间复杂度：$O(n^2)$</p>
+<p>  二维数组<code>dis</code>的大小为$n\times n$，所以空间复杂度为$O(n^2)$。</p>
+</li>
+</ul>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

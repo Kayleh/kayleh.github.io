@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前端安全  xss跨站脚本攻击，是WEB程序中一种常见的漏洞。其主要的攻击手段是在在利用网站上的可由用户输入信息的地方，恶意注入含有攻击性的脚本，达到攻击网站或者窃取用户cookied等隐私信息的目的。  XSS漏洞测设流程：第一步：在目标站点上找到输入点，比如查询接口，留言板等；第二步：输入一组“特殊字符+唯一识别字符”，点击提交，查看返回的源码，是否有做对应的处理；第三步：通过搜索定位到唯一">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Front end security">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="前端安全  xss跨站脚本攻击，是WEB程序中一种常见的漏洞。其主要的攻击手段是在在利用网站上的可由用户输入信息的地方，恶意注入含有攻击性的脚本，达到攻击网站或者窃取用户cookied等隐私信息的目的。  XSS漏洞测设流程：第一步：在目标站点上找到输入点，比如查询接口，留言板等；第二步：输入一组“特殊字符+唯一识别字符”，点击提交，查看返回的源码，是否有做对应的处理；第三步：通过搜索定位到唯一">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://static.cdnjs.cloud/20200628/%E6%89%B9%E6%B3%A8%202020-06-28%20113456_2412.png">
+<meta property="article:published_time" content="2021-04-04T07:56:49.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.526Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://static.cdnjs.cloud/20200628/%E6%89%B9%E6%B3%A8%202020-06-28%20113456_2412.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>Front end security</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <blockquote>
+<p>前端安全</p>
+</blockquote>
+<h1 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h1><p>跨站脚本攻击，是WEB程序中一种常见的漏洞。其主要的攻击手段是在在利用网站上的可由用户输入信息的地方，恶意注入含有攻击性的脚本，达到攻击网站或者窃取用户cookied等隐私信息的目的。</p>
+<blockquote>
+<p>XSS漏洞测设流程：<br>第一步：在目标站点上找到输入点，比如查询接口，留言板等；<br>第二步：输入一组“特殊字符+唯一识别字符”，点击提交，查看返回的源码，是否有做对应的处理；<br>第三步：通过搜索定位到唯一字符，结合唯一字符前后语法确认是否可以构成执行js的条件（构造闭合）<br>第四步：提交构造的脚本代码（以及各种绕过姿势），看是否可以成功执行，如果成功执则说明存在XSS漏洞</p>
+</blockquote>
+<h1 id="Html5存储"><a href="#Html5存储" class="headerlink" title="Html5存储"></a>Html5存储</h1><p><img src="https://static.cdnjs.cloud/20200628/%E6%89%B9%E6%B3%A8%202020-06-28%20113456_2412.png"> </p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

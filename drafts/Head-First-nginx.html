@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="公司产品出现瓶颈？我们公司项目刚刚上线的时候，并发量小，用户使用的少，所以在低并发的情况下，一个jar包启动应用就够了，然后内部tomcat返回内容给用户。但是慢慢的，使用我们平台的用户越来越多了，并发量慢慢增大了，这时候一台服务器满足不了我们的需求了。于是我们横向扩展，又增加了服务器。这个时候几个项目启动在不同的服务器上，用户要访问，就需要增加一个代理服务器了，通过代理服务器来帮我们转发和处理请">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Head First Nginx">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/Head-First-nginx.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="公司产品出现瓶颈？我们公司项目刚刚上线的时候，并发量小，用户使用的少，所以在低并发的情况下，一个jar包启动应用就够了，然后内部tomcat返回内容给用户。但是慢慢的，使用我们平台的用户越来越多了，并发量慢慢增大了，这时候一台服务器满足不了我们的需求了。于是我们横向扩展，又增加了服务器。这个时候几个项目启动在不同的服务器上，用户要访问，就需要增加一个代理服务器了，通过代理服务器来帮我们转发和处理请">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy98b25257-71be-48f3-8afe-e1226ebc4589.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy1d77bc35-df30-46fb-8c41-61ff4468d0c9.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy33ee7313-9356-46e6-a0b2-fc1ed8ef9a62.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy46bdad36-d3e0-43b0-a223-43360b7e8fc7.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy62a15097-6e2a-4dbe-bcf5-f0d7cab81089.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy4d33dfac-1949-4b2d-abb8-fe0b6e65b8dc.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyb1e3e440-4159-4259-a174-528b56cb04b2.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy64acb9a3-cd1a-4c0e-a1fa-9b220046a95a.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyedb1bbd6-e530-4aba-8fde-68658a10e73f.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyb5a1d538-352c-4aa6-88f7-23d18f0588ab.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudya21688c8-159e-4caa-8e65-3dc056b6b78e.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyf23105c4-b0b2-4e22-a1bf-b8098f40c144.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyf51b946d-fda4-4675-b913-2084e028a5c0.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyf80f8dc2-d5df-4bc2-933d-6ce11f388f6e.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyd64b251b-817c-436b-b7a0-57da7bb48cd1.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/nginx.png">
+<meta property="article:published_time" content="2021-04-14T21:55:17.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.509Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="middleware">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy98b25257-71be-48f3-8afe-e1226ebc4589.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>Head First Nginx</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h2 id="公司产品出现瓶颈？"><a href="#公司产品出现瓶颈？" class="headerlink" title="公司产品出现瓶颈？"></a>公司产品出现瓶颈？</h2><p>我们公司项目刚刚上线的时候，并发量小，用户使用的少，所以在低并发的情况下，一个jar包启动应用就够了，然后内部tomcat返回内容给用户。<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy98b25257-71be-48f3-8afe-e1226ebc4589.png" alt="img"><br>但是慢慢的，使用我们平台的用户越来越多了，并发量慢慢增大了，这时候一台服务器满足不了我们的需求了。<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy1d77bc35-df30-46fb-8c41-61ff4468d0c9.png" alt="img"><br>于是我们横向扩展，又增加了服务器。这个时候几个项目启动在不同的服务器上，用户要访问，就需要增加一个代理服务器了，通过代理服务器来帮我们转发和处理请求。<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy33ee7313-9356-46e6-a0b2-fc1ed8ef9a62.png" alt="img"><br>我们希望这个代理服务器可以帮助我们接收用户的请求，然后将用户的请求按照规则帮我们转发到不同的服务器节点之上。这个过程用户是无感知的，用户并不知道是哪个服务器返回的结果，我们还希望他可以按照服务器的性能提供不同的权重选择。保证最佳体验！所以我们使用了Nginx。</p>
+<h2 id="什么是Nginx？"><a href="#什么是Nginx？" class="headerlink" title="什么是Nginx？"></a>什么是Nginx？</h2><p>Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。2011年6月1日，nginx 1.0.4发布。</p>
+<p>其特点是占有内存少，并发能力强，事实上nginx的并发能力在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。在全球活跃的网站中有12.18%的使用比率，大约为2220万个网站。</p>
+<p>Nginx 是一个安装非常的简单、配置文件非常简洁（还能够支持perl语法）、Bug非常少的服务。Nginx 启动特别容易，并且几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动。你还能够不间断服务的情况下进行软件版本的升级。</p>
+<p>Nginx代码完全用C语言从头写成。官方数据测试表明能够支持高达 50,000 个并发连接数的响应。</p>
+<h2 id="Nginx作用？"><a href="#Nginx作用？" class="headerlink" title="Nginx作用？"></a>Nginx作用？</h2><blockquote>
+<p>Http代理，反向代理：作为web服务器最常用的功能之一，尤其是反向代理。</p>
+</blockquote>
+<p>正向代理<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy46bdad36-d3e0-43b0-a223-43360b7e8fc7.png" alt="img"><br>反向代理<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy62a15097-6e2a-4dbe-bcf5-f0d7cab81089.png" alt="img"></p>
+<blockquote>
+<p> Nginx提供的负载均衡策略有2种：内置策略和扩展策略。内置策略为轮询，加权轮询，Ip hash。扩展策略，就天马行空，只有你想不到的没有他做不到的。</p>
+</blockquote>
+<p>轮询<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy4d33dfac-1949-4b2d-abb8-fe0b6e65b8dc.png" alt="img"><br>加权轮询<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyb1e3e440-4159-4259-a174-528b56cb04b2.png" alt="img"><br>iphash对客户端请求的ip进行hash操作，然后根据hash结果将同一个客户端ip的请求分发给同一台服务器进行处理，可以解决session不共享的问题。<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudy64acb9a3-cd1a-4c0e-a1fa-9b220046a95a.png" alt="img"></p>
+<blockquote>
+<p>动静分离，在我们的软件开发中，有些请求是需要后台处理的，有些请求是不需要经过后台处理的（如：css、html、jpg、js等等文件），这些不需要经过后台处理的文件称为静态文件。让动态网站里的动态网页根据一定规则把不变的资源和经常变的资源区分开来，动静资源做好了拆分以后，我们就可以根据静态资源的特点将其做缓存操作。提高资源响应的速度。</p>
+</blockquote>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyedb1bbd6-e530-4aba-8fde-68658a10e73f.png" alt="img"></p>
+<p>目前，通过使用Nginx大大提高了我们网站的响应速度，优化了用户体验，让网站的健壮性更上一层楼！</p>
+<h1 id="Nginx的安装"><a href="#Nginx的安装" class="headerlink" title="Nginx的安装"></a>Nginx的安装</h1><h2 id="windows下安装"><a href="#windows下安装" class="headerlink" title="windows下安装"></a>windows下安装</h2><p><strong>1、下载nginx</strong></p>
+<p><a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">http://nginx.org/en/download.html</a> 下载稳定版本。<br>以nginx&#x2F;Windows-1.16.1为例，直接下载 nginx-1.16.1.zip。<br>下载后解压，解压后如下：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyb5a1d538-352c-4aa6-88f7-23d18f0588ab.png" alt="img"></p>
+<p><strong>2、启动nginx</strong></p>
+<p>有很多种方法启动nginx</p>
+<p>(1)直接双击nginx.exe，双击后一个黑色的弹窗一闪而过</p>
+<p>(2)打开cmd命令窗口，切换到nginx解压目录下，输入命令 <code>nginx.exe</code> ，回车即可</p>
+<p><strong>3、检查nginx是否启动成功</strong></p>
+<p>直接在浏览器地址栏输入网址 <a target="_blank" rel="noopener" href="http://localhost/">http://localhost:80</a> 回车，出现以下页面说明启动成功！</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudya21688c8-159e-4caa-8e65-3dc056b6b78e.png" alt="img"></p>
+<p><strong>4、配置监听</strong></p>
+<p>nginx的配置文件是conf目录下的nginx.conf，默认配置的nginx监听的端口为80，如果80端口被占用可以修改为未被占用的端口即可。</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyf23105c4-b0b2-4e22-a1bf-b8098f40c144.png" alt="img"></p>
+<p>当我们修改了nginx的配置文件nginx.conf 时，不需要关闭nginx后重新启动nginx，只需要执行命令 <code>nginx -s reload</code> 即可让改动生效</p>
+<p><strong>5、关闭nginx</strong></p>
+<p>如果使用cmd命令窗口启动nginx， 关闭cmd窗口是不能结束nginx进程的，可使用两种方法关闭nginx</p>
+<p>(1)输入nginx命令 <code>nginx -s stop</code>(快速停止nginx) 或 <code>nginx -s quit</code>(完整有序的停止nginx)</p>
+<p>(2)使用taskkill <code>taskkill /f /t /im nginx.exe</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">taskkill是用来终止进程的，</span><br><span class="line">/f是强制终止 .</span><br><span class="line">/t终止指定的进程和任何由此启动的子进程。</span><br><span class="line">/im示指定的进程名称 .</span><br></pre></td></tr></table></figure>
+
+<h2 id="linux下安装"><a href="#linux下安装" class="headerlink" title="linux下安装"></a>linux下安装</h2><p><strong>1、安装gcc</strong></p>
+<p>安装 nginx 需要先将官网下载的源码进行编译，编译依赖 gcc 环境，如果没有 gcc 环境，则需要安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、PCRE pcre-devel 安装</strong></p>
+<p>PCRE(Perl Compatible Regular Expressions) 是一个Perl库，包括 perl 兼容的正则表达式库。nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库。nginx也需要此库。命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y pcre pcre-devel</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、zlib 安装</strong></p>
+<p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zlib zlib-devel</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、OpenSSL 安装</strong><br>OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及 SSL 协议，并提供丰富的应用程序供测试或其它目的使用。<br>nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http），所以需要在 Centos 安装 OpenSSL 库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<p><strong>5、下载安装包</strong></p>
+<p>手动下载.tar.gz安装包，地址：<a target="_blank" rel="noopener" href="https://nginx.org/en/download.html">https://nginx.org/en/download.html</a></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyf51b946d-fda4-4675-b913-2084e028a5c0.png" alt="img"></p>
+<p>下载完毕上传到服务器上 &#x2F;root</p>
+<p><strong>6、解压</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.18.0.tar.gz</span><br><span class="line">cd nginx-1.18.0</span><br></pre></td></tr></table></figure>
+
+<p><strong>7、配置</strong></p>
+<p>使用默认配置，在nginx根目录下执行</p>
+<p>​		1、.&#x2F;configure 是用来检测你的安装平台的目标特征的。比如它会检测你是不是有CC或GCC，并不是需要CC或GCC，它是个shell脚本。</p>
+<p>　　2、make 是用来编译的，它从Makefile中读取指令，然后编译。</p>
+<p>　　3、make install是用来安装的，它也从Makefile中读取指令，安装到指定的位置。</p>
+<p>　　注意：AUTOMAKE和AUTOCONF是非常有用的用来发布C程序的东西。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>查找安装路径： <code>whereis nginx</code></p>
+<p> <img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyf80f8dc2-d5df-4bc2-933d-6ce11f388f6e.png" alt="img"> </p>
+<h2 id="Nginx常用命令"><a href="#Nginx常用命令" class="headerlink" title="Nginx常用命令"></a>Nginx常用命令</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/nginx/sbin/</span><br><span class="line">./nginx  启动</span><br><span class="line">./nginx -s stop  停止</span><br><span class="line">./nginx -s quit  安全退出</span><br><span class="line">./nginx -s reload  重新加载配置文件</span><br><span class="line">ps <span class="built_in">aux</span>|grep nginx  查看nginx进程</span><br></pre></td></tr></table></figure>
+
+<p>启动成功访问 服务器ip:80</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/kuangstudyd64b251b-817c-436b-b7a0-57da7bb48cd1.png" alt="img"></p>
+<p>注意：如何连接不上，检查阿里云安全组是否开放端口，或者服务器防火墙是否开放端口！<br>相关命令：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 开启</span><br><span class="line">service firewalld <span class="built_in">start</span></span><br><span class="line"># 重启</span><br><span class="line">service firewalld restart</span><br><span class="line"># 关闭</span><br><span class="line">service firewalld stop</span><br><span class="line"># 查看防火墙规则</span><br><span class="line">firewall-<span class="built_in">cmd</span> --list-all</span><br><span class="line"># 查询端口是否开放</span><br><span class="line">firewall-<span class="built_in">cmd</span> --query-port=<span class="number">8080</span>/tcp</span><br><span class="line"># 开放<span class="number">80</span>端口</span><br><span class="line">firewall-<span class="built_in">cmd</span> --permanent --add-port=<span class="number">80</span>/tcp</span><br><span class="line"># 移除端口</span><br><span class="line">firewall-<span class="built_in">cmd</span> --permanent --remove-port=<span class="number">8080</span>/tcp</span><br><span class="line">#重启防火墙(修改配置后要重启防火墙)</span><br><span class="line">firewall-<span class="built_in">cmd</span> --reload</span><br><span class="line"># 参数解释</span><br><span class="line"><span class="number">1</span>、firwall-<span class="built_in">cmd</span>：是Linux提供的操作firewall的一个工具；</span><br><span class="line"><span class="number">2</span>、--permanent：表示设置为持久；</span><br><span class="line"><span class="number">3</span>、--add-port：标识添加的端口；</span><br></pre></td></tr></table></figure>
+
+<h1 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h1><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn4/nginx/nginx.png" alt="nginx"></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">upstream lb&#123;</span><br><span class="line">    server <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">8080</span> weight=<span class="number">1</span>;</span><br><span class="line">    server <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">8081</span> weight=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">location / &#123;</span><br><span class="line">    proxy_pass http://lb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

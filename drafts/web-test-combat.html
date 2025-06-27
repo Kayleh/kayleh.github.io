@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Web测试要点 功能测试  -(最基本)  链接测试 1.所有链接是否链接到该链接的页面 2.页面是否存在 3.不存在孤立页面  表单测试 1提交数据—-&gt;注册(数据库 新增), 修改订单(数据库 改) 常用控件:输入框,下拉框,上传文件(图片,Excel,txt等),提交按钮,单选多选 输入框:长度,数据类型,必填,重复   空格和业务约束 下拉框:默认信息,数据完整性&#x2F;正确性,">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Web Test Combat">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/web-test-combat.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="Web测试要点 功能测试  -(最基本)  链接测试 1.所有链接是否链接到该链接的页面 2.页面是否存在 3.不存在孤立页面  表单测试 1提交数据—-&gt;注册(数据库 新增), 修改订单(数据库 改) 常用控件:输入框,下拉框,上传文件(图片,Excel,txt等),提交按钮,单选多选 输入框:长度,数据类型,必填,重复   空格和业务约束 下拉框:默认信息,数据完整性&#x2F;正确性,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-13T08:50:01.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.522Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="test">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>Web Test Combat</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h2 id="Web测试要点"><a href="#Web测试要点" class="headerlink" title="Web测试要点"></a>Web测试要点</h2><ul>
+<li><p>功能测试  -(最基本)</p>
+<ul>
+<li><p>链接测试</p>
+<p>1.所有链接是否链接到该链接的页面</p>
+<p>2.页面是否存在</p>
+<p>3.不存在孤立页面</p>
+</li>
+<li><p>表单测试</p>
+<p>1提交数据—-&gt;注册(数据库 新增), 修改订单(数据库 改)</p>
+<h5 id="常用控件-输入框-下拉框-上传文件-图片-Excel-txt等-提交按钮-单选多选"><a href="#常用控件-输入框-下拉框-上传文件-图片-Excel-txt等-提交按钮-单选多选" class="headerlink" title="常用控件:输入框,下拉框,上传文件(图片,Excel,txt等),提交按钮,单选多选"></a>常用控件:输入框,下拉框,上传文件(图片,Excel,txt等),提交按钮,单选多选</h5><ul>
+<li>输入框:长度,数据类型,必填,重复   空格和业务约束</li>
+<li>下拉框:默认信息,数据完整性&#x2F;正确性,第一条最后一条</li>
+<li>上传文件(图片,Excel,txt等):大小,格式,尺寸,数量等. 文件本身的内容规则验证</li>
+<li>提交按钮:支持回车&#x2F;单击;弱网测试 ,快速点击是否重复提交,提交内容是否涉及加密</li>
+</ul>
+</li>
+<li><p>搜索测试</p>
+<ul>
+<li><p>输入框(按时间搜索),下拉框</p>
+</li>
+<li><p>假设:搜索条件A,B,C,D</p>
+</li>
+<li><p>任单个条件查询:下拉框,输入框(模糊搜索,超长搜索,不存在条件,为空)</p>
+</li>
+<li><p>时间搜索</p>
+<p>开始时间,结束时间</p>
+<p>开始时间&#x3D;结束时间 ( 同一天数据)</p>
+<p>开始时间&lt;结束时间(造跨年 跨天 跨月的数据)</p>
+<p>开始时间&gt;结束时间(异常)</p>
+<p>手动输入,格式</p>
+</li>
+</ul>
+</li>
+<li><p>删除测试</p>
+<ul>
+<li>没有数据,删除</li>
+<li>选择一条数据&#x2F;批量选择&#x2F;全选,删除.   删除二次确认.且删除后合理提示</li>
+<li>删除数据关联性</li>
+<li>数据库角度,删,确认数据库是否及时更新</li>
+</ul>
+</li>
+<li><p>cookie,session测试</p>
+<ul>
+<li>存储用户信息的,记录用户身份给予后续操作通行证</li>
+<li>确认浏览器存储cookie目录有无cookie相关信息</li>
+<li>保存时间之外,cookie是否正常</li>
+<li>删除浏览器所有的cookie文件,再次登录,会怎么处理</li>
+<li>鉴权</li>
+</ul>
+</li>
+<li><p>数据库测试</p>
+<ul>
+<li>搭建测试环境,初始化sql脚本</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>界面&#x2F;可用性测试</p>
+<ul>
+<li>是否跟产品原型&#x2F;ui效果图一致</li>
+<li>功能测试同步测试</li>
+</ul>
+</li>
+<li><p>兼容性测试</p>
+<ul>
+<li>主要考虑浏览器</li>
+<li>主流浏览器+内核(ie,firefox,Chrome,opera)</li>
+<li>浏览器测试工具IEtest</li>
+<li>功能测试同步关注</li>
+</ul>
+</li>
+<li><p>接口测试</p>
+<ul>
+<li>确保后端代码的功能实现</li>
+<li>jmeter</li>
+</ul>
+</li>
+<li><p>安全测试</p>
+<ul>
+<li>sql注入，跨站攻击</li>
+<li>漏洞扫描appscan</li>
+</ul>
+</li>
+<li><p>性能测试</p>
+<ul>
+<li>jmeter&#x2F;loadrunner</li>
+</ul>
+</li>
+</ul>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

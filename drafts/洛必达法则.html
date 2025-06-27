@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="洛必达法则两种形式：$$\frac{0}{0}$$ $$\frac{\infty}{\infty}$$  $$\frac{0}{0}$$  例题：  重要极限也可以用洛必达法则证明：   必须是$\frac{0}{0}$型或$\frac{\infty}{\infty}$型才可以再次求导。    $$\frac{\infty}{\infty}$$其实和$\frac{0}{0}$没区别：  例题：">
+<meta property="og:type" content="website">
+<meta property="og:title" content="洛必达法则">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="洛必达法则两种形式：$$\frac{0}{0}$$ $$\frac{\infty}{\infty}$$  $$\frac{0}{0}$$  例题：  重要极限也可以用洛必达法则证明：   必须是$\frac{0}{0}$型或$\frac{\infty}{\infty}$型才可以再次求导。    $$\frac{\infty}{\infty}$$其实和$\frac{0}{0}$没区别：  例题：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600529727634.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600529882424.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600534332058.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600534495973.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600534564326.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600535683379.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600535923847.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600536068546.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600536513889.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600536878642.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600537030481.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600537514365.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600537595187.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600537822232.png">
+<meta property="article:published_time" content="2020-09-19T06:31:17.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.531Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600529727634.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>洛必达法则</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h1 id="洛必达法则"><a href="#洛必达法则" class="headerlink" title="洛必达法则"></a>洛必达法则</h1><h3 id="两种形式："><a href="#两种形式：" class="headerlink" title="两种形式："></a>两种形式：</h3><p>$$\frac{0}{0}$$</p>
+<p>$$\frac{\infty}{\infty}$$</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600529727634.png" alt="1600529727634"></p>
+<h3 id="frac-0-0"><a href="#frac-0-0" class="headerlink" title="$$\frac{0}{0}$$"></a>$$\frac{0}{0}$$</h3><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600529882424.png" alt="1600529882424"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600534332058.png" alt="1600534332058"></p>
+<p>例题：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600534495973.png" alt="1600534495973"></p>
+<p>重要极限也可以用洛必达法则证明：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600534564326.png" alt="1600534564326"></p>
+<blockquote>
+<p>必须是$\frac{0}{0}$型或$\frac{\infty}{\infty}$型才可以再次求导。</p>
+</blockquote>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600535683379.png" alt="1600535683379"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600535923847.png" alt="1600535923847"></p>
+<h3 id="frac-infty-infty"><a href="#frac-infty-infty" class="headerlink" title="$$\frac{\infty}{\infty}$$"></a>$$\frac{\infty}{\infty}$$</h3><p>其实和$\frac{0}{0}$没区别：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600536068546.png" alt="1600536068546"></p>
+<p>例题：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600536513889.png" alt="1600536513889"></p>
+<p>趋于正无穷的速度：</p>
+<p>对数&lt;幂函数&lt;指数函数</p>
+<h2 id="洛必达法则注意"><a href="#洛必达法则注意" class="headerlink" title="洛必达法则注意"></a>洛必达法则注意</h2><p>1)只有$\frac{0}{0}$或$\frac{\infty}{\infty}$才用</p>
+<p>2)不要一味求导，与重要极限、等价无穷小替换结合</p>
+<p>3)<img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600536878642.png" alt="1600536878642"></p>
+<p>例题：</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600537030481.png" alt="1600537030481"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600537514365.png" alt="1600537514365"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600537595187.png" alt="1600537595187"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/1600537822232.png" alt="1600537822232"></p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

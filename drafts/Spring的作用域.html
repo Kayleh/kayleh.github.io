@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Spring相关什么是IOCIOC： Inversion of control 反转控制。 比如以前创建一个对象，需要自己主动new 一个对象，通过IOC，对象的创建交由Spring框架 创建，开发人员直接使用已经创建好的对象。 什么是DIDI： Dependency Injection 依赖注入。 通过IOC创建对象的时候，可以注入字符串甚至其他对象。 比如DAO就会注入session fact">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Spring Related">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/Spring%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="Spring相关什么是IOCIOC： Inversion of control 反转控制。 比如以前创建一个对象，需要自己主动new 一个对象，通过IOC，对象的创建交由Spring框架 创建，开发人员直接使用已经创建好的对象。 什么是DIDI： Dependency Injection 依赖注入。 通过IOC创建对象的时候，可以注入字符串甚至其他对象。 比如DAO就会注入session fact">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Spring%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/2025.png">
+<meta property="article:published_time" content="2020-12-16T05:44:11.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.517Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="frame">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Spring%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/2025.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>Spring Related</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h1 id="Spring相关"><a href="#Spring相关" class="headerlink" title="Spring相关"></a>Spring相关</h1><h2 id="什么是IOC"><a href="#什么是IOC" class="headerlink" title="什么是IOC"></a>什么是IOC</h2><p>IOC： Inversion of control 反转控制。 比如以前创建一个对象，需要自己主动new 一个对象，通过IOC，对象的创建交由Spring框架 创建，开发人员直接使用已经创建好的对象。</p>
+<h2 id="什么是DI"><a href="#什么是DI" class="headerlink" title="什么是DI"></a>什么是DI</h2><p>DI： Dependency Injection 依赖注入。 通过IOC创建对象的时候，可以注入字符串甚至其他对象。 比如DAO就会注入session factory.</p>
+<p>通常IOC和DI是紧密结合，一起使用的</p>
+<h2 id="什么是AOP"><a href="#什么是AOP" class="headerlink" title="什么是AOP"></a>什么是AOP</h2><p>把功能划分为核心业务功能和其他的周边辅助功能，比如日志，性能统计，事务等等。 其他的周边辅助功能可以都看作切面功能。核心功能和切面功能分别独立开发，通过面向切面编程，可以有机的把核心业务功能和切面功能根据需求结合在一起。 比如增加操作可以和事务切面结合在一起，查询操作可以和性能统计切面结合在一起。<br>在配置方面，要配置切面，切点，并且通过aspect:config 把切面和切点结合起来。</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Spring%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/2025.png" alt="什么是AOP"></p>
+<h4 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h4><blockquote>
+<p>可以通过配置文件的scope属性来指定bean的作用域</p>
+</blockquote>
+<ul>
+<li>singleton:默认值.当IOC容器一创建就会创建bean的实例.而且是单例的,每次得到的都是同一个.</li>
+<li>prototype:原型的.当IOC容器一创建不再实例化该bean,每次调用getBean方法时再实例化该bean,而且每次得到的不是同一个</li>
+<li>request:每次请求实例化一个bean</li>
+<li>session:在一次会话中共享一个bean</li>
+</ul>
+<h4 id="Spring支持的常用数据库事务传播属性和事务隔离级别"><a href="#Spring支持的常用数据库事务传播属性和事务隔离级别" class="headerlink" title="Spring支持的常用数据库事务传播属性和事务隔离级别"></a>Spring支持的常用数据库事务传播属性和事务隔离级别</h4><ul>
+<li><p>propagation:用来设置事务的传播行为</p>
+<p>事务的传播行为:一个事务方法运行在了一个开启了事务的方法中时,当前方法时使用原来的事务还是开启一个新的事务</p>
+<ul>
+<li>Propagation.REQUIRED:默认值,使用原来的事务</li>
+<li>Propagation.REQUIRED_NEW:将原来的事务挂起,开启一个新的事务</li>
+</ul>
+</li>
+<li><p>isolation:用来设置事务的隔离级别</p>
+<ul>
+<li>Isolation.REPEATABLE_READ:可重复读,MySQL默认的隔离级别</li>
+<li>Isolation.READ_COMMITTED:读已提交,Oracle默认的隔离级别,开发时通常使用的隔离级别</li>
+</ul>
+</li>
+</ul>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

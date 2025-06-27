@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="JMeter压力测试">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Java高性能高并发秒杀系统(5)">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%20-%20%E5%89%AF%E6%9C%AC%20(4).html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="JMeter压力测试">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713193736717.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713193845955.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713193919346.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713194035109.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/2020071319414434.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713194305250.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713195835161.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713195944979.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713201121978.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713211114969.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713203204970.png">
+<meta property="article:published_time" content="2020-11-08T04:12:45.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.512Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713193736717.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>Java高性能高并发秒杀系统(5)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h2 id="1-JMeter压力测试"><a href="#1-JMeter压力测试" class="headerlink" title="1. JMeter压力测试"></a>1. JMeter压力测试</h2><h3 id="1-1-测试过程"><a href="#1-1-测试过程" class="headerlink" title="1.1 测试过程"></a>1.1 测试过程</h3><ol>
+<li>打开jmeter.bat<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713193736717.png" alt="在这里插入图片描述"></li>
+<li>设置HTTP默认请求<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713193845955.png" alt="在这里插入图片描述"><br>编写协议和端口号<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713193919346.png" alt="在这里插入图片描述"></li>
+<li>编写测试HTTP请求<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713194035109.png" alt="在这里插入图片描述"><br>因为我们已经写过<code>默认设置</code>，我们就可以不用编写协议和地址了，如下，只需编写<code>请求类型</code>和<code>地址</code>即可<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/2020071319414434.png" alt="在这里插入图片描述"></li>
+<li>添加聚合报告</li>
+</ol>
+<p>我们即可在报告中查看压测信息<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713194305250.png" alt="在这里插入图片描述"></p>
+<h3 id="1-2-Linux-top命令"><a href="#1-2-Linux-top命令" class="headerlink" title="1.2 Linux top命令"></a>1.2 Linux top命令</h3><ul>
+<li>top：相当于Windows下的任务管理器，可以动态显示当前进程的状况</li>
+</ul>
+<hr>
+<h2 id="2-自定义配置文件JMeter压测"><a href="#2-自定义配置文件JMeter压测" class="headerlink" title="2. 自定义配置文件JMeter压测"></a>2. 自定义配置文件JMeter压测</h2><h3 id="2-1-测试过程"><a href="#2-1-测试过程" class="headerlink" title="2.1 测试过程"></a>2.1 测试过程</h3><p>与上方基本一致，不过，要在测试的请求上，<code>添加CSV数据文件设置</code><br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713195835161.png" alt="在这里插入图片描述"><br>读取我们自己编写的配置文件，并且标注变量名称，如此，即可开始压测。<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713195944979.png" alt="在这里插入图片描述"><br>其中配置文件信息，用英文逗号隔开<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713201121978.png" alt="在这里插入图片描述"></p>
+<hr>
+<h2 id="3-Redis压测"><a href="#3-Redis压测" class="headerlink" title="3. Redis压测"></a>3. Redis压测</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#100个并发连接，100000个请求</span></span><br><span class="line">redis-benchmark -h 127.0.0.1 -p 6379 -c 100 -n 100000</span><br><span class="line"></span><br><span class="line"><span class="comment">#存取大小为100字节的数据包</span></span><br><span class="line">redis-benchmark -h 127.0.0.1 -p 6379 -q -d 100</span><br><span class="line"></span><br><span class="line"><span class="comment">#测试set和lpush命令的QPS，其中-q为简化输出</span></span><br><span class="line">redis-benchmark -t <span class="built_in">set</span>,lpush -q -n 1000000</span><br><span class="line"></span><br><span class="line"><span class="comment">#测试单条命令的QPS</span></span><br><span class="line">redis-benchmark -n 100000 -q script load <span class="string">&quot;redis.call(&#x27;set&#x27;,&#x27;foo&#x27;,&#x27;bar&#x27;)&quot;</span></span><br><span class="line">1234567891011</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-Linux环境下，命令行压测"><a href="#4-Linux环境下，命令行压测" class="headerlink" title="4. Linux环境下，命令行压测"></a>4. Linux环境下，命令行压测</h2><ol>
+<li>在Windows目录下写好<code>jmx文件</code></li>
+<li>命令行：<code>sh jmeter.sh -n -t xxx.jmx -l result.jtl</code></li>
+<li>再将result.jtl<code>导入到jmeter中</code></li>
+</ol>
+<h3 id="4-1-打成jar包"><a href="#4-1-打成jar包" class="headerlink" title="4.1 打成jar包"></a>4.1 打成jar包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maven clean package</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>打开jar包，我们进入META-INF目录下，打开MANIFEST.MF文件，我们可以发现如下语句<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713211114969.png" alt="在这里插入图片描述"><br>其中Main-Class为SpringBoot框架的启动类，在这个类中可以跟进看源码<br>Start-Class为我们自己编写的启动类</p>
+<h3 id="4-2-上传到Linux服务器上"><a href="#4-2-上传到Linux服务器上" class="headerlink" title="4.2 上传到Linux服务器上"></a>4.2 上传到Linux服务器上</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#执行如下命令，之后即可根据如下地址访问</span></span><br><span class="line"><span class="comment">#http://182.92.xxx.xxx:8080/login</span></span><br><span class="line">java -jar miaosha.jar </span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-编写-jmx文件"><a href="#4-3-编写-jmx文件" class="headerlink" title="4.3 编写.jmx文件"></a>4.3 编写.jmx文件</h3><p>在Windows上用JMeter<code>编写.jmx脚本</code>，上传到服务器上，执行如下命令行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jmeter.sh -n -t good_list.jmx -l result.jtl </span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>之后，下载result.jtl到Windows本地，进行报告分析</p>
+<hr>
+<h2 id="5-SpringBoot-打war包"><a href="#5-SpringBoot-打war包" class="headerlink" title="5. SpringBoot 打war包"></a>5. SpringBoot 打war包</h2><ol>
+<li>在pom.xml文件中，添加打包为war包的标签</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;packaging&gt;war&lt;/packaging&gt;</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>添加tomcat provided编译时的依赖</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;</span><br><span class="line">            &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">12345</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在主类中，<code>实现SpringBootServletInitializer，重写configure()</code>方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MiaoshaApplication</span> <span class="keyword">extends</span> <span class="title class_">SpringBootServletInitializer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(MiaoshaApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> SpringApplicationBuilder <span class="title function_">configure</span><span class="params">(SpringApplicationBuilder builder)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> builder.sources(MiaoshaApplication.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">123456789101112</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>将ROOT目录删除，并且把我们的war包修改为ROOT.war，放在webapps目录下，即可访问<br><img src="https://cdn.kayleh.top/gh/kayleh/cdn2/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/20200713203204970.png" alt="在这里插入图片描述"></li>
+</ol>
+<hr>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

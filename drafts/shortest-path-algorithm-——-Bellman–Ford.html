@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Bellman–FordBellman–Ford 算法是一种单源最短路径算法，用于计算一个顶点到其他所有顶点的最短路径。 算法思想Bellman–Ford 算法的基本思想是：就是不断尝试对图上每一条边进行松弛。我们每进行一轮循环，就对图上所有的边都尝试进行一次松弛操作，当一次循环中没有成功的松弛操作时，算法停止。 松弛操作(relaxation)：松弛操作是指对于一条边e，我们试图通过这条边来缩短">
+<meta property="og:type" content="website">
+<meta property="og:title" content="shortest path algorithm —— Bellman–Ford">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/shortest-path-algorithm-%E2%80%94%E2%80%94-Bellman%E2%80%93Ford.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="Bellman–FordBellman–Ford 算法是一种单源最短路径算法，用于计算一个顶点到其他所有顶点的最短路径。 算法思想Bellman–Ford 算法的基本思想是：就是不断尝试对图上每一条边进行松弛。我们每进行一轮循环，就对图上所有的边都尝试进行一次松弛操作，当一次循环中没有成功的松弛操作时，算法停止。 松弛操作(relaxation)：松弛操作是指对于一条边e，我们试图通过这条边来缩短">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-18T17:30:30.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.521Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>shortest path algorithm —— Bellman–Ford</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h3 id="Bellman–Ford"><a href="#Bellman–Ford" class="headerlink" title="Bellman–Ford"></a>Bellman–Ford</h3><p>Bellman–Ford 算法是一种单源最短路径算法，用于计算一个顶点到其他所有顶点的最短路径。</p>
+<h4 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h4><p>Bellman–Ford 算法的基本思想是：<strong>就是不断尝试对图上每一条边进行松弛。我们每进行一轮循环，就对图上所有的边都尝试进行一次松弛操作，当一次循环中没有成功的松弛操作时，算法停止。</strong></p>
+<p><code>松弛操作(relaxation)</code>：松弛操作是指对于一条边<code>e</code>，我们试图通过这条边来缩短起点到终点的距离。如果<code>dis[a] + w &lt; dis[b]</code>，那么我们就可以通过这条边来缩短起点到终点的距离，即<code>dis[b] = dis[a] + w</code>。</p>
+<h4 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li><p>初始化：创建一个一维数组<code>dis</code>，用于存储起点到各点的最短路径长度，初始化为无穷大，起点到自己的距离为0。</p>
+</li>
+<li><p>循环：对图上所有的边进行<code>n-1</code>轮松弛操作。</p>
+</li>
+<li><p>判断负环：如果第<code>n</code>轮仍然有松弛操作，说明图中存在负环。</p>
+</li>
+<li><p>返回结果：<code>dis[i]</code>即为起点到终点的最短路径长度。</p>
+<blockquote>
+<p>为什么第二步是<code>n-1</code>轮松弛操作？</p>
+<p>因为最短路径最多包含<code>n-1</code>条边，所以进行<code>n-1</code>轮松弛操作后，所有的最短路径都会被计算出来。</p>
+<p>如果第二步是<code>n</code>轮松弛操作，那么就无法判断负环，因为负环的最短路径包含<code>n</code>条边，所以进行<code>n</code>轮松弛操作后，负环的最短路径长度仍然会被更新。</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> a, b, w; <span class="comment">// 边的起点、终点、权重</span></span><br><span class="line">&#125; edges[m];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> main&#123;</span><br><span class="line">    <span class="type">int</span> n, m; <span class="comment">// n个顶点，m条边</span></span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m; </span><br><span class="line">    <span class="type">int</span> dis[n]; <span class="comment">// dis[i]表示起点到顶点i的最短路径长度</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    <span class="built_in">memset</span>(dis, <span class="number">0x3f</span>, <span class="built_in">sizeof</span>(dis)); <span class="comment">// 初始化为无穷大</span></span><br><span class="line">    dis[<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">// 起点到自己的距离为0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读入边</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="type">int</span> a, b, w;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b &gt;&gt; w;</span><br><span class="line">        edges[i] = &#123;a, b, w&#125;;</span><br><span class="line">        dis[b] = <span class="built_in">min</span>(dis[b], dis[a] + w); <span class="comment">// 松弛操作</span></span><br><span class="line">        <span class="comment">// dis[a] = min(dis[a], dis[b] + w); // 无向图</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 循环</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++) &#123; <span class="comment">// 进行n-1轮松弛操作</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m; j++) &#123; <span class="comment">// 对图上所有的边进行松弛操作</span></span><br><span class="line">            <span class="type">int</span> a = edges[j].a, b = edges[j].b, w = edges[j].w;</span><br><span class="line">            dis[b] = <span class="built_in">min</span>(dis[b], dis[a] + w); <span class="comment">// 松弛操作</span></span><br><span class="line">            <span class="comment">// dis[a] = min(dis[a], dis[b] + w); // 无向图</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断负环</span></span><br><span class="line">    <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="type">int</span> a = edges[i].a, b = edges[i].b, w = edges[i].w;</span><br><span class="line">        <span class="keyword">if</span> (dis[b] &gt; dis[a] + w) &#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (flag) cout &lt;&lt; <span class="string">&quot;此图存在负环&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cout &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><ul>
+<li><p>时间复杂度：$O(nm)$</p>
+<p>每一轮循环中，我们对图上所有的边都进行了一次松弛操作，所以总共进行了<code>n-1</code>轮循环，每一轮循环中，我们对图上所有的边都进行了一次松弛操作，所以总共进行了<code>m</code>次松弛操作，所以时间复杂度为$O(nm)$。</p>
+</li>
+<li><p>空间复杂度：$O(n)$</p>
+<p>我们只需要一个一维数组<code>dis</code>来存储起点到各点的最短路径长度，所以空间复杂度为$O(n)$。</p>
+</li>
+</ul>
+<h4 id="队列优化（SPFA）"><a href="#队列优化（SPFA）" class="headerlink" title="队列优化（SPFA）"></a>队列优化（SPFA）</h4><p>队列优化的 Bellman–Ford 算法又称为 SPFA（Shortest Path Faster Algorithm），是对 Bellman–Ford 算法的一种优化。</p>
+<p>SPFA 算法的基本思想是：<strong>在 Bellman–Ford 算法中，我们每进行一轮循环，就对图上所有的边都尝试进行一次松弛操作，但是实际上，只有那些在上一轮循环中被松弛过的边，才有可能在这一轮循环中继续被松弛。所以我们可以用一个队列来存储这些在上一轮循环中被松弛过的边，这样就可以减少不必要的松弛操作。</strong></p>
+<h4 id="算法步骤-1"><a href="#算法步骤-1" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>初始化：创建一个一维数组<code>dis</code>，用于存储起点到各点的最短路径长度，初始化为无穷大，起点到自己的距离为0。</li>
+<li>循环：将起点加入队列，对队列中的每一条边进行松弛操作，如果松弛成功，就将这条边的终点加入队列。</li>
+<li>判断负环：如果某个顶点入队次数超过<code>n</code>次，说明图中存在负环。</li>
+<li>返回结果：<code>dis[i]</code>即为起点到终点的最短路径长度。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> a, b, w; <span class="comment">// 边的起点、终点、权重</span></span><br><span class="line">    <span class="type">int</span> ne; <span class="comment">// 链表中的下一条边</span></span><br><span class="line">&#125; edges[m];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> h[N], e[M], w[M], ne[M], idx; <span class="comment">// 链表的头结点、边的起点、终点、权重、下一条边、边的编号</span></span><br><span class="line"><span class="type">int</span> main&#123;</span><br><span class="line">    <span class="type">int</span> n, m; <span class="comment">// n个顶点，m条边</span></span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m; </span><br><span class="line">    <span class="type">int</span> dis[n]; <span class="comment">// dis[i]表示起点到顶点i的最短路径长度</span></span><br><span class="line">    <span class="type">bool</span> st[n]; <span class="comment">// st[i]表示顶点i是否在队列中</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    <span class="built_in">memset</span>(dis, <span class="number">0x3f</span>, <span class="built_in">sizeof</span>(dis)); <span class="comment">// 初始化为无穷大</span></span><br><span class="line">    dis[<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">// 起点到自己的距离为0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 循环</span></span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">push</span>(<span class="number">0</span>); <span class="comment">// 将起点加入队列</span></span><br><span class="line">    st[<span class="number">0</span>] = <span class="literal">true</span>; <span class="comment">// 起点已经在队列中</span></span><br><span class="line">    <span class="keyword">while</span> (q.<span class="built_in">size</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> t = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        st[t] = <span class="literal">false</span>; <span class="comment">// 将t从队列中取出</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = h[t]; i != <span class="number">-1</span>; i = ne[i]) &#123; <span class="comment">// 对队列中的每一条边进行松弛操作</span></span><br><span class="line">            <span class="type">int</span> j = e[i];</span><br><span class="line">            <span class="keyword">if</span> (dis[j] &gt; dis[t] + w[i]) &#123; <span class="comment">// 松弛操作</span></span><br><span class="line">                dis[j] = dis[t] + w[i];</span><br><span class="line">                <span class="keyword">if</span> (!st[j]) &#123; <span class="comment">// 如果松弛成功，就将这条边的终点加入队列</span></span><br><span class="line">                    q.<span class="built_in">push</span>(j);</span><br><span class="line">                    st[j] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断负环</span></span><br><span class="line">    <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="type">int</span> a = edges[i].a, b = edges[i].b, w = edges[i].w;</span><br><span class="line">        <span class="keyword">if</span> (dis[b] &gt; dis[a] + w) &#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (flag) cout &lt;&lt; <span class="string">&quot;此图存在负环&quot;</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cout &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><ul>
+<li><p>时间复杂度：$O(nm)$</p>
+<p>每一轮循环中，我们对队列中的每一条边都进行了一次松弛操作，所以总共进行了<code>m</code>次松弛操作，所以时间复杂度为$O(nm)$。</p>
+</li>
+<li><p>空间复杂度：$O(n)$</p>
+<p>  我们只需要一个一维数组<code>dis</code>来存储起点到各点的最短路径长度，一个一维数组<code>st</code>来存储顶点是否在队列中，所以空间复杂度为$O(n)$。</p>
+</li>
+</ul>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

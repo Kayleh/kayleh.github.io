@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="DijkstraDijkstra 算法是一种单源最短路径算法，用于计算一个顶点到其他所有顶点的最短路径。Dijkstra 算法不能处理负权边，可以处理负权边的单源最短路径算法见 shortest path algorithm —— Bellman–Ford 相比BFS，Dijkstra算法最大的不同是，在于考虑了成本。 算法思想Dijkstra 算法的基本思想是：将图中的所有顶点分为两个集合，第一">
+<meta property="og:type" content="website">
+<meta property="og:title" content="shortest path algorithm —— Dijkstra">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/shortest-path-algorithm-%E2%80%94%E2%80%94-Dijkstra.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="DijkstraDijkstra 算法是一种单源最短路径算法，用于计算一个顶点到其他所有顶点的最短路径。Dijkstra 算法不能处理负权边，可以处理负权边的单源最短路径算法见 shortest path algorithm —— Bellman–Ford 相比BFS，Dijkstra算法最大的不同是，在于考虑了成本。 算法思想Dijkstra 算法的基本思想是：将图中的所有顶点分为两个集合，第一">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-19T08:24:09.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.522Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>shortest path algorithm —— Dijkstra</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><p>Dijkstra 算法是一种单源最短路径算法，用于计算一个顶点到其他所有顶点的最短路径。Dijkstra 算法不能处理负权边，可以处理负权边的<br>单源最短路径算法见 <a href="/shortest-path-algorithm-Bellman%E2%80%93Ford/">shortest path algorithm —— Bellman–Ford</a></p>
+<p>相比BFS，Dijkstra算法最大的不同是，在于考虑了成本。</p>
+<h4 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h4><p>Dijkstra 算法的基本思想是：<strong>将图中的所有顶点分为两个集合，第一个集合为已求出最短路径的顶点集合，记为<code>S</code>；第二个集合为未求出最短路径的顶点集合，记为<code>U</code>。初始时，集合<code>S</code>中只有一个源点，然后每一次从集合<code>U</code>中取出一个顶点<code>u</code>，并将这个顶点加入到集合<code>S</code>中，然后以顶点<code>u</code>为中介点，对源点到达集合<code>U</code>中顶点的距离进行更新。</strong></p>
+<h4 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li><p>初始化：创建一个一维数组<code>dis</code>，用于存储起点到各点的最短路径长度，初始化为无穷大，起点到自己的距离为0。</p>
+</li>
+<li><p>循环：重复<code>n</code>次，每次从集合<code>U</code>中取出一个顶点<code>u</code>，并将这个顶点加入到集合<code>S</code>中，然后以顶点<code>u</code>为中介点，对源点到达集合<code>U</code>中顶点的距离进行更新。</p>
+</li>
+<li><p>返回结果：<code>dis[i]</code>即为起点到终点的最短路径长度。</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> vis[N];</span><br><span class="line"><span class="type">int</span> dis[N];</span><br><span class="line"><span class="type">int</span> g[N][N]; <span class="comment">// 邻接矩阵</span></span><br><span class="line"><span class="type">int</span> s;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">(<span class="type">int</span> s)</span> </span>&#123;</span><br><span class="line">   <span class="type">int</span> n = g.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        dis[i] = INF;</span><br><span class="line">        vis[i] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dis[s] = <span class="number">0</span>; <span class="comment">// 起点到自己的距离为0</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123; </span><br><span class="line">        <span class="type">int</span> u = <span class="number">-1</span>;</span><br><span class="line">        <span class="type">int</span> MIN = INF;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123; <span class="comment">// 找到距离起点最近的点</span></span><br><span class="line">            <span class="keyword">if</span> (vis[j] == <span class="literal">false</span> &amp;&amp; dis[j] &lt; MIN) &#123;</span><br><span class="line">                u = j; <span class="comment">// u为距离起点最近的点</span></span><br><span class="line">                MIN = dis[j]; <span class="comment">// MIN为距离起点最近的点的距离</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (u == <span class="number">-1</span>) <span class="keyword">return</span>; <span class="comment">// 找不到小于INF的dis[u]，说明剩下的顶点和起点s不连通</span></span><br><span class="line">        vis[u] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (vis[v] == <span class="literal">false</span> &amp;&amp; g[u][v] != INF &amp;&amp; dis[u] + g[u][v] &lt; dis[v]) &#123; </span><br><span class="line">                <span class="comment">// 如果v未访问 &amp;&amp; u能到达v &amp;&amp; 以u为中介点可以使dis[v]更优</span></span><br><span class="line">                dis[v] = dis[u] + g[u][v];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cout &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>时间复杂度：$O(n^2)$</p>
+<p>空间复杂度：$O(n^2)$</p>
+<h4 id="优先队列优化"><a href="#优先队列优化" class="headerlink" title="优先队列优化"></a>优先队列优化</h4><p>Dijkstra 算法的时间复杂度为$O(n^2)$，可以通过优先队列优化，将时间复杂度降为$O(mlogn)$。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> &#123;</span><br><span class="line">    <span class="type">int</span> v, dis; <span class="comment">// v为顶点，dis为起点到顶点v的距离</span></span><br><span class="line">    <span class="type">bool</span> <span class="keyword">operator</span>&lt;(<span class="type">const</span> node&amp; a) <span class="type">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> dis &gt; a.dis; <span class="comment">// 优先队列中，dis小的优先级高</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> to, w;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">bool</span> vis[N]; <span class="comment">// 标记数组</span></span><br><span class="line"><span class="type">int</span> dis[N]; <span class="comment">// 存储起点到各点的最短路径长度</span></span><br><span class="line">vector&lt;edge&gt; g[N]; <span class="comment">// 邻接表</span></span><br><span class="line">priority_queue&lt;node, vector&lt;node&gt;, greater&lt;node&gt;&gt; q; <span class="comment">// 小顶堆</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">(<span class="type">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = g.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">memset</span>(dis, <span class="number">0x3f</span>, <span class="keyword">sizeof</span> dis);</span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span> vis);</span><br><span class="line"></span><br><span class="line">    q.<span class="built_in">push</span>( &#123; s, <span class="number">0</span> &#125; ); <span class="comment">// 起点到自己的距离为0</span></span><br><span class="line">    dis[s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        node x = q.<span class="built_in">top</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>(); <span class="comment">// 取出距离起点最近的点</span></span><br><span class="line">        <span class="type">int</span> u = x.v;</span><br><span class="line">        <span class="keyword">if</span> (vis[u]) <span class="keyword">continue</span>;</span><br><span class="line">        vis[u] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; g[u].<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 遍历所有出边</span></span><br><span class="line">            <span class="type">int</span> v = g[u][i].to, w = g[u][i].w;</span><br><span class="line">            <span class="keyword">if</span> (!vis[v]  &amp;&amp; dis[u] + w &lt; dis[v]) &#123;</span><br><span class="line">                dis[v] = dis[u] + w;</span><br><span class="line">                q.<span class="built_in">push</span>(<span class="built_in">node</span>(v, dis[v]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        cout &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

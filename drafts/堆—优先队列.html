@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="「优先队列」应用场景：从序列中找一个最值（最大值或最小值），如果顺序寻找最值需要O(n)的时间，而使用优先队列则只需要O(logn)的时间。 普通的队列是一种先进先出的数据结构，元素在队尾入，在队头出。 在优先队列中。元素被赋予了优先级，具有最高优先级的元素先出。 优先队列是利用堆来实现的，堆可以看作是一棵完全二叉树的循序存储结构，具有n个节点的完全二叉树的深度为（logn）+1 在这棵完全二叉树">
+<meta property="og:type" content="website">
+<meta property="og:title" content="堆—优先队列">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E5%A0%86%E2%80%94%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="「优先队列」应用场景：从序列中找一个最值（最大值或最小值），如果顺序寻找最值需要O(n)的时间，而使用优先队列则只需要O(logn)的时间。 普通的队列是一种先进先出的数据结构，元素在队尾入，在队头出。 在优先队列中。元素被赋予了优先级，具有最高优先级的元素先出。 优先队列是利用堆来实现的，堆可以看作是一棵完全二叉树的循序存储结构，具有n个节点的完全二叉树的深度为（logn）+1 在这棵完全二叉树">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-03T16:02:09.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.528Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>堆—优先队列</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h2 id="「优先队列」"><a href="#「优先队列」" class="headerlink" title="「优先队列」"></a>「优先队列」</h2><p><strong>应用场景</strong>：从序列中找一个最值（最大值或最小值），如果顺序寻找最值需要O(n)的时间，而使用优先队列则只需要O(logn)的时间。</p>
+<p>普通的队列是一种先进先出的数据结构，元素在队尾入，在队头出。</p>
+<p>在优先队列中。元素被赋予了优先级，具有最高优先级的元素先出。</p>
+<p>优先队列是利用堆来实现的，堆可以看作是一棵完全二叉树的循序存储结构，具有n个节点的完全二叉树的深度为（logn）+1</p>
+<p>在这棵完全二叉树中，</p>
+<p>如果每一个节点的值都大于等于左右孩子的值，则称之为最大堆，大顶堆。</p>
+<p>如果每一个节点的值都小于等于左右孩子的值，则称之为最小堆，小顶堆。</p>
+<p><strong>优先队列的操作</strong></p>
+<p>**出队：**堆顶出队，最后一个记录代替堆顶的位置，重新调整为堆</p>
+<blockquote>
+<p>出队后，除了堆顶之外，其他节点都是满足最大堆的定义，只需要将堆顶执行“下沉”操作，即可调整为堆。</p>
+<p><strong>下沉：</strong></p>
+<p>堆顶与左右孩子比较，</p>
+<p>如果比孩子大，则已满足堆；</p>
+<p>如果比孩子小，则与较大的孩子交换，交换到新的位置后，继续向下比较，从根结点一直比较到叶子。</p>
+</blockquote>
+<p>**入队：**新纪录放入最后一个记录之后，重新调整为堆。</p>
+<blockquote>
+<p>入队后，除了新入队记录外，其他节点都满足最大堆的定义，只需要将新纪录执行“上浮”操作，即可调整为堆。</p>
+<p><strong>上浮：</strong></p>
+<p>新纪录与其双亲比较，</p>
+<p>如果小于等于双亲，则已满足堆；</p>
+<p>如果比双亲大，则与双亲交换，交换到新的位置后，继续向上比较，从叶子节点一直比较到根。</p>
+</blockquote>
+<h4 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h4><h4 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h4><ul>
+<li><code>PriorityQueue</code>是基于二叉堆原理的优先队列，队列用动态数组实现。</li>
+<li>它是非阻塞的、非线程安全的；</li>
+</ul>
+<p>PriorityQueue内部维护了几个重要属性：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>queue</td>
+<td>Object[]</td>
+<td>代表<code>PriorityQueue</code>的队列，存放元素</td>
+</tr>
+<tr>
+<td>size</td>
+<td>int</td>
+<td>当前队列包含元素个数</td>
+</tr>
+<tr>
+<td>comparator</td>
+<td>Comparator</td>
+<td><code>PriorityQueue</code>根据比较器对元素优先级排序</td>
+</tr>
+<tr>
+<td>modCount</td>
+<td>int</td>
+<td>记录队列被修改的次数</td>
+</tr>
+</tbody></table>
+<p>使用：</p>
+<p>jdk默认使用的是小顶堆</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">   PriorityQueue&lt;String&gt; queue = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;();</span><br><span class="line">   queue.add(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">   System.out.println(queue.peek());</span><br><span class="line">   queue.remove(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">   System.out.println(queue.peek());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>大顶堆：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue&lt;Integer&gt; pq = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(nums.length, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Integer&gt;()&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">     <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Integer o1, Integer o2)</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> o2 - o1;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="PriorityBlockingQueue"><a href="#PriorityBlockingQueue" class="headerlink" title="PriorityBlockingQueue"></a>PriorityBlockingQueue</h4><ul>
+<li>是<code>PriorityQueue</code>线程安全版本</li>
+<li>同样是基于二叉堆的原理，用动态数组实现</li>
+<li>阻塞的、线程安全的</li>
+<li>使用<code>ReentrantLock</code>保证线程安全</li>
+</ul>
+<h4 id="DelayQueue"><a href="#DelayQueue" class="headerlink" title="DelayQueue"></a>DelayQueue</h4><ul>
+<li><p>基于PriorityQueue实现的延迟队列</p>
+</li>
+<li><p>它的删除、插入操作和PriorityQueue基本一致，主要的区别在与poll()、take()等方法。PriorityQueue是只要队列首部有数据就除移，而DelayQueue还需要判断是否达到除移的时间。</p>
+</li>
+<li><p>至于take()、poll()方法的区别在于，take()会阻塞，而poll()直接返回。</p>
+</li>
+</ul>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

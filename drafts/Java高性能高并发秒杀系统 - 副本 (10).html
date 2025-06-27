@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="项目总结">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Java高性能高并发秒杀系统(10)">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/Java%E9%AB%98%E6%80%A7%E8%83%BD%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%20-%20%E5%89%AF%E6%9C%AC%20(10).html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="项目总结">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-11T04:15:45.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.512Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="project">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>Java高性能高并发秒杀系统(10)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h2 id="1-库存预加载到Redis中是怎么实现的？"><a href="#1-库存预加载到Redis中是怎么实现的？" class="headerlink" title="1. 库存预加载到Redis中是怎么实现的？"></a>1. 库存预加载到Redis中是怎么实现的？</h2><p>我是通过实现<code>InitializingBean接口</code>，重写其中<code>afterPropertiesSet()方法</code>，实现的预加载</p>
+<h3 id="1-1-之后主动添加秒杀商品的话，怎么添加？"><a href="#1-1-之后主动添加秒杀商品的话，怎么添加？" class="headerlink" title="1.1 之后主动添加秒杀商品的话，怎么添加？"></a>1.1 之后主动添加秒杀商品的话，怎么添加？</h3><p>通过后台管理进行添加，修改redis缓存和数据库中的值</p>
+<hr>
+<h2 id="2-在Redis中扣减库存的时候，是怎么保证线程安全，防止超卖的？"><a href="#2-在Redis中扣减库存的时候，是怎么保证线程安全，防止超卖的？" class="headerlink" title="2. 在Redis中扣减库存的时候，是怎么保证线程安全，防止超卖的？"></a>2. 在Redis中扣减库存的时候，是怎么保证线程安全，防止超卖的？</h2><p>redis中有一个<code>decr()</code>方法，它实现的是递减操作，而且能够<code>保证原子性</code></p>
+<hr>
+<h2 id="3-如果出现Redis缓存雪崩、穿透，怎么解决？"><a href="#3-如果出现Redis缓存雪崩、穿透，怎么解决？" class="headerlink" title="3. 如果出现Redis缓存雪崩、穿透，怎么解决？"></a>3. 如果出现Redis缓存雪崩、穿透，怎么解决？</h2><p>雪崩就是缓存中我存储的值全部都失效了，请求直接打到数据库上，请求过大，数据库扛不住。可以用设置这些热点数据永不失效，或者是设置一个随机的过期时间，这样来避免它同时失效。</p>
+<p>缓存穿透是缓存和数据库中都没有的数据，如果有人利用这些数据高并发的访问的话，对数据库压力也很大。可以对数据比如它的id值进行一个校验，避免这些不存在的值对数据库进行访问或者是使用布隆过滤器，它的原理是通过高效的数据结构查询数据库中是否存在这个值，不存在的时候，就直接返回，存在的话才会访问到数据库。</p>
+<hr>
+<h2 id="4-限流防刷是怎么实现的？"><a href="#4-限流防刷是怎么实现的？" class="headerlink" title="4. 限流防刷是怎么实现的？"></a>4. 限流防刷是怎么实现的？</h2><p>限流防刷我是通过拦截器来实现的，我自定义了一个注解，它实现的功能就是标记在方法上，规定它单位时间内的访问次数，如果超过要求的话，就会被拦截。</p>
+<p>拦截器我是继承的HandlerInterceptorAdapter，重写的是preHandle方法，在该方法中，将访问次数同步到Redis中，这个键值对是存在有效期的。最后还要把拦截器配置到项目中，继承WebMvcConfigurerAdapter，重写<code>addInterceptors()</code>方法</p>
+<hr>
+<h2 id="5-对于用户的恶意下单，他知道了你的URL地址，不停的刷，怎么办？"><a href="#5-对于用户的恶意下单，他知道了你的URL地址，不停的刷，怎么办？" class="headerlink" title="5. 对于用户的恶意下单，他知道了你的URL地址，不停的刷，怎么办？"></a>5. 对于用户的恶意下单，他知道了你的URL地址，不停的刷，怎么办？</h2><p>我是通过隐藏URL地址来避免这种问题的，当访问秒杀接口的时候，会先从后端生成一个随机的字符串，然后保存到redis中，并且拼接到URL地址上，这样再去访问秒杀的接口，通过RestFul风格的地址，获取其中的随机字符串，与redis中的进行比对，一致的话，才能继续向下访问</p>
+<hr>
+<h2 id="6-秒杀成功后是怎么同步到数据库中的？"><a href="#6-秒杀成功后是怎么同步到数据库中的？" class="headerlink" title="6. 秒杀成功后是怎么同步到数据库中的？"></a>6. 秒杀成功后是怎么同步到数据库中的？</h2><p>通过两步，一步是减少商品库存，第二步是创建秒杀订单。</p>
+<h3 id="6-1-减库存成功，创建秒杀订单失败了怎么办？"><a href="#6-1-减库存成功，创建秒杀订单失败了怎么办？" class="headerlink" title="6.1 减库存成功，创建秒杀订单失败了怎么办？"></a>6.1 减库存成功，创建秒杀订单失败了怎么办？</h3><p>这两步过程在一个事务中执行，然后先减少库存，它有一个成功的标志，减少库存成功了，才去执行创建订单的操作</p>
+<h3 id="6-2-Spring默认的事务隔离级别"><a href="#6-2-Spring默认的事务隔离级别" class="headerlink" title="6.2 Spring默认的事务隔离级别"></a>6.2 Spring默认的事务隔离级别</h3><p>默认情况下Spring使用的是数据库设置的默认隔离级别，应该是<code>可重复读</code></p>
+<hr>
+<h2 id="7-RabbitMQ怎么提高消息的高可用？"><a href="#7-RabbitMQ怎么提高消息的高可用？" class="headerlink" title="7. RabbitMQ怎么提高消息的高可用？"></a>7. RabbitMQ怎么提高消息的高可用？</h2><p>我在创建队列实例的时候，将其创建为可持久化的，它有一个durable属性设置为true，这样，RabbitMQ服务重启的情况下，也不会丢失消息。</p>
+<hr>
+<h2 id="8-说说volatile关键字儿"><a href="#8-说说volatile关键字儿" class="headerlink" title="8. 说说volatile关键字儿"></a>8. 说说volatile关键字儿</h2><p>它最重要的一点就是保证了变量的可见性。我想先说说JMM（java内存模型），每个线程有自己的工作内存，另外还存在一个主内存，线程从主内存中获取值存储在自己的工作内存中，当对变量进行修改，它不会立即将其同步到主内中，这个时候若有其他线程来从主内存中获取该变量的时候，就会发生脏读的现象，若被volatile标记的话，就能保证变量的可见性，当变量被修改的时候他就会将其立即同步到主内存中。</p>
+<hr>
+<h2 id="9-TCP和UDP的区别"><a href="#9-TCP和UDP的区别" class="headerlink" title="9. TCP和UDP的区别"></a>9. TCP和UDP的区别</h2><ol>
+<li>TCP是需要通过三次握手建立连接的；UDP是无连接的</li>
+<li>TCP提供的可靠性高；UDP的不保证可靠性，一般用于直播或者是语音通话</li>
+<li>TCP是基于字节流的传输层协议，它比较慢；UDP比较快</li>
+</ol>
+<hr>
+<h2 id="10-ArrayList"><a href="#10-ArrayList" class="headerlink" title="10. ArrayList"></a>10. ArrayList</h2><ul>
+<li>底层是数组，查询快，增删慢</li>
+<li>它的默认大小是10，添加值的时候会先对当前数组大小和总大小进行判断，若出现超过最大容量的话，就要进行扩容，扩容的大小是原来大小的1.5倍（右移运算符，右移1位），再将之前的数据复制到新的数组里边。</li>
+</ul>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

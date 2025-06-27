@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。 prefix[i]就代表着nums[0..i-1]所有元素的累加和，如果我们想求区间nums[i..j]的累加和，只要计算prefix[j+1] - prefix[i]即可，而不需要遍历整个区间求和。 「差分数组」差分数组的主要适用场景是频繁对原始数组的某个区间的元素进行增减 对nums数组构造一个diff差分数组，di">
+<meta property="og:type" content="website">
+<meta property="og:title" content="差分数组—前缀和思想">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84%E2%80%94%E5%89%8D%E7%BC%80%E5%92%8C%E6%80%9D%E6%83%B3.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和。 prefix[i]就代表着nums[0..i-1]所有元素的累加和，如果我们想求区间nums[i..j]的累加和，只要计算prefix[j+1] - prefix[i]即可，而不需要遍历整个区间求和。 「差分数组」差分数组的主要适用场景是频繁对原始数组的某个区间的元素进行增减 对nums数组构造一个diff差分数组，di">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-01T14:25:42.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.529Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>差分数组—前缀和思想</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <p><strong>前缀和主要适用的场景是原始数组不会被修改的情况下，频繁查询某个区间的累加和</strong>。</p>
+<p><code>prefix[i]</code>就代表着<code>nums[0..i-1]</code>所有元素的累加和，如果我们想求区间<code>nums[i..j]</code>的累加和，只要计算<code>prefix[j+1] - prefix[i]</code>即可，而不需要遍历整个区间求和。</p>
+<h3 id="「差分数组」"><a href="#「差分数组」" class="headerlink" title="「差分数组」"></a>「差分数组」</h3><p>差分数组的主要适用场景是<strong>频繁对原始数组的某个区间的元素进行增减</strong></p>
+<p>对<code>nums</code>数组构造一个<code>diff</code>差分数组，<strong><code>diff[i]</code>就是<code>nums[i]</code>和<code>nums[i-1]</code>之差</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] diff = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line"><span class="comment">// 构造差分数组</span></span><br><span class="line">diff[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    diff[i] = nums[i] - nums[i - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过这个<code>diff</code>差分数组是可以反推出原始数组<code>nums</code>的，代码逻辑如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int[] res = new int[diff.length];</span><br><span class="line">// 根据差分数组构造结果数组</span><br><span class="line">res[0] = diff[0];</span><br><span class="line">for (int i = 1; i &lt; diff.length; i++) &#123;</span><br><span class="line">    res[i] = res[i - 1] + diff[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这样构造差分数组<code>diff</code>，就可以快速进行区间增减的操作</strong>，如果你想对区间<code>nums[i..j]</code>的元素全部加 3，那么只需要让<code>diff[i] += 3</code>，然后再让<code>diff[j+1] -= 3</code>即可</p>
+<p><strong>原理很简单，回想<code>diff</code>数组反推<code>nums</code>数组的过程，<code>diff[i] += 3</code>意味着给<code>nums[i..]</code>所有的元素都加了 3，然后<code>diff[j+1] -= 3</code>又意味着对于<code>nums[j+1..]</code>所有元素再减 3，那综合起来，就是对<code>nums[i..j]</code>中的所有元素都加 3 了</strong></p>
+<p>只要花费 O(1) 的时间修改<code>diff</code>数组，就相当于给<code>nums</code>的整个区间做了修改。多次修改<code>diff</code>，然后通过<code>diff</code>数组反推，即可得到<code>nums</code>修改后的结果。</p>
+<p>现在我们把差分数组抽象成一个类，包含<code>increment</code>方法和<code>result</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Difference</span> &#123;</span><br><span class="line">    <span class="comment">// 差分数组</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] diff;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Difference</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="keyword">assert</span> nums.length &gt; <span class="number">0</span>;</span><br><span class="line">        diff = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">        <span class="comment">// 构造差分数组</span></span><br><span class="line">        diff[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            diff[i] = nums[i] - nums[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 给闭区间 [i,j] 增加 val（可以是负数）*/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">increment</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        diff[i] += val;</span><br><span class="line">        <span class="keyword">if</span> (j + <span class="number">1</span> &lt; diff.length) &#123;</span><br><span class="line">            diff[j + <span class="number">1</span>] -= val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] result() &#123;</span><br><span class="line">        <span class="type">int</span>[] res = <span class="keyword">new</span> <span class="title class_">int</span>[diff.length];</span><br><span class="line">        <span class="comment">// 根据差分数组构造结果数组</span></span><br><span class="line">        res[<span class="number">0</span>] = diff[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; diff.length; i++) &#123;</span><br><span class="line">            res[i] = res[i - <span class="number">1</span>] + diff[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里注意一下<code>increment</code>方法中的 if 语句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">increment</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">    diff[i] += val;</span><br><span class="line">    <span class="keyword">if</span> (j + <span class="number">1</span> &lt; diff.length) &#123;</span><br><span class="line">        diff[j + <span class="number">1</span>] -= val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当<code>j+1 &gt;= diff.length</code>时，说明是对<code>nums[i]</code>及以后的整个数组都进行修改，那么就不需要再给<code>diff</code>数组减<code>val</code>了。</p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

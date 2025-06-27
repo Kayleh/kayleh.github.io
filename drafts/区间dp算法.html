@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="688. 骑士在棋盘上的概率象棋骑士有8种可能的走法，如下图所示。每次移动在基本方向上是两个单元格，然后在正交方向上是一个单元格。  每次骑士要移动时，它都会随机从8种可能的移动中选择一种(即使棋子会离开棋盘)，然后移动到那里。 骑士继续移动，直到它走了 k 步或离开了棋盘。 返回 骑士在棋盘停止移动后仍留在棋盘上的概率 。 123456789101112131415161718192021222">
+<meta property="og:type" content="website">
+<meta property="og:title" content="区间dp算法">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E5%8C%BA%E9%97%B4dp%E7%AE%97%E6%B3%95.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="688. 骑士在棋盘上的概率象棋骑士有8种可能的走法，如下图所示。每次移动在基本方向上是两个单元格，然后在正交方向上是一个单元格。  每次骑士要移动时，它都会随机从8种可能的移动中选择一种(即使棋子会离开棋盘)，然后移动到那里。 骑士继续移动，直到它走了 k 步或离开了棋盘。 返回 骑士在棋盘停止移动后仍留在棋盘上的概率 。 123456789101112131415161718192021222">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/knight.png">
+<meta property="article:published_time" content="2022-02-17T06:06:18.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.527Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Kayleh/cdn4/main/knight.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>区间dp算法</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h3 id="688-骑士在棋盘上的概率"><a href="#688-骑士在棋盘上的概率" class="headerlink" title="688. 骑士在棋盘上的概率"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/knight-probability-in-chessboard/">688. 骑士在棋盘上的概率</a></h3><p>象棋骑士有8种可能的走法，如下图所示。每次移动在基本方向上是两个单元格，然后在正交方向上是一个单元格。</p>
+<p><img src="https://raw.githubusercontent.com/Kayleh/cdn4/main/knight.png"></p>
+<p>每次骑士要移动时，它都会随机从8种可能的移动中选择一种(即使棋子会离开棋盘)，然后移动到那里。</p>
+<p>骑士继续移动，直到它走了 <code>k</code> 步或离开了棋盘。</p>
+<p>返回 <em>骑士在棋盘停止移动后仍留在棋盘上的概率</em> 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>&#123;</span><br><span class="line">    <span class="comment">//一个骑士有 8 种可能的走法，骑士会从中以等概率随机选择一种。部分走法可能会让骑士离开棋盘，</span></span><br><span class="line">    <span class="comment">// 另外的走法则会让骑士移动到棋盘的其他位置，并且剩余的移动次数会减少 1。</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">//定义 dp[step][i][j] 表示骑士从棋盘上的点 (i, j)(i,j) 出发，走了 step 步时仍然留在棋盘上的概率。</span></span><br><span class="line">    <span class="comment">// 特别地，当点 (i,j) 不在棋盘上时，dp[step][i][j] = 0 ；</span></span><br><span class="line">    <span class="comment">// 当点 (i,j) 在棋盘上且 step=0 时，dp[step][i][j]=1。</span></span><br><span class="line">    <span class="comment">// 对于其他情况，对坐标的偏移量，具体为 (-2, -1),(-2,1),(2,-1),(2,1),(-1,-2),(-1,2),(1,-2),(1,2)(−2,−1),(−2,1),(2,−1),(2,1),(−1,−2),(−1,2),(1,−2),(1,2) 共 88 种。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[][] dirs = &#123;&#123;-<span class="number">2</span>,-<span class="number">1</span>&#125;,&#123;-<span class="number">2</span>,<span class="number">1</span>&#125;,&#123;<span class="number">2</span>,-<span class="number">1</span>&#125;,&#123;<span class="number">2</span>,<span class="number">1</span>&#125;,&#123;-<span class="number">1</span>,-<span class="number">2</span>&#125;,&#123;-<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">1</span>,-<span class="number">2</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">knightProbability</span><span class="params">(<span class="type">int</span> n,<span class="type">int</span> k,<span class="type">int</span> row,<span class="type">int</span> column)</span>&#123;</span><br><span class="line">        <span class="type">double</span>[][][] dp = <span class="keyword">new</span> <span class="title class_">double</span>[k+<span class="number">1</span>][n][n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">step</span> <span class="operator">=</span> <span class="number">0</span>;step&lt;=k;step++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(step == <span class="number">0</span>)&#123;</span><br><span class="line">                        dp[step][i][j] = <span class="number">1</span>;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="keyword">for</span>(<span class="type">int</span>[] dir: dirs)&#123;</span><br><span class="line">                            <span class="type">int</span> <span class="variable">ni</span> <span class="operator">=</span> i+dir[<span class="number">0</span>], nj = j+dir[<span class="number">1</span>];</span><br><span class="line">                            <span class="keyword">if</span>(ni&gt;=<span class="number">0</span> &amp;&amp; ni&lt;n &amp;&amp; nj&gt;=<span class="number">0</span> &amp;&amp; nj&lt;n)&#123;</span><br><span class="line">                                dp[step][i][j] += dp[step-<span class="number">1</span>][ni][nj]/<span class="number">8</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[k][row][column];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

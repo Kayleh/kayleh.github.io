@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="hexo">
+<meta property="og:type" content="website">
+<meta property="og:title" content="中英文切换">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E4%B8%AD%E8%8B%B1%E6%96%87%E5%88%87%E6%8D%A2.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-20T19:28:18.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.524Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="front">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>中英文切换</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <p>hexo</p>
+<span id="more"></span>
+
+<p>感谢[<a target="_blank" rel="noopener" href="https://chenyxmr.github.io/2016/08/04/hexo-bilingual/">陈年沉念]</a> 的博文分享。</p>
+<p>具体操作请参阅<a target="_blank" rel="noopener" href="https://chenyxmr.github.io/2016/08/04/hexo-bilingual/">陈年沉念的博文</a> 。</p>
+<p>本文只提出几点需要特别注意的事项。</p>
+<p>*<em>第一</em>, 有两个“点号” 在“&#x2F;public&#x2F;en” 的前面:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">修改/en/_config.yml，修改内容如下：</span><br><span class="line"></span><br><span class="line">   language: en &lt;/br&gt;</span><br><span class="line">   root: /en/  &lt;/br&gt;</span><br><span class="line">   public_dir: ../public/en  &lt;/br&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二</strong>, 也有两个“点号” 在 “commonweal:” 的前面:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">接下来在英文网站中添加中文入口。编辑/en/_config.yml，修改menu:中如下内容：</span><br><span class="line"></span><br><span class="line">  commonweal: ../</span><br></pre></td></tr></table></figure>
+
+<p>顺便说一句, [<a target="_blank" rel="noopener" href="https://chenyxmr.github.io/2016/08/04/hexo-bilingual/">陈年沉念]</a>写的”&#x2F;update.bat” 很方便且实用。</p>
+<p>最后，我自己再补充一点，就是在完全Copy完Hexo网站跟目录的内容后，在新建的&#x2F;en&#x2F;文件夹下，node_modules文件夹里面的代码可能不能被完全复制粘贴，此时需要在&#x2F;en&#x2F;文件夹下运行以下代码方可顺利发布&#x2F;en&#x2F;到网络端：</p>
+<p>先 鼠标右键 git bash here，然后运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo --save</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">npm install hexo-generator-index --save</span><br><span class="line">npm install hexo-generator-archive --save</span><br><span class="line">npm install hexo-generator-category --save</span><br><span class="line">npm install hexo-generator-tag --save</span><br><span class="line">npm install hexo-server --save</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-deployer-heroku --save</span><br><span class="line">npm install hexo-deployer-rsync --save</span><br><span class="line">npm install hexo-deployer-openshift --save</span><br><span class="line">npm install hexo-renderer-marked@0.2 --save</span><br><span class="line">npm install hexo-renderer-stylus@0.2 --save</span><br><span class="line">npm install hexo-generator-feed@1 --save</span><br><span class="line">npm install hexo-generator-sitemap@1 --save</span><br></pre></td></tr></table></figure>
+
+<p>完成上述附加的必要操作后，就可以顺利推送双语或多语博客到网络端啦。</p>
+<hr>
+<p>转载来源： <a target="_blank" rel="noopener" href="https://chenyxmr.github.io/2016/08/04/hexo-bilingual/">https://chenyxmr.github.io/2016/08/04/hexo-bilingual/</a></p>
+<p>前言<br>搭建个人博客时采用的hexo非常方便，但由于本人比较喜欢英语所以希望能搭建一个双语网站同步更新内容，hexo官方有提供国际化解决方案，具体参见链接<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/internationalization.html">https://hexo.io/zh-cn/docs/internationalization.html</a> 。 但本人由于悟性比较低没有看明白这个插件应该怎么用，就索性自己用一个非常简单粗暴的方式实现了中英文双语网站。</p>
+<p>首先，最终效果见本站。菜单栏中点击-&gt;English切换到英文网站，英文网站中点击-&gt;简体中文即切换回中文。当然每篇博文都需要自己翻译。</p>
+<p>搭建教程<br>完整复制网站</p>
+<p>首先，将网站根目录全部复制，然后在网站根目录下建立en&#x2F;文件夹并将所复制的内容粘贴至此。此时en&#x2F;文件夹下有一份完整的网站文件，也就是说这是一个独立的hexo博客。</p>
+<p>en即为English的缩写，代表英文网站，当然也可以添加其它语言，文件夹名字随个人喜好。</p>
+<p>更改英文网站配置</p>
+<p>修改&#x2F;en&#x2F;_config.yml，修改内容如下：</p>
+<p>language: en<br>root: &#x2F;en&#x2F;<br>public_dir: ..&#x2F;public&#x2F;en</p>
+<p>这里的public_dir代表最终生成静态文件的位置，由于最后要将英文网站静态网页跟中文静态网页放到同一根目录下，所以要进行修改。</p>
+<p>添加语言切换入口</p>
+<p>首先在中文网站中添加切换英文入口。语言切换入口对应网站的menu，编辑&#x2F;_config.yml，修改menu:中如下内容：</p>
+<p>commonweal: &#x2F;en</p>
+<p>这个键值对应所建立的英文网站文件夹的名称。</p>
+<p>此处应该添加一个新的入口，但由于我的添加一直不正常所以直接将原有的公益菜单改成切换语言了~</p>
+<p>再编辑&#x2F;themes&#x2F;next&#x2F;languages&#x2F;zh-Hans.yml，在menu:中修改如下字段：</p>
+<p>commonweal: -&gt;English</p>
+<p>这个键值对应切换语言选项显示的内容。</p>
+<p>接下来在英文网站中添加中文入口。编辑&#x2F;en&#x2F;_config.yml，修改menu:中如下内容：</p>
+<p>commonweal: ..&#x2F;</p>
+<p>再编辑&#x2F;en&#x2F;themes&#x2F;next&#x2F;languages&#x2F;en.yml，在menu:中修改如下字段：</p>
+<p>commonweal: -&gt;简体中文</p>
+<p>至此中英文站点即配置完成,如果英文网站需要更改细节直接更改en&#x2F;下对应的文件就可以，和修改中文网站完全一样~</p>
+<p>新建博文</p>
+<p>每次在中文站点下新建博文并写好后，将博文复制到英文网站对应的目录下并修改成英文博文。</p>
+<hr>
+<p>关于Hexo的中英文语言配置，我的做法是，在菜单栏添加一个按键，通过按键切换到中&#x2F;英文界面，让中文文章只显示在中文页面，英文显示在英文页面。</p>
+<h2 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h2><p>首先，安装hexo-generator-i18n插件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-i18n --save</span><br></pre></td></tr></table></figure>
+
+<p>然后修改*_config.yml*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">language: [zh-CN,en]# hexo-generator-i18n 选项（可选，默认使用如下设置）i18n:  type: [page, post]  generator: [index, archive, category, tag]</span><br></pre></td></tr></table></figure>
+
+<p><em>这里并没有明白tyte和generator的作用，但是似乎不影响</em></p>
+<p>之后是*<strong>在主题languages目录下添加对应的语言.yml文件(如zh.yml, en.yml)*</strong></p>
+<p>但是由于我使用的主题并不支持多语言，我也懒得弄，所有暂时没有管这一项</p>
+<p>插件安装完成后，执行<code>hexo clean &amp; hexo g</code></p>
+<p>会生成<code>public/en</code>目录，对于_post内的所有博文，都会在public里存放一份，en下存放一份。</p>
+<p>那么就需要根据页面的语言，显示不同的博文。</p>
+<h2 id="博文配置"><a href="#博文配置" class="headerlink" title="博文配置"></a>博文配置</h2><p>对于所有的markdown文章，都需要在文章内添加属性<code>lang:zh-CN</code> or <code>lang:en</code>，来区分中英文</p>
+<h2 id="网页配置"><a href="#网页配置" class="headerlink" title="网页配置"></a>网页配置</h2><p>我通过url来区分中英文页面，对于中文，url是<code>www.yoursite.com</code>，英文，url是<code>www.yoursite.com/en/</code>,</p>
+<p>这样，在js中检索url是否包含en，来判断显示中文还是英文界面。</p>
+<p><strong>修改主题</strong>, 我的主题路径是<em>themes&#x2F;vexo&#x2F;layout&#x2F;index.ejs</em></p>
+<p>获取当前html的路径，并判断路径内是否存在<code>en</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;main class=&quot;app-body&quot;&gt;</span><br><span class="line">  &lt;% var currentURL = page.path.split(&#x27;/&#x27;) %&gt;</span><br><span class="line">  &lt;% if (currentURL.length === 1) &#123; %&gt;</span><br><span class="line">    &lt;% var lang = page.lang %&gt;</span><br><span class="line">  &lt;% &#125; else &#123; %&gt;</span><br><span class="line">    &lt;% var lang = currentURL.shift() %&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">  &lt;% page.posts.each(function(post) &#123; %&gt;</span><br><span class="line">  &lt;% if (lang == post.lang) &#123; %&gt;</span><br><span class="line">    &lt;article class=&quot;article-card&quot;&gt;</span><br><span class="line">      &lt;h2 class=&quot;article-head&quot;&gt;</span><br><span class="line">        &lt;a href=&quot;&lt;%- url_for(post.path) %&gt;&quot;&gt;&lt;%- post.title %&gt;&lt;/a&gt;</span><br><span class="line">      &lt;/h2&gt;</span><br><span class="line">      &lt;p class=&quot;article-date&quot;&gt;&lt;%- date(post.date, &quot;LL&quot;) %&gt;&lt;/p&gt;</span><br><span class="line">      &lt;% if (post.tags &amp;&amp; post.tags.length) &#123; %&gt;</span><br><span class="line"> [       &lt;%- partial(&#x27;_partial/tag&#x27;, &#123; tags: post.tags &#125;) %&gt;]</span><br><span class="line">      &lt;% &#125; %&gt;</span><br><span class="line">      &lt;div class=&quot;article-summary&quot;&gt;</span><br><span class="line">        &lt;% if (post.excerpt) &#123; %&gt;</span><br><span class="line">          &lt;%- post.excerpt %&gt;</span><br><span class="line">        &lt;% &#125; else &#123; %&gt;</span><br><span class="line">          &lt;%- truncate(strip_html(post.content), &#123; length: 150, omission: &#x27; ...&#x27; &#125;) %&gt;</span><br><span class="line">        &lt;% &#125; %&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;a class=&quot;more&quot; href=&quot;&lt;%- url_for(post.path) %&gt;&quot;&gt;&lt;%- theme.excerpt_link %&gt;&lt;/a&gt;</span><br><span class="line">    &lt;/article&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">  &lt;% &#125;) %&gt;</span><br><span class="line"></span><br><span class="line">  &lt;% if (page.total &gt; 1)&#123; %&gt;</span><br><span class="line">    &lt;%- partial(&#x27;_partial/pager&#x27;) %&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">&lt;/main&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上述都完成，就可以通过<code>www.yoursite.com/en</code>进入英文网页，且该网页只有英文文章</p>
+<h2 id="添加切换语言按钮"><a href="#添加切换语言按钮" class="headerlink" title="添加切换语言按钮"></a>添加切换语言按钮</h2><p>修改theme下的_config.yml文件, 添加一个EN的按钮，跳转到英文界面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu: Home: / Tags: /tags/ Archives: /archives/ Projects: /project/ About: /about/ EN: /en/</span><br></pre></td></tr></table></figure>
+
+<p>这里为了简单，没有动态修改EN这个按钮，提供从英文网页，跳转回中文网页的方式(实际上，点击Home按键，就跳转回中文了)</p>
+<h2 id="部署测试"><a href="#部署测试" class="headerlink" title="部署测试"></a>部署测试</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp; hexo ghexo d</span><br></pre></td></tr></table></figure>
+
+<p><em>这里只配置了主页，其他页面暂时没有修改</em></p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

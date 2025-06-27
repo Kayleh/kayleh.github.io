@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="极限  [“极限”是数学中的分支——微积分的基础概念，广义的“极限”是指“无限靠近而永远不能到达”的意思。数学中的“极限”指：某一个函数中的某一个变量，此变量在变大（或者变小）的永远变化的过程中，逐渐向某一个确定的数值A不断地逼近而“永远不能够重合到A”（“永远不能够等于A，但是取等于A‘已经足够取得高精度计算结果）的过程中，此变量的变化，被人为规定为“永远靠近而不停止”、其有一个“不断地极为靠近">
+<meta property="og:type" content="website">
+<meta property="og:title" content="极限">
+<meta property="og:url" content="https://blog.kayleh.top/drafts/%E6%9E%81%E9%99%90.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="极限  [“极限”是数学中的分支——微积分的基础概念，广义的“极限”是指“无限靠近而永远不能到达”的意思。数学中的“极限”指：某一个函数中的某一个变量，此变量在变大（或者变小）的永远变化的过程中，逐渐向某一个确定的数值A不断地逼近而“永远不能够重合到A”（“永远不能够等于A，但是取等于A‘已经足够取得高精度计算结果）的过程中，此变量的变化，被人为规定为“永远靠近而不停止”、其有一个“不断地极为靠近">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599927106892.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/2.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/3.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599880485257.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599880801602.png">
+<meta property="og:image" content="https://blog.kayleh.top/drafts/1599881076960.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599928047079.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599928641478.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599930175659.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599930952171.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599931509911.png">
+<meta property="og:image" content="https://blog.kayleh.top/drafts/1599881826669.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882486761.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882565625.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882657525.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882730949.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882888658.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599972015185.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599972553113.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599973321254.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599974407571.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599974801668.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599975390882.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599975713115.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599976461869.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599978196708.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599978312714.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599894351689.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599978599316.png">
+<meta property="og:image" content="https://blog.kayleh.top/drafts/1599899267900.png">
+<meta property="og:image" content="https://blog.kayleh.top/drafts/1599899445163.png">
+<meta property="og:image" content="https://blog.kayleh.top/drafts/1599899539081.png">
+<meta property="og:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599984624615.png">
+<meta property="article:published_time" content="2020-09-11T18:30:50.000Z">
+<meta property="article:modified_time" content="2025-06-27T13:25:30.531Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599927106892.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>极限</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4 ">
+        
+          <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/mygo.jpg" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Kayleh&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">Home</a></li><!--
+   --><!--
+     --><li><a href="/about/">About</a></li><!--
+   --><!--
+     --><li><a href="/archives/">Writing</a></li><!--
+   --><!--
+     --><li><a href="/friends">friends</a></li><!--
+   --><!--
+     --><li><a href="/tags/">tags</a></li><!--
+   --><!--
+     --><li><a href="/rss.xml">RSS</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <div class="content" itemprop="articleBody">
+      
+          <h1 id="极限"><a href="#极限" class="headerlink" title="极限"></a>极限</h1><blockquote>
+<p> [“极限”是数学中的分支——微积分的基础概念，广义的“极限”是指“无限靠近而永远不能到达”的意思。数学中的“极限”指：某一个函数中的某一个变量，此变量在变大（或者变小）的永远变化的过程中，逐渐向某一个确定的数值A不断地逼近而“永远不能够重合到A”（“永远不能够等于A，但是取等于A‘已经足够取得高精度计算结果）的过程中，此变量的变化，被人为规定为“永远靠近而不停止”、其有一个“不断地极为靠近A点的趋势”。极限是一种“变化状态”的描述。此变量永远趋近的值A叫做“极限值”（当然也可以用其他符号表示）。 </p>
+</blockquote>
+<p>证明：1&#x3D;0.9999·····？</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599927106892.png" alt="1599927106892"></p>
+<p>比如</p>
+<p>假设有一圆</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1.png" alt="1599879927815"></p>
+<p>有内接圆面积$A_1$</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/2.png" alt="1599880274448"></p>
+<p>记内接十二边形的面积为$A_2$</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/3.png" alt="1599880425245"></p>
+<p>24边形</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599880485257.png" alt="1599880485257"></p>
+<p>就可以得到一个数列{$A_n$}</p>
+<h2 id="数列的极限"><a href="#数列的极限" class="headerlink" title="数列的极限"></a>数列的极限</h2><p>当n→$\infty$时，{$A_n$}也无限接近于某一确定的数值，这个数值称为数列{$A_n$}当n→$\infty$时的极限。</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599880801602.png" alt="1599880801602"></p>
+<img src="1599881076960.png" alt="1599881076960" style="zoom:80%;" />
+
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599928047079.png" alt="1599928047079"></p>
+<p>后面的值都落在这个邻域里面</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599928641478.png" alt="1599928641478"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599930175659.png" alt="1599930175659"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599930952171.png" alt="1599930952171"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599931509911.png" alt="1599931509911"></p>
+<blockquote>
+<p>n一定是 &gt; ???</p>
+</blockquote>
+<p>要求 $\lvert x_n -1 \rvert$&#x3D;$\frac{1}{n}$&lt;$\epsilon$,只要n&gt;[$\frac{1}{\epsilon} $],以后的一切项均满足 $\lvert x_n -1 \rvert$&lt;$\epsilon$.</p>
+<p>对于任意给定的正数$\epsilon$，总存在着一个正整数N(比如取N&#x3D;[$\frac{1}{\epsilon}$]),当n&gt;N时，</p>
+<p>$$\lvert x_n -1 \rvert&lt;\epsilon$$</p>
+<img src="1599881826669.png" alt="1599881826669" style="zoom:67%;" />
+
+<p>记作</p>
+<p>$$\lim_{n\to \infty} x_n &#x3D; a或x_n→a(n→\infty)$$</p>
+<p>如果上述a不存在，则称数列 $${x_n}$$没有极限,或者说数列 $${x_n}$$ 是发散的，也说 $\lim_{n\to \infty} x_n$ 不存在.</p>
+<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>1.$\epsilon$的“任意给定”性极其重要；</p>
+<p>2.N与$\epsilon$有关，有$\epsilon$的给定而确定；</p>
+<p>3.$\forall$表示“任意给定”，$\exists$表示“存在”</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882486761.png" alt="1599882486761"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882565625.png" alt="1599882565625"></p>
+<h5 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h5><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882657525.png" alt="1599882657525"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882730949.png" alt="1599882730949"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599882888658.png" alt="1599882888658"></p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p>性质1：{$x_n$}收敛 ，极限唯一.</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599972015185.png" alt="1599972015185"></p>
+<p>性质2：{$x_n$}收敛 ，有界</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599972553113.png" alt="1599972553113"></p>
+<ul>
+<li>有界是收敛的必要，不是充分条件</li>
+<li>单调有界，则有极限</li>
+</ul>
+<p>性质3：保号性$\lim_{x_n} &#x3D; a$  , a&gt;0(a&lt;0) ,$\exists$N,  n&gt;N  ,$x_n$&gt;0</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599973321254.png" alt="1599973321254"></p>
+<p>性质4：{$x_n$}收敛于a，子数列{$x_kn$}收敛于a.</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599974407571.png" alt="1599974407571"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599974801668.png" alt="1599974801668"></p>
+<h2 id="函数极限："><a href="#函数极限：" class="headerlink" title="函数极限："></a>函数极限：</h2><p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599975390882.png" alt="1599975390882"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599975713115.png" alt="1599975713115"></p>
+<p>&lt; $\epsilon$</p>
+<blockquote>
+<p>取 X</p>
+</blockquote>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599976461869.png" alt="1599976461869"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599978196708.png" alt="1599978196708"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599978312714.png" alt="1599978312714"></p>
+<h4 id="x→-x-0-时函数f-x-的极限"><a href="#x→-x-0-时函数f-x-的极限" class="headerlink" title="x→$x_0$时函数f(x)的极限"></a>x→$x_0$时函数f(x)的极限</h4><p>(1)x→$x_0^-$,表示x从点$x_0$的左侧无限接近于$x_0$,此时x&lt;$x_0$;</p>
+<p>(2)x→$x_0^+$,表示x从点$x_0$的右侧无限接近于$x_0$,此时x&gt;$x_0$;</p>
+<p>(3)x→$x_0$,表示x从点$x_0$的左右两侧无限接近于$x_0$.</p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599894351689.png" alt="1599894351689"></p>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599978599316.png" alt="1599978599316"></p>
+<p>注意：</p>
+<p>(1)$x_0$是一个常数，而x是动点，是变化的量.</p>
+<p>(2)在上述x的三个变化过程中，x无限地接近$x_0$,但永远不等于$x_0$.</p>
+<h4 id="左极限："><a href="#左极限：" class="headerlink" title="左极限："></a>左极限：</h4><p>$$f(x_0^-)&#x3D;\lim_{x\to x_0^-} f(x) &#x3D; A$$</p>
+<p>称函数f(x)当x→$x_0^-$时以A为极限，简称f(x)在$x_0$点处左极限为A；</p>
+<h4 id="右极限："><a href="#右极限：" class="headerlink" title="右极限："></a>右极限：</h4><p>$$f(x_0^+)&#x3D;\lim_{x\to x_0^+} f(x) &#x3D; A$$</p>
+<p>称函数f(x)当x→$x_0^+$时以A为极限，简称f(x)在$x_0$点处右极限为A；</p>
+<h4 id="极限："><a href="#极限：" class="headerlink" title="极限："></a>极限：</h4><p>$$\lim_{x\to x_0^-}f(x)&#x3D;\lim_{x\to x_0^+}f(x)&#x3D;\lim_{x\to x_0}f(x)&#x3D;A$$</p>
+<p>称函数f(x)当x→$x_0$时以A为极限，简称f(x)在$x_0$点处极限为A；	</p>
+<p>函数y&#x3D;f(x)在$x_0$处的极限与$f(x_0)$的取值、是否存在毫无关系!</p>
+<img src="1599899267900.png" alt="1599899267900" style="zoom:67%;" />
+
+<img src="1599899445163.png" alt="1599899445163" style="zoom:67%;" />
+
+<img src="1599899539081.png" alt="1599899539081" style="zoom: 67%;" />
+
+
+
+<h4 id="性质："><a href="#性质：" class="headerlink" title="性质："></a>性质：</h4><p>1.$\limf(x)$存在，是唯一的</p>
+<p>2.局部有界性</p>
+<p>3.局部保号性</p>
+<ol start="4">
+<li></li>
+</ol>
+<p><img src="https://cdn.kayleh.top/gh/kayleh/cdn/img/%E6%9E%81%E9%99%90/1599984624615.png" alt="1599984624615"></p>
+
+        
+  </div>
+</article>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
