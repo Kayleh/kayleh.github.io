@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="公式手册公众号: 考研经验超市 目录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="math">
+<meta property="og:url" content="https://blog.kayleh.top/posts/01Backpack/index.html">
+<meta property="og:site_name" content="Kayleh&#39;s Blog">
+<meta property="og:description" content="公式手册公众号: 考研经验超市 目录">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-07T15:59:16.000Z">
+<meta property="article:modified_time" content="2025-08-07T18:23:20.596Z">
+<meta property="article:author" content="Kayleh">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>math</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Kayleh&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/01Backpack/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/sorting-algorithms/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.kayleh.top/posts/01Backpack/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.kayleh.top/posts/01Backpack/&text=math"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.kayleh.top/posts/01Backpack/&is_video=false&description=math"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=math&body=Check out this article: https://blog.kayleh.top/posts/01Backpack/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.kayleh.top/posts/01Backpack/&name=math&description=&lt;h1 id=&#34;公式手册&#34;&gt;&lt;a href=&#34;#公式手册&#34; class=&#34;headerlink&#34; title=&#34;公式手册&#34;&gt;&lt;/a&gt;公式手册&lt;/h1&gt;&lt;p&gt;公众号: 考研经验超市&lt;/p&gt;
+&lt;h2 id=&#34;目录&#34;&gt;&lt;a href=&#34;#目录&#34; class=&#34;headerlink&#34; title=&#34;目录&#34;&gt;&lt;/a&gt;目录&lt;/h2&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.kayleh.top/posts/01Backpack/&t=math"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AC%E5%BC%8F%E6%89%8B%E5%86%8C"><span class="toc-number">1.</span> <span class="toc-text">公式手册</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AC%E5%BC%8F%E6%89%8B%E5%86%8C-1"><span class="toc-number">2.</span> <span class="toc-text">公式手册</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E9%83%A8%E5%88%86"><span class="toc-number">2.1.</span> <span class="toc-text">高等数学部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E9%9B%B6%E7%AB%A0-%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">2.1.1.</span> <span class="toc-text">第零章 常用基础预备知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%87%BD%E6%95%B0%EF%BD%A4%E6%9E%81%E9%99%90%EF%BD%A4%E8%BF%9E%E7%BB%AD"><span class="toc-number">2.1.2.</span> <span class="toc-text">第一章 函数､极限､连续</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6"><span class="toc-number">2.1.3.</span> <span class="toc-text">第二章 一元函数微分学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6"><span class="toc-number">2.1.4.</span> <span class="toc-text">第三章 一元函数积分学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-number">2.1.5.</span> <span class="toc-text">第四章 微分方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%A4%9A%E5%85%83%E5%BE%AE%E5%88%86"><span class="toc-number">2.1.6.</span> <span class="toc-text">第五章 多元微分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86"><span class="toc-number">2.1.7.</span> <span class="toc-text">第六章 二重积分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E9%83%A8%E5%88%86"><span class="toc-number">2.2.</span> <span class="toc-text">线性代数部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-number">2.2.1.</span> <span class="toc-text">第一章 行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%9F%A9%E9%98%B5"><span class="toc-number">2.2.2.</span> <span class="toc-text">第二章 矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%90%91%E9%87%8F%E7%BB%84"><span class="toc-number">2.2.3.</span> <span class="toc-text">第三章 向量组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="toc-number">2.2.4.</span> <span class="toc-text">第四章 线性方程组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F"><span class="toc-number">2.2.5.</span> <span class="toc-text">第五章 特征值与特征向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E4%BA%8C%E6%AC%A1%E5%9E%8B"><span class="toc-number">2.2.6.</span> <span class="toc-text">第六章 二次型</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        math
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Kayleh</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-11-07T15:59:16.000Z" class="dt-published" itemprop="datePublished">2021-11-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/algorithm/" rel="tag">algorithm</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="公式手册"><a href="#公式手册" class="headerlink" title="公式手册"></a>公式手册</h1><p>公众号: 考研经验超市</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>高等数学部分 ……………………………………………………………… 1<ul>
+<li>第零章 常用基础预备知识 ………………………………………………….. 1</li>
+<li>第一章 函数､极限､连续 ………………………………………………….. 1</li>
+<li>第二章 一元函数微分学 ……………………………………………………. 3</li>
+<li>第三章 一元函数积分学 ……………………………………………………. 6</li>
+<li>第四章 微分方程 ………………………………………………………… 12</li>
+<li>第五章 多元微分 ………………………………………………………… 15</li>
+<li>第六章 二重积分 ………………………………………………………… 18</li>
+</ul>
+</li>
+<li>线性代数部分 ……………………………………………………………… 20<ul>
+<li>第一章 行列式 ………………………………………………………….. 20</li>
+<li>第二章 矩阵 ……………………………………………………………. 22</li>
+<li>第三章 向量组 ………………………………………………………….. 27</li>
+<li>第四章 线性方程组 ………………………………………………………. 30</li>
+<li>第五章 特征值与特征向量 …………………………………………………. 32</li>
+<li>第六章 二次型 ………………………………………………………….. 34</li>
+</ul>
+</li>
+</ul>
+<h1 id="公式手册-1"><a href="#公式手册-1" class="headerlink" title="公式手册"></a>公式手册</h1><p>公众号: 考研经验超市</p>
+<h2 id="高等数学部分"><a href="#高等数学部分" class="headerlink" title="高等数学部分"></a>高等数学部分</h2><h3 id="第零章-常用基础预备知识"><a href="#第零章-常用基础预备知识" class="headerlink" title="第零章 常用基础预备知识"></a>第零章 常用基础预备知识</h3><ol>
+<li><p><strong>三角函数重要公式</strong><br> [<br> \cos 2x &#x3D; \cos^2 x - \sin^2 x, \sin 2x &#x3D; 2\sin x \cos x,<br> ]<br> [<br> \cos^2 x &#x3D; \frac{1 + \cos 2x}{2}, \sin^2 x &#x3D; \frac{1 - \cos 2x}{2},<br> ]<br> [<br> \tan^2 x &#x3D; \sec^2 x - 1, \cot^2 x &#x3D; \csc^2 x - 1,<br> ]<br> [<br> \sin^2 x + \cos^2 x &#x3D; 1,<br> ]<br> [<br> \arcsin x + \arccos x &#x3D; \frac{\pi}{2}, \arctan x + \text{arccot}, x &#x3D; \frac{\pi}{2},<br> ]<br> [<br> \tan(\alpha \pm \beta) &#x3D; \frac{\tan \alpha \pm \tan \beta}{1 \mp \tan \alpha \cdot \tan \beta}.<br> ]</p>
+<p> 万能公式:<br> 若 (\tan \frac{x}{2} &#x3D; u(-\pi &lt; x &lt; \pi)) 则 (\sin x &#x3D; \frac{2u}{1 + u^2})，(\cos x &#x3D; \frac{1 - u^2}{1 + u^2})<br> 注：若积分中出现 (1 + \cos x)，一般使用公式 (1 + \cos x &#x3D; 2\cos^2 \frac{x}{2})</p>
+</li>
+<li><p><strong>一元二次方程基础</strong><br> ① 一元二次方程 (ax^2 + bx + c &#x3D; 0(a \neq 0))。<br> ② 根的公式 (x_{1,2} &#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a})<br> ③ 根与系数的关系(韦达定理)：(x_1 + x_2 &#x3D; -\frac{b}{a})，(x_1 x_2 &#x3D; \frac{c}{a})<br> ④ 判别式 (\Delta &#x3D; b^2 - 4ac)</p>
+<ul>
+<li>(\Delta &gt; 0)，方程有两个不等的实根；</li>
+<li>(\Delta &#x3D; 0)，方程有两个相等的实根；</li>
+<li>(\Delta &lt; 0)，方程有两个共轭的复根。<br> ⑤ 抛物线 (y &#x3D; ax^2 + bx + c) 的顶点 ((-\frac{b}{2a}, c - \frac{b^2}{4a}))</li>
+</ul>
+</li>
+<li><p><strong>因式分解公式</strong><br> [(1) (a + b)^2 &#x3D; a^2 + 2ab + b^2.]<br> [(2) (a - b)^2 &#x3D; a^2 - 2ab + b^2.]<br> [(3) (a + b)^3 &#x3D; a^3 + 3a^2b + 3ab^2 + b^3.]<br> [(4) (a - b)^3 &#x3D; a^3 - 3a^2b + 3ab^2 - b^3.]<br> [(5) a^2 - b^2 &#x3D; (a + b)(a - b).]<br> [(6) a^3 - b^3 &#x3D; (a - b)\left(a^2 + ab + b^2\right).]<br> [(7) a^3 + b^3 &#x3D; (a + b)\left(a^2 - ab + b^2\right).]<br> [(8) a^n - b^n &#x3D; (a - b)(a^{n-1} + a^{n-2}b + \cdots + ab^{n-2} + b^{n-1})(n \text{是正整数}).]<br> [(9) 当n是正偶数时,a^n - b^n &#x3D; (a + b)(a^{n-1} - a^{n-2}b + \cdots + ab^{n-2} - b^{n-1}).]<br> [(10) 当n是正奇数时,a^n + b^n &#x3D; (a + b)(a^{n-1} - a^{n-2}b + \cdots - ab^{n-2} + b^{n-1})]<br> [(11) 二项式定理]<br> [<br> \begin{aligned}<br> (a + b)^n &amp;&#x3D; \sum_{k&#x3D;0}^{n} C_{n}^{k} a^{n - k} b^{k} \<br> &amp;&#x3D; a^n + na^{n - 1}b + \frac{n(n - 1)}{2!}a^{n - 2}b^2 + \cdots + \<br> &amp;\quad \frac{n(n - 1)\cdots(n - k + 1)}{k!}a^{n - k}b^k + \cdots + nab^{n - 1} + b^n.<br> \end{aligned}<br> ]</p>
+</li>
+<li><p><strong>数列基础</strong><br> (1) 等差数列.<br> 首项为 (a_1)，公差为 (d(d \neq 0)) 的数列 (a_1, a_1 + d, a_1 + 2d, \cdots, a_1 + (n - 1)d, \cdots)。<br> ① 通项公式 (a_n &#x3D; a_1 + (n - 1)d)<br> ② 前n项的和 (S_n &#x3D; \frac{n}{2}[2a_1 + (n - 1)d] &#x3D; \frac{n}{2}(a_1 + a_n))</p>
+<p> (2) 等比数列.<br> 首项为 (a_1)，公比为 (r(r \neq 0)) 的数列 (a_1, a_1r, a_1r^2, \cdots, a_1r^{n - 1}, \cdots)。<br> ① 通项公式 (a_n &#x3D; a_1r^{n - 1})。<br> ② 前n项的和 (S_n &#x3D; \begin{cases} na_1, &amp; r &#x3D; 1 \ \frac{a_1(1 - r^n)}{1 - r}, &amp; r \neq 1 \end{cases})<br> [(3) 常用 1 + r + r^2 + \cdots + r^{n - 1} &#x3D; \frac{1 - r^n}{1 - r}(r \neq 1).]</p>
+<p> (3) 一些常见数列前n项的和。<br> [(1) \sum_{k&#x3D;1}^{n} k &#x3D; 1 + 2 + 3 + \cdots + n &#x3D; \frac{n(n + 1)}{2}.]<br> [(2) \sum_{k&#x3D;1}^{n} k^2 &#x3D; 1^2 + 2^2 + 3^2 + \cdots + n^2 &#x3D; \frac{n(n + 1)(2n + 1)}{6}.]<br> [(3) \sum_{k&#x3D;1}^{n} \frac{1}{k(k + 1)} &#x3D; \frac{1}{1 \times 2} + \frac{1}{2 \times 3} + \frac{1}{3 \times 4} + \cdots + \frac{1}{n(n + 1)} &#x3D; \frac{n}{n + 1}.]</p>
+</li>
+<li><p><strong>阶乘与双阶乘</strong><br> [(1) n! &#x3D; 1 \cdot 2 \cdot 3 \cdot \cdots \cdot n, 规定 0! &#x3D; 1.]<br> [(2) (2n)!! &#x3D; 2 \cdot 4 \cdot 6 \cdot \cdots \cdot (2n) &#x3D; 2^n \cdot n!.]<br> [(3) (2n - 1)!! &#x3D; 1 \cdot 3 \cdot 5 \cdot \cdots \cdot (2n - 1).]</p>
+</li>
+<li><p><strong>指数运算规则</strong><br> [<br> a^\alpha \cdot a^\beta &#x3D; a^{\alpha + \beta}, \frac{a^\alpha}{a^\beta} &#x3D; a^{\alpha - \beta}, \left(a^\alpha\right)^\beta &#x3D; a^{\alpha\beta}, (ab)^\alpha &#x3D; a^\alpha b^\alpha, \left(\frac{a}{b}\right)^\alpha &#x3D; \frac{a^\alpha}{b^\alpha},<br> ]<br> 其中a，b是正实数，(\alpha, \beta) 是任意实数.</p>
+</li>
+<li><p><strong>对数运算规则</strong><br> [(1) \log_a(MN) &#x3D; \log_a M + \log_a N , (\text{积的对数} &#x3D; \text{对数的和}).]<br> [(2) \log_a \frac{M}{N} &#x3D; \log_a M - \log_a N , (\text{商的对数} &#x3D; \text{对数的差}).]<br> [(3) \log_a M^n &#x3D; n \log_a M , (\text{幂的对数} &#x3D; \text{对数的倍数}).]<br> [(4) \log_a \sqrt[n]{M} &#x3D; \frac{1}{n} \log_a M.]</p>
+</li>
+<li><p><strong>常用不等式</strong><br> (1) 设a、b为实数，则① (|a \pm b| \leqslant |a| + |b|)；② (||a| - |b|| \leqslant |a - b|)<br> [(2) (1) \sqrt{ab} \leq \frac{a + b}{2} \leq \sqrt{\frac{a^2 + b^2}{2}}(a, b &gt; 0);]<br> [(2) \sqrt[3]{abc} \leq \frac{a + b + c}{3} \leq \sqrt{\frac{a^2 + b^2 + c^2}{3}}(a, b, c &gt; 0).]<br> (3) 设 (a &gt; b &gt; 0)<br> (4) 若 (0 &lt; a &lt; x &lt; b)，(0 &lt; c &lt; y &lt; d) 则 (\frac{c}{b} &lt; \frac{y}{x} &lt; \frac{d}{a})<br> [(5) \sin x &lt; x &lt; \tan x\left(0 &lt; x &lt; \frac{\pi}{2}\right).]<br> [(6) \sin x &lt; x(x &gt; 0).]<br> [(7) \arctan x \leq x \leq \arcsin x(0 \leq x \leq 1).]<br> [(8) e^x \geq x + 1(\forall x).]<br> [(9) x - 1 \geq \ln x(x &gt; 0).]<br> [(10) \frac{1}{1 + x} &lt; \ln \left(1 + \frac{1}{x}\right) &lt; \frac{1}{x}(x &gt; 0).]</p>
+</li>
+</ol>
+<h3 id="第一章-函数､极限､连续"><a href="#第一章-函数､极限､连续" class="headerlink" title="第一章 函数､极限､连续"></a>第一章 函数､极限､连续</h3><ol>
+<li><p><strong>常用等价无穷小</strong><br> 普通函数型<br> 当(x \to 0)时，(\sin x \sim x)，(\tan x \sim x)，(\arcsin x \sim x)，(\arctan x \sim x)，<br> [<br> e^x - 1 \sim x, \ln(1 + x) \sim x,<br> ]<br> [<br> \ln\left(x + \sqrt{1 + x^2}\right) \sim x,<br> ]<br> [<br> a^x - 1 &#x3D; e^{x \ln a} - 1 \sim x \ln a(a &gt; 0 \text{且} a \neq 1),<br> ]<br> [<br> 1 - \cos x \sim \frac{1}{2}x^2, 1 - \cos^\alpha x \sim \frac{\alpha}{2}x^2,<br> ]<br> [<br> (1 + x)^\alpha - 1 \sim \alpha x(\alpha \neq 0), (1 + x)^x - 1 &#x3D; e^{x \ln(1 + x)} - 1 \sim x^2<br> ]</p>
+<p> 差函数型<br> 当(x \to 0)时，<br> [<br> x - \sin x \sim \frac{1}{6}x^3, x - \arcsin x \sim -\frac{1}{6}x^3,<br> ]<br> [<br> x - \tan x \sim -\frac{1}{3}x^3, x - \arctan x \sim \frac{1}{3}x^3,<br> ]<br> [<br> x - \ln(1 + x) \sim \frac{1}{2}x^2, e^x - 1 - x \sim \frac{1}{2}x^2<br> ]</p>
+</li>
+<li><p><strong>无穷大量阶的比较</strong><br> 当 (x \to +\infty)，当 (n \to \infty) 且 (p, q &gt; 0, a &gt; 1) 则<br> [<br> \lim_{n \to \infty} \frac{\ln^p n}{n^q} &#x3D; 0, \lim_{n \to \infty} \frac{n^q}{a^n} &#x3D; 0, \lim_{n \to \infty} \frac{a^n}{n!} &#x3D; 0, \lim_{n \to \infty} \frac{n!}{n^n} &#x3D; 0<br> ]</p>
+</li>
+<li><p><strong>常用的几个极限</strong><br> [<br> \lim_{n \to \infty} \sqrt[n]{n} &#x3D; 1, \lim_{x \to +0} x^n &#x3D; 1.<br> ]<br> [<br> \lim_{x \to 0^+} x^\alpha &#x3D; \begin{cases} 0, &amp; \alpha &gt; 0, \ 1, &amp; \alpha &#x3D; 0, \ +\infty, &amp; \alpha &lt; 0. \end{cases}<br> ]<br> [<br> \lim_{n \to \infty} n^x &#x3D; \begin{cases} +\infty, &amp; x &gt; 0, \ 1, &amp; x &#x3D; 0, \ 0, &amp; x &lt; 0. \end{cases}<br> ]</p>
+</li>
+<li><p><strong>常用麦克劳林公式</strong><br> [<br> e^x &#x3D; 1 + x + \frac{1}{2!}x^2 + \cdots + \frac{1}{n!}x^n + o\left(x^n\right)<br> ]<br> [<br> \ln(1 + x) &#x3D; x - \frac{1}{2}x^2 + \frac{1}{3}x^3 - \cdots + (-1)^{n - 1}\frac{x^n}{n} + o\left(x^n\right)<br> ]<br> [<br> \sin x &#x3D; x - \frac{1}{3!}x^3 + \cdots + (-1)^n \frac{x^{2n + 1}}{(2n + 1)!} + o\left(x^{2n + 1}\right)<br> ]<br> [<br> \cos x &#x3D; 1 - \frac{1}{2!}x^2 + \cdots + (-1)^n \frac{x^{2n}}{(2n)!} + o\left(x^{2n}\right)<br> ]<br> [<br> \tan x &#x3D; x + \frac{1}{3}x^3 + o\left(x^3\right)<br> ]<br> [<br> \arcsin x &#x3D; x + \frac{1}{6}x^3 + o\left(x^3\right)<br> ]<br> [<br> \arctan x &#x3D; x - \frac{1}{3}x^3 + o\left(x^3\right)<br> ]<br> [<br> \frac{1}{1 - x} &#x3D; 1 + x + x^2 + \cdots + x^n + o\left(x^n\right)<br> ]<br> [<br> \frac{1}{1 + x} &#x3D; 1 - x + x^2 + \cdots + (-1)^n x^n + o\left(x^n\right)<br> ]<br> [<br> (1 + x)^m &#x3D; 1 + mx + \frac{m(m - 1)}{2!}x^2 + \cdots + \frac{m(m - 1)\cdots(m - n + 1)}{n!}x^n + o\left(x^n\right)<br> ]</p>
+</li>
+</ol>
+<h3 id="第二章-一元函数微分学"><a href="#第二章-一元函数微分学" class="headerlink" title="第二章 一元函数微分学"></a>第二章 一元函数微分学</h3><ol>
+<li><p><strong>基本求导公式</strong><br> [(1) y &#x3D; c , (\text{常数})]<br> [y’ &#x3D; 0]</p>
+<p> [(2) y &#x3D; x^\alpha , (\alpha \text{为实数}) \quad y’ &#x3D; \alpha x^{\alpha - 1}]</p>
+<p> [(3) y &#x3D; a^x]<br> [y’ &#x3D; a^x \ln a]<br> [y &#x3D; e^x]<br> [(e^x)’ &#x3D; e^x]</p>
+<p> [(4) y &#x3D; \log_a x \quad y’ &#x3D; \frac{1}{x \ln a}]<br> [y &#x3D; \ln |x|]<br> [(\ln |x|)’ &#x3D; \frac{1}{x}]</p>
+<p> [(5) y &#x3D; \sin x]<br> [y’ &#x3D; \cos x]</p>
+<p> [(6) y &#x3D; \cos x]<br> [y’ &#x3D; -\sin x]</p>
+<p> [(7) y &#x3D; \tan x]<br> [y’ &#x3D; \sec^2 x]</p>
+<p> [(8) y &#x3D; \cot x]<br> [y’ &#x3D; -\csc^2 x]</p>
+<p> [(9) y &#x3D; \sec x]<br> [y’ &#x3D; \sec x \tan x]</p>
+<p> [(10) y &#x3D; \csc x]<br> [y’ &#x3D; -\csc x \cot x]</p>
+<p> [(11) y &#x3D; \arcsin x]<br> [y’ &#x3D; \frac{1}{\sqrt{1 - x^2}}]</p>
+<p> [(12) y &#x3D; \arccos x]<br> [y’ &#x3D; -\frac{1}{\sqrt{1 - x^2}}]</p>
+<p> [(13) y &#x3D; \arctan x \quad y’ &#x3D; \frac{1}{1 + x^2}]</p>
+<p> [(14) y &#x3D; \text{arccot}, x]<br> [y’ &#x3D; -\frac{1}{1 + x^2}]</p>
+</li>
+<li><p><strong>莱布尼茨求导公式</strong><br> 若 (u(x))，(v(x)) 均n阶可导，则<br> [(uv)^{(n)} &#x3D; \sum_{i&#x3D;0}^{n} C_{n}^{i} u^{(i)} v^{(n - i)}, 其中 u^{(0)} &#x3D; u, v^{(0)} &#x3D; v.]</p>
+</li>
+<li><p><strong>渐近线</strong><br> (1) 水平渐近线<br> 若 (\lim_{x \to +\infty} f(x) &#x3D; b) 或 (\lim_{x \to -\infty} f(x) &#x3D; b)，则 (y &#x3D; b) 为函数 (y &#x3D; f(x)) 的水平渐近线.</p>
+<p> (2) 垂直渐近线<br> 若 (\lim_{x \to x_0^+} f(x) &#x3D; \infty) 或 (\lim_{x \to x_0^-} f(x) &#x3D; \infty)，则 (x &#x3D; x_0) 为函数 (y &#x3D; f(x)) 的垂直渐近线。</p>
+<p> (3) 斜渐近线<br> [<br> k &#x3D; \lim_{x \to +\infty} \frac{f(x)}{x}, b &#x3D; \lim_{x \to +\infty}[f(x) - kx] , (\text{或} , k &#x3D; \lim_{x \to -\infty} \frac{f(x)}{x}, b &#x3D; \lim_{x \to -\infty}[f(x) - kx]), 则<br> ]<br> 直线 (y &#x3D; kx + b) 是曲线 (y &#x3D; f(x)) 的斜渐近线.</p>
+</li>
+<li><p><strong>反函数求导公式</strong><br> 设 (y &#x3D; f(x)) 可导且 (f’(x) \neq 0)，现存在反函数 (x &#x3D; \varphi(y))<br> [<br> \frac{dx}{dy} &#x3D; \frac{1}{\frac{dy}{dx}}<br> ]<br> [<br> \varphi’(y) &#x3D; \frac{1}{f’(x)}.<br> ]</p>
+<p> 在 (y &#x3D; f(x)) 二阶可导的情况下，记 (f’(x) &#x3D; y_x’)，(\varphi’(y) &#x3D; x_y’)（(x_y’ \neq 0)）则有<br> [<br> y_x’ &#x3D; \frac{dy}{dx} &#x3D; \frac{1}{\frac{dx}{dy}} &#x3D; \frac{1}{x_y’}, y_{xx}’’ &#x3D; \frac{d^2 y}{dx^2} &#x3D; \frac{d\left(\frac{dy}{dx}\right)}{dx} &#x3D; \frac{d\left(\frac{1}{x_y’}\right)}{dx} &#x3D; \frac{d\left(\frac{1}{x_y’}\right)}{dy} \cdot \frac{1}{x_y’} &#x3D; \frac{-x_{yy}’’}{\left(x_y’\right)^3}.<br> ]<br> [<br> 反过来，则有 x_y’ &#x3D; \frac{1}{y_x’}, x_{yy}’’ &#x3D; \frac{-y_{xx}’’}{\left(y_x’\right)^3}.<br> ]</p>
+</li>
+<li><p><strong>复合函数求导法则</strong><br> 设 (u &#x3D; g(x)) 在点x处可导，(y &#x3D; f(u)) 在点 (u &#x3D; g(x)) 处可导，则<br> [<br> {f[g(x)]}‘ &#x3D; f’[g(x)]g’(x),<br> ]<br> [<br> d{f[g(x)]} &#x3D; f’[g(x)]g’(x)dx.<br> ]</p>
+</li>
+<li><p><strong>隐函数求导法则</strong><br> 设函数 (y &#x3D; y(x)) 是由方程 (F(x, y) &#x3D; 0) 确定的可导函数，则<br> ① 方程 (F(x, y) &#x3D; 0) 两边对自变量x求导，注意 (y &#x3D; y(x))，即将y看作中间变量，得到一个关于 (y’) 的方程；<br> ② 解该方程便可求出 (y’)</p>
+</li>
+<li><p><strong>参数方程求导公式</strong><br> [<br> \begin{cases} x &#x3D; x(t), \ y &#x3D; y(t) \end{cases} \Rightarrow \frac{dy}{dx} &#x3D; \frac{dy&#x2F;dt}{dx&#x2F;dt} &#x3D; \frac{y’(t)}{x’(t)} \xlongequal{\text{记为}} \varphi(t), 则 \frac{d^2 y}{dx^2} &#x3D; \frac{\frac{d}{dt}\left(\frac{dy}{dx}\right)}{dx&#x2F;dt} &#x3D; \frac{\varphi’(t)}{x’(t)}<br> ]</p>
+</li>
+<li><p><strong>切线､法线与截距</strong><br> 设 (y &#x3D; y(x)) 可导且 (y’(x) \neq 0)，则相关结论见下表。（原表格内容混乱，此处略）</p>
+</li>
+<li><p><strong>弧微分与曲率公式</strong><br> [<br> ds &#x3D; \lim_{\Delta x \to 0} \sqrt{\Delta x^2 + \Delta y^2} &#x3D; \begin{cases}<br> \sqrt{1 + y’^2}dx, &amp; \text{曲线为} , y &#x3D; f(x), \<br> \sqrt{[x’(t)]^2 + [y’(t)]^2}dt, &amp; \text{曲线为} , \begin{cases} x &#x3D; x(t), \ y &#x3D; y(t). \end{cases} \<br> \sqrt{r^2 + r’^2}d\theta, &amp; \text{曲线为} , r &#x3D; r(\theta).<br> \end{cases}<br> ]</p>
+<p> 设 (y(x)) 二阶可导，则曲线 (y &#x3D; y(x)) 在点 ((x, y(x))) 处的曲率公式为<br> [<br> k &#x3D; \frac{|y’’|}{\left[1 + (y’)^2\right]^{\frac{3}{2}}}.<br> ]</p>
+<p> 曲率半径的计算公式<br> [<br> R &#x3D; \frac{1}{k} &#x3D; \frac{\left[1 + (y’)^2\right]^{\frac{3}{2}}}{|y’’|} , (y’’ \neq 0).<br> ]</p>
+</li>
+<li><p><strong>微分中值定理</strong><br>定理1(有界与最值定理)：(m \leq f(x) \leq M)，其中m，M分别为 (f(x)) 在 ([a,b]) 上的最小值与最大值.</p>
+<p>定理2(介值定理)：当 (m \leq \mu \leq M) 时，存在 (\xi \in [a, b]) 使得 (f(\xi) &#x3D; \mu)</p>
+<p>定理3(平均值定理)：当 (a &lt; x_1 &lt; x_2 &lt; \cdots &lt; x_n &lt; b) 时，在 ([x_1, x_n]) 上至少存在一点，使<br>[<br>f(\xi) &#x3D; \frac{f(x_1) + f(x_2) + \cdots + f(x_n)}{n}.<br>]</p>
+<p>定理4(零点定理)：当 (f(a) \cdot f(b) &lt; 0) 时，存在 (\xi \in (a, b))，使得 (f(\xi) &#x3D; 0)</p>
+<p>定理5(费马定理)：设 (f(x)) 在点 (x_0) 处满足取极值，则 (f’(x_0) &#x3D; 0)</p>
+<p>定理6(罗尔定理)：设 (f(x)) 满足</p>
+<ul>
+<li>在 ([a, b]) 上连续，</li>
+<li>在 ((a, b)) 内可导，</li>
+<li>(f(a) &#x3D; f(b))，<br>则存在 (\xi \in (a, b))，使得 (f’(\xi) &#x3D; 0)</li>
+</ul>
+<p>定理7(拉格朗日中值定理)：设 (f(x)) 满足</p>
+<ul>
+<li>在 ([a, b]) 上连续，</li>
+<li>在 ((a, b)) 内可导，<br>则存在 (\xi \in (a, b))，使得<br>[<br>f(b) - f(a) &#x3D; f’(\xi)(b - a),<br>]<br>[<br>或者写成 f’(\xi) &#x3D; \frac{f(b) - f(a)}{b - a}.<br>]</li>
+</ul>
+<p>定理8(柯西中值定理)：设 (f(x))，(g(x)) 满足</p>
+<ul>
+<li>在 ([a, b]) 上连续，</li>
+<li>在 ((a, b)) 内可导，</li>
+<li>(g’(x) \neq 0)，<br>则存在 (\xi \in (a, b))，使得<br>[<br>\frac{f(b) - f(a)}{g(b) - g(a)} &#x3D; \frac{f’(\xi)}{g’(\xi)}.<br>]</li>
+</ul>
+</li>
+<li><p><strong>物理应用与相关变化率</strong><br>① 已知质点的运动位移x关于时间t的函数为 (x &#x3D; x(t))，则其速度为 (v &#x3D; \frac{dx}{dt})，其加速度为<br>[<br>a &#x3D; \frac{dv}{dt} &#x3D; \frac{dv}{dx} \cdot \frac{dx}{dt} &#x3D; v \cdot \frac{dv}{dx}.<br>]</p>
+<p>② 若函数 (y &#x3D; f(x)) 由参数方程 (\begin{cases} y &#x3D; y(t), \ x &#x3D; x(t). \end{cases}) 确定且可导，且y对t的变化率与x对t的变化率成正比。则 (\frac{dy}{dt} &#x3D; ka\frac{dx}{dt})</p>
+</li>
+</ol>
+<h3 id="第三章-一元函数积分学"><a href="#第三章-一元函数积分学" class="headerlink" title="第三章 一元函数积分学"></a>第三章 一元函数积分学</h3><ol>
+<li><p><strong>基本积分公式</strong><br> [(1) \int x^k dx &#x3D; \frac{x^{k + 1}}{k + 1} + C , (k \neq -1).]<br> [(2) \int \frac{1}{x} dx &#x3D; \ln |x| + C.]<br> [(3) \int a^x dx &#x3D; \frac{a^x}{\ln a} + C.]<br> [\int e^x dx &#x3D; e^x + C .]<br> [(4) \int \cos x dx &#x3D; \sin x + C.]<br> [\int \sin x dx &#x3D; -\cos x + C .]<br> [(5) \int \frac{1}{\sin x} dx &#x3D; \int \csc x dx &#x3D; \ln |\csc x - \cot x| + C.]<br> [\int \frac{1}{\cos x} dx &#x3D; \int \sec x dx &#x3D; \ln |\sec x + \tan x| + C .]<br> [(6) \int \frac{1}{\sin^2 x} dx &#x3D; \int \csc^2 x dx &#x3D; -\cot x + C.]<br> [\int \frac{1}{\cos^2 x} dx &#x3D; \int \sec^2 x dx &#x3D; \tan x + C .]<br> [(7) \int \tan x dx &#x3D; -\ln |\cos x| + C.]<br> [\int \cot x dx &#x3D; \ln |\sin x| + C .]<br> [(8) \int \sec x \tan x dx &#x3D; \sec x + C.]<br> [\int \csc x \cot x dx &#x3D; -\csc x + C .]<br> [(9) \int \frac{1}{a^2 + x^2} dx &#x3D; \frac{1}{a} \arctan \frac{x}{a} + C.]<br> [\int \frac{1}{1 + x^2} dx &#x3D; \arctan x + C .]<br> [(10) \int \frac{1}{\sqrt{a^2 - x^2}} dx &#x3D; \arcsin \frac{x}{a} + C.]<br> [\int \frac{1}{\sqrt{1 - x^2}} dx &#x3D; \arcsin x + C .]<br> [(11) \int \frac{1}{a^2 - x^2} dx &#x3D; \frac{1}{2a} \ln \left|\frac{a + x}{a - x}\right| + C.]<br> [\int \frac{1}{1 - x^2} dx &#x3D; \frac{1}{2} \ln \left|\frac{1 + x}{1 - x}\right| + C .]<br> [(12) \int \frac{1}{\sqrt{x^2 \pm a^2}} dx &#x3D; \ln \left|x + \sqrt{x^2 \pm a^2}\right| + C.]</p>
+</li>
+<li><p><strong>常见的几种凑微分形式</strong><br> [(1) \int f(ax + b)dx &#x3D; \frac{1}{a} \int f(ax + b)d(ax + b) , (a \neq 0)]<br> [(2) \int f(ax^n + b)x^{n - 1}dx &#x3D; \frac{1}{na} \int f(ax^n + b)d(ax^n + b) , (a \neq 0)]<br> [(3) \int f(e^x)e^x dx &#x3D; \int f(e^x)de^x]<br> [(4) \int \frac{f\left(\frac{1}{x}\right)}{x^2} dx &#x3D; -\int f\left(\frac{1}{x}\right)d\left(\frac{1}{x}\right)]<br> [(5) \int \frac{f(\ln x)}{x} dx &#x3D; \int f(\ln x)d(\ln x)]<br> [(6) \int \frac{f(\sqrt{x})}{\sqrt{x}} dx &#x3D; 2 \int f(\sqrt{x})d(\sqrt{x})]<br> [(7) \int f(\sin x)\cos x dx &#x3D; \int f(\sin x)d(\sin x)]<br> [(8) \int f(\cos x)\sin x dx &#x3D; -\int f(\cos x)d(\cos x)]<br> [(9) \int f(\tan x)\sec^2 x dx &#x3D; \int f(\tan x)d(\tan x)]<br> [(10) \int f(\cot x)\csc^2 x dx &#x3D; -\int f(\cot x)d(\cot x)]<br> [(11) \int \frac{f(\arcsin x)}{\sqrt{1 - x^2}} dx &#x3D; \int f(\arcsin x)d(\arcsin x)]<br> [(12) \int \frac{f(\arctan x)}{1 + x^2} dx &#x3D; \int f(\arctan x)d(\arctan x)]</p>
+</li>
+<li><p><strong>定积分重要公式(包含区间再现､华里士公式等)</strong><br> [<br> \int_{a}^{b} f(x)dx &#x3D; \int_{a}^{b} f(a + b - x)dx.<br> ]<br> [<br> \int_{a}^{b} f(x)dx &#x3D; \frac{1}{2} \int_{a}^{b}[f(x) + f(a + b - x)]dx.<br> ]<br> [<br> \int_{a}^{b} f(x)dx &#x3D; \int_{a}^{\frac{a + b}{2}}[f(x) + f(a + b - x)]dx.<br> ]<br> [<br> \begin{aligned}<br> \int_{0}^{\frac{\pi}{2}} \sin^n x dx &amp;&#x3D; \int_{0}^{\frac{\pi}{2}} \cos^n x dx \<br> &amp;&#x3D; \begin{cases}<br> \frac{n - 1}{n} \cdot \frac{n - 3}{n - 2} \cdot \cdots \cdot \frac{2}{3} \cdot 1, &amp; n \text{为大于1的奇数}, \<br> \frac{n - 1}{n} \cdot \frac{n - 3}{n - 2} \cdot \cdots \cdot \frac{1}{2} \cdot \frac{\pi}{2}, &amp; n \text{为正偶数}.<br> \end{cases}<br> \end{aligned}<br> ]<br> [<br> \int_{0}^{\pi} \sin^n x dx &#x3D; \begin{cases}<br> 2 \cdot \frac{n - 1}{n} \cdot \frac{n - 3}{n - 2} \cdot \cdots \cdot \frac{2}{3} \cdot 1, &amp; n \text{为大于1的奇数}, \<br> 2 \cdot \frac{n - 1}{n} \cdot \frac{n - 3}{n - 2} \cdot \cdots \cdot \frac{1}{2} \cdot \frac{\pi}{2}, &amp; n \text{为正偶数}.<br> \end{cases}<br> ]<br> [<br> \int_{0}^{\pi} \cos^n x dx &#x3D; \begin{cases}<br> 0, &amp; n \text{为正奇数}, \<br> 2 \cdot \frac{n - 1}{n} \cdot \frac{n - 3}{n - 2} \cdot \cdots \cdot \frac{1}{2} \cdot \frac{\pi}{2}, &amp; n \text{为正偶数}.<br> \end{cases}<br> ]<br> [<br> \int_{0}^{2\pi} \sin^n x dx &#x3D; \begin{cases}<br> 0, &amp; n \text{为正奇数}, \<br> 4 \cdot \frac{n - 1}{n} \cdot \frac{n - 3}{n - 2} \cdot \cdots \cdot \frac{1}{2} \cdot \frac{\pi}{2}, &amp; n \text{为正偶数}.<br> \end{cases}<br> ]<br> [<br> \int_{0}^{2\pi} \cos^n x dx &#x3D; \int_{0}^{2\pi} \sin^n x dx &#x3D; \begin{cases}<br> 0, &amp; n \text{为正奇数}, \<br> 4 \cdot \frac{n - 1}{n} \cdot \frac{n - 3}{n - 2} \cdot \cdots \cdot \frac{1}{2} \cdot \frac{\pi}{2}, &amp; n \text{为正偶数}.<br> \end{cases}<br> ]<br> [<br> \int_{0}^{\pi} x f(\sin x)dx &#x3D; \frac{\pi}{2} \int_{0}^{\pi} f(\sin x)dx.<br> ]<br> [<br> \int_{0}^{\pi} x f(\sin x)dx &#x3D; \pi \int_{0}^{\frac{\pi}{2}} f(\sin x)dx.<br> ]<br> [<br> \int_{0}^{\frac{\pi}{2}} f(\sin x)dx &#x3D; \int_{0}^{\frac{\pi}{2}} f(\cos x)dx.<br> ]<br> [<br> \int_{0}^{\frac{\pi}{2}} f(\sin x, \cos x)dx &#x3D; \int_{0}^{\frac{\pi}{2}} f(\cos x, \sin x)dx.<br> ]<br> [<br> \int_{a}^{b} f(x)dx &#x3D; \int_{-\frac{b - a}{2}}^{\frac{b - a}{2}} f\left(\frac{a + b}{2} + \frac{b - a}{2} \sin t\right) \cdot \frac{b - a}{2} \cos t dt.<br> ]<br> [<br> \int_{a}^{b} f(x)dx &#x3D; \int_{0}^{1}(b - a)f[a + (b - a)t]dt.<br> ]<br> [<br> \int_{-a}^{a} f(x)dx &#x3D; \int_{0}^{a}[f(x) + f(-x)]dx , (a &gt; 0).<br> ]</p>
+</li>
+<li><p><strong>常见反常积分及判敛</strong><br> [(1) \int_{1}^{+\infty} \frac{1}{x^p} dx\begin{cases} 收敛, &amp; p &gt; 1 \ 发散, &amp; p \leq 1\end{cases}, \int_{2}^{+\infty} \frac{1}{x \ln^p x} dx\begin{cases} 收敛, &amp; p &gt; 1 \ 发散, &amp; p \leq 1 \end{cases}]<br> [(2) \int_{0}^{1} \frac{1}{x^p} dx\begin{cases} 收敛, &amp; p &lt; 1 \ 发散, &amp; p \geq 1\end{cases} .]<br> ③ (\int_{1}^{+\infty} x^k e^{-px} dx)，k为任意常数且 (p &gt; 0) 时均收敛。<br> ④ (\int_{0}^{1} \frac{\ln^k x}{x^p} dx)，k为任意常数且 (p &lt; 1) 时均收敛。</p>
+</li>
+<li><p><strong>定积分的精确定义(和式极限)</strong><br> [<br> \int_{a}^{b} f(x)dx &#x3D; \lim_{n \to \infty} \sum_{i&#x3D;1}^{n} f\left(a + \frac{b - a}{n}i\right) \frac{b - a}{n}.<br> ]</p>
+</li>
+<li><p><strong>变限积分求导公式</strong><br> [(1) \left[\int_{a}^{\varphi(x)} f(t)dt\right]<em>{x}’ &#x3D; f[\varphi(x)] \cdot \varphi’(x).]<br> [(2) \left[\int</em>{\varphi_1(x)}^{\varphi_2(x)} f(t)dt\right]_{x}’ &#x3D; f\left[\varphi_2(x)\right] \cdot \varphi_2’(x) - f\left[\varphi_1(x)\right] \varphi_1’(x).]</p>
+</li>
+<li><p><strong>积分的不等式</strong><br> 保号性<br> [<br> f(x) \leq g(x) \Rightarrow \int_{a}^{b} f(x)dx \leq \int_{a}^{b} g(x)dx, b &gt; a.<br> ]<br> 估值定理<br> [<br> m \leq f(x) \leq M \Rightarrow m(b - a) \leq \int_{a}^{b} f(x)dx \leq M(b - a), b &gt; a.<br> ]<br> 绝对值不等式<br> [<br> \left|\int_{a}^{b} f(x)dx\right| \leq \int_{a}^{b}|f(x)|dx, b &gt; a.<br> ]<br> 柯西不等式：设函数 (f(x))，(g(x)) 在 ([a, b]) 上连续，则<br> [<br> \left(\int_{a}^{b} f(x)g(x)dx\right)^2 \leq \int_{a}^{b} f^2(x)dx \int_{a}^{b} g^2(x)dx.<br> ]</p>
+</li>
+<li><p><strong>面积</strong><br> (1) 直角坐标系下的面积公式：(S &#x3D; \int_{a}^{b}|f_1(x) - f_2(x)|dx)<br> (2) 极坐标系下的面积公式：(S &#x3D; \int_{\alpha}^{\beta} \frac{1}{2}|r_2^2(\theta) - r_1^2(\theta)|d\theta)<br> (3) 曲边由参数方程 (\begin{cases} x &#x3D; x(t), \ y &#x3D; y(t). \end{cases}) 给出的曲边梯形的面积为 (S &#x3D; \int_{a}^{b} y dx \xlongequal{x &#x3D; x(t)} \int_{\alpha}^{\beta} y(t) \cdot x’(t)dt)</p>
+</li>
+<li><p><strong>旋转体体积</strong><br> 平面图形由曲线 (y &#x3D; y(x)) 与直线 (x &#x3D; a)，(x &#x3D; b) 和x轴围成，则</p>
+<ul>
+<li>绕x轴旋转一周所形成的旋转体的体积 (V_x &#x3D; \pi \int_{a}^{b} y^2(x)dx)</li>
+<li>绕y轴旋转一周所形成的旋转体的体积 (V_y &#x3D; 2\pi \int_{a}^{b} x|y(x)|dx)</li>
+</ul>
+<p> 二重积分法<br> 旋转体的体积的一般问题是平面域D绕直线 (L: ax + by + c &#x3D; 0)（该直线不穿过区域D）旋转所得旋转体体积，记该体积为V。解决该问题利用二重积分比利用一元定积分的元素法方便。在区域D中取一小区域 ((d\sigma))，其面积记为 (ds)，((x, y)) 为区域 ((d\sigma)) 中的任一点，则该小区域绕直线L旋转所得环状体的体积近似值为<br> [<br> dV &#x3D; 2\pi r(x, y)d\sigma,<br> ]<br> 其中 (r(x, y)) 为点 ((x, y)) 到直线L的距离，即 (r(x, y) &#x3D; \frac{|ax + by + c|}{\sqrt{a^2 + b^2}}) 则<br> [<br> V &#x3D; 2\pi \iint_{D} r(x, y)d\sigma.<br> ]</p>
+<p> 极坐标系下旋转体体积<br> 平面图形 (D &#x3D; {(r, \theta) | 0 \leq r \leq r(\theta)})，(\theta \in [\alpha, \beta] \subset [0, \pi])，则D绕极轴旋转一周所得旋转体体积为<br> [<br> V &#x3D; \frac{2}{3}\pi \int_{\alpha}^{\beta} r^3(\theta) \sin \theta d\theta.<br> ]</p>
+</li>
+<li><p><strong>旋转曲面面积(侧面积)</strong><br>(1) 曲线 (y &#x3D; y(x)) 在区间 ([a, b]) 上的曲线弧段绕x轴旋转一周所得到的旋转曲面的面积为<br>[<br>S &#x3D; 2\pi \int_{a}^{b}|y(x)| \sqrt{1 + [y’(x)]^2}dx.<br>]</p>
+<p>(2) 曲线 (r &#x3D; r(\theta)) 在区间 ([\alpha, \beta]) 上的曲线弧段绕x轴旋转一周所得到的旋转曲面的面积为<br>[<br>S &#x3D; 2\pi \int_{\alpha}^{\beta}|r(\theta) \sin \theta| \sqrt{[r(\theta)]^2 + [r’(\theta)]^2}d\theta.<br>]</p>
+<p>(3) 曲线 (x &#x3D; x(t))，(y &#x3D; y(t)(\alpha \leq t \leq \beta, x’(t) \neq 0)) 在区间 ([\alpha, \beta]) 上的曲线弧段绕x轴旋转一周所得到的旋转曲面的面积为<br>[<br>S &#x3D; 2\pi \int_{\alpha}^{\beta}|y(t)| \sqrt{[x’(t)]^2 + [y’(t)]^2}dt.<br>]</p>
+</li>
+<li><p><strong>平面曲线弧长公式</strong><br>(1) 若平面光滑曲线由直角坐标方程 (y &#x3D; y(x)(a \leq x \leq b)) 给出，则<br>[<br>s &#x3D; \int_{a}^{b} \sqrt{1 + [y’(x)]^2}dx.<br>]</p>
+<p>(2) 若平面光滑曲线由极坐标方程 (r &#x3D; r(\theta)(\alpha \leq \theta \leq \beta)) 给出，则<br>[<br>s &#x3D; \int_{\alpha}^{\beta} \sqrt{[r(\theta)]^2 + [r’(\theta)]^2}d\theta.<br>]</p>
+<p>(3) 若平面光滑曲线由参数方程 (\begin{cases} x &#x3D; x(t), \ y &#x3D; y(t) \end{cases} (\alpha \leq t \leq \beta)) 给出，则<br>[<br>s &#x3D; \int_{\alpha}^{\beta} \sqrt{[x’(t)]^2 + [y’(t)]^2}dt.<br>]</p>
+</li>
+<li><p><strong>质心形心公式</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>质心 ((\bar{x}, \bar{y})) 或 ((\bar{x}, \bar{y}, \bar{z}))</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>曲线L的线密度为(\rho)</td>
+<td>(\bar{x} &#x3D; \frac{\int_{L} x \rho ds}{\int_{L} \rho ds}, \bar{y} &#x3D; \frac{\int_{L} y \rho ds}{\int_{L} \rho ds})</td>
+</tr>
+<tr>
+<td>平面图形D的面密度为(\rho(x, y))</td>
+<td>(\bar{x} &#x3D; \frac{\iint_{D} x \rho(x, y)dxdy}{\iint_{D} \rho(x, y)dxdy})，(\bar{y} &#x3D; \frac{\iint_{D} y \rho(x, y)dxdy}{\iint_{D} \rho(x, y)dxdy})</td>
+</tr>
+<tr>
+<td>空间区域(\Omega)的体密度函数为(\mu(x, y, z))</td>
+<td>(\bar{x} &#x3D; \frac{\iiint_{\Omega} x \mu(x, y, z)dxdydz}{\iiint_{\Omega} \mu(x, y, z)dxdydz})，(\bar{y} &#x3D; \frac{\iiint_{\Omega} y \mu(x, y, z)dxdydz}{\iiint_{\Omega} \mu(x, y, z)dxdydz})，(\bar{z} &#x3D; \frac{\iiint_{\Omega} z \mu(x, y, z)dxdydz}{\iiint_{\Omega} \mu(x, y, z)dxdydz})</td>
+</tr>
+</tbody></table>
+<p>【注】密度均匀(即密度为一常数C)的物体的质心即为形心</p>
+</li>
+<li><p><strong>平均值</strong><br>[<br>\overline{f} &#x3D; \frac{1}{b - a} \int_{a}^{b} f(x)dx.<br>]</p>
+</li>
+<li><p><strong>物理应用</strong><br>变力沿直线做功<br>设方向沿x轴正向的力函数为 (F(x)(a \leq x \leq b))，则物体沿x轴从点a移动到点b时，变力 (F(x)) 所做的功为<br>[<br>W &#x3D; \int_{a}^{b} F(x)dx,<br>]<br>功的元素 (dW &#x3D; F(x)dx)。</p>
+<p>抽水做功<br>将容器中的水全部抽出所做的功为<br>[<br>W &#x3D; \rho g \int_{a}^{b} x A(x)dx,<br>]<br>其中(\rho)为水的密度，g为重力加速度.<br>功的元素 (dW &#x3D; \rho g x A(x)dx) 为位于x处厚度为(dx)，水平截面面积为(A(x))的一层水被抽出(路程为x)所做的功。</p>
+<p>水压力<br>垂直浸没在水中的平板(ABCD)的一侧受到的水压力为<br>[<br>P &#x3D; \rho g \int_{a}^{b} x[f(x) - h(x)]dx,<br>]<br>其中(\rho)为水的密度，g为重力加速度.<br>压力元素<br>[<br>dP &#x3D; \rho g x[f(x) - h(x)]dx,<br>]<br>即图中矩形条所受到的压力。x表示水深，(f(x) - h(x))是矩形条的宽度，(dx)是矩形条的高度.</p>
+</li>
+</ol>
+<h3 id="第四章-微分方程"><a href="#第四章-微分方程" class="headerlink" title="第四章 微分方程"></a>第四章 微分方程</h3><ol>
+<li><p><strong>可分离变量方程</strong><br> [<br> f_1(x)g_1(y)dx + f_2(x)g_2(y)dy &#x3D; 0,<br> ]<br> 分离变量两边同除 (g_1(y)f_2(x) \neq 0)，得 (\frac{f_1(x)}{f_2(x)}dx + \frac{g_2(y)}{g_1(y)}dy &#x3D; 0)，然后两边积分即可。</p>
+</li>
+<li><p><strong>齐次方程</strong><br> [<br> y’ &#x3D; f\left(\frac{y}{x}\right),<br> ]<br> 令 (u &#x3D; \frac{y}{x})，则 (y &#x3D; ux)，(y’ &#x3D; u + x\frac{du}{dx})，于是原方程可化为<br> [<br> u + x\frac{du}{dx} &#x3D; f(u) \Rightarrow \frac{du}{f(u) - u} &#x3D; \frac{dx}{x} \Rightarrow \int \frac{du}{f(u) - u} &#x3D; \ln |x| + C.<br> ]<br> 求出积分后，再以 (\frac{y}{x}) 代替u，即得所给齐次方程的通解。</p>
+</li>
+<li><p><strong>一阶线性方程</strong><br> [<br> y’ + p(x)y &#x3D; q(x),<br> ]<br> 求解公式: (y &#x3D; [\int q(x) e^{\int p(x)dx} dx + C] e^{-\int p(x)dx})</p>
+</li>
+<li><p><strong>全微分方程</strong><br> [<br> M(x, y)dx + N(x, y)dy &#x3D; 0 \text{为全微分方程} \Leftrightarrow \frac{\partial M}{\partial y} &#x3D; \frac{\partial N}{\partial x}.<br> ]<br> [<br> 通解为 u(x, y) &#x3D; \int_{x_0}^{x} M(x, y_0)dx + \int_{y_0}^{y} N(x, y)dy &#x3D; C.<br> ]</p>
+</li>
+<li><p><strong>二阶常系数线性微分方程</strong><br> (y’’ + py’ + qy &#x3D; 0)，其中p，q均为常数<br> 特征方程: (\lambda^2 + p\lambda + q &#x3D; 0)，<br> (1) 当 (\lambda_1)，(\lambda_2) 为互异实根时，微分方程通解为 (y(x) &#x3D; C_1 e^{\lambda_1 x} + C_2 e^{\lambda_2 x})<br> (2) 当 (\lambda_1 &#x3D; \lambda_2) 时，通解为 (y(x) &#x3D; (C_1 + C_2 x) e^{\lambda_1 x})<br> (3) 当 (\lambda &#x3D; \alpha \pm i\beta) (复根)时，通解为 (y(x) &#x3D; e^{\alpha x}(C_1 \cos \beta x + C_2 \sin \beta x))。</p>
+</li>
+<li><p><strong>二阶常系数线性非齐次方程</strong><br> (y’’ + py’ + qy &#x3D; f(x))，其中p，q均为常数<br> 通解的求解步骤:<br> (1) 求对应的齐次方程的通解 (Y(x))<br> (2) 用待定系数法求出非齐次方程的特解 (y^<em>(x))<br> (3) 写出非齐次方程的通解为 (y^</em>(x) + Y(x))</p>
+</li>
+<li><p><strong>二阶常系数非齐次线性方程的非齐次项与特解的关系</strong></p>
+<table>
+<thead>
+<tr>
+<th>(y’’ + py’ + qy &#x3D; f(x))</th>
+<th>特解 (y^*(x)) 的形式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(f(x) &#x3D; P_n(x) e^{ax}) 其中 (P_n(x)) 为x的n次多项式</td>
+<td>a不是特征根, (y^*(x) &#x3D; R_n(x) e^{ax})</td>
+</tr>
+<tr>
+<td></td>
+<td>a是特征方程的单根, (y^*(x) &#x3D; x R_n(x) e^{ax})</td>
+</tr>
+<tr>
+<td></td>
+<td>a是特征方程的重根, (y^*(x) &#x3D; x^2 R_n(x) e^{ax})</td>
+</tr>
+<tr>
+<td></td>
+<td>((R_n(x)) 为n次多项式的一般形式)</td>
+</tr>
+<tr>
+<td>(f(x) &#x3D; P_n(x) e^{\alpha x} \sin \beta x) 或 (f(x) &#x3D; P_n(x) e^{\alpha x} \cos \beta x) 其中 (P_n(x)) 为n次多项式的一般形式</td>
+<td>(y^*(x) &#x3D; x^k e^{\alpha x}[Q_n(x) \cos \beta x + W_n(x) \sin \beta x])</td>
+</tr>
+<tr>
+<td></td>
+<td>(\alpha \pm i\beta) 不是特征根, (k &#x3D; 0)</td>
+</tr>
+<tr>
+<td></td>
+<td>(\alpha \pm i\beta) 是特征根, (k &#x3D; 1)</td>
+</tr>
+<tr>
+<td></td>
+<td>((Q_n(x), W_n(x)) 为n次多项式的一般形式)</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>二阶可降阶微分方程</strong><br> 若是 (y’’)，则<br> (1) 能写成 (y’’ &#x3D; f(x, y’)) 或 (y’’ &#x3D; f(y’))。<br> ① 缺y，令 (y’ &#x3D; p)，(y’’ &#x3D; p’)，则原方程变为一阶方程 (\frac{dp}{dx} &#x3D; f(x, p)) 或 (\frac{dp}{dx} &#x3D; f(p))<br> ② 若求得其通解为 (p &#x3D; \varphi(x, C_1))，即 (y’ &#x3D; \varphi(x, C_1))，则原方程的通解为<br> [<br> y &#x3D; \int \varphi(x, C_1)dx + C_2.<br> ]</p>
+<p> (2) 能写成 (y’’ &#x3D; f(y, y’))。<br> ① 缺x，令 (y’ &#x3D; p)，(y’’ &#x3D; \frac{dp}{dx} &#x3D; \frac{dp}{dy} \cdot \frac{dy}{dx} &#x3D; \frac{dp}{dy} \cdot p)，则原方程变为一阶方程 (p \frac{dp}{dy} &#x3D; f(y, p))<br> ② 若求得其通解为 (p &#x3D; \varphi(y, C_1))，则由 (p &#x3D; \frac{dy}{dx}) 得 (\frac{dy}{dx} &#x3D; \varphi(y, C_1))，分离变量得<br> [<br> \frac{dy}{\varphi(y, C_1)} &#x3D; dx;<br> ]<br> ③ 两边积分得 (\int \frac{dy}{\varphi(y, C_1)} &#x3D; x + C_2)，即可求得原方程的通解。</p>
+</li>
+<li><p><strong>二阶以上的常系数线性齐次微分方程</strong><br> n阶常系数线性齐次微分方程的一般形式是: (y^{(n)} + p_1 y^{(n - 1)} + p_2 y^{(n - 2)} + \cdots + p_{n - 1} y’ + p_n y &#x3D; 0)，其中 (p_i(i &#x3D; 1,2, \cdots, n)) 为常数。相应的特征方程为 (\lambda^n + p_1 \lambda^{n - 1} + p_2 \lambda^{n - 2} + \cdots + p_{n - 1} \lambda + p_n &#x3D; 0)，<br> (1) 若特征方程有n个不同的实根 (\lambda_1, \lambda_2, \cdots, \lambda_n) 则方程通解 (y &#x3D; C_1 e^{\lambda_1 x} + C_2 e^{\lambda_2 x} + \cdots + C_n e^{\lambda_n x})<br> (2) 若 (\lambda_0) 为特征方程的k重实根 ((k \leq n)) 则方程通解中含有 ((C_1 + C_2 x + \cdots + C_k x^{k - 1}) e^{\lambda_0 x})<br> (3) 若 (\alpha \pm i\beta) 为特征方程的k重共轭复根 ((2k \leq n)) 则方程通解中含有<br> [<br> e^{\alpha x}\left[(C_1 + C_2 x + \cdots + C_k x^{k - 1}) \cos \beta x + (D_1 + D_2 x + \cdots + D_k x^{k - 1}) \sin \beta x\right].<br> ]</p>
+</li>
+</ol>
+<h3 id="第五章-多元微分"><a href="#第五章-多元微分" class="headerlink" title="第五章 多元微分"></a>第五章 多元微分</h3><ol>
+<li><p><strong>偏导数定义</strong><br> [<br> f_x’(x, y) &#x3D; \lim_{\Delta x \to 0} \frac{f(x + \Delta x, y) - f(x, y)}{\Delta x};<br> ]<br> [<br> f_y’(x, y) &#x3D; \lim_{\Delta y \to 0} \frac{f(x, y + \Delta y) - f(x, y)}{\Delta y}.<br> ]</p>
+</li>
+<li><p><strong>可微判定步骤</strong><br> ① 写出全增量 (\Delta z &#x3D; f(x_0 + \Delta x, y_0 + \Delta y) - f(x_0, y_0))<br> ② 写出线性增量 (A\Delta x + B\Delta y)，其中 (A &#x3D; f_x’(x_0, y_0))，(B &#x3D; f_y’(x_0, y_0))<br> ③ 作极限 (\lim_{\substack{\Delta x \to 0 \ \Delta y \to 0}} \frac{\Delta z - (A\Delta x + B\Delta y)}{\sqrt{(\Delta x)^2 + (\Delta y)^2}}) 若该极限等于0，则 (z &#x3D; f(x, y)) 在点 ((x_0, y_0)) 处可微，否则，就不可微.</p>
+</li>
+<li><p><strong>链式求导规则</strong><br> (1) (\frac{dy}{dx} &#x3D; \frac{d{f[g(x)]}}{dx} &#x3D; \frac{d{f[g(x)]}}{d[g(x)]} \cdot \frac{d[g(x)]}{dx})</p>
+<p> (2) 设 (z &#x3D; f(u, v))，(u &#x3D; u(x, y))，(v &#x3D; v(x, y))，则<br> [<br> \frac{\partial z}{\partial y} &#x3D; \frac{\partial z}{\partial u} \cdot \frac{\partial u}{\partial y} + \frac{\partial z}{\partial v} \cdot \frac{\partial v}{\partial y}.<br> ]</p>
+<p> (3) 设 (z &#x3D; f(u, v))，(u &#x3D; u(t))，(v &#x3D; v(t))，则<br> [<br> \frac{dz}{dt} &#x3D; \frac{\partial z}{\partial u} \cdot \frac{du}{dt} + \frac{\partial z}{\partial v} \cdot \frac{dv}{dt}<br> ]</p>
+</li>
+<li><p><strong>隐函数求导法</strong><br> 设以下所给函数的偏导数均连续.<br> (1) 一个方程的情形.<br> 设 (F(x, y, z) &#x3D; 0)，(P_0(x_0, y_0, z_0))，若满足① (F(P_0) &#x3D; 0)；② (F_z’(P_0) \neq 0)，则在点 (P_0) 的某邻域内可确定 (z &#x3D; z(x, y))，且有<br> [<br> \frac{\partial z}{\partial x} &#x3D; -\frac{F_x’}{F_z’}, \frac{\partial z}{\partial y} &#x3D; -\frac{F_y’}{F_z’}.<br> ]</p>
+<p> (2) 方程组的情形. (\begin{cases} F(x, y, z) &#x3D; 0, \ G(x, y, z) &#x3D; 0, \end{cases}) 当 (\frac{\partial(F, G)}{\partial(y, z)} &#x3D; \begin{vmatrix} \frac{\partial F}{\partial y} &amp; \frac{\partial F}{\partial z} \ \frac{\partial G}{\partial y} &amp; \frac{\partial G}{\partial z} \end{vmatrix} \neq 0) 时，可确定 (\begin{cases} y &#x3D; y(x), \ z &#x3D; z(x). \end{cases}) 且有<br> [<br> \frac{dy}{dx} &#x3D; -\frac{\frac{\partial(F, G)}{\partial(x, z)}}{\frac{\partial(F, G)}{\partial(y, z)}} &#x3D; -\frac{\begin{vmatrix} \frac{\partial F}{\partial x} &amp; \frac{\partial F}{\partial z} \ \frac{\partial G}{\partial x} &amp; \frac{\partial G}{\partial z} \end{vmatrix}}{\begin{vmatrix} \frac{\partial F}{\partial y} &amp; \frac{\partial F}{\partial z} \ \frac{\partial G}{\partial y} &amp; \frac{\partial G}{\partial z} \end{vmatrix}}, \frac{dz}{dx} &#x3D; -\frac{\frac{\partial(F, G)}{\partial(y, x)}}{\frac{\partial(F, G)}{\partial(y, z)}} &#x3D; -\frac{\begin{vmatrix} \frac{\partial F}{\partial y} &amp; \frac{\partial F}{\partial x} \ \frac{\partial G}{\partial y} &amp; \frac{\partial G}{\partial x} \end{vmatrix}}{\begin{vmatrix} \frac{\partial F}{\partial y} &amp; \frac{\partial F}{\partial z} \ \frac{\partial G}{\partial y} &amp; \frac{\partial G}{\partial z} \end{vmatrix}}.<br> ]</p>
+</li>
+<li><p><strong>全微分形式不变性</strong><br> 设 (z &#x3D; f(u, v))，(u &#x3D; u(x, y))，(v &#x3D; v(x, y))，如果 (f(u, v))，(u(x, y))，(v(x, y)) 分别有连续偏导数，则复合函数 (z &#x3D; f(u, v)) 在 ((x, y)) 处的全微分仍可表示为<br> [<br> dz &#x3D; \frac{\partial z}{\partial u}du + \frac{\partial z}{\partial v}dv,<br> ]<br> 即无论u，v是自变量还是中间变量，上式总成立.</p>
+</li>
+<li><p><strong>二元函数取极值的充分条件(无条件极值)</strong><br> 设 (z &#x3D; f(x, y)) 在点 ((x_0, y_0)) 的某邻域内有连续的二阶偏导数，且<br> [<br> f_x’(x_0, y_0) &#x3D; 0, f_y’(x_0, y_0) &#x3D; 0; A &#x3D; f_{xx}’’(x_0, y_0), B &#x3D; f_{xy}’’(x_0, y_0), C &#x3D; f_{yy}’’(x_0, y_0).<br> ]</p>
+<p> (1) 若 (AC - B^2 &gt; 0)，则 ((x_0, y_0)) 是 (z &#x3D; f(x, y)) 的一个极值点，且当 (A &gt; 0) 时，((x_0, y_0)) 为极小值点；当 (A &lt; 0) 时，((x_0, y_0)) 为极大值点.<br> (2) 若 (AC - B^2 &lt; 0)，则 ((x_0, y_0)) 不是 (z &#x3D; f(x, y)) 的极值点.<br> (3) 若 (AC - B^2 &#x3D; 0)，则无法判定 ((x_0, y_0)) 是否为极值点，此时应考虑利用极值点的定义进行判断.</p>
+</li>
+<li><p><strong>条件极值与拉格朗日乘数法</strong><br> 求目标函数 (u &#x3D; f(x, y, z)) 在约束条件 (\begin{cases} \varphi(x, y, z) &#x3D; 0, \ \psi(x, y, z) &#x3D; 0 \end{cases}) 下的最值的步骤.<br> ① 构造辅助函数 (F(x, y, z, \lambda, \mu) &#x3D; f(x, y, z) + \lambda \varphi(x, y, z) + \mu \psi(x, y, z))；（辅助函数自变量个数&#x3D;目标函数自变量个数+约束条件个数）<br> ② 令<br> [<br> \begin{cases}<br> F_x’ &#x3D; f_x’ + \lambda \varphi_x’ + \mu \psi_x’ &#x3D; 0, \<br> F_y’ &#x3D; f_y’ + \lambda \varphi_y’ + \mu \psi_y’ &#x3D; 0, \<br> F_z’ &#x3D; f_z’ + \lambda \varphi_z’ + \mu \psi_z’ &#x3D; 0, \<br> F_\lambda’ &#x3D; \varphi(x, y, z) &#x3D; 0, \<br> F_\mu’ &#x3D; \psi(x, y, z) &#x3D; 0;<br> \end{cases}<br> ]<br> ③ 解上述方程组得备选点 (P_i)，(i &#x3D; 1,2,3, \cdots, n)，并求 (f(P_i))，取其最大值为 (u_{max})，最小值为 (u_{min})；<br> ④ 根据实际问题，必存在最值，所得即为所求.</p>
+</li>
+</ol>
+<h3 id="第六章-二重积分"><a href="#第六章-二重积分" class="headerlink" title="第六章 二重积分"></a>第六章 二重积分</h3><ol>
+<li><p><strong>几个重要边界曲线</strong></p>
+<ul>
+<li>心形线：(r &#x3D; a(1 - \cos\theta))，(r &#x3D; a(1 + \cos\theta))</li>
+<li>双纽线：(r^2 &#x3D; a^2 \cos 2\theta)</li>
+<li>摆线</li>
+<li>星形线</li>
+<li>螺旋线：(r &#x3D; a\theta)</li>
+</ul>
+</li>
+<li><p><strong>不同坐标系下的表示</strong><br> 直角坐标系下的二重积分表示: (\iint_{D} f(x, y)d\sigma &#x3D; \iint_{D} f(x(, y)dxdy .)<br>极坐标系下的二重积分表示: (\iint_{D} f(x, y)d\sigma &#x3D; \iint_{D} f(r\cos\theta, r\sin\theta)r dr d\theta .)</p>
+</li>
+<li><p><strong>二重积分的普通对称性</strong><br> ① 如果积分区域(D)关于(x)轴对称,则二重积分<br> [\iint_{D} f(x, y)d\sigma &#x3D; \begin{cases} 0, &amp; f(x,-y)&#x3D;-f(x, y), \ 2 \iint_{D_{1}} f(x, y)d\sigma, &amp; f(x,-y)&#x3D;f(x, y) . \end{cases}]<br> 其中,(D_{1})为(D)在(y\geq0)的部分.<br> ② 如果积分区域(D)关于(y)轴对称,则二重积分<br> [\iint_{D} f(x, y)d\sigma &#x3D; \begin{cases} 0, &amp; f(-x, y)&#x3D;-f(x, y), \ 2 \iint_{D_{1}} f(x, y)d\sigma, &amp; f(-x, y)&#x3D;f(x, y) . \end{cases}]<br> 其中,(D_{1})为(D)在(x \geq0)的部分.<br> ③ 如果(D)关于直线(y&#x3D;x)对称,则<br> [\iint_{D} f(x, y)d\sigma&#x3D;\iint_{D} f(y, x)d\sigma&#x3D;\frac{1}{2} \iint_{D}(f(x, y)+f(y, x))d\sigma .]</p>
+</li>
+<li><p><strong>轮换对称性</strong><br> 若将(D)中的(x),(y)对调后,(D)不变,则有<br> [I&#x3D;\iint_{D} f(x, y)dxdy&#x3D;\iint_{D} f(y, x)dxdy .]</p>
+</li>
+<li><p><strong>和式极限</strong><br> [\iint_{D} f(x, y)d\sigma&#x3D;lim <em>{n \to \infty} \sum</em>{i&#x3D;1}^{n} \sum_{j&#x3D;1}^{n} f\left(a+\frac{b-a}{n} i, c+\frac{d-c}{n} j\right) \cdot \frac{b-a}{n} \cdot \frac{d-c}{n} .]<br> 这里的(D)不是一般的平面有界闭区域,而是一个长方形区域([a, b] \times[c, d]).</p>
+</li>
+</ol>
+<h2 id="线性代数部分"><a href="#线性代数部分" class="headerlink" title="线性代数部分"></a>线性代数部分</h2><h3 id="第一章-行列式"><a href="#第一章-行列式" class="headerlink" title="第一章 行列式"></a>第一章 行列式</h3><ol>
+<li><p><strong>行列式的性质</strong><br> 性质1：行列互换,其值不变,即(|A|&#x3D;|A^{T}|)。<br> 性质2：行列式中某行(列)元素全为零,则行列式为零。<br> 性质3：行列式中的两行(列)元素相等或对应成比例,则行列式为零。<br> 性质4：行列式中某行(列)元素均是两个元素之和,则可拆成两个行列式之和,即<br> [\left|\begin{array}{cccc} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1 n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{i 1}+b_{i 1} &amp; a_{i 2}+b_{i 2} &amp; \cdots &amp; a_{m}+b_{m} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{n 1} &amp; a_{n 2} &amp; \cdots &amp; a_{m} \end{array}\right|&#x3D;\left|\begin{array}{cccc} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1 n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{i 1} &amp; a_{i 2} &amp; \cdots &amp; a_{m n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{n 1} &amp; a_{n 2} &amp; \cdots &amp; a_{m} \end{array}\right|+\left|\begin{array}{cccc} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1 n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ b_{i 1} &amp; b_{2} &amp; \cdots &amp; b_{m} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{n 1} &amp; a_{n 2} &amp; \cdots &amp; a_{m} \end{array}\right| \quad。]<br> 性质5：行列式中两行(列)互换,行列式的值反号。<br> 性质6：行列式中某行(列)元素有公因子(k(k \neq0)),则(k)可提到行列式外面,即<br> [\left|\begin{array}{cccc} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1 n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ k a_{i 1} &amp; k a_{i 2} &amp; \cdots &amp; k a_{n n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{n 1} &amp; a_{n 2} &amp; \cdots &amp; a_{m} \end{array}\right|&#x3D;k\left|\begin{array}{cccc} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1 n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{i 1} &amp; a_{i 2} &amp; \cdots &amp; a_{m n} \end{array}\right| \quad。]</p>
+</li>
+<li><p><strong>数字型行列式常用公式</strong><br> [(1) \left|\begin{array}{cccc}a_{11} &amp; 0 &amp; \cdots &amp; 0 \ 0 &amp; a_{22} &amp; \cdots &amp; 0 \ \cdots &amp; \cdots &amp; \cdots &amp; \cdots \ 0 &amp; 0 &amp; \cdots &amp; a_{n n}\end{array}\right|&#x3D;\left|\begin{array}{cccc}a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1 n} \ 0 &amp; a_{22} &amp; \cdots &amp; a_{2 n} \ \cdots &amp; \cdots &amp; \cdots &amp; \cdots \ 0 &amp; 0 &amp; \cdots &amp; a_{n n}\end{array}\right|&#x3D;\left|\begin{array}{cccc}a_{11} &amp; 0 &amp; \cdots &amp; 0 \ a_{21} &amp; a_{22} &amp; \cdots &amp; 0 \ \cdots &amp; \cdots &amp; \cdots &amp; \cdots \ a_{n 1} &amp; a_{n 2} &amp; \cdots &amp; a_{n n}\end{array}\right|&#x3D;a_{11} a_{22} \cdots a_{n n} \quad。]<br> [\left|\begin{array}{llll} 0 &amp; &amp; \lambda_{1} \ &amp; &amp; \lambda_{2} &amp; \ \lambda_{n} &amp; \ddots &amp; &amp; 0 \end{array}\right|&#x3D;\left|\begin{array}{llll} 0 &amp; &amp; &amp; \lambda_{1} \ &amp; &amp; \lambda_{2} &amp; <em>\ &amp; \cdot &amp; \vdots &amp; \vdots \ \lambda_{n} &amp; \cdots &amp;</em> &amp; <em>\end{array}\right|&#x3D;\left|\begin{array}{cccc}</em> &amp; \cdots &amp; <em>&amp; \lambda_{1} \</em> &amp; \cdots &amp; \lambda_{2} \ \vdots &amp; \ddots &amp; &amp; \ \lambda_{n} &amp; &amp; &amp; 0 \end{array}\right|&#x3D;(-1)^{\frac{n(n-1)}{2}} \lambda_{1} \lambda_{2} \cdots \lambda_{n} \quad。]<br> (2) 设(A)是(m)阶方阵,(B)是(n)阶方阵,则<br> [(1) \left|\begin{array}{ll}A &amp; O \ O &amp; B\end{array}\right|&#x3D;\left|\begin{array}{ll}A &amp; O \ C &amp; B\end{array}\right|&#x3D;\left|\begin{array}{ll}A &amp; C \ O &amp; B\end{array}\right|&#x3D;|A||B| \quad。]<br> [(2) \left|\begin{array}{ll}O &amp; A \ B &amp; O\end{array}\right|&#x3D;\left|\begin{array}{ll}O &amp; A \ B &amp; C\end{array}\right|&#x3D;\left|\begin{array}{ll}C &amp; A \ B &amp; O\end{array}\right|&#x3D;(-1)^{m n}|A||B| \quad。]<br> [(3) 范德蒙行列式 D_{n}&#x3D;\left|\begin{array}{ccccc}1 &amp; 1 &amp; 1 &amp; \cdots &amp; 1 \ x_{1} &amp; x_{2} &amp; x_{3} &amp; \cdots &amp; x_{n} \ x_{1}^{2} &amp; x_{2}^{2} &amp; x_{3}^{2} &amp; \cdots &amp; x_{n}^{2} \ \vdots &amp; \vdots &amp; \vdots &amp; &amp; \vdots \ x_{1}^{n-1} &amp; x_{2}^{n-1} &amp; x_{3}^{n-1} &amp; \cdots &amp; x_{n}^{n-1}\end{array}\right|&#x3D;\prod_{1 \leq j&lt;i \leq n}\left(x_{i}-x_{j}\right) \quad。]</p>
+</li>
+<li><p><strong>抽象型行列式的常用公式</strong><br> 设(A),(B)为(n)阶方阵,则<br> [(1) \left|A^{T}\right|&#x3D;|A| \quad。]<br> [(2) |\lambda A|&#x3D;\lambda^{n}|A| \quad。]<br> [(3) |A B|&#x3D;|B A|&#x3D;|A||B|,\left|A^{k}\right|&#x3D;|A|^{k} \quad。]<br> (4) (|A^{-1}|&#x3D;\frac{1}{|A|}) (若(A)可逆)<br> [(5) \left|A^{*}\right|&#x3D;|A|^{n-1}(n \geq 2) \quad。]<br> (6) (|A|&#x3D;\lambda_{1} \lambda_{2} \cdots \lambda_{n}),其中(\lambda_{1},\lambda_{2},\cdots,\lambda_{n})是(A)的(n)个特征值。<br> (7) 若(A)与(B)相似,则(|A|&#x3D;|B|)。</p>
+</li>
+</ol>
+<h3 id="第二章-矩阵"><a href="#第二章-矩阵" class="headerlink" title="第二章 矩阵"></a>第二章 矩阵</h3><ol>
+<li><p><strong>矩阵的运算</strong><br> (1) 矩阵的加法运算<br> 设(A),(B)是(m\times n)的同型矩阵(只有同型矩阵才能作加法)。<br> [A+B&#x3D;B+A \quad。]<br> [(A+B)+C&#x3D;A+(B+C) \quad。]<br> [A+O&#x3D;A \quad。]<br> [A+(-A)&#x3D;0 \quad。]<br> (2) 矩阵的数乘(以下(k),(\ell)为任意常数)<br> [k(l A)&#x3D;(k l) A&#x3D;l(k A),(k+l) A&#x3D;k A+l A \quad。]<br> [k(A+B)&#x3D;k A+k B, 1 A&#x3D;A, 0 A&#x3D;O \quad。]<br> (3) 矩阵的乘法<br> [(A B) C&#x3D;A(B C), A(B+C)&#x3D;A B+A C \quad。]<br> [(A+B) C&#x3D;A C+B C \quad。]</p>
+</li>
+<li><p><strong>矩阵转置的运算规律</strong><br> [(1) \left(A^{T}\right)^{T}&#x3D;A \quad。]<br> [(2) (A+B)^{T}&#x3D;A^{T}+B^{T} \quad。]<br> [(3) (\lambda A)^{T}&#x3D;\lambda A^{T} \quad。]<br> [(4) (A B)^{T}&#x3D;B^{T} A^{T} \quad。]</p>
+</li>
+<li><p><strong>伴随矩阵的性质</strong><br> [(1) A A^{<em>}&#x3D;A^{</em>} A&#x3D;|A| E \quad。]<br> [(2) (k A)^{<em>}&#x3D;k^{n-1} A^{</em>}(n \geq 2) \quad。]<br> [(3) (A B)^{<em>}&#x3D;B^{</em>} A^{<em>} \quad。]<br> [(4) \left|A^{</em>}\right|&#x3D;|A|^{n-1}(n \geq 2) \quad。]<br> [(5) \left(A^{<em>}\right)^{-1}&#x3D;\left(A^{-1}\right)^{</em>}&#x3D;\frac{1}{|A|} A \quad。]<br> [(6) \left(A^{<em>}\right)^{\top}&#x3D;\left(A^{T}\right)^{</em>} \quad。]<br> [(7) \left(A^{<em>}\right)^{</em>}&#x3D;|A|^{n-2} A(n \geq 3) \quad。]<br> 【注】一般地,((A+B)^{<em>} \neq A^{</em>}+B^{*})。</p>
+</li>
+<li><p><strong>可逆与不可逆的充分必要条件</strong><br> (1) (n)阶矩阵(A)可逆(\Leftrightarrow|A| \neq0)<br> [\Leftrightarrow A B&#x3D;E , (或 B A&#x3D;E) \quad。]<br> [\Leftrightarrow r(A)&#x3D;n \quad。]<br> (\Leftrightarrow A^{*})可逆(\Leftrightarrow A)可以表示为若干初等矩阵的乘积(\Leftrightarrow A)与(E)等价(\Leftrightarrow A x&#x3D;0)只有零解(\Leftrightarrow \forall b),(A x&#x3D;b)有唯一解(\Leftrightarrow A)的列(行)向量组线性无关(\Leftrightarrow A)的特征值都不为0。<br> (2) (n)阶矩阵(A)不可逆(\Leftrightarrow|A|&#x3D;0)<br> [\Leftrightarrow r(A)&lt;n \quad。]<br> (\Leftrightarrow A x&#x3D;0)有非零解(\Leftrightarrow A)的列(行)向量组线性相关(\Leftrightarrow0)是(A)的特征值。</p>
+</li>
+<li><p><strong>可逆矩阵的性质</strong><br> (1) 若(A)可逆,则(A^{-1})亦可逆,且((A^{-1})^{-1}&#x3D;A)。<br> (2) 若(A)可逆,则(k A(k \neq0))亦可逆,且((k A)^{-1}&#x3D;\frac{1}{k} A^{-1})。<br> (3) 若(A),(B)可逆,则(A B)亦可逆,且((A B)^{-1}&#x3D;B^{-1} A^{-1})。<br> (4) 若(A)可逆,则(A^{T})亦可逆,且((A^{T})^{-1}&#x3D;(A^{-1})^{T})<br> [(5) \left|A^{-1}\right|&#x3D;\frac{1}{|A|} \quad。]<br> 【注】一般地,((A+B)^{-1} \neq A^{-1}+B^{-1})。</p>
+</li>
+<li><p><strong>求逆的方法</strong><br> (1) 定义法:若(A B&#x3D;E),则(A^{-1}&#x3D;B)。<br> (2) 伴随矩阵法：(A^{-1}&#x3D;\frac{1}{|A|} A^{*})。<br> (3) 初等变换法: ((A ; E) \stackrel{\text { 行变换 }}{\to }(E ; A^{-1}))。<br> (4) 分块矩阵求逆法:<br> [(1) \left(\begin{array}{ll}A &amp; O \ O &amp; B\end{array}\right)^{-1}&#x3D;\left(\begin{array}{cc}A^{-1} &amp; O \ O &amp; B^{-1}\end{array}\right) \quad。]<br> [(2) \left(\begin{array}{ll}O &amp; A \ B &amp; O\end{array}\right)^{-1}&#x3D;\left(\begin{array}{cc}O &amp; B^{-1} \ A^{-1} &amp; O\end{array}\right) \quad。]</p>
+</li>
+<li><p><strong>初等矩阵的性质</strong><br> [(1) \left|E_{i j}\right|&#x3D;-1,\left|E_{i j}(k)\right|&#x3D;1,\left|E_{i}(k)\right|&#x3D;k \quad。]<br> [(2) E_{i j}^{T}&#x3D;E_{i j}, E_{i j}^{T}(k)&#x3D;E_{j i}(k), E_{i}^{T}(k)&#x3D;E_{i}(k) \quad。]<br> [(3) E_{i j}^{-1}&#x3D;E_{i j}, E_{i j}^{-1}(k)&#x3D;E_{i j}(-k), E_{i}^{-1}(k)&#x3D;E_{i}\left(\frac{1}{k}\right) \quad。]<br> [(4) E_{i j}^{<em>}&#x3D;\left|E</em>{i j}\right| E_{i j}^{-1}&#x3D;-E_{i j} \quad。]<br> [E_{i j}^{<em>}(k)&#x3D;\left|E</em>{i j}(k)\right| E_{i j}^{-1}(k)&#x3D;E_{i j}(-k) \quad。]<br> [E_{i}^{*}(k)&#x3D;\left|E_{i}(k)\right| E_{i}^{-1}(k)&#x3D;k E_{i}\left(\frac{1}{k}\right) \quad。]</p>
+</li>
+<li><p><strong>矩阵方程的公式利用</strong><br> [(1) A A^{<em>}&#x3D;|A| E, A 可逆时, A^{</em>}&#x3D;|A| A^{-1},\left(A^{<em>}\right)^{</em>}&#x3D;|A|^{n-2} A(n \geq 2) \quad。]<br> [(2) A^{2}-E&#x3D;(A+E)(A-E)&#x3D;(A-E)(A+E), A^{3}-E&#x3D;(A-E)(A^2+A+E) \quad。]<br> [(3) A^{T} B^{T}&#x3D;(B A)^{T}, A, B 可逆时, A^{-1} B^{-1}&#x3D;(B A)^{-1}, A^{<em>} B^{</em>}&#x3D;(B A)^{<em>} \quad。]<br> ④(A)可逆时,((A^{-1})^{</em>}&#x3D;(A^{<em>})^{-1}),((A^{-1})^{T}&#x3D;(A^{T})^{-1}),((A^{</em>})^{T}&#x3D;(A^{T})^{*})。</p>
+</li>
+<li><p><strong>矩阵等价</strong><br> 如果矩阵(A)经有限次初等变换变成矩阵(B),则称矩阵(A)与(B)等价。<br> (A)与(B)等价(\Leftrightarrow)存在可逆阵(P)及(Q),使(P A Q&#x3D;B)(\Leftrightarrow A),(B)同型,且(r(A)&#x3D;r(B))。</p>
+</li>
+<li><p><strong>分块矩阵的相关公式</strong><br>① 同型且分块一致,则(\begin{bmatrix}A_{1} &amp; A_{2}\A_{3} &amp; A_{4}\end{bmatrix}+\begin{bmatrix}B_{1} &amp; B_{2}\B_{3} &amp; B_{4}\end{bmatrix}&#x3D;\begin{bmatrix}A_{1}+B_{1} &amp; A_{2}+B_{2}\A_{3}+B_{3} &amp; A_{4}+B_{4}\end{bmatrix})<br>[(2) 数乘: k\left[\begin{array}{ll}A &amp; B \ C &amp; D\end{array}\right]&#x3D;\left[\begin{array}{ll}k A &amp; k B \ k C &amp; k D\end{array}\right] \quad。]<br>③ 乘法: (\begin{bmatrix}A &amp; B\C &amp; D\end{bmatrix}\begin{bmatrix}X &amp; Y\Z &amp; W\end{bmatrix}&#x3D;\begin{bmatrix}AX+BZ &amp; AY+B W\CX+DZ &amp; CY+D W\end{bmatrix}),要可乘、可加。<br>④ 若(A),(B)分别为(m),(n)阶方阵,则分块对角矩阵的幂为<br>[\left[\begin{array}{ll} A &amp; O \ O &amp; B \end{array}\right]^{k}&#x3D;\left[\begin{array}{ll} A^{k} &amp; O \ O &amp; B^{k} \end{array}\right] \quad。]<br>⑤ 已知(A&#x3D;\begin{bmatrix}B &amp; O\D &amp; C\end{bmatrix})其中(B)是(r)阶可逆矩阵，(C)是(s)阶可逆矩阵，则(A)可逆，且<br>[A^{-1}&#x3D;\left[\begin{array}{cc} B^{-1} &amp; O \ -C^{-1} D B^{-1} &amp; C^{-1} \end{array}\right] \quad。]<br>【注】若<br>[A_{1}&#x3D;\left[\begin{array}{ll}B &amp; D \ O &amp; C\end{array}\right], A_{2}&#x3D;\left[\begin{array}{ll}O &amp; B \ C &amp; D\end{array}\right], A_{3}&#x3D;\left[\begin{array}{ll}D &amp; B \ C &amp; O\end{array}\right] \quad。]<br>其中(B),(C)可逆,则有<br>[A_{1}^{-1}&#x3D;\left[\begin{array}{cc} B^{-1} &amp; -B^{-1} D C^{-1} \ O &amp; C^{-1} \end{array}\right], A_{2}^{-1}&#x3D;\left[\begin{array}{cc} -C^{-1} D B^{-1} &amp; C^{-1} \ B^{-1} &amp; O \end{array}\right], A_{3}^{-1}&#x3D;\left[\begin{array}{cc} O &amp; C^{-1} \ B^{-1} &amp; -B^{-1} D C^{-1} \end{array}\right] \quad。]<br>(A&#x3D;\begin{bmatrix}A_{1}&amp;A_{2}&amp;A_{3}&amp;\cdots&amp;A_{n}\end{bmatrix})<br>[A^{-1}&#x3D;\left[\begin{array}{llll} A_{1}^{-1} &amp; &amp; &amp; \ &amp; A_{2}^{-1} &amp; &amp; \ &amp; &amp; \ddots &amp; \ &amp; &amp; &amp; A_{s}^{-1} \end{array}\right] \quad。]<br>副对角线分块矩阵<br>[A&#x3D;\left[\begin{array}{llll} &amp; &amp; &amp; &amp; A_{1} \ &amp; &amp; A_{2} &amp; \ &amp; \because &amp; &amp; \ A_{1} &amp; &amp; &amp; \end{array}\right] \quad。]<br>若(A_i(i&#x3D;1,2,\cdots,s))均可逆,则(A)可逆,且<br>[A^{-1}&#x3D;\left[\begin{array}{llll} &amp; &amp; &amp; A_{s}^{-1} \ &amp; &amp; \cdot &amp; \ &amp; A_{2}^{-1} &amp; &amp; \ A_{1}^{-1} &amp; &amp; &amp; \end{array}\right] \quad。]</p>
+</li>
+<li><p><strong>关于矩阵的秩的公式</strong><br>[(1) 0 \leq r\left(A_{m \times n}\right) \leq \min {m, n} \quad。]<br>[(2) r(k A)&#x3D;r(A)(k \neq 0) \quad。]<br>[(3) r(A)&#x3D;r(P A)&#x3D;r(A Q)&#x3D;r(P A Q) \quad。]<br>[(4) r(A B) \leq \min {r(A), r(B)} \quad。]<br>[(5) r(A+B) \leq r([A, B]) \leq r(A)+r(B) \quad。]<br>[(6) r\left(\left[\begin{array}{ll}A &amp; O \ O &amp; B\end{array}\right]\right)&#x3D;r(A)+r(B) \quad。]<br>[(7) r(A)+r(B) \leq r\left(\left[\begin{array}{ll}A &amp; O \ C &amp; B\end{array}\right]\right) \leq r(A)+r(B)+r(C) \quad。]<br>[(8) r(A B) \geq r(A)+r(B)-n \quad。]<br>[(9) r(A)&#x3D;r\left(A^{T}\right)&#x3D;r\left(A A^{T}\right)&#x3D;r\left(A^{T} A\right) \quad。]<br>[(10) r\left(A^{*}\right)&#x3D; \begin{cases}n, &amp; r(A)&#x3D;n \ 1, &amp; r(A)&#x3D;n-1 \ 0, &amp; r(A)&lt;n-1\end{cases} \quad。]<br>⑪ 若(A^{2}&#x3D;A),则(r(A)+r(A-E)&#x3D;n)。<br>⑫ 若(A^{2}&#x3D;E),则(r(A+E)+r(A-E)&#x3D;n)。<br>⑬ (A x&#x3D;0)的基础解系所含向量的个数(s&#x3D;n-r(A))。<br>⑭ 若(A \sim \Lambda),则(n_{i}&#x3D;n-r(\lambda_{i} E-A)),其中(\lambda_{i})是(n_{i})重特征根。<br>⑮ 若(A \sim \Lambda),则(r(A))等于非零特征值的个数,重根按重数算。</p>
+</li>
+</ol>
+<h3 id="第三章-向量组"><a href="#第三章-向量组" class="headerlink" title="第三章 向量组"></a>第三章 向量组</h3><ol>
+<li><p><strong>线性表示</strong><br> (1) 向量(\beta)可由(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})线性表示<br> 定义：存在数(k_{1},k_{2},\cdots,k_{m}),使(\beta&#x3D;k_{1}\alpha_{1}+k_{2}\alpha_{2}+\cdots+k_{m}\alpha_{m})(\Leftrightarrow)线性方程组(x_{1}\alpha_{1}+x_{2}\alpha_{2}+\cdots+x_{m}\alpha_{m}&#x3D;\beta)有解(\Leftrightarrow r(A)&#x3D;r(A,\beta)),其中(A&#x3D;(\alpha_{1},\alpha_{2},\cdots,\alpha_{m}))。<br> (2) 向量组(\beta_{1},\beta_{2},\cdots,\beta_{t})可由(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})线性表示<br> 定义(\Leftrightarrow \beta_{j})能由(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})线性表示,(j &#x3D; 1,2,\cdots,t)(\Leftrightarrow r(A)&#x3D;r(A,B)),其中(A&#x3D;(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})),(B&#x3D;(\beta_{1},\beta_{2},\cdots,\beta_{t}))。<br> (3) 向量组(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})与(\beta_{1},\beta_{2},\cdots,\beta_{t})等价<br> 定义(\Leftrightarrow \alpha_{1},\alpha_{2},\cdots,\alpha_{m})与(\beta_{1},\beta_{2},\cdots,\beta_{t})能互相线性表示(\Leftrightarrow r(A)&#x3D;r(B)&#x3D;r(A,B)),其中(A&#x3D;(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})),(B&#x3D;(\beta_{1},\beta_{2},\cdots,\beta_{t}))(\Leftrightarrow \beta_{1},\beta_{2},\cdots,\beta_{t})可由(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})线性表示,且(r(A)&#x3D;r(B))。</p>
+</li>
+<li><p><strong>线性相关性</strong><br> (1) 线性相关<br> (n)维向量组(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})线性相关<br> 定义：存在一组不全为0的数(k_{1},k_{2},\cdots,k_{m}),使(k_{1}\alpha_{1}+k_{2}\alpha_{2}+\cdots+k_{m}\alpha_{m}&#x3D;0)(\Leftrightarrow)齐次线性方程组(x_{1}\alpha_{1}+x_{2}\alpha_{2}+\cdots+x_{m}\alpha_{m}&#x3D;0)有非零解(\Leftrightarrow)至少有一个向量可由其余向量线性表示<br> [\Leftrightarrow r\left(\alpha_{1}, \alpha_{2}, \cdots, \alpha_{m}\right)&lt;m \quad。]<br> [\Leftrightarrow\left|\alpha_{1}, \alpha_{2}, \cdots, \alpha_{m}\right|&#x3D;0 \quad。]<br> (2) 线性无关<br> (n)维向量组(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})线性无关<br> 定义：若(k_{1}\alpha_{1}+k_{2}\alpha_{2}+\cdots+k_{m}\alpha_{m}&#x3D;0),则必有(k_{1}&#x3D;k_{2}&#x3D;\cdots&#x3D;k_{m}&#x3D;0)(\Leftrightarrow)齐次线性方程组(x_{1}\alpha_{1}+x_{2}\alpha_{2}+\cdots+x_{m}\alpha_{m}&#x3D;0)只有零解(\Leftrightarrow)任一向量都不能由其余向量线性表示<br> [\Leftrightarrow r\left(\alpha_{1}, \alpha_{2}, \cdots, \alpha_{m}\right)&#x3D;m \quad。]<br> [\Leftrightarrow\left|\alpha_{1}, \alpha_{2}, \cdots, \alpha_{m}\right| \neq 0 \quad。]</p>
+</li>
+<li><p><strong>线性相关常用结论</strong><br> (1) 如果向量组(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})中有一部分向量线性相关,则整个向量组也线性相关;若整个向量组线性无关,则部分向量组也线性无关(简记为:部分相关,整体相关;整体无关,部分无关)。<br> (2) 如果(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})线性无关,则(\begin{pmatrix}\alpha_{1}\\beta_{1}\end{pmatrix},\begin{pmatrix}\alpha_{2}\\beta_{2}\end{pmatrix},\cdots,\begin{pmatrix}\alpha_{m}\\beta_{m}\end{pmatrix})线性无关;反之,若(\begin{pmatrix}\alpha_{1}\\beta_{1}\end{pmatrix},\begin{pmatrix}\alpha_{2}\\beta_{2}\end{pmatrix},\cdots,\begin{pmatrix}\alpha_{m}\\beta_{m}\end{pmatrix})线性相关,则(\alpha_{1},\alpha_{2},\cdots,\alpha_{m})线性相关(简记为:低维无关,高维无关;高维相关,低维相关)。<br> (3) 若向量组(\alpha_{1},\alpha_{2},\cdots,\alpha_{r})线性无关,而(\beta,\alpha_{1},\alpha_{2},\cdots,\alpha_{r})线性相关,则(\beta)可由(\alpha_{1},\alpha_{2},\cdots,\alpha_{r})线性表示,且表示法唯一。<br> (4) 若向量组(\beta_{1},\beta_{2},\cdots,\beta_{t})可由(\alpha_{1},\alpha_{2},\cdots,\alpha_{s})线性表示,且(t&gt;s),则(\beta_{1},\beta_{2},\cdots,\beta_{t})线性相关(多的能由少的线性表示,则多的必线性相关)。<br> 若向量组(\beta_{1},\beta_{2},\cdots,\beta_{t})可由(\alpha_{1},\alpha_{2},\cdots,\alpha_{s})线性表示,且(\beta_{1},\beta_{2},\cdots,\beta_{t})线性无关,则(t \leq s) (无关向量组不能由比它个数少的向量组表出)。<br> (5) (n + 1)个(n)维向量必相关。</p>
+</li>
+<li><p><strong>线性方程组解的个数</strong><br> (1) (n)元线性方程组(A x &#x3D; b)<br> [(1)无解 \Leftrightarrow r(A)&lt;r(A, b) \quad。]<br> [(2)有唯一解 \Leftrightarrow r(A)&#x3D;r(A, b)&#x3D;n \quad。]<br> [(3)有无穷多解 \Leftrightarrow r(A)&#x3D;r(A, b)&lt;n \quad。]<br> (2) (n)元齐次线性方程组(A x &#x3D; 0)<br> [(1)只有零解 \Leftrightarrow r(A)&#x3D;n \quad。]<br> [(2)有非零解 \Leftrightarrow r(A)&lt;n \quad。]</p>
+</li>
+<li><p><strong>向量组等价</strong><br> (1) 若向量组(I)可由向量组(II)线性表示,则<br> [r(I) \leq r(II) \quad。]<br> (2) 若向量组(I)可由向量组(II)线性表示,但向量组(II)不可由向量组(I)线性表示,则<br> [r(I)&lt;r(II) \quad。]<br> (3) 若向量组(I)可由向量组(II)线性表示,且向量组(II)也可由向量组(I)线性表示,即向量组(I)和(II)等价,则<br> [r(I)&#x3D;r(II)&#x3D;r(I, II) \quad。]<br> (4) 若向量组(I)可由向量组(II)线性表示,且(r(I)&#x3D;r(II)),则向量组(I)和(II)等价。<br> (5) 若向量组(I)可由向量组(II)线性表示,且向量组(I)中向量的个数大于向量组(II)中向量的个数,则向量组(I)必定线性相关(简记为”以少表多,多必相关”)。</p>
+</li>
+</ol>
+<h3 id="第四章-线性方程组"><a href="#第四章-线性方程组" class="headerlink" title="第四章 线性方程组"></a>第四章 线性方程组</h3><ol>
+<li><p><strong>线性方程组解的性质</strong><br> ① 若(\xi_{1}),(\xi_{2})是(A x &#x3D; 0)的解,则(\xi_{1}+\xi_{2})也是(A x &#x3D; 0)的解。<br> ② 若(\xi)是(A x &#x3D; 0)的解,(k \in R),则(k \xi)也是(A x &#x3D; 0)的解。<br> ③ 若(\eta_{1}),(\eta_{2})是(A x &#x3D; b)的解,则(\eta_{1}-\eta_{2})是对应的齐次线性方程组(A x &#x3D; 0)的解。<br> ④ 若(\eta)是(A x &#x3D; b)的解,(\xi)是(A x &#x3D; 0)的解,则(\xi+\eta)是(A x &#x3D; b)的解。<br> ⑤ 若(\eta_{1},\eta_{2},\cdots,\eta_{t})是(A x &#x3D; b)的解,则<br> 当(k_{1}+k_{2}+\cdots+k_{t}&#x3D;0)时,(k_{1}\eta_{1}+k_{2}\eta_{2}+\cdots+k_{t}\eta_{t})是(A x &#x3D; 0)的解。<br> 当(k_{1}+k_{2}+\cdots+k_{t}&#x3D;1)时,(k_{1}\eta_{1}+k_{2}\eta_{2}+\cdots+k_{t}\eta_{t})是(A x &#x3D; b)的解。</p>
+</li>
+<li><p><strong>线性方程组解的结构</strong><br> (1) 设(r(A)&#x3D;r),(\xi_{1},\xi_{2},\cdots,\xi_{n-r})是齐次线性方程组(A x &#x3D; 0)的一个基础解系,则(A x &#x3D; 0)的通解为<br> [x&#x3D;k_{1} \xi_{1}+k_{2} \xi_{2}+\cdots+k_{n-r} \xi_{n-r}\left(k_{1}, k_{2}, \cdots, k_{n-r} 是任意常数 \right) \quad。]<br> (2) 设(\eta^{<em>})是(Ax &#x3D; b)的一个特解，(\xi</em>{1}, \xi_{2}, \cdots, \xi_{n - r})是对应的齐次线性方程组(Ax&#x3D;0)的一个基础解系，则(Ax &#x3D; b)的通解为<br>[x&#x3D;k_{1} \xi_{1}+k_{2} \xi_{2}+\cdots+k_{n - r} \xi_{n - r}+\eta^{<em>}\left(k</em>{1}, k_{2}, \cdots, k_{n - r}\text{是任意常数}\right)]</p>
+</li>
+<li><p><strong>克拉默法则</strong><br>如果线性方程组(\begin{cases}a_{11}x_{1}+a_{12}x_{2}+\cdots+a_{1n}x_{n}&#x3D;b_{1}\a_{21}x_{1}+a_{22}x_{2}+\cdots+a_{2n}x_{n}&#x3D;b_{2}\\vdots\a_{n1}x_{1}+a_{n2}x_{2}+\cdots+a_{nn}x_{n}&#x3D;b_{n}\end{cases})的系数行列式(D&#x3D;\begin{vmatrix}a_{11}&amp;\cdots&amp;a_{1n}\\vdots&amp;&amp;\vdots\a_{n1}&amp;\cdots&amp;a_{nn}\end{vmatrix}\neq0)，那么它有唯一解：<br>[x_{1}&#x3D;\frac{D_{1}}{D},x_{2}&#x3D;\frac{D_{2}}{D},\cdots,x_{n}&#x3D;\frac{D_{n}}{D}]<br>其中(D_{j}(j &#x3D; 1,2,\cdots,n))是把系数行列式(D)中第(j)列用常数项代替后所得的(n)阶行列式。</p>
+</li>
+<li><p><strong>同解方程组</strong><br>若两个方程组(A_{m\times n}x &#x3D; 0)和(B_{s\times n}x&#x3D;0)有完全相同的解，则称它们为同解方程组。<br>于是，(Ax &#x3D; 0)，(Bx &#x3D; 0)是同解方程组(\Leftrightarrow Ax &#x3D; 0)的解满足(Bx&#x3D;0)，且(Bx &#x3D; 0)的解满足(Ax &#x3D; 0)（互相把解代入求出结果即可）(\Leftrightarrow r(A)&#x3D;r(B))，且(Ax &#x3D; 0)的解满足(Bx &#x3D; 0)（或(Bx &#x3D; 0)的解满足(Ax&#x3D;0)）<br>[\Leftrightarrow r(A)&#x3D;r(B)&#x3D;r\left(\begin{bmatrix}A\B\end{bmatrix}\right)\text{（三秩相同）}]</p>
+</li>
+</ol>
+<h3 id="第五章-特征值与特征向量"><a href="#第五章-特征值与特征向量" class="headerlink" title="第五章 特征值与特征向量"></a>第五章 特征值与特征向量</h3><ol>
+<li><strong>特征值与特征向量的性质</strong><br>(1) 设(\lambda_{1},\lambda_{2},\cdots,\lambda_{n})是(n)阶方阵(A)的(n)个特征值，则<br> [(1)\lambda_{1}+\lambda_{2}+\cdots+\lambda_{n}&#x3D;a_{11}+a_{22}+\cdots+a_{nn}]<br> [(2)\lambda_{1}\lambda_{2}\cdots\lambda_{n}&#x3D;|A|]<br>(2) 矩阵(A)对应于不同特征值的特征向量线性无关。<br>(3) 矩阵(A)的(k)重特征值(\lambda)至多有(k)个线性无关的特征向量。特别地，当(A)有(n)个不同的特征值时（没有重根），(A)有(n)个线性无关的特征向量。<br>(4) 设(n)阶方阵(A)的特征值为(\lambda)，(A)的属于特征值(\lambda)的特征向量为(\alpha)，则</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>(A)</th>
+<th>(A + kE)</th>
+<th>(kA)</th>
+<th>(A^{k})</th>
+<th>(f(A))</th>
+<th>(A^{-1})</th>
+<th>(A^{*})</th>
+<th>(A^{T})</th>
+<th>(P^{-1}AP)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(\lambda)</td>
+<td>(\lambda + k)</td>
+<td>(k\lambda)</td>
+<td>(\lambda^{k})</td>
+<td>(f(\lambda))</td>
+<td>(\lambda^{-1})</td>
+<td>(\frac{</td>
+<td>A</td>
+<td>}{\lambda})</td>
+</tr>
+<tr>
+<td>(\alpha)</td>
+<td>(\alpha)</td>
+<td>(\alpha)</td>
+<td>(\alpha)</td>
+<td>(\alpha)</td>
+<td>(\alpha)</td>
+<td>(\alpha)</td>
+<td>不确定</td>
+<td>(P^{-1}\alpha)</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li><strong>矩阵相似的性质与重要结论</strong><br>(A)与(B)相似(\Rightarrow A)与(B)有相同的特征多项式，即(|A-\lambda E|&#x3D;|B - \lambda E|)(\Rightarrow A)与(B)有完全相同的特征值（但是特征向量不一定相同）(\Rightarrow\sum a_{ii}&#x3D;\sum b_{ii})(\Rightarrow A)与(B)等价，(r(A)&#x3D;r(B))(\Rightarrow A)与(B)相似，(A^{-1})与(B^{-1})相似。</li>
+</ol>
+<p>重要结论：<br>    [(1)A\sim B\Rightarrow A^{T}\sim B^{T},A^{-1}\sim B^{-1},A^{<em>}\sim B^{</em>}\text{（后面两个要求}A\text{可逆）}]<br>    [(2)A\sim B\Rightarrow A^{m}\sim B^{m},f(A)\sim f(B)]<br>    [(3)A\sim B,B\sim\Lambda\Rightarrow A\sim\Lambda]<br>    [(4)A\sim\Lambda,B\sim\Lambda\Rightarrow A\sim B]<br>    [(5)A\sim C,B\sim D\Rightarrow\begin{bmatrix}A&amp;O\O&amp;B\end{bmatrix}\sim\begin{bmatrix}C&amp;O\O&amp;D\end{bmatrix}]</p>
+<ol start="3">
+<li><strong>矩阵可相似对角化的条件</strong><br>充要条件：<br> [(1)A\text{有}n\text{个线性无关的特征向量}\Leftrightarrow A\sim\Lambda]<br> [(2)n_{i}&#x3D;n - r(\lambda_{i}E - A)\Leftrightarrow A\sim\Lambda]</li>
+</ol>
+<p>充分条件：<br>    [(1)A\text{是实对称矩阵}\Rightarrow A\sim\Lambda]<br>    [(2)A\text{有}n\text{个互异特征值}\Rightarrow A\sim\Lambda]<br>    [(3)A^{2}&#x3D;A\Rightarrow A\sim\Lambda]<br>    [(4)A^{2}&#x3D;E\Rightarrow A\sim\Lambda]<br>    [(5)r(A)&#x3D;1\text{且}\text{tr}(A)\neq0\Rightarrow A\sim\Lambda]</p>
+<p>必要条件：<br>[A\sim\Lambda\Rightarrow r(A)&#x3D;\text{非零特征值的个数（重根按重数算）}]</p>
+<p>否定条件：<br>(1)(A\neq O,A^{k}&#x3D;O)（(k)为大于1的整数）(\Rightarrow A)不可相似对角化<br>(2)(A)的特征值全为(k)但(A\neq kE\Rightarrow A)不可相似对角化</p>
+<ol start="4">
+<li><p><strong>对角化的步骤</strong><br>(1) 求出(A)的特征值(\lambda_{1},\lambda_{2},\cdots,\lambda_{n})<br>(2) 求出(A)的(n)个线性无关的特征向量(\alpha_{1},\alpha_{2},\cdots,\alpha_{n})；<br>(3) 令(P&#x3D;(\alpha_{1},\alpha_{2},\cdots,\alpha_{n}))，(\Lambda&#x3D;\begin{bmatrix}\lambda_{1}&amp;&amp;0\&amp; \lambda_{2}&amp;\0&amp;&amp;\ddots&amp;\&amp;&amp;&amp;\lambda_{n}\end{bmatrix})，则(P^{-1}AP&#x3D;\Lambda)</p>
+</li>
+<li><p><strong>正交矩阵相关结论</strong><br>(1) 若(A)为正交矩阵，则<br>[<br>\begin{aligned}<br>A^{T}A &#x3D; E&amp;\Leftrightarrow A^{-1}&#x3D;A^{T}\<br>&amp;\Leftrightarrow A\text{的列（行）向量组是规范正交基}\<br>&amp;\Leftrightarrow A^{T}\text{是正交矩阵}\<br>&amp;\Leftrightarrow -A\text{是正交矩阵}<br>\end{aligned}<br>]<br>(2) 若(A)，(B)为同阶正交矩阵，则(AB)为正交矩阵，但(A + B)不一定为正交矩阵。<br>(3) 若(A)为正交矩阵，则其实特征值的取值范围为({-1,1})。</p>
+</li>
+</ol>
+<h3 id="第六章-二次型"><a href="#第六章-二次型" class="headerlink" title="第六章 二次型"></a>第六章 二次型</h3><ol>
+<li><strong>标准正交化</strong><br>将一线性无关的向量组（以(\alpha_{1},\alpha_{2},\alpha_{3})为例）化为标准正交向量组的方法：<br>步骤1. 施密特正交化：<br>[\beta_{1}&#x3D;\alpha_{1}]<br>[\beta_{2}&#x3D;\alpha_{2}-\frac{(\alpha_{2},\beta_{1})}{(\beta_{1},\beta_{1})}\beta_{1}]<br>[\beta_{3}&#x3D;\alpha_{3}-\frac{(\alpha_{3},\beta_{1})}{(\beta_{1},\beta_{1})}\beta_{1}-\frac{(\alpha_{3},\beta_{2})}{(\beta_{2},\beta_{2})}\beta_{2}]</li>
+</ol>
+<p>步骤2. 规范化（单位化）：<br>[\gamma_{1}&#x3D;\frac{\beta_{1}}{|\beta_{1}|},\gamma_{2}&#x3D;\frac{\beta_{2}}{|\beta_{2}|},\gamma_{3}&#x3D;\frac{\beta_{3}}{|\beta_{3}|}]</p>
+<ol start="2">
+<li><p><strong>正交相似对角化的步骤</strong><br>(1) 求出对称阵(A)的特征值(\lambda_{1},\lambda_{2},\cdots,\lambda_{n})<br>(2) 求出(A)的(n)个线性无关的特征向量(\alpha_{1},\alpha_{2},\cdots,\alpha_{n})<br>(3) 将(\alpha_{1},\alpha_{2},\cdots,\alpha_{n})正交化和单位化，得到(\beta_{1},\beta_{2},\cdots,\beta_{n})；<br>(4) 令(Q&#x3D;(\beta_{1},\beta_{2},\cdots,\beta_{n}))，则(Q^{-1}AQ&#x3D;Q^{T}AQ&#x3D;\Lambda)</p>
+</li>
+<li><p><strong>化二次型为标准型的方法</strong><br>(1) 正交变换法<br>① 写出二次型(f)的矩阵(A)；<br>② 求出(A)的特征值(\lambda_{1},\lambda_{2},\cdots,\lambda_{n})<br>③ 求出(A)的(n)个线性无关的特征向量(\alpha_{1},\alpha_{2},\cdots,\alpha_{n})<br>④ 将(\alpha_{1},\alpha_{2},\cdots,\alpha_{n})正交化和单位化，得正交规范向量组(\beta_{1},\beta_{2},\cdots,\beta_{n})<br>⑤ 构造正交阵(Q&#x3D;(\beta_{1},\beta_{2},\cdots,\beta_{n}))，令(x &#x3D; Qy)，得二次型的标准形(f&#x3D;\lambda_{1}y_{1}^{2}+\lambda_{2}y_{2}^{2}+\cdots+\lambda_{n}y_{n}^{2})</p>
+</li>
+</ol>
+<p>(2) 配方法<br>① 设二次型中含有平方项，不妨设包含(x_{1}^{2})项，即系数(a_{11}\neq0)，则对所有含(x_{1})的项配方，配方后余下各项不再含(x_{1})，再对所有含(x_{2})的项配方，……，直至所有项都在各自完全平方项中，引入新变量(y_{1},y_{2},\cdots,y_{n})，由(y &#x3D; C^{-1}x)，得(f&#x3D;k_{1}y_{1}^{2}+k_{2}y_{2}^{2}+\cdots+k_{n}y_{n}^{2})；<br>② 若二次型中不含平方项，但有混合项，不妨设有(x_{1}x_{2})项，即系数(a_{12}\neq0)，则可令(x_{1}&#x3D;y_{1}+y_{2})，(x_{2}&#x3D;y_{1}-y_{2})，(x_{3}&#x3D;y_{3})，……，(x_{n}&#x3D;y_{n})，经此变换，二次型中出现平方项(a_{12}y_{1}^{2}-a_{12}y_{2}^{2})，再按步骤(1)进行配方。</p>
+<ol start="4">
+<li><strong>相似与合同</strong><br>【判断相似】<br>(1) 若(P^{-1}AP &#x3D; B)，则(A)与(B)相似。<br>(2) 若(A)与(B)相似，(B)与(C)相似，则(A)与(C)相似。<br>(3) 设(A)与(B)均可相似对角化，则(A)与(B)相似(\Leftrightarrow A)与(B)有完全相同的特征值。</li>
+</ol>
+<p>【判断合同】<br>(1) 若(C^{T}AC &#x3D; B)，则(A)与(B)合同。<br>(2) 若(A)与(B)合同，(B)与(C)合同，则(A)与(C)合同。<br>(3) 实对称矩阵(A)与(B)合同(\Leftrightarrow A)与(B)有相同的正、负惯性指数。</p>
+<p>【相似与合同的关系】<br>(1) 普通矩阵相似不一定合同，合同也不一定相似。<br>(2) 实对称矩阵相似一定合同。</p>
+<ol start="5">
+<li><p><strong>正定的充要条件</strong><br>(f(x)&#x3D;x^{T}Ax)为正定二次型（或对称阵(A)为正定矩阵）的充分必要条件有：<br>① 对任何(x\neq0)，都有(x^{T}Ax&gt;0)；<br>② (f)的正惯性指数为(n)；<br>③ 存在可逆矩阵(C)，使得(A &#x3D; C^{T}C)，即(A)与(E)合同；<br>④ (A)的所有特征值全为正数；<br>⑤ (A)的各阶顺序主子式都大于0，即<br>[a_{11}&gt;0,\begin{vmatrix}a_{11}&amp;a_{12}\a_{21}&amp;a_{22}\end{vmatrix}&gt;0,\cdots,\begin{vmatrix}a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n}\a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n}\\cdots&amp;\cdots&amp;\cdots&amp;\cdots\a_{n1}&amp;a_{n2}&amp;\cdots&amp;a_{nn}\end{vmatrix}&gt;0]</p>
+</li>
+<li><p><strong>正定的重要结论</strong><br>① 若(A)正定，则(kA)、(A^{-1})、(A^{*})、(A^{m})、(C^{T}AC)正定（(k&gt;0)，(m)为正整数，(|C|\neq0)）<br>② 若(A)，(B)正定，则(A + B)正定，(\begin{bmatrix}A&amp;O\O&amp;B\end{bmatrix})正定<br>③ 若(A)，(B)正定，则(AB)正定的充要条件是(AB &#x3D; BA)<br>④ 若(A)正定且是正交矩阵，则(A &#x3D; E)</p>
+</li>
+<li><p><strong>柯西不等式</strong>（24年数一真题考察，非考纲内公式）<br>设实对称矩阵(A_{n\times n})正定，证明：对于任给的(n)维列向量(\alpha)，(\beta)，均有<br>[(\alpha^{T}A\alpha)(\beta^{T}A\beta)\geq(\alpha^{T}A\beta)^{2}]<br>【注】事实上，(A)可放宽至半正定</p>
+</li>
+<li><p><strong>二次型的最值问题</strong><br>若(A)的特征值大小排序为(\lambda_{1}\leq\lambda_{2}\leq\cdots\leq\lambda_{n})，则<br> [(1)\lambda_{1}x^{T}x\leq x^{T}Ax\leq\lambda_{n}x^{T}x]<br>② 若(x^{T}x &#x3D; 1)，则(f_{\text{min}}&#x3D;\lambda_{1})，(f_{\text{max}}&#x3D;\lambda_{n})</p>
+</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/friends">friends</a></li>
+        
+          <li><a href="/tags/">tags</a></li>
+        
+          <li><a href="/rss.xml">RSS</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AC%E5%BC%8F%E6%89%8B%E5%86%8C"><span class="toc-number">1.</span> <span class="toc-text">公式手册</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AC%E5%BC%8F%E6%89%8B%E5%86%8C-1"><span class="toc-number">2.</span> <span class="toc-text">公式手册</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E9%83%A8%E5%88%86"><span class="toc-number">2.1.</span> <span class="toc-text">高等数学部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E9%9B%B6%E7%AB%A0-%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">2.1.1.</span> <span class="toc-text">第零章 常用基础预备知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%87%BD%E6%95%B0%EF%BD%A4%E6%9E%81%E9%99%90%EF%BD%A4%E8%BF%9E%E7%BB%AD"><span class="toc-number">2.1.2.</span> <span class="toc-text">第一章 函数､极限､连续</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6"><span class="toc-number">2.1.3.</span> <span class="toc-text">第二章 一元函数微分学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6"><span class="toc-number">2.1.4.</span> <span class="toc-text">第三章 一元函数积分学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="toc-number">2.1.5.</span> <span class="toc-text">第四章 微分方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%A4%9A%E5%85%83%E5%BE%AE%E5%88%86"><span class="toc-number">2.1.6.</span> <span class="toc-text">第五章 多元微分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86"><span class="toc-number">2.1.7.</span> <span class="toc-text">第六章 二重积分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E9%83%A8%E5%88%86"><span class="toc-number">2.2.</span> <span class="toc-text">线性代数部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%A1%8C%E5%88%97%E5%BC%8F"><span class="toc-number">2.2.1.</span> <span class="toc-text">第一章 行列式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%9F%A9%E9%98%B5"><span class="toc-number">2.2.2.</span> <span class="toc-text">第二章 矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%90%91%E9%87%8F%E7%BB%84"><span class="toc-number">2.2.3.</span> <span class="toc-text">第三章 向量组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="toc-number">2.2.4.</span> <span class="toc-text">第四章 线性方程组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F"><span class="toc-number">2.2.5.</span> <span class="toc-text">第五章 特征值与特征向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E4%BA%8C%E6%AC%A1%E5%9E%8B"><span class="toc-number">2.2.6.</span> <span class="toc-text">第六章 二次型</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.kayleh.top/posts/01Backpack/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.kayleh.top/posts/01Backpack/&text=math"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.kayleh.top/posts/01Backpack/&is_video=false&description=math"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=math&body=Check out this article: https://blog.kayleh.top/posts/01Backpack/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.kayleh.top/posts/01Backpack/&title=math"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.kayleh.top/posts/01Backpack/&name=math&description=&lt;h1 id=&#34;公式手册&#34;&gt;&lt;a href=&#34;#公式手册&#34; class=&#34;headerlink&#34; title=&#34;公式手册&#34;&gt;&lt;/a&gt;公式手册&lt;/h1&gt;&lt;p&gt;公众号: 考研经验超市&lt;/p&gt;
+&lt;h2 id=&#34;目录&#34;&gt;&lt;a href=&#34;#目录&#34; class=&#34;headerlink&#34; title=&#34;目录&#34;&gt;&lt;/a&gt;目录&lt;/h2&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.kayleh.top/posts/01Backpack/&t=math"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    Kayleh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
