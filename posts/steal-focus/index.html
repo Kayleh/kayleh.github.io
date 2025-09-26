@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="一、问题背景忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。 此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口…..">
+<meta property="og:type" content="article">
+<meta property="og:title" content="桌面应用鼠标失焦问题排查">
+<meta property="og:url" content="https://blog.hinsyeow.org/posts/steal-focus/index.html">
+<meta property="og:site_name" content="hins Yeow&#39;s Blog">
+<meta property="og:description" content="一、问题背景忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。 此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口…..">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95LUP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95Tud.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95jC8.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95v8S.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95xgg.md.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z95zvQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9IwVI.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9IrPf.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9Ipuj.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9I9Ds.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/11/11/z9oAeA.png">
+<meta property="article:published_time" content="2022-11-10T15:31:11.000Z">
+<meta property="article:modified_time" content="2025-09-26T18:52:57.602Z">
+<meta property="article:author" content="hins-Yeow">
+<meta property="article:tag" content="bug">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2022/11/11/z95LUP.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>桌面应用鼠标失焦问题排查</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="hins Yeow&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/jwt-authorization/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/About-Snowflake-and-Consumption-Degradation/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.hinsyeow.org/posts/steal-focus/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.hinsyeow.org/posts/steal-focus/&text=桌面应用鼠标失焦问题排查"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.hinsyeow.org/posts/steal-focus/&is_video=false&description=桌面应用鼠标失焦问题排查"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=桌面应用鼠标失焦问题排查&body=Check out this article: https://blog.hinsyeow.org/posts/steal-focus/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.hinsyeow.org/posts/steal-focus/&name=桌面应用鼠标失焦问题排查&description=&lt;h2 id=&#34;一、问题背景&#34;&gt;&lt;a href=&#34;#一、问题背景&#34; class=&#34;headerlink&#34; title=&#34;一、问题背景&#34;&gt;&lt;/a&gt;一、问题背景&lt;/h2&gt;&lt;p&gt;忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。&lt;/p&gt;
+&lt;p&gt;此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口…..&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.hinsyeow.org/posts/steal-focus/&t=桌面应用鼠标失焦问题排查"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">一、问题背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%97%AE%E9%A2%98%E7%A1%AE%E8%AE%A4"><span class="toc-number">2.</span> <span class="toc-text">二、问题确认</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81SFW-Seach-in-Fxxking-Web-%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">三、SFW(Seach in Fxxking Web)方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%97%AE%E9%A2%98%E9%87%8D%E6%96%B0%E5%88%86%E6%9E%90%E3%80%81%E7%8C%9C%E6%B5%8B"><span class="toc-number">4.</span> <span class="toc-text">四、问题重新分析、猜测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E3%80%81%E6%A0%B9%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text">五、问题怎么产生、根源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E9%97%AE%E9%A2%98%E8%BF%BD%E6%BA%AF"><span class="toc-number">6.</span> <span class="toc-text">六、问题追溯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%B8%80%EF%BC%9Amstsc-exe"><span class="toc-number">6.0.1.</span> <span class="toc-text">线索一：mstsc.exe</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mstsc-exe-stealing-focus-mstsc-exe%E7%AA%83%E5%8F%96%E4%BA%86%E7%84%A6%E7%82%B9"><span class="toc-number"></span> <span class="toc-text">mstsc.exe stealing focus(mstsc.exe窃取了焦点)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%BA%8C%EF%BC%9AWindows-Subsystem-for-Linux-GUI%E5%92%8Cmstsc-exe%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB"><span class="toc-number">0.0.1.</span> <span class="toc-text">线索二：Windows Subsystem for Linux GUI和mstsc.exe之间的联系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%B8%89%E3%80%81%E9%97%AE%E9%A2%98%E5%9C%A8%E4%BA%8Ewindow%E9%80%9A%E8%BF%87RDP%E5%90%91WSL%E9%80%9A%E4%BF%A1%E6%97%B6"><span class="toc-number">0.1.</span> <span class="toc-text">线索三、问题在于window通过RDP向WSL通信时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E8%A7%A3%E9%87%8A%E5%92%8C%E7%BB%93%E8%AE%BA"><span class="toc-number">0.2.</span> <span class="toc-text">官方解释和结论</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        桌面应用鼠标失焦问题排查
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">hins-Yeow</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-10T15:31:11.000Z" class="dt-published" itemprop="datePublished">2022-11-10</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/bug/" rel="tag">bug</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="一、问题背景"><a href="#一、问题背景" class="headerlink" title="一、问题背景"></a>一、问题背景</h2><p>忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。</p>
+<p>此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口…..</p>
+<p>周而复始几次后，我终于忍不住了。。</p>
+<h2 id="二、问题确认"><a href="#二、问题确认" class="headerlink" title="二、问题确认"></a>二、问题确认</h2><p>问题具有随机性、可复现，在排除了“可能不小心按错键导致失焦”的可能性后。</p>
+<p>我就把问题的关键词确认在 <code>“window11”</code> <code>“窗口失焦”</code>。</p>
+<h2 id="三、SFW-Seach-in-Fxxking-Web-方法"><a href="#三、SFW-Seach-in-Fxxking-Web-方法" class="headerlink" title="三、SFW(Seach in Fxxking Web)方法"></a>三、SFW(Seach in Fxxking Web)方法</h2><p>得到了的关键词，开始了从互联网找答案。</p>
+<p><img src="https://s1.ax1x.com/2022/11/11/z95LUP.png" alt="z95LUP.png"></p>
+<p>通过一番操作后，仍然得不到任何有用的信息。</p>
+<h2 id="四、问题重新分析、猜测"><a href="#四、问题重新分析、猜测" class="headerlink" title="四、问题重新分析、猜测"></a>四、问题重新分析、猜测</h2><p>互联网找不到答案，从问题根源入手。</p>
+<p>由我目前的前置知识得知：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Force Window to Always Be in Focus</span><br><span class="line">// window必然会有一个窗口焦点</span><br></pre></td></tr></table></figure>
+
+<p>但从我的现象来看，失焦的时刻并没有其他页面弹出，所以猜测焦点可能被后台程序获取了？传说中的<code>&quot;焦点窃取&quot;</code>?</p>
+<p>经过重新分析后，我确定下一步方向：找到窃取焦点的进程。</p>
+<p>去Web查询窗口焦点的资料，发现了一个软件<code>ViewWizard</code>,不仅可以捕捉到窗口的句柄，还能捕捉到窗口的pid。</p>
+<p>但是使用起来没有那么理想：失去焦点时并没有捕捉到。</p>
+<p>所以我找到了一篇博客：用C#实现的window api 获取 当前焦点窗口的信息，根据博客提供的思路和window API ，写出获取窗口句柄的代码。</p>
+<pre><code>https://www.cnblogs.com/mq0036/p/12575627.html
+</code></pre>
+<p>代码完成后，执行程序，尝试复现问题。果不其然，窗口被一个叫TscShellContainerClass的窗口捕捉了。</p>
+<p><img src="https://s1.ax1x.com/2022/11/11/z95Tud.jpg" alt="z95Tud.jpg"></p>
+<p>再用回软件<code>ViewWizard</code>根据句柄查询PID。</p>
+<p>知道了PID后，再通过命令查询线程的信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskList|findstr XXXX</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/z95jC8"><img src="https://s1.ax1x.com/2022/11/11/z95jC8.md.png" alt="z95jC8.md.png"></a></p>
+<p>?这不是远程桌面的应用程序吗？他捕捉我焦点干嘛捏？</p>
+<h2 id="五、问题怎么产生、根源"><a href="#五、问题怎么产生、根源" class="headerlink" title="五、问题怎么产生、根源"></a>五、问题怎么产生、根源</h2><ul>
+<li><p>通过process Manage，定位问题发生瞬间的调用信息</p>
+<p>从mstu.exe的调用树已经几乎可以确认是WSL的锅了。</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/z95v8S"><img src="https://s1.ax1x.com/2022/11/11/z95v8S.md.png" alt="z95v8S.md.png"></a></p>
+<p>自己平时也不会去用远程桌面，这个功能也是我前段时间为了能使用WSLg才打开的。</p>
+<p>并且问题发生的时刻，我没有主动去开启远程桌面程序，不过我WSLg默认是启动的，还是不明白问题的原因。</p>
+<p>于是在确定了导致问题发生的mstsc,开始<code>SFW</code>。</p>
+<h2 id="六、问题追溯"><a href="#六、问题追溯" class="headerlink" title="六、问题追溯"></a>六、问题追溯</h2><h4 id="线索一：mstsc-exe"><a href="#线索一：mstsc-exe" class="headerlink" title="线索一：mstsc.exe"></a>线索一：mstsc.exe</h4><h1 id="mstsc-exe-stealing-focus-mstsc-exe窃取了焦点"><a href="#mstsc-exe-stealing-focus-mstsc-exe窃取了焦点" class="headerlink" title="mstsc.exe stealing focus(mstsc.exe窃取了焦点)"></a>mstsc.exe stealing focus(mstsc.exe窃取了焦点)</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://answers.microsoft.com/en-us/windows/forum/all/mstscexe-stealing-focus/f9acb6fd-3c95-4e22-8f40-dc41dffbb178</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/z95xgg"><img src="https://s1.ax1x.com/2022/11/11/z95xgg.md.png" alt="z95xgg.md.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/z95zvQ"><img src="https://s1.ax1x.com/2022/11/11/z95zvQ.png" alt="z95zvQ.png"></a></p>
+<p>帖子最终结果为官方也不知道。。当事人自己删除了wslg才临时解决问题。。</p>
+<p>不过通过这一线索，基本可以确认问题出现在window 和 SubSystem linux  之间</p>
+<h4 id="线索二：Windows-Subsystem-for-Linux-GUI和mstsc-exe之间的联系"><a href="#线索二：Windows-Subsystem-for-Linux-GUI和mstsc-exe之间的联系" class="headerlink" title="线索二：Windows Subsystem for Linux GUI和mstsc.exe之间的联系"></a>线索二：Windows Subsystem for Linux GUI和mstsc.exe之间的联系</h4><p><img src="https://s1.ax1x.com/2022/11/11/z9IwVI.jpg" alt="z9IwVI.jpg"></p>
+<p>通过搜索得知，微软在<code>WSLg System Distro</code>里加了远程桌面服务套件——<code>FreeRDP</code>，一个支持Windows远程桌面协议（RDP）的服务端.</p>
+<blockquote>
+<p>整个<code>WSLg System Distro</code>、Windows远程桌面客户端（mstsc.exe）的窗口都是对用户隐藏的，猜测是用户开启WSL或者敲完Linux GUI程序名的时候，这些隐藏的组件就已经在后台运行了。具体来说就是上图的<code>WSLGd</code>，微软解释说一个类似守护进程的程序，负责启动<code>Weston</code>、建立RDP通信等工作，如果它们挂了的话还要负责重启它们。</p>
+</blockquote>
+<h3 id="线索三、问题在于window通过RDP向WSL通信时"><a href="#线索三、问题在于window通过RDP向WSL通信时" class="headerlink" title="线索三、问题在于window通过RDP向WSL通信时"></a>线索三、问题在于window通过RDP向WSL通信时</h3><p><img src="https://s1.ax1x.com/2022/11/11/z9IrPf.png" alt="z9IrPf.png"></p>
+<p>通过这一线索和开源的信息得知，当一些内容到shot（剪切板）时，负责RDP的线程发生崩溃。</p>
+<p>最后发现了这个问题的issue：</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/z9Ipuj"><img src="https://s1.ax1x.com/2022/11/11/z9Ipuj.png" alt="z9Ipuj.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/z9I9Ds"><img src="https://s1.ax1x.com/2022/11/11/z9I9Ds.png" alt="z9I9Ds.png"></a></p>
+<h3 id="官方解释和结论"><a href="#官方解释和结论" class="headerlink" title="官方解释和结论"></a>官方解释和结论</h3><p>由于从 FreeRDP 线程到 wayland 显示循环线程的多线程切换而导致事件源为 NULL，导致崩溃。</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/z9oAeA"><img src="https://s1.ax1x.com/2022/11/11/z9oAeA.png" alt="z9oAeA.png"></a></p>
+<ul>
+<li>提供了临时解决的方案—关闭WSLg :)</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/friends">friends</a></li>
+        
+          <li><a href="/tags/">tags</a></li>
+        
+          <li><a href="/rss.xml">RSS</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%97%AE%E9%A2%98%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">一、问题背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%97%AE%E9%A2%98%E7%A1%AE%E8%AE%A4"><span class="toc-number">2.</span> <span class="toc-text">二、问题确认</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81SFW-Seach-in-Fxxking-Web-%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">三、SFW(Seach in Fxxking Web)方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%97%AE%E9%A2%98%E9%87%8D%E6%96%B0%E5%88%86%E6%9E%90%E3%80%81%E7%8C%9C%E6%B5%8B"><span class="toc-number">4.</span> <span class="toc-text">四、问题重新分析、猜测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E3%80%81%E6%A0%B9%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text">五、问题怎么产生、根源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E9%97%AE%E9%A2%98%E8%BF%BD%E6%BA%AF"><span class="toc-number">6.</span> <span class="toc-text">六、问题追溯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%B8%80%EF%BC%9Amstsc-exe"><span class="toc-number">6.0.1.</span> <span class="toc-text">线索一：mstsc.exe</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mstsc-exe-stealing-focus-mstsc-exe%E7%AA%83%E5%8F%96%E4%BA%86%E7%84%A6%E7%82%B9"><span class="toc-number"></span> <span class="toc-text">mstsc.exe stealing focus(mstsc.exe窃取了焦点)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%BA%8C%EF%BC%9AWindows-Subsystem-for-Linux-GUI%E5%92%8Cmstsc-exe%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB"><span class="toc-number">0.0.1.</span> <span class="toc-text">线索二：Windows Subsystem for Linux GUI和mstsc.exe之间的联系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E4%B8%89%E3%80%81%E9%97%AE%E9%A2%98%E5%9C%A8%E4%BA%8Ewindow%E9%80%9A%E8%BF%87RDP%E5%90%91WSL%E9%80%9A%E4%BF%A1%E6%97%B6"><span class="toc-number">0.1.</span> <span class="toc-text">线索三、问题在于window通过RDP向WSL通信时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E8%A7%A3%E9%87%8A%E5%92%8C%E7%BB%93%E8%AE%BA"><span class="toc-number">0.2.</span> <span class="toc-text">官方解释和结论</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.hinsyeow.org/posts/steal-focus/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.hinsyeow.org/posts/steal-focus/&text=桌面应用鼠标失焦问题排查"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.hinsyeow.org/posts/steal-focus/&is_video=false&description=桌面应用鼠标失焦问题排查"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=桌面应用鼠标失焦问题排查&body=Check out this article: https://blog.hinsyeow.org/posts/steal-focus/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.hinsyeow.org/posts/steal-focus/&title=桌面应用鼠标失焦问题排查"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.hinsyeow.org/posts/steal-focus/&name=桌面应用鼠标失焦问题排查&description=&lt;h2 id=&#34;一、问题背景&#34;&gt;&lt;a href=&#34;#一、问题背景&#34; class=&#34;headerlink&#34; title=&#34;一、问题背景&#34;&gt;&lt;/a&gt;一、问题背景&lt;/h2&gt;&lt;p&gt;忙碌的夜晚，我喝着拿铁，坐在电脑旁，在指尖且飞快的敲着键盘的时候，键盘突然打不了字，window窗口栏变灰，应该是窗口失焦了，此时只需要动动鼠标，点击窗口恢复焦点，就可以继续愉悦的敲键盘了。&lt;/p&gt;
+&lt;p&gt;此起彼伏，窗口又失去了焦点，双手已然在键盘位只能再去移动鼠标..点击窗口…..&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.hinsyeow.org/posts/steal-focus/&t=桌面应用鼠标失焦问题排查"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    hins-Yeow
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="JWT 的全称是 JSON Web Token，是一种开放标准（RFC 7519） ，用于在网络应用环境间安全地传输声明。说得通俗一点，它就像是你在某个大型活动中的通行证，上面记录了你的基本信息（比如姓名、身份等），凭借这个通行证，你就能在活动规定的范围内自由通行，享受相应的服务和资源。 JWT 是一种基于 JSON 的轻量级开放标准，以 JSON 对象的形式存在，由三部分组成，通过点号（.）分隔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jwt授权认证流程">
+<meta property="og:url" content="https://blog.hinsyeow.org/posts/jwt-authorization/index.html">
+<meta property="og:site_name" content="hins Yeow&#39;s Blog">
+<meta property="og:description" content="JWT 的全称是 JSON Web Token，是一种开放标准（RFC 7519） ，用于在网络应用环境间安全地传输声明。说得通俗一点，它就像是你在某个大型活动中的通行证，上面记录了你的基本信息（比如姓名、身份等），凭借这个通行证，你就能在活动规定的范围内自由通行，享受相应的服务和资源。 JWT 是一种基于 JSON 的轻量级开放标准，以 JSON 对象的形式存在，由三部分组成，通过点号（.）分隔">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-05-14T19:41:21.000Z">
+<meta property="article:modified_time" content="2025-09-26T18:52:57.601Z">
+<meta property="article:author" content="hins-Yeow">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>jwt授权认证流程</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="hins Yeow&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/tailscale-ssh-remote-connection/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/steal-focus/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.hinsyeow.org/posts/jwt-authorization/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.hinsyeow.org/posts/jwt-authorization/&text=jwt授权认证流程"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.hinsyeow.org/posts/jwt-authorization/&is_video=false&description=jwt授权认证流程"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=jwt授权认证流程&body=Check out this article: https://blog.hinsyeow.org/posts/jwt-authorization/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.hinsyeow.org/posts/jwt-authorization/&name=jwt授权认证流程&description=&lt;p&gt;JWT 的全称是 JSON Web Token，是一种开放标准（RFC 7519） ，用于在网络应用环境间安全地传输声明。说得通俗一点，它就像是你在某个大型活动中的通行证，上面记录了你的基本信息（比如姓名、身份等），凭借这个通行证，你就能在活动规定的范围内自由通行，享受相应的服务和资源。&lt;/p&gt;
+&lt;p&gt;JWT 是一种基于 JSON 的轻量级开放标准，以 JSON 对象的形式存在，由三部分组成，通过点号（.）分隔，分别是头部（Header）、载荷（Payload）和签名（Signature）。在后续的内容中，我们将详细介绍 JWT 的这三个组成部分。&lt;/p&gt;
+&lt;h2 id=&#34;JWT-长啥样&#34;&gt;&lt;a href=&#34;#JWT-长啥样&#34; class=&#34;headerlink&#34; title=&#34;JWT 长啥样&#34;&gt;&lt;/a&gt;JWT 长啥样&lt;/h2&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.hinsyeow.org/posts/jwt-authorization/&t=jwt授权认证流程"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JWT-%E9%95%BF%E5%95%A5%E6%A0%B7"><span class="toc-number">1.</span> <span class="toc-text">JWT 长啥样</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%A4%B4%E9%83%A8%EF%BC%88Header%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">（一）头部（Header）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E8%BD%BD%E8%8D%B7%EF%BC%88Payload%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">（二）载荷（Payload）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%AD%BE%E5%90%8D%EF%BC%88Signature%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">（三）签名（Signature）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81JWT-%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">三、JWT 认证流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95"><span class="toc-number">2.1.</span> <span class="toc-text">（一）用户登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%AA%8C%E8%AF%81%E8%BA%AB%E4%BB%BD%E5%B9%B6%E7%94%9F%E6%88%90-JWT"><span class="toc-number">2.2.</span> <span class="toc-text">（二）服务器验证身份并生成 JWT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%94%E5%9B%9E-JWT-%E7%BB%99%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.3.</span> <span class="toc-text">（三）返回 JWT 给客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8-JWT"><span class="toc-number">2.4.</span> <span class="toc-text">（四）客户端存储 JWT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E5%8F%91%E9%80%81%E5%B8%A6-JWT-%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-number">2.5.</span> <span class="toc-text">（五）发送带 JWT 的请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%85%AD%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%AA%8C%E8%AF%81-JWT"><span class="toc-number">2.6.</span> <span class="toc-text">（六）服务器验证 JWT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%83%EF%BC%89%E8%AE%BF%E9%97%AE%E5%8F%97%E4%BF%9D%E6%8A%A4%E8%B5%84%E6%BA%90"><span class="toc-number">2.7.</span> <span class="toc-text">（七）访问受保护资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%85%AB%EF%BC%89%E8%BF%87%E6%9C%9F%E5%92%8C%E5%88%B7%E6%96%B0"><span class="toc-number">2.8.</span> <span class="toc-text">（八）过期和刷新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B9%9D%EF%BC%89%E9%80%80%E5%87%BA%E7%99%BB%E5%BD%95"><span class="toc-number">2.9.</span> <span class="toc-text">（九）退出登录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81JWT-%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">四、JWT 的优点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%97%A0%E7%8A%B6%E6%80%81%E6%80%A7%EF%BC%8C%E5%87%8F%E8%BD%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8E%8B%E5%8A%9B"><span class="toc-number">3.1.</span> <span class="toc-text">（一）无状态性，减轻服务器压力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E8%87%AA%E5%8C%85%E5%90%AB%E6%80%A7%EF%BC%8C%E6%96%B9%E4%BE%BF%E4%BC%A0%E8%BE%93"><span class="toc-number">3.2.</span> <span class="toc-text">（二）自包含性，方便传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%AE%89%E5%85%A8%E6%80%A7%E9%AB%98%EF%BC%8C%E9%98%B2%E6%AD%A2%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9"><span class="toc-number">3.3.</span> <span class="toc-text">（三）安全性高，防止数据篡改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E8%B7%A8%E5%9F%9F%E6%94%AF%E6%8C%81%EF%BC%8C%E9%80%82%E5%BA%94%E5%A4%8D%E6%9D%82%E7%8E%AF%E5%A2%83"><span class="toc-number">3.4.</span> <span class="toc-text">（四）跨域支持，适应复杂环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7%EF%BC%8C%E6%BB%A1%E8%B6%B3%E5%A4%9A%E6%A0%B7%E5%8C%96%E9%9C%80%E6%B1%82"><span class="toc-number">3.5.</span> <span class="toc-text">（五）可扩展性，满足多样化需求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8-JWT-%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">五、使用 JWT 的注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">六、总结</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        jwt授权认证流程
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">hins-Yeow</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-14T19:41:21.000Z" class="dt-published" itemprop="datePublished">2023-05-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/web/" rel="tag">web</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>JWT 的全称是 JSON Web Token，是一种开放标准（RFC 7519） ，用于在网络应用环境间安全地传输声明。说得通俗一点，它就像是你在某个大型活动中的通行证，上面记录了你的基本信息（比如姓名、身份等），凭借这个通行证，你就能在活动规定的范围内自由通行，享受相应的服务和资源。</p>
+<p>JWT 是一种基于 JSON 的轻量级开放标准，以 JSON 对象的形式存在，由三部分组成，通过点号（.）分隔，分别是头部（Header）、载荷（Payload）和签名（Signature）。在后续的内容中，我们将详细介绍 JWT 的这三个组成部分。</p>
+<h2 id="JWT-长啥样"><a href="#JWT-长啥样" class="headerlink" title="JWT 长啥样"></a>JWT 长啥样</h2><h3 id="（一）头部（Header）"><a href="#（一）头部（Header）" class="headerlink" title="（一）头部（Header）"></a>（一）头部（Header）</h3><p>头部通常由两部分组成：令牌的类型（typ）和签名算法（alg） 。以最常见的 JSON 格式来表示，头部可能是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">     &quot;alg&quot;: &quot;HS256&quot;,</span><br><span class="line"></span><br><span class="line">     &quot;typ&quot;: &quot;JWT&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，”alg”: “HS256” 表示使用的签名算法是 HMAC SHA256 ，这种算法在保证数据完整性和安全性方面表现出色，就像给你的数据上了一把坚固的锁；”typ”: “JWT” 则明确声明了这是一个 JWT 令牌，让接收方一眼就能识别它的身份。</p>
+<p>为了能在网络中安全传输，头部会被进行 Base64 编码 ，转换后的字符串就像是一种特殊的 “密文”，可以在各种网络环境中稳定传输。例如，上面的 JSON 格式头部经过 Base64 编码后，可能会变成这样一串字符：<code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</code> 。虽然看起来像乱码，但只要掌握了解码规则，就能还原出原始的头部信息。</p>
+<h3 id="（二）载荷（Payload）"><a href="#（二）载荷（Payload）" class="headerlink" title="（二）载荷（Payload）"></a>（二）载荷（Payload）</h3><p>载荷是 JWT 中真正携带有效信息的部分，它就像是一个包裹，里面装着各种你想要传递的数据。载荷部分也是一个 JSON 对象，包含了许多声明（claims），这些声明可以分为三类：</p>
+<ul>
+<li><p><strong>注册声明</strong>：是一些预定义的声明，虽然不是强制使用，但推荐使用，它们就像是一些通用的标签，方便大家理解和使用。常见的注册声明有：iss（issuer，签发者），就像快递的寄件人，标识这个 JWT 是由谁生成的；exp（expiration time，过期时间），规定了这个 JWT 的有效期限，一旦超过这个时间，JWT 就会失效，就像食品的保质期一样；sub（subject，主题），说明这个 JWT 是关于谁或什么的，比如用户 ID 等；iat（issued at，签发时间），记录了 JWT 的生成时间，方便追踪和管理。</p>
+</li>
+<li><p><strong>公共声明</strong>：是可以由使用 JWT 的各方自定义的声明，但为了避免冲突，建议使用一些大家都认可的名称。比如，我们可以定义一个 “name” 声明来表示用户的姓名，或者用 “role” 声明来表示用户的角色。这些公共声明可以根据具体的业务需求来灵活定义，为 JWT 赋予更多的业务含义。</p>
+</li>
+<li><p><strong>私有声明</strong>：是在特定的应用场景中使用的声明，只有应用的开发者和相关人员知道其含义，就像是一种内部的约定。比如，某个电商应用可能会定义一个 “cart_id” 声明来表示用户购物车的 ID，这个声明对于其他不了解该应用业务的人来说可能毫无意义，但在这个应用内部却非常重要。</p>
+</li>
+</ul>
+<p>以下是一个载荷的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">     &quot;sub&quot;: &quot;1234567890&quot;,</span><br><span class="line"></span><br><span class="line">     &quot;name&quot;: &quot;John Doe&quot;,</span><br><span class="line"></span><br><span class="line">     &quot;admin&quot;: true,</span><br><span class="line"></span><br><span class="line">     &quot;iat&quot;: 1516239022,</span><br><span class="line"></span><br><span class="line">     &quot;exp&quot;: 1516239022 + 3600</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，”sub” 声明表示用户的 ID 为 “1234567890”；”name” 声明显示用户的姓名是 “John Doe”；”admin”: true 表示该用户具有管理员权限；”iat” 声明记录了 JWT 的签发时间为 1516239022（这是一个时间戳，表示从 1970 年 1 月 1 日 00:00:00 UTC 到签发时间的秒数）；”exp” 声明则规定了 JWT 的过期时间，这里设置为签发时间加上 3600 秒（即 1 小时后过期）。</p>
+<p>与头部类似，载荷也会被 Base64 编码 ，编码后的字符串用于在 JWT 中传输。例如，上述载荷经过 Base64 编码后，可能会变成这样：</p>
+<p><code>eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxNTE2MjM5MDIyKzM2MDAifQ</code></p>
+<p>这样，即使在传输过程中信息被截取，没有正确的解码方式也无法获取其中的有效信息，从而保证了数据的安全性。</p>
+<h3 id="（三）签名（Signature）"><a href="#（三）签名（Signature）" class="headerlink" title="（三）签名（Signature）"></a>（三）签名（Signature）</h3><p>签名是 JWT 的重要组成部分，它的作用是验证 JWT 在传输过程中没有被篡改，并且确保这个 JWT 确实是由合法的签发者生成的，就像文件上的签名盖章，用来证明文件的真实性和完整性。</p>
+<p>要生成签名，需要使用编码后的头部、编码后的载荷、一个密钥（secret）以及头部中指定的签名算法 。以 HS256 算法为例，生成签名的过程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hmac</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设已经有编码后的头部和载荷</span></span><br><span class="line"></span><br><span class="line">encoded_header = <span class="string">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9&quot;</span></span><br><span class="line"></span><br><span class="line">encoded_payload = <span class="string">&quot;eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxNTE2MjM5MDIyKzM2MDAifQ&quot;</span></span><br><span class="line"></span><br><span class="line">secret = <span class="string">&quot;your_secret_key&quot;</span>  <span class="comment"># 密钥，必须保密</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拼接编码后的头部和载荷</span></span><br><span class="line"></span><br><span class="line">message = encoded_header + <span class="string">&quot;.&quot;</span> + encoded_payload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用HMAC SHA256算法生成签名</span></span><br><span class="line"></span><br><span class="line">signature = hmac.new(</span><br><span class="line"></span><br><span class="line">       secret.encode(<span class="string">&#x27;utf-8&#x27;</span>),</span><br><span class="line"></span><br><span class="line">       message.encode(<span class="string">&#x27;utf-8&#x27;</span>),</span><br><span class="line"></span><br><span class="line">       hashlib.sha256</span><br><span class="line"></span><br><span class="line">).digest()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对签名进行Base64编码</span></span><br><span class="line"></span><br><span class="line">encoded_signature = base64.urlsafe_b64encode(signature).rstrip(<span class="string">b&#x27;=&#x27;</span>).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(encoded_signature)</span><br></pre></td></tr></table></figure>
+
+<p>生成的签名会附加在编码后的头部和载荷之后，通过点号（.）分隔，最终形成完整的 JWT 。例如：<code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxNTE2MjM5MDIyKzM2MDAifQ.abcdefghijklmnopqrstuvwxyz123456</code> 。</p>
+<p>在验证 JWT 时，接收方会使用相同的密钥和签名算法，根据接收到的头部和载荷重新计算签名 。如果计算得到的签名与 JWT 中附带的签名一致，就说明 JWT 在传输过程中没有被篡改，是可信的；反之，如果签名不一致，就说明 JWT 可能被恶意修改过，或者是伪造的，接收方就会拒绝这个 JWT。</p>
+<p>这里要特别强调的是，密钥（secret）的保密非常重要 。如果密钥泄露，任何人都可以使用这个密钥生成合法的签名，从而伪造出有效的 JWT，这将严重威胁到系统的安全。所以，在实际应用中，一定要妥善保管密钥，采用安全的存储方式和传输方式，比如使用环境变量来存储密钥，避免将密钥硬编码在代码中。</p>
+<h2 id="三、JWT-认证流程"><a href="#三、JWT-认证流程" class="headerlink" title="三、JWT 认证流程"></a>三、JWT 认证流程</h2><p>现在，我们已经对 JWT 的结构有了深入的了解，接下来就进入 JWT 的实际应用环节 ——JWT 认证流程。这个流程就像是一场精心编排的舞台剧，各个角色（客户端和服务器）按照特定的步骤和规则进行交互，以确保用户能够安全、顺利地访问受保护的资源。下面，我们就来详细解析这场 “舞台剧” 的每一幕。</p>
+<h3 id="（一）用户登录"><a href="#（一）用户登录" class="headerlink" title="（一）用户登录"></a>（一）用户登录</h3><p>想象一下，你来到了一个需要身份验证才能进入的在线系统，比如一个电商平台或者一个办公系统。首先，你会在客户端（通常是网页或者移动应用）的登录界面输入你的用户名和密码 ，就像你在现实生活中出示你的身份证和密码来证明你的身份一样。然后，客户端会将这些登录信息打包成一个请求，发送给服务器 。这个请求就像是一封带着你身份信息的信件，被投递到服务器的 “信箱” 中。</p>
+<p>在前端代码中，使用 JavaScript 的 fetch API 发送登录请求可能像这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;/api/login&#x27;</span>, &#123;</span><br><span class="line"></span><br><span class="line">     <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line"></span><br><span class="line">     <span class="attr">headers</span>: &#123;</span><br><span class="line"></span><br><span class="line">       <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span></span><br><span class="line"></span><br><span class="line">     &#125;,</span><br><span class="line"></span><br><span class="line">     <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line"></span><br><span class="line">       <span class="attr">username</span>: <span class="string">&#x27;your_username&#x27;</span>,</span><br><span class="line"></span><br><span class="line">       <span class="attr">password</span>: <span class="string">&#x27;your_password&#x27;</span></span><br><span class="line"></span><br><span class="line">     &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line"></span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(data))</span><br><span class="line"></span><br><span class="line">.<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, error));</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们使用 fetch 函数向<code>/api/login</code>发送一个 POST 请求，请求头中设置了<code>Content-Type</code>为<code>application/json</code>，表示我们发送的数据是 JSON 格式。请求体中包含了用户输入的用户名和密码，通过<code>JSON.stringify</code>方法将其转换为 JSON 字符串。服务器接收到这个请求后，就会开始验证用户的身份。</p>
+<h3 id="（二）服务器验证身份并生成-JWT"><a href="#（二）服务器验证身份并生成-JWT" class="headerlink" title="（二）服务器验证身份并生成 JWT"></a>（二）服务器验证身份并生成 JWT</h3><p>服务器收到客户端发来的登录请求后，就像是收到了一封需要验证身份的信件，它会打开信件（解析请求），取出里面的用户名和密码 。然后，服务器会根据事先存储在数据库中的用户信息来验证这些凭证是否正确 ，这就好比在现实生活中，工作人员会核对你的身份证和密码是否与档案中的信息一致。</p>
+<p>如果验证通过，恭喜你，你成功证明了自己的身份！服务器就会开始生成 JWT 。生成 JWT 的过程就像是制作一张专属你的通行证，服务器会按照我们前面介绍的 JWT 结构，创建头部、载荷和签名 。头部中会指定签名算法，比如常用的 HS256；载荷中会包含用户的一些基本信息，比如用户 ID、用户名、角色等，还会设置一些声明，如签发时间（iat）和过期时间（exp）；最后，服务器会使用一个密钥（secret）和指定的签名算法来生成签名 ，这个密钥就像是制作通行证的特殊印章，只有拥有这个印章的服务器才能制作出有效的通行证。</p>
+<p>以下是使用 Python 的 PyJWT 库生成 JWT 的伪代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>(<span class="params">username, password</span>):</span><br><span class="line"></span><br><span class="line">       <span class="comment"># 假设这里有一个函数authenticate用于验证用户身份</span></span><br><span class="line"></span><br><span class="line">       user = authenticate(username, password)</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> user:</span><br><span class="line"></span><br><span class="line">           <span class="comment"># 定义载荷</span></span><br><span class="line"></span><br><span class="line">           payload = &#123;</span><br><span class="line"></span><br><span class="line">               <span class="string">&#x27;user_id&#x27;</span>: user.<span class="built_in">id</span>,</span><br><span class="line"></span><br><span class="line">               <span class="string">&#x27;username&#x27;</span>: user.username,</span><br><span class="line"></span><br><span class="line">               <span class="string">&#x27;role&#x27;</span>: user.role,</span><br><span class="line"></span><br><span class="line">               <span class="string">&#x27;iat&#x27;</span>: datetime.datetime.utcnow(),</span><br><span class="line"></span><br><span class="line">               <span class="string">&#x27;exp&#x27;</span>: datetime.datetime.utcnow() + datetime.timedelta(minutes=<span class="number">30</span>)  <span class="comment"># 设置30分钟后过期</span></span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="comment"># 密钥，必须保密</span></span><br><span class="line"></span><br><span class="line">           secret = <span class="string">&#x27;your_secret_key&#x27;</span></span><br><span class="line"></span><br><span class="line">           <span class="comment"># 生成JWT</span></span><br><span class="line"></span><br><span class="line">           token = jwt.encode(payload, secret, algorithm=<span class="string">&#x27;HS256&#x27;</span>)</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> token</span><br><span class="line"></span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>login</code>函数接收用户名和密码作为参数，调用<code>authenticate</code>函数验证用户身份。如果验证通过，就创建一个包含用户信息和声明的载荷，使用指定的密钥和 HS256 算法生成 JWT 并返回。如果验证失败，则返回<code>None</code>。</p>
+<h3 id="（三）返回-JWT-给客户端"><a href="#（三）返回-JWT-给客户端" class="headerlink" title="（三）返回 JWT 给客户端"></a>（三）返回 JWT 给客户端</h3><p>服务器成功生成 JWT 后，就像是制作好了你的专属通行证，它会把这个 JWT 返回给客户端 。这个 JWT 通常会以 JSON 格式返回，就像把通行证放在一个信封里寄回给你。例如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"></span><br><span class="line">     <span class="attr">&quot;token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE1MTYyMzkwMjI3fQ.abcdefghijklmnopqrstuvwxyz123456&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个 JSON 数据中，<code>token</code>字段的值就是生成的 JWT，它由三部分组成，通过点号（.）分隔，分别是编码后的头部、编码后的载荷和签名 。客户端接收到这个 JWT 后，就可以开始使用它来访问受保护的资源了。</p>
+<h3 id="（四）客户端存储-JWT"><a href="#（四）客户端存储-JWT" class="headerlink" title="（四）客户端存储 JWT"></a>（四）客户端存储 JWT</h3><p>客户端收到服务器返回的 JWT 后，就像是收到了一张珍贵的通行证，它需要妥善保管这张通行证，以便在后续的请求中使用 。通常，客户端会将 JWT 存储在本地存储（localStorage）或会话存储（sessionStorage）中 。本地存储就像是你的一个私人保险柜，里面的东西除非你主动清除，否则会一直存在；会话存储则像是一个临时的小盒子，当你关闭浏览器标签页时，里面的东西就会消失。</p>
+<p>在前端代码中，使用 JavaScript 将 JWT 存储在本地存储中的示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> jwtToken = <span class="string">&#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE1MTYyMzkwMjI3fQ.abcdefghijklmnopqrstuvwxyz123456&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;token&#x27;</span>, jwtToken);</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们使用<code>localStorage.setItem</code>方法将 JWT 存储在本地存储中，键名为<code>token</code>，值为接收到的 JWT。这样，在后续的请求中，我们就可以从本地存储中取出这个 JWT，发送给服务器进行身份验证。需要注意的是，由于本地存储和会话存储中的数据可以被 JavaScript 读取，存在一定的安全风险，所以在实际应用中，要采取一些安全措施，比如使用 HTTPS 来加密传输数据，防止 JWT 被窃取。</p>
+<h3 id="（五）发送带-JWT-的请求"><a href="#（五）发送带-JWT-的请求" class="headerlink" title="（五）发送带 JWT 的请求"></a>（五）发送带 JWT 的请求</h3><p>当客户端需要访问受保护的资源时，就像是你拿着通行证去进入一个特定的区域，它会在请求中带上之前存储的 JWT 。通常，JWT 会被放在请求头的 Authorization 字段中，格式为<code>Bearer &lt;JWT&gt;</code> ，这里的<code>Bearer</code>就像是通行证的类型标识，告诉服务器这是一个 JWT 认证请求。</p>
+<p>在前端代码中，使用 JavaScript 的 fetch API 发送带 JWT 的请求可能像这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;/api/protected&#x27;</span>, &#123;</span><br><span class="line"></span><br><span class="line">     <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line"></span><br><span class="line">     <span class="attr">headers</span>: &#123;</span><br><span class="line"></span><br><span class="line">       <span class="string">&#x27;Authorization&#x27;</span>: \<span class="string">`Bearer \$&#123;localStorage.getItem(&#x27;token&#x27;)&#125;\`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">     &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.then(response =&gt; response.json())</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.then(data =&gt; console.log(data))</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.catch(error =&gt; console.error(&#x27;Error:&#x27;, error));</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们向<code>/api/protected</code>发送一个 GET 请求，请求头中设置了<code>Authorization</code>字段，其值为<code>Bearer</code>加上从本地存储中取出的 JWT。服务器接收到这个请求后，就会根据 JWT 来验证用户的身份和权限。</p>
+<h3 id="（六）服务器验证-JWT"><a href="#（六）服务器验证-JWT" class="headerlink" title="（六）服务器验证 JWT"></a>（六）服务器验证 JWT</h3><p>服务器接收到带有 JWT 的请求后，就像是工作人员检查你的通行证是否有效，它会开始验证 JWT 的有效性 。验证过程主要包括以下几个方面：</p>
+<ul>
+<li><p><strong>签名验证</strong>：服务器会使用与生成 JWT 时相同的密钥和签名算法，根据接收到的头部和载荷重新计算签名 。如果计算得到的签名与 JWT 中附带的签名一致，就说明 JWT 在传输过程中没有被篡改，是可信的；反之，如果签名不一致，就说明 JWT 可能被恶意修改过，或者是伪造的，服务器就会拒绝这个 JWT。</p>
+</li>
+<li><p><strong>过期时间验证</strong>：服务器会检查 JWT 载荷中的过期时间（exp）声明 。如果当前时间已经超过了过期时间，说明 JWT 已经失效，服务器会拒绝这个 JWT；只有在当前时间在过期时间之前，JWT 才是有效的。</p>
+</li>
+<li><p><strong>有效载荷验证</strong>：服务器还会检查 JWT 载荷中的其他声明，比如用户 ID、角色等 ，以确保用户具有访问请求资源的权限。例如，如果某个资源只允许管理员访问，而 JWT 中的角色声明不是 “admin”，服务器就会拒绝这个请求。</p>
+</li>
+</ul>
+<p>以下是使用 Python 的 PyJWT 库验证 JWT 的伪代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">protected_route</span>(<span class="params">request</span>):</span><br><span class="line"></span><br><span class="line">       token = request.headers.get(<span class="string">&#x27;Authorization&#x27;</span>).split()\[<span class="number">1</span>]  <span class="comment"># 从请求头中获取JWT</span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">           <span class="comment"># 密钥，必须保密</span></span><br><span class="line"></span><br><span class="line">           secret = <span class="string">&#x27;your_secret_key&#x27;</span></span><br><span class="line"></span><br><span class="line">           <span class="comment"># 验证JWT</span></span><br><span class="line"></span><br><span class="line">           payload = jwt.decode(token, secret, algorithms=\[<span class="string">&#x27;HS256&#x27;</span>])</span><br><span class="line"></span><br><span class="line">           user_id = payload\[<span class="string">&#x27;user_id&#x27;</span>]</span><br><span class="line"></span><br><span class="line">           <span class="comment"># 继续处理请求，比如根据用户ID获取用户信息等</span></span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> &#123;<span class="string">&#x27;message&#x27;</span>: <span class="string">&#x27;Request processed successfully&#x27;</span>, <span class="string">&#x27;user_id&#x27;</span>: user_id&#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">except</span> jwt.ExpiredSignatureError:</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> &#123;<span class="string">&#x27;error&#x27;</span>: <span class="string">&#x27;Token expired&#x27;</span>&#125;, <span class="number">401</span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">except</span> jwt.InvalidTokenError:</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> &#123;<span class="string">&#x27;error&#x27;</span>: <span class="string">&#x27;Invalid token&#x27;</span>&#125;, <span class="number">401</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>protected_route</code>函数从请求头中获取 JWT，使用指定的密钥和 HS256 算法验证 JWT 的有效性。如果验证成功，就可以从载荷中获取用户 ID，并继续处理请求；如果 JWT 过期，会捕获<code>ExpiredSignatureError</code>异常，返回错误信息和 401 状态码；如果 JWT 无效，会捕获<code>InvalidTokenError</code>异常，返回错误信息和 401 状态码。</p>
+<h3 id="（七）访问受保护资源"><a href="#（七）访问受保护资源" class="headerlink" title="（七）访问受保护资源"></a>（七）访问受保护资源</h3><p>如果 JWT 验证通过，就像是你的通行证被工作人员认可，服务器会允许用户访问受保护的资源 。服务器会根据请求的内容，返回相应的资源数据给客户端 。例如，如果你请求的是用户的个人信息，服务器会从数据库中查询出你的个人信息并返回给你；如果你请求的是一个文件，服务器会将文件内容发送给你。</p>
+<p>以下是一个简单的示例，展示如何根据用户 ID 获取用户信息并返回：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_user_info</span>(<span class="params">user_id</span>):</span><br><span class="line"></span><br><span class="line">       <span class="comment"># 假设这里有一个函数从数据库中获取用户信息</span></span><br><span class="line"></span><br><span class="line">       user = get_user_from_db(user_id)</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> user:</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> &#123;<span class="string">&#x27;user_info&#x27;</span>: &#123;<span class="string">&#x27;id&#x27;</span>: user.<span class="built_in">id</span>, <span class="string">&#x27;name&#x27;</span>: user.name, <span class="string">&#x27;email&#x27;</span>: user.email&#125;&#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> &#123;<span class="string">&#x27;error&#x27;</span>: <span class="string">&#x27;User not found&#x27;</span>&#125;, <span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>get_user_info</code>函数接收用户 ID 作为参数，调用<code>get_user_from_db</code>函数从数据库中获取用户信息。如果找到用户，就返回用户信息；如果未找到用户，就返回错误信息和 404 状态码。在实际应用中，<code>protected_route</code>函数验证 JWT 通过后，可以调用<code>get_user_info</code>函数获取用户信息并返回给客户端。</p>
+<h3 id="（八）过期和刷新"><a href="#（八）过期和刷新" class="headerlink" title="（八）过期和刷新"></a>（八）过期和刷新</h3><p>JWT 通常会设置一个过期时间，这是为了增强安全性 。就像你的车票有一个有效期，过了有效期就不能使用了。如果 JWT 过期了，客户端在发送请求时，服务器会拒绝这个请求，提示用户需要重新登录或刷新 JWT 。</p>
+<p>为了避免用户频繁重新登录，客户端可以在 JWT 过期前进行刷新 。刷新 JWT 的过程通常是客户端向服务器发送一个刷新请求，这个请求中会带上旧的 JWT 。服务器验证旧 JWT 的有效性（虽然它可能快过期了，但还在有效期内），如果验证通过，就会生成一个新的 JWT 并返回给客户端 。客户端收到新的 JWT 后，就可以用它来继续访问受保护的资源了。</p>
+<p>在前端代码中，使用 JavaScript 发送刷新 JWT 的请求示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;/api/refresh&#x27;</span>, &#123;</span><br><span class="line"></span><br><span class="line">     <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line"></span><br><span class="line">     <span class="attr">headers</span>: &#123;</span><br><span class="line"></span><br><span class="line">       <span class="string">&#x27;Authorization&#x27;</span>: \<span class="string">`Bearer \$&#123;localStorage.getItem(&#x27;token&#x27;)&#125;\`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">     &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.then(response =&gt; response.json())</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.then(data =&gt; &#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">       if (data.token) &#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">           localStorage.setItem(&#x27;token&#x27;, data.token);  // 更新本地存储的JWT</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">       &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">.catch(error =&gt; console.error(&#x27;Error:&#x27;, error));</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们向<code>/api/refresh</code>发送一个 POST 请求，请求头中带上旧的 JWT。服务器接收到请求后，如果验证通过，会返回一个包含新 JWT 的 JSON 数据。客户端接收到数据后，检查是否有<code>token</code>字段，如果有，就更新本地存储中的 JWT。</p>
+<h3 id="（九）退出登录"><a href="#（九）退出登录" class="headerlink" title="（九）退出登录"></a>（九）退出登录</h3><p>当用户选择退出登录时，就像是你主动交出了通行证，客户端可以简单地删除存储的 JWT ，以阻止进一步的访问。在前端代码中，使用 JavaScript 删除本地存储中的 JWT 示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">removeItem</span>(<span class="string">&#x27;token&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们使用<code>localStorage.removeItem</code>方法删除键名为<code>token</code>的本地存储项，这样就删除了存储的 JWT。当用户再次发送请求时，由于没有有效的 JWT，服务器会拒绝请求，提示用户需要重新登录。</p>
+<h2 id="四、JWT-的优点"><a href="#四、JWT-的优点" class="headerlink" title="四、JWT 的优点"></a>四、JWT 的优点</h2><p>通过前面的介绍，我们已经深入了解了 JWT 的结构和认证流程，现在来总结一下 JWT 在实际应用中展现出的诸多优点。</p>
+<h3 id="（一）无状态性，减轻服务器压力"><a href="#（一）无状态性，减轻服务器压力" class="headerlink" title="（一）无状态性，减轻服务器压力"></a>（一）无状态性，减轻服务器压力</h3><p>JWT 是一种无状态的认证机制 ，这意味着服务器不需要在后端存储任何与 JWT 相关的会话信息。在传统的基于会话（Session）的认证方式中，服务器需要在内存或数据库中保存用户的会话状态，记录用户的登录信息、权限等 。随着用户数量的增加，服务器需要维护大量的会话数据，这会消耗大量的服务器资源，增加服务器的负担，就像一个仓库需要存放大量的物品，占用了很多空间和资源。</p>
+<p>而 JWT 则不同，每个 JWT 都包含了用户身份验证和授权所需的所有信息 。服务器在接收到请求时，只需要验证 JWT 的有效性，而不需要查询额外的会话数据，大大减轻了服务器的压力 。这就好比你去图书馆借书，传统方式是图书馆工作人员需要在本子上记录你借了什么书，而 JWT 方式就像是你自己带着一张借书清单，工作人员只需要核对清单的真实性，不需要再去查找其他记录，这样可以提高效率，减少工作人员的工作量。这种无状态性使得应用更容易扩展，可以轻松地部署到多个服务器上，实现负载均衡，提高系统的性能和可用性。</p>
+<h3 id="（二）自包含性，方便传输"><a href="#（二）自包含性，方便传输" class="headerlink" title="（二）自包含性，方便传输"></a>（二）自包含性，方便传输</h3><p>JWT 具有自包含性，它将用户的身份信息、权限信息以及其他相关声明都包含在一个 JSON 对象中 。这就像是一个包裹，里面装着你需要的所有东西。当 JWT 在客户端和服务器之间传输时，不需要再依赖其他外部资源来获取这些信息 ，因为所有必要的信息都已经包含在 JWT 内部。例如，在一个分布式系统中，不同的服务可能需要验证用户的身份和权限。如果使用 JWT，每个服务都可以独立地验证 JWT，而不需要与其他服务或数据库进行额外的通信来获取用户信息 ，就像每个服务都有一把钥匙，可以直接打开 JWT 这个包裹，获取里面的信息，非常方便快捷。这种自包含性不仅提高了数据传输的效率，还增强了系统的独立性和可维护性，使得各个服务之间的耦合度降低，更易于开发、测试和部署。</p>
+<h3 id="（三）安全性高，防止数据篡改"><a href="#（三）安全性高，防止数据篡改" class="headerlink" title="（三）安全性高，防止数据篡改"></a>（三）安全性高，防止数据篡改</h3><p>JWT 使用数字签名来验证令牌的真实性和完整性 ，这为数据的安全性提供了有力保障。在生成 JWT 时，服务器会使用一个密钥（secret）和指定的签名算法（如 HS256、RS256 等）对头部和载荷进行签名 ，生成的签名就像是文件上的盖章，用来证明文件的真实性。当服务器接收到 JWT 时，会使用相同的密钥和签名算法重新计算签名 ，并与 JWT 中附带的签名进行比较。如果两个签名一致，就说明 JWT 在传输过程中没有被篡改，是可信的；反之，如果签名不一致，就说明 JWT 可能被恶意修改过，或者是伪造的，服务器会拒绝这个 JWT。这就好比你收到一份重要文件，文件上有一个独特的印章，你可以通过验证印章来确认文件是否被篡改。此外，JWT 还可以使用加密算法对载荷进行加密，进一步保护数据的机密性，确保敏感信息在传输过程中不被窃取。</p>
+<h3 id="（四）跨域支持，适应复杂环境"><a href="#（四）跨域支持，适应复杂环境" class="headerlink" title="（四）跨域支持，适应复杂环境"></a>（四）跨域支持，适应复杂环境</h3><p>在现代的 Web 应用开发中，跨域请求是一个常见的场景 。例如，前端应用可能部署在一个域名下，而后端 API 服务部署在另一个域名下，这就需要进行跨域通信。JWT 在跨域场景中表现出色，因为它可以直接在前端存储（如 localStorage、sessionStorage），并且可以很方便地在跨域请求中携带 。客户端在发送跨域请求时，只需要将 JWT 放在请求头的 Authorization 字段中，服务器就可以验证 JWT 的有效性，从而确认用户的身份和权限 。与传统的基于 Cookie 的认证方式相比，JWT 不需要依赖服务器端的 Session 来验证用户身份，避免了跨域 Cookie 带来的安全问题和复杂性 。这就像是你可以带着自己的通行证（JWT）自由穿梭在不同的区域（不同域名），而不用担心因为区域的不同而受到限制，非常适合在复杂的分布式系统和多域名环境中使用。</p>
+<h3 id="（五）可扩展性，满足多样化需求"><a href="#（五）可扩展性，满足多样化需求" class="headerlink" title="（五）可扩展性，满足多样化需求"></a>（五）可扩展性，满足多样化需求</h3><p>JWT 具有良好的可扩展性，可以轻松地与其他身份验证和授权机制集成 ，如 OAuth、OpenID Connect 等。这使得 JWT 能够适应不同的应用场景和业务需求，为用户提供更加灵活和多样化的认证和授权解决方案 。例如，在一个大型的企业级应用中，可能需要同时支持多种登录方式，如用户名密码登录、第三方账号登录（如微信登录、QQ 登录）等。通过将 JWT 与 OAuth 等机制集成，可以实现统一的身份验证和授权管理 ，用户可以使用不同的方式登录，而系统可以通过验证 JWT 来确认用户的身份和权限。此外，JWT 还可以根据应用的需求，在载荷中添加自定义的声明信息 ，这些声明可以用于传递额外的业务数据或权限信息，进一步扩展 JWT 的功能，满足各种复杂的业务逻辑需求。</p>
+<h2 id="五、使用-JWT-的注意事项"><a href="#五、使用-JWT-的注意事项" class="headerlink" title="五、使用 JWT 的注意事项"></a>五、使用 JWT 的注意事项</h2><p>在使用 JWT 为应用程序保驾护航时，还有一些关键的注意事项需要牢记，就像驾驶汽车时要遵守交通规则一样，只有注意这些要点，才能确保 JWT 的安全、有效使用。</p>
+<ul>
+<li><p><strong>保护密钥安全</strong>：密钥（secret）是 JWT 的核心机密，它就像一把万能钥匙，拥有它就能生成和验证有效的 JWT。如果密钥泄露，任何人都可以伪造 JWT，从而获得未授权的访问权限，这将对系统安全造成极大的威胁。因此，一定要将密钥存储在安全的地方，避免将其硬编码在代码中 。可以考虑使用环境变量来存储密钥，这样在部署应用程序时，可以方便地设置和管理密钥，同时也增加了密钥的安全性。例如，在 Node.js 应用中，可以使用<code>dotenv</code>库来加载环境变量，将密钥存储在<code>.env</code>文件中，然后在代码中通过<code>process.env.SECRET_KEY</code>来获取密钥。</p>
+</li>
+<li><p><strong>设置合理过期时间</strong>：JWT 的过期时间（exp）是保证安全性的重要因素 。如果过期时间设置过长，一旦 JWT 被泄露，攻击者就有较长的时间利用它来访问受保护的资源；如果过期时间设置过短，用户可能需要频繁重新登录，这会影响用户体验。因此，需要根据应用程序的实际需求，设置一个合理的过期时间 。一般来说，对于一些安全性要求较高的应用，如金融类应用，可以将过期时间设置得较短，比如几分钟或几小时；对于一些普通的应用，可以将过期时间设置为一天或几天。同时，还可以结合刷新令牌（refresh token）机制，在 JWT 过期前为用户自动刷新令牌，避免用户频繁登录。</p>
+</li>
+<li><p><strong>不存储敏感信息</strong>：虽然 JWT 的载荷部分可以存储各种信息，但不应该在其中存储敏感信息，如用户密码、银行卡号等 。因为 JWT 是可以被解码的，任何人都可以获取载荷中的信息，即使进行了 Base64 编码，也只是一种简单的编码方式，并非加密，很容易被破解。所以，在载荷中只应存储必要的非敏感信息，如用户 ID、用户名、角色等，对于敏感信息，应该在服务器端进行安全存储和管理 。</p>
+</li>
+<li><p><strong>使用 HTTPS 传输</strong>：JWT 在传输过程中可能会被截获，因此使用 HTTPS 协议进行传输至关重要 。HTTPS 通过 SSL&#x2F;TLS 协议对数据进行加密，确保数据在客户端和服务器之间传输时的机密性和完整性 ，可以有效防止 JWT 被窃取和篡改。如果使用 HTTP 协议传输 JWT，攻击者可以通过中间人攻击等手段获取 JWT，进而利用它进行恶意操作。所以，在生产环境中，一定要确保应用程序使用 HTTPS 协议来传输 JWT 。</p>
+</li>
+<li><p><strong>防止重放攻击</strong>：重放攻击是指攻击者截获并重新发送有效的 JWT，以获取未授权的访问权限 。为了防止重放攻击，可以在 JWT 中添加一个唯一的标识符（如 JTI，JWT ID），并在服务器端维护一个已使用 JWT 的黑名单 。当服务器接收到 JWT 时，除了验证签名和过期时间外，还可以检查 JTI 是否在黑名单中，如果在黑名单中，则说明该 JWT 可能是被重放的，服务器可以拒绝这个 JWT。另外，也可以为 JWT 设置一个 “不可使用时间”（nbf，Not Before）声明，表示在这个时间之前 JWT 是无效的，这样可以进一步防止重放攻击 。</p>
+</li>
+<li><p><strong>验证 JWT 来源</strong>：在服务器端验证 JWT 时，不仅要验证签名和过期时间等，还要确保 JWT 是来自合法的客户端 。可以通过验证请求的来源 IP 地址、检查请求头中的其他信息等方式来确认 JWT 的来源是否可信 。例如，在一些应用中，只允许特定 IP 地址段的客户端发送请求，对于其他来源的请求，即使 JWT 有效，也会被拒绝，这样可以有效防止 JWT 被恶意使用。</p>
+</li>
+</ul>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>JWT 授权认证作为现代网络应用中保障安全与便捷访问的关键机制，以其独特的结构和高效的流程，在身份验证领域占据了重要地位。从用户登录时的身份验证，到服务器生成 JWT 并返回给客户端，再到客户端存储 JWT 并在后续请求中携带，以及服务器对 JWT 的验证和对受保护资源的访问控制，每个环节都紧密相扣，确保了只有合法用户能够访问相应的资源。同时，JWT 的优点，如无状态性、自包含性、安全性高、跨域支持和可扩展性，使其成为众多应用开发者的首选认证方式。</p>
+<p>然而，在享受 JWT 带来的便利时，我们也不能忽视使用过程中的注意事项，保护密钥安全、设置合理过期时间、不存储敏感信息、使用 HTTPS 传输以及防止重放攻击等，都是确保 JWT 安全有效使用的关键因素。</p>
+<p>希望通过这篇文章，大家能够对 JWT 授权认证流程有一个全面而清晰的理解。如果你在实际应用中需要实现身份验证和授权功能，不妨尝试使用 JWT，相信它会为你的应用带来更高效、更安全的认证体验。如果你在学习或使用 JWT 的过程中有任何疑问，欢迎在留言区留言交流，让我们一起探讨，共同进步。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/friends">friends</a></li>
+        
+          <li><a href="/tags/">tags</a></li>
+        
+          <li><a href="/rss.xml">RSS</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JWT-%E9%95%BF%E5%95%A5%E6%A0%B7"><span class="toc-number">1.</span> <span class="toc-text">JWT 长啥样</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%A4%B4%E9%83%A8%EF%BC%88Header%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">（一）头部（Header）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E8%BD%BD%E8%8D%B7%EF%BC%88Payload%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">（二）载荷（Payload）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%AD%BE%E5%90%8D%EF%BC%88Signature%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">（三）签名（Signature）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81JWT-%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">三、JWT 认证流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95"><span class="toc-number">2.1.</span> <span class="toc-text">（一）用户登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%AA%8C%E8%AF%81%E8%BA%AB%E4%BB%BD%E5%B9%B6%E7%94%9F%E6%88%90-JWT"><span class="toc-number">2.2.</span> <span class="toc-text">（二）服务器验证身份并生成 JWT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%94%E5%9B%9E-JWT-%E7%BB%99%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.3.</span> <span class="toc-text">（三）返回 JWT 给客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8-JWT"><span class="toc-number">2.4.</span> <span class="toc-text">（四）客户端存储 JWT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E5%8F%91%E9%80%81%E5%B8%A6-JWT-%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-number">2.5.</span> <span class="toc-text">（五）发送带 JWT 的请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%85%AD%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%AA%8C%E8%AF%81-JWT"><span class="toc-number">2.6.</span> <span class="toc-text">（六）服务器验证 JWT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%83%EF%BC%89%E8%AE%BF%E9%97%AE%E5%8F%97%E4%BF%9D%E6%8A%A4%E8%B5%84%E6%BA%90"><span class="toc-number">2.7.</span> <span class="toc-text">（七）访问受保护资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%85%AB%EF%BC%89%E8%BF%87%E6%9C%9F%E5%92%8C%E5%88%B7%E6%96%B0"><span class="toc-number">2.8.</span> <span class="toc-text">（八）过期和刷新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B9%9D%EF%BC%89%E9%80%80%E5%87%BA%E7%99%BB%E5%BD%95"><span class="toc-number">2.9.</span> <span class="toc-text">（九）退出登录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81JWT-%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">四、JWT 的优点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%97%A0%E7%8A%B6%E6%80%81%E6%80%A7%EF%BC%8C%E5%87%8F%E8%BD%BB%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8E%8B%E5%8A%9B"><span class="toc-number">3.1.</span> <span class="toc-text">（一）无状态性，减轻服务器压力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E8%87%AA%E5%8C%85%E5%90%AB%E6%80%A7%EF%BC%8C%E6%96%B9%E4%BE%BF%E4%BC%A0%E8%BE%93"><span class="toc-number">3.2.</span> <span class="toc-text">（二）自包含性，方便传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%AE%89%E5%85%A8%E6%80%A7%E9%AB%98%EF%BC%8C%E9%98%B2%E6%AD%A2%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9"><span class="toc-number">3.3.</span> <span class="toc-text">（三）安全性高，防止数据篡改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E8%B7%A8%E5%9F%9F%E6%94%AF%E6%8C%81%EF%BC%8C%E9%80%82%E5%BA%94%E5%A4%8D%E6%9D%82%E7%8E%AF%E5%A2%83"><span class="toc-number">3.4.</span> <span class="toc-text">（四）跨域支持，适应复杂环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%94%EF%BC%89%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7%EF%BC%8C%E6%BB%A1%E8%B6%B3%E5%A4%9A%E6%A0%B7%E5%8C%96%E9%9C%80%E6%B1%82"><span class="toc-number">3.5.</span> <span class="toc-text">（五）可扩展性，满足多样化需求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BD%BF%E7%94%A8-JWT-%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">五、使用 JWT 的注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">六、总结</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.hinsyeow.org/posts/jwt-authorization/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.hinsyeow.org/posts/jwt-authorization/&text=jwt授权认证流程"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.hinsyeow.org/posts/jwt-authorization/&is_video=false&description=jwt授权认证流程"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=jwt授权认证流程&body=Check out this article: https://blog.hinsyeow.org/posts/jwt-authorization/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.hinsyeow.org/posts/jwt-authorization/&title=jwt授权认证流程"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.hinsyeow.org/posts/jwt-authorization/&name=jwt授权认证流程&description=&lt;p&gt;JWT 的全称是 JSON Web Token，是一种开放标准（RFC 7519） ，用于在网络应用环境间安全地传输声明。说得通俗一点，它就像是你在某个大型活动中的通行证，上面记录了你的基本信息（比如姓名、身份等），凭借这个通行证，你就能在活动规定的范围内自由通行，享受相应的服务和资源。&lt;/p&gt;
+&lt;p&gt;JWT 是一种基于 JSON 的轻量级开放标准，以 JSON 对象的形式存在，由三部分组成，通过点号（.）分隔，分别是头部（Header）、载荷（Payload）和签名（Signature）。在后续的内容中，我们将详细介绍 JWT 的这三个组成部分。&lt;/p&gt;
+&lt;h2 id=&#34;JWT-长啥样&#34;&gt;&lt;a href=&#34;#JWT-长啥样&#34; class=&#34;headerlink&#34; title=&#34;JWT 长啥样&#34;&gt;&lt;/a&gt;JWT 长啥样&lt;/h2&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.hinsyeow.org/posts/jwt-authorization/&t=jwt授权认证流程"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    hins-Yeow
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

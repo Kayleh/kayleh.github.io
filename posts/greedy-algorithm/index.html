@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="贪心算法：原理、实现与应用实例一、算法描述贪心算法是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是全局最好或最优的算法。它并不从整体最优上加以考虑，所做出的仅是在某种意义上的局部最优解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="⌈贪心算法⌋">
+<meta property="og:url" content="https://blog.hinsyeow.org/posts/greedy-algorithm/index.html">
+<meta property="og:site_name" content="hins Yeow&#39;s Blog">
+<meta property="og:description" content="贪心算法：原理、实现与应用实例一、算法描述贪心算法是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是全局最好或最优的算法。它并不从整体最优上加以考虑，所做出的仅是在某种意义上的局部最优解。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-11-14T14:43:18.000Z">
+<meta property="article:modified_time" content="2025-09-26T18:52:57.602Z">
+<meta property="article:author" content="hins-Yeow">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/mygo.jpg">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/mygo.jpg" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/mygo.jpg">
+        
+      
+    
+    <!-- title -->
+    <title>⌈贪心算法⌋</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="hins Yeow&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7457165067653912"
+     crossorigin="anonymous"></script>
+<script src="//code.tidio.co/dq5klo9ydptaxokj83vcwnusf63dogzr.js" async></script>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/sorting-algorithms/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.hinsyeow.org/posts/greedy-algorithm/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&text=⌈贪心算法⌋"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&is_video=false&description=⌈贪心算法⌋"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=⌈贪心算法⌋&body=Check out this article: https://blog.hinsyeow.org/posts/greedy-algorithm/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&name=⌈贪心算法⌋&description=&lt;h1 id=&#34;贪心算法：原理、实现与应用实例&#34;&gt;&lt;a href=&#34;#贪心算法：原理、实现与应用实例&#34; class=&#34;headerlink&#34; title=&#34;贪心算法：原理、实现与应用实例&#34;&gt;&lt;/a&gt;贪心算法：原理、实现与应用实例&lt;/h1&gt;&lt;h2 id=&#34;一、算法描述&#34;&gt;&lt;a href=&#34;#一、算法描述&#34; class=&#34;headerlink&#34; title=&#34;一、算法描述&#34;&gt;&lt;/a&gt;一、算法描述&lt;/h2&gt;&lt;p&gt;贪心算法是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是全局最好或最优的算法。它并不从整体最优上加以考虑，所做出的仅是在某种意义上的局部最优解。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.hinsyeow.org/posts/greedy-algorithm/&t=⌈贪心算法⌋"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">贪心算法：原理、实现与应用实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">一、算法描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">1.2.</span> <span class="toc-text">二、理论基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B4%AA%E5%BF%83%E9%80%89%E6%8B%A9%E6%80%A7%E8%B4%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 贪心选择性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9C%80%E4%BC%98%E5%AD%90%E7%BB%93%E6%9E%84%E6%80%A7%E8%B4%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 最优子结构性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BC%98%E5%8A%BF"><span class="toc-number">1.3.</span> <span class="toc-text">三、优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Python%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.</span> <span class="toc-text">四、Python代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%80%E8%88%AC%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%A1%86%E6%9E%B6%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 一般贪心算法框架示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%B7%E4%BD%93%E5%AE%9E%E4%BE%8B%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 具体实例实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B0%E5%BF%8C%E8%B5%9B%E9%A9%AC"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">田忌赛马</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF%E6%B4%97%E7%89%8C"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">优势洗牌</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">五、总结</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        ⌈贪心算法⌋
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">hins-Yeow</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-11-14T14:43:18.000Z" class="dt-published" itemprop="datePublished">2019-11-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/algorithm/" rel="tag">algorithm</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="贪心算法：原理、实现与应用实例"><a href="#贪心算法：原理、实现与应用实例" class="headerlink" title="贪心算法：原理、实现与应用实例"></a>贪心算法：原理、实现与应用实例</h1><h2 id="一、算法描述"><a href="#一、算法描述" class="headerlink" title="一、算法描述"></a>一、算法描述</h2><p>贪心算法是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是全局最好或最优的算法。它并不从整体最优上加以考虑，所做出的仅是在某种意义上的局部最优解。</p>
+<p>贪心算法没有固定的算法框架，算法设计的关键是贪心策略的选择。必须注意的是，贪心算法不是对所有问题都能得到整体最优解，选择的贪心策略必须具备无后效性，即某个状态以前的过程不会影响以后的状态，只与当前状态有关。</p>
+<h2 id="二、理论基础"><a href="#二、理论基础" class="headerlink" title="二、理论基础"></a>二、理论基础</h2><p>贪心算法的理论基础主要基于贪心选择性质和最优子结构性质。</p>
+<h3 id="1-贪心选择性质"><a href="#1-贪心选择性质" class="headerlink" title="1. 贪心选择性质"></a>1. 贪心选择性质</h3><p>贪心选择性质是指所求问题的整体最优解可以通过一系列局部最优的选择，即贪心选择来达到。这是贪心算法可行的第一个基本要素，也是贪心算法与动态规划算法的主要区别。在动态规划算法中，每步所做的选择往往依赖于相关子问题的解，因而只有在解出相关子问题后，才能做出选择。而在贪心算法中，仅在当前状态下做出最好选择，即局部最优选择，然后再去解做出这个选择后产生的相应的子问题。</p>
+<h3 id="2-最优子结构性质"><a href="#2-最优子结构性质" class="headerlink" title="2. 最优子结构性质"></a>2. 最优子结构性质</h3><p>当一个问题的最优解包含其子问题的最优解时，称此问题具有最优子结构性质。问题的最优子结构性质是该问题可用动态规划算法或贪心算法求解的关键特征。</p>
+<h2 id="三、优势"><a href="#三、优势" class="headerlink" title="三、优势"></a>三、优势</h2><ol>
+<li><strong>算法简单高效</strong>：贪心算法的实现通常比较简单，代码量少，执行效率高。由于它不需要像动态规划那样保存大量的中间状态，因此空间复杂度较低。</li>
+<li><strong>时间复杂度低</strong>：在很多情况下，贪心算法可以在多项式时间内解决问题，时间复杂度通常为 $O(n)$ 或 $O(nlogn)$，其中 $n$ 是问题的规模。</li>
+<li><strong>容易理解和应用</strong>：贪心策略直观易懂，容易被理解和应用到实际问题中。</li>
+</ol>
+<h2 id="四、Python代码实现"><a href="#四、Python代码实现" class="headerlink" title="四、Python代码实现"></a>四、Python代码实现</h2><h3 id="1-一般贪心算法框架示例"><a href="#1-一般贪心算法框架示例" class="headerlink" title="1. 一般贪心算法框架示例"></a>1. 一般贪心算法框架示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 贪心算法一般框架</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greedy_algorithm</span>(<span class="params">problem_instance</span>):</span><br><span class="line">    solution = []  <span class="comment"># 初始化解决方案</span></span><br><span class="line">    candidates = get_candidates(problem_instance)  <span class="comment"># 获取候选集</span></span><br><span class="line">    <span class="keyword">while</span> candidates <span class="keyword">and</span> <span class="keyword">not</span> is_solution_complete(solution):</span><br><span class="line">        best_candidate = select_best_candidate(candidates)</span><br><span class="line">        <span class="keyword">if</span> is_safe(best_candidate, solution):</span><br><span class="line">            solution.append(best_candidate)</span><br><span class="line">        candidates.remove(best_candidate)</span><br><span class="line">    <span class="keyword">return</span> solution</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下函数需要根据具体问题实现</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_candidates</span>(<span class="params">problem_instance</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">select_best_candidate</span>(<span class="params">candidates</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_safe</span>(<span class="params">candidate, solution</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_solution_complete</span>(<span class="params">solution</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-具体实例实现"><a href="#2-具体实例实现" class="headerlink" title="2. 具体实例实现"></a>2. 具体实例实现</h3><h4 id="田忌赛马"><a href="#田忌赛马" class="headerlink" title="田忌赛马"></a>田忌赛马</h4><p>田忌赛马是一个经典的贪心算法应用场景。齐王和田忌各有 $n$ 匹马，每匹马有一个速度值，速度快的马会战胜速度慢的马。田忌可以通过合理安排马的出场顺序来尽可能多地赢得比赛。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">tianji_horse_race</span>(<span class="params">qi_horses, tian_horses</span>):</span><br><span class="line">    qi_horses.sort()</span><br><span class="line">    tian_horses.sort()</span><br><span class="line">    qi_left, qi_right = <span class="number">0</span>, <span class="built_in">len</span>(qi_horses) - <span class="number">1</span></span><br><span class="line">    tian_left, tian_right = <span class="number">0</span>, <span class="built_in">len</span>(tian_horses) - <span class="number">1</span></span><br><span class="line">    win_count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> qi_left &lt;= qi_right:</span><br><span class="line">        <span class="keyword">if</span> tian_horses[tian_right] &gt; qi_horses[qi_right]:</span><br><span class="line">            <span class="comment"># 田忌最快的马比齐王最快的马快，用田忌最快的马对战齐王最快的马</span></span><br><span class="line">            tian_right -= <span class="number">1</span></span><br><span class="line">            qi_right -= <span class="number">1</span></span><br><span class="line">            win_count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> tian_horses[tian_left] &gt; qi_horses[qi_left]:</span><br><span class="line">            <span class="comment"># 田忌最慢的马比齐王最慢的马快，用田忌最慢的马对战齐王最慢的马</span></span><br><span class="line">            tian_left += <span class="number">1</span></span><br><span class="line">            qi_left += <span class="number">1</span></span><br><span class="line">            win_count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 其他情况，用田忌最慢的马对战齐王最快的马</span></span><br><span class="line">            <span class="keyword">if</span> tian_horses[tian_left] &lt; qi_horses[qi_right]:</span><br><span class="line">                win_count -= <span class="number">1</span></span><br><span class="line">            tian_left += <span class="number">1</span></span><br><span class="line">            qi_right -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> win_count</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">qi_horses = [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">tian_horses = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">result = tianji_horse_race(qi_horses, tian_horses)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;田忌赢得的比赛场数: <span class="subst">&#123;result&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="优势洗牌"><a href="#优势洗牌" class="headerlink" title="优势洗牌"></a>优势洗牌</h4><p>给定两个长度相等的整数数组 <code>A</code> 和 <code>B</code>，<code>A</code> 相对于 <code>B</code> 的优势可以通过重新排列 <code>A</code> 中的元素，使得 <code>A</code> 中比 <code>B</code> 中对应位置元素大的个数最多。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">advantage_count</span>(<span class="params">A, B</span>):</span><br><span class="line">    A.sort()</span><br><span class="line">    sorted_B = <span class="built_in">sorted</span>(<span class="built_in">enumerate</span>(B), key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line">    result = [-<span class="number">1</span>] * <span class="built_in">len</span>(A)</span><br><span class="line">    remaining = deque()</span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> A:</span><br><span class="line">        <span class="keyword">if</span> num &gt; sorted_B[j][<span class="number">1</span>]:</span><br><span class="line">            index = sorted_B[j][<span class="number">0</span>]</span><br><span class="line">            result[index] = num</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            remaining.append(num)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(result)):</span><br><span class="line">        <span class="keyword">if</span> result[i] == -<span class="number">1</span>:</span><br><span class="line">            result[i] = remaining.popleft()</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">A = [<span class="number">2</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>]</span><br><span class="line">B = [<span class="number">1</span>, <span class="number">10</span>, <span class="number">4</span>, <span class="number">11</span>]</span><br><span class="line">result = advantage_count(A, B)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;优势洗牌后的数组 A: <span class="subst">&#123;result&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>贪心算法是一种简单而高效的算法策略，在满足贪心选择性质和最优子结构性质的问题中能够发挥很好的作用。通过合理选择贪心策略，可以在多项式时间内得到问题的近似最优解或全局最优解。但需要注意的是，不是所有问题都适合使用贪心算法，在使用时需要仔细分析问题的特性。在实际应用中，如资源分配、任务调度、图论等领域，贪心算法都有广泛的应用。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/friends">friends</a></li>
+        
+          <li><a href="/tags/">tags</a></li>
+        
+          <li><a href="/rss.xml">RSS</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%EF%BC%9A%E5%8E%9F%E7%90%86%E3%80%81%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">贪心算法：原理、实现与应用实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">一、算法描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">1.2.</span> <span class="toc-text">二、理论基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B4%AA%E5%BF%83%E9%80%89%E6%8B%A9%E6%80%A7%E8%B4%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 贪心选择性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9C%80%E4%BC%98%E5%AD%90%E7%BB%93%E6%9E%84%E6%80%A7%E8%B4%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 最优子结构性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BC%98%E5%8A%BF"><span class="toc-number">1.3.</span> <span class="toc-text">三、优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Python%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.</span> <span class="toc-text">四、Python代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%80%E8%88%AC%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E6%A1%86%E6%9E%B6%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 一般贪心算法框架示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%B7%E4%BD%93%E5%AE%9E%E4%BE%8B%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 具体实例实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B0%E5%BF%8C%E8%B5%9B%E9%A9%AC"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">田忌赛马</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF%E6%B4%97%E7%89%8C"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">优势洗牌</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">五、总结</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.hinsyeow.org/posts/greedy-algorithm/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&text=⌈贪心算法⌋"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&is_video=false&description=⌈贪心算法⌋"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=⌈贪心算法⌋&body=Check out this article: https://blog.hinsyeow.org/posts/greedy-algorithm/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&title=⌈贪心算法⌋"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.hinsyeow.org/posts/greedy-algorithm/&name=⌈贪心算法⌋&description=&lt;h1 id=&#34;贪心算法：原理、实现与应用实例&#34;&gt;&lt;a href=&#34;#贪心算法：原理、实现与应用实例&#34; class=&#34;headerlink&#34; title=&#34;贪心算法：原理、实现与应用实例&#34;&gt;&lt;/a&gt;贪心算法：原理、实现与应用实例&lt;/h1&gt;&lt;h2 id=&#34;一、算法描述&#34;&gt;&lt;a href=&#34;#一、算法描述&#34; class=&#34;headerlink&#34; title=&#34;一、算法描述&#34;&gt;&lt;/a&gt;一、算法描述&lt;/h2&gt;&lt;p&gt;贪心算法是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是全局最好或最优的算法。它并不从整体最优上加以考虑，所做出的仅是在某种意义上的局部最优解。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.hinsyeow.org/posts/greedy-algorithm/&t=⌈贪心算法⌋"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2025
+    hins-Yeow
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/friends">friends</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/rss.xml">RSS</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://www.travellings.cn/go.html">Travelling</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
